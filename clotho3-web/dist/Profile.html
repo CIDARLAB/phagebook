@@ -1,9 +1,102 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Profile</title>
+    <meta name="description" content="Clotho Lab Ordering">
+    <meta name="viewport" content="width=1024, initial-scale=1">
+
+    <!-- not necessary until serving outside root directory / want html5 mode -->
+    <base href="/">
+
+    <link rel="stylesheet" href="styles/2e84f2a0.command.css"/>
+    <link rel="stylesheet" href="styles/773cbfe6.main.css"/>
+
+
+    <script src="bower_components/jquery/jquery.js"></script>
+
+    <!-- note that angular is required for any clotho functionality -->
+    <script src="bower_components/angular/angular.js"></script>
+    <!-- note that lodash is required by several components -->
+    <script src="bower_components/lodash/dist/lodash.js"></script>
+
+</head>
 <body>
-  <p>
-    <h3>Profile!<br></h3>
-    <h5>This is a trivial change to the profile page to check if everything is working properly</h5>
-  </p>
+	<div ng-app="clothoRoot">
+  <div class="container">
+    <div clotho-command-bar></div>
+  </div>
+
+  <terminal-aside></terminal-aside>
+</div>
+  <div id="profilepage">
+  	<div class="container">
+    	<div class="col-sm-4">
+    		<h2 style="margin-top:-5px">Zach Chapasko</h2><br>
+    		<h3 style="margin-top:-15px">Boston University</h3><br>
+    		<h3 style="margin-top:-15px">CIDAR Lab</h3><br>
+    	</div>
+    	<div class="col-sm-8" style="margin-top:8px">
+    		<p>Lab Member for 8 Months<br>
+    			Projects: Owl, Phagebook, and 2 Others...<br>
+    			32 Parts Made<br>
+    			4 Papers Published<br>
+    			Full Bio</p>
+    	</div>
+    </div>
+    <div class="container">
+    	<div class="col-sm-2"><img src="/images/people/Zach.JPG" width="100px" style="margin-left:8px; margin-right:auto;"></div>
+    	<h4><div class="col-sm-2" style="margin-top:80px; text-align:center;">Calendar</div>
+    	<div class="col-sm-2" style="margin-top:80px; text-align:center;">Ordering</div>
+    	<div class="col-sm-2" style="margin-top:80px; text-align:center;">Papers</div>
+    	<div class="col-sm-2" style="margin-top:80px; text-align:center;">Parts</div>
+    	<div class="col-sm-2" style="margin-top:80px; text-align:center;">Projects</div></h4>
+    </div>
+    <div class="container" style="margin-top:15px; margin-left:48px;"><h3 style="text-decoration:underline">Parts</h3></div>
+    <div class="container" style="margin-top:15px; margin-left:7px;">
+    	<div class="row">
+    		<div class="col-sm-6">
+    			<div class="col-sm-3">Most Recent:</div>
+    			<div class="col-sm-9">
+    				<p>BBa_K1114000<br>
+    					BBa_T9200<br>
+    					BBa_B0034</p>
+    			</div>
+    		</div>
+    	</div>
+    	<div class="row" style="margin-top:20px;">
+    		<div class="col-sm-6">
+    			<div class="col-sm-3">Stats:</div>
+    			<div class="col-sm-9"><img src="/images/graphexample.jpg" width="200px"></div>
+    		</div>
+    	</div>
+    </div>
+
+
+
+<!--------
+SCRIPTS
+--------->
+
+<!--note - correct app based on the distribution, comments removed by build-->
+
+<script src="scripts/b18fc8c8.clotho-app-command.js"></script>
+
+<script src="scripts/c0f113c2.clotho-core-module.js"></script>
+
+<!--note - remove all scripts below this for api-only build-->
+
+<script src="scripts/c2a11f43.clotho-foundation-module.js"></script>
+
+
+<script src="scripts/68a2b2df.clotho-command-module.js"></script>
+
+<!-- our custom app files -->
+<script src="scripts/LabOrdering-app.js"></script>
+<script src="scripts/Ordering.js"></script>
+<script src="scripts/Tracking.js"></script>
+<script src="scripts/orderingCtrl.js"></script>
+
 </body>
 </html>
