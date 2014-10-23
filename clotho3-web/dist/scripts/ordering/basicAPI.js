@@ -1,4 +1,4 @@
-angular.module('Sample')
+angular.module('Ordering')
 .service('basicAPI', function (Clotho, PubSub) {
 
 	//var orderingFunctionId = 'org.clothocad.test.reverse';

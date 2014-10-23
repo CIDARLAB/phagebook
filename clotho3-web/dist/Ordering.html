@@ -36,7 +36,6 @@
 
 
 
-
 <div ng-app="clothoRoot">
   <div class="container">
     <div clotho-command-bar></div>
@@ -204,8 +203,8 @@
 
 <br>
 
-
-<div class = "container" ng-controller = "orderingCtrl as ctrl">
+<div ordering-app>
+  <div class = "container" ng-controller = "orderingCtrl as ctrl">
     <ng-form class = "form-horizontal" name = "orderingForm" ng-class = "{'has-error' : orderingForm.name.$dirty && orderingForm.name.$invalid}"> 
 
       <p>User</p>
