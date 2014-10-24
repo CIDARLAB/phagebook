@@ -1,0 +1,174 @@
+.background
+{
+	background-color:#e9eaed;
+	margin: 0px;
+	height:1000px;
+	max-height:100%;
+	width:100%;
+	overflow:auto;
+}
+
+.container
+{
+	margin-left:150px;
+	width:700px;
+}
+
+.container-left
+{
+	margin-top:10px;
+	background-color: white;
+	width:150px;
+	
+	margin-right:0px;
+	padding:0px; 
+
+	margin-left:0px; 
+	box-shadow: 5px 5px 5px #666666;
+	float:left;
+}
+
+.personalInfo
+{
+	height:125px;
+	float:left;
+	padding:7px;
+	border:2px solid black; 
+}
+
+h4
+{
+	margin-top:0px;
+}
+
+.history
+{
+
+	height: 740px;
+	padding:7px; 
+	border:2px solid black; 
+	margin-left:0px;
+}
+
+h1
+{
+	margin-top:0px; 
+	margin-left:10px;
+	text-shadow: -2px -2px 2px #fff, 2px 2px 2px #000;
+	color: #474747; 
+	font: 28px 'Museo700';
+}
+
+ul.navigation
+{
+	padding-left:22px;
+	list-style-type: point;
+}
+
+ul.pages
+{
+	height:30px;
+	width:500px;
+	margin-left: 30px; 
+	padding:0px;
+	list-style-type:none;
+}
+
+li.pages
+{
+color:#66A366; 
+font-family:Arial;
+font-size:14px;
+font-weight:bold;
+float:left;
+border: 1px solid black; 
+padding:2px; 
+padding-left: 5px; 
+padding-right:5px;
+}
+
+.line
+{
+	height:3px; 
+	margin:0px;
+	border-bottom:2px solid #66A366;
+}
+
+.container-right
+{
+	background-color: white;
+	margin: 150px;
+	margin-top:10px;
+	margin-left:155px;
+	width: 650px;
+	height:1000px;
+	box-shadow: 5px 5px 5px #666666;
+	border:2px solid black; 
+}
+
+.inProgress
+{
+	width: 1110px; 
+	height: 150px;
+	padding-left:10px; 
+	margin-left:0px;
+
+}
+
+.newOrder
+{
+	float:right; 
+	padding:0px;
+	margin-top:0px;
+	margin-right:500px;
+	width:120px; 
+	height: 30px; 
+	color:#777777;
+  	font-family:Arial;
+  	font-size:18px;
+  	font-weight:bold;
+}
+
+.tableInProgress
+{
+	border:1px solid #66A366;
+	width: 625px;
+	margin-left:0px;
+}
+
+.submitted
+{
+	width: 1110px; 
+	padding-left:10px; 
+	margin-left:0px;
+	height:50px	
+}
+
+.tableSubmitted
+{
+	border:1px solid #66A366;
+	width: 625px;
+	margin-left:0px;
+}
+
+.navigation
+{
+	background-color:#993366;
+	height:30px;
+}
+
+.navigationBar
+{
+	display: inline;
+	padding-left: 40px;
+	padding-right: 40px;
+}
+
+a
+{
+	font: 20px 'Museo700';
+	color:black;
+}
+
+
+
