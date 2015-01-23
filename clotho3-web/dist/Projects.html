@@ -58,6 +58,7 @@
               <li> Associated Labs: </li>
               <li> Primary Investigator: </li>
               <li> Project Lead: </li>
+              <li> Project Advisor </li>
               <li> Lab Members: </li>
             </ul>
 
@@ -65,6 +66,7 @@
               <li> CIDAR </li>
               <li> Doug Densmore </li>
               <li> Traci Haddock </li>
+              <li> Evan Appleton </li>
               <li> Alan Pacheco,
                    Yash Agarwal,
                    Kathleen Lewis
@@ -78,13 +80,13 @@
           <div class = "notebook">
             <ul class = "labnotebook">  <li>Notebook </li> </ul>
             <form action ="" class = "dropDown">
-              <select name = "notebook">
-                <option value = "Kathleen Lewis">Kathleen Lewis </option>
+              <select name = "notebook" onchange = "notebook_projects(this.value)">
+                <option value = "Kathleen Lewis">Kathleen Lewis</option>
                 <option value = "Yash Agarwal">Yash Agarwal </option>
                 <option value = "Alan Pacheco">Alan Pacheco </option>
               </select>
             </form>
-            <textarea class = "notebookText">
+            <textarea class = "notebookText" id = "notebookID">
             </textarea>
           </div>
         </div>
@@ -107,6 +109,8 @@ SCRIPTS
 <script src="scripts/b18fc8c8.clotho-app-command.js"></script>
 
 <script src="scripts/c0f113c2.clotho-core-module.js"></script>
+
+<script src ="scripts/notebook_projects.js"></script>
 
 <!--note - remove all scripts below this for api-only build-->
 
