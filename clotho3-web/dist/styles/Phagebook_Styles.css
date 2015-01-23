@@ -10,6 +10,7 @@
 }
 
 .mainContent {
+
 	font-size: 15px;
 	background-color: #fff;	
 	margin-right: auto;
@@ -19,6 +20,7 @@
 }
 
 .leftColumn {
+
 	position: fixed;
 	display: block;
 	word-wrap: break-word;
@@ -38,16 +40,23 @@ ul {
 	padding: 15;
 }
 
-projectsTabs a:link, a:visited {
+
+	a:link, a:visited {
+
+	width: 172px;
+
 	text-transform: uppercase;
 	color: #333;
 	font-weight: bold;
+	padding: 4px;
 	text-align: center;
 }
 
-projectsTabs a:hover, a:active {
-	display: block;
-	background-color: #A3A4A6;
+
+a:hover, a:active {
+	background-color: #696969;
+	width: 172px;
+
 }
 
 
@@ -67,6 +76,7 @@ h4 {
 	background-color: #fff;
 	height: 2000px;
 }
+
 
 .information {
 	font-size: 15px;
