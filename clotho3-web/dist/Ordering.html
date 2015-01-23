@@ -1,6 +1,9 @@
 <!doctype html>
 <html>
   <head>
+
+
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Lab Ordering</title>
@@ -12,6 +15,7 @@
 
     <link rel="stylesheet" href="styles/2e84f2a0.command.css"/>
     <link rel="stylesheet" href="styles/773cbfe6.main.css"/>
+    <link rel ="stylesheet" href="styles/Phagebook_Styles.css"/>
 
 
     <script src="bower_components/jquery/jquery.js"></script>
@@ -28,6 +32,10 @@
 <script src="bower_components/es5-shim/es5-shim.js"></script>
 <script src="bower_components/json3/lib/json3.min.js"></script>
 <![endif]-->
+
+
+
+
 
 <div ng-app="clothoRoot">
   <div class="container">
@@ -249,23 +257,198 @@
               <button class="btn btn-primary" ng-disabled="orderingForm.$invalid" ng-click="ctrl.placeOrder()">Order it!</button>
               <button class="btn btn-warning" ng-click="ctrl.resetOrder(orderingForm)">Reset</button>
             </div>
+=======
+
+<div class = "contentBackground">
+
+   <div class = "mainContent">
+
+       <div class = "leftColumn">
+
+         <div class = "personalInfo">
+
+            <img src = "/images/people/Inna.jpg">
+
+            <h4 >Inna Turshudzhyan <br> Boston University <br> CIDAR lab</h4>
+
+           </div>
+
+         <div class = "history">
+
+          <h1>History</h1>
+
+          <ul>
+            <li><a href>My order 9/2014</a></li>
+            <li><a href>My order 8/2014</a></li>
+            <li><a href>My order 7/2014</a></li>
+            </ul>
+
+           </div>
+
+       </div>
+
+
+   
+
+       <div class = "rightColumn">
+
+         <h1 style="margin-left: 20px">ORDERING</h1>
+
+           <div class = "navigation">
+          <ul class = "navigation">
+            <li class = "navigationBar"><a href="https://www.google.com">About</a></li>
+            <li class = "navigationBar"><a href="https://www.google.com">Orders</a></li>
+            <li class = "navigationBar"><a href="https://www.google.com">Companies</a></li>
+            <li class = "navigationBar"><a href="https://www.google.com">Items</a></li>
+          </ul>
+
+           </div>
+
+         <div class = "line"></div>
+          <br>
+
+         <div class = "inProgress">
+
+          <h1 >In Progress</h1>
+
+
+              <table class = "tableInProgress">
+
+              <tr > 
+                <th>User</th>
+                <th>Company</th>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Date</th>
+                <th>Amount</th>
+              </tr>
+
+              <tr>
+                <td>innatur@bu.edu</td>
+                <td>NEB</td>
+                <td>Bsal</td>
+                <td>2</td>
+                <td>8/17/2014</td>
+                <td>100$</td>
+              </tr>
+
+              <tr>
+                <td>innatur@bu.edu</td>
+                <td>BioExpress</td>
+                <td>Deep well plates</td>
+                <td>3</td>
+                <td>8/13/2014</td>
+                <td>124$</td>
+              </tr>
+
+              <tr>
+                <td>innatur@bu.edu</td>
+                <td>Promega</td>
+                <td>T4 DNA ligase</td>
+                <td>1</td>
+                <td>8/10/2014</td>
+                <td>987$</td>
+              </tr>
+                
+              
+
+              </table>
+      
+>>>>>>> d6396f2bf52a6e9f17e7352e9f3f2d3917206791
           </div>
-        </ng-form>
-      </div>
-      <div class="list-group">
-        <div class="list-group-item" ng-repeat="item in orders" ng-class="{'list-group-item-success' : item.success == true, 'list-group-item-danger' : item.success == false}">
-          {{item.name}} - {{item.quantity}}
+
+
+
+             <div class = "submitted">
+              <h1 >Submitted</h1>
+
+             <table class = "tableSubmitted">
+
+              <tr> 
+                <th>User</th>
+                <th>Company</th>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Date</th>
+                <th>Amount</th>
+              </tr>
+
+              <tr>
+                <td>innatur@bu.edu</td>
+                <td>NEB</td>
+                <td>Bsal</td>
+                <td>2</td>
+                <td>8/17/2014</td>
+                <td>100$</td>
+              </tr>
+
+              <tr>
+                <td>innatur@bu.edu</td>
+                <td>BioExpress</td>
+                <td>Deep well plates</td>
+                <td>3</td>
+                <td>8/13/2014</td>
+                <td>124$</td>
+              </tr>
+
+              <tr>
+                <td>innatur@bu.edu</td>
+                <td>Promega</td>
+                <td>T4 DNA ligase</td>
+                <td>1</td>
+                <td>8/10/2014</td>
+                <td>987$</td>
+              </tr>
+                
+              </table>
+
+      <br>
+    
+              <button class = "newOrder">New Order
+              </button>
+
+<br>
+<br>
+      <div class = "pages"> 
+
+          <ul class = "pages">
+
+            <li class = "pages"> previous </li>
+
+            <li class = "pages"> 1</li>
+
+           <li class = "pages"> 2</li>
+
+           <li class = "pages"> 3</li>
+
+           <li class = "pages"> 4</li>
+
+           <li class = "pages"> 5</li>
+
+           <li class = "pages"> 6</li>
+
+            <li class = "pages"> next > </li>
+
+
+       </div>
+
         </div>
-      </div>
-    </div>
+
+        
+
+       </div>
+
   </div>
+
+
 </div>
 
-<!--------
-SCRIPTS
---------->
 
-<!--note - correct app based on the distribution, comments removed by build-->
+
+
+
+
+
 
 <script src="scripts/b18fc8c8.clotho-app-command.js"></script>
 
@@ -279,10 +462,11 @@ SCRIPTS
 <script src="scripts/68a2b2df.clotho-command-module.js"></script>
 
 <!-- our custom app files -->
-<script src="scripts/LabOrdering-app.js"></script>
-<script src="scripts/Ordering.js"></script>
-<script src="scripts/Tracking.js"></script>
-<script src="scripts/orderingCtrl.js"></script>
+<script src="scripts/ordering/ordering-app.js"></script>
+<script src="scripts/ordering/basicAPI.js"></script>
+<script src="scripts/ordering/trackingOrdering.js"></script>
+<script src="scripts/ordering/orderingCtrl.js"></script>
+
 
 
 

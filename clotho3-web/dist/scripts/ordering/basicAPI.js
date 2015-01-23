@@ -1,4 +1,4 @@
-angular.module('Sample')
+angular.module('Ordering')
 .service('basicAPI', function (Clotho, PubSub) {
 
 	//var orderingFunctionId = 'org.clothocad.test.reverse';
@@ -41,7 +41,7 @@ angular.module('Sample')
                     	}
                     	else
                     	{
-                        	alert(key + " ::: " + data[key]);	   
+                        	alert(key + " ::: " + data[key]);	
                     	}
                     }
                 }
@@ -59,7 +59,7 @@ angular.module('Sample')
 
 
 	//Listen for internal messages
-	PubSub.on('Sample.internalMessage', function (result) {
+	PubSub.on('Ordering.internalMessage', function (result) {
 		//or create your own listener logic here. Check Tracking.js for another one.
 		console.log('basicAPI.js message received', result);
 	});
