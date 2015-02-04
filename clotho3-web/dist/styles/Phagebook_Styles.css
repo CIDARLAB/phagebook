@@ -54,7 +54,7 @@ ul {
 
 
 a:hover, a:active {
-	background-color: #696969;
+	/*background-color: #696969;*/
 	width: 172px;
 
 }
@@ -65,6 +65,14 @@ a:hover, a:active {
 }
 
 h4 {
+	text-align: center;
+}
+
+th {
+	text-align: center;
+}
+
+td {
 	text-align: center;
 }
 
@@ -144,10 +152,8 @@ h4 {
 /*Ordering*/
 
 
-
 ul.navigation
 {
-	padding-left:22px;
 	list-style-type: point;
 }
 
@@ -173,7 +179,6 @@ padding-right:5px;
 .line
 {
 	height:3px; 
-	margin:0px;
 	border-bottom:2px solid #66A366;
 }
 
@@ -181,6 +186,7 @@ padding-right:5px;
 {
 	border:1px solid #66A366;
 	width: 625px; 
+	margin: 0px;
 }
 
 .inProgress
@@ -206,6 +212,13 @@ padding-right:5px;
 .navigationBar
 {
 	display: inline;
-	padding-left: 40px;
+/*	padding-left: 40px;*/
 	padding-right: 40px;
+}
+
+.newOrder
+{
+	padding-left: 20px;
+	margin: 0px;
+	text-align: left;
 }
