@@ -20,6 +20,9 @@
     <script src="bower_components/angular/angular.js"></script>
     <!-- note that lodash is required by several components -->
     <script src="bower_components/lodash/dist/lodash.js"></script>
+
+    <script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+    
     <style>
     #profileName
     {
@@ -45,7 +48,8 @@
     <div class="mainContent" style="width:851px;  margin-left:auto; margin-right:auto; background-color:#fff; font-family:helvetica">
         <div class="coverContainer" style="background-image:url(/images/logo-CIDAR-2.png); background-repeat: no-repeat;">
             <div class="row">
-                <div id ="profileName" class="col-xs-9 col-xs-offset-2" style="margin-top:245px;"><h3><strong>Zach Chapasko</strong></h3></div></div>
+                <div id ="profileName" class="col-xs-9 col-xs-offset-2" style="margin-top:245px;"><h3><strong>
+                    <div ng-app="" ng-controller="profileController">{{firstName + ' ' + lastName}}</strong></h3></div></div>
                 <div class="row">
                 <div class="col-xs-2" style="margin-left:16px;"><img src="/images/people/Zach.JPG" style="margin-top:-130px; padding:3px; background-color:#fff; border:1px solid #000;"></div>
                 <div class="col-xs-9" style="margin-top:3px;"><h4>
@@ -110,6 +114,13 @@ SCRIPTS
 <script src="scripts/Ordering.js"></script>
 <script src="scripts/Tracking.js"></script>
 <script src="scripts/orderingCtrl.js"></script>
+<script>
+
+function profileController($scope) {
+    $scope.firstName = Kara;
+    $scope.lastName = Le Fort;
+}
+</script>
 
 </body>
 </html>
