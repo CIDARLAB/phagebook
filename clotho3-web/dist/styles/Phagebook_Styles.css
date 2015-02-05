@@ -1,3 +1,4 @@
+
 .contentBackground {
 	background-color: #e9eaed;
 	margin-top: -20px;
@@ -9,6 +10,7 @@
 }
 
 .mainContent {
+
 	font-size: 15px;
 	background-color: #fff;	
 	margin-right: auto;
@@ -19,6 +21,7 @@
 
 
 .leftColumn {
+
 	position: fixed;
 	display: block;
 	word-wrap: break-word;
@@ -47,16 +50,23 @@ ul {
 	padding: 15;
 }
 
-a:link, a:visited {
+
+	a:link, a:visited {
+
+	width: 172px;
+
 	text-transform: uppercase;
 	color: #333;
 	font-weight: bold;
+	padding: 4px;
 	text-align: center;
 }
 
+
 a:hover, a:active {
-	display: block;
-	background-color: #A3A4A6;
+	background-color: #696969;
+	width: 172px;
+
 }
 
 
@@ -76,6 +86,7 @@ h4 {
 	background-color: #fff;
 	height: 2000px;
 }
+
 
 .information {
 	font-size: 15px;
@@ -138,4 +149,73 @@ h4 {
 	width: 624px;
 	height: 618px;
 	float: left;
+}
+
+/*Ordering*/
+
+
+
+ul.navigation
+{
+	padding-left:22px;
+	list-style-type: point;
+}
+
+ul.pages
+{
+	height:30px;
+	width:500px;
+	padding:0px;
+	list-style-type:none;
+}
+
+li.pages
+{
+color:#66A366; 
+font-weight:bold;
+float:left;
+border: 1px solid black; 
+padding:2px; 
+padding-left: 5px; 
+padding-right:5px;
+}
+
+.line
+{
+	height:3px; 
+	margin:0px;
+	border-bottom:2px solid #66A366;
+}
+
+.tableInProgress
+{
+	border:1px solid #66A366;
+	width: 625px; 
+}
+
+.inProgress
+{
+	padding-left: 20px;
+}
+.submitted
+{
+	padding-left: 20px;
+
+}
+.tableSubmitted
+{
+	border:1px solid #66A366;
+	width: 625px;
+}
+
+.navigation
+{
+	height:30px;
+}
+
+.navigationBar
+{
+	display: inline;
+	padding-left: 40px;
+	padding-right: 40px;
 }
