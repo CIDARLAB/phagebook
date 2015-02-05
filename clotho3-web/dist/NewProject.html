@@ -18,6 +18,7 @@
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 
+
     <script src="bower_components/jquery/jquery.js"></script>
 
     <!-- note that angular is required for any clotho functionality -->
@@ -33,6 +34,8 @@
 <script src="bower_components/json3/lib/json3.min.js"></script>
 <![endif]-->
 
+
+<!-->The code in the below div is for the Clotho Command Bar-->
 <div ng-app="clothoRoot">
   <div class="container">
     <div clotho-command-bar></div>
@@ -41,8 +44,9 @@
   <terminal-aside></terminal-aside>
 </div>
 
+<!--The code in the div below is for the left column, so that the projects page stays the same except for the material in the center-->
 <div class = "contentBackground">
-    <div class = "mainContent">
+     <div class = "mainContent">
         <div class = "leftColumn">
           <img src = "/images/people/Katie_Lewis.jpeg">
           <h4> Katie Lewis Projects </h4>
@@ -51,58 +55,25 @@
             <li><a href = "#Phagebook">Phagebook</a></li>
             <li><a href = "#App">Android App</a></li>
           </ul>
-
-          <br><br>
-
-          <button type="button" id="Create">Create New Project </button>
-
-        </div>
-         
-        <div class = "rightColumn">
-          <h1 class = "pageHeading"> Experimental-Computational Workflow </h1>
-          <div class = "information">
-            <ul class = "labInfo"> 
-              <li> Associated Labs: </li>
-              <li> Primary Investigator: </li>
-              <li> Project Lead: </li>
-              <li> Project Advisor </li>
-              <li> Lab Members: </li>
-            </ul>
-
-            <ul class = "labInfo2"> 
-              <li> CIDAR </li>
-              <li> Doug Densmore </li>
-              <li> Traci Haddock </li>
-              <li> Evan Appleton </li>
-              <li> Alan Pacheco,
-                   Yash Agarwal,
-                   Kathleen Lewis
-              </li>
-            </ul>
-            </div>
-            <div class = "description">
-            <p>  Currently, synthetic biology lacks a systematic design-build-test workflow for creating genetic circuits. Researchers often waste time and resources on traditional trial-and-error approaches in designing and assembling large devices. My research works towards overcoming this roadblock by creating a standardized experimental-computational workflow that is clearly defined and applicable to a wide variety of researchers and projects. This workflow integrates software tools to reduce human error and to structure the way designs are chosen, assembled, and tested.
-            </p>
-          </div>
-          <div class = "notebook">
-            <ul class = "labnotebook">  <li>Notebook </li> </ul>
-            <form action ="" class = "dropDown">
-              <select name = "notebook" onchange = "notebook_projects(this.value)">
-                <option value = "Kathleen Lewis">Kathleen Lewis</option>
-                <option value = "Yash Agarwal">Yash Agarwal </option>
-                <option value = "Alan Pacheco">Alan Pacheco </option>
-              </select>
-            </form>
-            <textarea class = "notebookText" id = "notebookID">
-            </textarea>
-          </div>
         </div>
 
+        <!--This is the code for the form to create a new project-->
+      <div createProject-app>
+        <div class="NewProject" ng-controller="newProjectCtrl as ctrl">
+            <ng-form class="form-horizontal" name="ProjectForm" ng-class="{'has-error' : projectForm.name.$dirty && projectForm.name.$invalid}">
+            <h1 class = "pageHeading"> Create New Project </h1><br><br>
+            <label>Project Name: </label> <br>
+            <input ng-model="project.name" type="text"><br><br>
+            <label>PI:</label><br>
+            <input ng-model="project.PI" type="text"><br><br>
+            <label>Project Description:</label>
+            <textarea ng-model="project.description" rows="7" cols="70"> </textarea><br><br>
+            <button class="btn-primary" ng-click="ctrl.createProject()" >Create</button><br>
+          </ng-form>
         </div>
       </div>
 
-
-
+</div>
 
 
 
@@ -112,12 +83,6 @@ SCRIPTS
 --------->
 
 <!--note - correct app based on the distribution, comments removed by build-->
-
-<script type="text/javascript">
-  document.getElementById("Create").onclick = function(){
-    location.href = "./NewProject.html";
-  }
-</script>
 
 <script src="scripts/b18fc8c8.clotho-app-command.js"></script>
 
@@ -137,6 +102,10 @@ SCRIPTS
 <script src="scripts/Ordering.js"></script>
 <script src="scripts/Tracking.js"></script>
 <script src="scripts/orderingCtrl.js"></script>
+<script src="scripts/projectAPI.js"></script>
+<script src="scripts/newProjectCtrl.js"></script>
+<script src="scripts/createProject-app.js"></script>
+<script src="scripts/trackingNewProject.js"></script>
 
 
 </body>

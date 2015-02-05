@@ -17,6 +17,7 @@
 	height: 2000px;
 }
 
+
 .leftColumn {
 	position: fixed;
 	display: block;
@@ -29,6 +30,15 @@
 	width: 172px;
 	height: 2000px;
 	background-color: #e9eaed;
+}
+
+.NewProject {
+	float:right;
+	margin-left: auto;
+	margin-right: auto;
+	width: 635px;
+	background-color: #fff;
+	height: 2000px;
 }
 
 ul {

@@ -13,6 +13,10 @@
     <link rel="stylesheet" href="styles/2e84f2a0.command.css"/>
     <link rel="stylesheet" href="styles/773cbfe6.main.css"/>
 
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
+  <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+
 
     <script src="bower_components/jquery/jquery.js"></script>
 
@@ -20,6 +24,8 @@
     <script src="bower_components/angular/angular.js"></script>
     <!-- note that lodash is required by several components -->
     <script src="bower_components/lodash/dist/lodash.js"></script>
+
+<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
 
 
 </head>
@@ -38,7 +44,21 @@
     <a href="./Projects.html">Projects</a><br>
     <a href="./sample.html">Sample</a></h3>
   </p>
+<div index-app>
+  <div class="container" ng-controller="indexCtrl as ctrl">
+      <ng-form class="form-horizontal" name="indexForm" ng-class="{'has-error' : indexForm.name.$dirty && indexForm.name.$invalid}">
 
+      <label>Username:</label>
+      <input ng-model="item.userName" type="text"><br>
+      <label>Password: </label>
+      <input ng-model="item.password" type="text"><br><br>
+      <textarea ng-model="item.results" rows="15" cols="100"> </textarea><br>
+      <button ng-click="ctrl.queryObj()">Login</button>
+    </ng-form>
+  </div>
+</div>
+
+   
 <!--------
 SCRIPTS
 --------->
@@ -71,6 +91,11 @@ SCRIPTS
 <script src="scripts/Ordering.js"></script>
 <script src="scripts/Tracking.js"></script>
 <script src="scripts/orderingCtrl.js"></script>
+<script src="scrips/index-app.js"></script>
+<script src="scripts/indexCtrl.js"></script>
+<script src="bin/trackingIndex.js"></script>
+<script src="indexAPI.js"></script>
+
 
 
 </body>
