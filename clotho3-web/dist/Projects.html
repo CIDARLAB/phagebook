@@ -6,6 +6,7 @@
     <title>Projects</title>
     <meta name="description" content="Clotho Projects">
     <meta name="viewport" content="width=1024, initial-scale=1">
+      <script src ="scripts/newProject/clotho3API.js"></script>
 
     <!-- not necessary until serving outside root directory / want html5 mode -->
     <base href="/">
@@ -14,9 +15,9 @@
     <link rel="stylesheet" href="styles/773cbfe6.main.css"/>
     <link rel ="stylesheet" href="styles/Phagebook_Styles.css"/>
 
-    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
-    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
 
     <script src="bower_components/jquery/jquery.js"></script>
 
@@ -39,26 +40,34 @@
   </div>
 
   <terminal-aside></terminal-aside>
-</div>
+
 
 <div class = "contentBackground">
     <div class = "mainContent">
         <div class = "leftColumn">
           <img src = "/images/people/Katie_Lewis.jpeg">
           <h4> Katie Lewis Projects </h4>
-          <ul class = "projectsTabs">
-            <li><a href = "#iGEM">iGEM</a></li>
-            <li><a href = "#Phagebook">Phagebook</a></li>
-            <li><a href = "#App">Android App</a></li>
-          </ul>
+            <table id="projTable">
+                <tr>
+                    <td id="iGEM"><a href="./Projects.html" style="display:block;">iGEM</a> </td>
+                </tr>
+                <tr>
+                    <td id="Phagebook"><a href = "./Projects.html" style = "display:block;">Phagebook</a></td>
+                </tr>
+            </table>
+          <!--<ul class = "projectsTabs">-->
+            <!--<li><a href = "#iGEM">iGEM</a></li>-->
+            <!--<li><a href = "#Phagebook">Phagebook</a></li>-->
+            <!--<li><a href = "#App">Android App</a></li>-->
+          <!--</ul>-->
 
           <br><br>
 
-          <button type="button" id="Create">Create New Project </button>
+          <button type="button" id="CreateButton">Create New Project </button>
 
         </div>
 
-        <div class = "rightColumn">
+        <div id = "rightColumn">
           <h1 class = "pageHeading"> Experimental-Computational Workflow </h1>
           <div class = "information">
             <ul class = "labInfo"> 
@@ -70,19 +79,22 @@
             </ul>
 
             <ul class = "labInfo2"> 
-              <li> CIDAR </li>
-              <li> Doug Densmore </li>
-              <li> Traci Haddock </li>
-              <li> Evan Appleton </li>
-              <li> Alan Pacheco,
-                   Yash Agarwal,
-                   Kathleen Lewis
-              </li>
+              <li id="currentLab">  </li>
+              <li id="currentPI">  </li>
+              <li id="currentLead">  </li>
+              <li id="currentAdvisor"> </li>
+              <!--<li> Alan Pacheco,-->
+                   <!--Yash Agarwal,-->
+                   <!--Kathleen Lewis-->
+              <!--</li>-->
             </ul>
             </div>
             <div class = "description">
-            <p>  Currently, synthetic biology lacks a systematic design-build-test workflow for creating genetic circuits. Researchers often waste time and resources on traditional trial-and-error approaches in designing and assembling large devices. My research works towards overcoming this roadblock by creating a standardized experimental-computational workflow that is clearly defined and applicable to a wide variety of researchers and projects. This workflow integrates software tools to reduce human error and to structure the way designs are chosen, assembled, and tested.
-            </p>
+                <p id="currentDescription">
+
+                </p>
+            <!--<p>  Currently, synthetic biology lacks a systematic design-build-test workflow for creating genetic circuits. Researchers often waste time and resources on traditional trial-and-error approaches in designing and assembling large devices. My research works towards overcoming this roadblock by creating a standardized experimental-computational workflow that is clearly defined and applicable to a wide variety of researchers and projects. This workflow integrates software tools to reduce human error and to structure the way designs are chosen, assembled, and tested.-->
+            <!--</p>-->
           </div>
           <div class = "notebook">
             <ul class = "labnotebook">  <li>Notebook </li> </ul>
@@ -98,9 +110,44 @@
           </div>
         </div>
 
-        </div>
-      </div>
 
+
+
+<div id="createProject">
+    <ng-form class="form-horizontal" name="projectForm" ng-class="{'has-error' : projectForm.name.$dirty && projectForm.name.$invalid}">
+
+        <h1 class = "pageHeading"> Create New Project </h1><br><br> 
+        <label>Project Name: </label> <br> 
+        <input id="projName" type="text"><br><br> 
+        <label>Lab(s):</label><br>
+        <input id="projLabs" type="text"><br><br>
+        <label> PI:</label><br> 
+        <input id="pi" type="text"><br><br> 
+        <label>Project Lead:</label><br>
+        <input id="projLead" type="text"><br><br>
+        <label>Project Advisor:</label><br>
+        <input id="advisor" type="text"><br><br>
+        <!--<label>Project Members:</label>-->
+        <!--<input id="projMembers" type="text"><br><br>-->
+        <label>Project Description:</label> 
+        <textarea id="description" rows="7" cols="70"> </textarea><br><br> 
+        <button id = "create" class="btn btn-primary" >Create</button><br>
+
+
+    </ng-form>
+</div>
+
+        <div id="newProjectNotif">
+            <p>Your project has been created!</p>
+        </div>
+    </div>
+    </div>
+
+<!--
+Figure out how to get value from clicked cell in table (need to assign id? If so, how?)
+How to I include added tabs/cells from createProject.html into Project.html?
+After I query, can I do data.fieldname and display the value of that object's param
+-->
 
 
 
@@ -113,24 +160,94 @@ SCRIPTS
 
 <!--note - correct app based on the distribution, comments removed by build-->
 
-<script type="text/javascript">
-  document.getElementById("Create").onclick = function(){
-    location.href = "./newProject.html";
-  }
+<!--<script type="text/javascript">-->
+  <!--document.getElementById("Create").onclick = function(){-->
+    <!--location.href = "./createProject.html";-->
+  <!--}-->
+<!--</script>-->
+    <script src="scripts/b18fc8c8.clotho-app-command.js"></script>
+
+    <script src="scripts/c0f113c2.clotho-core-module.js"></script>
+
+    <!--<script src ="scripts/notebook_projects.js"></script>-->
+
+    <!--note - remove all scripts below this for api-only build-->
+
+    <script src="scripts/c2a11f43.clotho-foundation-module.js"></script>
+
+
+    <script src="scripts/68a2b2df.clotho-command-module.js"></script>
+
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $("#CreateButton").click(function(){
+            var id = document.getElementById("rightColumn");
+            var secondID = document.getElementById("createProject");
+            id.style.display='none';
+            secondID.style.display = 'block';
+        });
+    });
 </script>
 
-<script src="scripts/b18fc8c8.clotho-app-command.js"></script>
 
-<script src="scripts/c0f113c2.clotho-core-module.js"></script>
+<!--<script>-->
+    <!--$(document).ready(function showProject(proj){-->
+        <!--Clotho.query("name", proj.text.toLowerCase()).then(function (data){-->
+            <!--var id = document.getElementById("rightColumn");-->
+            <!--var secondID = document.getElementById("createProject");-->
+            <!--var thirdID = document.getElementById("newProjectNotif");-->
+            <!--if(id.style.display == 'block')-->
+            <!--{-->
+                <!--id.style.display = 'none';-->
+            <!--}-->
+            <!--if(secondID.style.display == 'block')-->
+            <!--{-->
+                <!--id.style.display = 'none';-->
+            <!--}-->
+            <!--if(thirdID.style.display == 'block')-->
+            <!--{-->
+                <!--id.style.display = 'none';-->
+            <!--}-->
 
-<script src ="scripts/notebook_projects.js"></script>
+            <!--document.getElementById("currentLab").innerHTML = data.projLabs;-->
+            <!--document.getElementById("currentPI").innerHTML = data.pi;-->
+            <!--document.getElementById("currentLead").innerHTML = data.projLead;-->
+            <!--document.getElementById("currentAdvisor").innerHTML = data.advisor;-->
 
-<!--note - remove all scripts below this for api-only build-->
 
-<script src="scripts/c2a11f43.clotho-foundation-module.js"></script>
+           <!--id.style.display = 'block';-->
+        <!--});-->
+    <!--});-->
+<!--</script>-->
+
+<script>
+
+    $(document).ready(function() {
+
+        $("#create").click(function() {
+            var str = '{';
+            //alert("hello world!");
+            //alert(document.getElementById("projName").value);
+            var id = '"' + "clotho.developer." + document.getElementById("projName").value.toLowerCase() + '"';
+            var firstObj = str.concat('"id":',id, ',"schema":', '"org.clothocad.model.Projects"', ',"name":', '"', document.getElementById("projName").value, '"',',"projectLead":', '"', document.getElementById("projLead").value, '"');
+            var obj = firstObj.concat(',"Lab":','"',document.getElementById("projLabs").value, '"', ',"PI":', '"', document.getElementById("pi").value, '"', ',"Description":', '"', document.getElementById("description").value,'"',',"advisor":','"',document.getElementById("advisor").value,'"', '}');
+//            alert(obj);
+            var jsonObj = JSON.parse(obj);
+            Clotho.create(jsonObj).then(function(){
+                var tableRef = document.getElementById("projTable");
+                var newRow = tableRef.insertRow(tableRef.rows.length);
+                var newCell = newRow.insertCell(0);
+                newCell.innerHTML = '<a href="./Projects.html" style = "display:block" onclick="showProject(this)">' + document.getElementById("projName").value + '</a>';
+                var secondID = document.getElementById("createProject");
+                secondID.style.display = 'none';
+                var thirdID = document.getElementById("newProjectNotif");
+                thirdID.style.display = 'block';
+            });
+        });
+    });
+    </script>
 
 
-<script src="scripts/68a2b2df.clotho-command-module.js"></script>
 
 <!-- our custom app files -->
 <script src="scripts/LabOrdering-app.js"></script>

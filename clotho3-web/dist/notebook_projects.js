@@ -1,6 +1,4 @@
-<SCRIPT LANGUAGE = "javascript">
 
-<!--
 
 function notebook_projects(dropdown)
 {
@@ -14,7 +12,4 @@ function notebook_projects(dropdown)
 	{
 		document.getElementById('notebookID').disabled = true;
 	}
-}
-
-//-->
-</SCRIPT>
+};

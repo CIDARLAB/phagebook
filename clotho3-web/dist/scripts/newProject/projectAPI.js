@@ -9,9 +9,10 @@ angular.module('NewProject').service('projectAPI', function (Clotho, PubSub) {
             //Clotho.say('Something');
             //you can run something to a Clotho function, run something locally, access another API... whatever you want
             //alert(orderParams.obj);
+            console.log('Hi');
             var str = '{';
-                str.concat('""id"":','clotho.delevloper.',projectParams.name.toLowerCase(),'"",schema"":','""org.clothocad.model.Projects""',',""name"":', projectParams.name, ',""PI"":',projectParams.PI, ',""Description"":', projectParams.description, '}');
-            obj = JSON.parse(projectParams.obj);
+                str.concat('""id"":','clotho.delevloper.',projectParams.projname.toLowerCase(),'"",schema"":','""org.clothocad.model.Projects""',',""name"":', projectParams.projname, ',""PI"":',projectParams.pi, ',""Description"":', projectParams.description, '}');
+            var obj = JSON.parse(projectParams.obj);
             Clotho.create(obj);
 
 

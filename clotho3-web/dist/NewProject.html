@@ -53,24 +53,26 @@
 
         </div>
 
-<div newProject-app>
+<div ng-app ="newProject-app">
     <div class="projContainer" ng-controller="projectCtrl as ctrl">
         <ng-form class="form-horizontal" name="projectForm" ng-class="{'has-error' : projectForm.name.$dirty && projectForm.name.$invalid}">
 
             <h1 class = "pageHeading"> Create New Project </h1><br><br> 
             <label>Project Name: </label> <br> 
-            <input ng-model="item.name" type="text"><br><br> 
+            <input ng-model="item.projname" type="text"><br><br> 
             <label>PI:</label><br> 
-            <input ng-model="item.PI" type="text"><br><br> 
+            <input ng-model="item.pi" type="text"><br><br> 
             <label>Project Description:</label> 
             <textarea ng-model="item.description" rows="7" cols="70"> </textarea><br><br> 
-            <button class="btn btn-primary" ng-click="ctrl.createProject()" >Create</button><br>
+            <button class="btn btn-primary" ng-click="createProject(item)" >Create</button><br>
 
 
         </ng-form>
-        </div></div>
-</div></div>
+        </div>
 </div>
+</div>
+</div>
+
 
 
 <!--------
@@ -94,8 +96,9 @@ SCRIPTS
 <!-- our custom app files -->
 <script src="scripts/newProject/NewProject-app.js"></script>
 <script src="scripts/newProject/projectAPI.js"></script>
-<script src="scripts/newProject/trackingProject.js"></script>
 <script src="scripts/newProject/projectCtrl.js"></script>
+<script src="scripts/newProject/trackingProject.js"></script>
+
 
 
 </body>
