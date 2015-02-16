@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Profile</title>
+    <meta name="description" content="Clotho Lab Ordering">
+    <meta name="viewport" content="width=1024, initial-scale=1">
+
+    <!-- not necessary until serving outside root directory / want html5 mode -->
+    <base href="/">
+
+    <link rel="stylesheet" href="styles/2e84f2a0.command.css"/>
+    <link rel="stylesheet" href="styles/773cbfe6.main.css"/>
+
+
+    <script src="bower_components/jquery/jquery.js"></script>
+
+    <!-- note that angular is required for any clotho functionality -->
+    <script src="bower_components/angular/angular.js"></script>
+    <!-- note that lodash is required by several components -->
+    <script src="bower_components/lodash/dist/lodash.js"></script>
+
+    <script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
+
+    <style>
+        #profileName
+        {
+            color: white;
+            text-shadow:
+            -1px -1px 0 #000,
+            1px -1px 0 #000,
+            -1px 1px 0 #000,
+            1px 1px 0 #000;
+        }
+    </style>
+
+</head>
+<body>
+<div ng-app="clothoRoot">
+    <div class="container">
+        <div clotho-command-bar></div>
+    </div>
+
+    <terminal-aside></terminal-aside>
+</div>
+<div class="contentBackground" style="margin-left:-10px; margin-right:-10px; margin-top:-20px; margin-bottom:-100px; background-color:#e9eaed">
+    <div class="mainContent" style="width:851px;  margin-left:auto; margin-right:auto; background-color:#fff; font-family:helvetica">
+        <div class="coverContainer" style="background-image:url(/images/logo-CIDAR-2.png); background-repeat: no-repeat;">
+            <div class="row">
+                <div id ="profileName" class="col-xs-9 col-xs-offset-2" style="margin-top:245px;">
+                    <h3>
+                        <strong> Kara Le Fort</strong>
+                    </h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-2" style="margin-left:16px;"><img src="/images/people/Zach.JPG" style="margin-top:-130px; padding:3px; background-color:#fff; border:1px solid #000;">
+                </div>
+                <div class="col-xs-9" style="margin-top:3px;">
+                    <h4>
+                        <a href="" class="col-xs-2">News</a>
+                        <a href="" class="col-xs-2">Calendar</a>
+                        <a href="" class="col-xs-2">Ordering</a>
+                        <a href="./Profile_papers.html" class="col-xs-2">Papers</a>
+                        <a href="" class="col-xs-2">Parts</a>
+                        <a href="" class="col-xs-2">Parts</a> <br>
+                    </h4>
+                </div>
+            </div>
+
+            <div class="personalNews">
+                <div class="row">
+                    <div class="col-xs-2" style="margin-left:44px; margin-bottom:16px; text-decoration: underline;">
+                        <div class="container" ng-controller="profileCtrl as ctrl">
+                            <table>
+                                <label> <strong> Author </strong> </label>
+                                <input  id = "authorbox" name = "author"> <br>
+                                <label> <strong> Title</strong> </label>
+                                <input id="titlebox" name="title" ><br>
+                                <label><strong> Year </strong></label>
+                                <input id="yearbox" name="year"  > <br>
+                                <label><strong> Journal </strong></label>
+                                <input id="journalbox" name="journal"><br>
+                                <label><strong> Volume </strong></label>
+                                <input id="volumebox" name="volume"> <br>
+                                <label><strong> Pages </strong></label>
+                                <input id="pagesbox" name="pages" > <br>
+                                <p>
+                                    <button class="btn btn-primary" id = "addPaper" >Add Paper</button>
+                                </p>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--------
+SCRIPTS
+--------->
+
+<!--note - correct app based on the distribution, comments removed by build-->
+
+<script>
+
+    $("#addPaper").click(function() {
+
+
+        var obj = [ ]
+
+        var myInput = document.getElementsByTagName("input")
+
+        for(var i = 2; i< myInput.length; i++)
+        {
+            obj.push('\"'+ myInput[i].name + '\": \"'+ myInput[i].value + '\"')
+
+        }
+        var myItem  = '{'+ obj+ '}'
+
+        alert(myItem)
+        
+        Clotho.create(obj)
+
+    });
+
+
+
+</script>
+
+<script src="scripts/b18fc8c8.clotho-app-command.js"></script>
+
+<script src="scripts/c0f113c2.clotho-core-module.js"></script>
+
+<!--note - remove all scripts below this for api-only build-->
+
+<script src="scripts/c2a11f43.clotho-foundation-module.js"></script>
+
+
+<script src="scripts/68a2b2df.clotho-command-module.js"></script>
+
+<!-- our custom app files -->
+<script src="scripts/LabOrdering-app.js"></script>
+<script src="scripts/Ordering.js"></script>
+<script src="scripts/Tracking.js"></script>
+<script src="scripts/orderingCtrl.js"></script>
+<script src="scripts/clotho3API.js"></script>
+
+
+
+</body>
+</html>

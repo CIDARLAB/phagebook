@@ -72,26 +72,24 @@ SCRIPTS
 $(document).ready(function() {
 
 	$("#query").click(function() {
-	{
-			
-			var queryVal = document.getElementById('queryR').value;
-			alert(queryVal);
-			$clotho.$pubsub.query("name","queryVal").then(function(data) 
-			{
-				var found=false;
-				if(data !=null)
-				{
-					document.getElementById('results').value += ("Object Found. Name: "+data.name+" \n");  
-					found = true;                                   
-				}
-				if(!found)
-				{
-					document.getElementById('results').value += ("No results obtained\n");  
-				}
-			}).done();
-	});
-});
+        {
 
+            var queryVal = document.getElementById('queryR').value;
+            alert(queryVal);
+            $clotho.$pubsub.query("name", "queryVal").then(function (data) {
+                var found = false;
+                if (data != null) {
+                    document.getElementById('results').value += ("Object Found. Name: " + data.name + " \n");
+                    found = true;
+                }
+                if (!found)
+                {
+                    document.getElementById('results').value += ("No results obtained\n");
+                }
+            }).done();
+             })
+})
+})
 </script>  
 
 <script src="scripts/b18fc8c8.clotho-app-command.js"></script>
