@@ -61,11 +61,11 @@
                 </div>
                 <div class="col-xs-9" style="margin-top:3px;">
                     <h4>
-                        <a href="" class="col-xs-2">News</a>
+                        <a href="./Profile.html" class="col-xs-2">News</a>
                         <a href="" class="col-xs-2">Calendar</a>
-                        <a href="" class="col-xs-2">Ordering</a>
+                        <a href="./Ordering.html" class="col-xs-2">Ordering</a>
                         <a href="./Profile_papers.html" class="col-xs-2">Papers</a>
-                        <a href="" class="col-xs-2">Parts</a>
+                        <a href="./Projects.html" class="col-xs-2">Projects</a>
                         <a href="" class="col-xs-2">Parts</a> <br>
                     </h4>
                 </div>
@@ -73,21 +73,29 @@
 
             <div class="personalNews">
                 <div class="row">
-                    <div class="col-xs-2" style="margin-left:44px; margin-bottom:16px; text-decoration: underline;">
-                        <div class="container" ng-controller="profileCtrl as ctrl">
-                            <table>
-                                <label> <strong> Author </strong> </label>
-                                <input  id = "authorbox" name = "author"> <br>
+                    <div class="col-xs-2" style="margin-left:90px; margin-bottom:16px; text-decoration: underline;">
+                        <div class="container" ng-controller="profileCtrl as ctrl" >
+                            <table >
+                                <p ng-show = "myVar">
+                                <label> <strong> Author(s) </strong> </label>
+                                <input  id = "authorbox" name = "author" style="width: 400px;"><br>
                                 <label> <strong> Title</strong> </label>
-                                <input id="titlebox" name="title" ><br>
+                                <input id="titlebox" name="title" >
                                 <label><strong> Year </strong></label>
-                                <input id="yearbox" name="year"  > <br>
+                                <select id="yearbox" name="year">
+                                    <option value  = "2015" >2015</option>
+                                    <option value  = "2014" >2014</option>
+                                    <option value  = "2013" >2013</option>
+                                    <option value  = "2012" >2012</option>
+                                    <option value  = "2011" >2011</option> </select>
+                                <br>
                                 <label><strong> Journal </strong></label>
-                                <input id="journalbox" name="journal"><br>
+                                <input id="journalbox" name="journal" >
                                 <label><strong> Volume </strong></label>
-                                <input id="volumebox" name="volume"> <br>
+                                <input id="volumebox" name="volume"style="width: 40px;">
                                 <label><strong> Pages </strong></label>
-                                <input id="pagesbox" name="pages" > <br>
+                                <input id="pagesbox" name="pages" style="width: 40px;" > <br>
+                                </p>
                                 <p>
                                     <button class="btn btn-primary" id = "addPaper" >Add Paper</button>
                                 </p>
@@ -99,6 +107,8 @@
         </div>
     </div>
 </div>
+
+
 
 <!--------
 SCRIPTS
@@ -123,7 +133,7 @@ SCRIPTS
         var myItem  = '{'+ obj+ '}'
 
         alert(myItem)
-        
+
         Clotho.create(obj)
 
     });
