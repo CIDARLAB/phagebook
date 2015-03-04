@@ -74,20 +74,22 @@
             <div class="personalNews">
                 <div class="row">
                     <div class="col-xs-2" style="margin-left:90px; margin-bottom:16px; text-decoration: underline;">
-                        <div class="container" ng-controller="profileCtrl as ctrl" >
-                            <table >
-                                <p ng-show = "myVar">
+                        <div class="container" ng-controller="profileCtrl as ctrl">
+                            <table>
+
                                 <label> <strong> Author(s) </strong> </label>
                                 <input  id = "authorbox" name = "author" style="width: 400px;"><br>
                                 <label> <strong> Title</strong> </label>
-                                <input id="titlebox" name="title" >
+                                <input id="titlebox" name="title" style="width: 200px;">
                                 <label><strong> Year </strong></label>
-                                <select id="yearbox" name="year">
+                                <input list="yearbox" name="year">
+                                <datalist id = "yearbox">
                                     <option value  = "2015" >2015</option>
                                     <option value  = "2014" >2014</option>
                                     <option value  = "2013" >2013</option>
                                     <option value  = "2012" >2012</option>
-                                    <option value  = "2011" >2011</option> </select>
+                                    <option value  = "2011" >2011</option>
+                                    <option value =   "2010">2010</option> </datalist>
                                 <br>
                                 <label><strong> Journal </strong></label>
                                 <input id="journalbox" name="journal" >
@@ -95,11 +97,31 @@
                                 <input id="volumebox" name="volume"style="width: 40px;">
                                 <label><strong> Pages </strong></label>
                                 <input id="pagesbox" name="pages" style="width: 40px;" > <br>
-                                </p>
+
                                 <p>
                                     <button class="btn btn-primary" id = "addPaper" >Add Paper</button>
                                 </p>
                             </table>
+                            <p> </p>
+                           <!-- <button ng-click = "toggle()" class="btn btn-primary" id = "addPaperForm" > + </button>
+                            </p>
+                            <div class="col-xs-6 col-sm-3 placeholder">
+                                <img data-src="holder.js/200x200/auto/sky" class="img-responsive"  src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxkZWZzLz48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzBEOEZEQiIvPjxnPjx0ZXh0IHg9Ijc0LjA0Njg3NSIgeT0iMTAwIiBzdHlsZT0iZmlsbDojRkZGRkZGO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQ7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MjAweDIwMDwvdGV4dD48L2c+PC9zdmc+" data-holder-rendered="true">
+                                <h4>Label</h4>
+                                <span class="text-muted">Something else</span>
+                            </div>
+                            <div class="col-xs-6 col-sm-3 placeholder">
+                                <img data-src="holder.js/200x200/auto/vine" class="img-responsive" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxkZWZzLz48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzM5REJBQyIvPjxnPjx0ZXh0IHg9Ijc0LjA0Njg3NSIgeT0iMTAwIiBzdHlsZT0iZmlsbDojMUUyOTJDO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQ7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MjAweDIwMDwvdGV4dD48L2c+PC9zdmc+" data-holder-rendered="true">
+                                <h4>Label</h4>
+                                <span class="text-muted">Something else</span>
+                            </div>
+                            <div class="col-xs-6 col-sm-3 placeholder">
+                                <img data-src="holder.js/200x200/auto/sky" class="img-responsive"  src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxkZWZzLz48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzBEOEZEQiIvPjxnPjx0ZXh0IHg9Ijc0LjA0Njg3NSIgeT0iMTAwIiBzdHlsZT0iZmlsbDojRkZGRkZGO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQ7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MjAweDIwMDwvdGV4dD48L2c+PC9zdmc+" data-holder-rendered="true">
+                                <h4>Label</h4>
+                                <span class="text-muted">Something else</span>
+                            </div>-->
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -130,7 +152,7 @@ SCRIPTS
             obj.push('\"'+ myInput[i].name + '\": \"'+ myInput[i].value + '\"')
 
         }
-        var myItem  = '{'+ obj+ '}'
+        var myItem  = '{'+ obj +'}'
 
         alert(myItem)
 
@@ -139,6 +161,16 @@ SCRIPTS
     });
 
 
+
+</script>
+<script>
+    $("addPaperform").click(function(){
+
+        myVar = false;
+        toggle = function() {
+            myVar = true;
+        };
+    });
 
 </script>
 
