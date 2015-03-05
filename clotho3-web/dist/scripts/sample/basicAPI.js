@@ -23,7 +23,7 @@ angular.module('Sample')
         obj[orderParams.param] = orderParams.val;
 		Clotho.query(obj).then(function(data) 
 		{
-			if(data.length > 0)
+			/*if(data.length > 0)
 			{
 				//alert(data[0]["name"]);	
 				for (var key in data) 
@@ -45,8 +45,8 @@ angular.module('Sample')
                     	}
                     }
                 }
-			}
-			
+			}*/
+            orderParams.results = JSON.stringify(data);
 			//alert(data);
 		},function (err) {
 			

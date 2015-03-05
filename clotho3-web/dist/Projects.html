@@ -6,7 +6,7 @@
     <title>Projects</title>
     <meta name="description" content="Clotho Projects">
     <meta name="viewport" content="width=1024, initial-scale=1">
-      <script src ="scripts/newProject/clotho3API.js"></script>
+      <script src ="clotho3API/clotho3API.js"></script>
 
     <!-- not necessary until serving outside root directory / want html5 mode -->
     <base href="/">
@@ -15,9 +15,9 @@
     <link rel="stylesheet" href="styles/773cbfe6.main.css"/>
     <link rel ="stylesheet" href="styles/Phagebook_Styles.css"/>
 
-    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
-    <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 
     <script src="bower_components/jquery/jquery.js"></script>
 
@@ -25,10 +25,11 @@
     <script src="bower_components/angular/angular.js"></script>
     <!-- note that lodash is required by several components -->
     <script src="bower_components/lodash/dist/lodash.js"></script>
-
+      <script src="projectsCTRL.js"></script>
+    <script src="projects-app.js"></script>
 
 </head>
-<body>
+<body ng-controller = "projectsCTRL" onload = "displayProjects()">
 <!--[if lt IE 9]>
 <script src="bower_components/es5-shim/es5-shim.js"></script>
 <script src="bower_components/json3/lib/json3.min.js"></script>
@@ -42,24 +43,19 @@
   <terminal-aside></terminal-aside>
 
 
-<div class = "contentBackground">
+<div class = "contentBackground" ng-app = "projects">
     <div class = "mainContent">
         <div class = "leftColumn">
           <img src = "/images/people/Katie_Lewis.jpeg">
-          <h4> Katie Lewis Projects </h4>
+          <h4> <a href ="./Profile.html">Katie Lewis</a> Projects </h4>
             <table id="projTable">
-                <tr>
-                    <td id="iGEM"><a href="./Projects.html" style="display:block;">iGEM</a> </td>
-                </tr>
-                <tr>
-                    <td id="Phagebook"><a href = "./Projects.html" style = "display:block;">Phagebook</a></td>
-                </tr>
+                <!--<tr>-->
+                    <!--<td id="iGEM"><a href="./Projects.html" value="igem.id" style="display:block;">iGEM</a> </td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td id="Phagebook"><a href = "./Projects.html" style = "display:block;">Phagebook</a></td>-->
+                <!--</tr>-->
             </table>
-          <!--<ul class = "projectsTabs">-->
-            <!--<li><a href = "#iGEM">iGEM</a></li>-->
-            <!--<li><a href = "#Phagebook">Phagebook</a></li>-->
-            <!--<li><a href = "#App">Android App</a></li>-->
-          <!--</ul>-->
 
           <br><br>
 
@@ -68,7 +64,7 @@
         </div>
 
         <div id = "rightColumn">
-          <h1 class = "pageHeading"> Experimental-Computational Workflow </h1>
+          <h1 class = "pageHeading" id = "projTitle"> </h1>
           <div class = "information">
             <ul class = "labInfo"> 
               <li> Associated Labs: </li>
@@ -127,6 +123,7 @@
         <input id="projLead" type="text"><br><br>
         <label>Project Advisor:</label><br>
         <input id="advisor" type="text"><br><br>
+        <label>Parts Used</label>
         <!--<label>Project Members:</label>-->
         <!--<input id="projMembers" type="text"><br><br>-->
         <label>Project Description:</label> 
@@ -190,8 +187,65 @@ SCRIPTS
 </script>
 
 
+
+<script>
+   function displayProjects(){
+       var personID  = "clotho.developer.katielewis1";
+       Clotho.get(personID).then(function (personObj) {
+           var tableRef = document.getElementById("projTable");
+           if (personObj.projects.length > 0)
+           {
+               var newRow = tableRef.insertRow(0);
+               var newCell = newRow.insertCell(0);
+               newCell.innerHTML = '<a href="./Projects.html" style = "display:block"+ value =' + personObj.projects[0].id + ' onclick = "projectDetails.call(this)">' + personObj.projects[0].name + '</a>';
+               for(var i = 1; i < personObj.projects.length; i++){
+                   if (typeof(personObj.projects[i])=="string")
+                   {}
+                   else{
+                       newRow = tableRef.insertRow(tableRef.rows.length);
+                       newCell = newRow.insertCell(0);
+                       newCell.innerHTML = '<a href="./Projects.html" style = "display:block" value =' + personObj.projects[i].id + ' onclick = "projectDetails.call(this)">' + personObj.projects[i].name + '</a>';
+                   }
+
+               }
+           }
+
+       });
+   };
+</script>
+
+    <script>
+       function projectDetails(){
+           var personID  = "clotho.developer.katielewis1";
+           var projName = this.innerText;
+           var id = document.getElementById("rightColumn");
+           var secondID = document.getElementById("createProject");
+           id.style.display = 'block';
+           secondID.style.display = 'none';
+           Clotho.get(personID).then(function(Obj){
+               alert(Obj.projects[0].name);
+               alert(projName);
+               var num = 0;
+               for (var i = 0; i< Obj.projects.length;i++)
+               {
+                   if (Obj.projects[i].name.toLowerCase() == projName.toLowerCase()){
+                       num = i;
+                   }
+               }
+               alert(num);
+//               alert(Obj.projects[num].name);
+               document.getElementById("projTitle").innerHTML = Obj.projects[num].name;
+               document.getElementById("currentLab").innerHTML = Obj.projects[num].Lab;
+               document.getElementById("currentLead").innerHTML = Obj.projects[num].projectLead;
+               document.getElementById("currentPI").innerHTML = Obj.projects[num].PI;
+               document.getElementById("currentAdvisor").innerHTML = Obj.projects[num].advisor;
+           });
+       };
+    </script>
 <!--<script>-->
-    <!--$(document).ready(function showProject(proj){-->
+   <!--$scope.showProject =function(proj){-->
+        <!--alert(proj.text.toLowerCase)-->
+    <!--};-->
         <!--Clotho.query("name", proj.text.toLowerCase()).then(function (data){-->
             <!--var id = document.getElementById("rightColumn");-->
             <!--var secondID = document.getElementById("createProject");-->
@@ -220,32 +274,66 @@ SCRIPTS
     <!--});-->
 <!--</script>-->
 
-<script>
+<!--<script>-->
 
+    <!--$(document).ready(function() {-->
+    <script>
+    var personID = "clotho.developer.katielewis1";
     $(document).ready(function() {
-
-        $("#create").click(function() {
+        $("#create").click(function () {
             var str = '{';
             //alert("hello world!");
             //alert(document.getElementById("projName").value);
-            var id = '"' + "clotho.developer." + document.getElementById("projName").value.toLowerCase() + '"';
-            var firstObj = str.concat('"id":',id, ',"schema":', '"org.clothocad.model.Projects"', ',"name":', '"', document.getElementById("projName").value, '"',',"projectLead":', '"', document.getElementById("projLead").value, '"');
-            var obj = firstObj.concat(',"Lab":','"',document.getElementById("projLabs").value, '"', ',"PI":', '"', document.getElementById("pi").value, '"', ',"Description":', '"', document.getElementById("description").value,'"',',"advisor":','"',document.getElementById("advisor").value,'"', '}');
-//            alert(obj);
+            var firstObj = str.concat('"schema":', '"org.clothocad.model.Projects"', ',"name":', '"', document.getElementById("projName").value, '"', ',"projectLead":', '"', document.getElementById("projLead").value, '"');
+            var obj = firstObj.concat(',"Lab":', '"', document.getElementById("projLabs").value, '"', ',"PI":', '"', document.getElementById("pi").value, '"', ',"Description":', '"', document.getElementById("description").value, '"', ',"advisor":', '"', document.getElementById("advisor").value, '"', '}');
+            //            alert(obj);
             var jsonObj = JSON.parse(obj);
-            Clotho.create(jsonObj).then(function(){
-                var tableRef = document.getElementById("projTable");
-                var newRow = tableRef.insertRow(tableRef.rows.length);
-                var newCell = newRow.insertCell(0);
-                newCell.innerHTML = '<a href="./Projects.html" style = "display:block" onclick="showProject(this)">' + document.getElementById("projName").value + '</a>';
-                var secondID = document.getElementById("createProject");
-                secondID.style.display = 'none';
-                var thirdID = document.getElementById("newProjectNotif");
-                thirdID.style.display = 'block';
+            Clotho.create(jsonObj).then(function () {
+                Clotho.get(personID).then(function (personObj) {
+//                    alert(JSON.stringify(personObj.projects));
+                    personObj.projects[personObj.projects.length] = jsonObj;
+                    Clotho.set(personObj).then(function () {
+//                        alert(ID);
+                        var tableRef = document.getElementById("projTable");
+                        var newRow = tableRef.insertRow(tableRef.rows.length);
+                        var newCell = newRow.insertCell(0);
+                        newCell.innerHTML = '<a href="./Projects.html" style = "display:block" value =' + jsonObj.name + ' onclick = "projectDetails.call(this)">' + jsonObj.name + '</a>';
+                    });
+                });
+                //var tableRef = document.getElementById("projTable");
+                //var newRow = tableRef.insertRow(tableRef.rows.length);
+                //var newCell = newRow.insertCell(0);
+                //newCell.innerHTML = '<a href="./Projects.html" style = "display:block">' + document.getElementById("projName").value + '</a>';
+                //var secondID = document.getElementById("createProject");
+                //secondID.style.display = 'none';
+                //var thirdID = document.getElementById("newProjectMotif");
+                //thirdID.style.display = 'block';
             });
         });
     });
     </script>
+        <!--$("#create").click(function() {-->
+            <!--var str = '{';-->
+//            <!--//alert("hello world!");-->
+//            <!--//alert(document.getElementById("projName").value);-->
+            <!--var id = '"' + "clotho.developer." + document.getElementById("projName").value.toLowerCase() + '"';-->
+            <!--var firstObj = str.concat('"id":',id, ',"schema":', '"org.clothocad.model.Projects"', ',"name":', '"', document.getElementById("projName").value, '"',',"projectLead":', '"', document.getElementById("projLead").value, '"');-->
+            <!--var obj = firstObj.concat(',"Lab":','"',document.getElementById("projLabs").value, '"', ',"PI":', '"', document.getElementById("pi").value, '"', ',"Description":', '"', document.getElementById("description").value,'"',',"advisor":','"',document.getElementById("advisor").value,'"', '}');-->
+<!--//           alert(obj);&ndash;&gt;-->
+            <!--var jsonObj = JSON.parse(obj);-->
+            <!--Clotho.create(jsonObj).then(function(){-->
+                <!--var tableRef = document.getElementById("projTable");-->
+                <!--var newRow = tableRef.insertRow(tableRef.rows.length);-->
+                <!--var newCell = newRow.insertCell(0);-->
+//                <!--newCell.innerHTML = '<a href="./Projects.html" style = "display:block" ng-click="showProject(this)">' + document.getElementById("projName").value + '</a>';-->
+                <!--var secondID = document.getElementById("createProject");-->
+                <!--secondID.style.display = 'none';-->
+                <!--var thirdID = document.getElementById("newProjectNotif");-->
+                <!--thirdID.style.display = 'block';-->
+            <!--});-->
+        <!--});-->
+    <!--});-->
+
 
 
 

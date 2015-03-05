@@ -95,8 +95,8 @@ a:hover, a:active {
 #newProjectNotif {
     display:none;
     text-align:center;
-    font-size:100px;
-    top-margin:1000px;
+    font-size:30px;
+    float:center;
 }
 
 .pageHeading {
@@ -134,7 +134,7 @@ h4 {
 }
 
 .labInfo2 {
-	margin-right: 120px;
+	margin-right: 300px;
 	margin-top: 15px;
 	margin-left: auto;
 	float: right;
