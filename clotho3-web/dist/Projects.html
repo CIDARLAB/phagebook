@@ -64,14 +64,15 @@
         </div>
 
         <div id = "rightColumn">
-          <h1 class = "pageHeading" id = "projTitle"> </h1>
+          <button>  <img src = "/images/Editing-Edit-icon.png" onclick = "editProject()" id="editIcon"></button>
+            <h1 class = "pageHeading" id = "projTitle"> </h1>
           <div class = "information">
             <ul class = "labInfo"> 
               <li> Associated Labs: </li>
               <li> Primary Investigator: </li>
               <li> Project Lead: </li>
               <li> Project Advisor </li>
-              <li> Lab Members: </li>
+                <li> Description: </li>
             </ul>
 
             <ul class = "labInfo2"> 
@@ -79,30 +80,27 @@
               <li id="currentPI">  </li>
               <li id="currentLead">  </li>
               <li id="currentAdvisor"> </li>
-              <!--<li> Alan Pacheco,-->
-                   <!--Yash Agarwal,-->
-                   <!--Kathleen Lewis-->
-              <!--</li>-->
             </ul>
             </div>
-            <div class = "description">
-                <p id="currentDescription">
-
-                </p>
-            <!--<p>  Currently, synthetic biology lacks a systematic design-build-test workflow for creating genetic circuits. Researchers often waste time and resources on traditional trial-and-error approaches in designing and assembling large devices. My research works towards overcoming this roadblock by creating a standardized experimental-computational workflow that is clearly defined and applicable to a wide variety of researchers and projects. This workflow integrates software tools to reduce human error and to structure the way designs are chosen, assembled, and tested.-->
+            <p id = "projectDescription" ></p>
+                <!--<p>  Currently, synthetic biology lacks a systematic design-build-test workflow for creating genetic circuits. Researchers often waste time and resources on traditional trial-and-error approaches in designing and assembling large devices. My research works towards overcoming this roadblock by creating a standardized experimental-computational workflow that is clearly defined and applicable to a wide variety of researchers and projects. This workflow integrates software tools to reduce human error and to structure the way designs are chosen, assembled, and tested.-->
             <!--</p>-->
-          </div>
+
           <div class = "notebook">
             <ul class = "labnotebook">  <li>Notebook </li> </ul>
-            <form action ="" class = "dropDown">
-              <select name = "notebook" onchange = "notebook_projects(this.value)">
-                <option value = "Kathleen Lewis">Kathleen Lewis</option>
+              <button onclick = "newEntry()" id = "newEntry" >New Entry</button><br>
+              <form action ="" class = "dropDown">
+              <select name = "notebook" onchange = "notebook_projects(this.value)" id="whosNotebook">
+                <option value = "Katie Lewis">Katie Lewis</option>
                 <option value = "Yash Agarwal">Yash Agarwal </option>
                 <option value = "Alan Pacheco">Alan Pacheco </option>
               </select>
             </form>
-            <textarea class = "notebookText" id = "notebookID">
-            </textarea>
+              <!--<input type="button" id="uploader" value="Upload">-->
+
+              <p class = "notebookText" id = "notebookID">
+            </p>
+
           </div>
         </div>
 
@@ -127,27 +125,36 @@
         <!--<label>Project Members:</label>-->
         <!--<input id="projMembers" type="text"><br><br>-->
         <label>Project Description:</label> 
-        <textarea id="description" rows="7" cols="70"> </textarea><br><br> 
+        <textarea id="description" rows="7" cols="50"> </textarea><br><br> 
         <button id = "create" class="btn btn-primary" >Create</button><br>
 
 
     </ng-form>
 </div>
+    <div id="notebookEntry">
+        <ng-form class="form-horizontal" id="notebookEn" ng-class="{'has-error' : projectForm.name.$dirty && projectForm.name.$invalid}">
+            <h1 class = "pageHeading"> New Lab Notebook Entry </h1><br><br> 
+            <label>Date (d/m/y): </label><br><br>
+            <input id="entryDate" type="date"><br><br>
+            <label>Images: </label>
+            <input type="file" id = "entryPic" name="filename" accept="image/gif, image/jpeg, image/png">
+            <input type="file" id = "entryPic1" name="filename" accept="image/gif, image/jpeg, image/png">
+            <input type="file" id = "entryPic2" name="filename" accept="image/gif, image/jpeg, image/png">
 
-        <div id="newProjectNotif">
-            <p>Your project has been created!</p>
-        </div>
+
+        </ng-form>
+        <p id="entryText">Notebook Entry:</p>
+        <textarea rows="4"; cols="50"; id="textEntry"></textarea><br>
+        <!--<form action="scripts/newProject/uploadFile.php" method="post" id="uploader" enctype="multipart/form-data">-->
+            <!--Select image to upload:-->
+            <!--<input type="file" name="fileToUpload" id="fileToUpload">-->
+            <!--<input type="submit" value="Upload Image" name="submit">-->
+        <!--</form>-->
+        <button id="entryButton" onclick = "createEntry()">Create</button>
+
     </div>
+</div>
     </div>
-
-<!--
-Figure out how to get value from clicked cell in table (need to assign id? If so, how?)
-How to I include added tabs/cells from createProject.html into Project.html?
-After I query, can I do data.fieldname and display the value of that object's param
--->
-
-
-
 
 
 
@@ -180,35 +187,96 @@ SCRIPTS
         $("#CreateButton").click(function(){
             var id = document.getElementById("rightColumn");
             var secondID = document.getElementById("createProject");
+            var thirdID = document.getElementById("notebookEntry");
+            thirdID.style.display = 'none';
             id.style.display='none';
             secondID.style.display = 'block';
         });
     });
 </script>
 
-
+    <script>
+        //How should I get the project ID for the project that the entry is in
+        function createEntry(){
+            var personID = "clotho.developer.katielewis1";
+            var str = '{';
+            var obj = str.concat('"schema":', '"org.clothocad.model.Notebook"',',"entryDate":','"',document.getElementById("entryDate").value, '"', ',"entryText":', '"', document.getElementById("textEntry").value, '"', ',"entryPics":[', '"', document.getElementById("entryPic").value,'",', '"', document.getElementById("entryPic1").value, '",', '"', document.getElementById("entryPic2").value, '"]', '}');
+            var jsonObj = JSON.parse(obj);
+            Clotho.get(personID).then(function (personObj) {
+                Clotho.create(jsonObj).then(function (result) {
+                    personObj.notebookEntries[personObj.notebookEntries.length] = result;
+                    Clotho.set(personObj);
+            });
+            });
+            var id = document.getElementById("rightColumn");
+            var secondID = document.getElementById("createProject");
+            var thirdID = document.getElementById("notebookEntry");
+            id.style.display = 'block';
+            secondID.style.display = 'none';
+            thirdID.style.display = 'none';
+        };
+    </script>
 
 <script>
-   function displayProjects(){
-       var personID  = "clotho.developer.katielewis1";
+    function editProject(){
+
+    };
+</script>
+
+    <script>
+        function newEntry(){
+            var id = document.getElementById("rightColumn");
+            var secondID = document.getElementById("notebookEntry");
+            var thirdID = document.getElementById("createProject");
+            thirdID.style.display = 'none';
+            id.style.display = 'none';
+            secondID.style.display = 'block';
+        };
+    </script>
+
+<script>
+   function displayProjects() {
+       var personID = "clotho.developer.katielewis1";
        Clotho.get(personID).then(function (personObj) {
            var tableRef = document.getElementById("projTable");
-           if (personObj.projects.length > 0)
-           {
+           if (personObj.projects.length > 0) {
                var newRow = tableRef.insertRow(0);
                var newCell = newRow.insertCell(0);
-               newCell.innerHTML = '<a href="./Projects.html" style = "display:block"+ value =' + personObj.projects[0].id + ' onclick = "projectDetails.call(this)">' + personObj.projects[0].name + '</a>';
-               for(var i = 1; i < personObj.projects.length; i++){
-                   if (typeof(personObj.projects[i])=="string")
-                   {}
-                   else{
+               Clotho.get(personObj.projects[0]).then(function (proj) {
+                   newCell.innerHTML = '<a href="./Projects.html" style = "display:block"+ value =' + proj.id + ' onclick = "projectDetails.call(this)">' + proj.name + '</a>';
+               });
+               for (var i = 1; i < personObj.projects.length; i++) {
+                   Clotho.get(personObj.projects[i]).then(function (projectObj) {
                        newRow = tableRef.insertRow(tableRef.rows.length);
                        newCell = newRow.insertCell(0);
-                       newCell.innerHTML = '<a href="./Projects.html" style = "display:block" value =' + personObj.projects[i].id + ' onclick = "projectDetails.call(this)">' + personObj.projects[i].name + '</a>';
-                   }
+                       newCell.innerHTML = '<a href="./Projects.html" style = "display:block" value =' + projectObj.id + ' onclick = "projectDetails.call(this)">' + projectObj.name + '</a>';
+                   });
 
                }
+//                if(personObj.notebookEntries.length > 0){
+//                    for(var i = 0; i < personObj.notebookEntries.length;i++){
+//                        document.getElementById("notebookText").innerHTML += personObj.notebookEntries[i];
+//                    }
+//                }
+
+               Clotho.get(personObj.projects[0]).then(function (projObj) {
+                   document.getElementById("projTitle").innerHTML = projObj.name;
+                   document.getElementById("currentLab").innerHTML = projObj.Lab;
+                   document.getElementById("currentLead").innerHTML = projObj.projectLead;
+                   document.getElementById("currentPI").innerHTML = projObj.PI;
+                   document.getElementById("currentAdvisor").innerHTML = projObj.advisor;
+                   document.getElementById("projectDescription").innerHTML = projObj.Description;
+               });
            }
+           else if(personObj.projects.length == 0){
+               var id = document.getElementById("rightColumn");
+               var secondID = document.getElementById("createProject");
+               var thirdID = document.getElementById("notebookEntry");
+               thirdID.style.display = 'none';
+               id.style.display='none';
+               secondID.style.display = 'block';
+           }
+
 
        });
    };
@@ -218,121 +286,127 @@ SCRIPTS
        function projectDetails(){
            var personID  = "clotho.developer.katielewis1";
            var projName = this.innerText;
+//           var val = this.id;
            var id = document.getElementById("rightColumn");
            var secondID = document.getElementById("createProject");
+           var thirdID = document.getElementById("notebookEntry");
            id.style.display = 'block';
            secondID.style.display = 'none';
+           thirdID.style.display = 'none';
            Clotho.get(personID).then(function(Obj){
-               alert(Obj.projects[0].name);
+               var num = 4;
                alert(projName);
-               var num = 0;
                for (var i = 0; i< Obj.projects.length;i++)
                {
-                   if (Obj.projects[i].name.toLowerCase() == projName.toLowerCase()){
-                       num = i;
-                   }
-               }
-               alert(num);
-//               alert(Obj.projects[num].name);
-               document.getElementById("projTitle").innerHTML = Obj.projects[num].name;
-               document.getElementById("currentLab").innerHTML = Obj.projects[num].Lab;
-               document.getElementById("currentLead").innerHTML = Obj.projects[num].projectLead;
-               document.getElementById("currentPI").innerHTML = Obj.projects[num].PI;
-               document.getElementById("currentAdvisor").innerHTML = Obj.projects[num].advisor;
+                   Clotho.get(Obj.projects[i]).then(function(projObj){
+                       if (projObj.name.toLowerCase() == projName.toLowerCase()){
+                           num = i;
+                       };
+                       alert(i);
+                   });
+               };
+               Clotho.get(Obj.projects[num]).then(function(correctProj){
+                   document.getElementById("projTitle").innerHTML =correctProj.name;
+                   document.getElementById("currentLab").innerHTML = correctProj.Lab;
+                   document.getElementById("currentLead").innerHTML = correctProj.projectLead;
+                   document.getElementById("currentPI").innerHTML = correctProj.PI;
+                   document.getElementById("currentAdvisor").innerHTML = correctProj.advisor;
+                   document.getElementById("projectDescription").innerHTML = correctProj.Description;
+
+               });
+
            });
        };
     </script>
-<!--<script>-->
-   <!--$scope.showProject =function(proj){-->
-        <!--alert(proj.text.toLowerCase)-->
-    <!--};-->
-        <!--Clotho.query("name", proj.text.toLowerCase()).then(function (data){-->
-            <!--var id = document.getElementById("rightColumn");-->
-            <!--var secondID = document.getElementById("createProject");-->
-            <!--var thirdID = document.getElementById("newProjectNotif");-->
-            <!--if(id.style.display == 'block')-->
-            <!--{-->
-                <!--id.style.display = 'none';-->
-            <!--}-->
-            <!--if(secondID.style.display == 'block')-->
-            <!--{-->
-                <!--id.style.display = 'none';-->
-            <!--}-->
-            <!--if(thirdID.style.display == 'block')-->
-            <!--{-->
-                <!--id.style.display = 'none';-->
-            <!--}-->
+<script>
+    $("input").change(function(e) {
 
-            <!--document.getElementById("currentLab").innerHTML = data.projLabs;-->
-            <!--document.getElementById("currentPI").innerHTML = data.pi;-->
-            <!--document.getElementById("currentLead").innerHTML = data.projLead;-->
-            <!--document.getElementById("currentAdvisor").innerHTML = data.advisor;-->
+    for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
 
+    var file = e.originalEvent.srcElement.files[i];
 
-           <!--id.style.display = 'block';-->
-        <!--});-->
-    <!--});-->
-<!--</script>-->
-
-<!--<script>-->
-
+    var img = document.createElement("img");
+    var reader = new FileReader();
+    reader.onloadend = function() {
+    img.src = reader.result;
+    }
+    reader.readAsDataURL(file);
+    $("input").after(img);
+    }
+    });
+</script>
     <!--$(document).ready(function() {-->
     <script>
     var personID = "clotho.developer.katielewis1";
     $(document).ready(function() {
         $("#create").click(function () {
             var str = '{';
-            //alert("hello world!");
-            //alert(document.getElementById("projName").value);
             var firstObj = str.concat('"schema":', '"org.clothocad.model.Projects"', ',"name":', '"', document.getElementById("projName").value, '"', ',"projectLead":', '"', document.getElementById("projLead").value, '"');
             var obj = firstObj.concat(',"Lab":', '"', document.getElementById("projLabs").value, '"', ',"PI":', '"', document.getElementById("pi").value, '"', ',"Description":', '"', document.getElementById("description").value, '"', ',"advisor":', '"', document.getElementById("advisor").value, '"', '}');
             //            alert(obj);
             var jsonObj = JSON.parse(obj);
-            Clotho.create(jsonObj).then(function () {
+            Clotho.create(jsonObj).then(function (result) {
                 Clotho.get(personID).then(function (personObj) {
 //                    alert(JSON.stringify(personObj.projects));
-                    personObj.projects[personObj.projects.length] = jsonObj;
+                    personObj.projects[personObj.projects.length] = result;
                     Clotho.set(personObj).then(function () {
 //                        alert(ID);
-                        var tableRef = document.getElementById("projTable");
-                        var newRow = tableRef.insertRow(tableRef.rows.length);
-                        var newCell = newRow.insertCell(0);
-                        newCell.innerHTML = '<a href="./Projects.html" style = "display:block" value =' + jsonObj.name + ' onclick = "projectDetails.call(this)">' + jsonObj.name + '</a>';
+
+//                        document.getElementById("projTitle").innerHTML = personObj.projects[personObj.projects.length - 1].name;
+//                        document.getElementById("currentLab").innerHTML = personObj.projects[personObj.projects.length - 1].Lab;
+//                        document.getElementById("currentLead").innerHTML = personObj.projects[personObj.projects.length - 1].projectLead;
+//                        document.getElementById("currentPI").innerHTML = personObj.projects[personObj.projects.length - 1].PI;
+//                        document.getElementById("currentAdvisor").innerHTML = personObj.projects[personObj.projects.length - 1].advisor;
+                        Clotho.get(personObj.projects[personObj.projects.length -1]).then(function(projectObj){
+                            var tableRef = document.getElementById("projTable");
+                            var newRow = tableRef.insertRow(tableRef.rows.length);
+                            var newCell = newRow.insertCell(0);
+                            newCell.innerHTML = '<a href="./Projects.html" style = "display:block" id="' + projectObj.id + '" onclick = "projectDetails.call(this)">' + projectObj.name + '</a>';
+                            alert(projectObj.id);
+                            alert(newCell.id);
+                            var id = document.getElementById("rightColumn");
+                            var secondID = document.getElementById("createProject");
+                            id.style.display = 'block';
+                            secondID.style.display = 'none';
+                            document.getElementById("projTitle").innerHTML = projectObj.name;
+                            document.getElementById("currentLab").innerHTML = projectObj.Lab;
+                            document.getElementById("currentLead").innerHTML = projectObj.projectLead;
+                            document.getElementById("currentPI").innerHTML = projectObj.PI;
+                            document.getElementById("currentAdvisor").innerHTML = projectObj.advisor;
+
+                        });
+
+
+
+
                     });
                 });
-                //var tableRef = document.getElementById("projTable");
-                //var newRow = tableRef.insertRow(tableRef.rows.length);
-                //var newCell = newRow.insertCell(0);
-                //newCell.innerHTML = '<a href="./Projects.html" style = "display:block">' + document.getElementById("projName").value + '</a>';
-                //var secondID = document.getElementById("createProject");
-                //secondID.style.display = 'none';
-                //var thirdID = document.getElementById("newProjectMotif");
-                //thirdID.style.display = 'block';
+
             });
         });
     });
     </script>
-        <!--$("#create").click(function() {-->
-            <!--var str = '{';-->
-//            <!--//alert("hello world!");-->
-//            <!--//alert(document.getElementById("projName").value);-->
-            <!--var id = '"' + "clotho.developer." + document.getElementById("projName").value.toLowerCase() + '"';-->
-            <!--var firstObj = str.concat('"id":',id, ',"schema":', '"org.clothocad.model.Projects"', ',"name":', '"', document.getElementById("projName").value, '"',',"projectLead":', '"', document.getElementById("projLead").value, '"');-->
-            <!--var obj = firstObj.concat(',"Lab":','"',document.getElementById("projLabs").value, '"', ',"PI":', '"', document.getElementById("pi").value, '"', ',"Description":', '"', document.getElementById("description").value,'"',',"advisor":','"',document.getElementById("advisor").value,'"', '}');-->
-<!--//           alert(obj);&ndash;&gt;-->
-            <!--var jsonObj = JSON.parse(obj);-->
-            <!--Clotho.create(jsonObj).then(function(){-->
-                <!--var tableRef = document.getElementById("projTable");-->
-                <!--var newRow = tableRef.insertRow(tableRef.rows.length);-->
-                <!--var newCell = newRow.insertCell(0);-->
-//                <!--newCell.innerHTML = '<a href="./Projects.html" style = "display:block" ng-click="showProject(this)">' + document.getElementById("projName").value + '</a>';-->
-                <!--var secondID = document.getElementById("createProject");-->
-                <!--secondID.style.display = 'none';-->
-                <!--var thirdID = document.getElementById("newProjectNotif");-->
-                <!--thirdID.style.display = 'block';-->
-            <!--});-->
-        <!--});-->
-    <!--});-->
+
+    <!--<script type="text/javascript">-->
+
+        <!--var uploader = document.getElementById('uploader');-->
+
+        <!--upclick(-->
+                <!--{-->
+                    <!--element: uploader,-->
+                    <!--action: '/path_to/you_server_script.php',-->
+                    <!--onstart:-->
+                            <!--function(filename)-->
+                            <!--{-->
+                                <!--alert('Start upload: '+filename);-->
+                            <!--},-->
+                    <!--oncomplete:-->
+                            <!--function(response_data)-->
+                            <!--{-->
+                                <!--alert(response_data);-->
+                            <!--}-->
+                <!--});-->
+
 
 
 

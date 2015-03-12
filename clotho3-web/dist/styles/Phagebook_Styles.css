@@ -18,11 +18,14 @@
 	width: 851px;
 	height: 2000px;
 }
-
+#uploader {
+    float:right;
+    height: 24px;
+}
 
 .leftColumn {
 
-	position: fixed;
+	position: absolute;
 	display: block;
 	word-wrap: break-word;
 	color: black;
@@ -92,11 +95,13 @@ a:hover, a:active {
     background-color: #fff;
 }
 
-#newProjectNotif {
-    display:none;
-    text-align:center;
-    font-size:30px;
-    float:center;
+
+#editIcon {
+    position:absolute;
+    height: 30px;
+    width: 30px;
+    top:15px;
+    right:15px;
 }
 
 .pageHeading {
@@ -110,9 +115,7 @@ h4 {
 #rightColumn {
     display:block;
 	float: right;
-	margin-left: auto;
-	margin-right: auto;
-	width: 660px;
+	width: 700px;
 	background-color: #fff;
 	height: 2000px;
 }
@@ -126,6 +129,7 @@ h4 {
 }
 
 .labInfo {
+    position:relative;
 	font-weight: bold;
 	margin-left: 20px;
 	margin-top: 15px;
@@ -134,11 +138,11 @@ h4 {
 }
 
 .labInfo2 {
-	margin-right: 300px;
+    position:relative;
 	margin-top: 15px;
 	margin-left: auto;
-	float: right;
 	padding: 15px;
+    float:left;
 }
 
 .description {
@@ -150,12 +154,15 @@ h4 {
 }
 
 .notebook {
+    position:relative;
 	height:100px;
 	font-size: 15px;
+    float:left;
 	margin-left:auto;
 	margin-right: auto;
 }
 .labnotebook {
+    position:relative;
 	float:left;
 	list-style-type: none;
 	font-size: 18px;
@@ -166,18 +173,56 @@ h4 {
 	margin-left: .67em;
 }
 .dropDown {
+    position:relative;
 	float: right;
 	height: 24px;
 	margin-right: 300px;
 }
 
+#newEntry{
+   position:relative;
+    float:left;
+}
+
+#notebookEntry{
+    display: none;
+    position:relative;
+    float: right;
+    margin-left: auto;
+    margin-right: auto;
+    width: 660px;
+    background-color: #fff;
+    height: 2000px;
+}
+
+#projectDescription {
+    float:left;
+    width:400px;
+}
+
+#whosNotebook {
+    position:relative;
+    float:right;
+}
+
+#entryText {
+    font-size:15px;
+    font-weight: 700;
+}
+
+
+#entryButton{
+    position:relative;
+    float:left;
+}
+
 .notebookText {
 	font-size: 15px;
 	padding: 20px;
-	margin-top: 20px;
+	margin-top: 40px;
 	margin-left: 29px;
-	width: 624px;
-	height: 618px;
+	width: 600px;
+	height: 300px;
 	float: left;
 }
 
