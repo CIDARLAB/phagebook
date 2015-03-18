@@ -12,7 +12,7 @@ angular.module('Sample')
 		//you can run something to a Clotho function, run something locally, access another API... whatever you want
 		//alert(orderParams.obj);
 		obj = JSON.parse(orderParams.obj);
-		Clotho.create(obj);
+		Clotho.set(obj);
 
 		
 	};
@@ -26,25 +26,8 @@ angular.module('Sample')
 			if(data.length > 0)
 			{
 				//alert(data[0]["name"]);	
-				for (var key in data) 
-            	{
-                	if (data.hasOwnProperty(key)) 
-                	{
-						if(typeof data[key] == 'object')
-                    	{
-                    		var longStr = "";
-                    		for(var subkey in data[key])
-                        	{
-                    			longStr += (subkey + " : " + data[key][subkey]+"\n");
-                    		}
-                    		orderParams.results = longStr;
-                    	}
-                    	else
-                    	{
-                        	alert(key + " ::: " + data[key]);	   
-                    	}
-                    }
-                }
+				orderParams.results = JSON.stringify(data,undefined,4);
+
 			}
 			
 			//alert(data);
