@@ -6,6 +6,7 @@
     <title>Lab Ordering</title>
     <meta name="description" content="Clotho Lab Ordering">
     <meta name="viewport" content="width=1024, initial-scale=1">
+    <script src ="clotho3API/clotho3API.js"></script>
 
     <!-- not necessary until serving outside root directory / want html5 mode -->
     <base href="/">
@@ -14,7 +15,7 @@
     <link rel="stylesheet" href="styles/773cbfe6.main.css"/>
 
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
   <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 
 
@@ -44,20 +45,20 @@
     <a href="./Projects.html">Projects</a><br>
     <a href="./sample.html">Sample</a></h3>
   </p>
-<div index-app>
-  <div class="container" ng-controller="indexCtrl as ctrl">
-      <ng-form class="form-horizontal" name="indexForm" ng-class="{'has-error' : indexForm.name.$dirty && indexForm.name.$invalid}">
 
-      <label>Username:</label>
-      <input ng-model="item.userName" type="text"><br>
-      <label>Password: </label>
-      <input ng-model="item.password" type="text"><br><br>
-      <textarea ng-model="item.results" rows="15" cols="100"> </textarea><br>
-      <button ng-click="ctrl.queryObj()">Login</button>
+    <img src="/images/socialmedia/twitter.png" onclick="getBase64Image(this)">
+    <br>
+    <!--<img src="data:image/png;base64,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">
+    -->
+    <button onclick="photoAppear()">image</button>
+    <ng-form class="form-horizontal" id="notebookEn" ng-class="{'has-error' : projectForm.name.$dirty && projectForm.name.$invalid}">
+        <h1 class = "pageHeading"> New Lab Notebook Entry </h1><br><br> 
+        <label>Images: </label>
+        <input type="file" id ="image" name="filename" onchange = "sendFiles()" accept="image/gif, image/jpeg, image/png" multiple>
+        <!--<img id="uploadPreview" style="width: 100px; height: 100px;" />-->
+
     </ng-form>
-  </div>
-</div>
-
+    <button onclick="displayy()">Display</button>
    
 <!--------
 SCRIPTS
@@ -65,9 +66,96 @@ SCRIPTS
 
 
 
+<script>
+    function getBase64Image(img) {
+        // Create an empty canvas element
+        alert(img);
+        var canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+
+        // Copy the image contents to the canvas
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0);
+
+        // Get the data-URL formatted image
+        // Firefox supports PNG and JPEG. You could check img.src to guess the
+        // original format, but be aware the using "image/jpg" will re-encode the image.
+        var dataURL = canvas.toDataURL("image/png");
+//        alert(dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
+        var dat= dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+        Clotho.get("clotho.developer.katielewis1").then(function(result){
+                Clotho.get(result.notebookEntries[2]).then(function(res){
+                    alert(result.notebookEntries[2]);
+                    res.entryPics[0] = dat;
+                    Clotho.set(res);
+                });
+        });
+    }
+</script>
+
+    <script>
+        function photoAppear(){
+
+            Clotho.get("clotho.developer.katielewis1").then(function(result){
+                        var image = new Image();
+                Clotho.get(result.notebookEntries[2]).then(function(res){
+                    alert(res.entryPics[0]);
+                    image.src = "data:image/png;base64," + res.entryPics[0];
+                    document.body.appendChild(image);
+                });
+                       // alert(result.notebookEntries[0]);
+
+            });
+
+        }
+    </script>
+<script>
+    function sendFiles() {
+        var imgs = document.querySelectorAll(".obj");
+
+        for (var i = 0; i < imgs.length; i++) {
+            new FileUpload(imgs[i], imgs[i].file);
+        }
+    };
+
+</script>
 
 
+<!--<script>-->
+    <!--function trying(){-->
+        <!--var elm = document.getElementById('image');-->
+                <!--img = elm.files[0];-->
+        <!--var objectURL = window.URL.createObjectURL(img);-->
+<!--//                fileName = img.name, // not path-->
+<!--//                fileSize = img.size; // bytes-->
+<!--//-->
+<!--//        // By Parsing File-->
+<!--//        var reader = new FileReader(),-->
+<!--//                binary, base64;-->
+<!--//        reader.addEventListener('loadend', function () {-->
+<!--//            binary = reader.result; // binary data (stored as string), unsafe for most actions-->
+<!--//            base64 = btoa(binary); // base64 data, safer but takes up more memory-->
+<!--//        }, false);-->
+<!--//        reader.readAsBinaryString(img);-->
+<!--//        alert("hello");-->
 
+        <!--Clotho.get("clotho.developer.notebook").then(function(result){-->
+            <!--result.pictures[0]=objectURL;-->
+            <!--Clotho.set(result);-->
+        <!--});-->
+
+    <!--}-->
+
+<!--</script>-->
+    <script>
+        function displayy(){
+            Clotho.get("clotho.developer.notebook").then(function(result){
+               var image = new Image();
+                image.src = result.pictures[0];
+            });
+        };
+    </script>
 
 
 
