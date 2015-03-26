@@ -102,8 +102,9 @@
             <div>
                 <button id="searchButton" onclick="searchEntries()">search</button>
                 <ng-form class="form-horizontal" id="searchNotebook" ng-class="{'has-error' : projectForm.name.$dirty && projectForm.name.$invalid}">
-                    <input id="searchDate" type="date"><br><br>
-                    <input id="keywordInsert" type="text"><br><br>
+                    <input id="searchDate" type="date">
+                    <input id="keywordInsert" type="text" placeholder="keyword"><br><br>
+                    <br><br>
                 </ng-form>
                 <p id="keywordSearch" onclick="searchByKeyword()">Keyword</p>
             </div>
@@ -250,8 +251,8 @@ SCRIPTS
 
 <script>
     function searchByKeyword(){
-        document.getElementById("searchDate").style.visibility = "hidden";
-        document.getElementById("keywordInsert").style.visibility = "visible";
+        document.getElementById("searchDate").style.display = "none";
+        document.getElementById("keywordInsert").style.display = "block";
 
 //    <input id="searchDate" type="date"><br><br>
 //        <input id="keywordInsert" type="text"><br><br>
@@ -319,19 +320,39 @@ SCRIPTS
 <script>
     function searchEntries(){
         personID = "clotho.developer.katielewis1";
-        var current = document.getElementById("searchDate").value;
-        Clotho.get(personID).then(function(result){
-            for(var i=0;i < result.notebookEntries.length;i++){
-                Clotho.get(result.notebookEntries[i]).then(function(res) {
-                    if(current == res.entryData){
-                        document.getElementById("entryGoesHere").innerHTML = res.entryText;
-                        if(res.entryHeading != ""){
-                            document.getElementById("heading").innerText = res.entryHeading;
-                        }
-                    };
-                });
+        var date = document.getElementById("searchDate");
+        var keyword = document.getElementById("keywordInsert");
+        if (date.style.display != "none"){
+            var current1 = document.getElementById("searchDate").value;
+            Clotho.get(personID).then(function(result){
+                for(var i=0;i < result.notebookEntries.length;i++){
+                    Clotho.get(result.notebookEntries[i]).then(function(res) {
+                        if(current1 == res.entryData){
+                            document.getElementById("entryGoesHere").innerHTML = res.entryText;
+                            if(res.entryHeading != ""){
+                                document.getElementById("heading").innerText = res.entryHeading;
+                            }
+                        };
+                    });
                 };
-        });
+            });
+        }
+        else if(keyword.style.display != "none"){
+            var current = document.getElementById("keywordInsert").value;
+            Clotho.get(personID).then(function(result){
+                for(var i=0;i < result.notebookEntries.length;i++){
+                    Clotho.get(result.notebookEntries[i]).then(function(res) {
+                        if(res.entryText.search(current) != -1){
+                            document.getElementById("entryGoesHere").innerHTML = res.entryText;
+                            if(res.entryHeading != ""){
+                                document.getElementById("heading").innerText = res.entryHeading;
+                            }
+                        }
+                    });
+                };
+            });
+        }
+
 
     }
 </script>

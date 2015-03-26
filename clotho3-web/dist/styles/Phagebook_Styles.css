@@ -23,6 +23,11 @@
     height: 24px;
 }
 
+#searchDate {
+    position:relative;
+    display:block;
+}
+
 #doneEditingEntry{
     position:relative;
     float:right;
@@ -173,7 +178,7 @@ h4 {
 }
 
 .description {
-	margin-left: .67em;
+	margin-left: .70em;
 	margin-right: .67em;
 	margin-top: 20px;
 	padding: 20px;
@@ -221,8 +226,10 @@ h4 {
 
 #keywordInsert{
     position:relative;
-    visibility: hidden;
+    display:none;
     margin-bottom:15px;
+    height:34.444px;
+    width:157.385px;
 }
 
 #keywordSearch{
@@ -231,6 +238,7 @@ h4 {
     margin-top:44px;
     margin-left:25px;
     float:left;
+
 }
 
 
@@ -316,9 +324,13 @@ h4 {
 
 #projectDescription {
     position: relative;
-    margin-top:95px;
-    margin-left:15px;
-    padding-left:15px;
+    /*margin-top: 15px;*/
+    margin-left: auto;
+    margin-right:auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    /*padding-top:15px;*/
+   float:left;
 }
 
 #whosNotebook {
