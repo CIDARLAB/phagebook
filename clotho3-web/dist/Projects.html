@@ -65,7 +65,7 @@
 
         <!--<div id = "rightColumn" ondrop="drop(event)" ondragover="allowDrop(event)">-->
         <div id = "rightColumn" ondrop="drop(event)" ondragover="allowDrop(event)">
-        <button>  <img src = "/images/Editing-Edit-icon.png" onclick = "editProject()" id="editIcon"></button>
+        <!--<button>  <img src = "/images/Editing-Edit-icon.png" onclick = "editProject()" id="editIcon"></button>-->
             <h1 class = "pageHeading" id = "projTitle"> </h1>
           <div class = "information">
             <ul class = "labInfo"> 
@@ -92,18 +92,20 @@
             <br><br>
             <div id="entryButtons">
                 <button onclick = "newEntry()" id = "newEntry" >New Entry</button><br><br>
-                <button onclick = "photoAppear()" id="makePhotoAppear">Display Entry</button>
-                <br>
+                <!--<button onclick = "photoAppear()" id="makePhotoAppear">Display Entry</button>-->
+                <!--<br>-->
                 <button onclick="editEntry()" id="entryEdit">Edit Entry</button>
                 <button id="doneEditingEntry" onclick = "changeEntry()">Done</button>
                 <p id="entryToChange"></p>
             </div>
-            <h1 class = "labnotebook">Notebook</h1>
+            <h1 class = "labnotebook" id="notebookTitle">Notebook</h1>
             <div>
                 <button id="searchButton" onclick="searchEntries()">search</button>
                 <ng-form class="form-horizontal" id="searchNotebook" ng-class="{'has-error' : projectForm.name.$dirty && projectForm.name.$invalid}">
                     <input id="searchDate" type="date"><br><br>
+                    <input id="keywordInsert" type="text"><br><br>
                 </ng-form>
+                <p id="keywordSearch" onclick="searchByKeyword()">Keyword</p>
             </div>
 
 
@@ -213,13 +215,13 @@ SCRIPTS
         var current = document.getElementById("entryGoesHere").innerText;
         document.getElementById("entryGoesHere").contentEditable = "true";
         document.getElementById("doneEditingEntry").style.visibility= "visible";
-        alert(document.getElementById("entryGoesHere").contentEditable);
+//        alert(document.getElementById("entryGoesHere").contentEditable);
         Clotho.get(personID).then(function(result) {
             for (var i = 0; i < result.notebookEntries.length; i++) {
                 Clotho.get(result.notebookEntries[i]).then(function (res) {
                     if (current.trim() == res.entryText.trim()) {
                             document.getElementById("entryToChange").innerHTML = count;
-                            alert(document.getElementById("entryToChange").innerHTML);
+//                            alert(document.getElementById("entryToChange").innerHTML);
                     };
                     count++;
                 });
@@ -232,11 +234,11 @@ SCRIPTS
     function changeEntry() {
         personID = "clotho.developer.katielewis1";
         var count = document.getElementById("entryToChange").innerHTML;
-        alert("hello");
-        alert(count);
+//        alert("hello");
+//        alert(count);
         Clotho.get(personID).then(function(res){
            Clotho.get(res.notebookEntries[count]).then(function(result){
-               alert("hi");
+//               alert("hi");
                 result.entryText = document.getElementById("entryGoesHere").innerText;
                Clotho.set(result);
                document.getElementById("entryGoesHere").contentEditable = "false";
@@ -246,6 +248,15 @@ SCRIPTS
     }
 </script>
 
+<script>
+    function searchByKeyword(){
+        document.getElementById("searchDate").style.visibility = "hidden";
+        document.getElementById("keywordInsert").style.visibility = "visible";
+
+//    <input id="searchDate" type="date"><br><br>
+//        <input id="keywordInsert" type="text"><br><br>
+    }
+</script>
 
 <script>
     //Displays the next project notebook entry
@@ -260,7 +271,7 @@ SCRIPTS
                         if(current.trim() == res.entryText.trim() && res.id != result.notebookEntries[result.notebookEntries.length-1]){
                             Clotho.get(result.notebookEntries[1+count]).then(function(re){
                                 if(res.entryHeading != ""){
-                                    document.getElementById("heading").innerText = res.entryHeading;
+                                    document.getElementById("heading").innerText = re.entryHeading;
                                 }
                                 document.getElementById("entryGoesHere").innerText = re.entryText;
 
@@ -284,7 +295,7 @@ SCRIPTS
                     if(current == res.entryText && res.id != result.notebookEntries[0]){
                         Clotho.get(result.notebookEntries[count-1]).then(function(re){
                             if(res.entryHeading != ""){
-                                document.getElementById("heading").innerText = res.entryHeading;
+                                document.getElementById("heading").innerText = re.entryHeading;
                             }
                             document.getElementById("entryGoesHere").innerText = re.entryText;
                         });
@@ -314,6 +325,9 @@ SCRIPTS
                 Clotho.get(result.notebookEntries[i]).then(function(res) {
                     if(current == res.entryData){
                         document.getElementById("entryGoesHere").innerHTML = res.entryText;
+                        if(res.entryHeading != ""){
+                            document.getElementById("heading").innerText = res.entryHeading;
+                        }
                     };
                 });
                 };
@@ -375,25 +389,25 @@ SCRIPTS
     }
 </script>
 
-<script>
-    function photoAppear(){
-        var personID = "clotho.developer.katielewis1";
-        Clotho.get(personID).then(function(personObj){
+<!--<script>-->
+    <!--function photoAppear(){-->
+        <!--var personID = "clotho.developer.katielewis1";-->
+        <!--Clotho.get(personID).then(function(personObj){-->
 
-            Clotho.get(personObj.notebookEntries[0]).then(function(res){
-                if(res.entryHeading != ""){
-                    document.getElementById("heading").innerText = res.entryHeading;
-                }
-                document.getElementById("entryGoesHere").innerText = res.entryText;
-            });
-//            var image = new Image();
-//                image.src = "data:image/png;base64," + result.pictures[0];
-//                document.body.appendChild(image);
-            });
-            // alert(result.notebookEntries[0]);
+            <!--Clotho.get(personObj.notebookEntries[0]).then(function(res){-->
+                <!--if(res.entryHeading != ""){-->
+                    <!--document.getElementById("heading").innerText = res.entryHeading;-->
+                <!--}-->
+                <!--document.getElementById("entryGoesHere").innerText = res.entryText;-->
+            <!--});-->
+<!--//            var image = new Image();-->
+<!--//                image.src = "data:image/png;base64," + result.pictures[0];-->
+<!--//                document.body.appendChild(image);-->
+            <!--});-->
+            <!--// alert(result.notebookEntries[0]);-->
 
-    }
-</script>
+    <!--}-->
+<!--</script>-->
 
     <script>
         //How should I get the project ID for the project that the entry is in
@@ -509,9 +523,17 @@ SCRIPTS
 //                        document.getElementById("notebookText").innerHTML += personObj.notebookEntries[i];
 //                    }
 //                }
+               if(personObj.notebookEntries.length > 0){
+                   Clotho.get(personObj.notebookEntries[0]).then(function(res){
+                       if(res.entryHeading != ""){
+                           document.getElementById("heading").innerText = res.entryHeading;
+                       }
+                       document.getElementById("entryGoesHere").innerText = res.entryText;
+                   });
+               }
 
                Clotho.get(personObj.projects[0]).then(function (projObj) {
-                   document.getElementById("projTitle").innerHTML = projObj.name;
+                   document.getElementById("projTitle").innerHTML = projObj.name.toUpperCase();
                    document.getElementById("currentLab").innerHTML = projObj.Lab;
                    document.getElementById("currentLead").innerHTML = projObj.projectLead;
                    document.getElementById("currentPI").innerHTML = projObj.PI;
@@ -550,13 +572,20 @@ SCRIPTS
                    Clotho.get(projId).then(function(projObj){
                        if (projObj.name.toLowerCase() == projName.toLowerCase()){
 //                           alert(true);
-                           document.getElementById("projTitle").innerHTML =projObj.name;
+                           document.getElementById("projTitle").innerHTML =projObj.name.toUpperCase();
                            document.getElementById("currentLab").innerHTML = projObj.Lab;
                            document.getElementById("currentLead").innerHTML = projObj.projectLead;
                            document.getElementById("currentPI").innerHTML = projObj.PI;
                            document.getElementById("currentAdvisor").innerHTML = projObj.advisor;
                            document.getElementById("projectDescription").innerHTML = projObj.Description;
-
+                           if(personObj.notebookEntries.length > 0){
+                               Clotho.get(personObj.notebookEntries[0]).then(function(res){
+                                   if(res.entryHeading != ""){
+                                       document.getElementById("heading").innerText = res.entryHeading;
+                                   }
+                                   document.getElementById("entryGoesHere").innerText = res.entryText;
+                               });
+                           }
 
                        };
                    });
@@ -613,7 +642,7 @@ SCRIPTS
                             var secondID = document.getElementById("createProject");
                             id.style.display = 'block';
                             secondID.style.display = 'none';
-                            document.getElementById("projTitle").innerHTML = projectObj.name;
+                            document.getElementById("projTitle").innerHTML = projectObj.name.toUpperCase();
                             document.getElementById("currentLab").innerHTML = projectObj.Lab;
                             document.getElementById("currentLead").innerHTML = projectObj.projectLead;
                             document.getElementById("currentPI").innerHTML = projectObj.PI;
