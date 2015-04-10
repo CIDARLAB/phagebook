@@ -13,6 +13,10 @@
     <link rel="stylesheet" href="styles/2e84f2a0.command.css"/>
     <link rel="stylesheet" href="styles/773cbfe6.main.css"/>
 
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
+  <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+
 
     <script src="bower_components/jquery/jquery.js"></script>
 
@@ -20,6 +24,8 @@
     <script src="bower_components/angular/angular.js"></script>
     <!-- note that lodash is required by several components -->
     <script src="bower_components/lodash/dist/lodash.js"></script>
+
+<script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
 
 
 </head>
@@ -39,8 +45,115 @@
     <a href="./sample.html">Sample</a><br>
 
 
-  </p>
+    </h3>
+<div index-app>
+  <!--<div class="container" ng-controller="indexCtrl as ctrl">
+      <ng-form class="form-horizontal" name="indexForm" ng-class="{'has-error' : indexForm.name.$dirty && indexForm.name.$invalid}">
+      <label>Username:</label>
+      <input ng-model="item.userName" type="text"><br>
+      <label>Password: </label>
+      <input ng-model="item.password" type="text"><br><br>
+      <textarea ng-model="item.results" rows="15" cols="100"> </textarea><br>
+      <button ng-click="ctrl.queryObj()">Login</button>
+    </ng-form>-->
+      <div class="row">
 
+
+              <button class="btn btn-primary" id = "showAddPerson" > + Person </button>
+              <button class="btn btn-primary" id = "showAddLab" > + Lab </button>
+              <button class="btn btn-primary" id = "showAddinstitution" > + Institution </button>
+              <div id = "theprofileInputs" style="margin-left:44px" >
+                  <ng-form class="form-horizontal" name="createPersonForm" ng-class="{'has-error' : createPersonForm.name.$dirty && createLabForm.name.$invalid}">
+
+                  <label> <strong>Name</strong></label>
+                      <input id = "name" name = "name" style = "width: 400px;"> <br>
+                      <label> <strong> Institution</strong> </label>
+                      <input id="institution" name="institution" style="width: 200px;"><br>
+                      <!--<label> <strong> Picture </strong></label>
+                      <input list="picture" name="picture">
+                      <datalist id ="picture">
+                          <option value  = "kara_pro.PNG" >
+                          <option value  = "Katie_Lewis.jpeg" >
+                          <option value  = "Inna.jpg" >
+                          <option value  = "zack.jpg" >
+                          <option value  = "BillCao.jpg" >
+                          <option value  = "ChrisAnderson.jpg" >
+                          <option value  = "DougDensmore.png" >
+                          <option value  = "MaxwellBates.jpg" >
+                          <option value  = "MinaLi.jpg" >
+                          <option value  = "prash.jpg" >
+                          <option value  = "StephaniePaige.jpg" >
+                      </datalist>-->
+                      <label> <strong> Lab</strong> </label>
+                      <input id="lab" name="lab" style="width: 200px;"><br>
+                      <label> <strong> Position </strong> </label>
+                      <input list="position" name="position">
+                      <datalist id = "position">
+                          <option value = "undergraduate" ></option>
+                          <option value = "graduate">Graduate</option>
+                          <option value = "labManager" >Lab Manager</option>
+                          <option value = "pi"> Principal Investigator</option>
+                          <option value = "postdoc" >Postdoctoral</option></datalist>
+                    <br>
+                      <label> <strong> Permissions </strong></label>
+                      <input list ="permissions" name = "permissions">
+                      <datalist id = "permissions">
+                          <option value  = "basic" >basic</option>
+                          <option value  = "private" >private</option>
+                          <option value  = "ninja" >ninja</option></datalist>
+                      <br>
+
+                      <p>
+                          <button class="btn btn-primary" id = "addPerson" >Create Person</button>
+                      </p>
+                  </ng-form>
+
+
+                  <div id="addLab" style="margin-left:44px" >
+                      <ng-form class="form-horizontal" name="createLabForm" ng-class="{'has-error' : createLabForm.name.$dirty && createLabForm.name.$invalid}">
+
+                          <label> Name  </label> <br> 
+                          <input id= "labName" type="text"><br><br> 
+                          <label>City </label><br>
+                          <input id="city" type="text"><br><br>
+                          <label> State </label><br> 
+                          <input id="state" type="text"><br><br> 
+                          <label>link</label><br>
+                          <input id="link" type="text"><br><br>
+                          <button id = "createLab" class="btn btn-primary" >Create Lab</button><br>
+
+
+                      </ng-form>
+                  </div>
+
+                  <div id="addInstitution" style="margin-left:44px">
+                      <ng-form class="form-horizontal" name="createLabForm" ng-class="{'has-error' : createInstitForm.name.$dirty && createInstitForm.name.$invalid}">
+
+
+                          <label> Name  </label> <br> 
+                          <input id= "institutionName" type="text"><br><br> 
+                          <label>City </label><br>
+                          <input id="institutioncity" type="text"><br><br>
+                          <label> State </label><br> 
+                          <input id="institutionstate" type="text"><br><br> 
+                          <label>link</label><br>
+                          <input id="institutionlink" type="text"><br><br>
+                          <button id = "addInstit" class="btn btn-primary" >Create Institution</button><br>
+                      </ng-form>
+                  </div>
+
+              </div>
+</div>
+
+
+      </div>
+
+
+      </div>
+
+</div>
+
+   
 <!--------
 SCRIPTS
 --------->
@@ -55,8 +168,117 @@ SCRIPTS
 
 <!--note - correct app based on the distribution, comments removed by build-->
 
+<script>
+    $(document).ready(function() {
+        document.getElementById("theprofileInputs").style.visibility = "hidden";
+        document.getElementById("addLab").style.visibility = "hidden";
+    })
+</script>
+
+    <script>
+
+    $("#showAddPerson").click(function(){
+        //$(document.getElementById("theprofileInputs")).toggle();
+        //  alert("addButton Clicked")
+       document.getElementById("theprofileInputs").style.visibility = "visible";
+        //document.getElementById("theprofileInputs").innerHTML =
+    });
+
+</script>
+    <script>
+
+        $("#showAddLab").click(function(){
+            document.getElementById("addLab").style.visibility = "visible";
+            //  alert("addButton Clicked")
+            // document.getElementById("theprofileInputs").style.visibility = "visible";
+            //document.getElementById("theprofileInputs").innerHTML =
+        });
+
+    </script>
+    <script>
+
+        $("#showAddinstitution").click(function(){
+            document.getElementById("addInstitution").style.visibility = "visible";
+            //  alert("addButton Clicked")
+            // document.getElementById("theprofileInputs").style.visibility = "visible";
+            //document.getElementById("theprofileInputs").innerHTML =
+        });
+
+    </script>
 
 
+    <script>
+        //var personID = "clotho.developer.klefort";
+        //document.getElementById("theInputs").style.visibility = "hidden";
+        $("#addPerson").click(function() {
+
+            var obj = []
+
+            var myInput = document.getElementsByTagName("input")
+
+            for (var i = 2; i < myInput.length; i++) {
+                if(myInput[i].name!= "" && myInput[i].value!="")
+                    obj.push('\"' + myInput[i].name + '\": \"' + myInput[i].value + '\"')
+            }
+            obj.push('\"' + "schema" + '\": \"' + "org.clothocad.model.person" + '\"');
+            var personObj = '{' + obj + '}';
+
+           // alert(personObj);
+            Clotho.create(JSON.parse(personObj)).then(function(result){
+                //alert("Object Created with Id " + result);
+            });
+
+        });
+    </script>
+    <script>
+
+        $("#createLab").click(function() {
+        //alert('lab')
+            var obj = []
+            var myInput = document.getElementsByTagName("input")
+
+            for (var i = 2; i < myInput.length; i++) {
+                if (myInput[i].name != "" && myInput[i].value != "") {
+
+                obj.push('\"' + myInput[i].name + '\": \"' + myInput[i].value + '\"')
+            }
+
+            }
+            obj.push('\"' + "schema" + '\": \"' + "org.clothocad.model.lab" + '\"');
+            var labObj = '{' + obj + '}';
+
+
+            Clotho.create(JSON.parse(labObj)).then(function (result) {
+            //alert("Object Created with Id "+ result)
+            });
+
+        });
+    </script>
+<script>
+    $("#addInstit").click(function() {
+
+        var obj = []
+
+        var myInput = document.getElementsByTagName("input")
+
+        for (var i = 2; i < myInput.length; i++) {
+            if (myInput[i].name != "" && myInput[i].value != "") {
+
+                obj.push('\"' + myInput[i].name + '\": \"' + myInput[i].value + '\"')
+            }
+
+        }
+        obj.push('\"' + "schema" + '\": \"' + "org.clothocad.model.institution" + '\"');
+        var institObj = '{' + obj + '}';
+
+alert(institObj)
+        Clotho.create(JSON.parse(institObj)).then(function (result) {
+            alert(institObj)
+            alert("Object Created with Id "+ result)
+        });
+
+    });
+</script>
 <script src="scripts/b18fc8c8.clotho-app-command.js"></script>
 
 <script src="scripts/c0f113c2.clotho-core-module.js"></script>
@@ -73,6 +295,12 @@ SCRIPTS
 <script src="scripts/Ordering.js"></script>
 <script src="scripts/Tracking.js"></script>
 <script src="scripts/orderingCtrl.js"></script>
+<script src="scrips/index-app.js"></script>
+<script src="scripts/indexCtrl.js"></script>
+<script src="bin/trackingIndex.js"></script>
+<script src="indexAPI.js"></script>
+    <script src="scripts/clotho3API.js"></script>
+
 
 
 </body>

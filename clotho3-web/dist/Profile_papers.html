@@ -50,97 +50,125 @@
     <div class="mainContent" style="width:851px;  margin-left:auto; margin-right:auto; background-color:#fff; font-family:helvetica">
         <div class="coverContainer" style="background-image:url(/images/logo-CIDAR-2.png); background-repeat: no-repeat;">
             <div class="row">
-                <div id ="profileName" class="col-xs-9 col-xs-offset-2" style="margin-top:245px;">
-                    <h3>
-                        <strong> Kara Le Fort</strong>
+                <div class="col-xs-9 col-xs-offset-2" style="margin-top:245px;">
+                    <h3> <strong> <p id  = "profileName" ></p></strong>
                     </h3>
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-2" style="margin-left:16px;"><img src="/images/people/kara_pro.PNG" style="margin-top:-130px; padding:3px; background-color:#fff; border:1px solid #000;">
+                <div class="col-xs-2" style="margin-left:16px;">
+                  <!--  <img id = "profilePicture">-->
+                    <img src = /images/people/kara_pro.PNG style="margin-top:-130px; padding:3px; background-color:#fff; border:1px solid #000;">
+
                 </div>
-                <div class="col-xs-9" style="margin-top:3px;">
+                <div class="col-xs-9" style="margin-top:40px;" >
                     <h4>
                         <a href="./Profile.html" class="col-xs-2">News</a>
                         <a href="./Ordering.html" class="col-xs-2">Ordering</a>
                         <a href="./Profile_papers.html" class="col-xs-2">Papers</a>
                         <a href="./Projects.html" class="col-xs-2">Projects</a>
                         <a href="" class="col-xs-2">Parts</a> <br>
+
+
                     </h4>
                 </div>
             </div>
 
             <div class="personalNews">
                 <div class="row">
-                    <div class="col-xs-2" style="margin-left:90px; margin-bottom:16px; text-decoration: underline;">
+                    <div class="col-xs-2" style="margin-left:90px; margin-bottom:16px;">
+                        <!--<body id = "papersDisplay" >
+                        </body>-->
+                        <br>
+                        <br>
+                       <!-- <div class="col-xs-2" style="margin-left:44px; margin-bottom:16px; text-decoration: underline;">
+                            <h2>Papers</h2>-->
+                        </div>
+
+                        <table id="keyValueForm" class="form-inline " style='margin-bottom: 10px;width:700px' role="form">
+                            <tbody style="text-align: center;">
+
+                        </table>
+
+                        <button  class="btn btn-primary" id = "addButton" style='margin-left: 40px' > + </button>
                         </p>
-                        <button ng-click = "toggle()" class="btn btn-primary" id = "addPaperForm" > + </button>
-                         </p>
-                     <div class = "container">
-                         <label> <strong> PUBMEDID </strong></label>
-                          <input id = "pubmedid" name = "pubmedid" style = "width: 400px;"> <br>
-                     </div>
-                     <br>
-                     <br>
-                     <label> <strong> Manual Entry </strong></label>
-                     <br>
-                     <br>
-                     <div class="container" ng-controller="addPaper as ctrl">
-                         <table>
+                        <div class = "container">
 
-                             <label> <strong> Author(s) </strong> </label>
-                             <input  id = "authorbox" name = "author" style="width: 400px;"><br>
-                             <label> <strong> Title</strong> </label>
-                             <input id="titlebox" name="title" style="width: 200px;">
-                             <label><strong> Year </strong></label>
-                             <input list="yearbox" name="year">
-                             <datalist id = "yearbox">
-                                 <option value  = "2015" >2015</option>
-                                 <option value  = "2014" >2014</option>
-                                 <option value  = "2013" >2013</option>
-                                 <option value  = "2012" >2012</option>
-                                 <option value  = "2011" >2011</option>
-                                 <option value  = "2010" >2010</option> </datalist>
-                             <br>
-                             <label><strong> Journal </strong></label>
-                             <input id="journalbox" name="journal" >
-                             <label><strong> Volume </strong></label>
-                             <input id="volumebox" name="volume"style="width: 40px;">
-                             <label><strong> Pages </strong></label>
-                             <input id="pagesbox" name="pages" style="width: 40px;" > <br>
+                        </div>
+                        <br>
+                        <br>
 
-                             <p>
-                                 <button class="btn btn-primary" id = "addPaper" ng-click="ctrl.create()">Add Paper</button>
-                             </p>
-                         </table>
-                         <p>
+                        <br>
+                        <br>
+                        <div id = "theInputs">
+                            <table>
+                                <label> <strong> PUBMEDID </strong></label>
+                                <input id = "pubmedid" name = "pubmedid" style = "width: 400px;"> <br>
+                                <label> <strong> Author(s) </strong> </label>
+                                <input  id = "author" name = "author" style="width: 400px;"><br>
+                                <label> <strong> Title</strong> </label>
+                                <input id="title" name="title" style="width: 200px;">
+                                <label> <strong> Name</strong> </label>
+                                <input id="name" name="name" style="width: 200px;"><br>
+                                <label> <strong> Link</strong> </label>
+                                <input id="link" name="link" style="width: 200px;">
+                                <label> <strong> Conference </strong> </label>
+                                <input id="conference" name="conference" style="width: 200px;">
+                                <br>
+                                <label><strong> Journal </strong></label>
+                                <input id="journal" name="journal" >
 
-                         </p>
-                        <!-- <button ng-click = "toggle()" class="btn btn-primary" id = "addPaperForm" > + </button>
-                         </p>
-                         <div class="col-xs-6 col-sm-3 placeholder">
-                             <img data-src="holder.js/200x200/auto/sky" class="img-responsive"  src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxkZWZzLz48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzBEOEZEQiIvPjxnPjx0ZXh0IHg9Ijc0LjA0Njg3NSIgeT0iMTAwIiBzdHlsZT0iZmlsbDojRkZGRkZGO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQ7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MjAweDIwMDwvdGV4dD48L2c+PC9zdmc+" data-holder-rendered="true">
-                             <h4>Label</h4>
-                             <span class="text-muted">Something else</span>
-                         </div>
-                         <div class="col-xs-6 col-sm-3 placeholder">
-                             <img data-src="holder.js/200x200/auto/vine" class="img-responsive" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxkZWZzLz48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzM5REJBQyIvPjxnPjx0ZXh0IHg9Ijc0LjA0Njg3NSIgeT0iMTAwIiBzdHlsZT0iZmlsbDojMUUyOTJDO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQ7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MjAweDIwMDwvdGV4dD48L2c+PC9zdmc+" data-holder-rendered="true">
-                             <h4>Label</h4>
-                             <span class="text-muted">Something else</span>
-                         </div>
-                         <div class="col-xs-6 col-sm-3 placeholder">
-                             <img data-src="holder.js/200x200/auto/sky" class="img-responsive"  src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxkZWZzLz48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzBEOEZEQiIvPjxnPjx0ZXh0IHg9Ijc0LjA0Njg3NSIgeT0iMTAwIiBzdHlsZT0iZmlsbDojRkZGRkZGO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQ7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MjAweDIwMDwvdGV4dD48L2c+PC9zdmc+" data-holder-rendered="true">
-                             <h4>Label</h4>
-                             <span class="text-muted">Something else</span>
-                         </div>-->
+                                <label><strong> Volume </strong></label>
+                                <input id="volume" name="volume"style="width: 40px;"><br>
+                                <label><strong> Book </strong></label>
+                                <input id="book" name="book" ><br>
+                                <label><strong> Year </strong></label>
+                                <input list="year" name="year">
+                                <!--maybe add a calendar box instead of separate inputs -->
+                                <datalist id = "year">
+                                    <option value  = "2015" >2015</option>
+                                    <option value  = "2014" >2014</option>
+                                    <option value  = "2013" >2013</option>
+                                    <option value  = "2012" >2012</option>
+                                    <option value  = "2011" >2011</option>
+                                    <option value  = "2010" >2010</option> </datalist>
+                                <label> <strong> Month </strong></label>
+                                <input list="month" name="month">
+                                <datalist id = "month">
+                                    <option value  = "January" >January</option>
+                                    <option value  = "February" >February</option>
+                                    <option value  = "March" >March</option>
+                                    <option value  = "April" >April</option>
+                                    <option value  = "May" >May</option>
+                                    <option value  = "June" >June</option>
+                                    <option value  = "July" >July</option>
+                                    <option value  = "August" >August</option>
+                                    <option value  = "September" >September</option>
+                                    <option value  = "October" >October</option>
+                                    <option value  = "November" >November</option>
+                                    <option value  = "December" >December</option>
+                                </datalist>
+                                <label><strong> Day </strong></label>
+                                <input id="daybox" name="day"style="width: 40px;"><br>
+                                <label><strong> Pages </strong></label>
+                                <input id="pagesbox" name="pages" style="width: 40px;" > <br>
 
-                            </div>
+                                <p>
+                                    <button class="btn btn-primary" id = "addPaper" >Add Paper</button>
+                                </p>
+                            </table>
+                            <p>
+
+                            </p>
+
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 
@@ -152,54 +180,153 @@ SCRIPTS
 <!--note - correct app based on the distribution, comments removed by build-->
 
 <script>
-
-    $("#addPaper").click(function() {
-
-
-        var obj = [ ]
-
-        var myInput = document.getElementsByTagName("input")
-
-        for(var i = 3; i< myInput.length; i++)
-        {
-            obj.push('\"'+ myInput[i].name + '\": \"'+ myInput[i].value + '\"')
-
-        }
-        var paperObj  = '{'+ obj +'}';
-
-        alert(paperObj);
-
-        Clotho.create(JSON.parse(paperObj)).then(function(result){
-            alert(JSON.stringify(result));
-        });
-
-
-    });
+    // get login
 
 
 
 </script>
 
-<!--<script>
-    $("addPaperform").click(function(){
 
-        myVar = false;
-        toggle = function() {
-            myVar = true;
-        };
+
+
+<script>
+
+    $("#addButton").click(function(){
+        //  alert("addButton Clicked")
+        document.getElementById("theInputs").style.visibility = "visible";
     });
 
-</script>-->
+</script>
+
+
+<script>
+    var personID = "clotho.developer.klefort";
+    document.getElementById("theInputs").style.visibility = "hidden";
+    $("#addPaper").click(function() {
+        //alert("button clicked")
+        var obj = [ ];
+        var myInput = document.getElementsByTagName("input");
+
+        for(var i = 0; i< myInput.length; i++)
+        {
+            obj.push('\"'+ myInput[i].name + '\": \"'+ myInput[i].value + '\"')
+
+        }
+        //alert(obj)
+       // var paperObj  = '{'+ obj +'}';
+ var paperObj = '{' + obj + "schema" : "org.clothocad.model.Papers" +'}';
+        alert(paperObj);
+
+        Clotho.create(JSON.parse(paperObj)).then(function(result){
+            //alert(JSON.stringify(result));
+            Clotho.get(personID).then(function(personObj) {
+               // personObj.papers = personObj.papers.push(result);
+               // personObj.papers[personObj.papers.length]= result
+              //alert(result.id)
+                //alert(result)
+                alert(JSON.stringify(result))
+                //alert(JSON.stringify(personObj.papers))
+               // alert(result)
+                //alert(JSON.stringify(result))
+                personObj.papers.push(result)
+                //alert(personObj.papers)
+                //alert(personObj.papers + JSON.parse(result))
+                //personObj.papers = personObj.papers + JSON.parse(result)
+
+               // alert(personObj.papers)
+               Clotho.set(personObj)
+
+
+            })
+        });
+    });
+</script>
+
+
+
+
+<script>
+    $(document).ready(function() {
+        {
+//var check = "4309"
+  //          alert("<td> <a href = 'http://www.ncbi.nlm.nih.gov/pubmed/"+check +"'>PUBMEDID</a>")
+            var personID = "clotho.developer.klefort";
+            var notNullArray = [];
+            Clotho.get(personID).then(function (personObj) {
+
+                document.getElementById("profileName").innerHTML = personObj.name;
+       // document.getElementById("profilePicture").innerHTML = 'src=\"/images/people/'+ personObj.picture + '\" style=\"margin-top:-130px; padding:3px; background-color:#fff; border:1px solid #000;\">'
+                Clotho.get(personObj.papers).then(function (paperObj) {
+                    //alert(paperObj.length)
+
+                    if (paperObj.length == null)// when there is only paper the parObj changes from
+                    {
+
+                        var paperCite1 = '';
+
+                        paperCite1 = paperCite1.concat(paperObj.title, paperObj.author, paperObj.journal);
+                        $('#keyValueForm').append("<tr style='margin-top: 10px; width:400px '> <td> <div  style='margin-bottom: 10px;'>" +
+                        "<p>" + paperCite1 + "</p></div> </td>" + "<td> <a href = '> PUBMEDID </a> </td>"+  "<td> <button onclick= 'deletePaper(" + JSON.stringify(paperObj) + ")' class='btn btn-primary'" + " >x</button >" +
+                        "</td>" + "</tr>")
+                    }
+                    else {
+                        for (var i = 0; i < paperObj.length; i++) {
+                            // alert("here")
+                            if (paperObj[i] == null) {
+
+                                personObj.papers[i] = [];
+                            }
+                            else {
+            //alert(paperObj[i].pubmedid)
+                                notNullArray.push(i);
+
+                                var paperCite = '';
+                                var myObj = paperObj[i];
+                               // alert(myObj)
+                               // alert(JSON.stringify(paperObj[i]))
+                                paperCite = paperCite.concat(paperObj[i].title, paperObj[i].author, paperObj[i].journal);
+                                $('#keyValueForm').append("<tr style='margin-top: 10px;'> <td> <div  style='margin-bottom: 10px;'>" +
+                                "<p>" + paperCite + "</p></div> </td>" + "<td> <a href = 'http://www.ncbi.nlm.nih.gov/pubmed/" + paperObj[i].pubmedid + "'> PUBMEDID </a> </td>"+ "<td> <button onclick= 'deletePaper(" + JSON.stringify(myObj) + ")' class='btn btn-primary'" + " >x</button >" +
+                                "</td>" + "</tr>");
+                            }
+                        }
+                    }
+
+                })
+                Clotho.set(personObj);
+               /* Clotho.get(personID).then(function (personObj) {
+
+                    //alert(JSON.stringify(personObj.papers));
+                    personObj.papers = [personObj.papers[notNullArray]];
+                    Clotho.set(personObj)
+                })*/
+            });
+        }
+    })
+</script>
+
+
+<script>
+    function deletePaper(myObj){
+
+        Clotho.destroy(myObj.id)
+
+    };
+
+
+</script>
+
+
 
 <script src="scripts/b18fc8c8.clotho-app-command.js"></script>
 
 <script src="scripts/c0f113c2.clotho-core-module.js"></script>
 
+
+
 <!--note - remove all scripts below this for api-only build-->
 
 <script src="scripts/c2a11f43.clotho-foundation-module.js"></script>
-
-
 <script src="scripts/68a2b2df.clotho-command-module.js"></script>
 
 <!-- our custom app files -->
@@ -212,4 +339,11 @@ SCRIPTS
 
 
 </body>
+<!--
+ {"id":"clotho.developer.katielewis1","name":"Katie Lewis","schema":"org.clothocad.model.PersonalProfile","institution":"Boston University","lab":"CIDAR","position":"Undergraduate","permission":"basic", "username":"kmlewis","projects":[{"schema":"org.clothocad.model.Projects","name":"iGEM","projectLead":"Traci Haddock","Lab":"CIDAR","PI":"Doug Densmore","description":"This is a cool project","advisor":"Evan Appleton"}],"orders":[], "papers":[]}
+
+
+{"institution":"Boston University","lab":"CIDAR","name":"Kara Le Fort","orders":[],"papers":[],"permission":"basic","position":"Undergraduate","projects":[{"schema":"org.clothocad.model.Projects","name":"iGEM","projectLead":"Prashant","Lab":"CIDAR","PI":"Doug Densmore",,"advisor":"Prashant V"}],"schema":"org.clothocad.model.PersonalProfile","username":"klefort","id":"clotho.developer.karalefort"}
+
+-->
 </html>
