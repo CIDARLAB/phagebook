@@ -249,6 +249,18 @@
                 return socket.emit("grant", {"user":user, "id":id, "add":add, "remove":remove});
             else
                 return socket.emit("grantAll", {"user":user, "id":id, "add":add, "remove":remove});
+        },
+        /**
+         * Clotho.autocomplete
+         * Return autocompleted objects
+         * @param {string}
+        */
+        autocomplete: function(substring,options){
+            if((substring!="") && (substring!= undefined))
+            {
+                autocompleteString = {"query":substring};
+                return socket.emit("autocomplete",autocompleteString,options);
+            }
         }
     };
 }(Clotho = window.Clotho || {}));

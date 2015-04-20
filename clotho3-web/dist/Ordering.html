@@ -84,8 +84,8 @@
           <ul class = "navigation">
             <li class = "navigationBar"><a href>About</a></li>
             <li class = "navigationBar"><a href=Ordering.html>Orders</a></li>
-            <li class = "navigationBar"><a href=Companies.html>Companies</a></li>
-            <li class = "navigationBar"><a href>Items</a></li>
+            <li class = "navigationBar"><a href=Vendors.html>Vendors</a></li>
+            <li class = "navigationBar"><a href=Items.html>Items</a></li>
             <li class = "navigationBar"><a href>Stats</a></li>
           </ul>
 
@@ -94,95 +94,94 @@
 
         <div class = "line"></div>
 
-        <br> <div id = "createOrdering" style = "display: none">
-        <ng-form class="form-horizontal" name = "orderingForm" ng-class="{'has-error' : projectForm.name.$dirty && projectForm.name.$invalid}">
+        <br> <div id = "CreateNewOrder" style = "display: none">
+        <ng-form class="form-horizontal" name = "orderingForm" ng-class="{'has-error' : projectForm.name.$dirty && orderingForm.name.$invalid}">
 
-        <h1>Create New Order</h1>
-        <label>User Name</label><br>
-        <input id="user" type="text"><br><br>
-        <label>Order ID</label><br>
-        <input id="orderID" type="text"><br><br>
-        <label>Amount</label><br>
-        <input id="amount" type="text"><br><br>
-        <button id = "create" class="btn btn-primary" >Create</button><br>
+            <h1>Create New Order</h1>
+            <label>Name*</label><br>
+            <input id="name" type="text"><br><br>
+            <label>Project*</label><br>
+            <input id="project" type="text"><br><br>
+
+            <button id = "NextButton" class="btn btn-primary" >Next</button><br>
         </ng-form>
 
         </div> 
 
+            <div id = "New">
+               <button type="button" id = "CreateNewOrderButton"> New Order</button>
+               <br>
+               <br>
 
-          <div id = "New">   
-        
+               <label>Search for Order</label>
+               <input id="itemSearch" type="text" onkeypress="itemAutocomplete()">
 
+               <br><br>
 
-          <button type="button" id = "CreateButton"> New Order</button>
+               <table id = "tableOrders">
+                   <tr>
+                       <th>Name</th>
+                       <th>Project</th>
+                       <th>Vendor</th>
+                       <th>Item</th>
+                   </tr>
+               </table>
 
-          <div id = "inProgress">
-          <h3> In Progress</h3>
+               <br>
+               <div class = "pages">
 
+                   <ul class = "pages">
 
-              <table id = "tableInProgress">
+                       <li class = "pages"><a href> < previous </a></li>
 
-              <tr> 
-                <th id = "user_table">User</th>
-                <th id = "orderID_table">Order ID</th>
-                <th>Amount</th>
-                <th>Date</th>
-                <th></th>
-              </tr>
-              </table>
-      
-          </div>
+                       <li class = "pages"><a href> 1</a></li>
 
+                       <li class = "pages"><a href> 2</a></li>
 
-             <div id = "submitted">
-              <h3> Submitted</h3>
+                       <li class = "pages"><a href> 3</a></li>
 
-             <table id = "tableSubmitted">
+                       <li class = "pages"><a href> 4</a></li>
 
-              <tr> 
-                <th>User</th>
-                <th>Order ID</th>
-                <th>Amount</th>
-                <th>Date</th>
-                <th></th>
-              </tr>
+                       <li class = "pages"><a href> 5</a></li>
 
-              
+                       <li class = "pages"><a href> 6</a></li>
 
+                       <li class = "pages"><a href> next ></a></li>
+                   </ul>
+               </div>
 
-              </table>
+           </div>
 
-      <br>
-    
-
-<br>
-      <div class = "pages"> 
-
-          <ul class = "pages">
-
-            <li class = "pages"><a href> < previous </a></li>
-
-            <li class = "pages"><a href> 1</a></li>
-
-           <li class = "pages"><a href> 2</a></li>
-
-           <li class = "pages"><a href> 3</a></li>
-
-           <li class = "pages"><a href> 4</a></li>
-
-           <li class = "pages"><a href> 5</a></li>
-
-           <li class = "pages"><a href> 6</a></li>
-
-            <li class = "pages"><a href> next ></a></li>
+           <div id = "NextStep" style = "display: none">
 
 
-       </div>
-       </div>
+               <ng-form class="form-horizontal" name = "orderingForm" ng-class="{'has-error' : projectForm.name.$dirty && orderingForm.name.$invalid}">
 
-        </div>
+                   <h1>Create New Order</h1>
+                   <label>Vendor*</label><br>
+                   <input id="vendor" type="text"><br><br>
+                   <label>Item*</label><br>
+                   <input id="item" type="text"><br><br>
 
-        
+                   <button id = "Add" class="btn btn-primary" >+</button><br>
+               </ng-form>
+
+           </div>
+
+           <div id = "OrderList" style = "display: none">
+
+               <table id = "Orders">
+                   <tr>
+                       <th>Vendor</th>
+                       <th>Item</th>
+                   </tr>
+               </table>
+
+               <br>
+               <button id = "Add1" class="btn btn-primary" >+</button><br>
+               <button id = "Done" class="btn btn-primary" >Submit</button><br>
+
+           </div>
 
        </div>
 
@@ -194,154 +193,154 @@
 
 
 
-
-
 <script src="scripts/b18fc8c8.clotho-app-command.js"></script>
 <script src="scripts/c0f113c2.clotho-core-module.js"></script>
 <!--note - remove all scripts below this for api-only build-->
 <script src="scripts/c2a11f43.clotho-foundation-module.js"></script>
 <script src="scripts/68a2b2df.clotho-command-module.js"></script>
-
+<!-- our custom app files -->
+<script src="scripts/ordering/ordering-app.js"></script>
+<script src="scripts/ordering/basicAPI.js"></script>
+<script src="scripts/ordering/trackingOrdering.js"></script>
+<script src="scripts/ordering/orderingCtrl.js"></script>
 
 <script>
 
-$(document).ready(function(){
-        $("#CreateButton").click(function(){
-           var id = document.getElementById("New");
-           var secondID = document.getElementById("createOrdering");
+    $(document).ready(function(){
+        $("#CreateNewOrderButton").click(function(){
+            var id = document.getElementById("New");
+            var secondID = document.getElementById("CreateNewOrder");
             id.style.display='none';
             secondID.style.display = 'block';
         });
     });
 
-
-$(document).ready(function(){
-
-  $("#create").click(function(){
-    var str = '{';
-    var id = '"' + "clotho.developer." + document.getElementById("orderID").value.toLowerCase() + '"';
-    var firstObj = str.concat('"' + "user" + '"'+":" + '"'+document.getElementById("user").value.toLowerCase() + '","', "id" + '"'+":" + '"'+document.getElementById("orderID").value + '","',
-      "amount" + '"'+":" + '"'+document.getElementById("amount").value.toLowerCase() + '","', "orderStatus" + '"'+":" + '"'+ "created" + '"}');
-
-    //alert(firstObj);
-    //alert("Your order with id " + document.getElementById("orderID").value + " has been created");
-    var orderObj = JSON.parse(firstObj);
-
-    var n_in = 1;
-    n_in = Number(n_in) + 1;
-    sessionStorage.n_keys = n_in;
-    var time = new Date().getDay();
-    //var date = new Date(time);
-    var date = "Now";
-    
-    
-    Clotho.create(orderObj).then(function(orderID){
-
-      //alert("Order with id " + orderID + " has been created");
-      $('#tableInProgress').append("<tr style='margin-top: 10px;'> <td> <div class='form-group' style='margin-bottom: 10px;'>"+
-        "<label class='sr-only' for='key"+n_in+ "' >Key:</label>" + JSON.stringify(orderObj.user) + "</div> </td>" + 
-        "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key"+n_in+ "' >Key:</label>" + 
-        JSON.stringify(orderObj.id) + "</div> </td>" + 
-        "<td> <div class='form-group' style='margin-bottom: 10px;'>"+
-        "<label class='sr-only' for='key"+n_in+ "' >Key:</label>" +
-        JSON.stringify(orderObj.amount) + "</div> </td>" + 
-        "<td> <div class='form-group' style='margin-bottom: 10px;'>"+
-        "<label class='sr-only' for='key"+n_in+ "' >Key:</label>" +
-        date.toString() + "</div> </td>" + 
-        "<td> <div class='form-group' style='margin-bottom: 10px;'> <button type='button' id = 'CreateButton' onclick = updateOrder("+JSON.stringify(orderObj.id)+")> Submit </button></div>"  + 
-
-     "</tr>");
-      Clotho.get("clotho.developer.katielewis1").then(function(personObj){
-          personObj.orders[personObj.orders.length] = orderObj.id;
-          Clotho.set(personObj);
-      });
+    $(document).ready(function(){
+        $("#NextButton").click(function(){
+            if ((document.getElementById("name").value == "") ||
+                    (document.getElementById("project").value == ""))
+            {
+                alert("Please fill out all required fields");
+                document.getElementById("CreateNewOrder").style.display = 'block';
+                document.getElementById("NextStep").style.display = 'none';
+            }
+            else
+            {
+                document.getElementById("CreateNewOrder").style.display='none';
+                document.getElementById("NextStep").style.display = 'block';
+            }
+        });
     });
 
-    document.getElementById("createOrdering").style.display = "none";
-    document.getElementById("New").style.display = "block";
+    $(document).ready(function(){
+        $("#Add").click(function(){
+            if ((document.getElementById("vendor").value == "") ||
+                    (document.getElementById("item").value == ""))
+            {
+                alert("Please fill out all required fields");
+                document.getElementById("NextStep").style.display = 'block';
+                document.getElementById("OrderList").style.display = 'none';
+            }
+            else
+            {
+                document.getElementById("NextStep").style.display='none';
+                document.getElementById("OrderList").style.display = 'block';
 
-  });
+                var vendor = document.getElementById("vendor").value;
+                var item = document.getElementById("item").value;
 
-});
+                var n_in = 1;
+                n_in = Number(n_in) + 1;
+                sessionStorage.n_keys = n_in;
 
-function updateOrder(order_id){
+                $('#Orders').append("<tr style='margin-top: 10px;'>" +
+                "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
+                + "' >Key:</label>" + vendor + "</div> </td>" +
+                "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
+                + "' >Key:</label>" + item + "</div> </td>" +"</tr>");
 
-  Clotho.get(order_id).then(function(orderObj){
-    orderObj.orderStatus = "submitted";
-    Clotho.set(orderObj).then(function(setResult){
-       //load();
-      //alert(orderObj.orderStatus);
-    });   
-  });
-}
+                var name = document.getElementById("name").value;
+                var project = document.getElementById("project").value;
+                var vendor = document.getElementById("vendor").value;
+                var item = document.getElementById("item").value;
 
-function load(){
+                var str = '{';
+                var firstObj = str.concat(
+                        '"' + "name" + '"' + ":" + '"' + document.getElementById("name").value
+                        + '","project":' + '"' + document.getElementById("project").value
+                        + '","vendor":' + '"' + document.getElementById("vendor").value
+                        + '","item":' + '"' + document.getElementById("item").value
+                        + '","schema":"org.clothocad.phagebook.order"}');
 
-    var n_in = 1;
-    n_in = Number(n_in) + 1;
-    sessionStorage.n_keys = n_in;
-    var time = new Date().getTime();
-    //var date = new Date(time);
-    var date = "Now";
+                var Obj = JSON.parse(firstObj);
+                var n_in = 1;
+                n_in = Number(n_in) + 1;
+                sessionStorage.n_keys = n_in;
+                Clotho.create(Obj);
 
-    //$('#tableInProgress').remove();
-      
-    Clotho.get("clotho.developer.katielewis1").then(function(personObj){
-  for (var i = 0; i < personObj.orders.length; i++)
-  {
+                $('#tableOrders').append("<tr style='margin-top: 10px;'>" +
+                "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
+                + "' >Key:</label>" + Obj.name + "</div> </td>" +
+                "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
+                + "' >Key:</label>" + Obj.project + "</div> </td>" +
+                "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
+                + "' >Key:</label>" + Obj.vendor + "</div> </td>" +
+                "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
+                + "' >Key:</label>" + Obj.item + "</div> </td>" +"</tr>");
 
-    //alert(JSON.stringify(personObj.orders[i].user));
-    //alert(JSON.stringify(personObj.orders[i]));
-    Clotho.get(personObj.orders[i]).then(function(orderResult){
-      if (orderResult.orderStatus == "created")
-    {
 
-    $('#tableInProgress').append("<tr style='margin-top: 10px;'> <td> <div class='form-group' style='margin-bottom: 10px;'>"+
-    "<label class='sr-only' for='key"+n_in+ "' >Key:</label>" +
-    JSON.stringify(orderResult.user) + "</div> </td>" +
-     "<td> <div class='form-group' style='margin-bottom: 10px;'>"+
-    "<label class='sr-only' for='key"+n_in+ "' >Key:</label>" +
-     JSON.stringify(orderResult.id) + "</div> </td>" + 
-     "<td> <div class='form-group' style='margin-bottom: 10px;'>"+
-    "<label class='sr-only' for='key"+n_in+ "' >Key:</label>" +
-     JSON.stringify(orderResult.amount) + "</div> </td>" + 
-    "<td> <div class='form-group' style='margin-bottom: 10px;'>"+
-    "<label class='sr-only' for='key"+n_in+ "' >Key:</label>" +
-     date.toString() + "</div> </td>" + 
-     "<td> <div class='form-group' style='margin-bottom: 10px;'> <button type='button' id = 'CreateButton' onclick = updateOrder("+JSON.stringify(orderResult.id)+")> Submit </button></div>"  +
-    "</tr>");
-    }
-
-    if (orderResult.orderStatus == "submitted")
-    {
-
-    $('#tableSubmitted').append("<tr style='margin-top: 10px;'> <td> <div class='form-group' style='margin-bottom: 10px;'>"+
-    "<label class='sr-only' for='key"+n_in+ "' >Key:</label>" +
-    JSON.stringify(orderResult.user) + "</div> </td>" +
-     "<td> <div class='form-group' style='margin-bottom: 10px;'>"+
-    "<label class='sr-only' for='key"+n_in+ "' >Key:</label>" +
-     JSON.stringify(orderResult.id) + "</div> </td>" + 
-     "<td> <div class='form-group' style='margin-bottom: 10px;'>"+
-    "<label class='sr-only' for='key"+n_in+ "' >Key:</label>" +
-     JSON.stringify(orderResult.amount) + "</div> </td>" + 
-    "<td> <div class='form-group' style='margin-bottom: 10px;'>"+
-    "<label class='sr-only' for='key"+n_in+ "' >Key:</label>" +
-     date.toString() + "</div> </td>" + 
-    "</tr>");
-    }
-    
+            }
+        });
     });
-    
 
-    
-  }
 
-});
-}
+    $(document).ready(function(){
+        $("#Add1").click(function() {
+
+            if (document.getElementById("OrderList").style.display = 'block')
+            {
+                document.getElementById("NextStep").style.display = 'block';
+                document.getElementById("OrderList").style.display = 'none';
+
+            }
+        });
+    });
+
+    $(document).ready(function(){
+        $("#Done").click(function() {
+            alert("Are you sure you want to submit your order?");
+        document.getElementById("New").style.display = 'block';
+        document.getElementById("OrderList").style.display = 'none';
+        });
+    });
+
+
+    function load(){
+        var n_in = 1;
+        n_in = Number(n_in) + 1;
+        sessionStorage.n_keys = n_in;
+        //var vendorName;
+        Clotho.query({"schema":"org.clothocad.phagebook.order"}).then(function(orderList){
+
+            for(var i=0;i<orderList.length;i++){
+
+
+                $('#tableOrders').append("<tr style='margin-top: 10px;'> " +
+                "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key"+n_in
+                + "' >Key:</label>" + orderList[i].name + "</div> </td>" +
+                "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key"+n_in
+                + "' >Key:</label>" + orderList[i].project + "</div> </td>" +
+                "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key"+n_in
+                + "' >Key:</label>" + orderList[i].vendor + "</div> </td>" +
+                "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key"+n_in
+                + "' >Key:</label>" + orderList[i].item + "</div> </td>" + "</tr>");
+
+            }
+        });
+    }
+
 
 </script>
-
-
 
 <!-- our custom app files -->
 <script src="scripts/ordering/ordering-app.js"></script>

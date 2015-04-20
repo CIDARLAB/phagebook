@@ -206,10 +206,25 @@ text-align: center;
 	border:1px solid #66A366;
 	width: 625px;
 }
-.tableCompanies
+#tableVendors
 {
 	border:1px solid #66A366;
 	width: 625px;
+}
+#tableOrders
+{
+    border:1px solid #66A366;
+    width: 625px;
+}
+#tableItems
+{
+    border:1px solid #66A366;
+    width: 625px;
+}
+#Orders
+{
+    border:1px solid #66A366;
+    width: 625px;
 }
 
 .navigation
