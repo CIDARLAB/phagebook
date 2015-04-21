@@ -100,7 +100,7 @@
 
                         <br>
                         <br>
-                        <div id = "theInputs">
+                        <div id = "theInputs" style='margin-left: 40px'>
                             <table>
                                 <label> <strong> PUBMEDID </strong></label>
                                 <input id = "pubmedid" name = "pubmedid" style = "width: 400px;"> <br>
@@ -168,8 +168,8 @@
             </div>
         </div>
     </div>
-</div>
-</div>
+
+
 
 
 
@@ -178,14 +178,6 @@ SCRIPTS
 --------->
 
 <!--note - correct app based on the distribution, comments removed by build-->
-
-<script>
-    // get login
-
-
-
-</script>
-
 
 
 
@@ -200,41 +192,26 @@ SCRIPTS
 
 
 <script>
-    var personID = "clotho.developer.klefort";
-    document.getElementById("theInputs").style.visibility = "hidden";
     $("#addPaper").click(function() {
+        var personID = "clotho.developer.klefort";
+        document.getElementById("theInputs").style.visibility = "hidden";
         //alert("button clicked")
         var obj = [ ];
         var myInput = document.getElementsByTagName("input");
-
         for(var i = 0; i< myInput.length; i++)
         {
-            obj.push('\"'+ myInput[i].name + '\": \"'+ myInput[i].value + '\"')
+            obj.push('\"'+ myInput[i].name + '\": \"'+ myInput[i].value + '\"');
 
         }
         //alert(obj)
        // var paperObj  = '{'+ obj +'}';
- var paperObj = '{' + obj + "schema" : "org.clothocad.model.Papers" +'}';
+ var paperObj = '{' + obj + ', \"schema\":' + '\"org.clothocad.model.Papers\"' +'}';
         alert(paperObj);
-
         Clotho.create(JSON.parse(paperObj)).then(function(result){
-            //alert(JSON.stringify(result));
             Clotho.get(personID).then(function(personObj) {
-               // personObj.papers = personObj.papers.push(result);
-               // personObj.papers[personObj.papers.length]= result
-              //alert(result.id)
-                //alert(result)
-                alert(JSON.stringify(result))
-                //alert(JSON.stringify(personObj.papers))
-               // alert(result)
                 //alert(JSON.stringify(result))
-                personObj.papers.push(result)
-                //alert(personObj.papers)
-                //alert(personObj.papers + JSON.parse(result))
-                //personObj.papers = personObj.papers + JSON.parse(result)
-
-               // alert(personObj.papers)
-               Clotho.set(personObj)
+                personObj.papers.push(result);
+                Clotho.set(personObj);
 
 
             })
@@ -248,22 +225,18 @@ SCRIPTS
 <script>
     $(document).ready(function() {
         {
-//var check = "4309"
-  //          alert("<td> <a href = 'http://www.ncbi.nlm.nih.gov/pubmed/"+check +"'>PUBMEDID</a>")
-            var personID = "clotho.developer.klefort";
-            var notNullArray = [];
-            Clotho.get(personID).then(function (personObj) {
 
+            var personID = "clotho.developer.karalefort";
+            var notNullArray = [];
+            document.getElementById("theInputs").style.visibility = "hidden";
+            Clotho.get(personID).then(function (personObj) {
                 document.getElementById("profileName").innerHTML = personObj.name;
-       // document.getElementById("profilePicture").innerHTML = 'src=\"/images/people/'+ personObj.picture + '\" style=\"margin-top:-130px; padding:3px; background-color:#fff; border:1px solid #000;\">'
+                // document.getElementById("profilePicture").innerHTML = 'src=\"/images/people/'+ personObj.picture + '\" style=\"margin-top:-130px; padding:3px; background-color:#fff; border:1px solid #000;\">'
                 Clotho.get(personObj.papers).then(function (paperObj) {
                     //alert(paperObj.length)
-
                     if (paperObj.length == null)// when there is only paper the parObj changes from
                     {
-
                         var paperCite1 = '';
-
                         paperCite1 = paperCite1.concat(paperObj.title, paperObj.author, paperObj.journal);
                         $('#keyValueForm').append("<tr style='margin-top: 10px; width:400px '> <td> <div  style='margin-bottom: 10px;'>" +
                         "<p>" + paperCite1 + "</p></div> </td>" + "<td> <a href = '> PUBMEDID </a> </td>"+  "<td> <button onclick= 'deletePaper(" + JSON.stringify(paperObj) + ")' class='btn btn-primary'" + " >x</button >" +
@@ -273,13 +246,11 @@ SCRIPTS
                         for (var i = 0; i < paperObj.length; i++) {
                             // alert("here")
                             if (paperObj[i] == null) {
-
                                 personObj.papers[i] = [];
                             }
                             else {
-            //alert(paperObj[i].pubmedid)
+                                //alert(paperObj[i].pubmedid)
                                 notNullArray.push(i);
-
                                 var paperCite = '';
                                 var myObj = paperObj[i];
                                // alert(myObj)
@@ -292,14 +263,8 @@ SCRIPTS
                         }
                     }
 
-                })
+                });
                 Clotho.set(personObj);
-               /* Clotho.get(personID).then(function (personObj) {
-
-                    //alert(JSON.stringify(personObj.papers));
-                    personObj.papers = [personObj.papers[notNullArray]];
-                    Clotho.set(personObj)
-                })*/
             });
         }
     })
@@ -335,7 +300,7 @@ SCRIPTS
 <script src="scripts/Tracking.js"></script>
 <script src="scripts/orderingCtrl.js"></script>
 <script src="scripts/clotho3API.js"></script>
-<script src = "scripts/addPaper.js"></script>
+
 
 
 </body>
@@ -343,7 +308,6 @@ SCRIPTS
  {"id":"clotho.developer.katielewis1","name":"Katie Lewis","schema":"org.clothocad.model.PersonalProfile","institution":"Boston University","lab":"CIDAR","position":"Undergraduate","permission":"basic", "username":"kmlewis","projects":[{"schema":"org.clothocad.model.Projects","name":"iGEM","projectLead":"Traci Haddock","Lab":"CIDAR","PI":"Doug Densmore","description":"This is a cool project","advisor":"Evan Appleton"}],"orders":[], "papers":[]}
 
 
-{"institution":"Boston University","lab":"CIDAR","name":"Kara Le Fort","orders":[],"papers":[],"permission":"basic","position":"Undergraduate","projects":[{"schema":"org.clothocad.model.Projects","name":"iGEM","projectLead":"Prashant","Lab":"CIDAR","PI":"Doug Densmore",,"advisor":"Prashant V"}],"schema":"org.clothocad.model.PersonalProfile","username":"klefort","id":"clotho.developer.karalefort"}
-
+{"institution" : "Boston University", "lab" : "CIDAR", "name" : "Kara Le Fort" , "orders":[],"papers":[],"permission":"basic","position":"Undergraduate","projects":[{"schema":"org.clothocad.model.Projects","name":"iGEM","projectLead":"Prashant","Lab":"CIDAR","PI":"Doug Densmore","advisor":"Prashant V"}], "schema" : "org.clothocad.model.PersonalProfile", "username":"klefort","id":"clotho.developer.karalefort", "statuses": []}
 -->
 </html>

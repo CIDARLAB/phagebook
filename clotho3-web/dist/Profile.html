@@ -21,7 +21,9 @@
     <!-- note that lodash is required by several components -->
     <script src="bower_components/lodash/dist/lodash.js"></script>
 
-
+    <script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
 
     <style>
         #profileName
@@ -76,7 +78,7 @@
                         <br>
                         <br>
         <ng-form id = "inputStatus">
-    <input id = "newStatus" name = "statusText" style = "width: 400px">
+    <input id = "newStatus" name = "newStatus" style = "width: 400px">
     <button style = "margin-left: 400px" id = "createStatus" class="btn btn-primary" >Create</button><br>
 </ng-form>
                         <table id="keyValueForm" class="form-inline " style='margin-bottom: 10px;width:700px' role="form">
@@ -168,7 +170,7 @@ SCRIPTS
 <!--note - correct app based on the distribution, comments removed by build-->
 <script type = "text/javascript">
     $(document).ready(function() {
-        var personID = "clotho.developer.klefort";
+        var personID = "clotho.developer.karalefort";
         $("#createStatus").click(function () {
             //alert("createStatus")
             timeStamp = Date.now();
@@ -180,74 +182,73 @@ SCRIPTS
             alert(obj);
             alert(StatusObj);
             Clotho.create(obj).then(function(result){
-                alert(JSON.stringify(result));
 
                 Clotho.get(personID).then(function(personObj) {
-                    alert(personObj);
+
                     personObj.statuses.push(result);
-                    //personObj.statues[personObj.statuses.length] = result;
-                   // Clotho.set(personObj);
+
+                   Clotho.set(personObj);
             })
          });
         });
     })
-
-
-
 </script>
 
-<script type= "text/javascript">
-    $(document).ready(function(){
+<!--<script type= "text/javascript">
+    /*$(document).ready(function(){
         {
             //alert('load page')
             var personID = "clotho.developer.klefort";
-            //alert(personID)//
+            alert(personID)
             Clotho.get(personID).then(function (personObj){
             alert(personObj.name)
             document.getElementById("profileName").innerHTML = personObj.name;
             });
         }
-    })
-</script>
+    })*/
+</script>-->
 
 <script type  = text/javascript>
 $(document).ready(function() {
     {
-        alert('hey');
-        var personID = "clotho.developer.klefort";
+        //alert('hey');
+        var personID = "clotho.developer.karalefort";
+        //alert('here');
+        var statusObj;
         var notNullArray = [];
         Clotho.get(personID).then(function (personObj) {
-
-            alert(personObj);
+           //alert(personObj.name);
             document.getElementById("profileName").innerHTML = personObj.name;
-            Clotho.get(personObj.statuses.then(function (statusObj) {
-                if (statuses.length == null) {
-                //something
+            Clotho.get(personObj.statuses).then(function(statusObj) {
+                alert(personObj.statuses);
+                if (personObj.statuses.length == null) {
+
                  }
                 else
                     {
                         for (var i = 0; i < statusObj.length; i++) {
-                            // alert("here")
+                             alert(statusObj.length);
                             if (statusObj[i] == null) {
                                 personObj.statuses[i] = [];
+
                             }
-                            else {
-                                //alert(paperObj[i].pubmedid)
+                           else {
+
                                 notNullArray.push(i);
                                 var paperCite = '';
                                 var newStatus = statusObj[i];
-                                $('#keyValueForm').append("<tr style='margin-top: 10px;'> <td> <div  style='margin-bottom: 10px;'>" +
-                                "<p>" + newStatus.text + "</p></div> </td> <td>" + newStatus.timestamp + "</td> < td > < button onclick = 'deletePaper(" + JSON.stringify(statusObj) + ") ' class= 'btn btn-primary'" + " > x </button></td></tr>");
+                                $('#keyValueForm').append("<tr style='margin-top: 10px;'> <td>"  + "<p>" + newStatus.text + "</p></td> <td>" + newStatus.timestamp + "</td> < td > < button onclick = 'deletePaper(" + JSON.stringify(statusObj) + ") ' class= 'btn btn-primary'" + "> x </button></td></tr>");
                             }
                             Clotho.set(personObj)
 
                         }
 
                 }
-            }))
-        })
+            }
+            );
+        });
     }
-})
+});
 </script>
 
 
