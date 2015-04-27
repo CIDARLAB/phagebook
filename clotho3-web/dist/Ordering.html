@@ -127,6 +127,11 @@
                    </tr>
                </table>
 
+
+                <br>
+                <a href="#" id="makeCSV">Export Table data into Excel</a>
+                <br>
+
                <br>
                <div class = "pages">
 
@@ -206,6 +211,46 @@
 
 <script>
 
+    $(document).ready(function() {
+        function TableToCSV($table, filename) {
+            var $rows = $table.find('tr:has(td)');
+                    var tmpColDelim = String.fromCharCode(11);
+                    var tmpRowDelim = String.fromCharCode(0);
+                    var colDelim = '","';
+                    var rowDelim = '"\r\n"';
+
+                    var csv = '"' + $rows.map(function (i, row) {
+                                var $row = $(row),
+                                        $cols = $row.find('td');
+
+                                return $cols.map(function (j, col) {
+                                    var $col = $(col),
+                                            text = $col.text();
+
+                                    return text.replace('"', '""');
+                                }).get().join(tmpColDelim);
+                            }).get().join(tmpRowDelim)
+                                    .split(tmpRowDelim).join(rowDelim)
+                                    .split(tmpColDelim).join(colDelim) + '"';
+
+                    var csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(csv);
+
+            $(this)
+                    .attr({
+                        'download': filename,
+                        'href': csvData,
+                        'target': '_blank'
+                    });
+        }
+
+        $("#makeCSV").on('click',function (event){
+            TableToCSV.apply(this, [$('#tableOrders'),'Order.csv']);
+
+        });
+    });
+
+
+
     $(document).ready(function(){
         $("#CreateNewOrderButton").click(function(){
             var id = document.getElementById("New");
@@ -280,13 +325,13 @@
 
                 $('#tableOrders').append("<tr style='margin-top: 10px;'>" +
                 "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
-                + "' >Key:</label>" + Obj.name + "</div> </td>" +
+                + "' ></label>" + Obj.name + "</div> </td>" +
                 "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
-                + "' >Key:</label>" + Obj.project + "</div> </td>" +
+                + "' ></label>" + Obj.project + "</div> </td>" +
                 "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
-                + "' >Key:</label>" + Obj.vendor + "</div> </td>" +
+                + "' ></label>" + Obj.vendor + "</div> </td>" +
                 "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
-                + "' >Key:</label>" + Obj.item + "</div> </td>" +"</tr>");
+                + "' ></label>" + Obj.item + "</div> </td>" +"</tr>");
 
 
             }
@@ -327,13 +372,13 @@
 
                 $('#tableOrders').append("<tr style='margin-top: 10px;'> " +
                 "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key"+n_in
-                + "' >Key:</label>" + orderList[i].name + "</div> </td>" +
+                + "' ></label>" + orderList[i].name + "</div> </td>" +
                 "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key"+n_in
-                + "' >Key:</label>" + orderList[i].project + "</div> </td>" +
+                + "' ></label>" + orderList[i].project + "</div> </td>" +
                 "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key"+n_in
-                + "' >Key:</label>" + orderList[i].vendor + "</div> </td>" +
+                + "' ></label>" + orderList[i].vendor + "</div> </td>" +
                 "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key"+n_in
-                + "' >Key:</label>" + orderList[i].item + "</div> </td>" + "</tr>");
+                + "' ></label>" + orderList[i].item + "</div> </td>" + "</tr>");
 
             }
         });
