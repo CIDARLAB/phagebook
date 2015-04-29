@@ -213,29 +213,33 @@ SCRIPTS
 
 <script>
     function editEntry(){
-        personID = "clotho.developer.katielewis1";
+        personID = "clotho.developer.katielewis";
         var count = 0;
         var current = document.getElementById("entryGoesHere").innerText;
-        document.getElementById("entryGoesHere").contentEditable = "true";
-        document.getElementById("doneEditingEntry").style.visibility= "visible";
+
 //        alert(document.getElementById("entryGoesHere").contentEditable);
         Clotho.get(personID).then(function(result) {
-            for (var i = 0; i < result.notebookEntries.length; i++) {
-                Clotho.get(result.notebookEntries[i]).then(function (res) {
-                    if (current.trim() == res.entryText.trim()) {
+            if(result.notebookEntries.length > 0){
+                document.getElementById("entryGoesHere").contentEditable = "true";
+                document.getElementById("doneEditingEntry").style.visibility= "visible";
+                for (var i = 0; i < result.notebookEntries.length; i++) {
+                    Clotho.get(result.notebookEntries[i]).then(function (res) {
+                        if (current.trim() == res.entryText.trim()) {
                             document.getElementById("entryToChange").innerHTML = count;
 //                            alert(document.getElementById("entryToChange").innerHTML);
-                    };
-                    count++;
-                });
+                        };
+                        count++;
+                    });
+                }
+                ;
             }
-            ;
+
         });
     }
 </script>
 <script>
     function changeEntry() {
-        personID = "clotho.developer.katielewis1";
+        personID = "clotho.developer.katielewis";
         var count = document.getElementById("entryToChange").innerHTML;
 //        alert("hello");
 //        alert(count);
@@ -276,7 +280,7 @@ SCRIPTS
 <script>
     //Displays the next project notebook entry
     function nextEntry(){
-        personID = "clotho.developer.katielewis1";
+        personID = "clotho.developer.katielewis";
         var count = 0;
         var current = document.getElementById("entryGoesHere").innerText;
         Clotho.get(personID).then(function(result){
@@ -303,7 +307,7 @@ SCRIPTS
 <script>
     //Displays the previous notebook entry
     function prevEntry(){
-        personID = "clotho.developer.katielewis1";
+        personID = "clotho.developer.katielewis";
         var count = 0;
         var current = document.getElementById("entryGoesHere").innerText;
         Clotho.get(personID).then(function(result){
@@ -335,7 +339,7 @@ SCRIPTS
 
 <script>
     function searchEntries(){
-        personID = "clotho.developer.katielewis1";
+        personID = "clotho.developer.katielewis";
         var date = document.getElementById("searchDate");
         var keyword = document.getElementById("keywordInsert");
         var entryHere = document.getElementById("entryGoesHere");
@@ -425,7 +429,7 @@ SCRIPTS
 
 <script>
     function disp(){
-        personID = "clotho.developer.katielewis1";
+        personID = "clotho.developer.katielewis";
         Clotho.get(personID).then(function(personObj){
                 if(personObj.notebookEntries.length==0){
                     document.getElementById("entryGoesHere").innerText = "Create a Notebook Entry!";
@@ -487,7 +491,7 @@ SCRIPTS
         //How should I get the project ID for the project that the entry is in
         function createEntry(){
 //            alert(document.getElementById("file").files.length);
-            var personID = "clotho.developer.katielewis1";
+            var personID = "clotho.developer.katielewis";
 //            var len = document.getElementById("file").files.length;
             //var str = '{';
 //            var obj = str.concat('"schema":', '"org.clothocad.model.Notebook"',',"entryDate":','"',document.getElementById("entryDate").value, '"', ',"entryText":', '"', document.getElementById("textEntry").value, '"', ',"entryPics":[', '"', document.getElementById("entryPic").value,'",', '"', document.getElementById("entryPic1").value, '",', '"', document.getElementById("entryPic2").value, '"]', '}');
@@ -584,7 +588,7 @@ SCRIPTS
 <script>
    function displayProjects() {
        var personID = "clotho.developer.katielewis";
-       var loggedIn = "clotho.developer.douglasdensmore";
+       var loggedIn = "clotho.developer.katielewis";
        Clotho.get(personID).then(function (personObj) {
            var tableRef = document.getElementById("projTable");
            if (personObj.projects.length > 0) {
