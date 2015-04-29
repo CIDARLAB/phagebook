@@ -113,7 +113,8 @@
                <br>
                <br>
 
-               <label>Search for Order</label>
+               <label>Search for Order</label> <!--<br> <button type="button" id = "SearchOrdersButton"> Search </button>-->
+
                <input id="itemSearch" type="text" onkeypress="itemAutocomplete()">
 
                <br><br>
@@ -124,13 +125,16 @@
                        <th>Project</th>
                        <th>Vendor</th>
                        <th>Item</th>
+                       <th>Cost</th>
                    </tr>
                </table>
 
-
                 <br>
+                <p>Total cost: </p><input id="totCost" style="width:70px " type="text" disabled><br><br>
+
                 <a href="#" id="makeCSV">Export Table data into Excel</a>
                 <br>
+
 
                <br>
                <div class = "pages">
@@ -167,6 +171,8 @@
                    <input id="vendor" type="text"><br><br>
                    <label>Item*</label><br>
                    <input id="item" type="text"><br><br>
+                   <label>Cost*</label><br>
+                   <input id="cost" type="number"><br><br>
 
                    <button id = "Add" class="btn btn-primary" >+</button><br>
                </ng-form>
@@ -179,6 +185,7 @@
                    <tr>
                        <th>Vendor</th>
                        <th>Item</th>
+                       <th>Cost</th>
                    </tr>
                </table>
 
@@ -249,6 +256,37 @@
         });
     });
 
+//    $(document).ready(function() {
+//        $("#SearchOrdersButton").click(function () {
+//
+//            var n_in = 1;
+//            n_in = Number(n_in) + 1;
+//            sessionStorage.n_keys = n_in;
+//            //var vendorName;
+//            Clotho.query({"schema":"org.clothocad.phagebook.order"}).then(function(orderList){
+//
+//                for(var i=0;i<orderList.length;i++){
+//                    if (orderList[i].name == document.getElementById("itemSearch"))
+//                    {
+//                        $('#tableOrders').append("<tr style='margin-top: 10px;'> " +
+//                        "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key"+n_in
+//                        + "' ></label>" + orderList[i].name + "</div> </td>" +
+//                        "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key"+n_in
+//                        + "' ></label>" + orderList[i].project + "</div> </td>" +
+//                        "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key"+n_in
+//                        + "' ></label>" + orderList[i].vendor + "</div> </td>" +
+//                        "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key"+n_in
+//                        + "' ></label>" + orderList[i].item + "</div> </td>" + "</tr>");
+//                    }
+//
+//
+//                }
+//            });
+//
+//
+//        });
+//    });
+
 
 
     $(document).ready(function(){
@@ -280,7 +318,8 @@
     $(document).ready(function(){
         $("#Add").click(function(){
             if ((document.getElementById("vendor").value == "") ||
-                    (document.getElementById("item").value == ""))
+                    (document.getElementById("item").value == "") ||
+                    (document.getElementById("cost").value == ""))
             {
                 alert("Please fill out all required fields");
                 document.getElementById("NextStep").style.display = 'block';
@@ -291,47 +330,90 @@
                 document.getElementById("NextStep").style.display='none';
                 document.getElementById("OrderList").style.display = 'block';
 
-                var vendor = document.getElementById("vendor").value;
-                var item = document.getElementById("item").value;
+
+
 
                 var n_in = 1;
                 n_in = Number(n_in) + 1;
                 sessionStorage.n_keys = n_in;
+                var check = 0;
 
-                $('#Orders').append("<tr style='margin-top: 10px;'>" +
-                "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
-                + "' >Key:</label>" + vendor + "</div> </td>" +
-                "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
-                + "' >Key:</label>" + item + "</div> </td>" +"</tr>");
+                Clotho.query({"schema":"org.clothocad.phagebook.item"}).then(function(itemList){
+                    for(var i=0;i<itemList.length;i++) {
 
-                var name = document.getElementById("name").value;
-                var project = document.getElementById("project").value;
-                var vendor = document.getElementById("vendor").value;
-                var item = document.getElementById("item").value;
+                        if ((itemList[i].name == document.getElementById("item").value) &&
+                                (itemList[i].vendorId == document.getElementById("vendor").value))
+                        {
+                            var vendor = document.getElementById("vendor").value;
+                            var item = document.getElementById("item").value;
+                            var cost = document.getElementById("cost").value;
 
-                var str = '{';
-                var firstObj = str.concat(
-                        '"' + "name" + '"' + ":" + '"' + document.getElementById("name").value
-                        + '","project":' + '"' + document.getElementById("project").value
-                        + '","vendor":' + '"' + document.getElementById("vendor").value
-                        + '","item":' + '"' + document.getElementById("item").value
-                        + '","schema":"org.clothocad.phagebook.order"}');
+                            $('#Orders').append("<tr style='margin-top: 10px;'>" +
+                            "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
+                            + "' >Key:</label>" + vendor + "</div> </td>" +
+                            "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
+                            + "' >Key:</label>" + item + "</div> </td>" +
+                            "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
+                            + "' >Key:</label>" + cost + "</div> </td>" + "</tr>");
 
-                var Obj = JSON.parse(firstObj);
-                var n_in = 1;
-                n_in = Number(n_in) + 1;
-                sessionStorage.n_keys = n_in;
-                Clotho.create(Obj);
+                            var name = document.getElementById("name").value;
+                            var project = document.getElementById("project").value;
+                            var vendor = document.getElementById("vendor").value;
+                            var item = document.getElementById("item").value;
+                            var cost = document.getElementById("cost").value;
 
-                $('#tableOrders').append("<tr style='margin-top: 10px;'>" +
-                "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
-                + "' ></label>" + Obj.name + "</div> </td>" +
-                "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
-                + "' ></label>" + Obj.project + "</div> </td>" +
-                "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
-                + "' ></label>" + Obj.vendor + "</div> </td>" +
-                "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
-                + "' ></label>" + Obj.item + "</div> </td>" +"</tr>");
+                            var str = '{';
+                            var firstObj = str.concat(
+                                    '"' + "name" + '"' + ":" + '"' + document.getElementById("name").value
+                                    + '","project":' + '"' + document.getElementById("project").value
+                                    + '","vendor":' + '"' + document.getElementById("vendor").value
+                                    + '","item":' + '"' + document.getElementById("item").value
+                                    + '","cost":' + '"' + document.getElementById("cost").value
+                                    + '","schema":"org.clothocad.phagebook.order"}');
+
+                            var Obj = JSON.parse(firstObj);
+                            var n_in = 1;
+                            n_in = Number(n_in) + 1;
+                            sessionStorage.n_keys = n_in;
+                            Clotho.create(Obj);
+
+                            $('#tableOrders').append("<tr style='margin-top: 10px;'>" +
+                            "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
+                            + "' ></label>" + Obj.name + "</div> </td>" +
+                            "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
+                            + "' ></label>" + Obj.project + "</div> </td>" +
+                            "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
+                            + "' ></label>" + "<a href='Vendors.html'>" + Obj.vendor + "</a>" + "</div> </td>" +
+                            "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
+                            + "' ></label>" + "<a href='Items.html'>" + Obj.item + "</a>" + "</div> </td>" +
+                            "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
+                            + "' ></label>" + Obj.cost + "</div> </td>" + "</tr>");
+
+
+                        }
+                        else
+                        {
+                            check++;
+
+                        }
+
+                    }
+                    if (check == itemList.length)
+                    {
+                        alert("No match Item-Vendor was found");
+                        document.getElementById("NextStep").style.display='block';
+                        document.getElementById("OrderList").style.display = 'none';
+                    }
+
+                });
+
+                //
+
+
+
+
+
+
 
 
             }
@@ -365,10 +447,12 @@
         n_in = Number(n_in) + 1;
         sessionStorage.n_keys = n_in;
         //var vendorName;
+        var totalCost = 0.00;
         Clotho.query({"schema":"org.clothocad.phagebook.order"}).then(function(orderList){
 
             for(var i=0;i<orderList.length;i++){
 
+               totalCost = totalCost + parseFloat(orderList[i].cost);
 
                 $('#tableOrders').append("<tr style='margin-top: 10px;'> " +
                 "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key"+n_in
@@ -376,12 +460,18 @@
                 "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key"+n_in
                 + "' ></label>" + orderList[i].project + "</div> </td>" +
                 "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key"+n_in
-                + "' ></label>" + orderList[i].vendor + "</div> </td>" +
+                + "' ></label>" + "<a href='Vendors.html'>" + orderList[i].vendor + "</a>" + "</div> </td>" +
                 "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key"+n_in
-                + "' ></label>" + orderList[i].item + "</div> </td>" + "</tr>");
+                + "' ></label>" + "<a href='Items.html'>" + orderList[i].item + "</a>" + "</div> </td>" +
+                "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key"+n_in
+                + "' ></label>" + orderList[i].cost + "</div> </td>" + "</tr>");
+
+
 
             }
+            document.getElementById("totCost").value = totalCost;
         });
+
     }
 
 

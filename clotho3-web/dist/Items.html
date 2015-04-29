@@ -217,48 +217,71 @@
             }
             else {
 
-                var vendorId = document.getElementById("vendorName").value;
-                var cost = document.getElementById("itemCost").value;
-                var URL = document.getElementById("itemURL").value;
-                var catalogNo = document.getElementById("catalogNo").value;
-                var description = document.getElementById("description").value;
+                var check = 0;
+                Clotho.query({"schema":"org.clothocad.phagebook.vendor"}).then(function(vendorList){
+                    for(var i=0;i<vendorList.length;i++) {
+
+                        if (vendorList[i].name == document.getElementById("vendorName").value)
+                        {
+
+                            var vendorId = document.getElementById("vendorName").value;
+                            var cost = document.getElementById("itemCost").value;
+                            var URL = document.getElementById("itemURL").value;
+                            var catalogNo = document.getElementById("catalogNo").value;
+                            var description = document.getElementById("description").value;
 
 
-                var str = '{';
-                var firstObj = str.concat(
-                        '"' + "name" + '"' + ":" + '"' + document.getElementById("itemName").value
-                        + '","vendorId":' + '"' + document.getElementById("vendorName").value
-                        + '","cost":' + '"' + document.getElementById("itemCost").value
-                        + '","URL":' + '"' + document.getElementById("itemURL").value
-                        + '","catalogNo":' + '"' + document.getElementById("catalogNo").value
-                        + '","description":' + '"' + document.getElementById("description").value
-                        + '","schema":"org.clothocad.phagebook.item"}');
+                            var str = '{';
+                            var firstObj = str.concat(
+                                    '"' + "name" + '"' + ":" + '"' + document.getElementById("itemName").value
+                                    + '","vendorId":' + '"' + document.getElementById("vendorName").value
+                                    + '","cost":' + '"' + document.getElementById("itemCost").value
+                                    + '","URL":' + '"' + document.getElementById("itemURL").value
+                                    + '","catalogNo":' + '"' + document.getElementById("catalogNo").value
+                                    + '","description":' + '"' + document.getElementById("description").value
+                                    + '","schema":"org.clothocad.phagebook.item"}');
 
-                var Obj = JSON.parse(firstObj);
-                var n_in = 1;
-                n_in = Number(n_in) + 1;
-                sessionStorage.n_keys = n_in;
-                Clotho.create(Obj);
+                            var Obj = JSON.parse(firstObj);
+                            var n_in = 1;
+                            n_in = Number(n_in) + 1;
+                            sessionStorage.n_keys = n_in;
+                            Clotho.create(Obj);
 
 
-                $('#tableItems').append("<tr style='margin-top: 10px;'>" +
-                "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
-                + "' >Key:</label>" + Obj.name + "</div> </td>" +
-                "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
-                + "' >Key:</label>" + Obj.vendorId + "</div> </td>" +
-                "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
-                + "' >Key:</label>" + Obj.cost + "</div> </td>" +
-                "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
-                + "' >Key:</label>" + Obj.URL + "</div> </td>" +
-                "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
-                + "' >Key:</label>" + Obj.catalogNo + "</div> </td>" +
-                "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
-                + "' >Key:</label>" + Obj.description + "</div> </td>" +"</tr>");
+                            $('#tableItems').append("<tr style='margin-top: 10px;'>" +
+                            "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
+                            + "' >Key:</label>" + Obj.name + "</div> </td>" +
+                            "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
+                            + "' >Key:</label>" + Obj.vendorId + "</div> </td>" +
+                            "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
+                            + "' >Key:</label>" + Obj.cost + "</div> </td>" +
+                            "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
+                            + "' >Key:</label>" + Obj.URL + "</div> </td>" +
+                            "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
+                            + "' >Key:</label>" + Obj.catalogNo + "</div> </td>" +
+                            "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
+                            + "' >Key:</label>" + Obj.description + "</div> </td>" +"</tr>");
 
-                //alert(JSON.stringify(itemID));
+                            //alert(JSON.stringify(itemID));
 
-                document.getElementById("CreateNewItem").style.display = "none";
-                document.getElementById("New").style.display = "block";
+                            document.getElementById("CreateNewItem").style.display = "none";
+                            document.getElementById("New").style.display = "block";
+
+                        }
+                        else
+                        {
+                            check++;
+
+                        }
+
+                    }
+                    if (check == vendorList.length)
+                    {
+                        alert("The vendor does not exist");
+                        document.getElementById("NextStep").style.display='block';
+                        document.getElementById("OrderList").style.display = 'none';
+                    }
+                });
 
             }
             });
