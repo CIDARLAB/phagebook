@@ -7,6 +7,7 @@
     <meta name="description" content="Clotho Projects">
     <meta name="viewport" content="width=1024, initial-scale=1">
       <script src ="clotho3API/clotho3API.js"></script>
+      <script src ="clotho3API/papaparse.min.js"></script>
 
     <!-- not necessary until serving outside root directory / want html5 mode -->
     <base href="/">
@@ -84,6 +85,8 @@
             </ul>
               <br>
               <p id = "projectDescription" ></p>
+              <br><br><br><br><br><br>
+              <p id = "partsLink"> <a href="Parts.html">Genetic Parts</a></p>
             </div>
 
             <!--<img height="100" width="100" id = "image2"  ondragstart="drag(event)" draggable="true" src="/images/socialmedia/twitter.png">-->
@@ -107,11 +110,10 @@
                     <br><br>
                 </ng-form>
                 <p id="keywordSearch" onclick="searchByKeyword()">Keyword</p>
+                <p id="dateSearch" onclick="searchByDate()">Date</p>
             </div>
-
-
-
-        <div class = "notebook"  ondrop="drop(event)" ondragover="allowDrop(event)" onload="photoAppear()">
+            <!--<button onclick="upload('labels.csv')">Upload CSV File</button>-->
+        <div class = "notebook" id="noteID" ondrop="drop(event)" ondragover="allowDrop(event)" onload="photoAppear()">
             <h3 id="heading" align="center"></h3>
             <p id="entryGoesHere" contenteditable="false" onload="disp()"></p>
             <!--<form action ="" class = "dropDown">-->
@@ -250,10 +252,22 @@ SCRIPTS
 </script>
 
 <script>
+    function searchByDate(){
+        document.getElementById("searchDate").style.display = "block";
+        document.getElementById("keywordInsert").style.display = "none";
+        document.getElementById("keywordSearch").style.display = "block";
+        document.getElementById("dateSearch").style.display = "none";
+    }
+</script>
+
+
+
+<script>
     function searchByKeyword(){
         document.getElementById("searchDate").style.display = "none";
         document.getElementById("keywordInsert").style.display = "block";
-
+        document.getElementById("keywordSearch").style.display = "none";
+        document.getElementById("dateSearch").style.display = "block";
 //    <input id="searchDate" type="date"><br><br>
 //        <input id="keywordInsert" type="text"><br><br>
     }
@@ -284,6 +298,8 @@ SCRIPTS
         });
     };
 </script>
+
+
 <script>
     //Displays the previous notebook entry
     function prevEntry(){
@@ -322,21 +338,52 @@ SCRIPTS
         personID = "clotho.developer.katielewis1";
         var date = document.getElementById("searchDate");
         var keyword = document.getElementById("keywordInsert");
+        var entryHere = document.getElementById("entryGoesHere");
         if (date.style.display != "none"){
-            var current1 = document.getElementById("searchDate").value;
+            var current1 = date.value;
             Clotho.get(personID).then(function(result){
                 for(var i=0;i < result.notebookEntries.length;i++){
                     Clotho.get(result.notebookEntries[i]).then(function(res) {
                         if(current1 == res.entryData){
-                            document.getElementById("entryGoesHere").innerHTML = res.entryText;
-                            if(res.entryHeading != ""){
-                                document.getElementById("heading").innerText = res.entryHeading;
-                            }
+                            entryHere.style.display = "none";
+                            document.getElementById("heading").style.display = "none";
+                            document.getElementById("noteID").style.borderStyle='none';
+                            document.getElementById("noteID").display = "none";
+                            var div = document.createElement('p');
+                            document.getElementById("noteID").appendChild(div);
+                            div.style.position = 'relative';
+                            div.style.height = '100px';
+                            div.style.borderStyle = 'solid';
+                            div.innerHTML= res.entryText;
+                            div.style.textAlign ='center';
+                            div.paddingTop = '5px';
+                            div.onclick = "chooseEntry(res.entryText, entry.Heading)";
+                            // entryHere.innerHTML = res.entryText;
+                            // if(res.entryHeading != ""){
+                            //     document.getElementById("heading").innerText = res.entryHeading;
+                            // }
                         };
                     });
                 };
             });
         }
+//        if (date.style.display != "none"){
+//            var current1 = document.getElementById("searchDate").value;
+//            Clotho.get(personID).then(function(result){
+//                for(var i=0;i < result.notebookEntries.length;i++){
+//                    Clotho.get(result.notebookEntries[i]).then(function(res) {
+//                        if(current1 == res.entryData){
+//                            alert(i);
+//                            document.getElementById("entryGoesHere").innerHTML = res.entryText;
+//                            if(res.entryHeading != ""){
+//                                document.getElementById("heading").innerText = res.entryHeading;
+//                            }
+//                        };
+//                    });
+//                };
+//            });
+//        }
+
         else if(keyword.style.display != "none"){
             var current = document.getElementById("keywordInsert").value;
             Clotho.get(personID).then(function(result){
@@ -354,6 +401,12 @@ SCRIPTS
         }
 
 
+    }
+</script>
+
+<script>
+    function chooseEntry(text, heading){
+        //find way to delete all divs that were created & display entryGoesHere with heading and text of chosen entry
     }
 </script>
 
@@ -493,6 +546,14 @@ SCRIPTS
     };
 </script>
 
+<!--<script>-->
+    <!--function upload(fileName){-->
+        <!--var obj = {"header":"true"};-->
+        <!--Clotho.uploadCSV(fileName, obj).then(function(res){-->
+            <!--alert(res);-->
+        <!--});-->
+    <!--};-->
+<!--</script>-->
 
     <script>
         function newEntry(){
@@ -508,7 +569,7 @@ SCRIPTS
     <script>
         function notebooks(){
 //            alert("hello");
-          var name = "clotho.developer.katielewis1";
+          var name = "clotho.developer.katielewis";
             Clotho.get(name).then(function(personObj){
                 Clotho.get(personObj.notebookEntries[personObj.notebookEntries.length -1]).then(function(obj){
 //                    alert(obj.entryPics[0]);
@@ -522,7 +583,8 @@ SCRIPTS
 
 <script>
    function displayProjects() {
-       var personID = "clotho.developer.katielewis1";
+       var personID = "clotho.developer.katielewis";
+       var loggedIn = "clotho.developer.douglasdensmore";
        Clotho.get(personID).then(function (personObj) {
            var tableRef = document.getElementById("projTable");
            if (personObj.projects.length > 0) {
@@ -570,7 +632,11 @@ SCRIPTS
                id.style.display='none';
                secondID.style.display = 'block';
            }
-
+        if (loggedIn != "clotho.developer.katielewis"){
+            document.getElementById("newEntry").style.display = "none";
+            document.getElementById("entryEdit").style.display = "none";
+            document.getElementById("CreateButton").style.display = "none";
+        }
 
        });
    };
@@ -578,7 +644,7 @@ SCRIPTS
 
     <script>
        function projectDetails(){
-           var personID  = "clotho.developer.katielewis1";
+           var personID  = "clotho.developer.katielewis";
            var projName = this.innerText;
            var id = document.getElementById("rightColumn");
            var secondID = document.getElementById("createProject");
@@ -641,7 +707,7 @@ SCRIPTS
 
     <!--$(document).ready(function() {-->
     <script>
-    var personID = "clotho.developer.katielewis1";
+    var personID = "clotho.developer.katielewis";
     $(document).ready(function() {
         $("#create").click(function () {
             var str = '{';

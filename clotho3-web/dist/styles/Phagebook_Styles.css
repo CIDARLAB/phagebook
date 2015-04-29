@@ -23,6 +23,8 @@
     height: 24px;
 }
 
+/*projects style*/
+
 #searchDate {
     position:relative;
     display:block;
@@ -95,6 +97,12 @@ a:hover, a:active {
 
 }
 
+.headerID {
+    position:relative;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .projContainer {
     float:right;
     margin-left: auto;
@@ -102,6 +110,11 @@ a:hover, a:active {
     width: 630px;
     height: 2000px;
     background-color: #fff;
+}
+
+#wrapper {
+    position:relative;
+    float:right;
 }
 
 #createProject {
@@ -126,6 +139,12 @@ a:hover, a:active {
 .pageHeading {
 	text-align: center;
     font-weight:bold;
+}
+
+#partsLink {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 
@@ -187,15 +206,20 @@ h4 {
 
 .notebook {
     position:relative;
+    display:block;
 	height:400px;
     width:680px;
 	font-size: 15px;
     float:left;
 	margin-left:20px;
 	margin-right: auto;
-    border-style:solid;
+    /*border-style:solid;*/
     padding-left:15px;
     padding-right:15px;
+}
+
+#noteID {
+    border-style:solid;
 }
 
 #searchButton{
@@ -233,14 +257,21 @@ h4 {
 }
 
 #keywordSearch{
+    display:block;
     position:relative;
     text-decoration: underline;
     margin-top:44px;
     margin-left:25px;
     float:left;
-
 }
-
+#dateSearch{
+    display:none;
+    position:relative;
+    text-decoration: underline;
+    margin-top:44px;
+    margin-left:25px;
+    float:left;
+}
 
 #entryGoesHere {
     position:relative;
@@ -305,7 +336,7 @@ h4 {
 
 #newEntry{
    position:relative;
-    float:left;
+    float:right;
     background-color:#006600;
     color:#FFFFFF;
     margin-top:10px;
@@ -324,6 +355,7 @@ h4 {
 
 #projectDescription {
     position: relative;
+    float:right;
     /*margin-top: 15px;*/
     margin-left: auto;
     margin-right:auto;
@@ -331,6 +363,12 @@ h4 {
     padding-right: 15px;
     /*padding-top:15px;*/
    float:left;
+}
+
+#createBox {
+    position:relative;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #whosNotebook {
@@ -347,6 +385,7 @@ h4 {
     position:relative;
     background-color:#006600;
     color:#FFFFFF;
+    float:right;
 }
 
 
