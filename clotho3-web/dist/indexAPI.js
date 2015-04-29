@@ -1,29 +1,13 @@
-angular.module('Sample')
-.service('basicAPI', function (Clotho, PubSub) {
-
-	//var orderingFunctionId = 'org.clothocad.test.reverse';
+angular.module('Index').service('indexAPI', function (Clotho, PubSub) {
 
 	var orders = this.orders = [];
 
-	//Create your own logic - an aggregate of your Ordering functions
-
-	this.create = function (orderParams) {
-		//Clotho.say('Something');
-		//you can run something to a Clotho function, run something locally, access another API... whatever you want
-		//alert(orderParams.obj);
-		obj = JSON.parse(orderParams.obj);
-		Clotho.create(obj);
-
-		
-	};
-
-
 	this.query = function (orderParams) {
 		var obj = {};
-        obj[orderParams.param] = orderParams.val;
+        obj[orderParams.userName] = orderParams.password;
 		Clotho.query(obj).then(function(data) 
 		{
-			/*if(data.length > 0)
+			if(data.length > 0)
 			{
 				//alert(data[0]["name"]);	
 				for (var key in data) 
@@ -38,6 +22,8 @@ angular.module('Sample')
                     			longStr += (subkey + " : " + data[key][subkey]+"\n");
                     		}
                     		orderParams.results = longStr;
+                    		//$location.path("https://localhost:8443/Profile.html")
+                    		$window.location.href = 'https://localhost:8443/Profile.html';
                     	}
                     	else
                     	{
@@ -45,23 +31,18 @@ angular.module('Sample')
                     	}
                     }
                 }
-			}*/
-            orderParams.results = JSON.stringify(data);
+			}
+			
 			//alert(data);
 		},function (err) {
 			
 			Clotho.say('error!')
 		});
 		;
-
-		
 	};
-
-
-	//Listen for internal messages
-	PubSub.on('Sample.internalMessage', function (result) {
+	PubSub.on('Index.internalMessage', function (result) {
 		//or create your own listener logic here. Check Tracking.js for another one.
-		console.log('basicAPI.js message received', result);
+		console.log('indexAPI.js message received', result);
 	});
 
 
