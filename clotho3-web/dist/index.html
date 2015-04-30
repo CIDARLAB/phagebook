@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Lab Ordering</title>
+    <title>Index</title>
     <meta name="description" content="Clotho Lab Ordering">
     <meta name="viewport" content="width=1024, initial-scale=1">
 
@@ -33,7 +33,7 @@
 <body>
 	<div ng-app="clothoRoot">
   <div class="container">
-    <div clotho-command-bar></div>
+    <div clotho-command-bar> </div>
   </div>
 
   <terminal-aside></terminal-aside>
@@ -44,109 +44,122 @@
     <a href="./Projects.html">Projects</a><br>
     <a href="./sample.html">Sample</a><br>
 
-
     </h3>
-<div index-app>
-  <!--<div class="container" ng-controller="indexCtrl as ctrl">
-      <ng-form class="form-horizontal" name="indexForm" ng-class="{'has-error' : indexForm.name.$dirty && indexForm.name.$invalid}">
-      <label>Username:</label>
-      <input ng-model="item.userName" type="text"><br>
-      <label>Password: </label>
-      <input ng-model="item.password" type="text"><br><br>
-      <textarea ng-model="item.results" rows="15" cols="100"> </textarea><br>
-      <button ng-click="ctrl.queryObj()">Login</button>
-    </ng-form>-->
-      <div class="row">
+    <div class = "row" style="margin-left: 360px; background-color:#9be7cb; width:300px " >
 
+    <label> Username</label>
+    <input id="username" name="username" style="width:10em;"><br>
+    <label>  Password</label>
+    <input id="password" name="password" style="width: 10em;"><br>
+        <button class="btn btn-primary" id = "login" >Login</button>
+    </div>
 
-              <button class="btn btn-primary" id = "showAddPerson" > + Person </button>
-              <button class="btn btn-primary" id = "showAddLab" > + Lab </button>
-              <button class="btn btn-primary" id = "showAddinstitution" > + Institution </button>
+    <h3> Welcome to Phagebook</h3>
+    <h4> A more holistic approach to synthetic biology research.</h4><br>
+    <p class="blocktext"
+       style = "margin-left: auto;
+        margin-right: auto;
+        width: 50em">
+        Connecting researchers to a social networking platform that encourages sharing, data exchange, standardization, and collaboration.</p>
+    <img src="/images/profile/cidarpic.jpg" style="padding:3px; background-color:#fff;display: block;
+    margin-left: auto;
+    margin-right: auto">
+    <p class="blocktext"
+        style = "margin-left: auto;
+        margin-right: auto;
+        width: 50em">Phagebook facilitates collaboration amongst the synthetic biology community and like any other Clotho app, it directly communicates withClotho apps for specification, design, assembly, and verification of synthetic biological systems.</p>
+    <img src = "/images/profile/phagebookschem.png"
+         style="padding:3px; background-color:#fff;display: block;
+    margin-left: auto;
+    margin-right: auto">
+    <p class="blocktext"
+    style = "margin-left: auto;
+    margin-right: auto;
+    width: 50em">
+    Phagebook is a Clotho 3.0 app that serves as a social networking interface incorporating lab inventory management and project/personnel networking.</p>
+
+    <div index-app>
+
+      <div class="row" style="width:600px;  margin-left: 100px ; background-color: #9be7cb;" >
+
               <div id = "theprofileInputs" style="margin-left:44px" >
                   <ng-form class="form-horizontal" name="createPersonForm" ng-class="{'has-error' : createPersonForm.name.$dirty && createLabForm.name.$invalid}">
-
-                  <label> <strong>Name</strong></label>
-                      <input id = "name" name = "name" style = "width: 400px;"> <br>
+                <h3>Create a Phagebook profile today!</h3>
+                  <label> <strong>First Name</strong></label>
+                      <input id = "firstname" name = "firstname" style = "width: 400px;"> <br>
+                      <label> <strong>Last Name</strong></label>
+                      <input id = "lastname" name = "lastname" style = "width: 400px;"> <br>
                       <label> <strong> Institution</strong> </label>
                       <input id="institution" name="institution" style="width: 200px;"><br>
-                      <!--<label> <strong> Picture </strong></label>
-                      <input list="picture" name="picture">
-                      <datalist id ="picture">
-                          <option value  = "kara_pro.PNG" >
-                          <option value  = "Katie_Lewis.jpeg" >
-                          <option value  = "Inna.jpg" >
-                          <option value  = "zack.jpg" >
-                          <option value  = "BillCao.jpg" >
-                          <option value  = "ChrisAnderson.jpg" >
-                          <option value  = "DougDensmore.png" >
-                          <option value  = "MaxwellBates.jpg" >
-                          <option value  = "MinaLi.jpg" >
-                          <option value  = "prash.jpg" >
-                          <option value  = "StephaniePaige.jpg" >
-                      </datalist>-->
-                      <label> <strong> Lab</strong> </label>
-                      <input id="lab" name="lab" style="width: 200px;"><br>
-                      <label> <strong> Position </strong> </label>
-                      <input list="position" name="position">
-                      <datalist id = "position">
-                          <option value = "undergraduate" ></option>
-                          <option value = "graduate">Graduate</option>
-                          <option value = "labManager" >Lab Manager</option>
-                          <option value = "pi"> Principal Investigator</option>
-                          <option value = "postdoc" >Postdoctoral</option></datalist>
-                    <br>
-                      <label> <strong> Permissions </strong></label>
-                      <input list ="permissions" name = "permissions">
-                      <datalist id = "permissions">
-                          <option value  = "basic" >basic</option>
-                          <option value  = "private" >private</option>
-                          <option value  = "ninja" >ninja</option></datalist>
-                      <br>
+                      <label> <strong> Picture </strong></label>
 
-                      <p>
-                          <button class="btn btn-primary" id = "addPerson" >Create Person</button>
-                      </p>
-                  </ng-form>
+                      <input  action="scripts/newProject/uploadFile.php" method="post"
+                              enctype="multipart/form-data"type="file" name= "picture"
+                              id="picture" accept="image/*">
 
+          <label> <strong> Lab</strong> </label>
+          <input id="lab" name="lab" style="width: 200px;"><br>
+          <label> <strong> Position </strong> </label>
+          <input list="position" name="position">
+          <datalist id = "position">
+              <option value = "Undergraduate" ></option>
+              <option value = "Graduate">Graduate</option>
+              <option value = "Lab Manager" >Lab Manager</option>
+              <option value = "Principal Investigator"> Principal Investigator</option>
+              <option value = "Postdoctorate" >Postdoctorate</option></datalist>
 
-                  <div id="addLab" style="margin-left:44px" >
-                      <ng-form class="form-horizontal" name="createLabForm" ng-class="{'has-error' : createLabForm.name.$dirty && createLabForm.name.$invalid}">
+        <br>
+          <label> <strong> Permissions </strong></label>
+          <input list ="permissions" name = "permissions">
+          <datalist id = "permissions">
+              <option value  = "Basic" >basic</option>
+              <option value  = "Private" >private</option>
+              <option value  = "Ninja" >ninja</option></datalist>
+          <br>
 
-                          <label> Name  </label> <br> 
-                          <input id= "labName" type="text"><br><br> 
-                          <label>City </label><br>
-                          <input id="city" type="text"><br><br>
-                          <label> State </label><br> 
-                          <input id="state" type="text"><br><br> 
-                          <label>link</label><br>
-                          <input id="link" type="text"><br><br>
-                          <button id = "createLab" class="btn btn-primary" >Create Lab</button><br>
+          <p>
+              <button class="btn btn-primary" id = "addPerson" >Create Person</button>
+          </p>
+      </ng-form>
+      </div>
+</div>
+
+<!--
+      <div id="addLab" style="margin-left:44px" >
+          <ng-form class="form-horizontal" name="createLabForm" ng-class="{'has-error' : createLabForm.name.$dirty && createLabForm.name.$invalid}">
+
+              <label> Name  </label> <br> 
+              <input id= "labName" type="text"><br><br> 
+              <label>City </label><br>
+              <input id="city" type="text"><br><br>
+              <label> State </label><br> 
+              <input id="state" type="text"><br><br> 
+              <label>link</label><br>
+              <input id="link" type="text"><br><br>
+              <button id = "createLab" class="btn btn-primary" >Create Lab</button><br>
+          </ng-form>
+      </div>
+      <div id="addInstitution" style="margin-left:44px">
+          <ng-form class="form-horizontal" name="createLabForm" ng-class="{'has-error' : createInstitForm.name.$dirty && createInstitForm.name.$invalid}">
 
 
-                      </ng-form>
-                  </div>
+              <label> Name  </label> <br> 
+              <input id= "institutionName" type="text"><br><br> 
+              <label>City </label><br>
+              <input id="institutioncity" type="text"><br><br>
+              <label> State </label><br> 
+              <input id="institutionstate" type="text"><br><br> 
+              <label>link</label><br>
+              <input id="institutionlink" type="text"><br><br>
+              <button id = "addInstit" class="btn btn-primary" >Create Institution</button><br>
+          </ng-form>
+      </div>
 
-                  <div id="addInstitution" style="margin-left:44px">
-                      <ng-form class="form-horizontal" name="createLabForm" ng-class="{'has-error' : createInstitForm.name.$dirty && createInstitForm.name.$invalid}">
-
-
-                          <label> Name  </label> <br> 
-                          <input id= "institutionName" type="text"><br><br> 
-                          <label>City </label><br>
-                          <input id="institutioncity" type="text"><br><br>
-                          <label> State </label><br> 
-                          <input id="institutionstate" type="text"><br><br> 
-                          <label>link</label><br>
-                          <input id="institutionlink" type="text"><br><br>
-                          <button id = "addInstit" class="btn btn-primary" >Create Institution</button><br>
-                      </ng-form>
-                  </div>
-
-              </div>
+  </div>
 </div>
 
 
-      </div>
+</div>-->
 
 
       </div>
@@ -167,25 +180,15 @@ SCRIPTS
 
 
 <!--note - correct app based on the distribution, comments removed by build-->
-
+<!--
 <script>
     $(document).ready(function() {
         document.getElementById("theprofileInputs").style.visibility = "hidden";
         document.getElementById("addLab").style.visibility = "hidden";
     })
-</script>
+</script>-->
 
-    <script>
-
-    $("#showAddPerson").click(function(){
-        //$(document.getElementById("theprofileInputs")).toggle();
-        //  alert("addButton Clicked")
-       document.getElementById("theprofileInputs").style.visibility = "visible";
-        //document.getElementById("theprofileInputs").innerHTML =
-    });
-
-</script>
-    <script>
+   <!-- <script>
 
         $("#showAddLab").click(function(){
             document.getElementById("addLab").style.visibility = "visible";
@@ -205,56 +208,77 @@ SCRIPTS
         });
 
     </script>
-
+-->
 
     <script>
-        //var personID = "clotho.developer.klefort";
+        //var personID = "clotho.developer." ;
         //document.getElementById("theInputs").style.visibility = "hidden";
         $("#addPerson").click(function() {
+            var obj = [];
+            var file    = document.querySelector('input[type=file]').files[0];
+            var myInput = document.getElementsByTagName("input");
 
-            var obj = []
+            var personId = "clotho.developer."+ document.getElementById("firstname").value[0].toLowerCase() +  document.getElementById("lastname").value.toLowerCase();
+            obj.push('\"' + "firstname" + '\": \"' + document.getElementById("firstname").value + '\"' +"," + '\"'+  "lastname"+ '\":\"' + document.getElementById("lastname").value+ '\"' );
+            obj.push('\"' + "position" + '\": \"' + document.getElementById("position").value + '\"' +"," + '\"'+  "lab"+ '\":\"' + document.getElementById("lab").value+ '\"' );
+            obj.push('\"' + "institution" + '\": \"' + document.getElementById("institution").value + '\"' +"," + '\"'+  "permissions"+ '\":\"' + document.getElementById("permissions").value+ '\"' );
+            obj.push('\"' + "schema" + '\": \"' + "org.clothocad.model.person" + '\"' +"," + '\"'+  "id"+ '\":\"' + personId+ '\"' );
+            obj.push('\"'+  "projects"+ '\": []' +"," + '\"'+  "statuses"+ '\":[]' + "," + '\"'+  "orders"+ '\":[]'  );
+            obj.push('\"'+  "friends"+ '\": []');
+        //alert(obj);
 
-            var myInput = document.getElementsByTagName("input")
+           /* Clotho.create(file).then(function(result){
 
-            for (var i = 2; i < myInput.length; i++) {
-                if(myInput[i].name!= "" && myInput[i].value!="")
-                    obj.push('\"' + myInput[i].name + '\": \"' + myInput[i].value + '\"')
-            }
-            obj.push('\"' + "schema" + '\": \"' + "org.clothocad.model.person" + '\"');
+                obj.push('\"'+  "picture"+ '\":' + '\"'+result+'\"');
+               // alert(obj);
+            });*/
             var personObj = '{' + obj + '}';
 
-           // alert(personObj);
-            Clotho.create(JSON.parse(personObj)).then(function(result){
-                //alert("Object Created with Id " + result);
+            //alert(personObj);
+            var createObj = JSON.parse(personObj)
+            Clotho.create(createObj).then(function(result){
+
             });
 
         });
     </script>
+
     <script>
+        $("#login").click(function(){
+            //alert("login");
+            window.name = "clotho.developer."+ document.getElementById("username").value;
+          // alert(window.name);
+           var url = "./Profile.html"
+            window.location = url;
 
-        $("#createLab").click(function() {
-        //alert('lab')
-            var obj = []
-            var myInput = document.getElementsByTagName("input")
-
-            for (var i = 2; i < myInput.length; i++) {
-                if (myInput[i].name != "" && myInput[i].value != "") {
-
-                obj.push('\"' + myInput[i].name + '\": \"' + myInput[i].value + '\"')
-            }
-
-            }
-            obj.push('\"' + "schema" + '\": \"' + "org.clothocad.model.lab" + '\"');
-            var labObj = '{' + obj + '}';
-
-
-            Clotho.create(JSON.parse(labObj)).then(function (result) {
-            //alert("Object Created with Id "+ result)
-            });
-
-        });
+        })
     </script>
-<script>
+
+    <!--   <script>
+
+       $("#createLab").click(function() {
+         //alert('lab')
+             var obj = []
+             var myInput = document.getElementsByTagName("input")
+
+             for (var i = 2; i < myInput.length; i++) {
+                 if (myInput[i].name != "" && myInput[i].value != "") {
+
+                 obj.push('\"' + myInput[i].name + '\": \"' + myInput[i].value + '\"')
+             }
+
+             }
+             obj.push('\"' + "schema" + '\": \"' + "org.clothocad.model.lab" + '\"');
+             var labObj = '{' + obj + '}';
+
+
+             Clotho.create(JSON.parse(labObj)).then(function (result) {
+             //alert("Object Created with Id "+ result)
+             });
+
+         });
+     </script>-->
+<!--<script>
     $("#addInstit").click(function() {
 
         var obj = []
@@ -271,14 +295,14 @@ SCRIPTS
         obj.push('\"' + "schema" + '\": \"' + "org.clothocad.model.institution" + '\"');
         var institObj = '{' + obj + '}';
 
-alert(institObj)
+alert(institObj);
         Clotho.create(JSON.parse(institObj)).then(function (result) {
             alert(institObj)
             alert("Object Created with Id "+ result)
         });
 
     });
-</script>
+</script>-->
 <script src="scripts/b18fc8c8.clotho-app-command.js"></script>
 
 <script src="scripts/c0f113c2.clotho-core-module.js"></script>
@@ -295,8 +319,6 @@ alert(institObj)
 <script src="scripts/Ordering.js"></script>
 <script src="scripts/Tracking.js"></script>
 <script src="scripts/orderingCtrl.js"></script>
-<script src="scrips/index-app.js"></script>
-<script src="scripts/indexCtrl.js"></script>
 <script src="bin/trackingIndex.js"></script>
 <script src="indexAPI.js"></script>
     <script src="scripts/clotho3API.js"></script>

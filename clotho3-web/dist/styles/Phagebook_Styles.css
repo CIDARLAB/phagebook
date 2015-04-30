@@ -54,7 +54,7 @@ td
 ul {
 	list-style-type: none;
 	margin: 0;
-	padding: 15;
+	padding: 15px;
 }
 
 
@@ -320,4 +320,13 @@ padding-right:5px;
 	padding-left: 20px;
 	margin: 0px;
 	text-align: left;
+}
+
+
+.profileheading{
+    float:left
+
+}
+
+
 }

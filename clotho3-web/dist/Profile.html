@@ -36,9 +36,40 @@
             1px 1px 0 #000;
         }
     </style>
+    <style>
+        #universityName
+        {
+            color: white;
+            text-shadow:
+            -1px -1px 0 #000,
+            1px -1px 0 #000,
+            -1px 1px 0 #000,
+            1px 1px 0 #000;
+        }
+    </style>
+<style>
+    #keyValueForm {
+float: left;
+        margin-left: 100px
+        margin-right: 100px;
+        background-color: white;
+        text-align: left;
+        padding: 8px;
+    }
+</style>
+    <style>
+        #friendBox{
+            float: left;
+            margin-left: auto;
+            margin-right: auto;
+            width: 90%;
+            background-color: white;
+            text-align: left;
+            padding: 8px;
+        }
+    </style>
 
 </head>
-
 
 <body>
 <div ng-app="clothoRoot">
@@ -50,16 +81,22 @@
 <div class="contentBackground" style="margin-left:-10px; margin-right:-10px; margin-top:-20px; margin-bottom:-100px; background-color:#e9eaed">
     <div class="mainContent" style="width:851px;  margin-left:auto; margin-right:auto; background-color:#fff; font-family:helvetica">
         <div class="coverContainer" style="background-image:url(/images/logo-CIDAR-2.png); background-repeat: no-repeat;">
+
             <div class="row">
-                <div class="col-xs-9 col-xs-offset-2" style="margin-top:245px;">
-                    <h3> <strong> <p id= "profileName" ></p></strong>
-                    </h3>
+                    <div class = "leftColumn">
+                    <input type="file" id="imageupload" onchange="previewFile()"><br>
+                    <img src="" id="imagesource" alt="Image preview..." style = "width: 150px">
+
+
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-2" style="margin-left:16px;"><img src="/images/people/kara_pro.PNG" style="margin-top:-130px; padding:3px; background-color:#fff; border:1px solid #000;">
-                </div>
-                <div class="col-xs-9" style="margin-top: 40px;">
+
+                    <div class = "col-xs-9 col-xs-offset-2" style="float: left;width: 300px;">
+                        <p id = "profileName"> </p>
+                        <p  id = "universityName"></p>
+                        <p  id = "positionName"></p>
+                    </div>
+
+                <div class="col-xs-9" style="margin-top: 5px;">
                     <h4>
                         <a href="./Profile.html" class="col-xs-2">News</a>
                         <a href="./Ordering.html" class="col-xs-2">Ordering</a>
@@ -74,94 +111,32 @@
 
                 <div class="row">
                     <div class="col-xs-2" style="margin-left:44px; margin-bottom:16px; text-decoration: underline;">
-
-                        <br>
-                        <br>
-        <ng-form id = "inputStatus">
-    <input id = "newStatus" name = "newStatus" style = "width: 400px">
+            <p style="width:200px"> Update your status </p>
+                        <ng-form id = "inputStatus">
+    <input id = "newStatus" name = "newStatus" style="width:300px">
     <button style = "margin-left: 400px" id = "createStatus" class="btn btn-primary" >Create</button><br>
 </ng-form>
-                        <table id="keyValueForm" class="form-inline " style='margin-bottom: 10px;width:700px' role="form">
+                        <div class = inline-block>
+                            <p> Status</p>
+                        <table id="keyValueForm" class="form-inline" style='margin-bottom: 10px;width:800px;' role="form">
                             <tbody style="text-align: center;">
 
                         </table>
-
-                        <!-- {"id":"clotho.developer.katielewis1","name":"Katie Lewis","schema":"org.clothocad.model.PersonalProfile","institution":"Boston University","lab":"CIDAR","position":"Undergraduate","permission":"basic", "username":"kmlewis","projects":
-     -->
-                       <!-- <div id = "theprofileInputs">
-                            <table>
-                                <label> <strong> First Name</strong></label>
-                                <input id = "firstName" name = "firstName" style = "width: 400px;"> <br>
-                                <label> <strong> Last Name </strong> </label>
-                                <input  id = "authorbox" name = "author" style="width: 400px;"><br>
-                                <label> <strong> Institution</strong> </label>
-                                <input id="instituion" name="institution" style="width: 200px;"><br>
-                                <label> <strong> Picture </strong></label>
-                                <input list="picture" name="picture">
-                                <datalist id ="picture">
-                                    <option value  = "kara_pro.PNG" >
-                                    <option value  = "Katie_Lewis.jpeg" >
-                                    <option value  = "Inna.jpg" >
-                                    <option value  = "zack.jpg" >
-                                    <option value  = "BillCao.jpg" >
-                                    <option value  = "ChrisAnderson.jpg" >
-                                    <option value  = "DougDensmore.png" >
-                                    <option value  = "MaxwellBates.jpg" >
-                                    <option value  = "MinaLi.jpg" >
-                                    <option value  = "prash.jpg" >
-                                    <option value  = "StephaniePaige.jpg" >
-                                </datalist>
-                                <label> <strong> Lab</strong> </label><br>
-                                <input id="lab" name="lab" style="width: 200px;">
-                                <label> <strong> Position </strong> </label>
-                                <input list="position" name="position">
-                                <datalist id = "position">
-                                    <option value = "undergraduate" ></option>
-                                    <option value = "graduate">Graduate</option>
-                                    <option value = "labManager" >Lab Manager</option>
-                                    <option value = "pi"> Principal Investigator</option>
-                                    <option value = "postdoc" >Postdoctoral</option></datalist>
-
-                                <label> <strong> Permissions </strong></label>
-                                <input list ="permissions" name = "permissions">
-                                <datalist id = "permissions">
-                                    <option value  = "basic" >basic</option>
-                                    <option value  = "private" >private</option>
-                                    <option value  = "ninja" >ninja</option></datalist>
-
-                                <br>
-
-                                <p>
-                                    <button class="btn btn-primary" id = "addPerson" >Create Person</button>
-                                </p>
+                        </div>
+                        <div class = inline-block>
+                            <p>Colleagues </p>
+                            <table id="friendBox" class="form-inline " style='margin-bottom: 10px;width:200px' role="form">
+                                <tbody style="text-align: center;">
                             </table>
+                        </div>
+                        <!-- {"id":"clotho.developer.katielewis1","name":"Katie Lewis","schema":"org.clothocad.model.PersonalProfile","institution":"Boston University","lab":"CIDAR","position":"Undergraduate","permission":"basic", "username":"kmlewis","projects":-->
 
-                        </div>-->
                     </div>
                 </div>
             </div>
-            <!--       <p><strong>Douglas Densmore</strong> (CIDAR) fired <strong>Zach Chapasko</strong> (CIDAR)<br></p>
-                   <p style="font-size:.75em; margin-top:-12px;">5 hours ago</p>
-                   <p><strong>Zach Chapasko</strong> (CIDAR) made 2 parts<br></p>
-                   <p style="font-size:.75em; margin-top:-12px;">Yesterday at 7:37pm<br></p>
-                   <p><strong>Zach Chapasko</strong> (CIDAR) pushed 2 commits to PhageDev<br></p>
-                   <p style="font-size:.75em; margin-top:-12px;">Yesterday at 9:49am<br></p>
-                   <p>3 people used <strong>Zach Chapasko</strong>'s (CIDAR) part BBa_0034<br></p>
-                   <p style="font-size:.75em; margin-top:-12px;">Wednesday at 1:52am<br></p>
-                   <p><strong>Zach Chapasko</strong> (CIDAR) published "Effects of Sleep Deprivation on Synthetic Biologists"<br></p>
-                   <p style="font-size:.75em; margin-top:-12px;">Tuesday at 7:52pm<br></p>
-                   <p><strong>Zach Chapasko</strong> (CIDAR) pushed 5 commits to OwlDev<br></p>
-                   <p style="font-size:.75em; margin-top:-12px;">Tuesday at 5:26pm<br></p>
-                   <p><strong>Katie Lewis</strong> (iGem) commented on <strong>Zach Chapasko</strong>'s (CIDAR) Lab Notebook<br></p>
-                   <p style="font-size:.75em; margin-top:-12px;">Monday at 9:12pm<br></p>
-                   <p><strong>Zach Chapasko</strong> joined CIDAR Group at BU<br></p>
-                   <p style="font-size:.75em; margin-top:-12px;">9 months ago<br></p>
-                   -->
-
         </div>
     </div>
 </div>
-
 </div>
 <!--------
 SCRIPTS
@@ -169,30 +144,62 @@ SCRIPTS
 
 <!--note - correct app based on the distribution, comments removed by build-->
 <script type = "text/javascript">
-    $(document).ready(function() {
-        var personID = "clotho.developer.karalefort";
         $("#createStatus").click(function () {
-            //alert("createStatus")
-            timeStamp = Date.now();
+            //alert(window.name);
+            var personID = window.name;
+            //var personID = "clotho.developer.klefort";
+            timeStamp = new Date();
+            //timeStamp = Date.now();
             //alert(timeStamp)
-           // var StatusObj = str.concat('"schema":', '"org.clothocad.phagebook.status"');//,', "entryDate":', '",document.getElementById("statusText").value' );
+           //var StatusObj = str.concat('"schema":', '"org.clothocad.phagebook.status"');//,', "entryDate":', '",document.getElementById("statusText").value' );
             var StatusObj = "{ \"schema\": \"org.clothocad.phagebook.status\", \"time\" :\"" + timeStamp + "\" , \"text\": \"" + document.getElementById("newStatus").value + "\" , \"person\": \"" + personID + "\" }";
             //alert(StatusObj);
             var obj = JSON.parse(StatusObj);
-            alert(obj);
-            alert(StatusObj);
+           // alert(obj);
+           // alert(StatusObj);
             Clotho.create(obj).then(function(result){
-
                 Clotho.get(personID).then(function(personObj) {
-
                     personObj.statuses.push(result);
-
                    Clotho.set(personObj);
             })
          });
         });
-    })
 </script>
+<!--<script>
+    var reader = new FileReader();
+    reader.onload = function(event) {
+    var dataUri = event.target.result,
+    img = document.createElement("img");
+    img.src = dataUri;
+    document.body.appendChild(img);
+};
+
+reader.onerror = function(event) {
+console.error("File could not be read! Code " + event.target.error.code);
+};
+
+reader.readAsDataURL(file);
+</script>
+
+<script>
+    function previewFile(){
+        var preview = document.querySelector('img'); //selects the query named img
+        var file    = document.querySelector('input[type=file]').files[0]; //sames as here
+        var reader  = new FileReader();
+
+        reader.onloadend = function () {
+            preview.src = reader.result;
+        }
+
+        if (file) {
+            reader.readAsDataURL(file); //reads the data as a URL
+        } else {
+            preview.src = "";
+        }
+    }
+
+    previewFile();  //calls the function named previewFile()
+</script>-->
 
 <!--<script type= "text/javascript">
     /*$(document).ready(function(){
@@ -208,46 +215,115 @@ SCRIPTS
     })*/
 </script>-->
 
+<script>
+    document.getElementById('imageupload').onchange = function (evt) {
+        var tgt = evt.target || window.event.srcElement,
+                files = tgt.files;
+
+        // FileReader support
+        if (FileReader && files && files.length) {
+            var fr = new FileReader();
+            fr.onload = function () {
+                //alert("ping");
+                document.getElementById('imagesource').src = fr.result;
+            }
+            fr.readAsDataURL(files[0]);
+        }
+
+
+        else {
+
+        }
+    }
+</script>
+
+<!--
+<script>
+    function previewFile(){
+        //alert("ping");
+        var preview = document.querySelector('img'); //selects the query named img
+        var file    = document.querySelector('input[type=file]').files[0]; //sames as here
+        var reader  = new FileReader();
+
+        reader.onloadend = function () {
+            preview.src = reader.result;
+        }
+
+        if (file) {
+            reader.readAsDataURL(file); //reads the data as a URL
+        } else {
+            preview.src = "";
+        }
+    }
+
+    previewFile();  //calls the function named previewFile()
+</script>-->
+
 <script type  = text/javascript>
 $(document).ready(function() {
-    {
-        //alert('hey');
-        var personID = "clotho.developer.karalefort";
-        //alert('here');
-        var statusObj;
-        var notNullArray = [];
-        Clotho.get(personID).then(function (personObj) {
-           //alert(personObj.name);
-            document.getElementById("profileName").innerHTML = personObj.name;
-            Clotho.get(personObj.statuses).then(function(statusObj) {
-                alert(personObj.statuses);
-                if (personObj.statuses.length == null) {
+    //("#loadProfile").click(function () {
+    var x = document.createElement("INPUT");
+    x.setAttribute("type", "file");
+    //alert(window.name);
+    //var personID = document.getElementById("login").value;
+    var personID = window.name;
+ // var personID =   "clotho.developer.klefort";
+    var statusObj;
+    var notNullArray = [];
+    Clotho.get(personID).then(function (personObj) {
+                //alert(personObj.lastname);
+                document.getElementById("profileName").innerHTML = personObj.firstname + " " + personObj.lastname;
+                document.getElementById("universityName").innerHTML = personObj.institution;
+                document.getElementById("positionName").innerHTML = personObj.position;
+                //document.getElementById()
+                Clotho.get(personObj.statuses).then(function (statusObj) {
+                    if (personObj.statuses.length == null) {
+                    }
+                    else {
+                        for (var i = statusObj.length - 1; i >= 0; i--) {
 
-                 }
-                else
-                    {
-                        for (var i = 0; i < statusObj.length; i++) {
-                             alert(statusObj.length);
                             if (statusObj[i] == null) {
                                 personObj.statuses[i] = [];
-
                             }
-                           else {
+                            else {
 
                                 notNullArray.push(i);
                                 var paperCite = '';
                                 var newStatus = statusObj[i];
-                                $('#keyValueForm').append("<tr style='margin-top: 10px;'> <td>"  + "<p>" + newStatus.text + "</p></td> <td>" + newStatus.timestamp + "</td> < td > < button onclick = 'deletePaper(" + JSON.stringify(statusObj) + ") ' class= 'btn btn-primary'" + "> x </button></td></tr>");
+                                $('#keyValueForm').append("<tr style='margin-top: 10px;'> <td>" + "<p>" + newStatus.text + "</p></td> <td>" + newStatus.time + "</td> < td > < button onclick = 'deletePaper(" + JSON.stringify(statusObj) + ") ' class= 'btn btn-primary'" + "> x </button></td></tr>");
                             }
-                            Clotho.set(personObj)
 
                         }
 
+                    }
+                })
+                if (personObj.friends.length == null) {
+                    alert("null");
+                }
+                else {
+                    for (var i = personObj.friends.length - 1; i >= 0; i--) {
+                        //alert(personObj);
+                        if (personObj.friends[i] == null) {
+                            personObj.friends[i] = [];
+                        }
+                        else {
+                            notNullArray.push(i);
+                            var paperCite = '';
+                            var newFriend = personObj.friends[i];
+
+                            $('#friendBox').append("<tr style='margin-top: 10px;'> <td>" + "<a href = ./Profile.html>" + newFriend + "</a></td> </tr>");
+                        }
+
+
+                    }
+
+
                 }
             }
-            );
-        });
-    }
+
+    );
+
+
 });
 </script>
 
@@ -270,7 +346,7 @@ $(document).ready(function() {
 <script src="scripts/Tracking.js"></script>
 <script src="scripts/orderingCtrl.js"></script>
 <script src="scripts/clotho3API.js"></script>
-
+<script src="scripts/sample/profileCtrl.js"></script>
 
 </body>
 </html>
