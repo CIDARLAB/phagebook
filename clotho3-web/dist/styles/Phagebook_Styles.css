@@ -112,7 +112,6 @@ h4 {
 	text-align: center;
 }
 
-<<<<<<< HEAD
 th {
 	text-align: center;
 }
@@ -121,84 +120,82 @@ td {
 	text-align: center;
 }
 
-.rightColumn {
-=======
 #rightColumn {
-    display:block;
->>>>>>> 69b0493eeb2ed7f9d77d4f52acda85b16a3732ee
-	float: right;
-	width: 700px;
-	background-color: #fff;
-	height: 2000px;
+    display: block;
+    float : right;
+    width: 670px;
+    background-color: #fff;
+    height: 2000px;
 }
 
-
 .information {
-	font-size: 15px;
-	margin-left:auto;
-	margin-right: auto;
-	height: 114px;
+    font-size: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 114px;
 }
 
 .labInfo {
-    position:relative;
-	font-weight: bold;
-	margin-left: 20px;
-	margin-top: 15px;
-	float: left;
-	padding: 15px;
+    position: relative;
+    font-weight: bold;
+    margin-left: 20px;
+    margin-top: 15px;
+    float: left;
+    padding: 15px;
 }
 
 .labInfo2 {
-    position:relative;
-	margin-top: 15px;
-	margin-left: auto;
-	padding: 15px;
-    float:left;
+    position: relative;
+    margin-top: 15px;
+    margin-left: auto;
+    padding: 15px;
+    float: left;
 }
 
 .description {
-	margin-left: .67em;
-	margin-right: .67em;
-	margin-top: 20px;
-	padding: 20px;
-	text-align: justify;
+    margin-left: .67em;
+    margin-right: .67em;
+    margin-top: 20px;
+    padding: 20px;
+    text-align: justify;
 }
 
 .notebook {
-    position:relative;
-	height:100px;
-	font-size: 15px;
-    float:left;
-	margin-left:auto;
-	margin-right: auto;
+    position: relative;
+    height: 100px;
+    font-size: 15px;
+    float: left;
+    margin-left: auto;
+    margin-right: auto;
 }
+
 .labnotebook {
-    position:relative;
-	float:left;
-	list-style-type: none;
-	font-size: 18px;
-	font-weight: bold;
-	width: 180px;
-	margin: 0;
-	padding-left: 20px;
-	margin-left: .67em;
+    position: relative;
+    float: left;
+    list-style-type: none;
+    font-size: 18px;
+    font-weight: bold;
+    width: 180px;
+    margin: 0;
+    padding-left: 20px;
+    margin-left: .67em;
 }
+
 .dropDown {
-    position:relative;
-	float: right;
-	height: 24px;
-	margin-right: 300px;
+    position: relative;
+    float: right;
+    height: 24px;
+    margin-right: 300px;
 }
 
-#newEntry{
-   position:relative;
-    float:left;
+#newEntry {
+    position: relative;
+    float: left;
 }
 
-#notebookEntry{
+#notebookEntry {
     display: none;
-    position:relative;
+    position: relative;
     float: right;
     margin-left: auto;
     margin-right: auto;
@@ -208,125 +205,106 @@ td {
 }
 
 #projectDescription {
-    float:left;
-    width:400px;
+    float: left;
+    width: 400px;
 }
 
 #whosNotebook {
-    position:relative;
-    float:right;
+    position: relative;
+    float: right;
 }
 
 #entryText {
-    font-size:15px;
+    font-size: 15px;
     font-weight: 700;
 }
 
-
-#entryButton{
-    position:relative;
-    float:left;
+#entryButton {
+    position: relative;
+    float: left;
 }
 
 .notebookText {
-	font-size: 15px;
-	padding: 20px;
-	margin-top: 40px;
-	margin-left: 29px;
-	width: 600px;
-	height: 300px;
-	float: left;
+    font-size: 15px;
+    padding: 20px;
+    margin-top: 40px;
+    margin-left: 29px;
+    width: 600px;
+    height: 300px;
+    float: left;
 }
 
 /*Ordering*/
 
-
-ul.navigation
-{
-	list-style-type: point;
+ul.navigation {
+    list-style-type: point;
 }
 
-ul.pages
-{
-	height:30px;
-	width:500px;
-	padding:0px;
-	list-style-type:none;
+ul.pages {
+    height: 30px;
+    width: 500px;
+    padding: 0px;
+    list-style-type: none;
 }
 
-li.pages
-{
-color:#66A366;
-font-weight:bold;
-float:left;
-border: 1px solid black;
-padding:2px;
-padding-left: 5px;
-padding-right:5px;
+li.pages {
+    color: #66A366;
+    font-weight: bold;
+    float: left;
+    border: 1px solid black;
+    padding: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
-.line
-{
-<<<<<<< HEAD
-	height:3px; 
-=======
-	height:3px;
-	margin:0px;
->>>>>>> 69b0493eeb2ed7f9d77d4f52acda85b16a3732ee
-	border-bottom:2px solid #66A366;
+.line {
+
+    height : 3px;
+    margin: 0px;
+    border-bottom : 2px solid #66A366;
 }
 
-.tableInProgress
-{
-	border:1px solid #66A366;
-<<<<<<< HEAD
-	width: 625px; 
-	margin: 0px;
-=======
-	width: 625px;
->>>>>>> 69b0493eeb2ed7f9d77d4f52acda85b16a3732ee
+.tableInProgress {
+    border: 1px solid #66A366;
+    margin: 0px;
+    width : 625px;
 }
 
-.inProgress
-{
-	padding-left: 20px;
+.inProgress {
+    padding-left: 20px;
 }
-.submitted
-{
-	padding-left: 20px;
+
+.submitted {
+    padding-left: 20px;
 
 }
 
-.tableSubmitted
-{
-	border:1px solid #66A366;
-	width: 625px;
+.tableSubmitted {
+    border: 1px solid #66A366;
+    width: 625px;
 }
 
-.navigation
-{
-	height:30px;
+.navigation {
+    height: 30px;
 }
 
-.navigationBar
-{
-	display: inline;
-/*	padding-left: 40px;*/
-	padding-right: 40px;
+.navigationBar {
+    display: inline;
+    /*	padding-left: 40px;*/
+    padding-right: 40px;
 }
 
-.newOrder
-{
-	padding-left: 20px;
-	margin: 0px;
-	text-align: left;
+.newOrder {
+    padding-left: 20px;
+    margin: 0px;
+    text-align: left;
 }
 
-
-.profileheading{
-    float:left
-
-}
-
+.profileheading {
+    float: left
 
 }
+#background{
+    background-size: contain;
+}
+
