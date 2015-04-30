@@ -47,7 +47,7 @@
 <div class = "contentBackground" ng-app = "projects">
     <div class = "mainContent">
         <div class = "leftColumn">
-          <img src = "/images/people/Katie_Lewis.jpeg">
+          <img id = "profilePic" src = "/images/people/Katie_Lewis.jpeg">
           <h4> <a href ="./Profile.html">Katie Lewis</a> Projects </h4>
             <table id="projTable">
                 <!--<tr>-->
@@ -73,20 +73,18 @@
               <li> Associated Labs: </li>
               <li> Primary Investigator: </li>
               <li> Project Lead: </li>
-              <li> Project Advisor </li>
-                <li> Description: </li>
+              <li> Project Advisor: </li>
+              <li> Description: </li>
             </ul>
-
-            <ul class = "labInfo2"> 
-              <li id="currentLab">  </li>
-              <li id="currentPI">  </li>
-              <li id="currentLead">  </li>
+            <ul class = "labInfo2">
+              <li id="currentLab"> </li>
+              <li id="currentPI"> </li>
+              <li id="currentLead"> </li>
               <li id="currentAdvisor"> </li>
             </ul>
-              <br>
               <p id = "projectDescription" ></p>
-              <br><br><br><br><br><br>
-              <p id = "partsLink"> <a href="Parts.html">Genetic Parts</a></p>
+              <br><br>
+              <p id = "partsLink"> <a href="Parts.html">Genetic Parts Inventory</a></p>
             </div>
 
             <!--<img height="100" width="100" id = "image2"  ondragstart="drag(event)" draggable="true" src="/images/socialmedia/twitter.png">-->
@@ -94,15 +92,13 @@
             <!--</p>-->
             <br><br>
             <div id="entryButtons">
-                <button onclick = "newEntry()" id = "newEntry" >New Entry</button><br><br>
-                <!--<button onclick = "photoAppear()" id="makePhotoAppear">Display Entry</button>-->
-                <!--<br>-->
+                <button onclick = "newEntry()" id = "newEntry" >New Entry</button>
                 <button onclick="editEntry()" id="entryEdit">Edit Entry</button>
                 <button id="doneEditingEntry" onclick = "changeEntry()">Done</button>
                 <p id="entryToChange"></p>
             </div>
-            <h1 class = "labnotebook" id="notebookTitle">Notebook</h1>
-            <div>
+            <!--<h1 class = "labnotebook" id="notebookTitle">Notebook</h1>-->
+            <div id="searchingNotebook">
                 <button id="searchButton" onclick="searchEntries()">search</button>
                 <ng-form class="form-horizontal" id="searchNotebook" ng-class="{'has-error' : projectForm.name.$dirty && projectForm.name.$invalid}">
                     <input id="searchDate" type="date">
@@ -356,11 +352,12 @@ SCRIPTS
                             document.getElementById("noteID").appendChild(div);
                             div.style.position = 'relative';
                             div.style.height = '100px';
+                            div.className = "justCreated";
                             div.style.borderStyle = 'solid';
-                            div.innerHTML= res.entryText;
+                            div.innerHTML= res.entryHeading;
                             div.style.textAlign ='center';
                             div.paddingTop = '5px';
-                            div.onclick = "chooseEntry(res.entryText, entry.Heading)";
+                            div.onclick = function() {chooseEntry(res.entryText, res.entryHeading);};
                             // entryHere.innerHTML = res.entryText;
                             // if(res.entryHeading != ""){
                             //     document.getElementById("heading").innerText = res.entryHeading;
@@ -393,13 +390,37 @@ SCRIPTS
                 for(var i=0;i < result.notebookEntries.length;i++){
                     Clotho.get(result.notebookEntries[i]).then(function(res) {
                         if(res.entryText.search(current) != -1){
-                            document.getElementById("entryGoesHere").innerHTML = res.entryText;
-                            if(res.entryHeading != ""){
-                                document.getElementById("heading").innerText = res.entryHeading;
-                            }
-                        }
+                            entryHere.style.display = "none";
+                            document.getElementById("heading").style.display = "none";
+                            document.getElementById("noteID").style.borderStyle='none';
+                            document.getElementById("noteID").display = "none";
+                            var div = document.createElement('p');
+                            document.getElementById("noteID").appendChild(div);
+                            div.style.position = 'relative';
+                            div.style.height = '100px';
+                            div.className = "justCreated";
+                            div.style.borderStyle = 'solid';
+                            div.innerHTML= res.entryHeading;
+                            div.style.textAlign ='center';
+                            div.paddingTop = '5px';
+                            div.onclick = function() {chooseEntry(res.entryText, res.entryHeading);};
+                            // entryHere.innerHTML = res.entryText;
+                            // if(res.entryHeading != ""){
+                            //     document.getElementById("heading").innerText = res.entryHeading;
+                            // }
+                        };
                     });
                 };
+//                for(var i=0;i < result.notebookEntries.length;i++){
+//                    Clotho.get(result.notebookEntries[i]).then(function(res) {
+//                        if(res.entryText.search(current) != -1){
+//                            document.getElementById("entryGoesHere").innerHTML = res.entryText;
+//                            if(res.entryHeading != ""){
+//                                document.getElementById("heading").innerText = res.entryHeading;
+//                            }
+//                        }
+//                    });
+//                };
             });
         }
 
@@ -409,7 +430,13 @@ SCRIPTS
 
 <script>
     function chooseEntry(text, heading){
-        //find way to delete all divs that were created & display entryGoesHere with heading and text of chosen entry
+        $('.justCreated').remove();
+        document.getElementById("heading").style.display = "block";
+        document.getElementById("noteID").style.borderStyle='solid';
+        document.getElementById("noteID").display = "block";
+        document.getElementById("heading").innerHTML = heading;
+        document.getElementById("entryGoesHere").innerHTML = text;
+        document.getElementById("entryGoesHere").style.display = 'block';
     }
 </script>
 

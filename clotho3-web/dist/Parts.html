@@ -60,8 +60,22 @@
         <!--<button type="button" id="CreateButton">Create New Project </button>-->
 
     <!--</div>-->
+        <div class = "leftColumn">
+            <img src = "/images/people/Katie_Lewis.jpeg">
+            <h4> <a href ="./Profile.html">Katie Lewis</a> Projects </h4>
+            <table id="projTable">
+                <!--<tr>-->
+                <!--<td id="iGEM"><a href="./Projects.html" value="igem.id" style="display:block;">iGEM</a> </td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                <!--<td id="Phagebook"><a href = "./Projects.html" style = "display:block;">Phagebook</a></td>-->
+                <!--</tr>-->
+            </table>
 
+            <br><br>
+        </div>
 
+    <div id = "rightColumn">
 
         <!--Add filters to look through boxes related to person/project/lab-->
         <div id="createBox">
@@ -82,11 +96,13 @@
         <br>
         <br>
         <div id="wrapper"></div>
-        </div>
-
-        <div>
-            <p>Assign parts to inventory</p>
-        </div>
+        <button id="changingBox" onclick="changeCell()">Save</button>
+    </div>
+        <p id = "hiddenParagraph"></p>
+    </div>
+        <!--<div>-->
+            <!--<p>Assign parts to inventory</p>-->
+        <!--</div>-->
 </div>
 
 <!--Scripts-->
@@ -114,7 +130,7 @@
             var num_cols = document.getElementById("boxColumns").value;
             var name = document.getElementById("boxName").value;
             var tbody = '';
-            var theader = '<div contenteditable="true"><h2 id="headerID"></h2><table id= "newBox" border="1" width="300" cellpadding="30">\n';
+            var theader = '<div contenteditable="true"><h2 id="headerID"></h2><table id= "newBox" border="1" width="300" cellpadding="30" onclick="editBox(this)">\n';
             for ($u=1; $u<=num_rows;$u++){
                 tbody += '<tr>';
                     for(var j=0;j<num_cols;j++){
@@ -127,23 +143,31 @@
             var tfooter = '</table></div>';
             document.getElementById('wrapper').innerHTML = document.getElementById('wrapper').innerHTML + theader + tbody + tfooter;
             document.getElementById('headerID').innerHTML = name;
+
+            //Save box into schema
             var boxCells = new Array;
             var largerArray = new Array;
-            for (i = 0; i < num_rows; i++)
+            for (var i = 0; i < num_rows; i++)
             {
-                for (j=0; j < num_cols; j++){
+                boxCells = [];
+                for (var j=0; j < num_cols; j++){
+//                    alert(i);
                     boxCells[j] = document.getElementById("newBox").rows[i].cells[j].innerHTML;
+//                    boxCells[j].innerHTML = boxCells[j].innerHTML + 'onclick = "changeCell.call(this)"';
 //                    alert(document.getElementById("newBox").rows[i].cells[j].innerHTML);
                 }
                 largerArray[i] = boxCells;
+                alert(largerArray[i]);
             }
+
+            document.getElementById("newBox").id = name;
             var obj = {"schema":"org.clothocad.model.Box","name":name, "boxes":largerArray};
             Clotho.get(personID).then(function (personObj) {
                 alert(personID);
                 Clotho.create(obj).then(function (result) {
-                    personObj.boxes[0] = result;
+                    personObj.boxes[2] = result;
                     alert(result);
-                    alert(personObj.boxes[0]);
+                    alert(personObj.boxes[2]);
                     Clotho.set(personObj);
                 });
             });
@@ -155,6 +179,21 @@
     function displayBoxes(){
         var personID = "clotho.developer.katielewis";
         Clotho.get(personID).then(function(personObj){
+            var tableRef = document.getElementById("projTable");
+            if (personObj.projects.length > 0) {
+                var newRow = tableRef.insertRow(0);
+                var newCell = newRow.insertCell(0);
+                Clotho.get(personObj.projects[0]).then(function (proj) {
+                    newCell.innerHTML = '<a href="./Projects.html" style = "display:block"+ value =' + proj.id + ' onclick = "projectDetails.call(this)">' + proj.name + '</a>';
+                });
+                for (var i = 1; i < personObj.projects.length; i++) {
+                    Clotho.get(personObj.projects[i]).then(function (projectObj) {
+                        newRow = tableRef.insertRow(tableRef.rows.length);
+                        newCell = newRow.insertCell(0);
+                        newCell.innerHTML = '<a href="./Projects.html" style = "display:block" value =' + projectObj.id + ' onclick = "projectDetails.call(this)">' + projectObj.name + '</a>';
+                    });
+                }
+                }
             if(personObj.boxes.length > 0){
                 for (i=0; i< personObj.boxes.length; i++){
                     Clotho.get(personObj.boxes[i]).then(function(result){
@@ -163,6 +202,54 @@
                 }
             }
         });
+    }
+</script>
+<script>
+    function editBox(box){
+        document.getElementById("hiddenParagraph").innerText = box.id;
+        document.getElementById("changingBox").style.display = "block";
+    }
+</script>
+<script>
+    function changeCell(){
+        var boxName = document.getElementById("hiddenParagraph").innerText;
+        var box = document.getElementById(boxName);
+        var boxCells = new Array;
+        var largerArray = new Array;
+        var num_rows = box.rows.length;
+        var num_cols = box.rows[0].cells.length;
+        var personID = "clotho.developer.katielewis";
+        for (var i = 0; i < num_rows; i++)
+        {
+            boxCells = [];
+            for (var j=0; j < num_cols; j++){
+                boxCells[j] = box.rows[i].cells[j].innerHTML;
+//                    boxCells[j].innerHTML = boxCells[j].innerHTML + 'onclick = "changeCell.call(this)"';
+//                    alert(document.getElementById("newBox").rows[i].cells[j].innerHTML);
+            }
+            largerArray[i] = boxCells;
+        }
+//        var obj = {"schema":"org.clothocad.model.Box","name":boxName, "boxes":largerArray};
+        Clotho.get(personID).then(function (personObj) {
+            alert(personID);
+                if(personObj.boxes.length > 0){
+                    for (var i = 0; i < personObj.boxes.length; i++){
+                        Clotho.get(personObj.boxes[i]).then(function(result1){
+                            if(result1.name == boxName){
+                                result1.boxes = largerArray;
+                                Clotho.set(result1);
+                            }
+                        })
+                    }
+                }
+//                personObj.boxes[0] = result;
+//                alert(result);
+//                alert(personObj.boxes[0]);
+//                Clotho.set(personObj);
+            });
+        alert("Hopefully this will change the table in the schema");
+        document.getElementById("changingBox").style.display = "none";
+        document.getElementById("hiddenParagraph").innerText = "";
     }
 </script>
 
