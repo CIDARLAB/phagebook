@@ -154,7 +154,6 @@ h4 {
 
 #rightColumn {
     display:block;
-    4ece264c24543f5cac816d40f5ebdaa72075d6bf
 	float: right;
 	width: 700px;
 	background-color: #fff;
@@ -213,7 +212,7 @@ h4 {
 	font-size: 15px;
     float:left;
 	margin-left:20px;
-	margin-right: auto;
+	/*margin-right: auto;*/
     /*border-style:solid;*/
     padding-left:15px;
     padding-right:15px;
@@ -324,6 +323,7 @@ h4 {
     /*margin-left:20px;*/
     padding-left:20px;
     margin-top:20px;
+    /*margin-right: -151px;*/
 }
 
 #notebookTitle {
@@ -436,7 +436,6 @@ padding-right:5px;
 {
 	height:3px;
 	margin:0px;
-     4ece264c24543f5cac816d40f5ebdaa72075d6bf
 	border-bottom:2px solid #66A366;
 }
 
@@ -444,7 +443,6 @@ padding-right:5px;
 {
 	border:1px solid #66A366;
 	width: 625px;
-    4ece264c24543f5cac816d40f5ebdaa72075d6bf
 }
 
 .inProgress
