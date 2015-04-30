@@ -43,9 +43,7 @@
 				<h3>Create Objects</h3>
 			</p>
 			<textarea id="gateupload" ng-model="item.obj" rows="15" cols="100"> </textarea><br>
-
 			<button class="btn btn-primary" ng-click="ctrl.createObj()">Save</button><br>
-
 			<p>
 				<h3>Query</h3>
 			</p>
@@ -55,8 +53,6 @@
 			<input ng-model="item.val" type="text"><br><br>
 			<textarea ng-model="item.results" rows="15" cols="100"> </textarea><br>
 			<button class="btn btn-primary" ng-click="ctrl.queryObj()" >Query</button><br>
-
-
 
 		</ng-form>
 	</div>
@@ -72,26 +68,24 @@ SCRIPTS
 $(document).ready(function() {
 
 	$("#query").click(function() {
-	{
-			
-			var queryVal = document.getElementById('queryR').value;
-			alert(queryVal);
-			$clotho.$pubsub.query("name","queryVal").then(function(data) 
-			{
-				var found=false;
-				if(data !=null)
-				{
-					document.getElementById('results').value += ("Object Found. Name: "+data.name+" \n");  
-					found = true;                                   
-				}
-				if(!found)
-				{
-					document.getElementById('results').value += ("No results obtained\n");  
-				}
-			}).done();
-	});
-});
+        {
 
+            var queryVal = document.getElementById('queryR').value;
+            alert(queryVal);
+            $clotho.$pubsub.query("name", "queryVal").then(function (data) {
+                var found = false;
+                if (data != null) {
+                    document.getElementById('results').value += ("Object Found. Name: " + data.name + " \n");
+                    found = true;
+                }
+                if (!found)
+                {
+                    document.getElementById('results').value += ("No results obtained\n");
+                }
+            }).done();
+             }
+})
+})
 </script>  
 
 <script src="scripts/b18fc8c8.clotho-app-command.js"></script>

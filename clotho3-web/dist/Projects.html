@@ -132,6 +132,10 @@
             <button id="previous" onclick="prevEntry()">Previous</button>
         </div>
 
+
+
+
+
 <div id="createProject">
     <ng-form class="form-horizontal" name="projectForm" ng-class="{'has-error' : projectForm.name.$dirty && projectForm.name.$invalid}">
 
@@ -687,12 +691,13 @@ SCRIPTS
        };
     </script>
 <script>
+
     $("#file1").change(function(e) {
 
     for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
 //        alert( e.originalEvent.srcElement.files.length);
-    var file = e.originalEvent.srcElement.files[i];
 
+    var file = e.originalEvent.srcElement.files[i];
     var img = document.createElement("img");
     var reader = new FileReader();
     reader.onloadend = function() {

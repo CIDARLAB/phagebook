@@ -148,19 +148,26 @@ a:hover, a:active {
 }
 
 
+th {
+	text-align: center;
+}
+
 h4 {
 	text-align: center;
 }
 
 #rightColumn {
-	float: right;
-	width: 700px;
-	background-color: #fff;
-	height: 300px;
+
+    display: block;
+    float : right;
+    width: 670px;
+    background-color: #fff;
+    height: 2000px;
+
 }
 
-
 .information {
+
 	font-size: 15px;
 	margin-left:auto;
 	margin-right: auto;
@@ -175,6 +182,7 @@ h4 {
 	margin-top: 15px;
 	float: left;
 	padding: 15px;
+
 }
 
 #heading {
@@ -308,14 +316,17 @@ h4 {
 	padding-left: 20px;
 	margin-left: auto;
     margin-right:auto;
-}
-.dropDown {
-    position:relative;
-	float: right;
-	height: 24px;
-	margin-right: 300px;
+
 }
 
+}
+
+.dropDown {
+    position: relative;
+    float: right;
+    height: 24px;
+    margin-right: 300px;
+}
 #entryButtons{
     position:relative;
     float:right;
@@ -339,11 +350,12 @@ h4 {
     background-color:#006600;
     color:#FFFFFF;
     margin-top:10px;
+
 }
 
-#notebookEntry{
+#notebookEntry {
     display: none;
-    position:relative;
+    position: relative;
     float: right;
     margin-left: auto;
     margin-right: auto;
@@ -376,9 +388,10 @@ h4 {
 }
 
 #entryText {
-    font-size:15px;
+    font-size: 15px;
     font-weight: 700;
 }
+
 
 #entryEdit {
     position:relative;
@@ -391,44 +404,49 @@ h4 {
 #entryButton{
     position:relative;
     float:left;
+
 }
 
 .notebookText {
-	font-size: 15px;
-	padding: 20px;
-	margin-top: 40px;
-	margin-left: 29px;
-	width: 600px;
-	height: 300px;
-	float: left;
+    font-size: 15px;
+    padding: 20px;
+    margin-top: 40px;
+    margin-left: 29px;
+    width: 600px;
+    height: 300px;
+    float: left;
 }
 
 /*Ordering*/
 
-
-ul.navigation
-{
-	list-style-type: point;
+ul.navigation {
+    list-style-type: point;
 }
 
-ul.pages
-{
-	height:30px;
-	width:500px;
-	padding:0px;
-	list-style-type:none;
+ul.pages {
+    height: 30px;
+    width: 500px;
+    padding: 0px;
+    list-style-type: none;
 }
 
-li.pages
-{
-color:#66A366;
-font-weight:bold;
-float:left;
-border: 1px solid black;
-padding:2px;
-padding-left: 5px;
-padding-right:5px;
+li.pages {
+    color: #66A366;
+    font-weight: bold;
+    float: left;
+    border: 1px solid black;
+    padding: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
+
+.line {
+
+    height : 3px;
+    margin: 0px;
+    border-bottom : 2px solid #66A366;
+}
+
 
 .history
 {
@@ -460,6 +478,7 @@ text-align: center;
 {
 	border:1px solid #66A366;
 	width: 625px;
+
 }
 #tableVendors
 {
@@ -482,21 +501,23 @@ text-align: center;
     width: 625px;
 }
 
-.navigation
-{
-	height:30px;
+.navigationBar {
+    display: inline;
+    /*	padding-left: 40px;*/
+    padding-right: 40px;
 }
 
-.navigationBar
-{
-	display: inline;
-/*	padding-left: 40px;*/
-	padding-right: 40px;
+.newOrder {
+    padding-left: 20px;
+    margin: 0px;
+    text-align: left;
 }
 
-.newOrder
-{
-	padding-left: 20px;
-	margin: 0px;
-	text-align: left;
+.profileheading {
+    float: left
+
 }
+#background{
+    background-size: contain;
+}
+
