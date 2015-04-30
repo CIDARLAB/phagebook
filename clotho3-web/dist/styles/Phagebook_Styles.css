@@ -28,6 +28,7 @@
 #searchDate {
     position:relative;
     display:block;
+    text-align:center;
 }
 
 #doneEditingEntry{
@@ -143,10 +144,20 @@ a:hover, a:active {
 
 #partsLink {
     position: relative;
-    margin-left: auto;
     margin-right: auto;
+    margin-left: 190px;
+    float: left;
 }
 
+#changingBox {
+    display: none;
+    position:relative;
+    float:left;
+}
+
+#hiddenParagraph {
+    display: none;
+}
 
 h4 {
 	text-align: center;
@@ -154,9 +165,8 @@ h4 {
 
 #rightColumn {
     display:block;
-    4ece264c24543f5cac816d40f5ebdaa72075d6bf
 	float: right;
-	width: 700px;
+	width: 670px;
 	background-color: #fff;
 	height: 300px;
 }
@@ -164,10 +174,11 @@ h4 {
 
 .information {
 	font-size: 15px;
-	margin-left:auto;
+	/*margin-left:auto;*/
 	margin-right: auto;
-	height: 114px;
-    margin-bottom:50px;
+	height: 200px;
+    /*margin-bottom:50px;*/
+    width:550px;
 }
 
 .labInfo {
@@ -194,7 +205,7 @@ h4 {
     padding-top:15px;
     padding-bottom:0px;
     margin-bottom:0px;
-    float:left;
+    float:right;
 }
 
 .description {
@@ -212,7 +223,7 @@ h4 {
     width:680px;
 	font-size: 15px;
     float:left;
-	margin-left:20px;
+	margin-left:-10px;
 	margin-right: auto;
     /*border-style:solid;*/
     padding-left:15px;
@@ -223,11 +234,14 @@ h4 {
     border-style:solid;
 }
 
+
 #searchButton{
     /*background: url(searchIcon.png);*/
     /*background-repeat: no-repeat;*/
     float:right;
-    margin-top:5px;
+    background-color:#006600;
+    color:#FFFFFF;
+    margin-right:200px;
     margin-top:45px;
 }
 
@@ -240,8 +254,8 @@ h4 {
 
 #searchNotebook{
     position:relative;
-    float:right;
-    margin-left:5px;
+    float:left;
+    /*margin-left:60px;*/
     height:44px;
     margin-bottom:0px;
     padding-bottom:0px;
@@ -262,7 +276,7 @@ h4 {
     position:relative;
     text-decoration: underline;
     margin-top:44px;
-    margin-left:25px;
+    margin-left:5px;
     float:left;
 }
 #dateSearch{
@@ -292,7 +306,7 @@ h4 {
 #previous {
     position:relative;
     float:left;
-    margin-left:20px;
+    margin-left:-10px;
     background-color:#006600;
     color:#FFFFFF;
 }
@@ -323,7 +337,9 @@ h4 {
     float:right;
     /*margin-left:20px;*/
     padding-left:20px;
-    margin-top:20px;
+    /*margin-top:20px;*/
+    margin-bottom: 5px;
+    /*width: 90px;*/
 }
 
 #notebookTitle {
@@ -337,7 +353,7 @@ h4 {
 
 #newEntry{
    position:relative;
-    float:right;
+    float:left;
     background-color:#006600;
     color:#FFFFFF;
     margin-top:10px;
@@ -356,20 +372,33 @@ h4 {
 
 #projectDescription {
     position: relative;
-    float:right;
     /*margin-top: 15px;*/
     margin-left: auto;
     margin-right:auto;
     padding-left: 15px;
     padding-right: 15px;
     /*padding-top:15px;*/
-   float:left;
+}
+
+#searchingNotebook {
+   position: relative;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #createBox {
+    display:block;
     position:relative;
     margin-left: auto;
     margin-right: auto;
+}
+
+#CreateButton {
+    position:relative;
+    margin-right: auto;
+    margin-left: 18px;
+    background-color:#006600;
+    color:#FFFFFF;
 }
 
 #whosNotebook {
@@ -436,7 +465,6 @@ padding-right:5px;
 {
 	height:3px;
 	margin:0px;
-     4ece264c24543f5cac816d40f5ebdaa72075d6bf
 	border-bottom:2px solid #66A366;
 }
 
@@ -444,7 +472,6 @@ padding-right:5px;
 {
 	border:1px solid #66A366;
 	width: 625px;
-    4ece264c24543f5cac816d40f5ebdaa72075d6bf
 }
 
 .inProgress
