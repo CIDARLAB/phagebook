@@ -13,9 +13,9 @@
 
 	font-size: 15px;
 	background-color: #fff;
-	margin-right: auto;
-	margin-left: auto;
-	width: 851px;
+	margin-right: 210px;
+	margin-left: 210px;
+	width: 860px;
 	height: 2000px;
 }
 #uploader {
@@ -54,7 +54,7 @@
 	line-height: 24px;
 	float: left;
 	margin-left: 0px;
-	width: 172px;
+	width: 160px;
 	height: 2000px;
 	background-color: #e9eaed;
 }
@@ -70,6 +70,14 @@ td
     color: black;
     text-align: center;
 }
+
+th
+{
+    font-size:18px;
+    color: black;
+    text-align: center;
+}
+
 
 
 ul {
@@ -153,10 +161,12 @@ h4 {
 }
 
 #rightColumn {
-	float: right;
-	width: 700px;
-	background-color: #fff;
-	height: 300px;
+    float: right;
+    margin-left: auto;
+    margin-right: 0px;
+    width: 700px;
+    background-color: #fff;
+    height: 2000px;
 }
 
 
@@ -459,27 +469,27 @@ text-align: center;
 #tableSubmitted
 {
 	border:1px solid #66A366;
-	width: 625px;
+	width: 700px;
 }
 #tableVendors
 {
 	border:1px solid #66A366;
-	width: 625px;
+	width: 700px;
 }
 #tableOrders
 {
     border:1px solid #66A366;
-    width: 625px;
+    width: 700px;
 }
 #tableItems
 {
     border:1px solid #66A366;
-    width: 625px;
+    width: 700px;
 }
 #Orders
 {
     border:1px solid #66A366;
-    width: 625px;
+    width: 700px;
 }
 
 .navigation
