@@ -1,0 +1,332 @@
+<!doctype html>
+<html>
+<head>
+
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Lab Ordering</title>
+    <meta name="description" content="Clotho Lab Ordering">
+    <meta name="viewport" content="width=1024, initial-scale=1">
+    <script src="scripts/clotho3API.js"></script>
+    <!-- not necessary until serving outside root directory / want html5 mode -->
+    <base href="/">
+
+    <link rel="stylesheet" href="styles/2e84f2a0.command.css"/>
+    <link rel="stylesheet" href="styles/773cbfe6.main.css"/>
+    <link rel ="stylesheet" href="styles/Phagebook_Styles.css"/>
+
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+
+    <script src="bower_components/jquery/jquery.js"></script>
+
+    <!-- note that angular is required for any clotho functionality -->
+    <script src="bower_components/angular/angular.js"></script>
+    <!-- note that lodash is required by several components -->
+    <script src="bower_components/lodash/dist/lodash.js"></script>
+    <script src="projectsCTRL.js"></script>
+    <script src="projects-app.js"></script>
+</head>
+
+<body onload = "load()" ng-controller = "orderingCTRL">
+<!--[if lt IE 9]>
+<script src="bower_components/es5-shim/es5-shim.js"></script>
+<script src="bower_components/json3/lib/json3.min.js"></script>
+<![endif]-->
+
+
+<div ng-app="clothoRoot">
+    <div class="container">
+        <div clotho-command-bar></div>
+    </div>
+
+    <terminal-aside></terminal-aside>
+</div>
+
+
+<div class = "contentBackground" ng-app = "ordering">
+    <div class = "mainContent">
+        <div class = "leftColumn">
+
+            <div class = "personalInfo">
+
+                <img src = "/images/people/Inna.jpg">
+
+                <h4 >Inna Turshudzhyan <br> Boston University <br> CIDAR lab</h4>
+
+            </div>
+
+            <div class = "history">
+
+                <h1>History</h1>
+
+                <ul>
+                    <li><a href>Order 2783dh</a></li>
+                    <li><a href>Order 40ds7e</a></li>
+                    <li><a href>Order 2hd8w6</a></li>
+                </ul>
+
+            </div>
+
+        </div>
+
+
+
+
+        <div id = "rightColumn">
+
+            <h1 style="margin-left: 20px">ORDERING</h1>
+
+            <div class = "navigation">
+                <ul class = "navigation">
+                    <li class = "navigationBar"><a href>About</a></li>
+                    <li class = "navigationBar"><a href=Ordering.html>Orders</a></li>
+                    <li class = "navigationBar"><a href=Vendors.html>Vendors</a></li>
+                    <li class = "navigationBar"><a href=Items.html>Items</a></li>
+                    <li class = "navigationBar"><a href>Stats</a></li>
+                </ul>
+
+            </div>
+            <br>
+
+            <div class = "line"></div>
+
+
+            <div id = "CreateNewItem" style = "display: none">
+                <ng-form class="form-horizontal" name = "orderingForm" ng-class="{'has-error' : projectForm.name.$dirty && orderingForm.name.$invalid}">
+
+                    <h1>Create New Items</h1>
+                    <label>Name *</label>
+                    <input id="itemName" type="text"><br><br>
+                    <label>Vendor *</label>
+                    <input id="vendorName" value="" type="text"><br><br>
+                    <label>Cost *</label>
+                    <input id="itemCost" type="text"><br><br>
+                    <label>URL *</label>
+                    <input id="itemURL" type="text"><br><br>
+                    <label>Catalog #</label>
+                    <input id="catalogNo" type="text"><br><br>
+                    <label>Description</label>
+                    <input id="description" type="text"><br><br>
+
+                    <button id = "create" class="btn btn-primary" >Create</button><br>
+                </ng-form>
+
+            </div>
+
+
+            <br>
+            <div id = "New">
+
+
+                <button type="button" id = "CreateNewItemButton"> New Item</button>
+                <br>
+                <br>
+
+                <label>Search for Item</label>
+                <input id="itemSearch" type="text" onkeypress="itemAutocomplete()">
+
+                <br><br>
+
+                <table id = "tableItems">
+                    <tr>
+                        <th>Name</th>
+                        <th>Vendor</th>
+                        <th>Cost</th>
+                        <th>URL</th>
+                        <th>Catalog #</th>
+                        <th>Description</th>
+                    </tr>
+                </table>
+
+                <br>
+                <div class = "pages">
+
+                    <ul class = "pages">
+
+                        <li class = "pages"><a href> < previous </a></li>
+
+                        <li class = "pages"><a href> 1</a></li>
+
+                        <li class = "pages"><a href> 2</a></li>
+
+                        <li class = "pages"><a href> 3</a></li>
+
+                        <li class = "pages"><a href> 4</a></li>
+
+                        <li class = "pages"><a href> 5</a></li>
+
+                        <li class = "pages"><a href> 6</a></li>
+
+                        <li class = "pages"><a href> next ></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="scripts/b18fc8c8.clotho-app-command.js"></script>
+<script src="scripts/c0f113c2.clotho-core-module.js"></script>
+<!--note - remove all scripts below this for api-only build-->
+<script src="scripts/c2a11f43.clotho-foundation-module.js"></script>
+<script src="scripts/68a2b2df.clotho-command-module.js"></script>
+<!-- our custom app files -->
+<script src="scripts/ordering/ordering-app.js"></script>
+<script src="scripts/ordering/basicAPI.js"></script>
+<script src="scripts/ordering/trackingOrdering.js"></script>
+<script src="scripts/ordering/orderingCtrl.js"></script>
+
+<script>
+
+    function itemAutocomplete()
+    {
+        var str = document.getElementById("itemSearch").value;
+        //alert(str);
+        Clotho.autocomplete(str).then(function(result){
+            //alert(JSON.stringify(result));
+        });
+    }
+
+
+    $(document).ready(function(){
+        $("#CreateNewItemButton").click(function(){
+            var id = document.getElementById("New");
+            var secondID = document.getElementById("CreateNewItem");
+            id.style.display='none';
+            secondID.style.display = 'block';
+        });
+    });
+
+
+    $(document).ready(function(){
+        $('#create').click(function(){
+
+            if ((document.getElementById("itemName").value == "") ||
+                    (document.getElementById("vendorName").value == "") ||
+                    (document.getElementById("itemCost").value == "") ||
+                    (document.getElementById("itemURL").value == ""))
+            {
+                alert("Please fill out all required fields");
+                document.getElementById("CreateNewItem").style.display = 'block';
+            }
+            else {
+
+                var check = 0;
+                Clotho.query({"schema":"org.clothocad.phagebook.vendor"}).then(function(vendorList){
+                    for(var i=0;i<vendorList.length;i++) {
+
+                        if (vendorList[i].name == document.getElementById("vendorName").value)
+                        {
+
+                            var vendorId = document.getElementById("vendorName").value;
+                            var cost = document.getElementById("itemCost").value;
+                            var URL = document.getElementById("itemURL").value;
+                            var catalogNo = document.getElementById("catalogNo").value;
+                            var description = document.getElementById("description").value;
+
+
+                            var str = '{';
+                            var firstObj = str.concat(
+                                    '"' + "name" + '"' + ":" + '"' + document.getElementById("itemName").value
+                                    + '","vendorId":' + '"' + document.getElementById("vendorName").value
+                                    + '","cost":' + '"' + document.getElementById("itemCost").value
+                                    + '","URL":' + '"' + document.getElementById("itemURL").value
+                                    + '","catalogNo":' + '"' + document.getElementById("catalogNo").value
+                                    + '","description":' + '"' + document.getElementById("description").value
+                                    + '","schema":"org.clothocad.phagebook.item"}');
+
+                            var Obj = JSON.parse(firstObj);
+                            var n_in = 1;
+                            n_in = Number(n_in) + 1;
+                            sessionStorage.n_keys = n_in;
+                            Clotho.create(Obj);
+
+
+                            $('#tableItems').append("<tr style='margin-top: 10px;'>" +
+                            "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
+                            + "' >Key:</label>" + Obj.name + "</div> </td>" +
+                            "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
+                            + "' >Key:</label>" + Obj.vendorId + "</div> </td>" +
+                            "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
+                            + "' >Key:</label>" + Obj.cost + "</div> </td>" +
+                            "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
+                            + "' >Key:</label>" + Obj.URL + "</div> </td>" +
+                            "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
+                            + "' >Key:</label>" + Obj.catalogNo + "</div> </td>" +
+                            "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
+                            + "' >Key:</label>" + Obj.description + "</div> </td>" +"</tr>");
+
+                            //alert(JSON.stringify(itemID));
+
+                            document.getElementById("CreateNewItem").style.display = "none";
+                            document.getElementById("New").style.display = "block";
+
+                        }
+                        else
+                        {
+                            check++;
+
+                        }
+
+                    }
+                    if (check == vendorList.length)
+                    {
+                        alert("The vendor does not exist");
+                        document.getElementById("NextStep").style.display='block';
+                        document.getElementById("OrderList").style.display = 'none';
+                    }
+                });
+
+            }
+            });
+
+        });
+//    });
+
+
+    function load(){
+        var n_in = 1;
+        n_in = Number(n_in) + 1;
+        sessionStorage.n_keys = n_in;
+        //var vendorName;
+        Clotho.query({"schema":"org.clothocad.phagebook.item"}).then(function(itemList){
+
+            for(var i=0;i<itemList.length;i++){
+
+                $('#tableItems').append("<tr style='margin-top: 10px;'> " +
+                "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key"+n_in
+                + "' >Key:</label>" + itemList[i].name + "</div> </td>" +
+                "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key"+n_in
+                + "' >Key:</label>" + itemList[i].vendorId + "</div> </td>" +
+                "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key"+n_in
+                + "' >Key:</label>" + itemList[i].cost + "</div> </td>" +
+                "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key"+n_in
+                + "' >Key:</label>" + itemList[i].URL + "</div> </td>" +
+                "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key"+n_in
+                + "' >Key:</label>" + itemList[i].catalogNo + "</div> </td>" +
+                "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key"+n_in
+                + "' >Key:</label>" + itemList[i].description + "</div> </td>" +
+                + "</tr>");
+
+
+            }
+
+
+        });
+
+
+
+    }
+
+    //replace Obj with vendorList[i]
+
+</script>
+
+</body>
+</html>

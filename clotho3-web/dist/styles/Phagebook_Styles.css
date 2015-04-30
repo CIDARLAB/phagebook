@@ -432,6 +432,10 @@ padding-left: 5px;
 padding-right:5px;
 }
 
+.history
+{
+text-align: center;
+}
 .line
 {
 	height:3px;
@@ -439,26 +443,45 @@ padding-right:5px;
 	border-bottom:2px solid #66A366;
 }
 
-.tableInProgress
+#tableInProgress
 {
 	border:1px solid #66A366;
 	width: 625px;
 }
 
-.inProgress
+#inProgress
 {
 	padding-left: 20px;
 }
-.submitted
+#submitted
 {
 	padding-left: 20px;
-
 }
 
-.tableSubmitted
+#tableSubmitted
 {
 	border:1px solid #66A366;
 	width: 625px;
+}
+#tableVendors
+{
+	border:1px solid #66A366;
+	width: 625px;
+}
+#tableOrders
+{
+    border:1px solid #66A366;
+    width: 625px;
+}
+#tableItems
+{
+    border:1px solid #66A366;
+    width: 625px;
+}
+#Orders
+{
+    border:1px solid #66A366;
+    width: 625px;
 }
 
 .navigation
