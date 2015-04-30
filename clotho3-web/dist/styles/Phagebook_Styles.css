@@ -172,20 +172,12 @@ h4 {
 }
 
 #rightColumn {
-<<<<<<< HEAD
     float: right;
     margin-left: auto;
     margin-right: 0px;
     width: 700px;
     background-color: #fff;
     height: 2000px;
-=======
-    display:block;
-	float: right;
-	width: 670px;
-	background-color: #fff;
-	height: 300px;
->>>>>>> 5e25f7ff79112b0a604a57940c9d473bfb4ae7a0
 }
 
 
@@ -237,10 +229,10 @@ h4 {
     position:relative;
     display:block;
 	height:400px;
-    width:680px;
+    width:700px;
 	font-size: 15px;
     float:left;
-	margin-left:-10px;
+	margin-left:-30px;
 	margin-right: auto;
     /*border-style:solid;*/
     padding-left:15px;
