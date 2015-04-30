@@ -24,7 +24,7 @@ angular.module('Sample')
 		Clotho.query(obj).then(function(data) 
 		{
 			orderParams.results = JSON.stringify(data);
-			
+
 			//alert(data);
 		},function (err) {
 			
