@@ -353,7 +353,7 @@ h4 {
 
 #newEntry{
    position:relative;
-    float:left;
+    /*float:left;*/
     background-color:#006600;
     color:#FFFFFF;
     margin-top:10px;
@@ -415,7 +415,7 @@ h4 {
     position:relative;
     background-color:#006600;
     color:#FFFFFF;
-    float:right;
+    /*float:right;*/
 }
 
 
