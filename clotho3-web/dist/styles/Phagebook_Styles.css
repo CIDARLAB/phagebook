@@ -153,8 +153,6 @@ h4 {
 }
 
 #rightColumn {
-    display:block;
-    4ece264c24543f5cac816d40f5ebdaa72075d6bf
 	float: right;
 	width: 700px;
 	background-color: #fff;
@@ -432,35 +430,56 @@ padding-left: 5px;
 padding-right:5px;
 }
 
+.history
+{
+text-align: center;
+}
 .line
 {
 	height:3px;
 	margin:0px;
-     4ece264c24543f5cac816d40f5ebdaa72075d6bf
 	border-bottom:2px solid #66A366;
 }
 
-.tableInProgress
+#tableInProgress
 {
 	border:1px solid #66A366;
 	width: 625px;
-    4ece264c24543f5cac816d40f5ebdaa72075d6bf
 }
 
-.inProgress
+#inProgress
 {
 	padding-left: 20px;
 }
-.submitted
+#submitted
 {
 	padding-left: 20px;
-
 }
 
-.tableSubmitted
+#tableSubmitted
 {
 	border:1px solid #66A366;
 	width: 625px;
+}
+#tableVendors
+{
+	border:1px solid #66A366;
+	width: 625px;
+}
+#tableOrders
+{
+    border:1px solid #66A366;
+    width: 625px;
+}
+#tableItems
+{
+    border:1px solid #66A366;
+    width: 625px;
+}
+#Orders
+{
+    border:1px solid #66A366;
+    width: 625px;
 }
 
 .navigation
