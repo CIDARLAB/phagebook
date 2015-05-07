@@ -37,6 +37,16 @@ angular.module('Sample')
 
 			}
 
+<<<<<<< HEAD
+=======
+	this.query = function (orderParams) {
+		var obj = {};
+        obj[orderParams.param] = orderParams.val;
+		Clotho.query(obj).then(function(data) 
+		{
+			orderParams.results = JSON.stringify(data);
+
+>>>>>>> 3f86d16826f453fcfdb789f3dec8ae63524ff776
 			//alert(data);
 		},function (err) {
 			
