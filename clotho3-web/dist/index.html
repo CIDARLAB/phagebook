@@ -254,24 +254,16 @@ SCRIPTS
         })
     </script>
 
-    <!--   <script>
+     <script>
 
        $("#createLab").click(function() {
-         //alert('lab')
-             var obj = []
-             var myInput = document.getElementsByTagName("input")
 
-             for (var i = 2; i < myInput.length; i++) {
-                 if (myInput[i].name != "" && myInput[i].value != "") {
-
-                 obj.push('\"' + myInput[i].name + '\": \"' + myInput[i].value + '\"')
-             }
-
-             }
-             obj.push('\"' + "schema" + '\": \"' + "org.clothocad.model.lab" + '\"');
-             var labObj = '{' + obj + '}';
-
-
+             var labObj = [];
+           labObj.push('\"' + "schema" + '\": \"' + "org.clothocad.model.lab" + '\"');
+           labObj.push('\"' + "id" + '\": \"' + "org.clothocad.lab." + name + '\"');
+           labObj.push('\"' + "description" + '\": \"' + document.getElementById("description").value + '\"');
+           labObj.push('\"' + "labList" + '\": []);
+             labObj = '{' + labObj + '}';
              Clotho.create(JSON.parse(labObj)).then(function (result) {
              //alert("Object Created with Id "+ result)
              });
