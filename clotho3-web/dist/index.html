@@ -6,16 +6,13 @@
     <title>Index</title>
     <meta name="description" content="Clotho Lab Ordering">
     <meta name="viewport" content="width=1024, initial-scale=1">
-
     <!-- not necessary until serving outside root directory / want html5 mode -->
     <base href="/">
-
     <link rel="stylesheet" href="styles/2e84f2a0.command.css"/>
     <link rel="stylesheet" href="styles/773cbfe6.main.css"/>
-
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
-  <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
 
 
     <script src="bower_components/jquery/jquery.js"></script>
@@ -39,11 +36,11 @@
   <terminal-aside></terminal-aside>
 </div>
   <p>
-    <h3><a href="./Ordering.html">Ordering</a><br>
-    <a href="./Profile.html">Profile</a><br>
-    <a href="./Projects.html">Projects</a><br>
-    <a href="./sample.html">Sample</a><br>
-
+    <h3>
+        <a href="./Ordering.html">Ordering</a><br>
+        <a href="./Profile.html">Profile</a><br>
+        <a href="./Projects.html">Projects</a><br>
+        <a href="./sample.html">Sample</a><br>
     </h3>
     <div class = "row" style="margin-left: 360px; background-color:#9be7cb; width:300px " >
 
@@ -122,6 +119,46 @@
           </p>
       </ng-form>
       </div>
+          <div id = "theprofileInputs" style="margin-left:44px" >
+              <ng-form class="form-horizontal" name="createPersonForm" ng-class="{'has-error' : createPersonForm.name.$dirty && createLabForm.name.$invalid}">
+                  <h3>Create a Phagebook profile today!</h3>
+                  <label> <strong>First Name</strong></label>
+                  <input id = "firstname" name = "firstname" style = "width: 400px;"> <br>
+                  <label> <strong>Last Name</strong></label>
+                  <input id = "lastname" name = "lastname" style = "width: 400px;"> <br>
+                  <label> <strong> Institution</strong> </label>
+                  <input id="institution" name="institution" style="width: 200px;"><br>
+                  <label> <strong> Picture </strong></label>
+
+                  <input  action="scripts/newProject/uploadFile.php" method="post"
+                          enctype="multipart/form-data"type="file" name= "picture"
+                          id="picture" accept="image/*">
+
+                  <label> <strong> Lab</strong> </label>
+                  <input id="lab" name="lab" style="width: 200px;"><br>
+                  <label> <strong> Position </strong> </label>
+                  <input list="position" name="position">
+                  <datalist id = "position">
+                      <option value = "Undergraduate" ></option>
+                      <option value = "Graduate">Graduate</option>
+                      <option value = "Lab Manager" >Lab Manager</option>
+                      <option value = "Principal Investigator"> Principal Investigator</option>
+                      <option value = "Postdoctorate" >Postdoctorate</option></datalist>
+
+                  <br>
+                  <label> <strong> Permissions </strong></label>
+                  <input list ="permissions" name = "permissions">
+                  <datalist id = "permissions">
+                      <option value  = "Basic" >basic</option>
+                      <option value  = "Private" >private</option>
+                      <option value  = "Ninja" >ninja</option></datalist>
+                  <br>
+
+                  <p>
+                      <button class="btn btn-primary" id = "addPerson" >Create Person</button>
+                  </p>
+              </ng-form>
+          </div>
 </div>
 
 <!--
@@ -216,7 +253,7 @@ SCRIPTS
         $("#addPerson").click(function() {
             var obj = [];
             var file    = document.querySelector('input[type=file]').files[0];
-            var myInput = document.getElementsByTagName("input");
+
 
             var personId = "clotho.developer."+ document.getElementById("firstname").value[0].toLowerCase() +  document.getElementById("lastname").value.toLowerCase();
             obj.push('\"' + "firstname" + '\": \"' + document.getElementById("firstname").value + '\"' +"," + '\"'+  "lastname"+ '\":\"' + document.getElementById("lastname").value+ '\"' );
@@ -225,13 +262,7 @@ SCRIPTS
             obj.push('\"' + "schema" + '\": \"' + "org.clothocad.model.person" + '\"' +"," + '\"'+  "id"+ '\":\"' + personId+ '\"' );
             obj.push('\"'+  "projects"+ '\": []' +"," + '\"'+  "statuses"+ '\":[]' + "," + '\"'+  "orders"+ '\":[]'  );
             obj.push('\"'+  "friends"+ '\": []');
-        //alert(obj);
 
-           /* Clotho.create(file).then(function(result){
-
-                obj.push('\"'+  "picture"+ '\":' + '\"'+result+'\"');
-               // alert(obj);
-            });*/
             var personObj = '{' + obj + '}';
 
             //alert(personObj);
@@ -262,39 +293,36 @@ SCRIPTS
            labObj.push('\"' + "schema" + '\": \"' + "org.clothocad.model.lab" + '\"');
            labObj.push('\"' + "id" + '\": \"' + "org.clothocad.lab." + name + '\"');
            labObj.push('\"' + "description" + '\": \"' + document.getElementById("description").value + '\"');
-           labObj.push('\"' + "labList" + '\": []);
-             labObj = '{' + labObj + '}';
-             Clotho.create(JSON.parse(labObj)).then(function (result) {
-             //alert("Object Created with Id "+ result)
+           labObj.push('\"' + "labList" + ': []');
+           labObj = '{' + labObj + '}';
+           Clotho.create(JSON.parse(labObj)).then(function (result) {
+             alert("Lab Object Created with Id "+ result)
              });
 
          });
      </script>-->
-<!--<script>
+<script>
     $("#addInstit").click(function() {
 
-        var obj = []
+        var institObj = [];
 
-        var myInput = document.getElementsByTagName("input")
+        institObj.push('\"' + "schema" + '\": \"' + "org.clothocad.model.institution" + '\"');
+        institObj.push('\"' + "id" + '\": \"' + document.getElementById("name").value + '\"');
+        institObj.push('\"' + "description" + '\": \"' + document.getElementById("description").value + '\"');
+       /* institObj.push('\"' + "PI" +  '\": []');
+        institObj.push('\"' + "undergraduate" + '\": []');
+        institObj.push('\"' + "graduate" + '\": []');*/
 
-        for (var i = 2; i < myInput.length; i++) {
-            if (myInput[i].name != "" && myInput[i].value != "") {
+        var institObj = '{' + institObj + '}';
 
-                obj.push('\"' + myInput[i].name + '\": \"' + myInput[i].value + '\"')
-            }
-
-        }
-        obj.push('\"' + "schema" + '\": \"' + "org.clothocad.model.institution" + '\"');
-        var institObj = '{' + obj + '}';
-
-alert(institObj);
+        alert(institObj);
         Clotho.create(JSON.parse(institObj)).then(function (result) {
             alert(institObj)
             alert("Object Created with Id "+ result)
         });
 
     });
-</script>-->
+</script>
 <script src="scripts/b18fc8c8.clotho-app-command.js"></script>
 
 <script src="scripts/c0f113c2.clotho-core-module.js"></script>
