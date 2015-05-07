@@ -12,7 +12,7 @@
 
     <link rel="stylesheet" href="styles/2e84f2a0.command.css"/>
     <link rel="stylesheet" href="styles/773cbfe6.main.css"/>
-
+    <link rel ="stylesheet" href="styles/Phagebook_Styles.css"/>
 
     <script src="bower_components/jquery/jquery.js"></script>
 
@@ -24,40 +24,6 @@
     <script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
-
-    <style>
-        #profileName
-        {
-            color: white;
-            text-shadow:
-            -1px -1px 0 #000,
-            1px -1px 0 #000,
-            -1px 1px 0 #000,
-            1px 1px 0 #000;
-        }
-    </style>
-    <style>
-        #universityName
-        {
-            color: white;
-            text-shadow:
-            -1px -1px 0 #000,
-            1px -1px 0 #000,
-            -1px 1px 0 #000,
-            1px 1px 0 #000;
-        }
-    </style>
-    <style>
-        #positionName
-        {
-            color: white;
-            text-shadow:
-            -1px -1px 0 #000,
-            1px -1px 0 #000,
-            -1px 1px 0 #000,
-            1px 1px 0 #000;
-        }
-    </style>
 <style>
     #keyValueForm {
 float: left;
@@ -87,66 +53,56 @@ float: left;
     </div>
     <terminal-aside></terminal-aside>
 </div>
-<div class="row">
-    <div class = col-sm-3 style="background-color:#e9eaed; height:2000px">
-
-    <input type="file" id="imageupload" onchange="previewFile()"><br>
-    <img src="" id="imagesource" alt="Image preview..." style = "width: 150px">
-
-
-    <p id = "profileName"> </p>
-    <p  id = "universityName"></p>
-    <p  id = "positionName"></p>
-        <div class = inline-block>
-            <p>Colleagues </p>
-            <table id="friendBox" class="form-inline " style='margin-bottom: 10px;' role="form">
-                <tbody style="text-align: center;">
-            </table>
+<div class = "contentBackground" ng-app = "profile">
+    <div class = "mainContent">
+        <div class = "leftColumn">
+            <input type="file" id="imageupload" onchange="previewFile()"><br>
+            <img src="" id="imagesource" alt="Image preview..." style = "width: 150px">
+           <!-- <img src = "/images/people/kara_pro.PNG">-->
+            <p id = "profileName"> </p>
+            <p  id = "universityName"></p>
+            <p  id = "positionName"></p>
+            <div id = "phagebooklinks">
+                <h4>
+                    <a href="./Profile.html" class="col-xs-1" >News</a>
+                    <a href="./Ordering.html" class="col-xs-1">Ordering</a>
+                    <a href="./Profile_papers.html" class="col-xs-1">Papers</a>
+                    <a href="./Projects.html" class="col-xs-1">Projects</a>
+                    <a href="" class="col-xs-1">Parts</a> <br>
+                    </h4>
+            </div>
+            <div class = inline-block>
+                <p>Colleagues </p>
+                <table id="friendBox" class="form-inline " style='margin-bottom: 10px;' role="form">
+                    <tbody style="text-align: center;">
+                </table>
+            </div>
         </div>
-
-</div>
-    <div id = "background" class = col-sm-9 style="background-image:url(/images/logo-CIDAR-2.png);  background-repeat: no-repeat;">
+        <div class = "rightColumn" >
 <!--style="margin-left:-10px; margin-right:-10px; margin-top:-20px; margin-bottom:-100px; background-color:#e9eaed">-->
          <!--   <div style="background-image:url(/images/logo-CIDAR-2.png); background-repeat: no-repeat;">-->
-<div class = "row" style = "margin-top: 300px">
-                    <h4>
-                        <a href="./Profile.html" class="col-xs-2" >News</a>
-                        <a href="./Ordering.html" class="col-xs-2">Ordering</a>
-                        <a href="./Profile_papers.html" class="col-xs-2">Papers</a>
-                        <a href="./Projects.html" class="col-xs-2">Projects</a>
-                        <a href="" class="col-xs-2">Parts</a> <br>
-                    </h4>
-    </div>
-
-
-
 
             <div class="personalNews">
-
-
-                    <div  style=" margin-bottom:16px;">
-            <p style="width:200px"> Update your status </p>
-                        <ng-form id = "inputStatus">
-    <input id = "newStatus" name = "newStatus" style="width:300px">
-    <button style = "margin-left: 40px" id = "createStatus" class="btn btn-primary" >Create</button><br>
-</ng-form>
-                        <div class = inline-block>
-                            <p> Status</p>
-                        <table id="keyValueForm" class="form-inline" style='margin-bottom: 10px;width:800px;' role="form">
-                            <tbody style="text-align: center;">
-
-                        </table>
-                        </div>
+            <h3> Update your personal news, accomplishments, lab events. </h3>
+                <ng-form id = "inputStatus">
+                    <div>
+                 <input id = "newStatus" name = "newStatus">
+                    </div>
+                <button id = "createStatus" class="normalButton" >Create</button><br>
+                 </ng-form>
+                <div class = inline-block>
+                    <h3> Previous Posts</h3>
+                    <table id="keyValueForm" class="form-inline" style='margin-bottom: 10px;width:800px;' role="form">
+                        <tbody style="text-align: center;">
+                    </table>
+                </div>
 
                         <!-- {"id":"clotho.developer.katielewis1","name":"Katie Lewis","schema":"org.clothocad.model.PersonalProfile","institution":"Boston University","lab":"CIDAR","position":"Undergraduate","permission":"basic", "username":"kmlewis","projects":-->
-
-
-
             </div>
         </div>
     </div>
-        </div>
 </div>
+
 </div>
 <!--------
 SCRIPTS

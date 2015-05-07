@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Profile</title>
+    <title id = "Paper"></title>
     <meta name="description" content="Clotho Lab Ordering">
     <meta name="viewport" content="width=1024, initial-scale=1">
 
@@ -12,7 +12,7 @@
 
     <link rel="stylesheet" href="styles/2e84f2a0.command.css"/>
     <link rel="stylesheet" href="styles/773cbfe6.main.css"/>
-
+    <link rel ="stylesheet" href="styles/Phagebook_Styles.css"/>
 
     <script src="bower_components/jquery/jquery.js"></script>
 
@@ -24,55 +24,41 @@
     <script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
-
-    <style>
-        #profileName
-        {
-            color: white;
-            text-shadow:
-            -1px -1px 0 #000,
-            1px -1px 0 #000,
-            -1px 1px 0 #000,
-            1px 1px 0 #000;
-        }
-    </style>
-
 </head>
+
 <body>
 <div ng-app="clothoRoot">
     <div class="container">
         <div clotho-command-bar></div>
     </div>
-
     <terminal-aside></terminal-aside>
 </div>
-<div class="contentBackground" style="margin-left:-10px; margin-right:-10px; margin-top:-20px; margin-bottom:-100px; background-color:#e9eaed">
-    <div class="mainContent" style="width:851px;  margin-left:auto; margin-right:auto; background-color:#fff; font-family:helvetica">
-        <div class="coverContainer" style="background-image:url(/images/logo-CIDAR-2.png); background-repeat: no-repeat;">
-            <div class="row">
-                <div class="col-xs-9 col-xs-offset-2" style="margin-top:245px;">
-                    <h3> <strong> <p id  = "profileName" ></p></strong>
-                    </h3>
-                </div>
+<div class = "contentBackground" ng-app = "profilePapers">
+    <div class = "mainContent">
+        <div class = "leftColumn">
+            <input type="file" id="imageupload" onchange="previewFile()"><br>
+            <img src="" id="imagesource" alt="Image preview..." style = "width: 150px">
+            <!-- <img src = "/images/people/kara_pro.PNG">-->
+            <p id = "profileName"> </p>
+            <p  id = "universityName"></p>
+            <p  id = "positionName"></p>
+            <div id = "phagebooklinks">
+                <h4>
+                    <a href="./Profile.html" class="col-xs-1" >News</a>
+                    <a href="./Ordering.html" class="col-xs-1">Ordering</a>
+                    <a href="./Profile_papers.html" class="col-xs-1">Papers</a>
+                    <a href="./Projects.html" class="col-xs-1">Projects</a>
+                    <a href="" class="col-xs-1">Parts</a> <br>
+                </h4>
             </div>
-            <div class="row">
-                <div class="col-xs-2" style="margin-left:16px;">
-                  <!--  <img id = "profilePicture">-->
-                    <img src = /images/people/kara_pro.PNG style="margin-top:-130px; padding:3px; background-color:#fff; border:1px solid #000;">
-
-                </div>
-                <div class="col-xs-9" style="margin-top:40px;" >
-                    <h4>
-                        <a href="./Profile.html" class="col-xs-2">News</a>
-                        <a href="./Ordering.html" class="col-xs-2">Ordering</a>
-                        <a href="./Profile_papers.html" class="col-xs-2">Papers</a>
-                        <a href="./Projects.html" class="col-xs-2">Projects</a>
-                        <a href="" class="col-xs-2">Parts</a> <br>
-
-
-                    </h4>
-                </div>
+            <div class = inline-block>
+                <p>Colleagues </p>
+                <table id="friendBox" class="form-inline " style='margin-bottom: 10px;' role="form">
+                    <tbody style="text-align: center;">
+                </table>
             </div>
+        </div>
+<div id = "rightColumn">
 
             <div class="personalNews">
                 <div class="row">
@@ -308,6 +294,6 @@ SCRIPTS
  {"id":"clotho.developer.katielewis1","name":"Katie Lewis","schema":"org.clothocad.model.PersonalProfile","institution":"Boston University","lab":"CIDAR","position":"Undergraduate","permission":"basic", "username":"kmlewis","projects":[{"schema":"org.clothocad.model.Projects","name":"iGEM","projectLead":"Traci Haddock","Lab":"CIDAR","PI":"Doug Densmore","description":"This is a cool project","advisor":"Evan Appleton"}],"orders":[], "papers":[]}
 
 {"institution" : "Boston University", "lab" : "CIDAR", "firstname" : "Kara", "lastname" : "Le Fort" , "orders":[],"papers":[],"permission":"basic","position":"Undergraduate","projects":[{"schema":"org.clothocad.model.Projects","name":"iGEM","projectLead":"Prashant","Lab":"CIDAR","PI":"Doug Densmore","advisor":"Prashant V"}], "schema" : "org.clothocad.model.PersonalProfile", "username":"klefort","id":"clotho.developer.klefort", "statuses": []}
-{"institution" : "Boston University", "lab" : "CIDAR", "name" : "Kara Le Fort" , "orders":[],"papers":[],"permission":"basic","position":"Undergraduate","projects":[{"schema":"org.clothocad.model.Projects","name":"iGEM","projectLead":"Prashant","Lab":"CIDAR","PI":"Doug Densmore","advisor":"Prashant V"}], "schema" : "org.clothocad.model.PersonalProfile", "username":"klefort","id":"clotho.developer.karalefort", "statuses": []}
+
 -->
 </html>

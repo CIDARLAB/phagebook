@@ -156,7 +156,7 @@ h4 {
 	text-align: center;
 }
 
-#rightColumn {
+.rightColumn {
 
     display: block;
     float : right;
@@ -287,7 +287,7 @@ h4 {
     text-align:justify;
     padding:15px;
 }
-
+/*
 #next {
     position:relative;
     float:right;
@@ -295,13 +295,15 @@ h4 {
     background-color:#006600;
     color:#FFFFFF;
 }
+
 #previous {
     position:relative;
     float:left;
     margin-left:20px;
     background-color:#006600;
     color:#FFFFFF;
-}
+}*/
+
 #image1 {
     position:relative;
     float:right;
@@ -343,7 +345,7 @@ h4 {
     margin-left:15px;
 }
 
-
+/*
 #newEntry{
    position:relative;
     float:right;
@@ -351,7 +353,7 @@ h4 {
     color:#FFFFFF;
     margin-top:10px;
 
-}
+}*/
 
 #notebookEntry {
     display: none;
@@ -392,13 +394,13 @@ h4 {
     font-weight: 700;
 }
 
-
+/*
 #entryEdit {
     position:relative;
     background-color:#006600;
     color:#FFFFFF;
     float:right;
-}
+}*/
 
 
 #entryButton{
@@ -521,3 +523,9 @@ text-align: center;
     background-size: contain;
 }
 
+#normalButton{
+    background-color: none;
+    color: #E9EAED;
+    border: none;
+
+}

@@ -47,7 +47,8 @@
 <div class = "contentBackground" ng-app = "projects">
     <div class = "mainContent">
         <div class = "leftColumn">
-          <img src = "/images/people/Katie_Lewis.jpeg">
+
+          <img src = "/images/people/Katie_Lewis.jpeg" >
           <h4> <a href ="./Profile.html">Katie Lewis</a> Projects </h4>
             <table id="projTable">
                 <!--<tr>-->
@@ -60,12 +61,12 @@
 
           <br><br>
 
-          <button type="button" id="CreateButton">Create New Project </button>
+          <button type="button" id="CreateButton" class = "normalButton">Create New Project </button>
 
         </div>
 
         <!--<div id = "rightColumn" ondrop="drop(event)" ondragover="allowDrop(event)">-->
-        <div id = "rightColumn" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <div class = "rightColumn" ondrop="drop(event)" ondragover="allowDrop(event)">
         <!--<button>  <img src = "/images/Editing-Edit-icon.png" onclick = "editProject()" id="editIcon"></button>-->
             <h1 class = "pageHeading" id = "projTitle"> </h1>
           <div class = "information">
@@ -94,16 +95,16 @@
             <!--</p>-->
             <br><br>
             <div id="entryButtons">
-                <button onclick = "newEntry()" id = "newEntry" >New Entry</button><br><br>
+                <button class = "normalButton" onclick = "newEntry()" id = "newEntry" >New Entry</button><br><br>
                 <!--<button onclick = "photoAppear()" id="makePhotoAppear">Display Entry</button>-->
                 <!--<br>-->
-                <button onclick="editEntry()" id="entryEdit">Edit Entry</button>
+                <button class = onclick="editEntry()" id="entryEdit">Edit Entry</button>
                 <button id="doneEditingEntry" onclick = "changeEntry()">Done</button>
                 <p id="entryToChange"></p>
             </div>
             <h1 class = "labnotebook" id="notebookTitle">Notebook</h1>
             <div>
-                <button id="searchButton" onclick="searchEntries()">search</button>
+                <button class = "normalButton" id="searchButton" onclick="searchEntries()">search</button>
                 <ng-form class="form-horizontal" id="searchNotebook" ng-class="{'has-error' : projectForm.name.$dirty && projectForm.name.$invalid}">
                     <input id="searchDate" type="date">
                     <input id="keywordInsert" type="text" placeholder="keyword"><br><br>

@@ -263,8 +263,4 @@
             }
         }
     };
-<<<<<<< HEAD
 }(Clotho = window.Clotho || {}));
-=======
-}(Clotho = window.Clotho || {}));
->>>>>>> 1f091e6b87d160ee6a3f0ecb96d7e4962d4d57c7
