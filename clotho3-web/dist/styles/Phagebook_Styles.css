@@ -443,6 +443,7 @@ padding-right:5px;
 .history
 {
 text-align: center;
+    width: 160px;
 }
 .line
 {
@@ -485,6 +486,10 @@ text-align: center;
 {
     border:1px solid #66A366;
     width: 700px;
+}
+#tableHistory
+{
+    width: 160px;
 }
 #Orders
 {
