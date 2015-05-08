@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+</head>
+    <body>
+    <input type="file" id="uploadfile" name="uploadfile" >
+    <input type="button" value="upload" onclick="upload()">
+    <img src="" id="imagesource" alt="Image preview..." style = "width: 150px">
+
+
+
+
+
+    <script>
+        var client = new XMLHttpRequest();
+
+        function upload() {
+            alert("upload!");
+            var file = document.getElementById("uploadfile");
+
+            /* Create a FormData instance */
+            var formData = new FormData();
+            /* Add the file */
+            formData.append("upload", file.files[0]);
+
+            alert(file.files[0]);
+            client.open("post", "/upload", true);
+            client.setRequestHeader("Content-Type", "multipart/form-data");
+            client.send(formData);
+            /* Send to server */
+
+
+            /* Check the response status */
+            client.onreadystatechange = function () {
+                if (client.readyState == 4 && client.status == 200) {
+
+                    alert(client.statusText);
+                }
+            }
+        }
+      /*  var tgt =window.event.srcElement,
+                files = tgt.files;
+
+
+        // FileReader support
+        if (FileReader && files && files.length) {
+            var fr = new FileReader();
+            fr.onload = function () {
+                alert("ping");
+                document.getElementById('imagesource').src = fr.result;
+            }
+            fr.readAsDataURL(files[0]);
+        }
+
+
+        else {
+
+        }
+        */
+    </script>
+
+    </body>
+</html>
+

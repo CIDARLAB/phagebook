@@ -28,6 +28,7 @@
 #searchDate {
     position:relative;
     display:block;
+    text-align:center;
 }
 
 #doneEditingEntry{
@@ -151,31 +152,44 @@ a:hover, a:active {
 
 #partsLink {
     position: relative;
-    margin-left: auto;
     margin-right: auto;
+    margin-left: 190px;
+    float: left;
 }
 
+#changingBox {
+    display: none;
+    position:relative;
+    float:left;
+}
 
-h4 {
+#hiddenParagraph {
+    display: none;
+}
+
+th {
 	text-align: center;
 }
 
-#rightColumn {
-    float: right;
-    margin-left: auto;
-    margin-right: 0px;
-    width: 700px;
+
+.rightColumn {
+
+    display: block;
+    float : right;
+    width: 670px;
     background-color: #fff;
     height: 2000px;
+
 }
 
-
 .information {
+
 	font-size: 15px;
-	margin-left:auto;
+	/*margin-left:auto;*/
 	margin-right: auto;
-	height: 114px;
-    margin-bottom:50px;
+	height: 200px;
+    /*margin-bottom:50px;*/
+    width:550px;
 }
 
 .labInfo {
@@ -185,6 +199,7 @@ h4 {
 	margin-top: 15px;
 	float: left;
 	padding: 15px;
+
 }
 
 #heading {
@@ -202,7 +217,7 @@ h4 {
     padding-top:15px;
     padding-bottom:0px;
     margin-bottom:0px;
-    float:left;
+    float:right;
 }
 
 .description {
@@ -217,10 +232,10 @@ h4 {
     position:relative;
     display:block;
 	height:400px;
-    width:680px;
+    width:700px;
 	font-size: 15px;
     float:left;
-	margin-left:20px;
+	/*margin-left:-10px;*/
 	margin-right: auto;
     /*border-style:solid;*/
     padding-left:15px;
@@ -231,11 +246,14 @@ h4 {
     border-style:solid;
 }
 
+
 #searchButton{
     /*background: url(searchIcon.png);*/
     /*background-repeat: no-repeat;*/
     float:right;
-    margin-top:5px;
+    background-color:#006600;
+    color:#FFFFFF;
+    margin-right:150px;
     margin-top:45px;
 }
 
@@ -248,8 +266,9 @@ h4 {
 
 #searchNotebook{
     position:relative;
-    float:right;
+    float:left;
     margin-left:5px;
+    /*margin-left:60px;*/
     height:44px;
     margin-bottom:0px;
     padding-bottom:0px;
@@ -270,7 +289,7 @@ h4 {
     position:relative;
     text-decoration: underline;
     margin-top:44px;
-    margin-left:25px;
+    margin-left:5px;
     float:left;
 }
 #dateSearch{
@@ -289,7 +308,7 @@ h4 {
     text-align:justify;
     padding:15px;
 }
-
+/*
 #next {
     position:relative;
     float:right;
@@ -297,13 +316,14 @@ h4 {
     background-color:#006600;
     color:#FFFFFF;
 }
+
 #previous {
     position:relative;
     float:left;
-    margin-left:20px;
     background-color:#006600;
     color:#FFFFFF;
-}
+}*/
+
 #image1 {
     position:relative;
     float:right;
@@ -318,20 +338,24 @@ h4 {
 	padding-left: 20px;
 	margin-left: auto;
     margin-right:auto;
-}
-.dropDown {
-    position:relative;
-	float: right;
-	height: 24px;
-	margin-right: 300px;
+
 }
 
+
+.dropDown {
+    position: relative;
+    float: right;
+    height: 24px;
+    margin-right: 300px;
+}
 #entryButtons{
     position:relative;
     float:right;
     /*margin-left:20px;*/
     padding-left:20px;
-    margin-top:20px;
+    margin-top:35px;
+    margin-right: -40px;
+    /*margin-bottom: 5px;*/
 }
 
 #notebookTitle {
@@ -342,18 +366,18 @@ h4 {
     margin-left:15px;
 }
 
-
+/*
 #newEntry{
    position:relative;
-    float:right;
     background-color:#006600;
     color:#FFFFFF;
     margin-top:10px;
-}
 
-#notebookEntry{
+}*/
+
+#notebookEntry {
     display: none;
-    position:relative;
+    position: relative;
     float: right;
     margin-left: auto;
     margin-right: auto;
@@ -364,20 +388,33 @@ h4 {
 
 #projectDescription {
     position: relative;
-    float:right;
     /*margin-top: 15px;*/
     margin-left: auto;
     margin-right:auto;
-    padding-left: 15px;
+    /*padding-left: 15px;*/
     padding-right: 15px;
     /*padding-top:15px;*/
-   float:left;
+}
+
+#searchingNotebook {
+   position: relative;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #createBox {
+    display:block;
     position:relative;
     margin-left: auto;
     margin-right: auto;
+}
+
+#CreateButton {
+    position:relative;
+    margin-right: auto;
+    margin-left: 18px;
+    background-color:#006600;
+    color:#FFFFFF;
 }
 
 #whosNotebook {
@@ -386,59 +423,65 @@ h4 {
 }
 
 #entryText {
-    font-size:15px;
+    font-size: 15px;
     font-weight: 700;
 }
 
+/*
 #entryEdit {
     position:relative;
     background-color:#006600;
     color:#FFFFFF;
     float:right;
-}
+}*/
 
 
 #entryButton{
     position:relative;
     float:left;
+
 }
 
 .notebookText {
-	font-size: 15px;
-	padding: 20px;
-	margin-top: 40px;
-	margin-left: 29px;
-	width: 600px;
-	height: 300px;
-	float: left;
+    font-size: 15px;
+    padding: 20px;
+    margin-top: 40px;
+    margin-left: 29px;
+    width: 600px;
+    height: 300px;
+    float: left;
 }
 
 /*Ordering*/
 
-
-ul.navigation
-{
-	list-style-type: point;
+ul.navigation {
+    list-style-type: point;
 }
 
-ul.pages
-{
-	height:30px;
-	width:500px;
-	padding:0px;
-	list-style-type:none;
+ul.pages {
+    height: 30px;
+    width: 500px;
+    padding: 0px;
+    list-style-type: none;
 }
 
-li.pages
-{
-color:#66A366;
-font-weight:bold;
-float:left;
-border: 1px solid black;
-padding:2px;
-padding-left: 5px;
-padding-right:5px;
+li.pages {
+    color: #66A366;
+    font-weight: bold;
+    float: left;
+    border: 1px solid black;
+    padding: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
+
+.line {
+
+    height : 3px;
+    margin: 0px;
+    border-bottom : 2px solid #66A366;
+}
+
 
 .history
 {
@@ -470,7 +513,9 @@ text-align: center;
 #tableSubmitted
 {
 	border:1px solid #66A366;
+
 	width: 700px;
+
 }
 #tableVendors
 {
@@ -497,21 +542,28 @@ text-align: center;
     width: 700px;
 }
 
-.navigation
-{
-	height:30px;
+.navigationBar {
+    display: inline;
+    /*	padding-left: 40px;*/
+    padding-right: 40px;
 }
 
-.navigationBar
-{
-	display: inline;
-/*	padding-left: 40px;*/
-	padding-right: 40px;
+.newOrder {
+    padding-left: 20px;
+    margin: 0px;
+    text-align: left;
 }
 
-.newOrder
-{
-	padding-left: 20px;
-	margin: 0px;
-	text-align: left;
+.profileheading {
+    float: left
+
+}
+#background{
+    background-size: contain;
+}
+
+#normalButton{
+    color: #E9EAED;
+    border: none;
+
 }

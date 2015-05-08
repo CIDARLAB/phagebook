@@ -5,8 +5,9 @@ angular.module('Sample').controller('sampleCtrl', function ($scope, Clotho, basi
 	this.createObj = function() {
 		//alert('Say something?');
 		basicAPI.create($scope.item).then(function () {
+
 			//trigger reset only after item has been successfully or unsuccessfully sent
-			//alert("Done");
+			alert("Done");
 		});
 	};
 
