@@ -20,7 +20,8 @@ angular.module('Ordering')
 
 	this.query = function (orderParams) {
 		var obj = {};
-        obj[orderParams.param] = orderParams.val;
+        obj["id"] = orderParams.param;
+		//obj["id"] = orderParams.val;
 		Clotho.query(obj).then(function(data) 
 		{
 			if(data.length > 0)
