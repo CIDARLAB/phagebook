@@ -445,14 +445,14 @@ SCRIPTS
             obj.push('\"'+  "projects"+ '\": []' +"," + '\"'+  "statuses"+ '\":[]' + "," + '\"'+  "orders"+ '\":[]'  );
             obj.push('\"'+  "friends"+ '\": []');
             obj.push('\"'+  "name"+ '\": \"'+ document.getElementById("firstname").value + " " + document.getElementById("lastname").value +'\"' );
-            alert(obj);
-            obj.push('\"'+  "email"+ '\": \"'+ document.getElementById("email").value + '\"' );
+          //  alert(obj);
+          //  obj.push('\"'+  "email"+ '\": \"'+ document.getElementById("email").value + '\"' );
             var personObj = '{' + obj + '}';
 
-            alert(personObj);
+           // alert(personObj);
             var createObj = JSON.parse(personObj)
             Clotho.create(createObj).then(function(result){
-            alert("Clotho create a new object" + result);
+            //alert("Clotho create a new object" + result);
             });
         });
     </script>
@@ -482,9 +482,9 @@ SCRIPTS
           /* labObj.push('\"' + "labList" + ': []');*/
            labObj = '{' + labObj + '}';
 
-           alert(labObj);
+          // alert(labObj);
            Clotho.create(JSON.parse(labObj)).then(function (result) {
-             alert("Lab Object Created with Id "+ result)
+           //  alert("Lab Object Created with Id "+ result)
              });
 
          });
@@ -509,8 +509,8 @@ SCRIPTS
 
         alert(institObj);
         Clotho.create(JSON.parse(institObj)).then(function (result) {
-            alert(institObj)
-            alert("Object Created with Id "+ result)
+           // alert(institObj)
+          //  alert("Object Created with Id "+ result)
         });
 
     });

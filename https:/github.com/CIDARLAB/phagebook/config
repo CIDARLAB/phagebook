@@ -1,0 +1,8 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+	worktree = /Users/karalefort/Documents/phagebook
+	ignorecase = true
+	precomposeunicode = true
