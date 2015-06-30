@@ -1,0 +1,61 @@
+ body {
+    font-family: "Lucida Sans Unicode","Lucida Grande",sans-serif;
+}
+.navbar {
+    list-style: none;
+    font-weight: bold;
+    width: auto;
+    text-align: center;
+    background-color: #015300;
+    height: 5%;
+}
+
+.navbar img{
+    width: 140px;
+    height: 5%;
+}
+
+.navbar ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+}
+
+.navbar li {
+    display: inline-block;
+    float: left;
+    margin-right: 1px;
+}
+
+.navbar li a {
+    display: block;
+    min-width: 140px;
+    text-align: center;
+    line-height: 50px;
+    color: white;
+    background: #015300;
+    text-decoration: none;
+    font-size: 130%;
+}
+
+.navbar li:hover a {
+    background: #084500;
+}
+
+.container {
+	width: 90%;
+	overflow: hidden;  
+}
+
+.left,.right {
+    padding: 10px;
+}
+
+.container img{
+    width: 105%;
+}
+
+.modal-footer {
+    text-align: center;
+}
