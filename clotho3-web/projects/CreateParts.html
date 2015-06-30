@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Projects</title>
+    <meta name="description" content="Clotho Projects">
+    <meta name="viewport" content="width=1024, initial-scale=1">
+    <script src ="clotho3API/clotho3API.js"></script>
+    <script src ="clotho3API/papaparse.min.js"></script>
+
+    <!-- not necessary until serving outside root directory / want html5 mode -->
+    <base href="/">
+
+    <link rel="stylesheet" href="styles/2e84f2a0.command.css"/>
+    <link rel="stylesheet" href="styles/773cbfe6.main.css"/>
+    <link rel ="stylesheet" href="styles/Phagebook_Styles.css"/>
+
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+
+    <script src="bower_components/jquery/jquery.js"></script>
+
+    <!-- note that angular is required for any clotho functionality -->
+    <script src="bower_components/angular/angular.js"></script>
+    <!-- note that lodash is required by several components -->
+    <script src="bower_components/lodash/dist/lodash.js"></script>
+    <script src="projectsCTRL.js"></script>
+    <script src="projects-app.js"></script>
+
+</head>
+<body onload="displaycontainers()">
+<script src="bower_components/es5-shim/es5-shim.js"></script>
+<script src="bower_components/json3/lib/json3.min.js"></script>
+
+<div ng-app="clothoRoot">
+    <div class="container">
+        <div clotho-command-bar></div>
+    </div>
+    <terminal-aside></terminal-aside>
+</div>
+
+<div class = "contentBackground" >
+    <div class = "mainContent">
+        <!--div class = "leftColumn">-->
+        <!--<img src = "/images/people/Katie_Lewis.jpeg">-->
+        <!--<h4> <a href ="./Profile.html">Katie Lewis</a> Projects </h4>-->
+        <!--<table id="projTable">-->
+        <!--&lt;!&ndash;<tr>&ndash;&gt;-->
+        <!--&lt;!&ndash;<td id="iGEM"><a href="./Projects.html" value="igem.id" style="display:block;">iGEM</a> </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;</tr>&ndash;&gt;-->
+        <!--&lt;!&ndash;<tr>&ndash;&gt;-->
+        <!--&lt;!&ndash;<td id="Phagebook"><a href = "./Projects.html" style = "display:block;">Phagebook</a></td>&ndash;&gt;-->
+        <!--&lt;!&ndash;</tr>&ndash;&gt;-->
+        <!--</table>-->
+
+        <!--<br><br>-->
+
+        <!--<button type="button" id="CreateButton">Create New Project </button>-->
+
+        <!--</div>-->
+        <div class = "leftColumn">
+            <img src = "/images/people/Katie_Lewis.jpeg">
+            <h4> <a href ="./Profile.html">Katie Lewis</a> Projects </h4>
+            <table id="projTable">
+            </table>
+
+            <br><br>
+        </div>
+        <script src="scripts/b18fc8c8.clotho-app-command.js"></script>
+
+        <script src="scripts/c0f113c2.clotho-core-module.js"></script>
+
+        <!--<script src ="scripts/notebook_projects.js"></script>-->
+
+        <!--note - remove all scripts below this for api-only build-->
+
+        <script src="scripts/c2a11f43.clotho-foundation-module.js"></script>
+
+
+        <script src="scripts/68a2b2df.clotho-command-module.js"></script>
+        <script src="scripts/LabOrdering-app.js"></script>
+        <script src="scripts/Ordering.js"></script>
+        <script src="scripts/Tracking.js"></script>
+        <script src="scripts/orderingCtrl.js"></script>
+        <script>
+            function displaycontainers(){
+                var personID = "clotho.developer.katielewis";
+                Clotho.get(personID).then(function(personObj){
+                    var tableRef = document.getElementById("projTable");
+                    if (personObj.projects.length > 0) {
+                        var newRow = tableRef.insertRow(0);
+                        var newCell = newRow.insertCell(0);
+                        Clotho.get(personObj.projects[0]).then(function (proj) {
+                            newCell.innerHTML = '<a href="./Projects.html" style = "display:block"+ value =' + proj.id + ' onclick = "projectDetails.call(this)">' + proj.name + '</a>';
+                        });
+                        for (var i = 1; i < personObj.projects.length; i++) {
+                            Clotho.get(personObj.projects[i]).then(function (projectObj) {
+                                newRow = tableRef.insertRow(tableRef.rows.length);
+                                newCell = newRow.insertCell(0);
+                                newCell.innerHTML = '<a href="./Projects.html" style = "display:block" value =' + projectObj.id + ' onclick = "projectDetails.call(this)">' + projectObj.name + '</a>';
+                            });
+                        }
+                    }
+                    if(personObj.containers.length > 0){
+                        for (i=0; i< personObj.containers.length; i++){
+                            Clotho.get(personObj.containers[i]).then(function(result){
+                                document.getElementById("wrapper").innerHTML = document.getElementById("wrapper").innerHTML + JSON.stringify(result);
+                            })
+                        }
+                    }
+                });
+            }
+        </script>
+
+</body>
+</html>

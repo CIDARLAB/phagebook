@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Clotho API Examples</title>
+    <meta name="description" content="Clotho Lab Ordering">
+    <meta name="viewport" content="width=1024, initial-scale=1">
+
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+
+    <!-- not necessary until serving outside root directory / want html5 mode -->
+    <base href="/">
+
+
+    <link rel="stylesheet" href="styles/2e84f2a0.command.css"/> 
+    <link rel="stylesheet" href="styles/773cbfe6.main.css"/> 
+    <link rel ="stylesheet" href="styles/Phagebook_Styles.css"/>
+
+
+    <script src="bower_components/jquery/jquery.js"></script>
+
+    <!-- note that angular is required for any clotho functionality -->
+    <script src="bower_components/angular/angular.js"></script>
+    <!-- note that lodash is required by several components -->
+    <script src="bower_components/lodash/dist/lodash.js"></script>
+
+
+</head>
+
+<body>
+<div ng-app="clothoRoot">
+    <div class="container">
+        <div clotho-command-bar></div>
+    </div>
+    <terminal-aside></terminal-aside>
+</div>
+
+<div class = "contentBackground"> 
+    <div class = "mainContent"> 
+        <div class = "leftColumn">
+            <img src = "/images/people/Katie_Lewis.jpeg">
+            <h4> Katie Lewis Projects </h4>
+            <ul class = "projectsTabs">
+                <li><a href = "#iGEM">iGEM</a></li>
+                <li><a href = "#Phagebook">Phagebook</a></li>
+                <li><a href = "#App">Android App</a></li>
+            </ul>
+
+            <br><br>
+
+        </div>
+
+<div ng-app ="newProject-app">
+    <div class="projContainer" ng-controller="projectCtrl as ctrl">
+        <ng-form class="form-horizontal" name="projectForm" ng-class="{'has-error' : projectForm.name.$dirty && projectForm.name.$invalid}">
+
+            <h1 class = "pageHeading"> Create New Project </h1><br><br> 
+            <label>Project Name: </label> <br> 
+            <input ng-model="item.projname" type="text"><br><br> 
+            <label>PI:</label><br> 
+            <input ng-model="item.pi" type="text"><br><br> 
+            <label>Project Description:</label> 
+            <textarea ng-model="item.description" rows="7" cols="70"> </textarea><br><br> 
+            <button class="btn btn-primary" ng-click="createProject(item)" >Create</button><br>
+
+
+        </ng-form>
+        </div>
+</div>
+</div>
+</div>
+
+
+
+<!--------
+SCRIPTS
+--------->
+
+<!--note - correct app based on the distribution, comments removed by build-->
+
+
+<script src="scripts/b18fc8c8.clotho-app-command.js"></script>
+
+<script src="scripts/c0f113c2.clotho-core-module.js"></script>
+
+<!--note - remove all scripts below this for api-only build-->
+
+<script src="scripts/c2a11f43.clotho-foundation-module.js"></script>
+
+
+<script src="scripts/68a2b2df.clotho-command-module.js"></script>
+
+<!-- our custom app files -->
+<script src="scripts/newProject/NewProject-app.js"></script>
+<script src="scripts/newProject/projectAPI.js"></script>
+<script src="scripts/newProject/projectCtrl.js"></script>
+<script src="scripts/newProject/trackingProject.js"></script>
+
+
+
+</body>
+
+
+
+
+
+</html>
