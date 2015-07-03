@@ -11,8 +11,8 @@
 }
 
 .navbar img{
-    width: 140px;
-    height: 5%;
+    width: 150px;
+    height: 45px;
 }
 
 .navbar ul{
@@ -58,4 +58,8 @@
 
 .modal-footer {
     text-align: center;
+}
+
+.btn-default{
+    background-color: whitesmoke;
 }
