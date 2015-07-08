@@ -1,6 +1,7 @@
  body {
     font-family: "Lucida Sans Unicode","Lucida Grande",sans-serif;
 }
+
 .navbar {
     list-style: none;
     font-weight: bold;
@@ -11,8 +12,8 @@
 }
 
 .navbar img{
-    width: 150px;
-    height: 45px;
+    width: 230px; /*150px by 45 for white back*/
+    height: 45px; /*230px by 45 for green back*/
 }
 
 .navbar ul{

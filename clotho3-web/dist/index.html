@@ -5,47 +5,47 @@
     <title>Phagebook</title>
     <link rel="shorcut icon" href="styles/images/phagebookLogoMin_16x16.ico"/>
 
+    <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
 
     <link rel="stylesheet" href="styles/cssBootstrap/bootstrap.css"/>
     <!--<link rel="stylesheet" href="styles/clothoNavBar.css">-->
     <link rel="stylesheet" href="styles/phagebookMainStyle.css"/>
     <script src="scripts/clotho/clotho3API.js"></script>
-    <script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
 
 </head>
 
 <body>
 
-<div ng-app="clothoRoot">
+<!--<div ng-app="clothoRoot">
     <div class="container">
         <div clotho-command-bar> </div>
     </div>
 
-    <terminal-aside></terminal-aside>
+    <terminal-aside></terminal-aside>-->
 
 <div class="navbar navbar-static-top">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display-->
         <div class="navbar-header">
             <ul class="navbar">
-                <li><a href="#"><img src="styles/images/phagebookLogo.png"></a></li>
+                <li><img src="styles/images/phagebookWhite.png"></a></li>
             </ul>
         </div>
-        <form class="navbar-form navbar-right" role="search">
+        <div role="form" class="navbar-form navbar-right" method="post">
             <div class="form-group">
-                <input type="email" class="form-control" name="returnEmail" placeholder="Email Address">
+                <input type="email" ng-model="username" class="form-control" name="returnEmail" placeholder="Email Address">
             </div>
             <div class="form-group">
-                <input type="password" class="form-control" name="returnPassword" placeholder="Password">
+                <input type="password" ng-model="password" class="form-control" name="returnPassword" placeholder="Password">
             </div>
-           <button id="login" type="submit" class="btn btn-default">Sign In</button>
-           <!-- <div>
-                <a class="help-inline" href="#">forgot password </a>
-                <label class="checkbox-inline">
-                    <input type="checkbox" value="remember-me"> remember me
+            <div class="checkbox">
+                <label style="color:whitesmoke">
+                    <input type="checkbox"> Remember Me <!--MAKE THIS WORK-->
                 </label>
-            </div> this needs to be implemented before included -->
-        </form>
+            </div>
+            <button id="login" class="btn btn-default">Sign In</button>
+        </div>
     </div>
 </div>
 
@@ -130,7 +130,7 @@
 
                 <div class="form-group">
                     <div class="text-center col-md-4"><br>
-                        <button id = "addPerson" type="submit" class="btn btn-default" >Create Profile</button>
+                        <button id="addPerson" ng-click="" type="submit" class="btn btn-default" >Create Profile</button>
                     </div>
                 </div>
             </div>
@@ -175,16 +175,17 @@ SCRIPTS
         Clotho.create(createObj).then(function(result){
             alert("Clotho create a new object" + result);
         });
+
+       //window.location.href='./html/profile.html'; ONCE NEW USER CREATED THIS SHOULD LOGIN AND GO TO PROFILE, so just login function??
     });
 </script>
 
 <script>
     $("#login").click(function(){
         alert("login");
-        window.name = "clotho.developer."+ document.getElementById("username").value;
-        // alert(window.name);
-        var url = "./profile.html"
-        window.location = url;
+        //window.name = "clotho.developer."+ document.getElementById("username").value;
+        //Clotho.login(document.getElementById("email"),document.getElementById("password"));
+        window.location.href = './html/profile.html';
 
     })
 </script>
