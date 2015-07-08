@@ -150,6 +150,15 @@
 <!--------
 SCRIPTS
 --------->
+<script>
+    $("#login").click(function(){
+        alert("login");
+        //window.name = "clotho.developer."+ document.getElementById("username").value;
+        //Clotho.login(document.getElementById("email"),document.getElementById("password"));
+        window.location.href = './html/profile.html';
+
+    })
+</script>
 
 <script>
     //var personID = "clotho.developer." ;
@@ -176,18 +185,9 @@ SCRIPTS
             alert("Clotho create a new object" + result);
         });
 
-       //window.location.href='./html/profile.html'; ONCE NEW USER CREATED THIS SHOULD LOGIN AND GO TO PROFILE, so just login function??
-    });
-</script>
-
-<script>
-    $("#login").click(function(){
-        alert("login");
-        //window.name = "clotho.developer."+ document.getElementById("username").value;
-        //Clotho.login(document.getElementById("email"),document.getElementById("password"));
+       Clotho.login(document.getElementById("email"),document.getElementById("password"));
         window.location.href = './html/profile.html';
-
-    })
+    });
 </script>
 
 
