@@ -6,6 +6,7 @@
     <link rel="shorcut icon" href="styles/images/phagebookLogoMin_16x16.ico"/>
 
     <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
 
     <link rel="stylesheet" href="styles/cssBootstrap/bootstrap.css"/>
     <!--<link rel="stylesheet" href="styles/clothoNavBar.css">-->
@@ -22,11 +23,11 @@
         <div clotho-command-bar> </div>
     </div>
 
-    <terminal-aside></terminal-aside>-->
+    <terminal-aside></terminal-aside>   the normal Clotho bar isn't needed for the landing page-->
 
 <div class="navbar navbar-static-top">
     <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display-->
+
         <div class="navbar-header">
             <ul class="navbar">
                 <li><img src="styles/images/phagebookWhite.png"></a></li>
@@ -34,16 +35,16 @@
         </div>
         <div role="form" class="navbar-form navbar-right" method="post">
             <div class="form-group">
-                <input type="email" ng-model="username" class="form-control" name="returnEmail" placeholder="Email Address">
+                <input type="email" class="form-control" id="returnEmail" placeholder="Email Address">
             </div>
             <div class="form-group">
-                <input type="password" ng-model="password" class="form-control" name="returnPassword" placeholder="Password">
+                <input type="password" class="form-control" id="returnPassword" placeholder="Password">
             </div>
-            <div class="checkbox">
+            <!--<div class="checkbox">
                 <label style="color:whitesmoke">
-                    <input type="checkbox"> Remember Me <!--MAKE THIS WORK-->
+                    <input type="checkbox"> Remember Me
                 </label>
-            </div>
+            </div>-->
             <button id="login" class="btn btn-default">Sign In</button>
         </div>
     </div>
@@ -56,10 +57,11 @@
 
     </div>
     <div class="col-md-1"></div>
+
     <div class="col-md-5">
 
         <!--this is where the new user input goes -->
-        <form class="form-horizontal" role="form">
+        <form class="form-horizontal" role="form" method="post">
             <h3 style="font-weight:bold">Create a Phagebook Profile Today!</h3><br>
             <div class="form-group">
                 <label class="control-label col-md-3" for="firstname">First Name:</label>
@@ -122,18 +124,18 @@
                 <div class="col-md-6">
                     <input id="permissionsList" list ="permissions" class="form-control" name = "permissions" placeholder="Permissions">
                     <datalist id = "permissions">
-                        <option value  = "Basic" >basic</option>
-                        <option value  = "Private" >private</option>
-                        <option value  = "Ninja" >ninja</option>
+                        <option value  = "Basic" >Basic</option>
+                        <option value  = "Private" >Private</option>
+                        <option value  = "Ninja" >Ninja</option>
                     </datalist>
                 </div>
-
+            </div>
                 <div class="form-group">
                     <div class="text-center col-md-4"><br>
                         <button id="addPerson" ng-click="" type="submit" class="btn btn-default" >Create Profile</button>
                     </div>
                 </div>
-            </div>
+
         </form>
 
 
@@ -142,8 +144,7 @@
 
 <!--centered at the bottom is the write-up copyright stuff-->
 <div class="modal-footer">
-    Created by <a href="mailto:azulad7@bu.edu">CIDAR Lab</a><br>
-    Visit us at: <a href="http://www.cidarlab.org" target="_blank">CIDAR Lab at Boston University</a><br>
+    Created by <a href="http://www.cidarlab.org" target="_blank">CIDAR at Boston University</a><br>
     copyright info
 </div>
 
@@ -154,22 +155,20 @@ SCRIPTS
     $("#login").click(function(){
         alert("login");
         //window.name = "clotho.developer."+ document.getElementById("username").value;
-        //Clotho.login(document.getElementById("email"),document.getElementById("password"));
+        Clotho.login(document.getElementById("returnEmail"),document.getElementById("returnPassword"));
+        alert("passed login");
         window.location.href = './html/profile.html';
-
-    })
+    });
 </script>
 
 <script>
-    //var personID = "clotho.developer." ;
-    //document.getElementById("theInputs").style.visibility = "hidden";
     $("#addPerson").click(function() {
-        alert("click");
+        alert("addUser");
         var obj = [];
-        // var file    = document.querySelector('input[type=file]').files[0];
-        //var myInput = document.getElementsByTagName("input");
-        alert(document.getElementById("permissionsList").value);
-        var personId = "clotho.developer."+ document.getElementById("firstname").value[0] +  document.getElementById("lastname").value;
+
+        Clotho.createUser(document.getElementById("email"),document.getElementById("password"));
+        alert("passed create");
+
         obj.push('\"' + "firstname" + '\": \"' + document.getElementById("firstname").value + '\"' +"," + '\"'+  "lastname"+ '\":\"' + document.getElementById("lastname").value+ '\"' );
         obj.push('\"' + "position" + '\": \"' + document.getElementById("positionList").value + '\"' +"," + '\"'+  "lab"+ '\":\"' + document.getElementById("lab").value+ '\"' );
         obj.push('\"' + "institution" + '\": \"' + document.getElementById("institution").value + '\"' +"," + '\"'+  "permissions"+ '\":\"' + document.getElementById("permissionsList").value + '\"' );
@@ -178,14 +177,8 @@ SCRIPTS
         obj.push('\"'+  "friends"+ '\": []');
 
         var personObj = '{' + obj + '}';
-
-        alert(personObj);
         var createObj = JSON.parse(personObj);
-        Clotho.create(createObj).then(function(result){
-            alert("Clotho create a new object" + result);
-        });
-
-       Clotho.login(document.getElementById("email"),document.getElementById("password"));
+        alert(JSON.stringify(createObj));
         window.location.href = './html/profile.html';
     });
 </script>
