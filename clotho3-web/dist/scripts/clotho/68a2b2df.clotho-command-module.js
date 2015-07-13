@@ -170,7 +170,7 @@ angular.module("clotho.tokenizer", []), angular.module("clotho.commandbar", ["cl
                     a.toggleLogin = function(a) {
                         d = angular.isDefined(a) ? a : !d, d ? i.create({
                             title: "Clotho Login",
-                            "template-url": "'views/_command/simpleLogin.html'"
+                            "template-url": "'html/simpleLogin.html'"
                         }) : i.destroy()
                     };
                     var e = null,
@@ -213,7 +213,7 @@ angular.module("clotho.tokenizer", []), angular.module("clotho.commandbar", ["cl
     function(a, b, c, d, e, f, g, h, i) {
         return {
             restrict: "EA",
-            templateUrl: "views/_command/terminalAside.html",
+            templateUrl: "html/commandViews/terminalAside.html",
             replace: !0,
             scope: {
                 title: "=?asideTitle",
@@ -269,7 +269,7 @@ angular.module("clotho.tokenizer", []), angular.module("clotho.commandbar", ["cl
 ]), angular.module("clotho.commandbar").directive("logEntries", function() {
     return {
         restrict: "A",
-        templateUrl: "views/_command/logEntries.html",
+        templateUrl: "html/commandViews/logEntries.html",
         scope: {
             entries: "=logEntries"
         }
@@ -301,7 +301,7 @@ angular.module("clotho.tokenizer", []), angular.module("clotho.commandbar", ["cl
                 "function": "=",
                 onExecute: "&?"
             },
-            templateUrl: "views/_command/executor.html",
+            templateUrl: "html/executor.html",
             link: function(d) {
                 function e() {
                     d.functionArgs = {}
@@ -467,7 +467,7 @@ angular.module("clotho.tokenizer", []), angular.module("clotho.commandbar", ["cl
             select: "&"
         },
         replace: !0,
-        templateUrl: "views/_command/autocompleteListing.html",
+        templateUrl: "html/commandViews/autocompleteListing.html",
         link: function(a) {
             a.isOpen = function() {
                 return a.hasFocus && a.matches.length > 0
@@ -492,7 +492,7 @@ angular.module("clotho.tokenizer", []), angular.module("clotho.commandbar", ["cl
                 match: "=",
                 query: "="
             },
-            templateUrl: "views/_command/autocompleteMatch.html",
+            templateUrl: "html/commandViews/autocompleteMatch.html",
             link: function(b, c, d) {
                 b.$watch(function() {
                     return d.active
@@ -515,7 +515,7 @@ angular.module("clotho.tokenizer", []), angular.module("clotho.commandbar", ["cl
     function(a, b, c) {
         return {
             restrict: "E",
-            templateUrl: "views/_command/token.html",
+            templateUrl: "html/commandViews/token.html",
             scope: {
                 token: "=?",
                 tokenModel: "=?",
@@ -619,7 +619,7 @@ angular.module("clotho.tokenizer", []), angular.module("clotho.commandbar", ["cl
             restrict: "A",
             replace: !0,
             require: "ngModel",
-            templateUrl: "views/_command/tokenizer.html",
+            templateUrl: "html/commandViews/tokenizer.html",
             link: function(c, e, f, g) {
                 function h() {
                     d.log("updating model (query, tokens)", k, c.tokenCollection.tokens), g.$setViewValue({

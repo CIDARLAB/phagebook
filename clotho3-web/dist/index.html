@@ -30,8 +30,7 @@
 
         <div class="navbar-header">
             <ul class="navbar">
-                <!---<li><img src="styles/images/phagebookWhite.png"></a></li>-->
-                <li><img src="styles/images/phagebookLogo.png"></a></li>
+                <li><img src="styles/images/phagebookWhite.png"></a></li>
             </ul>
         </div>
         <div role="form" class="navbar-form navbar-right" method="post">
@@ -146,6 +145,7 @@
 <!--centered at the bottom is the write-up copyright stuff-->
 <div class="modal-footer">
     Created by <a href="http://www.cidarlab.org" target="_blank">CIDAR at Boston University</a><br>
+    Built by <a href="mailto:azulad7@bu.edu">Allison Z. Durkan</a><br>
     <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
 </div>
 
@@ -153,23 +153,30 @@
 SCRIPTS
 --------->
 <script>
-    $("#login").click(function(){
+    $("#login").click(function () {
         //alert("login");
         //window.name = "clotho.developer."+ document.getElementById("username").value;
-        Clotho.login(document.getElementById("returnEmail").value,document.getElementById("returnPassword").value);
-        //alert("passed login");
-        window.location.href = './html/profile.html';
-    });
-</script>
+        Clotho.login(document.getElementById("returnEmail").value, document.getElementById("returnPassword").value).then(function (result) {
+            if (result == null) {
+                alert("Login unsuccessful");
+            }
+            else {
+                Clotho.get({id: result.id}).then(function(person) {
+                    alert(person.toString());
+                });
+                window.location.href = './html/profile.html';
 
-<script>
-    $("#addPerson").click(function() {
-        alert("addUser");
-        Clotho.createUser(document.getElementById("email").value,document.getElementById("password").value).then(function(result) {
-            alert("passed create");
+            }
+        });
+    });
+
+    $("#addPerson").click(function () {
+        //alert("addUser");
+        Clotho.createUser(document.getElementById("email").value, document.getElementById("password").value).then(function (result) {
+            //alert("passed create");
 
             var person = {
-                "id":result.id,
+                "id": result.id,
                 "givenname": document.getElementById("firstname").value,
                 "surname": document.getElementById("lastname").value,
                 "lab": document.getElementById("lab").value,
@@ -180,15 +187,14 @@ SCRIPTS
             Clotho.set(person);
             window.location.href = './html/profile.html';
         });
-        var createObj = JSON.stringify(person);
-        alert(createObj);
+        //var createObj = JSON.stringify(person);
+        //alert(createObj);
 
         return false;
     });
 </script>
 
 
-    <!--add angular minified sources-->
 <script src="scripts/clotho/b18fc8c8.clotho-app-command.js"></script>
 
 <script src="scripts/clotho/c0f113c2.clotho-core-module.js"></script>

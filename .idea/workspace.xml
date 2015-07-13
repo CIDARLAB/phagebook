@@ -2,9 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c64a6ffa-085d-439e-8498-0edd376c523d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/clotho3-web/dist/html/commandBar.html" afterPath="$PROJECT_DIR$/clotho3-web/dist/html/commandBar.html" />
+      <change type="DELETED" beforePath="C:\Users\Allison Durkan\git\phagebook\clotho3-web\dist\images\assets\Thumbs.db" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Allison Durkan\git\phagebook\clotho3-web\dist\images\socialmedia\Thumbs.db" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Allison Durkan\git\phagebook\clotho3-web\dist\images\trails\logo\PNG\Thumbs.db" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Allison Durkan\git\phagebook\clotho3-web\dist\styles\images\phagebookLogo.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Allison Durkan\git\phagebook\clotho3-web\dist\styles\images\phagebookLogoInvert.png" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/clotho3-web/dist/images/people/Thumbs.db" afterPath="$PROJECT_DIR$/clotho3-web/dist/images/people/Thumbs.db" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/clotho3-web/dist/styles/images/phagebookWhite.png" afterPath="$PROJECT_DIR$/clotho3-web/dist/styles/images/phagebookWhite.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/clotho3-web/dist/scripts/clotho/68a2b2df.clotho-command-module.js" afterPath="$PROJECT_DIR$/clotho3-web/dist/scripts/clotho/68a2b2df.clotho-command-module.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/clotho3-web/dist/styles/clothoNavBar.css" afterPath="$PROJECT_DIR$/clotho3-web/dist/styles/clothoNavBar.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/clotho3-web/dist/index.html" afterPath="$PROJECT_DIR$/clotho3-web/dist/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/clotho3-web/dist/styles/phagebookMainStyle.css" afterPath="$PROJECT_DIR$/clotho3-web/dist/styles/phagebookMainStyle.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/clotho3-web/dist/html/profile.html" afterPath="$PROJECT_DIR$/clotho3-web/dist/html/profile.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="phagebook.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,78 +37,51 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/clotho3-web/dist/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3827534">
-              <caret line="166" column="8" selection-start-line="166" selection-start-column="8" selection-end-line="166" selection-end-column="8" />
-              <folding>
-                <element signature="n#style#0;n#h3#0;n#form#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#0;n#a#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="clotho3API.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/clotho3-web/dist/scripts/clotho/clotho3API.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="239" column="10" selection-start-line="239" selection-start-column="10" selection-end-line="239" selection-end-column="10" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="phagebookMainStyle.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/clotho3-web/dist/styles/phagebookMainStyle.css">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="14" column="14" selection-start-line="14" selection-start-column="14" selection-end-line="14" selection-end-column="14" />
+              <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="indexAPI.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/clotho3-web/dist/scripts/indexAPI.js">
+      <file leaf-file-name="68a2b2df.clotho-command-module.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/clotho3-web/dist/scripts/clotho/68a2b2df.clotho-command-module.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="7" column="63" selection-start-line="7" selection-start-column="63" selection-end-line="7" selection-end-column="63" />
+              <caret line="211" column="82" selection-start-line="211" selection-start-column="79" selection-end-line="211" selection-end-column="82" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="indexCtrl.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/clotho3-web/dist/scripts/indexCtrl.js">
+      <file leaf-file-name="angular.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/clotho3-web/dist/scripts/angular.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
+              <caret line="27946" column="39" selection-start-line="27946" selection-start-column="35" selection-end-line="27946" selection-end-column="39" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="commandBar.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/clotho3-web/dist/html/commandBar.html">
+      <file leaf-file-name="clothoNavBar.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/clotho3-web/dist/styles/clothoNavBar.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-22.23077">
-              <caret line="65" column="17" selection-start-line="65" selection-start-column="17" selection-end-line="65" selection-end-column="17" />
-              <folding>
-                <element signature="n#style#0;n#a#0;n#div#4;n#div#0;n#nav#0;n#!!top" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="0.0">
+              <caret line="3067" column="14" selection-start-line="3067" selection-start-column="14" selection-end-line="3067" selection-end-column="14" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="profile.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="profile.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/clotho3-web/dist/html/profile.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="17" column="105" selection-start-line="17" selection-start-column="105" selection-end-line="17" selection-end-column="105" />
+            <state vertical-scroll-proportion="0.30862328">
+              <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -109,8 +92,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Html5" />
         <option value="JavaScript File" />
+        <option value="Html5" />
       </list>
     </option>
   </component>
@@ -125,18 +108,20 @@
         <option value="$PROJECT_DIR$/clotho3-web/dist/scripts/indexAPI.js" />
         <option value="$PROJECT_DIR$/clotho3-web/dist/scripts/newProject/Phagebook.js" />
         <option value="$PROJECT_DIR$/clotho3-web/profile/Profile.html" />
-        <option value="$PROJECT_DIR$/clotho3-web/dist/scripts/clotho/68a2b2df.clotho-command-module.js" />
         <option value="$PROJECT_DIR$/clotho3-web/dist/scripts/clotho/c2a11f43.clotho-foundation-module.js" />
         <option value="$PROJECT_DIR$/clotho3-web/dist/scripts/clotho/4030a445.angularui-modules.js" />
         <option value="$PROJECT_DIR$/clotho3-web/dist/scripts/clotho/angular.js" />
         <option value="$PROJECT_DIR$/clotho3-web/dist/scripts/jquery.js" />
         <option value="$PROJECT_DIR$/clotho3-web/master/bower_components/lodash/dist/lodash.js" />
         <option value="$PROJECT_DIR$/clotho3-web/dist/scripts/lodash.js" />
-        <option value="$PROJECT_DIR$/clotho3-web/dist/html/profile.html" />
-        <option value="$PROJECT_DIR$/clotho3-web/dist/styles/clothoNavBar.css" />
         <option value="$PROJECT_DIR$/clotho3-web/dist/html/commandBar.html" />
         <option value="$PROJECT_DIR$/clotho3-web/dist/styles/phagebookMainStyle.css" />
         <option value="$PROJECT_DIR$/clotho3-web/dist/index.html" />
+        <option value="$PROJECT_DIR$/clotho3-web/dist/html/terminalAside.html" />
+        <option value="$PROJECT_DIR$/clotho3-web/dist/html/tokenizer.html" />
+        <option value="$PROJECT_DIR$/clotho3-web/dist/scripts/clotho/68a2b2df.clotho-command-module.js" />
+        <option value="$PROJECT_DIR$/clotho3-web/dist/styles/clothoNavBar.css" />
+        <option value="$PROJECT_DIR$/clotho3-web/dist/html/profile.html" />
       </list>
     </option>
   </component>
@@ -164,7 +149,7 @@
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
+    <navigator proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -175,194 +160,7 @@
       <autoscrollFromSource />
       <sortByType />
     </navigator>
-    <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="phagebook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="phagebook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="phagebook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="phagebook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="phagebook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="clotho3-web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="phagebook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="phagebook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="clotho3-web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="profile" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="phagebook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="phagebook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="clotho3-web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="profile" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bower_components" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="phagebook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="phagebook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="clotho3-web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="profile" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bower_components" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jquery" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="phagebook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="phagebook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="clotho3-web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="master" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="phagebook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="phagebook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="clotho3-web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dist" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="phagebook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="phagebook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="clotho3-web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dist" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="phagebook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="phagebook" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="clotho3-web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dist" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="clotho" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-    </panes>
+    <panes />
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -443,18 +241,18 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.37594935" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32916668" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295238" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32916668" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -473,10 +271,10 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/clotho3-web/dist/styles/phagebookMainStyle.css">
+    <entry file="file://$PROJECT_DIR$/clotho3-web/dist/scripts/angular.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+          <caret line="27946" column="39" selection-start-line="27946" selection-start-column="35" selection-end-line="27946" selection-end-column="39" />
           <folding />
         </state>
       </provider>
@@ -484,26 +282,8 @@
     <entry file="file://$PROJECT_DIR$/clotho3-web/dist/styles/clothoNavBar.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="14" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="14" />
+          <caret line="3067" column="14" selection-start-line="3067" selection-start-column="14" selection-end-line="3067" selection-end-column="14" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/clotho3-web/dist/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="154" column="44" selection-start-line="154" selection-start-column="44" selection-end-line="154" selection-end-column="44" />
-          <folding>
-            <element signature="n#style#0;n#h3#0;n#form#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#a#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/clotho3-web/master/views/_command/commandbar.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="101" selection-start-line="6" selection-start-column="101" selection-end-line="6" selection-end-column="101" />
         </state>
       </provider>
     </entry>
@@ -511,24 +291,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/clotho3-web/dist/html/commandBar.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="n#style#0;n#a#0;n#div#4;n#div#0;n#nav#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/clotho3-web/dist/styles/phagebookMainStyle.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -578,7 +340,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="27" column="28" selection-start-line="27" selection-start-column="28" selection-end-line="27" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -624,19 +385,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/clotho3-web/dist/scripts/clotho/c2a11f43.clotho-foundation-module.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33228347">
-          <caret line="668" column="80" selection-start-line="668" selection-start-column="74" selection-end-line="668" selection-end-column="80" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/clotho3-web/master/bower_components/angular/angular.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.1270553">
           <caret line="5" column="53" selection-start-line="0" selection-start-column="0" selection-end-line="22633" selection-end-column="267" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -647,20 +399,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/clotho3-web/dist/scripts/angular.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="45040" column="32" selection-start-line="45040" selection-start-column="32" selection-end-line="45040" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/clotho3-web/master/bower_components/jquery/jquery.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.37117904">
           <caret line="15" column="47" selection-start-line="0" selection-start-column="0" selection-end-line="8829" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -668,6 +410,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.9505095">
           <caret line="8829" column="0" selection-start-line="8829" selection-start-column="0" selection-end-line="8829" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -675,9 +420,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.024745269">
           <caret line="14" column="56" selection-start-line="0" selection-start-column="0" selection-end-line="6785" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -685,6 +427,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.8515284">
           <caret line="6785" column="0" selection-start-line="6785" selection-start-column="0" selection-end-line="6785" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -751,15 +496,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="3400" column="0" selection-start-line="3397" selection-start-column="0" selection-end-line="3400" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/clotho3-web/dist/html/profile.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="17" column="105" selection-start-line="17" selection-start-column="105" selection-end-line="17" selection-end-column="105" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -767,7 +503,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5082212">
           <caret line="19" column="26" selection-start-line="0" selection-start-column="0" selection-end-line="5629" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -775,7 +510,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -783,15 +517,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="7" column="63" selection-start-line="7" selection-start-column="63" selection-end-line="7" selection-end-column="63" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/clotho3-web/dist/styles/clothoNavBar.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.55458516">
-          <caret line="9101" column="256736" selection-start-line="9101" selection-start-column="256736" selection-end-line="9101" selection-end-column="256736" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -799,23 +524,67 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.46293494">
           <caret line="381" column="0" selection-start-line="381" selection-start-column="0" selection-end-line="381" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/clotho3-web/dist/scripts/clotho/clotho3API.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.2620088">
+          <caret line="158" column="57" selection-start-line="158" selection-start-column="23" selection-end-line="158" selection-end-column="57" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/clotho3-web/dist/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.77458394">
+          <caret line="147" column="44" selection-start-line="147" selection-start-column="44" selection-end-line="147" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/clotho3-web/dist/styles/phagebookMainStyle.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/clotho3-web/dist/scripts/clotho/68a2b2df.clotho-command-module.js">
+    <entry file="file://$PROJECT_DIR$/clotho3-web/master/views/_command/terminalAside.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="158" column="50" selection-start-line="158" selection-start-column="50" selection-end-line="158" selection-end-column="50" />
-          <folding />
+        <state vertical-scroll-proportion="-0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="28" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/clotho3-web/master/views/_command/tokenizer.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.30862328">
+          <caret line="12" column="24" selection-start-line="0" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/clotho3-web/dist/scripts/clotho/4030a445.angularui-modules.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="2355" selection-start-line="0" selection-start-column="2355" selection-end-line="0" selection-end-column="2355" />
+        <state vertical-scroll-proportion="0.3323124">
+          <caret line="0" column="2750" selection-start-line="0" selection-start-column="2748" selection-end-line="0" selection-end-column="2750" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/clotho3-web/dist/scripts/clotho/c2a11f43.clotho-foundation-module.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3323124">
+          <caret line="530" column="20" selection-start-line="530" selection-start-column="12" selection-end-line="530" selection-end-column="20" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/clotho3-web/dist/scripts/clotho/c0f113c2.clotho-core-module.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3323124">
+          <caret line="0" column="7483" selection-start-line="0" selection-start-column="7478" selection-end-line="0" selection-end-column="7483" />
         </state>
       </provider>
     </entry>
@@ -827,42 +596,49 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/clotho3-web/dist/html/commandBar.html">
+    <entry file="file://$PROJECT_DIR$/clotho3-web/master/views/_command/logEntries.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-22.23077">
-          <caret line="65" column="17" selection-start-line="65" selection-start-column="17" selection-end-line="65" selection-end-column="17" />
-          <folding>
-            <element signature="n#style#0;n#a#0;n#div#4;n#div#0;n#nav#0;n#!!top" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/clotho3-web/dist/scripts/clotho/clotho3API.js">
+    <entry file="file://$PROJECT_DIR$/clotho3-web/master/views/_command/autocompleteListing.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="239" column="10" selection-start-line="239" selection-start-column="10" selection-end-line="239" selection-end-column="10" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/clotho3-web/dist/styles/phagebookMainStyle.css">
+    <entry file="file://$PROJECT_DIR$/clotho3-web/dist/scripts/angular.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="14" selection-start-line="14" selection-start-column="14" selection-end-line="14" selection-end-column="14" />
+          <caret line="27946" column="39" selection-start-line="27946" selection-start-column="35" selection-end-line="27946" selection-end-column="39" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/clotho3-web/dist/index.html">
+    <entry file="file://$PROJECT_DIR$/clotho3-web/dist/scripts/clotho/68a2b2df.clotho-command-module.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3827534">
-          <caret line="166" column="8" selection-start-line="166" selection-start-column="8" selection-end-line="166" selection-end-column="8" />
-          <folding>
-            <element signature="n#style#0;n#h3#0;n#form#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#a#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.0">
+          <caret line="211" column="82" selection-start-line="211" selection-start-column="79" selection-end-line="211" selection-end-column="82" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/clotho3-web/dist/styles/clothoNavBar.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="3067" column="14" selection-start-line="3067" selection-start-column="14" selection-end-line="3067" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/clotho3-web/dist/html/profile.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.30862328">
+          <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

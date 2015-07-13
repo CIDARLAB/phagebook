@@ -23,132 +23,28 @@
         <div clotho-command-bar></div>
     </div>
     <terminal-aside></terminal-aside>
-    <h3>Welcome to your profile!</h3>
 </div>
-<!--------
-SCRIPTS
---------->
 
-<!--note - correct app based on the distribution, comments removed by build-
-<script type = "text/javascript">
-    $("#createStatus").click(function () {
-        //alert(window.name);
-        var personID = window.name;
-        //var personID = "clotho.developer.klefort";
-        timeStamp = new Date();
-        //timeStamp = Date.now();
-        //alert(timeStamp)
-        //var StatusObj = str.concat('"schema":', '"org.clothocad.phagebook.status"');//,', "entryDate":', '",document.getElementById("statusText").value' );
-        var StatusObj = "{ \"schema\": \"org.clothocad.phagebook.status\", \"time\" :\"" + timeStamp + "\" , \"text\": \"" + document.getElementById("newStatus").value + "\" , \"person\": \"" + personID + "\" }";
-        //alert(StatusObj);
-        var obj = JSON.parse(StatusObj);
-        // alert(obj);
-        // alert(StatusObj);
-        Clotho.create(obj).then(function(result){
-            Clotho.get(personID).then(function(personObj) {
-                personObj.statuses.push(result);
-                Clotho.set(personObj);
-            })
-        });
-    });
-</script>
+<div class="container-fluid">
 
-<script>
-    document.getElementById('imageupload').onchange = function (evt) {
-        var tgt = evt.target || window.event.srcElement,
-                files = tgt.files;
+    <div class="col-md-4">
+        <img src="../images/people/AllisonDurkan.png" alt="Allison's profile picture" class="img-rounded" height="250" width="250">
+    </div>
 
-        // FileReader support
-        if (FileReader && files && files.length) {
-            var fr = new FileReader();
-            fr.onload = function () {
-                //alert("ping");
-                document.getElementById('imagesource').src = fr.result;
-            }
-            fr.readAsDataURL(files[0]);
-        }
+    <div class="col-md-4">
+        info
+    </div>
+
+    <div class="col-md-4">
+        links?
+    </div>
 
 
-        else {
-
-        }
-    }
-</script>
 
 
-<script type  = text/javascript>
-    $(document).ready(function() {
-        //("#loadProfile").click(function () {
-        var x = document.createElement("INPUT");
-        x.setAttribute("type", "file");
-        //alert(window.name);
-        //var personID = document.getElementById("login").value;
-        var personID = window.name;
-        // var personID =   "clotho.developer.klefort";
-        var statusObj;
-        var notNullArray = [];
-        Clotho.get(personID).then(function (personObj) {
-                    var N = 20;
-
-                    //alert(personObj.lastname);
-                    document.getElementById("profileName").innerHTML = personObj.firstname + " " + personObj.lastname;
-                    document.getElementById("universityName").innerHTML = personObj.institution;
-                    document.getElementById("positionName").innerHTML = personObj.position;
-                    document.getElementById("profileName2").innerHTML = personObj.firstname + " " + personObj.lastname;;
-                    //document.getElementById()
-                    Clotho.get(personObj.statuses).then(function (statusObj) {
-                        if (personObj.statuses.length == null) {
-                        }
-                        else {
-                            for (var i = statusObj.length - 1; i >= 0; i--) {
-
-                                if (statusObj[i] == null) {
-                                    personObj.statuses[i] = [];
-                                }
-                                else {
-
-                                    notNullArray.push(i);
-                                    var paperCite = '';
-                                    var newStatus = statusObj[i];
-                                    $('#keyValueForm').append("<tr style='margin-top: 10px;'> <td>" + "<p>" + newStatus.text + "</p></td> <td><p>" + newStatus.time +"</p></td></tr>");
-                                    /* $('printStatus').append("")*/
-                                }
-
-                            }
-
-                        }
-                    })
-                    if (personObj.friends.length == null) {
-                        alert("null");
-                    }
-                    else {
-                        for (var i = personObj.friends.length - 1; i >= 0; i--) {
-                            //alert(personObj);
-                            if (personObj.friends[i] == null) {
-                                personObj.friends[i] = [];
-                            }
-                            else {
-                                notNullArray.push(i);
-                                var paperCite = '';
-                                var newFriend = personObj.friends[i];
-
-                                $('#friendBox').append("<tr style='margin-top: 10px;'> <td>" + "<a href = ./Profile.html>" + newFriend + "</a></td> </tr>");
-                            }
 
 
-                        }
-
-
-                    }
-                }
-
-        );
-
-
-    });
-</script>
-
--->
+</div>
 
 <script src="scripts/clotho/b18fc8c8.clotho-app-command.js"></script>
 
