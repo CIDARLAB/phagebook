@@ -65,3 +65,14 @@
     background-color: whitesmoke;
 }
 
+#friends img{
+    height: 100px;
+    width: 100px;
+}
+
+.thumbnail img{
+    height: 250px;
+    width: 250px;
+    overflow: hidden;
+    object-fit: cover;
+}

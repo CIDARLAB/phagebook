@@ -174,18 +174,21 @@ SCRIPTS
         //alert("addUser");
         Clotho.createUser(document.getElementById("email").value, document.getElementById("password").value).then(function (result) {
             //alert("passed create");
+            Clotho.login(document.getElementById("email").value,document.getElementById("password").value).then(function(loginResult){
+                var person = {
+                    "id": loginResult.id,
+                    "givenname": document.getElementById("firstname").value,
+                    "surname": document.getElementById("lastname").value,
+                    "lab": document.getElementById("lab").value,
+                    "institution": document.getElementById("institution").value,
+                    "position": document.getElementById("position").value,
+                    "permissions": document.getElementById("permissions").value
+                };
+                Clotho.set(person).then(function(setResult){
+                    window.location.href = './html/profile.html';
+                });
+            });
 
-            var person = {
-                "id": result.id,
-                "givenname": document.getElementById("firstname").value,
-                "surname": document.getElementById("lastname").value,
-                "lab": document.getElementById("lab").value,
-                "institution": document.getElementById("institution").value,
-                "position": document.getElementById("position").value,
-                "permissions": document.getElementById("permissions").value
-            };
-            Clotho.set(person);
-            window.location.href = './html/profile.html';
         });
         //var createObj = JSON.stringify(person);
         //alert(createObj);

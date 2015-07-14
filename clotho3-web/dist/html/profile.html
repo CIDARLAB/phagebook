@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../styles/cssBootstrap/bootstrap.css"/>
     <link rel="stylesheet" href="../styles/clothoNavBar.css">
     <link rel="stylesheet" href="../styles/phagebookMainStyle.css"/>
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <script src="../scripts/angular.js"></script>
     <script src="../scripts/jquery.js"></script>
     <script src="../scripts/lodash.js"></script>
@@ -27,24 +27,72 @@
 
 <div class="container-fluid">
 
-    <div class="col-md-4">
-        <img src="../images/people/AllisonDurkan.png" alt="Allison's profile picture" class="img-rounded" height="250" width="250">
+
+    <div class="row">
+        <div class="col-md-3">
+
+            <div class="user-wrapper">
+                <img src="../images/people/AllisonDurkan.png" alt="Allison's profile picture" class="img-rounded" height="250" width="250">
+                <input class="form-group" type="file">
+                <div class="description">
+                    <h4> Allison Durkan</h4>
+                    <p>
+                        editable quick bio? like info section?
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 user-wrapper">
+            <div class="description">
+                <h3> Allison's Profile : </h3>
+                <p>
+                    whatever other info should be displayed?
+                </p>
+                <p>
+                    project type?
+                </p>
+                <hr />
+                <h3> Publications: </h3>
+                <p>
+                    now we have to insert publications, so for me NADA
+                </p>
+                <hr />
+                <h3> Social Links: </h3>
+                <a href="#" class="btn btn-social btn-facebook">
+                    <i class="fa fa-facebook"></i>&nbsp; Facebook </a>
+                <a href="#" class="btn btn-social btn-google">
+                    <i class="fa fa-google-plus"></i>&nbsp; Google</a>
+                <a href="#" class="btn btn-social btn-twitter">
+                    <i class="fa fa-twitter"></i>&nbsp; Twitter </a>
+                <a href="#">
+                    <i class="fa fa-linkedin"></i>&nbsp; Linkedin </a>
+            </div>
+
+        </div>
+        <div class="col-md-3">
+            <h3>Colleagues</h3>
+            <hr />
+            <div class="container" id="friends">
+                <div class="col-md-1">
+                    <img src="../images/people/kara_pro.PNG" alt="Kara's Profile" class="img-circle">
+                    <img src="../images/people/Katie_Lewis.jpeg" alt="Katie's Profile" class="img-circle">
+                </div>
+                <div class="col-md-1">
+                    <img src="../images/people/Inna.jpg" alt="Inna's Profile" class="img-circle">
+             </div>
+        </div>
     </div>
-
-    <div class="col-md-4">
-        info
-    </div>
-
-    <div class="col-md-4">
-        links?
-    </div>
-
-
-
-
-
-
 </div>
+
+<div class="modal-footer">
+    Created by <a href="http://www.cidarlab.org" target="_blank">CIDAR at Boston University</a><br>
+    Built by <a href="mailto:azulad7@bu.edu">Allison Z. Durkan</a><br>
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+</div>
+</div>
+
+<!---SCRIPTS-->
 
 <script src="scripts/clotho/b18fc8c8.clotho-app-command.js"></script>
 
