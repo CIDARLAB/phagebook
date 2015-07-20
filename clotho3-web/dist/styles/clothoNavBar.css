@@ -3984,7 +3984,7 @@ html {
 }
 body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 14px;
+    font-size: 14px!important;
     line-height: 1.42857;
     color: #333;
 }
@@ -5657,6 +5657,7 @@ tbody.collapse.in {
     .navbar-right #clotho_command_autocompleteList, .navbar-right .clothoAutocompleteListing, .navbar-right .dropdown-menu {
         right: 0;
         left: auto;
+        float: right;
     }
     .navbar-right .dropdown-menu-left {
         left: 0;
@@ -6296,7 +6297,6 @@ tbody.collapse.in {
 }
 @media (min-width:768px) {
     .navbar-text {
-        float: left;
         margin-left: 15px;
         margin-right: 15px;
     }
@@ -8749,7 +8749,7 @@ body {
     padding: 70px 10px;
 }
 #clotho_commandBar .clotho_commandBar-inner, .container {
-    width: 1022px!important;
+    width: 1200px!important;
 }
 body {
     background-color: #fff;

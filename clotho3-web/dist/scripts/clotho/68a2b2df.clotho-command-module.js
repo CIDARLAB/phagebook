@@ -52,7 +52,8 @@ angular.module("clotho.tokenizer", []), angular.module("clotho.commandbar", ["cl
             })
         }
     }
-]), angular.module("ui.keypress").directive("uiKeydown", ["keypressHelper",
+]),
+    angular.module("ui.keypress").directive("uiKeydown", ["keypressHelper",
     function(a) {
         return {
             link: function(b, c, d) {
@@ -187,18 +188,26 @@ angular.module("clotho.tokenizer", []), angular.module("clotho.commandbar", ["cl
                 }
             ],
             link: function(b) {
+                var rootURL = e.protocol() + "://" + e.host() + ":" + e.port();
                 b.toggleTerminalAside = c.toggleTerminal, b.showMeHow = function() {
                     a.query({
                         name: "Learning Clotho"
                     }).then(function(b) {
                         a.startTrail(b[0].id)
                     })
-                }, b.goHome = function() {
-                    e.path("/")
+                }, b.goProfile = function() {
+                    f.location.href = rootURL + "/html/profile.html";
                 }, b.aboutClotho = function() {
-                    e.path("/about")
-                }, b.teamClotho = function() {
-                    e.path("/team")
+                    f.location.href = "https://www.clothocad.org/";
+                }, b.teamPhagebook = function() {
+                    f.location.href = rootURL + "/html/team.html";
+                }, b.goProject = function() {
+                    f.location.href = rootURL + "/html/project.html";
+                }, b.goOrder = function() {
+                    f.location.href = rootURL + "/html/ordering.html";
+                }, b.logout = function() {
+                    Clotho.logout();
+                    f.location.href = rootURL;
                 }
             }
         }

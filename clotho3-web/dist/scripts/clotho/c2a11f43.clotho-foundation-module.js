@@ -891,7 +891,7 @@ angular.module("clotho.clothoDirectives", ["clotho.core", "clotho.utils"]), angu
                 placement: "@popupPlacement",
                 reposition: "&"
             },
-            templateUrl: "views/_foundation/sharableBasicFieldsPopup.html",
+            templateUrl: "html/commandViews/sharableBasicFieldsPopup.html",
             link: function(d) {
                 function f(c) {
                     d.sharable = c, b.determineSharableType(c).then(function(a) {

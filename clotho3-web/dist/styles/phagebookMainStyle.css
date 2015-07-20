@@ -1,5 +1,7 @@
  body {
     font-family: "Lucida Sans Unicode","Lucida Grande",sans-serif;
+     overflow-x: hidden;
+     font-size: medium;
 }
 
 .navbar {
@@ -66,8 +68,9 @@
 }
 
 #friends img{
-    height: 100px;
-    width: 100px;
+    height: 160px;
+    object-fit: cover;
+    padding: 5px;
 }
 
 .thumbnail img{
@@ -75,4 +78,8 @@
     width: 250px;
     overflow: hidden;
     object-fit: cover;
+}
+
+#profileInfo {
+    /*editable ONLY if the correct user is logged in*/
 }
