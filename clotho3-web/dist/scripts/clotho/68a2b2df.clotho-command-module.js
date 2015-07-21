@@ -207,6 +207,7 @@ angular.module("clotho.tokenizer", []), angular.module("clotho.commandbar", ["cl
                     f.location.href = rootURL + "/html/ordering.html";
                 }, b.logout = function() {
                     Clotho.logout();
+                    sessionStorage.clear();
                     f.location.href = rootURL;
                 }
             }
@@ -310,7 +311,7 @@ angular.module("clotho.tokenizer", []), angular.module("clotho.commandbar", ["cl
                 "function": "=",
                 onExecute: "&?"
             },
-            templateUrl: "html/executor.html",
+            templateUrl: "html/commandViews/executor.html",
             link: function(d) {
                 function e() {
                     d.functionArgs = {}

@@ -164,8 +164,8 @@ SCRIPTS
                 Clotho.get({id: result.id}).then(function(person) {
                     alert(person.toString());
                 });
+                sessionStorage.setItem("uniqueid",result.id);
                 window.location.href = './html/profile.html';
-
             }
         });
     });
@@ -179,11 +179,15 @@ SCRIPTS
                     "id": loginResult.id,
                     "givenname": document.getElementById("firstname").value,
                     "surname": document.getElementById("lastname").value,
+                    "fullname": document.getElementById("firstname").value + " " + document.getElementById("lastname").value,
                     "lab": document.getElementById("lab").value,
                     "institution": document.getElementById("institution").value,
                     "position": document.getElementById("position").value,
                     "permissions": document.getElementById("permissions").value
                 };
+                alert(JSON.stringify(person));
+                sessionStorage.setItem("uniqueid",loginResult.id);
+                //alert(sessionStorage.id);
                 Clotho.set(person).then(function(setResult){
                     window.location.href = './html/profile.html';
                 });

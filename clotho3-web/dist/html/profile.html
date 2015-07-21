@@ -13,6 +13,7 @@
     <script src="../scripts/jquery.js"></script>
     <script src="../scripts/lodash.js"></script>
 
+
     <script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
@@ -26,32 +27,32 @@
 </div>
 
 <div class="container-fluid">
-
-
-    <div class="row" ng-controller="profileController">
+<div ng-app="profileApp">
+<div ng-controller="profileController" ng-init="load()">
+    <div class="row" >
         <div class="col-md-3 text-center ">
 
             <div class="user-wrapper">
                 <img src="../images/people/AllisonDurkan.png" alt="Allison's profile picture" class="img-rounded" height="250" width="250">
                 <div class="description">
-                    <h3><strong> Allison Durkan </strong></h3>
-                    <div ng-controller="TextBtnCtrl" contenteditable="true">
-                        <span>
-                            Idk what this really does
-                        </span>
+                    <h3><strong> {{ displayName }} </strong></h3>
+                    <!--<div ng-hide="editorEnabled">
+                        <button class="btn btn-default" style="float:right" ng-click="enableEditor()"><span class="glyphicon glyphicon-pencil"></span> Edit Info</button>
                     </div>
+                    <div ng-show="editorEnabled">
+                        <input ng-model="editableTitle" ng-show="editorEnabled"/>
+                        <button class="btn btn-default" ng-click="save()"><span class="glyphicon glyphicon-save"></span> Save</button><button class="btn btn-default" ng-click="disableEditor()">Cancel</button>
+                    </div>-->
                 </div>
             </div>
         </div>
 
         <div class="col-md-5 user-wrapper">
             <div class="description" id="profileInfo">
-                <h3><strong> About Me </strong><button class="btn btn-default" style="float:right" ng-click="editInfo">Edit profile</button></h3>
-                <p>
-                   Institution: Boston University<br>
-                    Lab: CIDAR<br>
-                    Position: Undergraduate
-                </p>
+                <h3><strong> About Me </strong><button class="btn btn-default" style="float:right" ng-click="editInfo()"><span class="glyphicon glyphicon-pencil"></span> Edit profile</button></h3>
+                    Institution: {{ institution }} <br><br>
+                    Lab: {{ lab }} <br><br>
+                    Position: {{ position }}  <br><br>
                 <hr />
                 <h3><strong> Projects </strong></h3>
                 <div class="container">
@@ -99,6 +100,8 @@
     </div>
 </div>
 </div>
+</div>
+</div>
 <div class="modal-footer">
     Created by <a href="http://www.cidarlab.org" target="_blank">CIDAR at Boston University</a><br>
     Built by <a href="mailto:azulad7@bu.edu">Allison Z. Durkan</a><br>
@@ -120,6 +123,7 @@
 
 <script type='text/javascript' src="../scripts/clotho/c2a11f43.clotho-foundation-module.js"></script>
 
+<script src="../scripts/profileController.js"></script>
 
 <script src='../scripts/clotho/68a2b2df.clotho-command-module.js'></script>
 
