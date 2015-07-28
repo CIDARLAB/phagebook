@@ -195,7 +195,7 @@ angular.module("clotho.core", ["clotho.angularAdditions"]), angular.module("clot
                 }
                 var e = {
                     username: a,
-                    password: b
+                    credentials: b
                 };
                 return j.emitSubCallback("login", e, d)
             }, m = function() {

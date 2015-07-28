@@ -78,9 +78,9 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-md-3" for="email">Email:</label>
+                <label class="control-label col-md-3" for="email" >Email:</label>
                 <div class="col-md-6">
-                    <input type="text" class="form-control" id="email" placeholder="Email Address">
+                    <input type="email" class="form-control" id="email" placeholder="Email Address">
                 </div>
             </div>
 
@@ -161,10 +161,13 @@ SCRIPTS
                 alert("Login unsuccessful");
             }
             else {
-                Clotho.get({id: result.id}).then(function(person) {
-                    alert(person.toString());
+                Clotho.get(result.id).then(function(person) {
+                    alert(JSON.stringify(person));
                 });
                 sessionStorage.setItem("uniqueid",result.id);
+                sessionStorage.setItem("username",document.getElementById("returnEmail").value);
+                sessionStorage.setItem("password",document.getElementById("returnPassword").value);
+
                 window.location.href = './html/profile.html';
             }
         });
@@ -181,12 +184,18 @@ SCRIPTS
                     "surname": document.getElementById("lastname").value,
                     "fullname": document.getElementById("firstname").value + " " + document.getElementById("lastname").value,
                     "lab": document.getElementById("lab").value,
+                    "email": document.getElementById("email").value,
                     "institution": document.getElementById("institution").value,
-                    "position": document.getElementById("position").value,
-                    "permissions": document.getElementById("permissions").value
+                    "position": document.getElementById("positionList").value,
+                    "permissions": document.getElementById("permissionsList").value,
+                    "friendsList" : [],
+                    "statusList" : [],
+                    "pubmedId" : ""
                 };
-                alert(JSON.stringify(person));
+                //alert(JSON.stringify(person));
                 sessionStorage.setItem("uniqueid",loginResult.id);
+                sessionStorage.setItem("username",document.getElementById("email").value);
+                sessionStorage.setItem("password",document.getElementById("password").value);
                 //alert(sessionStorage.id);
                 Clotho.set(person).then(function(setResult){
                     window.location.href = './html/profile.html';
@@ -199,6 +208,7 @@ SCRIPTS
 
         return false;
     });
+
 </script>
 
 

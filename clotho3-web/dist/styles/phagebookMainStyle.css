@@ -64,22 +64,26 @@
 }
 
 .btn-default{
+    font-family: "Lucida Sans Unicode", "lucida grande", sans-serif
     background-color: whitesmoke;
+
 }
 
 #friends img{
-    height: 160px;
+    height: 110px;
+    width: 110px;
     object-fit: cover;
-    padding: 5px;
+    padding: 2px;
 }
 
 .thumbnail img{
-    height: 250px;
-    width: 250px;
+    height: 200px;
+    width: 200px;
     overflow: hidden;
     object-fit: cover;
 }
 
-#profileInfo {
-    /*editable ONLY if the correct user is logged in*/
+#profile .btn-default {
+    float: right;
 }
+

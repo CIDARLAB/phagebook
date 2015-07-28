@@ -19,22 +19,22 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
 
 <body>
-<div ng-app="clothoRoot">
+<div ng-module="clothoRoot">
     <div class="container">
         <div clotho-command-bar></div>
     </div>
     <terminal-aside></terminal-aside>
 </div>
 
-<div class="container-fluid">
-<div ng-app="profileApp">
-<div ng-controller="profileController" ng-init="load()">
+<div class="container-fluid" id="profile">
+<div ng-module="profileApp">
+<div ng-controller="profileController">
     <div class="row" >
         <div class="col-md-3 text-center ">
 
             <div class="user-wrapper">
-                <img src="../images/people/AllisonDurkan.png" alt="Allison's profile picture" class="img-rounded" height="250" width="250">
-                <div class="description">
+                <img src="../images/people/{{pictureName}}.png" alt="{{pictureName}}'s profile picture" class="img-rounded" height="250" width="250">
+                <div class="description" >
                     <h3><strong> {{ displayName }} </strong></h3>
                     <!--<div ng-hide="editorEnabled">
                         <button class="btn btn-default" style="float:right" ng-click="enableEditor()"><span class="glyphicon glyphicon-pencil"></span> Edit Info</button>
@@ -47,12 +47,30 @@
             </div>
         </div>
 
-        <div class="col-md-5 user-wrapper">
+        <div class="col-md-6 user-wrapper">
             <div class="description" id="profileInfo">
-                <h3><strong> About Me </strong><button class="btn btn-default" style="float:right" ng-click="editInfo()"><span class="glyphicon glyphicon-pencil"></span> Edit profile</button></h3>
-                    Institution: {{ institution }} <br><br>
-                    Lab: {{ lab }} <br><br>
-                    Position: {{ position }}  <br><br>
+                <h3><strong> About Me </strong>
+                    <button class="btn btn-default" ng-click="editInfo()" ng-show="!editBool"> <span class="glyphicon glyphicon-pencil"></span> Edit profile</button>
+                    <button class="btn btn-default" ng-click="save()" ng-show="editBool" style="font-family: "Lucida Sans Unicode", "lucida grande", sans-serif"> <span class="glyphicon glyphicon-save"> Save</span></button>
+                    <button class="btn btn-default" ng-click="cancel()" ng-show="editBool" style="font-family: "Lucida Sans Unicode", "lucida grande", sans-serif"> <span class="glyphicon glyphicon-erase"> Cancel</span> </button></h3>
+                    Institution: <input type="text" ng-model="personObj.institution" ng-disabled="!editBool"> <br><br>
+                    Lab: <input type="text" ng-model="personObj.lab" ng-disabled="!editBool"> <br><br>
+                    Position: <input type="text" ng-model="personObj.position" ng-disabled="!editBool"> <br><br>
+                <hr />
+                <h3><strong> Status Updates </strong></h3>
+                <h5> Update your personal news, accomplishments, and lab events. </h5>
+                <ng-form id = "inputStatus">
+                    <div>
+                        <input id = "newStatus" name = "newStatus" class = "col-md-8">
+                        <button id = "createStatus" class="btn btn-default" ng-click="createStatus()"><span class="glyphicon glyphicon-comment"></span> Create status</button><br>
+                    </div>
+                </ng-form> <br>
+                <div class = inline-block>
+                    <h4>Previous Posts</h4>
+                    <table id="keyValueForm" class="form-inline" role="form">
+                        <tbody style="text-align: left";>
+                    </table>
+                </div>
                 <hr />
                 <h3><strong> Projects </strong></h3>
                 <div class="container">
@@ -69,39 +87,35 @@
                 </div>
                 <hr />
                 <h3><strong> Publications </strong></h3>
-                <ol>
-                    <li>poster on phagebook</li>
-                    <li>if matt were nice I'd have something else</li>
-                    <li>Shannon at least had the courtesy to mention me</li>
-                </ol>
-                <hr />
+                <ng-form id="pubmedIDEntry">
+                    <div>
+                        <input id="publications" name="publications" class="col-md-8" placeholder="Please enter your PubMed ID" ng-show="!idExist">
+                        <button id="enterPubmed" class="btn btn-default" ng-click="displayPub()"><span class="glyphicon glyphicon-certificate"></span> Display Publications</button>
+                    </div>
+                </ng-form>
+                <!--<hr />
                 <h3><strong> Social Links </strong></h3>
                 <a href="https://www.facebook.com" target="_blank" class="btn btn-social btn-facebook">
                     <i class="fa fa-facebook"></i>&nbsp; Facebook </a>
                 <a href="https://www.twitter.com" target="_blank" class="btn btn-social btn-twitter">
                     <i class="fa fa-twitter"></i>&nbsp; Twitter </a>
                 <a href="https://www.linkedin.com" target="_blank" class="btn btn-social btn-linkedin">
-                    <i class="fa fa-linkedin"></i>&nbsp; Linkedin </a>
+                    <i class="fa fa-linkedin"></i>&nbsp; Linkedin </a>-->
             </div>
 
         </div>
-        <div class="col-md-2">
-            <h3><strong>Colleagues</strong></h3>
+        <div class="col-md-3" id="friends">
+            <h3><strong> Colleagues</strong></h3>
             <hr />
-            <div class="container" id="friends">
-                <div class="col-md-2">
-                    <img src="../images/people/kara_pro.PNG" alt="Kara's Profile" class="img-circle">
-                    <img src="../images/people/Katie_Lewis.jpeg" alt="Katie's Profile" class="img-circle">
-                </div>
-                <div class="col-md-2">
-                    <img src="../images/people/Inna.jpg" alt="Inna's Profile" class="img-circle">
-             </div>
+            <div ng-init="loadFriends()">
+
+            </div>
         </div>
     </div>
 </div>
 </div>
 </div>
-</div>
+
 <div class="modal-footer">
     Created by <a href="http://www.cidarlab.org" target="_blank">CIDAR at Boston University</a><br>
     Built by <a href="mailto:azulad7@bu.edu">Allison Z. Durkan</a><br>
@@ -111,9 +125,9 @@
 
 <!---SCRIPTS-->
 
-<script src="scripts/clotho/b18fc8c8.clotho-app-command.js"></script>
+<script src="../scripts/clotho/b18fc8c8.clotho-app-command.js"></script>
 
-<script src="scripts/clotho/c0f113c2.clotho-core-module.js"></script>
+<script src="../scripts/clotho/c0f113c2.clotho-core-module.js"></script>
 
 <!--note - remove all scripts below this for api-only build-->
 
@@ -123,12 +137,17 @@
 
 <script type='text/javascript' src="../scripts/clotho/c2a11f43.clotho-foundation-module.js"></script>
 
+<script src="../scripts/clotho/clotho3API.js"></script>
 <script src="../scripts/profileController.js"></script>
-
+<script src="../scripts/pubmed.js"></script>
 <script src='../scripts/clotho/68a2b2df.clotho-command-module.js'></script>
+<script src="../scripts/angular.ng-modules.js"></script>
+<!--<script type="text/javascript">
+    angular.bootstrap(document.getElementById('clothoRoot'),[]);
+    angular.bootstrap(document.getElementById('profileApp'),['profileApp']);
+</script>-->
 
 <!-- our custom app files -->
-<script src="../scripts/clotho/clotho3API.js"></script>
 
 </body>
 </html>

@@ -198,7 +198,7 @@ angular.module("clotho.tokenizer", []), angular.module("clotho.commandbar", ["cl
                 }, b.goProfile = function() {
                     f.location.href = rootURL + "/html/profile.html";
                 }, b.aboutClotho = function() {
-                    f.location.href = "https://www.clothocad.org/";
+                    f.open('https://www.clothocad.org/','_blank');
                 }, b.teamPhagebook = function() {
                     f.location.href = rootURL + "/html/team.html";
                 }, b.goProject = function() {

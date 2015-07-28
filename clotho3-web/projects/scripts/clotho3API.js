@@ -189,7 +189,7 @@
          * @param {Object} 
          */
          login: function(name, pass) {
-            return socket.emit("login", {"username":name, "password":pass});
+            return socket.emit("login", {"username":name, "credentials":pass});
         },
 
         /**
