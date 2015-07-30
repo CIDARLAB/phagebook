@@ -192,19 +192,17 @@ SCRIPTS
                     "statusList" : [],
                     "pubmedId" : ""
                 };
-                //alert(JSON.stringify(person));
+
                 sessionStorage.setItem("uniqueid",loginResult.id);
                 sessionStorage.setItem("username",document.getElementById("email").value);
                 sessionStorage.setItem("password",document.getElementById("password").value);
-                //alert(sessionStorage.id);
-                Clotho.set(person).then(function(setResult){
+
+                Clotho.set(person).then(function(){
                     window.location.href = './html/profile.html';
                 });
             });
 
         });
-        //var createObj = JSON.stringify(person);
-        //alert(createObj);
 
         return false;
     });

@@ -261,7 +261,7 @@ th {
   }
 }
 @font-face {
-  font-family: 'Glyphicons Halflings';
+  font-family: "Lucida Sans Unicode", "lucida grande", sans-serif;
 
   src: url('../fontsBootstrap/glyphicons-halflings-regular.eot');
   src: url('../fontsBootstrap/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fontsBootstrap/glyphicons-halflings-regular.woff2') format('woff2'), url('../fontsBootstrap/glyphicons-halflings-regular.woff') format('woff'), url('../fontsBootstrap/glyphicons-halflings-regular.ttf') format('truetype'), url('../fontsBootstrap/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
@@ -270,7 +270,7 @@ th {
   position: relative;
   top: 1px;
   display: inline-block;
-  font-family: 'Glyphicons Halflings';
+  font-family: "Lucida Sans Unicode", "lucida grande", sans-serif;
   font-style: normal;
   font-weight: normal;
   line-height: 1;
@@ -1082,8 +1082,7 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  font-family: "Lucida Sans Unicode", "lucida grande", sans-serif  font-size: 14px;
   line-height: 1.42857143;
   color: #333;
   background-color: #fff;
@@ -1532,7 +1531,7 @@ code,
 kbd,
 pre,
 samp {
-  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-family: "Lucida Sans Unicode", "lucida grande", sans-serif
 }
 code {
   padding: 2px 4px;
@@ -6037,7 +6036,7 @@ button.close {
   position: absolute;
   z-index: 1070;
   display: block;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Lucida Sans Unicode", "lucida grande", sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: normal;
@@ -6424,7 +6423,7 @@ button.close {
 .carousel-control .icon-next {
   width: 20px;
   height: 20px;
-  font-family: serif;
+  font-family: sans-serif;
   line-height: 1;
 }
 .carousel-control .icon-prev:before {

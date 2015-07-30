@@ -35,6 +35,7 @@
             <div class="user-wrapper">
                 <img src="../images/people/{{pictureName}}.png" alt="{{pictureName}}'s profile picture" class="img-rounded" height="250" width="250">
                 <div class="description" >
+                    <span class="btn btn-file" ng-show="editBool"><input type="file" id="profilePicture"></span>
                     <h3><strong> {{ displayName }} </strong></h3>
                     <!--<div ng-hide="editorEnabled">
                         <button class="btn btn-default" style="float:right" ng-click="enableEditor()"><span class="glyphicon glyphicon-pencil"></span> Edit Info</button>
@@ -61,14 +62,14 @@
                 <h5> Update your personal news, accomplishments, and lab events. </h5>
                 <ng-form id = "inputStatus">
                     <div>
-                        <input id = "newStatus" name = "newStatus" class = "col-md-8">
+                        <input id = "newStatus" ng-model = "newStatus" class = "col-md-8" type="text" placeholder="Write a new status here">
                         <button id = "createStatus" class="btn btn-default" ng-click="createStatus()"><span class="glyphicon glyphicon-comment"></span> Create status</button><br>
                     </div>
                 </ng-form> <br>
                 <div class = inline-block>
                     <h4>Previous Posts</h4>
-                    <table id="keyValueForm" class="form-inline" role="form">
-                        <tbody style="text-align: left";>
+                    <table id="keyValueForm" class="form-inline" ng-init="loadStatus()" role="form">
+                        <tbody style="text-align: left" >
                     </table>
                 </div>
                 <hr />
@@ -89,10 +90,16 @@
                 <h3><strong> Publications </strong></h3>
                 <ng-form id="pubmedIDEntry">
                     <div>
-                        <input id="publications" name="publications" class="col-md-8" placeholder="Please enter your PubMed ID" ng-show="!idExist">
-                        <button id="enterPubmed" class="btn btn-default" ng-click="displayPub()"><span class="glyphicon glyphicon-certificate"></span> Display Publications</button>
+                        <input id="pubmedId" ng-model="pubmedId" class="col-md-8" placeholder="Please enter your PubMed ID" ng-show="!idExist">
+                        <button id="enterPubmed" class="btn btn-default" ng-click="displayPub()" ng-show="!idExist"><span class="glyphicon glyphicon-certificate"></span> Display Publications</button>
                     </div>
                 </ng-form>
+
+                <ol ng-show="idExist">
+                    <li ng-repeat="publication in publications">
+                        {{pub.name}}
+                    </li>
+                </ol>
                 <!--<hr />
                 <h3><strong> Social Links </strong></h3>
                 <a href="https://www.facebook.com" target="_blank" class="btn btn-social btn-facebook">
@@ -105,21 +112,24 @@
 
         </div>
         <div class="col-md-3" id="friends">
-            <h3><strong> Colleagues</strong></h3>
+            <h3><strong> Colleagues</strong>
+            <button class="btn btn-default" ng-click="findFriends()"><span class="glyphicon glyphicon-plus-sign"> Add Colleagues</span></button></h3>
             <hr />
             <div ng-init="loadFriends()">
 
             </div>
         </div>
-    </div>
-</div>
-</div>
-</div>
 
+    </div>
+
+</div>
+</div>
+</div>
+<br> <br>
 <div class="modal-footer">
     Created by <a href="http://www.cidarlab.org" target="_blank">CIDAR at Boston University</a><br>
-    Built by <a href="mailto:azulad7@bu.edu">Allison Z. Durkan</a><br>
-    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+    Built by <a href="mailto:azulad7@bu.edu">Allison Z. Durkan</a><br> <img src="../styles/images/logo-trace_black.png" style="height:50px">
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a> <br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
 </div>
 
 

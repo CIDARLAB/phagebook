@@ -202,7 +202,7 @@ angular.module("clotho.tokenizer", []), angular.module("clotho.commandbar", ["cl
                 }, b.teamPhagebook = function() {
                     f.location.href = rootURL + "/html/team.html";
                 }, b.goProject = function() {
-                    f.location.href = rootURL + "/html/project.html";
+                    f.location.href = rootURL + "/html/projects.html";
                 }, b.goOrder = function() {
                     f.location.href = rootURL + "/html/ordering.html";
                 }, b.logout = function() {
