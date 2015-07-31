@@ -12,9 +12,7 @@
     <script src="../scripts/angular.js"></script>
     <script src="../scripts/jquery.js"></script>
     <script src="../scripts/lodash.js"></script>
-
-
-    <script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+<!--<script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>-->
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
 
@@ -68,9 +66,11 @@
                 </ng-form> <br>
                 <div class = inline-block>
                     <h4>Previous Posts</h4>
-                    <table id="keyValueForm" class="form-inline" ng-init="loadStatus()" role="form">
-                        <tbody style="text-align: left" >
-                    </table>
+                    <ul>
+                        <li ng-repeat="status in statuses">
+                            {{status.statusMessage}}
+                        </li>
+                    </ul>
                 </div>
                 <hr />
                 <h3><strong> Projects </strong></h3>
@@ -90,14 +90,14 @@
                 <h3><strong> Publications </strong></h3>
                 <ng-form id="pubmedIDEntry">
                     <div>
-                        <input id="pubmedId" ng-model="pubmedId" class="col-md-8" placeholder="Please enter your PubMed ID" ng-show="!idExist">
-                        <button id="enterPubmed" class="btn btn-default" ng-click="displayPub()" ng-show="!idExist"><span class="glyphicon glyphicon-certificate"></span> Display Publications</button>
+                        <input id="pubmedId" ng-model="pubmedId" class="col-md-8" placeholder="Please enter your PubMed ID" ng-show="editBool">
+                        <button id="enterPubmed" class="btn btn-default" ng-click="displayPub()" ng-show="editBool"><span class="glyphicon glyphicon-certificate"></span> Add Publication ID#</button>
                     </div>
                 </ng-form>
 
-                <ol ng-show="idExist">
+                <ol>
                     <li ng-repeat="publication in publications">
-                        {{pub.name}}
+                        {{publication.name}}
                     </li>
                 </ol>
                 <!--<hr />
@@ -118,6 +118,7 @@
             <div ng-init="loadFriends()">
 
             </div>
+
         </div>
 
     </div>
@@ -134,30 +135,33 @@
 
 
 <!---SCRIPTS-->
+<script type="text/ng-template" id="friendFinder.html">
+    <div class="modal-header">
+        Let's find you some friends!
+    </div>
+    <div class="modal-body">
+        all the searchy stuff
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()">OK</button>
+        <button class="btn btn-primary" ng-click="cancel()">Cancel</button>
+    </div>
+</script>
 
 <script src="../scripts/clotho/b18fc8c8.clotho-app-command.js"></script>
-
 <script src="../scripts/clotho/c0f113c2.clotho-core-module.js"></script>
-
-<!--note - remove all scripts below this for api-only build-->
-
 <script type='text/javascript' src="../scripts/clotho/b18fc8c8.clotho-app-command.js"></script>
-
-<script type='text/javascript' vsrc="../scripts/clotho/c0f113c2.clotho-core-module.js"></script>
-
+<script type='text/javascript' src="../scripts/clotho/c0f113c2.clotho-core-module.js"></script>
 <script type='text/javascript' src="../scripts/clotho/c2a11f43.clotho-foundation-module.js"></script>
-
+<script src='../scripts/clotho/68a2b2df.clotho-command-module.js'></script>
 <script src="../scripts/clotho/clotho3API.js"></script>
+
+<script src="../scripts/profileWindowController.js"></script>
 <script src="../scripts/profileController.js"></script>
 <script src="../scripts/pubmed.js"></script>
-<script src='../scripts/clotho/68a2b2df.clotho-command-module.js'></script>
-<script src="../scripts/angular.ng-modules.js"></script>
-<!--<script type="text/javascript">
-    angular.bootstrap(document.getElementById('clothoRoot'),[]);
-    angular.bootstrap(document.getElementById('profileApp'),['profileApp']);
-</script>-->
 
-<!-- our custom app files -->
+<script src="../scripts/angular.ng-modules.js"></script>
+<script src="../scripts/jsBootstrap/ui-bootstrap-modal.js"></script>
 
 </body>
 </html>
