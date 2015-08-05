@@ -1,5 +1,5 @@
-angular.module('profileApp',['clothoRoot','ui.bootstrap.modal']).controller('profileController',
-function($scope, Clotho, $modal){
+angular.module('profileApp',['clothoRoot'/*,'ui.bootstrap.modal'*/])
+    .controller('profileController', function($scope, Clotho/*, $modal*/){
     $scope.personObj = {};
     $scope.personID = sessionStorage.getItem("uniqueid");
 
@@ -9,6 +9,8 @@ function($scope, Clotho, $modal){
             $scope.personID = result.id;
             $scope.displayName = person.fullname;
             $scope.pictureName = person.givenname + person.surname;
+            $scope.publications = pubmed.getCitationsFromIds(person.pubmedIdList);
+            //$scope.statuses = person['statusList'][1];
             $scope.$apply();
 
         });
@@ -42,12 +44,11 @@ function($scope, Clotho, $modal){
             //eventually there could be a location key value pair
         };
 
-        Clotho.create($scope.statusObj).then(function() {
-            Clotho.get($scope.personID).then(function () {
-                $scope.personObj['statusList'].push($scope.statusObj);
-                Clotho.set($scope.personObj);
-            });
+        Clotho.get($scope.personID).then(function () {
+            $scope.personObj['statusList'].push($scope.statusObj);
+            Clotho.set($scope.personObj);
         });
+
         $scope.statuses = $scope.personObj['statusList'];
     };
 
@@ -59,7 +60,7 @@ function($scope, Clotho, $modal){
 
         Clotho.get($scope.personID).then(function(){
             $scope.personObj['pubmedIdList'].push($scope.pubmedId);
-            console.log(JSON.stringify($scope.personObj));
+            //console.log(JSON.stringify($scope.personObj));
             Clotho.set($scope.personObj);
         });
 

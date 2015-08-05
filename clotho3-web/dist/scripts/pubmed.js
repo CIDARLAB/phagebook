@@ -57,7 +57,7 @@
         if(typeof db !== "undefined"){
             dbVal = db;
         }
-        var queryString = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?";
+        var queryString = "//eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?";
         queryString += ("db=" + dbVal);
 
         var idList = "";
@@ -78,7 +78,7 @@
         }
         var lastIndex = terms.length-1;
         queryTermString += (terms[lastIndex]);
-        var queryString = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?";
+        var queryString = "//eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?";
         queryString += ("db=" + database +"&");
         queryString += "term=" + queryTermString;
 

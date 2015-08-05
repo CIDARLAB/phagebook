@@ -1,4 +1,4 @@
-angular.module('profileApp',['clothoRoot','ui.bootstrap.modal']).controller('profileWindowController',
+angular.module('profileApp',['clothoRoot'/*,'ui.bootstrap.modal'*/]).controller('profileWindowController',
 function($scope, $modalInstance, items){
    $scope.ok = function() {
        $modalInstance.close(items);

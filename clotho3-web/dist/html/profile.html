@@ -6,13 +6,14 @@
     <link rel="shorcut icon" href="../styles/images/phagebookLogoMin_16x16.ico"/>
     <base href="/">
     <link rel="stylesheet" href="../styles/cssBootstrap/bootstrap.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="../styles/clothoNavBar.css">
     <link rel="stylesheet" href="../styles/phagebookMainStyle.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <script src="../scripts/angular.js"></script>
+    <script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
     <script src="../scripts/jquery.js"></script>
     <script src="../scripts/lodash.js"></script>
-<!--<script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>-->
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
 
@@ -28,30 +29,20 @@
 <div ng-module="profileApp">
 <div ng-controller="profileController">
     <div class="row" >
-        <div class="col-md-3 text-center ">
-
-            <div class="user-wrapper">
-                <img src="../images/people/{{pictureName}}.png" alt="{{pictureName}}'s profile picture" class="img-rounded" height="250" width="250">
+        <div class="col-md-3 text-center user-wrapper" >
+                <img src="../images/people/{{pictureName}}.png" alt="{{pictureName}}'s profile picture" class="img-rounded">
                 <div class="description" >
                     <span class="btn btn-file" ng-show="editBool"><input type="file" id="profilePicture"></span>
                     <h3><strong> {{ displayName }} </strong></h3>
-                    <!--<div ng-hide="editorEnabled">
-                        <button class="btn btn-default" style="float:right" ng-click="enableEditor()"><span class="glyphicon glyphicon-pencil"></span> Edit Info</button>
-                    </div>
-                    <div ng-show="editorEnabled">
-                        <input ng-model="editableTitle" ng-show="editorEnabled"/>
-                        <button class="btn btn-default" ng-click="save()"><span class="glyphicon glyphicon-save"></span> Save</button><button class="btn btn-default" ng-click="disableEditor()">Cancel</button>
-                    </div>-->
                 </div>
-            </div>
         </div>
 
         <div class="col-md-6 user-wrapper">
             <div class="description" id="profileInfo">
                 <h3><strong> About Me </strong>
                     <button class="btn btn-default" ng-click="editInfo()" ng-show="!editBool"> <span class="glyphicon glyphicon-pencil"></span> Edit profile</button>
-                    <button class="btn btn-default" ng-click="save()" ng-show="editBool" style="font-family: "Lucida Sans Unicode", "lucida grande", sans-serif"> <span class="glyphicon glyphicon-save"> Save</span></button>
-                    <button class="btn btn-default" ng-click="cancel()" ng-show="editBool" style="font-family: "Lucida Sans Unicode", "lucida grande", sans-serif"> <span class="glyphicon glyphicon-erase"> Cancel</span> </button></h3>
+                    <button class="btn btn-default" ng-click="save()" ng-show="editBool"> <span class="glyphicon glyphicon-save"> Save</span></button>
+                    <button class="btn btn-default" ng-click="cancel()" ng-show="editBool"> <span class="glyphicon glyphicon-erase"> Cancel</span> </button></h3>
                     Institution: <input type="text" ng-model="personObj.institution" ng-disabled="!editBool"> <br><br>
                     Lab: <input type="text" ng-model="personObj.lab" ng-disabled="!editBool"> <br><br>
                     Position: <input type="text" ng-model="personObj.position" ng-disabled="!editBool"> <br><br>
@@ -97,7 +88,7 @@
 
                 <ol>
                     <li ng-repeat="publication in publications">
-                        {{publication.name}}
+                        {{publication}}
                     </li>
                 </ol>
                 <!--<hr />

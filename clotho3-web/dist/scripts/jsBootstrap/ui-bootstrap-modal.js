@@ -1,19 +1,6 @@
-Skip to content
-This repository
-Pull requests
-Issues
-Gist
-@azulad7
-Watch 719
-Star 9,680
-Fork 5,067angular-ui/bootstrap
-Branch: master  bootstrap/src/modal/modal.js
-@wesleychowesleycho 7 hours ago fix(modal): fix `bindToController` implementation
-35 contributors @pkozlowski-opensource @chrisirhc @wesleycho @bekos @ajoslin @scamden @mlilli @smithl @sashless @jsanders @plainkeyman @tompi @onjiro @strille @realityking @jvanbouchaute @jiniguez @jiimaho @Tobino @hallister @SidhNor @gazoakley @tiagoroldao @ddomingues @tkrotoff @tritonrc and others
-RawBlameHistory     581 lines (503 sloc)  19.633 kB
 angular.module('ui.bootstrap.modal', [])
 
-/**
+/*
  * A helper, internal data structure that acts as a map but also allows getting / removing
  * elements in the LIFO order
  */
@@ -67,7 +54,7 @@ angular.module('ui.bootstrap.modal', [])
         };
     })
 
-/**
+/*
  * A helper directive for the $modal service. It creates a backdrop element.
  */
     .directive('modalBackdrop', [
@@ -147,7 +134,7 @@ angular.module('ui.bootstrap.modal', [])
                         }
 
                         var inputsWithAutofocus = element[0].querySelectorAll('[autofocus]');
-                        /**
+                        /*
                          * Auto-focusing of a freshly-opened modal element causes any child elements
                          * with the autofocus attribute to lose focus. This is an issue on touch
                          * based devices which will show and then hide the onscreen keyboard.
