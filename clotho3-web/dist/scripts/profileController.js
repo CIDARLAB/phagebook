@@ -1,5 +1,5 @@
-angular.module('profileApp',['clothoRoot'/*,'ui.bootstrap.modal'*/])
-    .controller('profileController', function($scope, Clotho/*, $modal*/){
+angular.module('profileApp',['clothoRoot'])
+    .controller('profileController', function($scope, Clotho){
     $scope.personObj = {};
     $scope.personID = sessionStorage.getItem("uniqueid");
 
@@ -9,8 +9,12 @@ angular.module('profileApp',['clothoRoot'/*,'ui.bootstrap.modal'*/])
             $scope.personID = result.id;
             $scope.displayName = person.fullname;
             $scope.pictureName = person.givenname + person.surname;
-            $scope.publications = pubmed.getCitationsFromIds(person.pubmedIdList);
-            //$scope.statuses = person['statusList'][1];
+            $scope.statuses = person['statusList'];
+
+            pubmed.getCitationsFromIds(person.pubmedIdList).then(function(result){
+                console.log(JSON.stringify(result));
+               $scope.publications = result;
+            });
             $scope.$apply();
 
         });
@@ -27,7 +31,7 @@ angular.module('profileApp',['clothoRoot'/*,'ui.bootstrap.modal'*/])
         Clotho.get($scope.personID).then(function(){
             Clotho.set($scope.personObj);
         });
-        console.log($scope.personObj);
+        //console.log($scope.personObj);
         $scope.editBool = false;
     };
 
@@ -39,7 +43,7 @@ angular.module('profileApp',['clothoRoot'/*,'ui.bootstrap.modal'*/])
     $scope.createStatus = function() {
         $scope.timeStamp = new Date();
         $scope.statusObj = {
-            "statusMessaage" : $scope.newStatus,
+            "statusMessage" : $scope.newStatus,
             "timeStamp" : $scope.timeStamp
             //eventually there could be a location key value pair
         };
@@ -84,6 +88,3 @@ angular.module('profileApp',['clothoRoot'/*,'ui.bootstrap.modal'*/])
             });
         };
 });
-
-
-

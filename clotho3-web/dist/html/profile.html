@@ -29,7 +29,7 @@
 <div ng-module="profileApp">
 <div ng-controller="profileController">
     <div class="row" >
-        <div class="col-md-3 text-center user-wrapper" >
+        <div class="col-md-3 text-center" >
                 <img src="../images/people/{{pictureName}}.png" alt="{{pictureName}}'s profile picture" class="img-rounded">
                 <div class="description" >
                     <span class="btn btn-file" ng-show="editBool"><input type="file" id="profilePicture"></span>
@@ -82,7 +82,7 @@
                 <ng-form id="pubmedIDEntry">
                     <div>
                         <input id="pubmedId" ng-model="pubmedId" class="col-md-8" placeholder="Please enter your PubMed ID" ng-show="editBool">
-                        <button id="enterPubmed" class="btn btn-default" ng-click="displayPub()" ng-show="editBool"><span class="glyphicon glyphicon-certificate"></span> Add Publication ID#</button>
+                        <button id="displayPub" class="btn btn-default" ng-click="displayPub()" ng-show="editBool"><span class="glyphicon glyphicon-certificate"></span> Add Publication ID#</button>
                     </div>
                 </ng-form>
 
@@ -131,7 +131,7 @@
         Let's find you some friends!
     </div>
     <div class="modal-body">
-        all the searchy stuff
+        all the searchy stuff; query by email, or full name?? need to do this in profileWindowController.js
     </div>
     <div class="modal-footer">
         <button class="btn btn-primary" ng-click="ok()">OK</button>
@@ -146,7 +146,6 @@
 <script type='text/javascript' src="../scripts/clotho/c2a11f43.clotho-foundation-module.js"></script>
 <script src='../scripts/clotho/68a2b2df.clotho-command-module.js'></script>
 <script src="../scripts/clotho/clotho3API.js"></script>
-
 <script src="../scripts/profileWindowController.js"></script>
 <script src="../scripts/profileController.js"></script>
 <script src="../scripts/pubmed.js"></script>
