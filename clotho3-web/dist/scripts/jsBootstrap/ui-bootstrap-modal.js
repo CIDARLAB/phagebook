@@ -1,4 +1,4 @@
-angular.module('ui-bootstrap-modal', [])
+angular.module('ui.bootstrap.modal', [])
 
 /*
  * A helper, internal data structure that acts as a map but also allows getting / removing

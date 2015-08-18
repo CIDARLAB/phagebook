@@ -27,31 +27,43 @@
 </div>
 
 <div class="container-fluid" id="projects">
-<div ng-module="profileApp">
-    <div ng-controller="profileController" onload="displayProjects()">
+<div ng-module="projectApp">
+    <div ng-controller="projectCtrl" onload="displayProjects()">
 
         <div class = "mainContent">
-            <div class = "leftColumn col-md-3">
-                <table id="projTable">
-                    <!--<tr>-->
-                    <!--<td id="iGEM"><a href="./Projects.html" value="igem.id" style="display:block;">iGEM</a> </td>-->
-                    <!--</tr>-->
-                    <!--<tr>-->
-                    <!--<td id="Phagebook"><a href = "./Projects.html" style = "display:block;">Phagebook</a></td>-->
-                    <!--</tr>-->
-                </table>
+            <div class = "col-md-6">
+                <div id="notebookEntry">
+                    <form class="form-horizontal" id="notebookEn" ng-class="{'has-error' : projectForm.name.$dirty && projectForm.name.$invalid}">
+                        <h1 class = "pageHeading"> New Lab Notebook Entry </h1><br><br> 
+                        <label>Date (d/m/y): </label><br>
+                        <input id="entryDate" type="date"><br><br>
+                        <label>Heading: </label><br>
+                        <input id="entryHeadin" type="text"><br><br>
+                        <label>Images: </label>
+                        <input type="file" id ="file1" name="filename" onchange="readImage(this)" accept="image/gif, image/jpeg, image/png"><br>
+                        <!--<img id="uploadPreview" style="width: 100px; height: 100px;" />-->
 
-                <br><br>
+                    </form>
+                    <p id="entryText">Notebook Entry:</p>
+                    <textarea rows="4"; cols="50"; id="textEntry"></textarea><br>
+                    <!--<form action="scripts/newProject/uploadFile.php" method="post" id="uploader" enctype="multipart/form-data">-->
+                    <!--Select image to upload:-->
+                    <!--<input type="file" name="fileToUpload" id="fileToUpload">-->
+                    <!--<input type="submit" value="Upload Image" name="submit">-->
+                    <!--</form>-->
+                    <button id="entryButton" onclick = "createEntry()">Create</button>
+
+                </div>
 
                 <button type="button" id="CreateButton">Create New Project </button>
 
             </div>
 
             <!--<div id = "rightColumn" ondrop="drop(event)" ondragover="allowDrop(event)">-->
-            <div id = "rightColumn" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <div class="col-md-6">
                 <!--<button>  <img src = "/images/Editing-Edit-icon.png" onclick = "editProject()" id="editIcon"></button>-->
                 <h1 class = "pageHeading" id = "projTitle"> </h1>
-                <div class = "information">
+                <!--<div class = "information">
                     <ul class = "labInfo">
                         <li> Associated Labs: </li>
                         <li> Primary Investigator: </li>
@@ -69,7 +81,7 @@
                     <br><br>
                     <p id = "partsLink"> <a href="Parts.html">Sample Inventory</a></p>
                     <p id = "createPartsLink"><a href="CreateParts.html">Create New Sample</a></p>
-                </div>
+                </div>-->
 
                 <!--<img height="100" width="100" id = "image2"  ondragstart="drag(event)" draggable="true" src="/images/socialmedia/twitter.png">-->
                 <!--<p>  Currently, synthetic biology lacks a systematic design-build-test workflow for creating genetic circuits. Researchers often waste time and resources on traditional trial-and-error approaches in designing and assembling large devices. My research works towards overcoming this roadblock by creating a standardized experimental-computational workflow that is clearly defined and applicable to a wide variety of researchers and projects. This workflow integrates software tools to reduce human error and to structure the way designs are chosen, assembled, and tested.-->
@@ -137,28 +149,7 @@
 
                 </ng-form>
             </div>
-            <div id="notebookEntry">
-                <form class="form-horizontal" id="notebookEn" ng-class="{'has-error' : projectForm.name.$dirty && projectForm.name.$invalid}">
-                    <h1 class = "pageHeading"> New Lab Notebook Entry </h1><br><br> 
-                    <label>Date (d/m/y): </label><br>
-                    <input id="entryDate" type="date"><br><br>
-                    <label>Heading: </label><br>
-                    <input id="entryHeadin" type="text"><br><br>
-                    <label>Images: </label>
-                    <input type="file" id ="file1" name="filename" onchange="readImage(this)" accept="image/gif, image/jpeg, image/png"><br>
-                    <!--<img id="uploadPreview" style="width: 100px; height: 100px;" />-->
 
-                </form>
-                <p id="entryText">Notebook Entry:</p>
-                <textarea rows="4"; cols="50"; id="textEntry"></textarea><br>
-                <!--<form action="scripts/newProject/uploadFile.php" method="post" id="uploader" enctype="multipart/form-data">-->
-                <!--Select image to upload:-->
-                <!--<input type="file" name="fileToUpload" id="fileToUpload">-->
-                <!--<input type="submit" value="Upload Image" name="submit">-->
-                <!--</form>-->
-                <button id="entryButton" onclick = "createEntry()">Create</button>
-
-            </div>
             <!--<img height="100" width="100" id = "image1"  ondragstart="drag(event)" draggable="true" src="/images/socialmedia/twitter.png">-->
 
         </div>

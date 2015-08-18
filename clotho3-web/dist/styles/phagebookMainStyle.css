@@ -70,10 +70,11 @@
 }
 
 #friends img{
-    height: 110px;
+    height: 150px;
     width: 110px;
     object-fit: cover;
     padding: 2px;
+    text-align: center;
 }
 
 .thumbnail img{
@@ -114,12 +115,6 @@
      list-style-type: none;
      margin: 0;
      padding: 15px;
- }
-
- a:hover, a:active {
-     /*background-color: #696969;*/
-     width: 172px;
-
  }
 
  .headerID {

@@ -1,5 +1,6 @@
-angular.module('profileApp',['clothoRoot'])
-    .controller('profileController', function($scope, Clotho){
+var profileModule = angular.module('profileApp',['clothoRoot','ui.bootstrap.tpls','ui.bootstrap.modal']);
+
+profileModule.controller('profileController', function($scope, Clotho, $modal){
     $scope.personObj = {};
     $scope.personID = sessionStorage.getItem("uniqueid");
 
@@ -23,6 +24,10 @@ angular.module('profileApp',['clothoRoot'])
     $scope.editInfo = function(){
         //this function just turns the boxes into editable text boxes
         $scope.editBool = true;
+    };
+
+    $scope.readProfilePic = function(){
+      //save the uploaded file to google drive
     };
 
     $scope.save = function() {
@@ -73,7 +78,7 @@ angular.module('profileApp',['clothoRoot'])
 
     $scope.findFriends = function(size) {
             var myFriendSearch = $modal.open({
-                templateURL: 'friendFinder.html',
+                templateUrl: 'friendFinder.html',
                 controller: 'profileWindowController',
                 size: size,
                 resolve: {
@@ -87,4 +92,22 @@ angular.module('profileApp',['clothoRoot'])
                 //do stuff with returned data, like Clotho.set??
             });
         };
+});
+
+profileModule.controller('profileWindowController', function($scope, $modalInstance, items){
+    $scope.ok = function() {
+        $scope.searchObj = {
+            'givenname' : $scope.colleagueFirstName,
+            'surname' : $scope.colleagueLastName,
+            'email' : $scope.colleagueEmail
+        };
+        Clotho.query(searchObj).then(function(result){
+            //return foundFriend
+        });
+        $modalInstance.close(items);
+    };
+
+    $scope.cancel = function() {
+        $modalInstance.dismiss('cancel');
+    };
 });
