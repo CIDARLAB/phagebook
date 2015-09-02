@@ -4,6 +4,7 @@ profileModule.controller('profileController', function($scope, Clotho, $modal){
     $scope.personObj = {};
     $scope.personID = sessionStorage.getItem("uniqueid");
 
+
     Clotho.login(sessionStorage.getItem("username"),sessionStorage.getItem("password")).then(function(result) {
         Clotho.get(result.id).then(function(person){
             $scope.personObj = person;
@@ -14,10 +15,14 @@ profileModule.controller('profileController', function($scope, Clotho, $modal){
 
             pubmed.getCitationsFromIds(person.pubmedIdList).then(function(result){
                 console.log(JSON.stringify(result));
-               $scope.publications = result;
+                $scope.publications = result;
+                $scope.$apply();
             });
             $scope.$apply();
-
+/*0: "26205025"
+ 1: "23651287"
+ 2: "3084710"
+ 3: "3317443"*/
         });
     });
 
@@ -35,6 +40,7 @@ profileModule.controller('profileController', function($scope, Clotho, $modal){
         //also needs to update the Clotho person object
         Clotho.get($scope.personID).then(function(){
             Clotho.set($scope.personObj);
+            $scope.apply();
         });
         //console.log($scope.personObj);
         $scope.editBool = false;
@@ -42,6 +48,10 @@ profileModule.controller('profileController', function($scope, Clotho, $modal){
 
     $scope.cancel = function() {
         //function makes the text boxes not editable
+        //restores personObj to the latest version of Clotho Obj
+        Clotho.get($scope.personId).then(function(result){
+           $scope.personObj = result;
+        });
         $scope.editBool = false;
     };
 
@@ -68,12 +78,30 @@ profileModule.controller('profileController', function($scope, Clotho, $modal){
     $scope.displayPub = function() {
 
         Clotho.get($scope.personID).then(function(){
-            $scope.personObj['pubmedIdList'].push($scope.pubmedId);
+            var idArrayLength = $scope.personObj['pubmedIdList'].length;
+            if(idArrayLength == 0)
+            {
+                $scope.personObj['pubmedIdList'].push($scope.pubmedId);
+            }
+            else {
+                for (var i = 0; i < idArrayLength; i++) {
+                    var checkExist = false; //ng-repeat will not display the same publicaiton twice, so a check needs to exist
+                    if ($scope.pubmedId == $scope.personObj['pubmedIdList'][i]) {
+                        checkExist = true;
+                        console.log('unable to use same pubmed ID twice!')
+                    }
+                    else {
+                        $scope.personObj['pubmedIdList'].push($scope.pubmedId);
+                    }
+                }
+            }
             //console.log(JSON.stringify($scope.personObj));
-            Clotho.set($scope.personObj);
         });
 
-        $scope.publications = pubmed.getCitationsFromIds($scope.personObj['pubmedIdList']);
+        pubmed.getCitationsFromIds($scope.personObj['pubmedIdList']).then(function(result){
+            //console.log(JSON.stringify(result9));
+            $scope.publications = result;
+        });
     };
 
     $scope.findFriends = function(size) {
@@ -89,22 +117,24 @@ profileModule.controller('profileController', function($scope, Clotho, $modal){
                 }
             });
             myFriendSearch.result.then(function (items) {
+                Clotho.query(items).then(function(result){
+                    //return foundFriend
+                    console.log(JSON.stringify(result));
+                });
                 //do stuff with returned data, like Clotho.set??
             });
         };
-});
+})
 
-profileModule.controller('profileWindowController', function($scope, $modalInstance, items){
+.controller('profileWindowController', function($scope, $modalInstance, items){
+       $scope.colleagueFirstName = "";
+        $scope.colleagueLastName = "";
+        $scope.colleagueEmail = "";
+
     $scope.ok = function() {
-        $scope.searchObj = {
-            'givenname' : $scope.colleagueFirstName,
+        $modalInstance.close({'givenname' : $scope.colleagueFirstName,
             'surname' : $scope.colleagueLastName,
-            'email' : $scope.colleagueEmail
-        };
-        Clotho.query(searchObj).then(function(result){
-            //return foundFriend
-        });
-        $modalInstance.close(items);
+            'email' : $scope.colleagueEmail});
     };
 
     $scope.cancel = function() {
