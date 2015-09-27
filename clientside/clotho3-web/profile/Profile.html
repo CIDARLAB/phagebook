@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Profile</title>
+    <meta name="description" content="Clotho Lab Ordering">
+    <meta name="viewport" content="width=1024, initial-scale=1">
+
+    <!-- not necessary until serving outside root directory / want html5 mode -->
+    <base href="/">
+
+    <link rel="stylesheet" href="styles/2e84f2a0.command.css"/>
+    <link rel="stylesheet" href="styles/773cbfe6.main.css"/>
+    <link rel ="stylesheet" href="styles/Phagebook_Styles.css"/>
+
+    <script src="bower_components/jquery/jquery.js"></script>
+
+    <!-- note that angular is required for any clotho functionality -->
+    <script src="bower_components/angular/angular.js"></script>
+    <!-- note that lodash is required by several components -->
+    <script src="bower_components/lodash/dist/lodash.js"></script>
+
+    <script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
+<style>
+    #keyValueForm {
+        float: left;
+        background-color: white;
+        text-align: left;
+        padding: 8px;
+    }
+</style>
+    <style>
+        #friendBox{
+            float: left;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: left;
+            padding: 8px;
+        }
+    </style>
+
+</head>
+
+<body>
+<div ng-app="clothoRoot">
+    <div class="container">
+        <div clotho-command-bar></div>
+    </div>
+    <terminal-aside></terminal-aside>
+</div>
+<div class = "contentBackground" ng-app = "profile">
+    <div class = "mainContent">
+        <div class = "leftColumn">
+            <div id = "profilePic" class = "profileImg"
+                 style="background-image:url('/images/people/kara_pro.PNG');">
+            </div>
+            <!--<input type="file" id="imageupload" onchange="previewFile()"><br>
+            <img src="" id="imagesource" alt="Image preview..." style = "width: 150px">
+            <img src = "/images/people/kara_pro.PNG">-->
+            <a href = ./Profile.html id = "profileName"> </a><br>
+            <a  href = "" id = "universityName"></a><br>
+            <a  href = "" id = "positionName"></a><br><br>
+
+
+            <a href="Profile.html" >News</a><br>
+            <a href="Ordering.html" >Ordering</a><br>
+            <a href="./Profile_papers.html">Papers</a><br>
+            <a href="./Projects.html" >Projects</a><br>
+            <a href="" > Parts</a> <br><br>
+
+            <a href ="" style="align-self: center" >Colleagues </a><br>
+            <div class = inline-block>
+
+                <table id="friendBox" class="form-inline " style='margin-bottom: 10px;' role="form">
+                    <tbody style="text-align: center;">
+                </table>
+
+        </div>
+            <div class = "row">
+            <div class = "friendImg"
+                 style="background-image:url('/images/people/Katie_Lewis.jpeg');">
+                <div class = "friendName">Katie </div>
+            </div>
+            <div class = "friendImg"
+                 style="background-image:url('/images/people/Zach.JPG');">
+                <div class = "friendName">Zach </div>
+            </div>
+            <div class = "friendImg"
+                 style="background-image:url('/images/people/prash.jpg');">
+                <div class = "friendName">Prashant</div>
+            </div>
+            <div class = "friendImg"
+                 style="background-image:url('/images/people/DougDensmore.png');">
+                <div class = "friendName">Doug </div>
+            </div>
+            <div class = "friendImg"
+                 style="background-image:url('/images/people/Inna.jpg');">
+                <div class = "friendName">Inna </div>
+            </div>
+                </div>
+            </div>
+        <div class = "rightColumn" >
+<!--style="margin-left:-10px; margin-right:-10px; margin-top:-20px; margin-bottom:-100px; background-color:#e9eaed">-->
+         <!--   <div style="background-image:url(/images/logo-CIDAR-2.png); background-repeat: no-repeat;">-->
+
+            <div class="personalNews">
+                <div class = "phagebooktitle" id ="profileName2">
+
+
+                    </div>
+                <div class = "line"></div>
+               <h2 class = "col-sm-offset-1">  <span class="glyphicon glyphicon-bullhorn"></span> News </h2>
+                <div class="col-sm-offset-1 col-sm-10">
+            <h4> Update your personal news, accomplishments, lab events. </h4>
+                </div>
+                <div class = "col-sm-offset-1 col-xs-10">
+                <ng-form id = "inputStatus">
+                    <div >
+                 <input id = "newStatus" name = "newStatus" class = "col-xs-12" >
+                        <button id = "createStatus" class="col-sm-offset-9 col-sm-3 btn btnphagebook btn-lg" >Create</button><br>
+
+                    </div>
+                </div>
+
+                </ng-form>
+                <div class = inline-block>
+                    <div class = "col-sm-offset-1 col-sm-10" >
+                         <h4>Previous Posts</h4>
+
+                    <table id="keyValueForm" class="form-inline" role="form">
+                        <tbody style="text-align: left";>
+                    </table>
+                        </div>
+                </div>
+                </div>
+
+                        <!-- {"id":"clotho.developer.katielewis1","name":"Katie Lewis","schema":"org.clothocad.model.PersonalProfile","institution":"Boston University","lab":"CIDAR","position":"Undergraduate","permission":"basic", "username":"kmlewis","projects":-->
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+<!--------
+SCRIPTS
+--------->
+
+<!--note - correct app based on the distribution, comments removed by build-->
+<script type = "text/javascript">
+        $("#createStatus").click(function () {
+            //alert(window.name);
+            var personID = window.name;
+            //var personID = "clotho.developer.klefort";
+            timeStamp = new Date();
+            //timeStamp = Date.now();
+            //alert(timeStamp)
+           //var StatusObj = str.concat('"schema":', '"org.clothocad.phagebook.status"');//,', "entryDate":', '",document.getElementById("statusText").value' );
+            var StatusObj = "{ \"schema\": \"org.clothocad.phagebook.status\", \"time\" :\"" + timeStamp + "\" , \"text\": \"" + document.getElementById("newStatus").value + "\" , \"person\": \"" + personID + "\" }";
+            //alert(StatusObj);
+            var obj = JSON.parse(StatusObj);
+           // alert(obj);
+           // alert(StatusObj);
+            Clotho.create(obj).then(function(result){
+                Clotho.get(personID).then(function(personObj) {
+                    personObj.statuses.push(result);
+                   Clotho.set(personObj);
+            })
+         });
+        });
+</script>
+
+<script>
+    document.getElementById('imageupload').onchange = function (evt) {
+        var tgt = evt.target || window.event.srcElement,
+                files = tgt.files;
+
+        // FileReader support
+        if (FileReader && files && files.length) {
+            var fr = new FileReader();
+            fr.onload = function () {
+                //alert("ping");
+                document.getElementById('imagesource').src = fr.result;
+            }
+            fr.readAsDataURL(files[0]);
+        }
+
+
+        else {
+
+        }
+    }
+</script>
+
+
+<script type  = text/javascript>
+$(document).ready(function() {
+    //("#loadProfile").click(function () {
+    var x = document.createElement("INPUT");
+    x.setAttribute("type", "file");
+    //alert(window.name);
+    //var personID = document.getElementById("login").value;
+    var personID = window.name;
+ // var personID =   "clotho.developer.klefort";
+    var statusObj;
+    var notNullArray = [];
+    Clotho.get(personID).then(function (personObj) {
+                var N = 20;
+
+                //alert(personObj.lastname);
+                document.getElementById("profileName").innerHTML = personObj.firstname + " " + personObj.lastname;
+                document.getElementById("universityName").innerHTML = personObj.institution;
+                document.getElementById("positionName").innerHTML = personObj.position;
+                document.getElementById("profileName2").innerHTML = personObj.firstname + " " + personObj.lastname;;
+                //document.getElementById()
+                Clotho.get(personObj.statuses).then(function (statusObj) {
+                    if (personObj.statuses.length == null) {
+                    }
+                    else {
+                        for (var i = statusObj.length - 1; i >= 0; i--) {
+
+                            if (statusObj[i] == null) {
+                                personObj.statuses[i] = [];
+                            }
+                            else {
+
+                                notNullArray.push(i);
+                                var paperCite = '';
+                                var newStatus = statusObj[i];
+                                $('#keyValueForm').append("<tr style='margin-top: 10px;'> <td>" + "<p>" + newStatus.text + "</p></td> <td><p>" + newStatus.time +"</p></td></tr>");
+                               /* $('printStatus').append("")*/
+                            }
+
+                        }
+
+                    }
+                })
+                if (personObj.friends.length == null) {
+                    alert("null");
+                }
+                else {
+                    for (var i = personObj.friends.length - 1; i >= 0; i--) {
+                        //alert(personObj);
+                        if (personObj.friends[i] == null) {
+                            personObj.friends[i] = [];
+                        }
+                        else {
+                            notNullArray.push(i);
+                            var paperCite = '';
+                            var newFriend = personObj.friends[i];
+
+                            $('#friendBox').append("<tr style='margin-top: 10px;'> <td>" + "<a href = ./Profile.html>" + newFriend + "</a></td> </tr>");
+                        }
+
+
+                    }
+
+
+                }
+            }
+
+    );
+
+
+});
+</script>
+
+
+
+<script src="scripts/b18fc8c8.clotho-app-command.js"></script>
+
+<script src="scripts/c0f113c2.clotho-core-module.js"></script>
+
+<!--note - remove all scripts below this for api-only build-->
+
+<script src="scripts/c2a11f43.clotho-foundation-module.js"></script>
+
+
+<script src="scripts/68a2b2df.clotho-command-module.js"></script>
+
+<!-- our custom app files -->
+<script src="scripts/LabOrdering-app.js"></script>
+<script src="scripts/Ordering.js"></script>
+<script src="scripts/Tracking.js"></script>
+<script src="scripts/orderingCtrl.js"></script>
+<script src="scripts/clotho3API.js"></script>
+<script src="scripts/sample/profileCtrl.js"></script>
+
+</body>
+</html>

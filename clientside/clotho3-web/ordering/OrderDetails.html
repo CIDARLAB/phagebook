@@ -1,0 +1,338 @@
+<!doctype html>
+<html>
+<head>
+
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Lab Ordering</title>
+    <meta name="description" content="Clotho Lab Ordering">
+    <meta name="viewport" content="width=1024, initial-scale=1">
+    <script src="scripts/clotho3API.js"></script>
+    <!-- not necessary until serving outside root directory / want html5 mode -->
+    <base href="/">
+
+    <link rel="stylesheet" href="styles/2e84f2a0.command.css"/>
+    <link rel="stylesheet" href="styles/773cbfe6.main.css"/>
+    <link rel ="stylesheet" href="styles/Phagebook_Styles.css"/>
+
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+
+    <script src="bower_components/jquery/jquery.js"></script>
+
+    <!-- note that angular is required for any clotho functionality -->
+    <script src="bower_components/angular/angular.js"></script>
+    <!-- note that lodash is required by several components -->
+    <script src="bower_components/lodash/dist/lodash.js"></script>
+    <script src="projectsCTRL.js"></script>
+    <script src="projects-app.js"></script>
+</head>
+
+<body onload = "load()" ng-controller = "orderingCTRL">
+<!--[if lt IE 9]>
+<script src="bower_components/es5-shim/es5-shim.js"></script>
+<script src="bower_components/json3/lib/json3.min.js"></script>
+<![endif]-->
+
+
+<div ng-app="clothoRoot">
+    <div class="container">
+        <div clotho-command-bar></div>
+    </div>
+
+    <terminal-aside></terminal-aside>
+</div>
+
+
+<div class = "contentBackground" ng-app = "ordering">
+    <div class = "mainContent">
+        <div class = "leftColumn">
+
+            <div class = "personalInfo">
+
+                <img src = "/images/people/Inna.jpg">
+
+                <h4 >Inna Turshudzhyan <br> Boston University <br> CIDAR lab</h4>
+
+            </div>
+
+            <div class = "history">
+
+                <table id = "tableHistory">
+                    <tr>
+                        <th>History</th>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+
+
+
+
+        <div id = "rightColumn">
+
+            <h1 >ORDERING</h1>
+
+            <div class = "navigation">
+                <ul class = "navigation">
+                    <li class = "navigationBar"><a href>About</a></li>
+                    <li class = "navigationBar"><a href=Ordering.html>Orders</a></li>
+                    <li class = "navigationBar"><a href=Vendors.html>Vendors</a></li>
+                    <li class = "navigationBar"><a href=Items.html>Items</a></li>
+                    <li class = "navigationBar"><a href>Stats</a></li>
+                </ul>
+
+            </div>
+            <br>
+
+            <div class = "line"></div>
+
+            <div id = "CreateNewOrder" style = "display: none">
+                <ng-form class="form-horizontal" name = "orderingForm" ng-class="{'has-error' : projectForm.name.$dirty && orderingForm.name.$invalid}">
+
+                    <h1>Create New Order</h1>
+                    <label>Name*</label><br>
+                    <input id="name" type="text"><br><br>
+                    <label>Project*</label><br>
+                    <input id="project" type="text"><br><br>
+
+                    <button id = "NextButton" class="btn btn-primary" >Next</button><br>
+                </ng-form>
+
+            </div>
+
+            <div id = "New">
+
+                <table id = "tableOrders">
+                    <tr>
+                        <th>Name</th>
+                        <th>Project</th>
+                        <th>Total Cost</th>
+                        <th>Items</th>
+                    </tr>
+                </table>
+
+                <br>
+                <a href="#" id="makeCSV">Export into Excel</a>
+                <br>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+
+<script src="scripts/b18fc8c8.clotho-app-command.js"></script>
+<script src="scripts/c0f113c2.clotho-core-module.js"></script>
+<!--note - remove all scripts below this for api-only build-->
+<script src="scripts/c2a11f43.clotho-foundation-module.js"></script>
+<script src="scripts/68a2b2df.clotho-command-module.js"></script>
+<!-- our custom app files -->
+<script src="scripts/ordering/ordering-app.js"></script>
+<script src="scripts/ordering/basicAPI.js"></script>
+<script src="scripts/ordering/trackingOrdering.js"></script>
+<script src="scripts/ordering/orderingCtrl.js"></script>
+
+<script>
+
+    var temp1 = window.location.href.split('=')[1];
+
+    $(document).ready(function() {
+        function TableToCSV($table, filename) {
+            var $rows = $table.find('tr:has(td)');
+            var tmpColDelim = String.fromCharCode(11);
+            var tmpRowDelim = String.fromCharCode(0);
+            var colDelim = '","';
+            var rowDelim = '"\r\n"';
+
+            var csv = '"' + $rows.map(function (i, row) {
+                        var $row = $(row),
+                                $cols = $row.find('td');
+
+                        return $cols.map(function (j, col) {
+                            var $col = $(col),
+                                    text = $col.text();
+
+                            return text.replace('"', '""');
+                        }).get().join(tmpColDelim);
+                    }).get().join(tmpRowDelim)
+                            .split(tmpRowDelim).join(rowDelim)
+                            .split(tmpColDelim).join(colDelim) + '"';
+
+            var csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(csv);
+
+            $(this)
+                    .attr({
+                        'download': filename,
+                        'href': csvData,
+                        'target': '_blank'
+                    });
+        }
+
+        $("#makeCSV").on('click',function (event){
+            TableToCSV.apply(this, [$('#tableOrders'),'Order.csv']);
+
+        });
+    });
+
+
+
+    $(document).ready(function(){
+
+        var n_in = 1;
+        n_in = Number(n_in) + 1;
+        sessionStorage.n_keys = n_in;
+        //var time = new Date().getDay();
+        var date = new Date();
+        var dateString = "";
+        dateString += (date.getMonth() + 1) + "/";
+        dateString += date.getDate() + "/";
+        dateString += date.getFullYear();
+
+        //var vendorName;
+        var totalCost = 0.00;
+
+        Clotho.query({"schema": "org.clothocad.phagebook.order"}).then(function (orderList) {
+
+            for (var i = 0; i < orderList.length; i++) {
+                $('#tableHistory').append("<tr style='margin-top: 10px;'> " +
+                "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
+                + "' ></label>" + orderList[i].name + "</div> </td>" + "</tr>");
+
+            }
+            document.getElementById("totCost").value = totalCost;
+        });
+
+    });
+
+    $(document).ready(function(){
+
+        Clotho.query({"schema": "org.clothocad.phagebook.order"}).then(function (orderList) {
+
+            for (var i = 0; i<orderList.length; i++)
+            {
+                if (temp1 == orderList[i].name)
+                {
+                    var Example = orderList[i];
+                }
+            }
+
+
+
+            /////////////Finding the number of items in the order
+            var numberOfItems = 1;
+
+                while ((Example.items.length - (numberOfItems - 1)) % 24 != 0)
+                {
+                    numberOfItems++;
+                }
+
+            ////////////
+
+
+            ///////saving the id's of items into a new array because Example.items is a huge string
+            ///(separating from ",")
+            var Items = new Array(numberOfItems);
+            for (var a = 0; a < numberOfItems; a++)
+            {
+                Items[a] = "";
+            }
+
+            var count = 0;
+
+            for (var i = 0; i<numberOfItems; i++)
+            {
+                for (var j = 0; j < 24; j++)
+                {
+                    Items[i] = Items[i] + Example.items[count];
+
+                    count++;
+                    if (count % (24*(i+1) + i) == 0)
+                    {
+                        count++;
+                    }
+
+                }
+            }
+            ////////////
+
+
+            var newItems = new Array(numberOfItems);//converting from id's to actual quantities and names
+
+            var n_in = 1;
+            n_in = Number(n_in) + 1;
+            sessionStorage.n_keys = n_in;
+
+            $('#tableOrders').append("<tr style='margin-top: 10px;'>" +
+            "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
+            + "' ></label>" + Example.name  + "</div> </td>" +
+            "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
+            + "' ></label>" + Example.project + "</div> </td>" +
+            "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
+            + "' ></label>" + Example.cost + "</div> </td>" +
+            "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
+            + "' ></label>"  + "</div> </td>" + "</tr>");
+
+                for (var k = 0; k<numberOfItems; k++)
+                {
+                    Clotho.get(Items[k]).then(function(result){
+
+                        newItems[k] = " " + result.quantity + " " + result.name + "(s)";
+
+                        $('#tableOrders').append("<tr style='margin-top: 10px;'>" +
+                        "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
+                        + "' ></label>" + "</div> </td>" +
+                        "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
+                        + "' ></label>" + "</div> </td>" +
+                        "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
+                        + "' ></label>" + "</div> </td>" +
+                        "<td> <div class='form-group' style='margin-bottom: 10px;'>" + "<label class='sr-only' for='key" + n_in
+                        + "' ></label>" + newItems[k] + "</div> </td>" + "</tr>");
+
+                    });
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        });
+    });
+
+
+</script>
+
+<!-- our custom app files -->
+<script src="scripts/ordering/ordering-app.js"></script>
+<script src="scripts/ordering/basicAPI.js"></script>
+<script src="scripts/ordering/trackingOrdering.js"></script>
+<script src="scripts/ordering/orderingCtrl.js"></script>
+
+
+
+</body>
+</html>

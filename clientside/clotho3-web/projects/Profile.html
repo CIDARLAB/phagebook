@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Profile</title>
+    <meta name="description" content="Clotho Lab Ordering">
+    <meta name="viewport" content="width=1024, initial-scale=1">
+
+    <!-- not necessary until serving outside root directory / want html5 mode -->
+    <base href="/">
+
+    <link rel="stylesheet" href="styles/2e84f2a0.command.css"/>
+    <link rel="stylesheet" href="styles/773cbfe6.main.css"/>
+
+
+    <script src="bower_components/jquery/jquery.js"></script>
+
+    <!-- note that angular is required for any clotho functionality -->
+    <script src="bower_components/angular/angular.js"></script>
+    <!-- note that lodash is required by several components -->
+    <script src="bower_components/lodash/dist/lodash.js"></script>
+    <style>
+    #profileName
+    {
+        color: white;
+        text-shadow:
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;  
+    }
+    </style>
+
+</head>
+<body>
+	<div ng-app="clothoRoot">
+  <div class="container">
+    <div clotho-command-bar></div>
+  </div>
+
+  <terminal-aside></terminal-aside>
+</div>
+<div class="contentBackground" style="margin-left:-10px; margin-right:-10px; margin-top:-20px; margin-bottom:-100px; background-color:#e9eaed">
+    <div class="mainContent" style="width:851px;  margin-left:auto; margin-right:auto; background-color:#fff; font-family:helvetica">
+        <div class="coverContainer" style="background-image:url(/images/logo-CIDAR-2.png); background-repeat: no-repeat;">
+            <div class="row">
+                <div id ="profileName" class="col-xs-9 col-xs-offset-2" style="margin-top:245px;"><h3><strong>Zach Chapasko</strong></h3></div></div>
+                <div class="row">
+                <div class="col-xs-2" style="margin-left:16px;"><img src="/images/people/Zach.JPG" style="margin-top:-130px; padding:3px; background-color:#fff; border:1px solid #000;"></div>
+                <div class="col-xs-9" style="margin-top:3px;"><h4>
+                    <div class="col-xs-2"><strong>News</strong></div>
+                    <div class="col-xs-2">Calendar</div>
+                    <div class="col-xs-2">Ordering</div>
+                    <div class="col-xs-2">Papers</div>
+                    <div class="col-xs-2">Parts</div>
+                    <div class="col-xs-2">Projects</div></h4>
+                </div>
+            </div>
+        </div>
+        <div class="personalNews">
+            <div class="row">
+                <div class="col-xs-2" style="margin-left:44px; margin-bottom:16px; text-decoration: underline;"><h3>News</h3></div>
+            </div>
+            <div class="row">
+                <div class="col-xs-11" style="margin-left:16px;">
+                <p><strong>Douglas Densmore</strong> (CIDAR) fired <strong>Zach Chapasko</strong> (CIDAR)<br></p>
+                <p style="font-size:.75em; margin-top:-12px;">5 hours ago</p>
+                <p><strong>Zach Chapasko</strong> (CIDAR) made 2 parts<br></p>
+                <p style="font-size:.75em; margin-top:-12px;">Yesterday at 7:37pm<br></p>
+                <p><strong>Zach Chapasko</strong> (CIDAR) pushed 2 commits to PhageDev<br></p>
+                <p style="font-size:.75em; margin-top:-12px;">Yesterday at 9:49am<br></p>
+                <p>3 people used <strong>Zach Chapasko</strong>'s (CIDAR) part BBa_0034<br></p>
+                <p style="font-size:.75em; margin-top:-12px;">Wednesday at 1:52am<br></p>
+                <p><strong>Zach Chapasko</strong> (CIDAR) published "Effects of Sleep Deprivation on Synthetic Biologists"<br></p>
+                <p style="font-size:.75em; margin-top:-12px;">Tuesday at 7:52pm<br></p>
+                <p><strong>Zach Chapasko</strong> (CIDAR) pushed 5 commits to OwlDev<br></p>
+                <p style="font-size:.75em; margin-top:-12px;">Tuesday at 5:26pm<br></p>
+                <p><strong>Katie Lewis</strong> (iGem) commented on <strong>Zach Chapasko</strong>'s (CIDAR) Lab Notebook<br></p>
+                <p style="font-size:.75em; margin-top:-12px;">Monday at 9:12pm<br></p>
+                <p><strong>Zach Chapasko</strong> joined CIDAR Group at BU<br></p>
+                <p style="font-size:.75em; margin-top:-12px;">9 months ago<br></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--------
+SCRIPTS
+--------->
+
+<!--note - correct app based on the distribution, comments removed by build-->
+
+<script src="scripts/b18fc8c8.clotho-app-command.js"></script>
+
+<script src="scripts/c0f113c2.clotho-core-module.js"></script>
+
+<!--note - remove all scripts below this for api-only build-->
+
+<script src="scripts/c2a11f43.clotho-foundation-module.js"></script>
+
+
+<script src="scripts/68a2b2df.clotho-command-module.js"></script>
+
+<!-- our custom app files -->
+<script src="scripts/LabOrdering-app.js"></script>
+<script src="scripts/Ordering.js"></script>
+<script src="scripts/Tracking.js"></script>
+<script src="scripts/orderingCtrl.js"></script>
+
+</body>
+</html>
