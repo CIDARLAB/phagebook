@@ -7,8 +7,10 @@ package org.clothocad.phagebook.dom;
 
 /**
  *
- * @author prash,innaturshudzhyan
+ * @author prash
  */
-public class Container extends Good{
+public enum GoodType {
+    Instrument,
+    Sample
     
 }

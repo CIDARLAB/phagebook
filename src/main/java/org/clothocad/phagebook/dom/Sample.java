@@ -7,8 +7,8 @@ package org.clothocad.phagebook.dom;
 
 /**
  *
- * @author prash,innaturshudzhyan
+ * @author innaturshudzhyan
  */
-public class Container extends Good{
+public class Sample extends Good{
     
 }

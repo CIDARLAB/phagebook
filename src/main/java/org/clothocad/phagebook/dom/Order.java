@@ -5,10 +5,34 @@
  */
 package org.clothocad.phagebook.dom;
 
+//experiment, sample, institution=
+
+import java.util.ArrayList;
+import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 /**
  *
- * @author prash
+ * @author prash,innaturshudzhyan
  */
+
 public class Order {
+    
+    @Getter
+    @Setter
+    private List<Product> products;
+    
+    @Getter
+    @Setter
+    private String id, name; 
+    
+    /**
+     *
+     * @param name
+     */
+    public Order(String name) {
+        this.name = name;
+        this.products = new ArrayList<Product>();
+    };   
     
 }

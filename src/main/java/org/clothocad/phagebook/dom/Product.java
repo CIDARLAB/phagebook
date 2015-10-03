@@ -10,10 +10,21 @@ import lombok.Setter;
 
 /**
  *
- * @author prash,innaturshudzhyan
+ * @author innaturshudzhyan
  */
-public abstract class Good {
+public class Product extends Good{
+    
     @Getter
     @Setter
-    private String name,description;
+    private String productURL, company;
+    
+    @Getter
+    @Setter
+    private GoodType goodType;
+    
+    @Getter
+    @Setter
+    private float price;
+
+    
 }

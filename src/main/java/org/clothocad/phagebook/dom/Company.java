@@ -5,15 +5,24 @@
  */
 package org.clothocad.phagebook.dom;
 
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
  *
- * @author prash,innaturshudzhyan
+ * @author innaturshudzhyan
  */
-public abstract class Good {
+public class Company {
+    
     @Getter
     @Setter
-    private String name,description;
+    private String name, description;
+    
+    @Getter
+    @Setter
+    private String phone, url, contact;
+    
+ 
 }

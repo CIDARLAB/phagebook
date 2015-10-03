@@ -5,15 +5,22 @@
  */
 package org.clothocad.phagebook.dom;
 
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
  *
- * @author prash,innaturshudzhyan
+ * @author innaturshudzhyan
  */
-public abstract class Good {
+public class Inventory{
+    
     @Getter
     @Setter
-    private String name,description;
+    private List<Sample> samples;
+    
+    @Getter
+    @Setter
+    private List<Instrument> instruments;
+    
 }
