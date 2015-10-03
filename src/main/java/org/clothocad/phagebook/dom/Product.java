@@ -16,11 +16,11 @@ public class Product extends Good{
     
     @Getter
     @Setter
-    private String ProductLink, Company;
+    private String productURL, company;
     
     @Getter
     @Setter
-    private Good GoodType;
+    private GoodType goodType;
     
     @Getter
     @Setter

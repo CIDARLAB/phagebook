@@ -17,10 +17,10 @@ public class Inventory{
     
     @Getter
     @Setter
-    private List<Sample> SampleList;
+    private List<Sample> samples;
     
     @Getter
     @Setter
-    private List<Instrument> InstrumentList;
+    private List<Instrument> instruments;
     
 }
