@@ -16,7 +16,11 @@ public class Product extends Good{
     
     @Getter
     @Setter
-    private String productURL, company;
+    private String productURL;
+    
+    @Getter
+    @Setter
+    private Company company;
     
     @Getter
     @Setter
@@ -32,6 +36,18 @@ public class Product extends Good{
      */
     public Product(String name) {
         super(name);
+    }
+    
+    public Product(String name, Company company){
+        super(name);
+        this.company = company;
+    }
+    
+    public Product(String name, Company company,GoodType goodType, float price){
+        super(name);
+        this.company = company;
+        this.goodType = goodType;
+        this.price = price;
     }
     
 }

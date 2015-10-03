@@ -14,15 +14,12 @@ import lombok.Setter;
  *
  * @author innaturshudzhyan
  */
-public class Company {
+public class Company extends Organization {
+    
     
     @Getter
     @Setter
-    private String name, description;
-    
-    @Getter
-    @Setter
-    private String phone, url, contact;
+    private String contact;
     
     /**
      *
@@ -30,7 +27,7 @@ public class Company {
      */
     public Company(String name)
     {
-        this.name = name;
+        super(name);
     }
     
  

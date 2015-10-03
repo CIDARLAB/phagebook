@@ -5,10 +5,30 @@
  */
 package org.clothocad.phagebook.dom;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  *
  * @author prash
  */
-public class Organization {
+public abstract class Organization {
     
+    @Getter
+    @Setter
+    private String name, description;
+    
+    @Getter
+    @Setter
+    private String phone, url;
+    
+    public Organization(String name, String description, String phone, String url){
+        this.name = name;
+        this.description = description;
+        this.url = url;
+        this.phone = phone;
+    }
+    public Organization(String name){
+        this.name = name;
+    }
 }
