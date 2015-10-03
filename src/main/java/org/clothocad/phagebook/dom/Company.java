@@ -5,6 +5,7 @@
  */
 package org.clothocad.phagebook.dom;
 
+import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,8 +24,5 @@ public class Company {
     @Setter
     private String phone, url, contact;
     
-    @Getter
-    @Setter
-    private List<Good> GoodList;
  
 }

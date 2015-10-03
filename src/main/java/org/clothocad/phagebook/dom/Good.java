@@ -12,7 +12,7 @@ import lombok.Setter;
  *
  * @author prash,innaturshudzhyan
  */
-public class Good {
+public abstract class Good {
     @Getter
     @Setter
     private String name,description;

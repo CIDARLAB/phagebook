@@ -5,8 +5,9 @@
  */
 package org.clothocad.phagebook.dom;
 
+//experiment, sample, institution=
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,20 +20,19 @@ public class Order {
     
     @Getter
     @Setter
-    private List<Company> CompanyList;
+    private List<Product> products;
     
     @Getter
     @Setter
-    private List<Good> GoodList;
-    
-    @Getter
-    @Setter
-    private String id; 
+    private String id, name; 
     
     /**
      *
      * @param name
      */
-    public Order(String name) {};   
+    public Order(String name) {
+        this.name = name;
+        this.products = new ArrayList<Product>();
+    };   
     
 }
