@@ -17,7 +17,7 @@ import lombok.Setter;
  */
 public class Notebook {
     @Getter @Setter private Person owner;
-    @Getter @Setter List<Entry> notebookEntries;
+    @Getter @Setter List<Entry> entries;
     @Getter @Setter private Project affiliatedProject;
     @Getter @Setter Date dateCreated;
     //Need to set privacy level of entries (read/write access)..
@@ -25,13 +25,13 @@ public class Notebook {
         this.owner = creator;
         this.dateCreated = created;
         this.affiliatedProject = project;
-        this.notebookEntries = new ArrayList<Entry>();
+        this.entries = new ArrayList<Entry>();
     }
     
     private void addEntry(Entry toAdd){
-        notebookEntries.add(toAdd);
+        entries.add(toAdd);
     }
     private void deleteEntry(Entry toDelete){
-        notebookEntries.remove(toDelete);
+        entries.remove(toDelete);
     }
 }
