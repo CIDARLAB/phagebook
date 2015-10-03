@@ -47,12 +47,12 @@ public class Project {
        this.affiliatedLabs = new ArrayList<Organization>();
        this.projectMembers = new ArrayList<Person>();
        //Create new lab notebook for creator?
-       Notebook creatorNotebook = new Notebook(creator, name, createdDate);
+       Notebook creatorNotebook = new Notebook(creator, this, createdDate);
        labNotebooks.add(creatorNotebook);
    }
    
    private void addMember(Person newMember){
-       if(projectMembers.getIndex(newMember) != -1){
+       if(projectMembers.indexOf(newMember) != -1){
            //Throw error
        }
        else{
@@ -63,7 +63,7 @@ public class Project {
    };
    
    private void removeMember(Person member){
-       if(projectMembers.getIndex(member) == -1){
+       if(projectMembers.indexOf(member) == -1){
            //Throw error - person not in project
        }
        else{
@@ -73,7 +73,7 @@ public class Project {
    };
    
    private void addOrganization(Organization newOrganization){
-       if(affiliatedLabs.getIndex(newOrganization) != -1){
+       if(affiliatedLabs.indexOf(newOrganization) != -1){
            //Throw error
        }
        else{
@@ -82,7 +82,7 @@ public class Project {
    };
    
    private void deleteOrganization(Organization Organization){
-       if(affiliatedLabs.getIndex(Organization) == -1){
+       if(affiliatedLabs.indexOf(Organization) == -1){
            //Throw error
        }
        else{
