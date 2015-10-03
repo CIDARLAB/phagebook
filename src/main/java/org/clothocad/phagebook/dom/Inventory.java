@@ -5,34 +5,22 @@
  */
 package org.clothocad.phagebook.dom;
 
-
-import java.util.Collection;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
+
 /**
  *
- * @author prash,innaturshudzhyan
+ * @author innaturshudzhyan
  */
-
-public class Order {
+public class Inventory{
     
     @Getter
     @Setter
-    private List<Company> CompanyList;
+    private List<Sample> SampleList;
     
     @Getter
     @Setter
-    private List<Good> GoodList;
-    
-    @Getter
-    @Setter
-    private String id; 
-    
-    /**
-     *
-     * @param name
-     */
-    public Order(String name) {};   
+    private List<Instrument> InstrumentList;
     
 }

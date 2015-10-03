@@ -5,10 +5,15 @@
  */
 package org.clothocad.phagebook.dom;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  *
- * @author prash
+ * @author prash,innaturshudzhyan
  */
 public class Good {
-    
+    @Getter
+    @Setter
+    private String name,description;
 }
