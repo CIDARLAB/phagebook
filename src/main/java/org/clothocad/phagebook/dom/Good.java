@@ -15,5 +15,14 @@ import lombok.Setter;
 public abstract class Good {
     @Getter
     @Setter
-    private String name,description;
+     String name,description;
+    
+    /**
+     *
+     * @param name
+     */
+    public Good(String name)
+    {
+        this.name = name;
+    }
 }

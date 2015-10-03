@@ -10,5 +10,10 @@ package org.clothocad.phagebook.dom;
  * @author innaturshudzhyan
  */
 public class Instrument extends Good{
+
+    public Instrument(String name)
+    {
+        super(name);
+    }
     
 }

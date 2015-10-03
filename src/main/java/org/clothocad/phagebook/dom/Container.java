@@ -11,4 +11,9 @@ package org.clothocad.phagebook.dom;
  */
 public class Container extends Good{
     
+    public Container(String name)
+    {
+        super(name);
+    }
+    
 }

@@ -11,4 +11,9 @@ package org.clothocad.phagebook.dom;
  */
 public class Sample extends Good{
     
+    public Sample(String name)
+    {
+        super(name);
+    }
+    
 }

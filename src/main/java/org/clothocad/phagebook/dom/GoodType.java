@@ -11,6 +11,5 @@ package org.clothocad.phagebook.dom;
  */
 public enum GoodType {
     Instrument,
-    Sample
-    
+    Sample   
 }

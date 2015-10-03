@@ -26,5 +26,12 @@ public class Product extends Good{
     @Setter
     private float price;
 
+    /**
+     *
+     * @param name
+     */
+    public Product(String name) {
+        super(name);
+    }
     
 }

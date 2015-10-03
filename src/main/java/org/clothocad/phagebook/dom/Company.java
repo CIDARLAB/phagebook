@@ -24,5 +24,14 @@ public class Company {
     @Setter
     private String phone, url, contact;
     
+    /**
+     *
+     * @param name
+     */
+    public Company(String name)
+    {
+        this.name = name;
+    }
+    
  
 }
