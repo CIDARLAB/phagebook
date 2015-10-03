@@ -28,6 +28,15 @@ public class Project {
    @Getter @Setter private Double budget;
    @Getter @Setter private Grant grant;
    @Getter @Setter private String description;
+   @Getter @Setter private String id;
+   
+   
+   public Project(Date createdDate, Person creator, String name, Organization lab){
+       this.dateCreated = createdDate;
+       this.creator = creator;
+       this.name = name;
+       this.affiliatedLabs.add(lab);
+   }
    
    
    public Project(Date createdDate,Person creator, String name, Organization lab, 
@@ -52,7 +61,14 @@ public class Project {
    }
    
    private void addMember(Person newMember){
-       if(members.indexOf(newMember) != -1){
+       boolean exists = false;
+       for(Person member: this.members){
+           if(member.getId() == newMember.getId()){
+               exists =true;
+           }
+       }
+       
+       if(exists == true){
            //Throw error
        }
        else{
@@ -62,18 +78,34 @@ public class Project {
        }
    };
    
-   private void removeMember(Person member){
-       if(members.indexOf(member) == -1){
+   private void removeMember(Person toRemove){
+       //Iterate through and compare unique ids
+       boolean exists = false;
+       for(Person member: this.members){
+           if(member.getId() == toRemove.getId()){
+               exists =true;
+           }
+       }
+       //If person doesn't exist in project, throw an error
+       if(exists == false){
            //Throw error - person not in project
        }
+       //If they do exist, remove them from project
        else{
            //Need approval or check credentials to delete member?
-           members.remove(member);
+           members.remove(toRemove);
        }
    };
    
    private void addOrganization(Organization newOrganization){
-       if(affiliatedLabs.indexOf(newOrganization) != -1){
+       boolean exists = false;
+       for(Organization organization: this.affiliatedLabs){
+           if(organization.getId() == newOrganization.getId()){
+               exists = true;
+           }
+       }
+       
+       if(exists == true){
            //Throw error
        }
        else{
@@ -82,7 +114,13 @@ public class Project {
    };
    
    private void deleteOrganization(Organization Organization){
-       if(affiliatedLabs.indexOf(Organization) == -1){
+       boolean exists = false;
+       for(Organization organization: this.affiliatedLabs){
+           if(organization.getId() == newOrganization.getId()){
+               exists = true;
+           }
+       }
+       if(exists == false){
            //Throw error
        }
        else{

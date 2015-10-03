@@ -19,4 +19,5 @@ public class Protocol {
     @Getter @Setter String  protocolName;
     @Getter @Setter List<Instrument> equipment = new ArrayList<Instrument>();
     @Getter @Setter List<Sample> samples = new ArrayList<Sample>();
+    @Getter @Setter private String id;
 }

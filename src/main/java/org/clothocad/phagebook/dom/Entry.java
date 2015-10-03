@@ -19,6 +19,7 @@ public class Entry {
     @Getter @Setter private Date lastModified;
     //how would I incorporate photos?
     @Getter @Setter private String text, title;
+    @Getter @Setter private String id;
    
     public Entry(Notebook owner, Date created, String title, String text){
         this.notebook = owner;

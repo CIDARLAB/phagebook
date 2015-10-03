@@ -5,13 +5,10 @@
  */
 package org.clothocad.phagebook.dom;
 
-import lombok.Getter;
-import lombok.Setter;
-
 /**
  *
- * @author prash
+ * @author KatieLewis
  */
-public class Organization {
-    @Getter @Setter private String id;
+public class FundingAgency extends Organization{
+    
 }

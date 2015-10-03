@@ -17,9 +17,10 @@ import lombok.Setter;
  */
 public class Notebook {
     @Getter @Setter private Person owner;
-    @Getter @Setter List<Entry> entries;
+    @Getter @Setter private List<Entry> entries;
     @Getter @Setter private Project affiliatedProject;
-    @Getter @Setter Date dateCreated;
+    @Getter @Setter private Date dateCreated;
+    @Getter @Setter private String id;
     //Need to set privacy level of entries (read/write access)..
     public Notebook(Person creator, Project project, Date created){
         this.owner = creator;

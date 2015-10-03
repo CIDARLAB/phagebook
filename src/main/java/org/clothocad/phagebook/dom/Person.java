@@ -26,6 +26,7 @@ public class Person {
     //Permissions / security
     //Need function to send approval request for lab?
     @Getter @Setter private List<Publication> publications;
+    @Getter @Setter private String id;
 
     public Person(){
         this.colleagues = new ArrayList<Person>();
