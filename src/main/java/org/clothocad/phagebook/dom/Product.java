@@ -25,6 +25,6 @@ public class Product extends Good{
     @Getter
     @Setter
     private float price;
-    
+
     
 }
