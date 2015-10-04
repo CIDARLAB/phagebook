@@ -6,6 +6,7 @@
 package org.clothocad.phagebook.controller;
 
 import java.util.List;
+import static org.clothocad.phagebook.controller.Args.getResourcesFilepath;
 import static org.clothocad.phagebook.controller.OrderController.getCompanies;
 import static org.clothocad.phagebook.controller.OrderController.getProducts;
 import org.clothocad.phagebook.dom.Company;
@@ -45,14 +46,14 @@ public class OrderControllerTest {
     
     @Test
     public void testGetProducts(){
-        List<Product> products = getProducts("/home/prash/cidar/productTemplate.csv");
+        List<Product> products = getProducts(getResourcesFilepath()+"orderingTemplates/productTemplate.csv");
         assertEquals(3,products.size());
         assertEquals("Microscope",products.get(0).getName());
     }
     
     @Test
     public void testGetCompanies(){
-        List<Company> companies = getCompanies("/home/prash/cidar/companyTemplate.csv");
+        List<Company> companies = getCompanies(getResourcesFilepath()+"orderingTemplates/companyTemplate.csv");
         assertEquals(1,companies.size());
         assertEquals("Amazon",companies.get(0).getName());
     }
