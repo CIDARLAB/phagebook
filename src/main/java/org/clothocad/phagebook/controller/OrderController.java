@@ -55,15 +55,12 @@ public class OrderController {
         for(String line:csvLines){//for each line (of DataType String) in csvLines (a list of Strings)
             String[] pieces = line.split(","); 
                 
-                Product product = new Product(pieces[0]);
+                Company company1 = new Company(pieces[3]); 
+                Product product = new Product(pieces[0],company1,Double.parseDouble(pieces[5]));
+                
                 product.setDescription(pieces[1]);
                 product.setProductURL(pieces[2]);
-                
-                Company company1 = new Company(pieces[3]); 
-                product.setCompany(company1);
-                
                 product.setGoodType(GoodType.valueOf(pieces[4]));
-                product.setPrice(Double.parseDouble(pieces[5]));
                 
                 products.add(product);
         }
@@ -102,7 +99,6 @@ public class OrderController {
         for(String line:csvLines){//for each line (of DataType String) in csvLines (a list of Strings)
             String[] pieces = line.split(","); 
                 
-            
                 Company company = new Company(pieces[0]);
                 
                 company.setDescription(pieces[1]);
@@ -115,10 +111,8 @@ public class OrderController {
         return companies;
     }
     
-    //funciton htat returns a list of products called getProducts
-    //and the input argument will be a file
-    //another function - argument will be a list of strings, callsed the same thing - return all lists of products
-    // 
+    //function getTotalPrice, which takes in a order ojbect and returns a total price of products
+   
 }
 
 
