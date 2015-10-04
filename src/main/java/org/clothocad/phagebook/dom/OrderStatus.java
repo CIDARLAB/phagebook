@@ -7,9 +7,13 @@ package org.clothocad.phagebook.dom;
 
 /**
  *
- * @author prash
+ * @author innaturshudzhyan
  */
-public enum GoodType {
-    INSTRUMENT,
-    SAMPLE   
+public enum OrderStatus {
+    PENDING,
+    CREATED,
+    APPROVED,
+    SUBMITTED,
+    DENIED,
+    RECEIVED
 }

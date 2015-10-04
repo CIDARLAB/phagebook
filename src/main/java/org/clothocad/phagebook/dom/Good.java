@@ -15,7 +15,7 @@ import lombok.Setter;
 public abstract class Good {
     @Getter
     @Setter
-     String name,description;
+    String name,description;
     
     /**
      *
@@ -24,5 +24,10 @@ public abstract class Good {
     public Good(String name)
     {
         this.name = name;
+    }
+    
+    public Good(String name,String description){
+        this.name = name;
+        this.description = description;
     }
 }

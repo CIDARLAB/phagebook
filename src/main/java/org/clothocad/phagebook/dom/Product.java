@@ -28,23 +28,23 @@ public class Product extends Good{
     
     @Getter
     @Setter
-    private float price;
+    private double price;
 
     /**
      *
      * @param name
      */
     public Product(String name) {
-        super(name);
+        super(name,"");
     }
     
     public Product(String name, Company company){
-        super(name);
+        super(name,"");
         this.company = company;
     }
     
     public Product(String name, Company company,GoodType goodType, float price){
-        super(name);
+        super(name,"");
         this.company = company;
         this.goodType = goodType;
         this.price = price;
