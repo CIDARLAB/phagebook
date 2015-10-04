@@ -16,19 +16,20 @@ public abstract class Organization {
     
     @Getter
     @Setter
-    private String name, description;
+    protected String name, description;
     
     @Getter
     @Setter
-    private String phone, url;
+    protected String phone, url;
+    
+    public Organization(String name){
+        this.name = name;
+    }
     
     public Organization(String name, String description, String phone, String url){
         this.name = name;
         this.description = description;
         this.url = url;
         this.phone = phone;
-    }
-    public Organization(String name){
-        this.name = name;
     }
 }

@@ -104,6 +104,7 @@ public class OrderController {
                 
             
                 Company company = new Company(pieces[0]);
+                
                 company.setDescription(pieces[1]);
                 company.setPhone(pieces[2]);
                 company.setUrl(pieces[3]);

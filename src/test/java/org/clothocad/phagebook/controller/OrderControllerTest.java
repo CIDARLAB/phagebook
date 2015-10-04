@@ -45,16 +45,16 @@ public class OrderControllerTest {
     
     @Test
     public void testGetProducts(){
-        List<Product> products = getProducts("/Users/innaturshudzhyan/Desktop/template.csv");
+        List<Product> products = getProducts("/home/prash/cidar/productTemplate.csv");
         assertEquals(3,products.size());
         assertEquals("Microscope",products.get(0).getName());
     }
     
     @Test
     public void testGetCompanies(){
-        List<Company> companies = getCompanies("/Users/innaturshudzhyan/Desktop/template1.csv");
+        List<Company> companies = getCompanies("/home/prash/cidar/companyTemplate.csv");
         assertEquals(1,companies.size());
-        assertEquals("Name",companies.get(0).getName());
+        assertEquals("Amazon",companies.get(0).getName());
     }
     
     
