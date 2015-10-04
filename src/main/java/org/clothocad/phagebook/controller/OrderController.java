@@ -9,6 +9,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import org.clothocad.phagebook.dom.Company;
 import org.clothocad.phagebook.dom.GoodType;
 import org.clothocad.phagebook.dom.Product;
@@ -23,11 +25,34 @@ import org.clothocad.phagebook.dom.Product;
 public class OrderController {
     
     
+    public static List<Product> getProducts(String filename){
+        List<Product> products = new ArrayList<Product>();
+        
+        
+        return products;
+    }
+    
+    public static List<Product> getProducts(List<String> csvLines){
+        List<Product> products = new ArrayList<Product>();
+        
+        return products;
+    }
+    
+    public static List<Company> getCompanies(String filename){
+        List<Company> companies = new ArrayList<Company>();
+        
+        return companies;
+    }
+    
+    public static List<Company> getCompanies(List<String> csvLines){
+        List<Company> companies = new ArrayList<Company>();
+        
+        return companies;
+    }
+    
     public static void main(String[] args)
     {
-           Product p = run("/home/prash/cidar/template.csv");
-           System.out.println("Product Name :: " + p.getName());
-           System.out.println("Product Description ::"+p.getDescription());
+           
     
     }
     
