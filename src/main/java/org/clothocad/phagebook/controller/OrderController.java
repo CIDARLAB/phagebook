@@ -26,69 +26,15 @@ public class OrderController {
     
     
     public static List<Product> getProducts(String filename){
-        List<Product> products = new ArrayList<Product>();
-        
-        
-        return products;
-    }
-    
-    public static List<Product> getProducts(List<String> csvLines){
-        List<Product> products = new ArrayList<Product>();
-        
-        return products;
-    }
-    
-    public static List<Company> getCompanies(String filename){
-        List<Company> companies = new ArrayList<Company>();
-        
-        return companies;
-    }
-    
-    public static List<Company> getCompanies(List<String> csvLines){
-        List<Company> companies = new ArrayList<Company>();
-        
-        return companies;
-    }
-    
-    public static void main(String[] args)
-    {
-           
-    
-    }
-    
-    /**
-     *
-     * @param csvFile
-     */
-    public static Product run(String csvFile){
         
         BufferedReader br = null;
-        String line = "";
-        String cvsSplitBy = ",";
-        Product product1 = null;
+        List<String> csvLines = new ArrayList<String>();
         try{
-            
-                br = new BufferedReader(new FileReader(csvFile));
+                br = new BufferedReader(new FileReader(filename));
+                String line = "";
                 while ((line = br.readLine()) != null) {
-                
-                String[] product = line.split(cvsSplitBy); 
-                
-                product1 = new Product(product[0]);
-                product1.setDescription(product[1]);
-                product1.setProductURL(product[2]);
-                
-                Company company1 = new Company(product[3]); 
-                product1.setCompany(company1);
-                
-                product1.setGoodType(GoodType.valueOf(product[4]));
-                product1.setPrice(Double.parseDouble(product[5]));
-                
-                System.out.println(product[0] + ", " 
-                    + product[1] + ", " + product[2] + ", " 
-                    + product[3] + ", " + product[4] + ", " + product[5]);
-                
+                    csvLines.add(line);
                 }  
-                
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -102,7 +48,39 @@ public class OrderController {
                 }
             }
         }
-        return product1;
+        return getProducts(csvLines);
+    }
+    
+    public static List<Product> getProducts(List<String> csvLines){
+        List<Product> products = new ArrayList<Product>();
+        for(String line:csvLines){//for each line (of DataType String) in csvLines (a list of Strings)
+            String[] pieces = line.split(","); 
+                
+                Product product = new Product(pieces[0]);
+                product.setDescription(pieces[1]);
+                product.setProductURL(pieces[2]);
+                
+                Company company1 = new Company(pieces[3]); 
+                product.setCompany(company1);
+                
+                product.setGoodType(GoodType.valueOf(pieces[4]));
+                product.setPrice(Double.parseDouble(pieces[5]));
+                
+                products.add(product);
+        }
+        return products;
+    }
+    
+    public static List<Company> getCompanies(String filename){
+        List<Company> companies = new ArrayList<Company>();
+        
+        return companies;
+    }
+    
+    public static List<Company> getCompanies(List<String> csvLines){
+        List<Company> companies = new ArrayList<Company>();
+        
+        return companies;
     }
     
     //funciton htat returns a list of products called getProducts
