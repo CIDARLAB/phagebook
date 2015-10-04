@@ -113,10 +113,10 @@ public class Project {
        }
    };
    
-   private void deleteOrganization(Organization Organization){
+   private void deleteOrganization(Organization toDelete){
        boolean exists = false;
        for(Organization organization: this.affiliatedLabs){
-           if(organization.getId() == newOrganization.getId()){
+           if(organization.getId() == toDelete.getId()){
                exists = true;
            }
        }
@@ -124,7 +124,7 @@ public class Project {
            //Throw error
        }
        else{
-           affiliatedLabs.remove(Organization);
+           affiliatedLabs.remove(toDelete);
        }
    };
    
