@@ -15,7 +15,7 @@ import lombok.Setter;
 public abstract class Good {
     @Getter
     @Setter
-    String name,description;
+    private String name,description;
     
     /**
      *

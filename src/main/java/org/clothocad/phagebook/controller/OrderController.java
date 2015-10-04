@@ -25,20 +25,22 @@ public class OrderController {
     
     public static void main(String[] args)
     {
-           OrderController obj = new OrderController();
-           obj.run("/Users/innaturshudzhyan/Desktop/template.csv");
+           Product p = run("/home/prash/cidar/template.csv");
+           System.out.println("Product Name :: " + p.getName());
+           System.out.println("Product Description ::"+p.getDescription());
+    
     }
     
     /**
      *
      * @param csvFile
      */
-    public Product run(String csvFile){
+    public static Product run(String csvFile){
         
         BufferedReader br = null;
         String line = "";
         String cvsSplitBy = ",";
-        Product product1 = new Product("");
+        Product product1 = null;
         try{
             
                 br = new BufferedReader(new FileReader(csvFile));
@@ -46,7 +48,7 @@ public class OrderController {
                 
                 String[] product = line.split(cvsSplitBy); 
                 
-                product1.setName(product[0]);
+                product1 = new Product(product[0]);
                 product1.setDescription(product[1]);
                 product1.setProductURL(product[2]);
                 
