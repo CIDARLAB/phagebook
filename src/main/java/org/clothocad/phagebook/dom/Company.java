@@ -27,7 +27,7 @@ public class Company extends Organization {
      */
     public Company(String name)
     {
-        super(name);
+        super(name,"","","");
     }
     
  

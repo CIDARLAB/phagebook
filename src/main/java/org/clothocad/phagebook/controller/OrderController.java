@@ -24,7 +24,6 @@ import org.clothocad.phagebook.dom.Product;
  */
 public class OrderController {
     
-    
     public static List<Product> getProducts(String filename){
         
         BufferedReader br = null;
@@ -72,14 +71,46 @@ public class OrderController {
     }
     
     public static List<Company> getCompanies(String filename){
-        List<Company> companies = new ArrayList<Company>();
-        
-        return companies;
+      
+        BufferedReader br = null;
+        List<String> csvLines = new ArrayList<String>();
+        try{
+                br = new BufferedReader(new FileReader(filename));
+                String line = "";
+                while ((line = br.readLine()) != null) {
+                    
+                    csvLines.add(line);
+                }  
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }finally {
+            if (br != null) {
+                try {
+                    br.close();
+                }catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return getCompanies(csvLines);
     }
     
     public static List<Company> getCompanies(List<String> csvLines){
         List<Company> companies = new ArrayList<Company>();
-        
+        for(String line:csvLines){//for each line (of DataType String) in csvLines (a list of Strings)
+            String[] pieces = line.split(","); 
+                
+            
+                Company company = new Company(pieces[0]);
+                company.setDescription(pieces[1]);
+                company.setPhone(pieces[2]);
+                company.setUrl(pieces[3]);
+                company.setContact(pieces[4]); 
+                
+                companies.add(company);
+        }
         return companies;
     }
     
