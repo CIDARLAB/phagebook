@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.clothocad.phagebook.dom.Company;
 import org.clothocad.phagebook.dom.GoodType;
+import org.clothocad.phagebook.dom.Order;
 import org.clothocad.phagebook.dom.Product;
 
 //import java.util.List;
@@ -109,6 +110,18 @@ public class OrderController {
                 companies.add(company);
         }
         return companies;
+    }
+    
+    public static double getTotalPrice(Order order)
+    {
+        double total = 0.0;
+        
+        for(Product product:order.getProducts())
+        {
+            total =+ product.getCost();
+        }
+
+        return total;
     }
     
     //function getTotalPrice, which takes in a order ojbect and returns a total price of products
