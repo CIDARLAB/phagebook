@@ -45,7 +45,8 @@ public class OrderTest {
     @Test
     public void testCreateOrder() {
         Order o = new Order("Order 1");
-        Product p = new Product("Microscope");
+        Company amazon = new Company("Amazon");
+        Product p = new Product("Microscope",amazon,90);
         o.getProducts().add(p);
     
     }

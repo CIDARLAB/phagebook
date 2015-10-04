@@ -14,6 +14,9 @@ import lombok.Setter;
  */
 public abstract class Organization {
     
+    @Getter @Setter 
+    protected String id;
+    
     @Getter
     @Setter
     protected String name, description;
@@ -32,4 +35,5 @@ public abstract class Organization {
         this.url = url;
         this.phone = phone;
     }
+
 }

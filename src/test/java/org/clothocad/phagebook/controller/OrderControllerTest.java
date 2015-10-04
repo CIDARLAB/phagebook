@@ -46,7 +46,6 @@ public class OrderControllerTest {
     
     @Test
     public void testGetProducts(){
-        System.out.println("File path ::"+getResourcesFilepath()+"orderingTemplates/productTemplate.csv");
         List<Product> products = getProducts(getResourcesFilepath()+"orderingTemplates/productTemplate.csv");
         assertEquals(3,products.size());
         assertEquals("Microscope",products.get(0).getName());
