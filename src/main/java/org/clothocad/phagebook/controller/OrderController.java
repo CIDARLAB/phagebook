@@ -14,6 +14,7 @@ import java.util.List;
 import org.clothocad.phagebook.dom.Company;
 import org.clothocad.phagebook.dom.GoodType;
 import org.clothocad.phagebook.dom.Order;
+import org.clothocad.phagebook.dom.OrderColumns;
 import org.clothocad.phagebook.dom.Product;
 
 //import java.util.List;
@@ -124,7 +125,67 @@ public class OrderController {
         return total;
     }
     
-    //function getTotalPrice, which takes in a order ojbect and returns a total price of products
+    //inputs: order and list of enums
+    //return a list of strings
+    
+    public static List<String> createOrder(Order order,List<OrderColumns> ColumnList)
+    {
+        List<String> orders = new ArrayList<String>();
+        String orderString;
+        int count = 1;
+
+        for (Product product:order.getProducts())
+        {
+            orderString = "";
+            
+            for (OrderColumns clist1:ColumnList)
+            {
+                switch (clist1)
+                {
+                    case SERIAL_NUMBER:
+                        orderString += count;
+                        count++;
+                        break;
+                    case PRODUCT_NAME:
+                        orderString += product.getName();
+                        break;
+                    case PRODUCT_URL:
+                        orderString += product.getProductURL();
+                        break;
+                    case PRODUCT_DESCRIPTION:
+                        orderString += product.getDescription();
+                        break;
+                    case QUANTITY:
+                        orderString += product.getQuantity();
+                        break;
+                    case COMPANY_NAME:
+                        orderString += product.getCompany().getName();
+                        break;
+                    case COMPANY_URL:
+                        orderString += product.getCompany().getUrl();
+                        break;
+                    case COMPANY_DESCRIPTION:
+                        orderString += product.getCompany().getDescription();
+                        break;
+                    case COMPANY_CONTACT:
+                        orderString += product.getCompany().getContact();
+                        break;
+                    case COMPANY_PHONE:
+                        orderString += product.getCompany().getPhone();
+                        break;
+                    case UNIT_PRICE:
+                        orderString += product.getCost();
+                        break;
+                    case TOTAL_PRICE:
+                        orderString += (product.getCost() * product.getQuantity());
+                        break;
+                }
+            }
+            orders.add(orderString);
+        }
+        return orders;
+    }
+    
    
 }
 

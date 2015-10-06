@@ -10,6 +10,7 @@ import static org.clothocad.phagebook.controller.Args.getResourcesFilepath;
 import static org.clothocad.phagebook.controller.OrderController.getCompanies;
 import static org.clothocad.phagebook.controller.OrderController.getProducts;
 import org.clothocad.phagebook.dom.Company;
+import org.clothocad.phagebook.dom.Order;
 import org.clothocad.phagebook.dom.Product;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -57,8 +58,7 @@ public class OrderControllerTest {
         assertEquals(1,companies.size());
         assertEquals("Amazon",companies.get(0).getName());
     }
-    
-    
+   
     /**
      * Test of getProducts method, of class OrderController.
      */

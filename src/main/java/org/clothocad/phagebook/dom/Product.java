@@ -29,6 +29,10 @@ public class Product extends Good{
     @Getter
     @Setter
     private double cost;
+    
+    @Getter
+    @Setter
+    private int quantity;
 
     /**
      *
