@@ -15,23 +15,23 @@ import org.eclipse.jetty.webapp.WebAppContext;
  * @author prash
  */
 public class JettyAdaptor {
-    public static void main(String[] args) {
-        Server server = new Server(8080);
-        try {
-            
-            WebAppContext context = new WebAppContext();
-            context.setDescriptor(context+"/WEB-INF/web.xml");
-            context.setResourceBase("../phagebook/src/main/webapp");
-            context.setContextPath("/");
-            context.setParentLoaderPriority(true);
- 
-             server.setHandler(context);
-            
-            
-            server.start();
-            server.join();
-        } catch (Exception ex) {
-            Logger.getLogger(JettyAdaptor.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+//    public static void main(String[] args) {
+//        Server server = new Server(8080);
+//        try {
+//            
+//            WebAppContext context = new WebAppContext();
+//            context.setDescriptor(context+"/WEB-INF/web.xml");
+//            context.setResourceBase("../phagebook/src/main/webapp");
+//            context.setContextPath("/");
+//            context.setParentLoaderPriority(true);
+// 
+//             server.setHandler(context);
+//            
+//            
+//            server.start();
+//            server.join();
+//        } catch (Exception ex) {
+//            Logger.getLogger(JettyAdaptor.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
 }
