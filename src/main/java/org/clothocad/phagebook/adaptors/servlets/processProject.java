@@ -60,15 +60,15 @@ public class processProject extends HttpServlet {
                 Date date = format.parse(createdDate); 
                 */
                 
-                Person creator = new Person(request.getParameter("creator"));
-                Organization lab = new Organization(request.getParameter("lab"));
-                Grant projectGrant = new Grant(request.getParameter("projectGrant"));
+                //Person creator = new Person(request.getParameter("creator"));
+                //Organization lab = new Organization(request.getParameter("lab"));
+                //Grant projectGrant = new Grant(request.getParameter("projectGrant"));
              
                 System.out.println("");
                 System.out.println("");
                 // create project object
-                Project project = new Project( createdDate, creator,  name,  lab,
-                        lead, projectBudget, projectGrant,  description );
+                //Project project = new Project( createdDate, creator,  name,  lab,
+                //        lead, projectBudget, projectGrant,  description );
                 
                 // create a result object and send it to the frontend
                 JSONObject result = new JSONObject();
