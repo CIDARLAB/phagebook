@@ -23,4 +23,8 @@ public class Inventory{
     @Setter
     private List<Instrument> instruments;
     
+    @Getter
+    @Setter 
+    private String id;
+    
 }

@@ -5,7 +5,9 @@
  */
 package org.clothocad.phagebook.adaptors;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
@@ -51,6 +53,7 @@ public class ClothoAdaptorTest {
      */
     @Test
     public void testCreateProduct() {
+        
        ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
        Clotho clothoObject = new Clotho(conn);
        Map createUserMap = new HashMap();
@@ -70,14 +73,34 @@ public class ClothoAdaptorTest {
        Company amazon = new Company("Amazon");
        amazon.setId("org.company.amazon");
        Product microscope = new Product("Microscope",amazon,4000);
-       microscope.setDescription("Magnifies stuff");
+       microscope.setDescription("Magnifies stuff BETTER");
        microscope.setQuantity(65);
        microscope.setGoodType(GoodType.INSTRUMENT);
        microscope.setProductURL("www.example.com");
        
-       
-       createProduct(microscope,clothoObject);
+        String productId = (String) createProduct(microscope,clothoObject);
+        
+        //This makes that object 
+        List<String> add = new ArrayList<String>();
+        List<String> remove = new ArrayList<String>();
+        
+        add.add("public");
+        
+        Map grantMap = new HashMap();
+        grantMap.put("id", productId);
+        grantMap.put("user", "none");
+        grantMap.put("add", add);
+        grantMap.put("remove", remove);
+        
+        Map grantResult = new HashMap();
+        grantResult = (Map)(clothoObject.grant(grantMap));
+        // make this a function.
+        Company comp = (Company) ClothoAdaptor.getCompany("",clothoObject);
+         
        conn.closeConnection();
+                
+       
+       
        
     }
     

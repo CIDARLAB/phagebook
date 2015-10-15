@@ -5,10 +5,13 @@
  */
 package org.clothocad.phagebook.dom;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  *
  * @author KatieLewis
  */
 public class Publication {
-    
+    @Getter @Setter private String id;
 }
