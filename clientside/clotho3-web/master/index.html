@@ -6,19 +6,17 @@
     <title>Index</title>
     <meta name="description" content="Clotho Lab Ordering">
     <meta name="viewport" content="width=1024, initial-scale=1">
-
     <!-- not necessary until serving outside root directory / want html5 mode -->
     <base href="/">
-
     <link rel="stylesheet" href="styles/2e84f2a0.command.css"/>
     <link rel="stylesheet" href="styles/773cbfe6.main.css"/>
     <link rel ="stylesheet" href="styles/Phagebook_Styles.css"/>
+    <!--<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">-->
+
 
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
     <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
-
-
 
     <script src="bower_components/jquery/jquery.js"></script>
 
@@ -28,10 +26,26 @@
     <script src="bower_components/lodash/dist/lodash.js"></script>
 
     <script src="scripts/clotho3API.js"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
+    <style>
+        .modal-header, h4, .close {
+            background-color: #006600;
+            color:white !important;
+            text-align: center;
+            font-size: 30px;
+        }
+        .modal-footer {
+            background-color: #f9f9f9;
+        }
+        .btn-success {
+            width: 100%;
+            padding: 10px;
+        }
 
+    </style>
 </head>
 
 <body>
@@ -63,11 +77,17 @@
             <button  class = "normalButton" >Login</button>
              </div>-->
 
-    <h1>Welcome to Phagebook.</h1>
-    <h4> A more holistic approach to synthetic biology research.</h4><br>
+    <div class = "phagebooktitle"> Welcome to Phagebook.
+            <button type="button" class="btn btnphagebook btn-lg" id="myBtn">Login</button>
+            <button type = "button" class="btn btnphagebook btn-lg" id="signup">Sign Up</button>
+
+        </div>
+
+    <div class = "phagebooksubtitle"> A more holistic approach to synthetic biology research.</div><br>
     <div class="col-xs-6">
         Phagebook is a Clotho 3.0 app that serves as a social networking interface incorporating lab inventory management and project/personnel networking.</p>
         Connecting researchers to a social networking platform that encourages sharing, data exchange, standardization, and collaboration.</p>
+
 
     </div>
             <div class = "col-xs-6">
@@ -92,141 +112,275 @@
                 and verification of synthetic biological systems.
             </div>
 
-                <div class = "col-sm-offset-2 col-sm-9">
-                    <h3>Create a Phagebook Profile Today</h3>
-                </div>
 
-            <form class="form-horizontal" role="form">
-                <div class="form-group">
-                    <div class="col-sm-2"></div>
-                            <label class="control-label col-xs-2" for="firstname">First Name:</label>
-                            <div class="col-sm-6">
-                                <input type="text" class="form-control" id="firstname" placeholder="First Name">
+
+            <div class="loginContainer">
+
+                <!-- Trigger the modal with a button -->
+
+
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header" style="padding:35px 50px;">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4><!--<span class="glyphicon glyphicon-lock"></span>--> Login</h4>
                             </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-sm-2"></div>
-                        <label class="control-label col-sm-2" for="lastname">Last Name:</label>
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control" id="lastname" placeholder="Last Name">
-                        </div>
-                    </div>
-                <div class="form-group">
-                            <div class="col-sm-2"></div>
-                        <label class="control-label col-sm-2" for="email">Email:</label>
-                        <div class="col-sm-6">
-                            <input type="email" class="form-control" id="email" placeholder="Enter email">
-                        </div>
-                    </div>
-                <div class="form-group">
-                    <div class="col-sm-2"></div>
-                    <label class="control-label col-sm-2" for="pwd">Password:</label>
-                    <div class="col-sm-6">
-                        <input type="password" class="form-control" id="pwd" placeholder="Enter password">
-                    </div>
-                </div>
-                <div class="form-group">
-                            <div class="col-sm-2"></div>
-                            <label class="control-label col-sm-2" for="lab">Lab:</label>
-                            <div class="col-sm-6">
-                                <input type="text" class="form-control" id="lab" placeholder="Lab">
+                            <div class="modal-body" style="padding:40px 50px;">
+                                <form role="form">
+                                    <div class="form-group">
+                                        <label for="loginID"><span class="glyphicon glyphicon-user"></span> Clotho ID</label>
+                                        <input type="text" class="form-control" id="loginID" placeholder="Enter Clotho ID">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
+                                        <input type="text" class="form-control" id="psw" placeholder="Enter password">
+                                    </div>
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" value="" checked>Remember me</label>
+                                    </div>
+                                    <button id = "login" type="submit" class="btn btn-success"><span class="glyphicon glyphicon-off"></span> Login</button>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                                <p>Not a member? <!--<button type = "button" id="signup">Sign Up</button></p>-->
+                                <p>Forgot <button type = "button" id = "forgotpassword">Password?</button></p>
                             </div>
                         </div>
 
-                <div class="form-group">
-                        <div class="col-sm-2"></div>
-                        <label class="control-label col-xs-2" for="institution">Insitution:</label>
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control" id="institution" placeholder="Insitution">
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="modal fade" id="myModal3" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="padding:35px 50px;">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4><!--<span class="glyphicon glyphicon-lock"></span>--> Create a Phagebook Profile Today</h4>
+                    </div>
+                    <div class="modal-body" style="padding:40px 50px;">
+                        <div class = col-sm-12>
+                        <button type="submit" id = "showaddPerson" class="btn btnphagebook btn-lg"> <span class = "glyphicon glyphicon-user"></span>Create New Phagebook Person</button>
+                    </div>
+                        <div class = col-sm-12>
+
+                        <button type="submit" id = "showaddLab" class="btn btnphagebook btn-lg"><span class = "glyphicon glyphicon-wrench"></span>Create New Phagebook Lab</button>
+                        </div>
+                        <div class = col-sm-12>
+                        <button type="submit" id = "showaddInstit"  class="btn btnphagebook btn-lg"><span class = "glyphicon glyphicon-home"></span>  Create New Phagebook Institution</button>
                         </div>
                     </div>
-                <div class="form-group">
-                    <div class="col-sm-2"></div>
-                    <label class="control-label col-xs-2" for="position">Position:</label>
-                    <div class="col-sm-6">
-                        <input id = "positionList" list="position"  class="form-control" name="position" placeholder="Position">
-                        <datalist id = "position">
-                            <option value = "Undergraduate" ></option>
-                            <option value = "Graduate">Graduate</option>
-                            <option value = "Lab Manager" >Lab Manager</option>
-                            <option value = "Principal Investigator"> Principal Investigator</option>
-                            <option value = "Postdoctorate" >Postdoctorate</option>
-                        </datalist>
+                    <div class="modal-footer">
+
+                        <button type="submit" class="btn btn-danger btn-default pull-right" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
 
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="col-sm-2"></div>
-                    <label class="control-label col-xs-2" for="permissions">Permissions:</label>
-                    <div class="col-sm-6">
-                        <input id="permissionsList" list ="permissions" class="form-control" name = "permissions" placeholder="Permissions">
-                        <datalist id = "permissions">
-                            <option value  = "Basic" >basic</option>
-                            <option value  = "Private" >private</option>
-                            <option value  = "Ninja" >ninja</option>
-                        </datalist>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-offset-4 col-sm-8">
-                        <div class="checkbox">
-                            <label><input type="checkbox"> Remember me</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-offset-4 col-sm-8">
-                        <button id = "addPerson" class = "normalButton" >Create Person</button>
-                    </div>
-                </div>
-            </form>
+            </div>
+            </div>
         </div>
     </div>
+
+
+
+            <div class="modal fade" id="myModal2" role="dialog">
+                <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="padding:35px 50px;">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4><!--<span class="glyphicon glyphicon-lock"></span>--> Login</h4>
+                </div>
+                <div class="modal-body" style="padding:40px 50px;">
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+
+                                <label class="control-label col-xs-5" for="firstname">First Name:</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="firstname" placeholder="First Name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <label class="control-label col-sm-5" for="lastname">Last Name:</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="lastname" placeholder="Last Name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <label class="control-label col-sm-5" for="email">Email:</label>
+                                <div class="col-sm-6">
+                                    <input type="email" class="form-control" id="email" placeholder="Enter email">
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <label class="control-label col-sm-5" for="pwd">Password:</label>
+                                <div class="col-sm-6">
+                                    <input type="password" class="form-control" id="pwd" placeholder="Enter password">
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <label class="control-label col-sm-5" for="lab">Lab:</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="lab" placeholder="Lab">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+                                <label class="control-label col-xs-5" for="institution">Insitution:</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="institution" placeholder="Insitution">
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <label class="control-label col-xs-5" for="position">Position:</label>
+                                <div class="col-sm-6">
+                                    <input id = "positionList" list="position"  class="form-control" name="position" placeholder="Position">
+                                    <datalist id = "position">
+                                        <option value = "Undergraduate" ></option>
+                                        <option value = "Graduate">Graduate</option>
+                                        <option value = "Lab Manager" >Lab Manager</option>
+                                        <option value = "Principal Investigator"> Principal Investigator</option>
+                                        <option value = "Postdoctorate" >Postdoctorate</option>
+                                    </datalist>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <label class="control-label col-xs-5" for="permissions">Permissions:</label>
+                                <div class="col-sm-6">
+                                    <input id="permissionsList" list ="permissions" class="form-control" name = "permissions" placeholder="Permissions">
+                                    <datalist id = "permissions">
+                                        <option value  = "Basic" >basic</option>
+                                        <option value  = "Private" >private</option>
+                                        <option value  = "Ninja" >ninja</option>
+                                    </datalist>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-4 col-sm-8">
+                                    <div class="checkbox">
+                                        <label><input type="checkbox"> Remember me</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" id = "addPerson" data-dismiss="modal" class="btn btn-success">Create Phagebook Person</button>
+                        </form>
+
+                </div>
+                <div class="modal-footer">
+
+                    <button type="submit" class="btn btn-danger btn-default pull-right" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+
+                </div>
+            </div>
+</div>
+                </div>
+        </div>
+    </div>
+
+
+<div class="modal fade" id="myModalLab" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="padding:35px 50px;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4><!--<span class="glyphicon glyphicon-lock"></span>--> Add a Phagebook Lab</h4>
+            </div>
+            <div class="modal-body" style="padding:40px 50px;">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+
+                        <label class="control-label col-xs-5" for="labname">Name:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="labname" placeholder="Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-5" for="labdescription">Description:</label>
+                        <div class="col-sm-6">
+                            <textarea name="paragraph_text" id="labdescription" cols="24" rows="10" placeholder="Description"></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" id = "addLab" class="btn btn-success">Create Phagebook Lab</button>
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+
+                <button type="submit" class="btn btn-danger btn-default pull-right" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+
+            </div>
+        </div>
     </div>
 </div>
 
-    <!--  </ng-form>-->
+
+    <div class="modal fade" id="myModalInstit" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="padding:35px 50px;">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4><!--<span class="glyphicon glyphicon-lock"></span>--> Add a Phagebook Institution</h4>
+                </div>
+                <div class="modal-body" style="padding:40px 50px;">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+
+                            <label  for="institname">Name:</label>
+
+                                <input type="text" class="form-control" id="institname" placeholder="Name">
+
+                        </div>
+                        <div class="form-group">
+                          <label for="institdescription">Description:</label>
+                        </div>
+                                <textarea name="paragraph_text" id="institdescription" cols="50" rows="10" placeholder="Description"></textarea>
+
+
+                        <button type="submit" data-dismiss="modal" id = "addInstit" class="btn btn-success">Create Phagebook Insitution</button>
+
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+
+                    <button type="submit" class="btn btn-danger btn-default pull-right" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+
+                </div>
+            </div>
+        </div>
 
 
 </div>
-
-<!--
-      <div id="addLab" style="margin-left:44px" >
-          <ng-form class="form-horizontal" name="createLabForm" ng-class="{'has-error' : createLabForm.name.$dirty && createLabForm.name.$invalid}">
-
-              <label> Name  </label> <br> 
-              <input id= "labName" type="text"><br><br> 
-              <label>City </label><br>
-              <input id="city" type="text"><br><br>
-              <label> State </label><br> 
-              <input id="state" type="text"><br><br> 
-              <label>link</label><br>
-              <input id="link" type="text"><br><br>
-              <button id = "createLab" class="btn btn-primary" >Create Lab</button><br>
-          </ng-form>
-      </div>
-      <div id="addInstitution" style="margin-left:44px">
-          <ng-form class="form-horizontal" name="createLabForm" ng-class="{'has-error' : createInstitForm.name.$dirty && createInstitForm.name.$invalid}">
-
-
-              <label> Name  </label> <br> 
-              <input id= "institutionName" type="text"><br><br> 
-              <label>City </label><br>
-              <input id="institutioncity" type="text"><br><br>
-              <label> State </label><br> 
-              <input id="institutionstate" type="text"><br><br> 
-              <label>link</label><br>
-              <input id="institutionlink" type="text"><br><br>
-              <button id = "addInstit" class="btn btn-primary" >Create Institution</button><br>
-          </ng-form>
-      </div>
-
-  </div>
 </div>
 
 
-</div>-->
+
+
+
+
+
+
 
 
 
@@ -235,131 +389,42 @@
 SCRIPTS
 --------->
 
-
-<!--
+<!--Modal Scripts -->
 <script>
-    function getBase64Image(img) {
-        // Create an empty canvas element
-        alert(img);
-        var canvas = document.createElement("canvas");
-        canvas.width = img.width;
-        canvas.height = img.height;
 
-        // Copy the image contents to the canvas
-        var ctx = canvas.getContext("2d");
-        ctx.drawImage(img, 0, 0);
-
-        // Get the data-URL formatted image
-        // Firefox supports PNG and JPEG. You could check img.src to guess the
-        // original format, but be aware the using "image/jpg" will re-encode the image.
-        var dataURL = canvas.toDataURL("image/png");
-//        alert(dataURL.replace(/^data:image\/(png|jpg);base64,/, ""));
-        var dat= dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
-        Clotho.get("clotho.developer.katielewis1").then(function(result){
-                Clotho.get(result.notebookEntries[2]).then(function(res){
-                    alert(result.notebookEntries[2]);
-                    res.entryPics[0] = dat;
-                    Clotho.set(res);
-                });
-        });
-    }
-</script>
-
-    <script>
-        function photoAppear(){
-
-            Clotho.get("clotho.developer.katielewis1").then(function(result){
-                        var image = new Image();
-                Clotho.get(result.notebookEntries[2]).then(function(res){
-                    alert(res.entryPics[0]);
-                    image.src = "data:image/png;base64," + res.entryPics[0];
-                    document.body.appendChild(image);
-                });
-                       // alert(result.notebookEntries[0]);
-
-            });
-
-        }
-    </script>
-<script>
-    function sendFiles() {
-        var imgs = document.querySelectorAll(".obj");
-
-        for (var i = 0; i < imgs.length; i++) {
-            new FileUpload(imgs[i], imgs[i].file);
-        }
-    };
-
-</script>
-
-
-<!--<script>-->
-    <!--function trying(){-->
-        <!--var elm = document.getElementById('image');-->
-                <!--img = elm.files[0];-->
-        <!--var objectURL = window.URL.createObjectURL(img);-->
-<!--//                fileName = img.name, // not path-->
-<!--//                fileSize = img.size; // bytes-->
-<!--//-->
-<!--//        // By Parsing File-->
-<!--//        var reader = new FileReader(),-->
-<!--//                binary, base64;-->
-<!--//        reader.addEventListener('loadend', function () {-->
-<!--//            binary = reader.result; // binary data (stored as string), unsafe for most actions-->
-<!--//            base64 = btoa(binary); // base64 data, safer but takes up more memory-->
-<!--//        }, false);-->
-<!--//        reader.readAsBinaryString(img);-->
-<!--//        alert("hello");-->
-
-        <!--Clotho.get("clotho.developer.notebook").then(function(result){-->
-            <!--result.pictures[0]=objectURL;-->
-            <!--Clotho.set(result);-->
-        <!--});-->
-
-    <!--}
-
-</script>
-    <script>
-        function displayy(){
-            Clotho.get("clotho.developer.notebook").then(function(result){
-               var image = new Image();
-                image.src = result.pictures[0];
-            });
-        };
-    </script>
-
--->
-
-<!--note - correct app based on the distribution, comments removed by build-->
-<!--
-<script>
-    $(document).ready(function() {
-        document.getElementById("theprofileInputs").style.visibility = "hidden";
-        document.getElementById("addLab").style.visibility = "hidden";
-    })
-</script>-->
-
-   <!-- <script>
-
-        $("#showAddLab").click(function(){
-            document.getElementById("addLab").style.visibility = "visible";
-            //  alert("addButton Clicked")
-            // document.getElementById("theprofileInputs").style.visibility = "visible";
-            //document.getElementById("theprofileInputs").innerHTML =
+        $("#myBtn").click(function(){
+            $("#myModal").modal();
         });
 
-    </script>
-    <script>
+</script>
+<script>
 
-        $("#showAddinstitution").click(function(){
-            document.getElementById("addInstitution").style.visibility = "visible";
-            //  alert("addButton Clicked")
-            // document.getElementById("theprofileInputs").style.visibility = "visible";
-            //document.getElementById("theprofileInputs").innerHTML =
-        });
+    $("#signup").click(function(){
+        $("#myModal3").modal();
+    });
 
-    </script>
--->
+</script>
+<script>
+
+    $("#showaddPerson").click(function(){
+        $("#myModal2").modal();
+    });
+
+</script>
+<script>
+
+    $("#showaddInstit").click(function(){
+        $("#myModalInstit").modal();
+    });
+
+</script>
+<script>
+
+    $("#showaddLab").click(function(){
+        $("#myModalLab").modal();
+    });
+
+</script>
 
     <script>
         //var personID = "clotho.developer." ;
@@ -367,31 +432,37 @@ SCRIPTS
         $("#addPerson").click(function() {
             alert("click");
             var obj = [];
+
            // var file    = document.querySelector('input[type=file]').files[0];
             //var myInput = document.getElementsByTagName("input");
             alert(document.getElementById("permissionsList").value);
             var personId = "clotho.developer."+ document.getElementById("firstname").value[0] +  document.getElementById("lastname").value;
+
             obj.push('\"' + "firstname" + '\": \"' + document.getElementById("firstname").value + '\"' +"," + '\"'+  "lastname"+ '\":\"' + document.getElementById("lastname").value+ '\"' );
             obj.push('\"' + "position" + '\": \"' + document.getElementById("positionList").value + '\"' +"," + '\"'+  "lab"+ '\":\"' + document.getElementById("lab").value+ '\"' );
             obj.push('\"' + "institution" + '\": \"' + document.getElementById("institution").value + '\"' +"," + '\"'+  "permissions"+ '\":\"' + document.getElementById("permissionsList").value + '\"' );
             obj.push('\"' + "schema" + '\": \"' + "org.clothocad.model.person" + '\"' +"," + '\"'+  "id"+ '\":\"' + personId+ '\"' );
             obj.push('\"'+  "projects"+ '\": []' +"," + '\"'+  "statuses"+ '\":[]' + "," + '\"'+  "orders"+ '\":[]'  );
             obj.push('\"'+  "friends"+ '\": []');
-
+            obj.push('\"'+  "name"+ '\": \"'+ document.getElementById("firstname").value + " " + document.getElementById("lastname").value +'\"' );
+          //  alert(obj);
+          //  obj.push('\"'+  "email"+ '\": \"'+ document.getElementById("email").value + '\"' );
             var personObj = '{' + obj + '}';
 
-            alert(personObj);
+           // alert(personObj);
             var createObj = JSON.parse(personObj)
             Clotho.create(createObj).then(function(result){
-            alert("Clotho create a new object" + result);
+            //alert("Clotho create a new object" + result);
             });
         });
     </script>
 
+
     <script>
         $("#login").click(function(){
             //alert("login");
-            window.name = "clotho.developer."+ document.getElementById("username").value;
+            window.name = document.getElementById("loginID").value;
+            //window.name = "clotho.developer."+ document.getElementById("firstname").value[0] +  document.getElementById("lastname").value;
           // alert(window.name);
            var url = "./Profile.html"
             window.location = url;
@@ -399,55 +470,51 @@ SCRIPTS
         })
     </script>
 
-    <!--   <script>
+     <script>
 
-       $("#createLab").click(function() {
-         //alert('lab')
-             var obj = []
-             var myInput = document.getElementsByTagName("input")
+       $("#addLab").click(function() {
+           alert("add lab!")
+             var labObj = [];
+           labObj.push('\"' + "schema" + '\": \"' + "org.clothocad.model.lab" + '\"');
+           labObj.push('\"' + "name" + '\": \"' + document.getElementById("labname").value + '\"');
+           labObj.push('\"' + "id" + '\": \"' + "org.clothocad.lab." + document.getElementById("labname").value[0] + document.getElementById("labname").value[1]+'\"');
+           labObj.push('\"' + "description" + '\": \"' + document.getElementById("labdescription") + '\"');
+          /* labObj.push('\"' + "labList" + ': []');*/
+           labObj = '{' + labObj + '}';
 
-             for (var i = 2; i < myInput.length; i++) {
-                 if (myInput[i].name != "" && myInput[i].value != "") {
-
-                 obj.push('\"' + myInput[i].name + '\": \"' + myInput[i].value + '\"')
-             }
-
-             }
-             obj.push('\"' + "schema" + '\": \"' + "org.clothocad.model.lab" + '\"');
-             var labObj = '{' + obj + '}';
-
-
-             Clotho.create(JSON.parse(labObj)).then(function (result) {
-             //alert("Object Created with Id "+ result)
+          // alert(labObj);
+           Clotho.create(JSON.parse(labObj)).then(function (result) {
+           //  alert("Lab Object Created with Id "+ result)
              });
 
          });
      </script>-->
-<!--<script>
+<script>
     $("#addInstit").click(function() {
+        //alert("add instit!")
+        var institObj = [];
 
-        var obj = []
+        institObj.push('\"' + "schema" + '\": \"' + "org.clothocad.model.institution" + '\"');
 
-        var myInput = document.getElementsByTagName("input")
+        institObj.push('\"' + "name" + '\": \"' + document.getElementById("institname").value + '\"');
 
-        for (var i = 2; i < myInput.length; i++) {
-            if (myInput[i].name != "" && myInput[i].value != "") {
+        institObj.push('\"' + "id" + '\": \"' + "org.clothocad.lab." + document.getElementById("institname").value[0]+ document.getElementById("institname").value[1]+ '\"');
 
-                obj.push('\"' + myInput[i].name + '\": \"' + myInput[i].value + '\"')
-            }
+        institObj.push('\"' + "description" + '\": \"' + document.getElementById("institdescription") + '\"');
+       /* institObj.push('\"' + "PI" +  '\": []');
+        institObj.push('\"' + "undergraduate" + '\": []');
+        institObj.push('\"' + "graduate" + '\": []');*/
 
-        }
-        obj.push('\"' + "schema" + '\": \"' + "org.clothocad.model.institution" + '\"');
-        var institObj = '{' + obj + '}';
+        var institObj = '{' + institObj + '}';
 
-alert(institObj);
+        alert(institObj);
         Clotho.create(JSON.parse(institObj)).then(function (result) {
-            alert(institObj)
-            alert("Object Created with Id "+ result)
+           // alert(institObj)
+          //  alert("Object Created with Id "+ result)
         });
 
     });
-</script>-->
+</script>
 <script src="scripts/b18fc8c8.clotho-app-command.js"></script>
 
 <script src="scripts/c0f113c2.clotho-core-module.js"></script>

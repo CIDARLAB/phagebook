@@ -57,32 +57,59 @@
 
        <div class = "leftColumn">
 
-         <div class = "personalInfo">
+           <div id = "profilePic" class = "profileImg"
+                style="background-image:url('/images/people/kara_pro.PNG');">
+           </div>
+           <!--<input type="file" id="imageupload" onchange="previewFile()"><br>
+           <img src="" id="imagesource" alt="Image preview..." style = "width: 150px">
+           <img src = "/images/people/kara_pro.PNG">-->
+           <a href = ./Profile.html id = "profileName"> </a><br>
+           <a  href = "" id = "universityName"></a><br>
+           <a  href = "" id = "positionName"></a><br><br>
 
-            <img src = "/images/people/Inna.jpg">
 
-            <h4 >Inna Turshudzhyan <br> Boston University <br> CIDAR lab</h4>
+           <a href="Profile.html" >News</a><br>
+           <a href="Ordering.html" >Ordering</a><br>
+           <a href="./Profile_papers.html">Papers</a><br>
+           <a href="./Projects.html" >Projects</a><br>
+           <a href="" > Parts</a> <br><br>
+
+           <a href ="" style="align-self: center" >Colleagues </a><br>
+           <div class = inline-block>
+
+               <table id="friendBox" class="form-inline " style='margin-bottom: 10px;' role="form">
+                   <tbody style="text-align: center;">
+               </table>
 
            </div>
-
-         <div class = "history">
-
-          <h1>History</h1>
-
-            <ul>
-            <li><a href>Order 123</a></li>
-            <li><a href>Order 456</a></li>
-            <li><a href>Order 789</a></li>
-            </ul>
-
+           <div class = "row">
+               <div class = "friendImg"
+                    style="background-image:url('/images/people/Katie_Lewis.jpeg');">
+                   <div class = "friendName">Katie </div>
+               </div>
+               <div class = "friendImg"
+                    style="background-image:url('/images/people/Zach.JPG');">
+                   <div class = "friendName">Zach </div>
+               </div>
+               <div class = "friendImg"
+                    style="background-image:url('/images/people/prash.jpg');">
+                   <div class = "friendName">Prashant</div>
+               </div>
+               <div class = "friendImg"
+                    style="background-image:url('/images/people/DougDensmore.png');">
+                   <div class = "friendName">Doug </div>
+               </div>
+               <div class = "friendImg"
+                    style="background-image:url('/images/people/Inna.jpg');">
+                   <div class = "friendName">Inna </div>
+               </div>
            </div>
-
        </div>
 
 
    
 
-       <div id = "rightColumn">
+       <div class = "rightColumn">
 
          <h1 style="margin-left: 20px">ORDERING</h1>
 
@@ -111,7 +138,7 @@
         <input id="itemID" type="text"><br><br>
         <label>Item</label><br>
         <input id="item" type="text"><br><br>
-        <button id = "create" class="btn btn-primary" >Create</button><br>
+        <button id = "create" class="btn btnphagebook btn-lg"  >Create</button><br>
         </ng-form>
 
         </div> 
@@ -211,6 +238,30 @@ $(document).ready(function(){
 
 
 
+</script>
+<script type  = text/javascript>
+    $(document).ready(function() {
+        //("#loadProfile").click(function () {
+        var x = document.createElement("INPUT");
+        x.setAttribute("type", "file");
+        //alert(window.name);
+        //var personID = document.getElementById("login").value;
+        var personID = window.name;
+        // var personID =   "clotho.developer.klefort";
+        var statusObj;
+        var notNullArray = [];
+        Clotho.get(personID).then(function (personObj) {
+                    //alert(personObj.lastname);
+                    document.getElementById("profileName").innerHTML = personObj.firstname + " " + personObj.lastname;
+                    document.getElementById("universityName").innerHTML = personObj.institution;
+                    document.getElementById("positionName").innerHTML = personObj.position;
+
+                }
+
+        );
+
+
+    });
 </script>
 
 <!-- our custom app files -->
