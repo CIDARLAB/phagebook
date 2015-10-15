@@ -33,16 +33,55 @@
             <div class = "mainContent">
                 <div class = "first">
                     <h2 style="text-align: left">Inna's Orders</h2>
-                    <button style="float: right" type="button" class="btn btn-primary" aria-level="Left Align" onclick="settingsFunction()">
+                    <button style="float: right; background-color: whitesmoke; border-color: grey; color: black" type="button" class="btn btn-primary" aria-level="Left Align" onclick="settingsFunction()">
                         <span class="glyphicon glyphicon-align-right" aria-hidden="true"></span>
                         Settings</button>
                 </div>
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#">Recent</a></li>
-                    <li class="active"><a href="#">Submitted</a></li>
-                    <li class="active"><a href="#">Received</a></li>
+                    <li class="active"><a href="html/ordering.html">Recent</a></li>
+                    <li style="color: black"><a href="html/ordering.html">Submitted</a></li>
+                    <li><a href="html/ordering.html">Received</a></li>
                 </ul>
-
+                <div class = "panel panel-default">
+                    <div class="panel-body" id="infoTabs">
+                        <div class="col-md-3" id="orderName">
+                            <h3>Name of Order</h3>
+                            <ol>
+                                <li class="alert alert-danger">Monthly Lab Supplies</li>
+                                <li class="alert alert-warning">Phoenix Samples</li>
+                                <li class="alert alert-info">Phoenix Plates</li>
+                                <li class="alert alert-success">iGem Samples</li>
+                            </ol>
+                        </div>
+                        <div class="col-md-3" id="orderStatus">
+                            <h3>Status of Order</h3>
+                            <ol>
+                                <li class="alert alert-danger">Created</li>
+                                <li class="alert alert-warning">Generated</li>
+                                <li class="alert alert-info">Approved</li>
+                                <li class="alert alert-success">Submitted</li>
+                            </ol>
+                        </div>
+                        <div class="col-md-3" id="orderGenerationDate">
+                            <h3>Date of Order Generation</h3>
+                            <ol>
+                                <li class="alert alert-danger">10/13/2015</li>
+                                <li class="alert alert-warning">10/10/2015</li>
+                                <li class="alert alert-info">10/08/2015</li>
+                                <li class="alert alert-success">10/02/2015</li>
+                            </ol>
+                        </div>
+                        <div class="col-md-3" id="orderGenerationPerson">
+                            <h3>Person that Generated Order</h3>
+                            <ol>
+                                <li class="alert alert-danger">Swati Carr</li>
+                                <li class="alert alert-warning">Evan Appleton</li>
+                                <li class="alert alert-info">Evan Appleton</li>
+                                <li class="alert alert-success">Kathleen Lewis</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
 
 
             </div>

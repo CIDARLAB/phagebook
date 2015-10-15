@@ -315,3 +315,9 @@
      text-align:justify;
      padding:15px;
  }
+
+#infoTabs {
+    font-size: 120%;
+    background-color: whitesmoke;
+    padding: 5dpi;
+}
