@@ -6,7 +6,8 @@
     <title>Projects</title>
     <meta name="description" content="Clotho Projects">
     <meta name="viewport" content="width=1024, initial-scale=1">
-      <script src ="clotho3API/clotho3API.js"></script>
+
+      <script src="scripts/clotho3API.js"></script>
       <script src ="clotho3API/papaparse.min.js"></script>
 
     <!-- not necessary until serving outside root directory / want html5 mode -->
@@ -16,9 +17,9 @@
     <link rel="stylesheet" href="styles/773cbfe6.main.css"/>
     <link rel ="stylesheet" href="styles/Phagebook_Styles.css"/>
 
-    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
-    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
 
     <script src="bower_components/jquery/jquery.js"></script>
 
@@ -47,29 +48,58 @@
 <div class = "contentBackground" ng-app = "projects">
     <div class = "mainContent">
         <div class = "leftColumn">
-<<<<<<< HEAD
+            <div id = "profilePic" class = "profileImg"
+                 style="background-image:url('/images/people/kara_pro.PNG')">
+            </div>
+            <!--<input type="file" id="imageupload" onchange="previewFile()"><br>
+            <img src="" id="imagesource" alt="Image preview..." style = "width: 150px">
+            <img src = "/images/people/kara_pro.PNG">-->
+            <a href = "Profile.html" id = "profileName"> </a><br>
+            <a  href = "" id = "universityName"></a><br>
+            <a  href = "" id = "positionName"></a><br><br>
 
-          <img src = "/images/people/Katie_Lewis.jpeg" >
-=======
-          <img id = "profilePic" src = "/images/people/Katie_Lewis.jpeg">
->>>>>>> 3f86d16826f453fcfdb789f3dec8ae63524ff776
-          <h4> <a href ="./Profile.html">Katie Lewis</a> Projects </h4>
-            <table id="projTable">
-                <!--<tr>-->
-                    <!--<td id="iGEM"><a href="./Projects.html" value="igem.id" style="display:block;">iGEM</a> </td>-->
-                <!--</tr>-->
-                <!--<tr>-->
-                    <!--<td id="Phagebook"><a href = "./Projects.html" style = "display:block;">Phagebook</a></td>-->
-                <!--</tr>-->
-            </table>
 
-          <br><br>
+            <a href="Profile.html" >News</a><br>
+            <a href="Ordering.html" >Ordering</a><br>
+            <a href="./Profile_papers.html">Papers</a><br>
+            <a href="Projects.html" >Projects</a><br>
+            <a href="" > Parts</a> <br><br>
 
-          <button type="button" id="CreateButton" class = "normalButton">Create New Project </button>
+            <a href ="" style="align-self: center" >Colleagues </a><br>
+            <div class = inline-block>
 
-        </div>
+                <table id="friendBox" class="form-inline " style='margin-bottom: 10px;' role="form">
+                    <tbody style="text-align: center;">
+                </table>
 
-        <!--<div id = "rightColumn" ondrop="drop(event)" ondragover="allowDrop(event)">-->
+            </div>
+            <div class = "row">
+                <div class = "friendImg"
+                     style="background-image:url('/images/people/Katie_Lewis.jpeg');">
+                    <div class = "friendName">Katie </div>
+                </div>
+                <div class = "friendImg"
+                     style="background-image:url('/images/people/Zach.JPG');">
+                    <div class = "friendName">Zach </div>
+                </div>
+                <div class = "friendImg"
+                     style="background-image:url('/images/people/prash.jpg');">
+                    <div class = "friendName">Prashant</div>
+                </div>
+                <div class = "friendImg"
+                     style="background-image:url('/images/people/DougDensmore.png');">
+                    <div class = "friendName">Doug </div>
+                </div>
+                <div class = "friendImg"
+                     style="background-image:url('/images/people/Inna.jpg');">
+                    <div class = "friendName">Inna </div>
+                </div>
+            </div>
+            </div>
+
+
+
+            <!--<div id = "rightColumn" ondrop="drop(event)" ondragover="allowDrop(event)">-->
         <div class = "rightColumn" ondrop="drop(event)" ondragover="allowDrop(event)">
         <!--<button>  <img src = "/images/Editing-Edit-icon.png" onclick = "editProject()" id="editIcon"></button>-->
             <h1 class = "pageHeading" id = "projTitle"> </h1>
@@ -91,22 +121,23 @@
               <!--<p id = "projectDescription" ></p>-->
               <p id = "partsLink"> <a href="Parts.html">Genetic Parts Inventory</a></p>
             </div>
-
+            <button type="button" id="button" class="btn btnphagebook btn-lg">Create New Project </button>
             <!--<img height="100" width="100" id = "image2"  ondragstart="drag(event)" draggable="true" src="/images/socialmedia/twitter.png">-->
             <!--<p>  Currently, synthetic biology lacks a systematic design-build-test workflow for creating genetic circuits. Researchers often waste time and resources on traditional trial-and-error approaches in designing and assembling large devices. My research works towards overcoming this roadblock by creating a standardized experimental-computational workflow that is clearly defined and applicable to a wide variety of researchers and projects. This workflow integrates software tools to reduce human error and to structure the way designs are chosen, assembled, and tested.-->
             <!--</p>-->
             <br><br>
             <div id="entryButtons">
 
-                <button class = "normalButton" onclick = "newEntry()" id = "newEntry" >New Entry</button><br><br>
+                <button class="btn btnphagebook btn-lg" onclick = "newEntry()" id = "newEntry">New Entry</button><br><br>
 
-                <button class = onclick="editEntry()" id="entryEdit">Edit Entry</button>
-                <button id="doneEditingEntry" onclick = "changeEntry()">Done</button>
+                <button class = "btn btnphagebook btn-lg" id="entryEdit">Edit Entry</button>
+
+                <button class="btn btnphagebook btn-lg" onclick = "changeEntry()" id="doneEditingEntry">Done</button>
                 <p id="entryToChange"></p>
             </div>
             <h1 class = "labnotebook" id="notebookTitle">Notebook</h1>
             <div>
-                <button class = "normalButton" id="searchButton" onclick="searchEntries()">search</button>
+                <button class="btn btnphagebook btn-lg" id="searchButton" onclick="searchEntries()">search</button>
 
                 <ng-form class="form-horizontal" id="searchNotebook" ng-class="{'has-error' : projectForm.name.$dirty && projectForm.name.$invalid}">
                     <input id="searchDate" type="date">
@@ -120,20 +151,14 @@
         <div class = "notebook" id="noteID" ondrop="drop(event)" ondragover="allowDrop(event)" onload="photoAppear()">
             <h3 id="heading" align="center"></h3>
             <p id="entryGoesHere" contenteditable="false" onload="disp()"></p>
-            <!--<form action ="" class = "dropDown">-->
-            <!--<select name = "notebook" onchange = "notebooks()" id="whosNotebook">-->
-            <!--<option value = "Katie Lewis">Katie Lewis</option>-->
-            <!--<option value = "Yash Agarwal">Yash Agarwal </option>-->
-            <!--<option value = "Alan Pacheco">Alan Pacheco </option>-->
-            <!--</select>-->
-            <!--</form>-->
-            <!--<input type="button" id="uploader" value="Upload">-->
-            <!--<textarea rows="30" cols="50" ondrop="drop(event)" ondragover="allowDrop(event)"></textarea>-->
-            <!--<img height="100" width="100" id = "image0"  draggable="true">-->
+
         </div>
             <br>
-            <button id="next" onclick ="nextEntry()">Next</button>
-            <button id="previous" onclick="prevEntry()">Previous</button>
+            <button class="btn btnphagebook btn-lg" id="next" onclick ="nextEntry()">Next</button>
+            <button class="btn btnphagebook btn-lg" id="previous" onclick="prevEntry()">Previous</button>
+            <button id = "create" class="btn btnphagebook btn-lg" >Create</button><br>
+            <button id="entryButton" onclick = "createEntry()">Create New Project</button>
+
         </div>
 
 
@@ -159,7 +184,7 @@
         <!--<input id="projMembers" type="text"><br><br>-->
         <label>Project Description:</label> <br><br>
         <textarea id="description" rows="7" cols="50"> </textarea><br><br> 
-        <button id = "create" class="btn btn-primary" >Create</button><br>
+
 
 
     </ng-form>
@@ -183,7 +208,7 @@
             <!--<input type="file" name="fileToUpload" id="fileToUpload">-->
             <!--<input type="submit" value="Upload Image" name="submit">-->
         <!--</form>-->
-        <button id="entryButton" onclick = "createEntry()">Create</button>
+
 
     </div>
         <!--<img height="100" width="100" id = "image1"  ondragstart="drag(event)" draggable="true" src="/images/socialmedia/twitter.png">-->
@@ -220,7 +245,8 @@ SCRIPTS
 
 <script>
     function editEntry(){
-        personID = "clotho.developer.katielewis";
+        //personID = "clotho.developer.katielewis";
+        personID= window.name;
         var count = 0;
         var current = document.getElementById("entryGoesHere").innerText;
 
@@ -246,7 +272,9 @@ SCRIPTS
 </script>
 <script>
     function changeEntry() {
-        personID = "clotho.developer.katielewis";
+
+        //personID = "clotho.developer.katielewis";
+        personID = window.name
         var count = document.getElementById("entryToChange").innerHTML;
 //        alert("hello");
 //        alert(count);
@@ -259,7 +287,7 @@ SCRIPTS
                document.getElementById("doneEditingEntry").style.visibility = "hidden";
            });
         });
-    }
+    };
 </script>
 
 <script>
@@ -287,7 +315,8 @@ SCRIPTS
 <script>
     //Displays the next project notebook entry
     function nextEntry(){
-        personID = "clotho.developer.katielewis";
+        //personID = "clotho.developer.katielewis";
+        personID=  window.name;
         var count = 0;
         var current = document.getElementById("entryGoesHere").innerText;
         Clotho.get(personID).then(function(result){
@@ -314,7 +343,8 @@ SCRIPTS
 <script>
     //Displays the previous notebook entry
     function prevEntry(){
-        personID = "clotho.developer.katielewis";
+        //personID = "clotho.developer.katielewis";
+        personID = window.name;
         var count = 0;
         var current = document.getElementById("entryGoesHere").innerText;
         Clotho.get(personID).then(function(result){
@@ -346,7 +376,8 @@ SCRIPTS
 
 <script>
     function searchEntries(){
-        personID = "clotho.developer.katielewis";
+       // personID = "clotho.developer.katielewis";
+        personID = window.name;
         var date = document.getElementById("searchDate");
         var keyword = document.getElementById("keywordInsert");
         var entryHere = document.getElementById("entryGoesHere");
@@ -453,7 +484,7 @@ SCRIPTS
 </script>
 
 <script type = "text/javascript">
-    $(document).ready(function(){
+
         $("#CreateButton").click(function(){
             var id = document.getElementById("rightColumn");
             var secondID = document.getElementById("createProject");
@@ -462,12 +493,14 @@ SCRIPTS
             id.style.display='none';
             secondID.style.display = 'block';
         });
-    });
+
 </script>
 
 <script>
     function disp(){
-        personID = "clotho.developer.katielewis";
+        var personID = window.name;
+        alert(window.name)
+        //personID = "clotho.developer.katielewis";
         Clotho.get(personID).then(function(personObj){
                 if(personObj.notebookEntries.length==0){
                     document.getElementById("entryGoesHere").innerText = "Create a Notebook Entry!";
@@ -529,7 +562,7 @@ SCRIPTS
         //How should I get the project ID for the project that the entry is in
         function createEntry(){
 //            alert(document.getElementById("file").files.length);
-            var personID = "clotho.developer.katielewis";
+            var personID = window.name;
 //            var len = document.getElementById("file").files.length;
             //var str = '{';
 //            var obj = str.concat('"schema":', '"org.clothocad.model.Notebook"',',"entryDate":','"',document.getElementById("entryDate").value, '"', ',"entryText":', '"', document.getElementById("textEntry").value, '"', ',"entryPics":[', '"', document.getElementById("entryPic").value,'",', '"', document.getElementById("entryPic1").value, '",', '"', document.getElementById("entryPic2").value, '"]', '}');
@@ -739,6 +772,7 @@ SCRIPTS
     }
     reader.readAsDataURL(file);
     $("input").after(img);
+    $("input").after(img);
     }
     });
 
@@ -750,9 +784,11 @@ SCRIPTS
 
     <!--$(document).ready(function() {-->
     <script>
-    var personID = "clotho.developer.katielewis";
-    $(document).ready(function() {
+   // var personID = "clotho.developer.KLeFort";
+
         $("#create").click(function () {
+            personID = window.name;
+            alert("create new prof")
             var str = '{';
             var firstObj = str.concat('"schema":', '"org.clothocad.model.Projects"', ',"name":', '"', document.getElementById("projName").value, '"', ',"projectLead":', '"', document.getElementById("projLead").value, '"');
             var obj = firstObj.concat(',"Lab":', '"', document.getElementById("projLabs").value, '"', ',"PI":', '"', document.getElementById("pi").value, '"', ',"Description":', '"', document.getElementById("description").value, '"', ',"advisor":', '"', document.getElementById("advisor").value, '"', '}');
@@ -789,7 +825,7 @@ SCRIPTS
 
             });
         });
-    });
+
     </script>
 
 
@@ -811,6 +847,24 @@ SCRIPTS
     }
 </script>
 
+<script type  = text/javascript>
+    var personID = window.name;
+    var personObj = [];
+    $(document).ready(function() {
+      //  alert(window.name);
+
+        Clotho.get(personID).then(function (personObj) {
+                    //alert("here");
+                    document.getElementById("profileName").innerHTML = personObj.firstname + " " + personObj.lastname;
+                    document.getElementById("universityName").innerHTML = personObj.institution;
+                    document.getElementById("positionName").innerHTML = personObj.position;
+                }
+
+        );
+
+
+    });
+</script>
 
 
 <!-- our custom app files -->

@@ -26,9 +26,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
 <style>
     #keyValueForm {
-float: left;
-        margin-left: 100px
-        margin-right: 100px;
+        float: left;
         background-color: white;
         text-align: left;
         padding: 8px;
@@ -56,45 +54,87 @@ float: left;
 <div class = "contentBackground" ng-app = "profile">
     <div class = "mainContent">
         <div class = "leftColumn">
-            <input type="file" id="imageupload" onchange="previewFile()"><br>
-            <img src="" id="imagesource" alt="Image preview..." style = "width: 150px">
-           <!-- <img src = "/images/people/kara_pro.PNG">-->
-            <p id = "profileName"> </p>
-            <p  id = "universityName"></p>
-            <p  id = "positionName"></p>
-            <div id = "phagebooklinks">
-                <h4>
-                    <a href="./Profile.html" class="col-xs-1" >News</a>
-                    <a href="./Ordering.html" class="col-xs-1">Ordering</a>
-                    <a href="./Profile_papers.html" class="col-xs-1">Papers</a>
-                    <a href="./Projects.html" class="col-xs-1">Projects</a>
-                    <a href="" class="col-xs-1">Parts</a> <br>
-                    </h4>
+            <div id = "profilePic" class = "profileImg"
+                 style="background-image:url('/images/people/kara_pro.PNG');">
             </div>
+            <!--<input type="file" id="imageupload" onchange="previewFile()"><br>
+            <img src="" id="imagesource" alt="Image preview..." style = "width: 150px">
+            <img src = "/images/people/kara_pro.PNG">-->
+            <a href = ./Profile.html id = "profileName"> </a><br>
+            <a  href = "" id = "universityName"></a><br>
+            <a  href = "" id = "positionName"></a><br><br>
+
+
+            <a href="Profile.html" >News</a><br>
+            <a href="Ordering.html" >Ordering</a><br>
+            <a href="./Profile_papers.html">Papers</a><br>
+            <a href="./Projects.html" >Projects</a><br>
+            <a href="" > Parts</a> <br><br>
+
+            <a href ="" style="align-self: center" >Colleagues </a><br>
             <div class = inline-block>
-                <p>Colleagues </p>
+
                 <table id="friendBox" class="form-inline " style='margin-bottom: 10px;' role="form">
                     <tbody style="text-align: center;">
                 </table>
-            </div>
+
         </div>
+            <div class = "row">
+            <div class = "friendImg"
+                 style="background-image:url('/images/people/Katie_Lewis.jpeg');">
+                <div class = "friendName">Katie </div>
+            </div>
+            <div class = "friendImg"
+                 style="background-image:url('/images/people/Zach.JPG');">
+                <div class = "friendName">Zach </div>
+            </div>
+            <div class = "friendImg"
+                 style="background-image:url('/images/people/prash.jpg');">
+                <div class = "friendName">Prashant</div>
+            </div>
+            <div class = "friendImg"
+                 style="background-image:url('/images/people/DougDensmore.png');">
+                <div class = "friendName">Doug </div>
+            </div>
+            <div class = "friendImg"
+                 style="background-image:url('/images/people/Inna.jpg');">
+                <div class = "friendName">Inna </div>
+            </div>
+                </div>
+            </div>
         <div class = "rightColumn" >
 <!--style="margin-left:-10px; margin-right:-10px; margin-top:-20px; margin-bottom:-100px; background-color:#e9eaed">-->
          <!--   <div style="background-image:url(/images/logo-CIDAR-2.png); background-repeat: no-repeat;">-->
 
             <div class="personalNews">
-            <h3> Update your personal news, accomplishments, lab events. </h3>
-                <ng-form id = "inputStatus">
-                    <div>
-                 <input id = "newStatus" name = "newStatus">
+                <div class = "phagebooktitle" id ="profileName2">
+
+
                     </div>
-                <button id = "createStatus" class="normalButton" >Create</button><br>
-                 </ng-form>
+                <div class = "line"></div>
+               <h2 class = "col-sm-offset-1">  <span class="glyphicon glyphicon-bullhorn"></span> News </h2>
+                <div class="col-sm-offset-1 col-sm-10">
+            <h4> Update your personal news, accomplishments, lab events. </h4>
+                </div>
+                <div class = "col-sm-offset-1 col-xs-10">
+                <ng-form id = "inputStatus">
+                    <div >
+                 <input id = "newStatus" name = "newStatus" class = "col-xs-12" >
+                        <button id = "createStatus" class="col-sm-offset-9 col-sm-3 btn btnphagebook btn-lg" >Create</button><br>
+
+                    </div>
+                </div>
+
+                </ng-form>
                 <div class = inline-block>
-                    <h3> Previous Posts</h3>
-                    <table id="keyValueForm" class="form-inline" style='margin-bottom: 10px;width:800px;' role="form">
-                        <tbody style="text-align: center;">
+                    <div class = "col-sm-offset-1 col-sm-10" >
+                         <h4>Previous Posts</h4>
+
+                    <table id="keyValueForm" class="form-inline" role="form">
+                        <tbody style="text-align: left";>
                     </table>
+                        </div>
+                </div>
                 </div>
 
                         <!-- {"id":"clotho.developer.katielewis1","name":"Katie Lewis","schema":"org.clothocad.model.PersonalProfile","institution":"Boston University","lab":"CIDAR","position":"Undergraduate","permission":"basic", "username":"kmlewis","projects":-->
@@ -131,55 +171,6 @@ SCRIPTS
          });
         });
 </script>
-<!--<script>
-    var reader = new FileReader();
-    reader.onload = function(event) {
-    var dataUri = event.target.result,
-    img = document.createElement("img");
-    img.src = dataUri;
-    document.body.appendChild(img);
-};
-
-reader.onerror = function(event) {
-console.error("File could not be read! Code " + event.target.error.code);
-};
-
-reader.readAsDataURL(file);
-</script>
-
-<script>
-    function previewFile(){
-        var preview = document.querySelector('img'); //selects the query named img
-        var file    = document.querySelector('input[type=file]').files[0]; //sames as here
-        var reader  = new FileReader();
-
-        reader.onloadend = function () {
-            preview.src = reader.result;
-        }
-
-        if (file) {
-            reader.readAsDataURL(file); //reads the data as a URL
-        } else {
-            preview.src = "";
-        }
-    }
-
-    previewFile();  //calls the function named previewFile()
-</script>-->
-
-<!--<script type= "text/javascript">
-    /*$(document).ready(function(){
-        {
-            //alert('load page')
-            var personID = "clotho.developer.klefort";
-            alert(personID)
-            Clotho.get(personID).then(function (personObj){
-            alert(personObj.name)
-            document.getElementById("profileName").innerHTML = personObj.name;
-            });
-        }
-    })*/
-</script>-->
 
 <script>
     document.getElementById('imageupload').onchange = function (evt) {
@@ -203,27 +194,6 @@ reader.readAsDataURL(file);
     }
 </script>
 
-<!--
-<script>
-    function previewFile(){
-        //alert("ping");
-        var preview = document.querySelector('img'); //selects the query named img
-        var file    = document.querySelector('input[type=file]').files[0]; //sames as here
-        var reader  = new FileReader();
-
-        reader.onloadend = function () {
-            preview.src = reader.result;
-        }
-
-        if (file) {
-            reader.readAsDataURL(file); //reads the data as a URL
-        } else {
-            preview.src = "";
-        }
-    }
-
-    previewFile();  //calls the function named previewFile()
-</script>-->
 
 <script type  = text/javascript>
 $(document).ready(function() {
@@ -237,10 +207,13 @@ $(document).ready(function() {
     var statusObj;
     var notNullArray = [];
     Clotho.get(personID).then(function (personObj) {
+                var N = 20;
+
                 //alert(personObj.lastname);
                 document.getElementById("profileName").innerHTML = personObj.firstname + " " + personObj.lastname;
                 document.getElementById("universityName").innerHTML = personObj.institution;
                 document.getElementById("positionName").innerHTML = personObj.position;
+                document.getElementById("profileName2").innerHTML = personObj.firstname + " " + personObj.lastname;;
                 //document.getElementById()
                 Clotho.get(personObj.statuses).then(function (statusObj) {
                     if (personObj.statuses.length == null) {
@@ -256,7 +229,8 @@ $(document).ready(function() {
                                 notNullArray.push(i);
                                 var paperCite = '';
                                 var newStatus = statusObj[i];
-                                $('#keyValueForm').append("<tr style='margin-top: 10px;'> <td>" + "<p>" + newStatus.text + "</p></td> <td>" + newStatus.time + "</td> < td > < button onclick = 'deletePaper(" + JSON.stringify(statusObj) + ") ' class= 'btn btn-primary'" + "> x </button></td></tr>");
+                                $('#keyValueForm').append("<tr style='margin-top: 10px;'> <td>" + "<p>" + newStatus.text + "</p></td> <td><p>" + newStatus.time +"</p></td></tr>");
+                               /* $('printStatus').append("")*/
                             }
 
                         }
