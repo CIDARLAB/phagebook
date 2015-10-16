@@ -1,9 +1,226 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Sample Page</title>
-    </head>
-    <body>
-        <h1> Test Page</h1>
-    </body>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Phagebook</title>
+    <link rel="shorcut icon" href="styles/images/phagebookLogoMin_16x16.ico"/>
+
+    <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
+
+    <link rel="stylesheet" href="styles/cssBootstrap/bootstrap.css"/>
+    <!--<link rel="stylesheet" href="styles/clothoNavBar.css">-->
+    <link rel="stylesheet" href="styles/phagebookMainStyle.css"/>
+    <script src="scripts/clotho/clotho3API.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+
+</head>
+
+<body>
+
+<!--<div ng-app="clothoRoot">
+    <div class="container">
+        <div clotho-command-bar> </div>
+    </div>
+
+    <terminal-aside></terminal-aside>   the normal Clotho bar isn't needed for the landing page-->
+
+<div class="navbar navbar-static-top">
+    <div class="container-fluid">
+
+        <div class="navbar-header">
+            <ul class="navbar">
+                <li><img src="styles/images/phagebookWhite.png"></a></li>
+            </ul>
+        </div>
+        <div role="form" class="navbar-form navbar-right" method="post">
+            <div class="form-group">
+                <input type="email" class="form-control" id="returnEmail" placeholder="Email Address">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" id="returnPassword" placeholder="Password">
+            </div>
+            <!--<div class="checkbox">
+                <label style="color:whitesmoke">
+                    <input type="checkbox"> Remember Me
+                </label>
+            </div>-->
+            <button id="login" class="btn btn-default">Sign In</button>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="text-center col-md-6">
+
+        <img src="styles/images/phagebookschem.png" alt="Phagebook Schematic">
+
+    </div>
+    <div class="col-md-1"></div>
+
+    <div class="col-md-5">
+
+        <!--this is where the new user input goes -->
+        <form class="form-horizontal" role="form" method="post">
+            <h3 style="font-weight:bold">Create a Phagebook Profile Today!</h3><br>
+            <div class="form-group">
+                <label class="control-label col-md-3" for="firstname">First Name:</label>
+                <div class="col-md-6">
+                    <input type="text" class="form-control" id="firstname" placeholder="First Name">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-3" for="lastname">Last Name:</label>
+                <div class="col-md-6">
+                    <input type="text" class="form-control" id="lastname" placeholder="Last Name">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-3" for="email" >Email:</label>
+                <div class="col-md-6">
+                    <input type="email" class="form-control" id="email" placeholder="Email Address">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-3" for="password">Password:</label>
+                <div class="col-md-6">
+                    <input type="password" class="form-control" id="password" placeholder="Password">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-3" for="lab">Lab:</label>
+                <div class="col-md-6">
+                    <input type="text" class="form-control" id="lab" placeholder="Lab">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-3" for="institution">Institution:</label>
+                <div class="col-md-6">
+                    <input type="text" class="form-control" id="institution" placeholder="Institution">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-3" for="position">Position:</label>
+                <div class="col-md-6">
+                    <input id = "positionList" list="position"  class="form-control" name="position" placeholder="Position">
+                    <datalist id = "position">
+                        <option value = "Undergraduate" >Undergraduate</option>
+                        <option value = "Graduate">Graduate</option>
+                        <option value = "Postdoctorate" >Postdoctorate</option>
+                        <option value = "Lab Manager" >Lab Manager</option>
+                        <option value = "Principal Investigator">Principal Investigator</option>
+                    </datalist>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-3" for="permissions">Permissions:</label>
+                <div class="col-md-6">
+                    <input id="permissionsList" list ="permissions" class="form-control" name = "permissions" placeholder="Permissions">
+                    <datalist id = "permissions">
+                        <option value  = "Basic" >Basic</option>
+                        <option value  = "Private" >Private</option>
+                        <option value  = "Ninja" >Ninja</option>
+                    </datalist>
+                </div>
+            </div>
+                <div class="form-group">
+                    <div class="text-center col-md-4"><br>
+                        <button id="addPerson" ng-click="" type="submit" class="btn btn-default" >Create Profile</button>
+                    </div>
+                </div>
+
+        </form>
+
+
+    </div>
+</div>
+
+<!--centered at the bottom is the write-up copyright stuff-->
+<div class="modal-footer" style="font-size: small">
+    Created by <a href="http://www.cidarlab.org" target="_blank">CIDAR at Boston University</a><br>
+    Built by <a href="mailto:azulad7@bu.edu">Allison Z. Durkan</a><br><img src="../styles/images/logo-trace_black.png" style="height:50px">
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+</div>
+
+<!--------
+SCRIPTS
+--------->
+<script>
+    $("#login").click(function () {
+        //alert("login");
+        //window.name = "clotho.developer."+ document.getElementById("username").value;
+        Clotho.login(document.getElementById("returnEmail").value, document.getElementById("returnPassword").value).then(function (result) {
+            if (result == null) {
+                alert("Login unsuccessful");
+            }
+            else {
+                Clotho.get(result.id).then(function(person) {
+                    alert(JSON.stringify(person));
+                });
+                sessionStorage.setItem("uniqueid",result.id);
+                sessionStorage.setItem("username",document.getElementById("returnEmail").value);
+                sessionStorage.setItem("password",document.getElementById("returnPassword").value);
+
+                window.location.href = './html/profile.html';
+            }
+        });
+    });
+
+    $("#addPerson").click(function () {
+        //alert("addUser");
+        Clotho.createUser(document.getElementById("email").value, document.getElementById("password").value).then(function (result) {
+            //alert("passed create");
+            Clotho.login(document.getElementById("email").value,document.getElementById("password").value).then(function(loginResult){
+                var person = {
+                    "id": loginResult.id,
+                    "givenname": document.getElementById("firstname").value,
+                    "surname": document.getElementById("lastname").value,
+                    "fullname": document.getElementById("firstname").value + " " + document.getElementById("lastname").value,
+                    "lab": document.getElementById("lab").value,
+                    "email": document.getElementById("email").value,
+                    "institution": document.getElementById("institution").value,
+                    "position": document.getElementById("positionList").value,
+                    "permissions": document.getElementById("permissionsList").value,
+                    "friendsList" : [],
+                    "statusList" : [],
+                    "pubmedIdList" : []
+                };
+
+                sessionStorage.setItem("uniqueid",loginResult.id);
+                sessionStorage.setItem("username",document.getElementById("email").value);
+                sessionStorage.setItem("password",document.getElementById("password").value);
+
+                Clotho.set(person).then(function(){
+                    window.location.href = './html/profile.html';
+                });
+            });
+
+        });
+
+        return false;
+    });
+
+</script>
+
+
+<script src="scripts/clotho/b18fc8c8.clotho-app-command.js"></script>
+
+<script src="scripts/clotho/c0f113c2.clotho-core-module.js"></script>
+
+<!--note - remove all scripts below this for api-only build-->
+
+<script src="scripts/clotho/c2a11f43.clotho-foundation-module.js"></script>
+
+
+<script src="scripts/clotho/68a2b2df.clotho-command-module.js"></script>
+<script src="scripts/indexAPI.js"></script>
+
+</body>
 </html>

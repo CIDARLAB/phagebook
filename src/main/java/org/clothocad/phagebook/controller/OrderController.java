@@ -16,6 +16,7 @@ import org.clothocad.phagebook.dom.GoodType;
 import org.clothocad.phagebook.dom.Order;
 import org.clothocad.phagebook.dom.OrderColumns;
 import org.clothocad.phagebook.dom.Product;
+import org.json.JSONArray;
 
 //import java.util.List;
 //import org.clothocad.phagebook.dom.Product;
@@ -25,6 +26,36 @@ import org.clothocad.phagebook.dom.Product;
  * @author innaturshudzhyan
  */
 public class OrderController {
+    
+    public static List<Product> getProducts(JSONArray list){
+        List<Product> products = new ArrayList<Product>();
+        for (int i = 0; i < list.length(); i++)
+        {
+            JSONArray productList = new JSONArray();
+            productList = (JSONArray)list.get(i);
+            for (int j = 0; j < productList.length(); j++)
+            {
+                String productName = (String)productList.get(0);
+                String description = (String)productList.get(1);
+                String url = (String)productList.get(2);
+                String companyName = (String)productList.get(3);
+                String type = (String)productList.get(4);
+                String price = (String)productList.get(5);
+                
+                Company company = new Company(companyName);
+                Product product = new Product(productName,company,Double.valueOf(price));
+                
+                product.setProductURL(url);
+                product.setGoodType(GoodType.valueOf(type));
+                product.setDescription(description);
+                
+                products.add(product);
+               
+            }
+        }
+        
+      return products;  
+    }
     
     public static List<Product> getProducts(String filename){
         
