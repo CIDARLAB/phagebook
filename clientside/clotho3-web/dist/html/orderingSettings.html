@@ -14,6 +14,7 @@
     <script src="../scripts/lodash.js"></script>
 
 
+
     <script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
@@ -27,22 +28,36 @@
 </div>
 
 <div class="container-fluid" id="ordering">
-    <!--<div ng-module="orderingApp">
-        <div ng-controller="orderingCtrl">-->
+<div ng-module="orderingApp">
+<div ng-controller="orderingController">
 
     <div class = "mainContent">
         <h2>Order Settings</h2>
         <br>
         <h3>Upload CSV for Companies</h3>
         <label class="control-label">Select File</label>
-        <input id="input-1a" type="file" class="file" data-show-preview="false">
-        <br>
-        <h3>Upload CSV for Products</h3>
-        <label class="control-label">Select File</label>
-        <input id="input-1b" type="file" class="file" data-show-preview="false">
+        <ng-form id = "inputCompanies">
+            <div>
+                <input id="inputCompany" ng-model="inputCompany" type="file" class="file" data-show-preview="false">
+                <br>
+                <button id = "uploadCompanies" style="float: left; background-color: whitesmoke; border-color: grey; color: black" type="button" class="btn btn-primary" aria-level="Left Align" ng-click="uploadCompanies()">
+                Upload</button>
+            </div>
+        </ng-form>
+        <ng-form id = "inputProducts">
+            <div>
+                <br>
+                <h3>Upload CSV for Products</h3>
+                <label class="control-label">Select File</label>
+                <input id="inputProduct" ng-model="inputProduct" type="file" class="file" data-show-preview="false">
+                <br>
+                <button id = "uploadProducts" style="float: left; background-color: whitesmoke; border-color: grey; color: black" type="button" class="btn btn-primary" aria-level="Left Align" ng-click="uploadProducts()">
+                Upload</button>
+            </div>
+        </ng-form>
     </div>
-    <!--</div>
-</div>-->
+    </div>
+</div>
 </div>
 
 
@@ -56,14 +71,15 @@
 
 <script src="../scripts/clotho/b18fc8c8.clotho-app-command.js"></script>
 <script src="../scripts/clotho/c0f113c2.clotho-core-module.js"></script>
-<!--note - remove all scripts below this for api-only build-->
 <script type='text/javascript' src="../scripts/clotho/b18fc8c8.clotho-app-command.js"></script>
 <script type='text/javascript' vsrc="../scripts/clotho/c0f113c2.clotho-core-module.js"></script>
 <script type='text/javascript' src="../scripts/clotho/c2a11f43.clotho-foundation-module.js"></script>
 <script src="../scripts/clotho/clotho3API.js"></script>
 <script src='../scripts/clotho/68a2b2df.clotho-command-module.js'></script>
 <script src="../scripts/angular.ng-modules.js"></script>
-
+<script src="../scripts/orderingController.js"></script>
+<script src="../scripts/jsBootstrap/ui-bootstrap-tpls-0.12.0.min.js"></script>
+<script src="../scripts/papaparse.min.js"></script>
 
 
 </body>
