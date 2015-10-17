@@ -453,6 +453,7 @@ public class ClothoAdaptor {
         return id;
     }
     // </editor-fold>
+    
     // <editor-fold defaultstate="collapsed" desc="Get Methods">
     public static Company getCompany(String id, Clotho clothoObject)
     {
@@ -633,10 +634,15 @@ public class ClothoAdaptor {
     // <editor-fold defaultstate="collapsed" desc="Query Methods">
         public static List<Company> queryCompany(Map query , Clotho clothoObject)
     {
+        //queries return a JSON array of maps
         query.put("schema", Company.class.getCanonicalName());
         List<Company> companies = new LinkedList<Company>();
         
+        JSONArray queryResults = (JSONArray) clothoObject.query(query);
         
+        for (int i = 0; i < queryResults.length(); i++){
+          companies.add(mapToCompany( (Map)queryResults.get(i), clothoObject));
+        }
         
         return companies;
         
@@ -647,6 +653,11 @@ public class ClothoAdaptor {
         query.put("schema", Container.class.getCanonicalName());
         List<Container> containers = new LinkedList<Container>();
         
+        JSONArray queryResults = (JSONArray) clothoObject.query(query);
+        
+        for (int i = 0; i < queryResults.length(); i++){
+          containers.add(mapToContainer( (Map)queryResults.get(i), clothoObject));
+        }
         
         
         return containers;
@@ -657,6 +668,12 @@ public class ClothoAdaptor {
         query.put("schema", Entry.class.getCanonicalName());
         List<Entry> entries = new LinkedList<Entry>();
         
+        JSONArray queryResults = (JSONArray) clothoObject.query(query);
+        
+        for (int i = 0; i < queryResults.length(); i++){
+          entries.add(mapToEntry( (Map)queryResults.get(i), clothoObject));
+        }
+        
         
         
         return entries;
@@ -666,6 +683,12 @@ public class ClothoAdaptor {
     {
         query.put("schema", FundingAgency.class.getCanonicalName());
         List<FundingAgency> fundingAgencies = new LinkedList<FundingAgency>();
+        
+        JSONArray queryResults = (JSONArray) clothoObject.query(query);
+        
+        for (int i = 0; i < queryResults.length(); i++){
+          fundingAgencies.add(mapToFundingAgency( (Map)queryResults.get(i), clothoObject));
+        }
         
         
         
@@ -678,6 +701,12 @@ public class ClothoAdaptor {
         query.put("schema", Grant.class.getCanonicalName());
         List<Grant> grants = new LinkedList<Grant>();
         
+        JSONArray queryResults = (JSONArray) clothoObject.query(query);
+        
+        for (int i = 0; i < queryResults.length(); i++){
+          grants.add(mapToGrant( (Map)queryResults.get(i), clothoObject));
+        }
+        
         
         
         return grants;
@@ -687,6 +716,12 @@ public class ClothoAdaptor {
     {
         query.put("schema", Institution.class.getCanonicalName());
         List<Institution> institutions = new LinkedList<Institution>();
+        
+        JSONArray queryResults = (JSONArray) clothoObject.query(query);
+        
+        for (int i = 0; i < queryResults.length(); i++){
+          institutions.add(mapToInstitution( (Map)queryResults.get(i), clothoObject));
+        }
         
         
         
@@ -698,6 +733,12 @@ public class ClothoAdaptor {
         query.put("schema", Instrument.class.getCanonicalName());
         List<Instrument> instruments = new LinkedList<Instrument>();
         
+        JSONArray queryResults = (JSONArray) clothoObject.query(query);
+        
+        for (int i = 0; i < queryResults.length(); i++){
+          instruments.add(mapToInstrument( (Map)queryResults.get(i), clothoObject));
+        }
+        
         
         
         return instruments;
@@ -708,6 +749,13 @@ public class ClothoAdaptor {
         query.put("schema", Notebook.class.getCanonicalName());
         List<Notebook> notebooks = new LinkedList<Notebook>();
         
+        JSONArray queryResults = (JSONArray) clothoObject.query(query);
+        
+        for (int i = 0; i < queryResults.length(); i++){
+          notebooks.add(mapToNotebook( (Map)queryResults.get(i), clothoObject));
+        }
+        
+        
         
         
         return notebooks;
@@ -716,6 +764,12 @@ public class ClothoAdaptor {
     {
         query.put("schema", Order.class.getCanonicalName());
         List<Order> orders = new LinkedList<Order>();
+        
+        JSONArray queryResults = (JSONArray) clothoObject.query(query);
+        
+        for (int i = 0; i < queryResults.length(); i++){
+          orders.add(mapToOrder( (Map)queryResults.get(i), clothoObject));
+        }
         
         
         
@@ -728,6 +782,13 @@ public class ClothoAdaptor {
         query.put("schema", Person.class.getCanonicalName());
         List<Person> people = new LinkedList<Person>();
         
+        JSONArray queryResults = (JSONArray) clothoObject.query(query);
+        
+        for (int i = 0; i < queryResults.length(); i++){
+          people.add(mapToPerson( (Map)queryResults.get(i), clothoObject));
+        }
+        
+        
         
         
         return people;
@@ -736,6 +797,12 @@ public class ClothoAdaptor {
     {
         query.put("schema", Product.class.getCanonicalName());
         List<Product> products = new LinkedList<Product>();
+        
+        JSONArray queryResults = (JSONArray) clothoObject.query(query);
+        
+        for (int i = 0; i < queryResults.length(); i++){
+          products.add(mapToProduct( (Map)queryResults.get(i), clothoObject));
+        }
         
         
         
@@ -747,6 +814,12 @@ public class ClothoAdaptor {
         query.put("schema", Project.class.getCanonicalName());
         List<Project> projects = new LinkedList<Project>();
         
+        JSONArray queryResults = (JSONArray) clothoObject.query(query);
+        
+        for (int i = 0; i < queryResults.length(); i++){
+          projects.add(mapToProject((Map)queryResults.get(i), clothoObject));
+        }
+        
         
         
         return projects;
@@ -757,6 +830,13 @@ public class ClothoAdaptor {
         query.put("schema", Protocol.class.getCanonicalName());
         List<Protocol> protocols = new LinkedList<Protocol>();
         
+        JSONArray queryResults = (JSONArray) clothoObject.query(query);
+        
+        for (int i = 0; i < queryResults.length(); i++){
+          protocols.add(mapToProtocol( (Map)queryResults.get(i), clothoObject));
+        }
+        
+        
         
         
         return protocols;
@@ -765,6 +845,12 @@ public class ClothoAdaptor {
     {
         query.put("schema", Publication.class.getCanonicalName());
         List<Publication> publications = new LinkedList<Publication>();
+        
+        JSONArray queryResults = (JSONArray) clothoObject.query(query);
+        
+        for (int i = 0; i < queryResults.length(); i++){
+          publications.add(mapToPublication( (Map)queryResults.get(i), clothoObject));
+        }
         
         
         
@@ -775,6 +861,13 @@ public class ClothoAdaptor {
         query.put("schema", Sample.class.getCanonicalName());
         List<Sample> samples = new LinkedList<Sample>();
         
+        JSONArray queryResults = (JSONArray) clothoObject.query(query);
+        
+        for (int i = 0; i < queryResults.length(); i++){
+          samples.add(mapToSample( (Map)queryResults.get(i), clothoObject));
+        }
+        
+        
         
         
         return samples;
@@ -784,6 +877,12 @@ public class ClothoAdaptor {
     {
         query.put("schema", Product.class.getCanonicalName());
         List<Status> statuses = new LinkedList<Status>();
+        
+        JSONArray queryResults = (JSONArray) clothoObject.query(query);
+        
+        for (int i = 0; i < queryResults.length(); i++){
+          statuses.add(mapToStatus( (Map)queryResults.get(i), clothoObject));
+        }
         
         
         
