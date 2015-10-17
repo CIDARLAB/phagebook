@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javax.swing.text.DateFormatter;
+import net.sf.json.JSON;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothocad.phagebook.dom.Company;
 import org.clothocad.phagebook.dom.Container;
@@ -41,6 +42,8 @@ import org.clothocad.phagebook.dom.Publication;
 import org.clothocad.phagebook.dom.Sample;
 import org.clothocad.phagebook.dom.Status;
 import org.json.JSONArray;
+import org.json.JSONObject;
+import net.sf.json.JSONNull;
 
 /**
  * @author Johan Ospina
@@ -455,21 +458,12 @@ public class ClothoAdaptor {
     {
         Map companyMap = new HashMap();
         companyMap = (Map) clothoObject.get(id);
-        //id is in the parameter
-        String contact = (String) companyMap.get("contact");
-        String name = (String) companyMap.get("name");
-        String description = (String) companyMap.get("description");
-        String phone = (String) companyMap.get("phone");
-        String url = (String) companyMap.get("url");
+        //id is in the parameter, not sent to map methods
+        Company company = mapToCompany(companyMap, clothoObject);
         
-        Company savedCompany = new Company(name);
-        savedCompany.setContact(contact);
-        savedCompany.setDescription(description);
-        savedCompany.setPhone(phone);
-        savedCompany.setUrl(url);
-        savedCompany.setId(id);
+        company.setId(id);
         
-        return savedCompany;
+        return company;
     }
     public static Container getContainer(String id, Clotho clothoObject)
     {
@@ -477,11 +471,7 @@ public class ClothoAdaptor {
         containerMap = (Map) clothoObject.get(id);
         
         //container properties
-        String name = (String) containerMap.get("name");
-        String description = (String) containerMap.get("description");
-        
-        Container container = new Container(name);
-        container.setDescription(description);
+        Container container = mapToContainer(containerMap, clothoObject);
         container.setId(id);
         
         
@@ -493,31 +483,9 @@ public class ClothoAdaptor {
         entryMap = (Map) clothoObject.get(id);
         
         //entry properties as strings
-        
-        String notebookId = (String) entryMap.get("notebook");
-        Notebook notebook = getNotebook(notebookId, clothoObject);
-        String dateCreatedText = (String) entryMap.get("dateCreated");
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy"); 
-        Date dateCreated = new Date();
-        try {
-            dateCreated = df.parse(dateCreatedText);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        String lastModifiedText = (String) entryMap.get("lastModified");
-        Date lastModified = new Date();
-        try {
-            lastModified = df.parse(lastModifiedText);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        String text = (String) entryMap.get("text");
-        String title = (String) entryMap.get("title");
-        Entry entry = new Entry(notebook, dateCreated, text, title);
+        Entry entry = mapToEntry(entryMap, clothoObject);
         entry.setId(id);
-       
-        entry.setLastModified(lastModified);
-        
+              
         return entry;
       
     }
@@ -526,18 +494,9 @@ public class ClothoAdaptor {
         Map fundingAgencyMap = new HashMap();
         fundingAgencyMap = (Map) clothoObject.get(id);
         
-        String name = (String) fundingAgencyMap.get("name");
-        String description = (String) fundingAgencyMap.get("description");
-        String phone = (String) fundingAgencyMap.get("phone");
-        String url = (String) fundingAgencyMap.get("url");
-        
-        FundingAgency fundingAgency = new FundingAgency(name);
+        FundingAgency fundingAgency = mapToFundingAgency(fundingAgencyMap, clothoObject);
         fundingAgency.setId(id);
-        fundingAgency.setPhone(phone);
-        fundingAgency.setUrl(url);
-        fundingAgency.setDescription(description);
-    
-        
+          
         return fundingAgency;
        
     }
@@ -547,18 +506,394 @@ public class ClothoAdaptor {
         Map grantMap = new HashMap();
         grantMap = (Map) clothoObject.get(id);
         
-        String name = (String) grantMap.get("name");
-        String leadPIid = (String) grantMap.get("leadPI");
-        Person leadPI = getPerson(id, clothoObject);
-        JSONArray coPIids = (JSONArray) grantMap.get("coPIs");
+        Grant grant = mapToGrant(grantMap, clothoObject);
+        grant.setId(id);
+        
+        return grant;
+
+    }
+    public static Institution getInstitution(String id, Clotho clothoObject)
+    {
+        Map institutionMap = new HashMap();
+        institutionMap = (Map) clothoObject.get(id);
+        
+        //id provided
+        Institution institution = mapToInstitution(institutionMap, clothoObject);
+        institution.setId(id);
+                        
+        return institution;
+    }
+    public static Instrument getInstrument(String id, Clotho clothoObject)
+    {
+        
+        Map instrumentMap = new HashMap();
+        instrumentMap = (Map) clothoObject.get(id);
+        
+        Instrument instrument = mapToInstrument(instrumentMap, clothoObject);
+        instrument.setId(id);
+        
+        
+        return instrument;
+        
+    }
+    public static Notebook getNotebook(String id, Clotho clothoObject)
+    {
+        Map notebookMap = new HashMap();
+        notebookMap = (Map) clothoObject.get(id);
+        Notebook notebook = mapToNotebook(notebookMap, clothoObject);
+        notebook.setId(id);
+        
+        return notebook;
+    }
+    public static Order getOrder(String id, Clotho clothoObject)
+    {
+        Map orderMap = new HashMap();
+        orderMap = (Map) clothoObject.get(id);
+        
+        Order order = mapToOrder(orderMap, clothoObject);
+        order.setId(id);
+        return order;
+    }
+    
+    public static Person getPerson(String id, Clotho clothoObject)
+    {
+        
+        Map personMap = new HashMap();
+        personMap = (Map) clothoObject.get(id);
+        
+        Person person = mapToPerson(personMap, clothoObject);
+        person.setId(id);
+         
+        return person;
+    }
+    public static Product getProduct(String id, Clotho clothoObject)
+    {
+        Map productMap = new HashMap();
+        productMap = (Map) clothoObject.get(id);
+        
+        Product product = mapToProduct(productMap, clothoObject);
+        product.setId(id);
+        
+        return product;
+        
+    }
+    public static Project getProject(String id, Clotho clothoObject)
+    {
+        Map projectMap = new HashMap();
+        projectMap = (Map) clothoObject.get(id);
+        
+        Project project = mapToProject(projectMap, clothoObject);
+        project.setId(id);
+        
+        
+        return project;
+           
+    }
+    public static Protocol getProtocol(String id, Clotho clothoObject)
+    {
+        
+        Map protocolMap = new HashMap();
+        protocolMap = (Map) clothoObject.get(id);
+        
+        Protocol protocol = mapToProtocol(protocolMap, clothoObject);
+        protocol.setId(id);
+        return protocol;
+        
+    }
+    public static Publication getPublication(String id, Clotho clothoObject)
+    {
+        Map publicationMap = new HashMap();
+        publicationMap = (Map) clothoObject.get(id);
+        Publication publication = mapToPublication(publicationMap, clothoObject);
+        publication.setId(id);
+        return publication;
+    }
+    public static Sample getSample(String id, Clotho clothoObject)
+    {
+        Map sampleMap = new HashMap();
+        sampleMap = (Map) clothoObject.get(id);
+        
+        //instrument properties
+        Sample sample = mapToSample(sampleMap, clothoObject);
+        sample.setId(id);
+               
+        return sample;
+        
+    }
+    public static Status getStatus(String id, Clotho clothoObject)
+    {
+        Map statusMap = new HashMap();
+        statusMap = (Map) clothoObject.get(id);
+        Status status = mapToStatus(statusMap, clothoObject);
+        status.setId(id);
+        return status;
+    }  
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Query Methods">
+        public static List<Company> queryCompany(Map query , Clotho clothoObject)
+    {
+        query.put("schema", Company.class.getCanonicalName());
+        List<Company> companies = new LinkedList<Company>();
+        
+        
+        
+        return companies;
+        
+        
+    }
+    public static List<Container> queryContainer(Map query , Clotho clothoObject)
+    {
+        query.put("schema", Container.class.getCanonicalName());
+        List<Container> containers = new LinkedList<Container>();
+        
+        
+        
+        return containers;
+        
+    }
+    public static List<Entry> queryEntry(Map query , Clotho clothoObject)
+    {
+        query.put("schema", Entry.class.getCanonicalName());
+        List<Entry> entries = new LinkedList<Entry>();
+        
+        
+        
+        return entries;
+      
+    }
+    public static List<FundingAgency> queryFundingAgency(Map query , Clotho clothoObject)
+    {
+        query.put("schema", FundingAgency.class.getCanonicalName());
+        List<FundingAgency> fundingAgencies = new LinkedList<FundingAgency>();
+        
+        
+        
+        return fundingAgencies;
+       
+    }
+    //good is abstract, can't be gotten
+    public static List<Grant> queryGrant(Map query , Clotho clothoObject)
+    {
+        query.put("schema", Grant.class.getCanonicalName());
+        List<Grant> grants = new LinkedList<Grant>();
+        
+        
+        
+        return grants;
+
+    }
+    public static List<Institution> queryInstitution(Map query , Clotho clothoObject)
+    {
+        query.put("schema", Institution.class.getCanonicalName());
+        List<Institution> institutions = new LinkedList<Institution>();
+        
+        
+        
+        return institutions;
+    }
+    public static List<Instrument> queryInstrument(Map query , Clotho clothoObject)
+    {
+        
+        query.put("schema", Instrument.class.getCanonicalName());
+        List<Instrument> instruments = new LinkedList<Instrument>();
+        
+        
+        
+        return instruments;
+        
+    }
+    public static List<Notebook> queryNotebook(Map query , Clotho clothoObject)
+    {
+        query.put("schema", Notebook.class.getCanonicalName());
+        List<Notebook> notebooks = new LinkedList<Notebook>();
+        
+        
+        
+        return notebooks;
+    }
+    public static List<Order> queryOrder(Map query , Clotho clothoObject)
+    {
+        query.put("schema", Order.class.getCanonicalName());
+        List<Order> orders = new LinkedList<Order>();
+        
+        
+        
+        return orders;
+    }
+    
+    public static List<Person> queryPerson(Map query , Clotho clothoObject)
+    {
+        
+        query.put("schema", Person.class.getCanonicalName());
+        List<Person> people = new LinkedList<Person>();
+        
+        
+        
+        return people;
+    }
+    public static List<Product> queryProduct(Map query , Clotho clothoObject)
+    {
+        query.put("schema", Product.class.getCanonicalName());
+        List<Product> products = new LinkedList<Product>();
+        
+        
+        
+        return products;
+        
+    }
+    public static List<Project> queryProject(Map query , Clotho clothoObject)
+    {
+        query.put("schema", Project.class.getCanonicalName());
+        List<Project> projects = new LinkedList<Project>();
+        
+        
+        
+        return projects;
+           
+    }
+    public static List<Protocol> queryProtocol(Map query , Clotho clothoObject)
+    {
+        query.put("schema", Protocol.class.getCanonicalName());
+        List<Protocol> protocols = new LinkedList<Protocol>();
+        
+        
+        
+        return protocols;
+    }
+    public static List<Publication> queryPublication(Map query , Clotho clothoObject)
+    {
+        query.put("schema", Publication.class.getCanonicalName());
+        List<Publication> publications = new LinkedList<Publication>();
+        
+        
+        
+        return publications;
+    }
+    public static List<Sample> querySample(Map query , Clotho clothoObject)
+    {
+        query.put("schema", Sample.class.getCanonicalName());
+        List<Sample> samples = new LinkedList<Sample>();
+        
+        
+        
+        return samples;
+        
+    }
+    public static List<Status> queryStatus(Map query , Clotho clothoObject)
+    {
+        query.put("schema", Product.class.getCanonicalName());
+        List<Status> statuses = new LinkedList<Status>();
+        
+        
+        
+        return statuses;
+    }  
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Map Methods">
+    public static Company mapToCompany(Map map, Clotho clothoObject)
+    {
+        //id is in the parameter
+        Object contactResult = map.get("contact");
+        if (map.containsKey("contact"))
+                System.out.println("I'm am here feat. Prashant.");
+        else
+               System.out.println("not working");
+        
+        if (contactResult == JSONNull.getInstance() ){
+            System.out.println("I'M HERE");
+        }
+        
+        String name = (String) map.get("name");
+        String description = (String) map.get("description");
+        String phone = (String) map.get("phone");
+        String url = (String) map.get("url");
+        
+        Company savedCompany = new Company(name);
+//        savedCompany.setContact(contact);
+        savedCompany.setDescription(description);
+        savedCompany.setPhone(phone);
+        savedCompany.setUrl(url);
+               
+        return savedCompany;
+    }
+    public static Container mapToContainer(Map map, Clotho clothoObject)
+    {
+        
+        
+        //container properties except the id property
+        String name = (String) map.get("name");
+        String description = (String) map.get("description");
+        
+        Container container = new Container(name);
+        container.setDescription(description);
+        
+        
+        
+        return container;
+    }
+    public static Entry mapToEntry(Map map, Clotho clothoObject)
+    {
+       
+        
+        String notebookId = (String) map.get("notebook");
+        Notebook notebook = getNotebook(notebookId, clothoObject);
+        String dateCreatedText = (String) map.get("dateCreated");
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy"); 
+        Date dateCreated = new Date();
+        try {
+            dateCreated = df.parse(dateCreatedText);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String lastModifiedText = (String) map.get("lastModified");
+        Date lastModified = new Date();
+        try {
+            lastModified = df.parse(lastModifiedText);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String text = (String) map.get("text");
+        String title = (String) map.get("title");
+        Entry entry = new Entry(notebook, dateCreated, text, title);
+       
+        entry.setLastModified(lastModified);
+        
+        return entry;
+      
+    }
+    public static FundingAgency mapToFundingAgency(Map map, Clotho clothoObject)
+    {
+        String name = (String) map.get("name");
+        String description = (String) map.get("description");
+        String phone = (String) map.get("phone");
+        String url = (String) map.get("url");
+        
+        FundingAgency fundingAgency = new FundingAgency(name);
+        fundingAgency.setPhone(phone);
+        fundingAgency.setUrl(url);
+        fundingAgency.setDescription(description);
+    
+        
+        return fundingAgency;
+       
+    }
+    //good is abstract, can't be gotten
+    public static Grant mapToGrant(Map map, Clotho clothoObject)
+    {
+        String name = (String) map.get("name");
+        String leadPIid = (String) map.get("leadPI");
+        Person leadPI = getPerson(leadPIid, clothoObject);
+        JSONArray coPIids = (JSONArray) map.get("coPIs");
         List<Person> coPIs = new LinkedList<Person>() ;
         for (int i = 0; i < coPIids.length(); i++){
             coPIs.add(getPerson(coPIids.getString(i) , clothoObject));
         }
         
-        String programManager = (String) grantMap.get("programManager");
+        String programManager = (String) map.get("programManager");
         
-        String startDateText = (String) grantMap.get("startDate");
+        String startDateText = (String) map.get("startDate");
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy"); 
         Date startDate = new Date();
         try {
@@ -566,7 +901,7 @@ public class ClothoAdaptor {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        String endDateText = (String) grantMap.get("endDate");
+        String endDateText = (String) map.get("endDate");
         Date endDate = new Date();
         try {
             endDate = df.parse(endDateText);
@@ -574,16 +909,16 @@ public class ClothoAdaptor {
             e.printStackTrace();
         }
        
-        Double budget = Double.parseDouble((String) grantMap.get("budget"));
-        Double amountSpent = Double.parseDouble((String) grantMap.get("amountSpent"));
+        Double budget = Double.parseDouble((String) map.get("budget"));
+        Double amountSpent = Double.parseDouble((String) map.get("amountSpent"));
         
-        JSONArray projectIds = (JSONArray) grantMap.get("projects");
+        JSONArray projectIds = (JSONArray) map.get("projects");
         List<Project> projects = new LinkedList<Project>();
         for (int i = 0; i < projectIds.length(); i++){
             projects.add(getProject(projectIds.getString(i), clothoObject));
         }
         
-        String description = (String) grantMap.get("description");
+        String description = (String) map.get("description");
         
         Grant grant = new Grant();
         grant.setName(name);
@@ -600,19 +935,15 @@ public class ClothoAdaptor {
         return grant;
 
     }
-    public static Institution getInstitution(String id, Clotho clothoObject)
+    public static Institution mapToInstitution(Map map, Clotho clothoObject)
     {
-        Map institutionMap = new HashMap();
-        institutionMap = (Map) clothoObject.get(id);
-        
         //id provided
-        String name = (String) institutionMap.get("name");
-        String description = (String) institutionMap.get("description");
-        String phone = (String) institutionMap.get("phone");
-        String url = (String) institutionMap.get("url");
+        String name = (String) map.get("name");
+        String description = (String) map.get("description");
+        String phone = (String) map.get("phone");
+        String url = (String) map.get("url");
         
         Institution institution = new Institution(name);
-        institution.setId(id);
         institution.setPhone(phone);
         institution.setUrl(url);
         institution.setDescription(description);
@@ -621,41 +952,36 @@ public class ClothoAdaptor {
         
         return institution;
     }
-    public static Instrument getInstrument(String id, Clotho clothoObject)
+    public static Instrument mapToInstrument(Map map, Clotho clothoObject)
     {
         
-        Map instrumentMap = new HashMap();
-        instrumentMap = (Map) clothoObject.get(id);
-        
+              
         //instrument properties
-        String name = (String) instrumentMap.get("name");
-        String description = (String) instrumentMap.get("description");
+        String name = (String) map.get("name");
+        String description = (String) map.get("description");
         
         Instrument instrument = new Instrument(name);
         instrument.setDescription(description);
-        instrument.setId(id);
-        
-        
+               
         return instrument;
         
     }
-    public static Notebook getNotebook(String id, Clotho clothoObject)
+    public static Notebook mapToNotebook(Map map, Clotho clothoObject)
     {
-        Map notebookMap = new HashMap();
-        notebookMap = (Map) clothoObject.get(id);
+       
         
-        String ownerId = (String) notebookMap.get("owner");
+        String ownerId = (String) map.get("owner");
         Person owner = getPerson(ownerId, clothoObject);
-        JSONArray entriesIds = (JSONArray) notebookMap.get("entries");
+        JSONArray entriesIds = (JSONArray) map.get("entries");
         List<Entry> entries = new LinkedList<Entry>() ;
         for (int i = 0; i < entriesIds.length(); i++){
             entries.add(getEntry(entriesIds.getString(i) , clothoObject));
         }
         
-        String affiliatedProjectId = (String) notebookMap.get("affiliatedProject");
+        String affiliatedProjectId = (String) map.get("affiliatedProject");
         Project affiliatedProject = getProject(affiliatedProjectId, clothoObject);
         
-        String dateCreatedText = (String) notebookMap.get("dateCreated");
+        String dateCreatedText = (String) map.get("dateCreated");
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy"); 
         Date dateCreated = new Date();
         try {
@@ -666,74 +992,65 @@ public class ClothoAdaptor {
         
         Notebook notebook = new Notebook(owner, affiliatedProject, dateCreated);
         notebook.setEntries(entries);
-        notebook.setId(id);
-        
+                
         return notebook;
     }
-    public static Order getOrder(String id, Clotho clothoObject)
+    public static Order mapToOrder(Map map, Clotho clothoObject)
     {
-        Map orderMap = new HashMap();
-        orderMap = (Map) clothoObject.get(id);
+        String name = (String) map.get("name");
         
-        String name = (String) orderMap.get("name");
-        
-        JSONArray productIds = (JSONArray) orderMap.get("products");
+        JSONArray productIds = (JSONArray) map.get("products");
         List<Product> products = new LinkedList<Product>() ;
         for (int i = 0; i < productIds.length(); i++){
             products.add(getProduct(productIds.getString(i) , clothoObject));
         }
         
         Order order = new Order(name);
-        order.setId(id);
         order.setProducts(products);
         
         return order;
     }
     
-    public static Person getPerson(String id, Clotho clothoObject)
+    public static Person mapToPerson(Map map, Clotho clothoObject)
     {
         
-        Map personMap = new HashMap();
-        personMap = (Map) clothoObject.get(id);
-        
-        
-        JSONArray projectIds = (JSONArray) personMap.get("projects");
+        JSONArray projectIds = (JSONArray) map.get("projects");
         List<Project> projects = new LinkedList<Project>() ;
         for (int i = 0; i < projectIds.length(); i++){
             projects.add(getProject(projectIds.getString(i) , clothoObject));
         }
         
-        JSONArray statusIds = (JSONArray) personMap.get("statuses");
+        JSONArray statusIds = (JSONArray) map.get("statuses");
         List<Status> statuses = new LinkedList<Status>() ;
         for (int i = 0; i < statusIds.length(); i++){
             statuses.add(getStatus(statusIds.getString(i) , clothoObject));
         }
         
-        JSONArray notebookIds = (JSONArray) personMap.get("notebooks");
+        JSONArray notebookIds = (JSONArray) map.get("notebooks");
         List<Notebook> notebooks = new LinkedList<Notebook>() ;
         for (int i = 0; i < notebookIds.length(); i++){
             notebooks.add(getNotebook(notebookIds.getString(i) , clothoObject));
         }
         
-        JSONArray labIds = (JSONArray) personMap.get("labs");
+        JSONArray labIds = (JSONArray) map.get("labs");
         List<Institution> labs = new LinkedList<Institution>() ;
         for (int i = 0; i < labIds.length(); i++){
             labs.add(getInstitution(labIds.getString(i) , clothoObject));
         }
         
-        JSONArray colleagueIds = (JSONArray) personMap.get("colleagues");
+        JSONArray colleagueIds = (JSONArray) map.get("colleagues");
         List<Person> colleagues = new LinkedList<Person>() ;
         for (int i = 0; i < colleagueIds.length(); i++){
             colleagues.add(getPerson(colleagueIds.getString(i) , clothoObject));
         }
         
-        JSONArray orderIds = (JSONArray) personMap.get("orders");
+        JSONArray orderIds = (JSONArray) map.get("orders");
         List<Order> orders = new LinkedList<Order>() ;
         for (int i = 0; i < orderIds.length(); i++){
             orders.add(getOrder(orderIds.getString(i) , clothoObject));
         }
         
-        JSONArray publicationIds = (JSONArray) personMap.get("publications");
+        JSONArray publicationIds = (JSONArray) map.get("publications");
         List<Publication> publications = new LinkedList<Publication>() ;
         for (int i = 0; i < publicationIds.length(); i++){
             publications.add(getPublication(publicationIds.getString(i) , clothoObject));
@@ -761,10 +1078,9 @@ public class ClothoAdaptor {
         person.setColleagues(colleagues);
         person.setOrders(orders);
         person.setPublications(publications);
-        person.setId(id);
-        
+            
         Map rolesMap = new HashMap();
-        rolesMap = (Map)personMap.get("roles");
+        rolesMap = (Map)map.get("roles");
         for(int i=0;i<labs.size();i++){
             JSONArray labroles = new JSONArray();
             labroles = (JSONArray)rolesMap.get(labs.get(i).getId());
@@ -776,18 +1092,19 @@ public class ClothoAdaptor {
         
         return person;
     }
-    public static Product getProduct(String id, Clotho clothoObject)
+    public static Product mapToProduct(Map map, Clotho clothoObject)
     {
-        Map productMap = new HashMap();
-        productMap = (Map) clothoObject.get(id);
-        String name = (String) productMap.get("name");
-        String description = (String) productMap.get("description");
-        String productURL = (String) productMap.get("productURL");
-        String companyId = (String) productMap.get("company");
-        Company company = getCompany(companyId, clothoObject);
-        GoodType goodType = GoodType.valueOf((String) productMap.get("goodType"));
-        double cost = Double.parseDouble((String) productMap.get("cost"));
-        int quantity = Integer.parseInt((String) productMap.get("quantity"));
+        String name = (String) map.get("name");
+        String description = (String) map.get("description");
+        String productURL = (String) map.get("productURL");
+        String companyId = (String) map.get("company");
+        Company company = null;
+        if (companyId != null){
+            company = getCompany(companyId, clothoObject);
+        }
+        GoodType goodType = GoodType.valueOf((String) map.get("goodType"));
+        double cost = Double.parseDouble((String) map.get("cost"));
+        int quantity = Integer.parseInt((String) map.get("quantity"));
         
         Product product = new Product(name, company, cost);
         product.setDescription(description);
@@ -797,38 +1114,36 @@ public class ClothoAdaptor {
         return product;
         
     }
-    public static Project getProject(String id, Clotho clothoObject)
+    public static Project mapToProject(Map map, Clotho clothoObject)
     {
-        Map projectMap = new HashMap();
-        projectMap = (Map) clothoObject.get(id);
-        
-        String creatorId = (String) projectMap.get("creator");
+             
+        String creatorId = (String) map.get("creator");
         
         Person creator = getPerson(creatorId, clothoObject);
         
-        String leadId = (String) projectMap.get("lead");
+        String leadId = (String) map.get("lead");
         
         Person lead = getPerson(leadId, clothoObject);
         
         List<Person> members = new LinkedList<Person>() ;
         
-        JSONArray memberIds = (JSONArray) projectMap.get("members");
+        JSONArray memberIds = (JSONArray) map.get("members");
         
         List<Notebook> notebooks = new LinkedList<Notebook>() ;
         
         List<Organization> affiliatedLabs = new LinkedList<Organization>() ;
         
-        String name = (String) projectMap.get("name");
+        String name = (String) map.get("name");
         
         Date dateCreated = new Date();
         
         List<Status> updates = new LinkedList<Status>() ;
         
-        Double budget = Double.parseDouble((String) projectMap.get("budget"));
+        Double budget = Double.parseDouble((String) map.get("budget"));
         
-        String description = (String) projectMap.get("description");
+        String description = (String) map.get("description");
         
-        String grantId = (String) projectMap.get("grant");
+        String grantId = (String) map.get("grant");
         
         Grant grant = getGrant(grantId, clothoObject);
         
@@ -837,13 +1152,13 @@ public class ClothoAdaptor {
             members.add(getPerson(memberIds.getString(i) , clothoObject));
         }
         
-        JSONArray notebookIds = (JSONArray) projectMap.get("notebooks");
+        JSONArray notebookIds = (JSONArray) map.get("notebooks");
         
         for (int i = 0; i < notebookIds.length(); i++){
             notebooks.add(getNotebook(notebookIds.getString(i) , clothoObject));
         }
         
-        JSONArray affiliatedLabIds = (JSONArray) projectMap.get("affiliatedLabs");
+        JSONArray affiliatedLabIds = (JSONArray) map.get("affiliatedLabs");
         
         for (int i = 0; i < affiliatedLabIds.length(); i++){
             affiliatedLabs.add(getInstitution(affiliatedLabIds.getString(i) , clothoObject));
@@ -851,7 +1166,7 @@ public class ClothoAdaptor {
         
         
         
-        String dateCreatedText = (String) projectMap.get("dateCreated");
+        String dateCreatedText = (String) map.get("dateCreated");
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy"); 
         
         try {
@@ -860,7 +1175,7 @@ public class ClothoAdaptor {
             e.printStackTrace();
         }
         
-        JSONArray updateIds = (JSONArray) projectMap.get("updates");
+        JSONArray updateIds = (JSONArray) map.get("updates");
        
         for (int i = 0; i < updateIds.length(); i++){
             updates.add(getStatus(updateIds.getString(i) , clothoObject));
@@ -869,8 +1184,7 @@ public class ClothoAdaptor {
         Project project = new Project(dateCreated, creator, name, null, 
         lead, budget, grant, description);
         
-        project.setId(id);
-        
+            
         project.setMembers(members);
         project.setUpdates(updates);
         project.setAffiliatedLabs(affiliatedLabs);
@@ -879,11 +1193,8 @@ public class ClothoAdaptor {
         
         return project;
      
-       
-        
-       
     }
-    public static Protocol getProtocol(String id, Clotho clothoObject)
+    public static Protocol mapToProtocol(Map map, Clotho clothoObject)
     {
         /**
          * creator       : Person
@@ -892,21 +1203,18 @@ public class ClothoAdaptor {
          * samples       : List<Samples>
          * id            : String
          */
-        Map protocolMap = new HashMap();
-        protocolMap = (Map) clothoObject.get(id);
-        
-        String creatorId = (String) protocolMap.get("creatorId");
+        String creatorId = (String) map.get("creatorId");
         Person creator = getPerson(creatorId, clothoObject);
-        String protocolName = (String) protocolMap.get("protocolName");
+        String protocolName = (String) map.get("protocolName");
         
         
-        JSONArray equipmentIds = (JSONArray) protocolMap.get("equipment");
+        JSONArray equipmentIds = (JSONArray) map.get("equipment");
         List<Instrument> equipment = new LinkedList<Instrument>() ;
         for (int i = 0; i < equipmentIds.length(); i++){
             equipment.add(getInstrument(equipmentIds.getString(i) , clothoObject));
         }
         
-        JSONArray sampleIds = (JSONArray) protocolMap.get("samples");
+        JSONArray sampleIds = (JSONArray) map.get("samples");
         List<Sample> samples = new LinkedList<Sample>() ;
         for (int i = 0; i < equipmentIds.length(); i++){
             samples.add(getSample(sampleIds.getString(i) , clothoObject));
@@ -921,44 +1229,34 @@ public class ClothoAdaptor {
         return protocol;
         
     }
-    public static Publication getPublication(String id, Clotho clothoObject)
+    public static Publication mapToPublication(Map map, Clotho clothoObject)
     {
-        Map publicationMap = new HashMap();
-        publicationMap = (Map) clothoObject.get(id);
+        
         Publication publication = new Publication();
-        publication.setId(id);
         return publication;
     }
-    public static Sample getSample(String id, Clotho clothoObject)
+    public static Sample mapToSample(Map map, Clotho clothoObject)
     {
-        Map sampleMap = new HashMap();
-        sampleMap = (Map) clothoObject.get(id);
-        
         //instrument properties
-        String name = (String) sampleMap.get("name");
-        String description = (String) sampleMap.get("description");
+        String name = (String) map.get("name");
+        String description = (String) map.get("description");
         
         Sample sample = new Sample(name);
         sample.setDescription(description);
-        sample.setId(id);
+        
         
         
         return sample;
         
     }
-    public static Status getStatus(String id, Clotho clothoObject)
+    public static Status mapToStatus(Map map, Clotho clothoObject)
     {
-        Map statusMap = new HashMap();
-        statusMap = (Map) clothoObject.get(id);
+        
         Status status = new Status();
-        status.setId(id);
         return status;
     }  
     // </editor-fold>
     
-    // <editor-fold defaultstate="collapsed" desc="Query Methods">
-    
-    // </editor-fold>
     //  <editor-fold defaultstate="collapsed" desc="Misc Methods">
     public static void makePublic(String objectId, Clotho clothoObject){
         List<String> add = new ArrayList<String>();
