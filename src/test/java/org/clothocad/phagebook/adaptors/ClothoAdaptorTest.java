@@ -95,7 +95,7 @@ public class ClothoAdaptorTest {
         Map grantResult = new HashMap();
         grantResult = (Map)(clothoObject.grant(grantMap));
         // make this a function.
-        Company comp = (Company) ClothoAdaptor.getCompany("",clothoObject);
+        //Company comp = (Company) ClothoAdaptor.getCompany("",clothoObject);
          
        conn.closeConnection();
                 

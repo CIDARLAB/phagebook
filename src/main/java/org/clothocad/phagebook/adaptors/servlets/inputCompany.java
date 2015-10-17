@@ -31,15 +31,17 @@ import org.json.JSONObject;
  */
 public class inputCompany extends HttpServlet {
 
+    @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         PrintWriter writer = response.getWriter();
-        System.out.println("Request :: " + request.getParameter("list"));
+        //System.out.println("Request :: " + request.getParameter("list"));
         JSONObject papaParseData = new JSONObject(request.getParameter("list"));
         JSONArray data = new JSONArray();
         data = (JSONArray) papaParseData.get("data");
+        
         List<Product> products = new ArrayList<Product>();
         products = OrderController.getProducts(data);
-
+        
         ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
         Clotho clothoObject = new Clotho(conn);
         Map createUserMap = new HashMap();
@@ -47,8 +49,7 @@ public class inputCompany extends HttpServlet {
         createUserMap.put("username", username);
         createUserMap.put("password", "password");
 
-        Map resultCreateUser = (Map)clothoObject.createUser(createUserMap);
-        System.out.println("Create User result" + resultCreateUser);
+        clothoObject.createUser(createUserMap);
         Map loginMap = new HashMap();
         loginMap.put("username", username);
         loginMap.put("credentials", "password");
@@ -59,6 +60,7 @@ public class inputCompany extends HttpServlet {
             ClothoAdaptor.createProduct(product, clothoObject);
         }
         conn.closeConnection();
+        //writer.println("Done!");
         writer.println(products.size() + " products created");
         writer.flush();
         writer.close();

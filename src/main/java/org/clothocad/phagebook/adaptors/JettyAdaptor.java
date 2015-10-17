@@ -9,8 +9,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
-//import org.eclipse.jetty.server.Server;
-//import org.eclipse.jetty.webapp.WebAppContext;
 
 /**
  *
@@ -18,6 +16,7 @@ import org.eclipse.jetty.webapp.WebAppContext;
  */
 public class JettyAdaptor {
     public static void main(String[] args) {
+      
         Server server = new Server(9090);
         try {
             
@@ -35,5 +34,6 @@ public class JettyAdaptor {
         } catch (Exception ex) {
             Logger.getLogger(JettyAdaptor.class.getName()).log(Level.SEVERE, null, ex);
         }
+                
     }
 }

@@ -14,6 +14,7 @@ orderingModule.controller('orderingController',function($scope,Clotho,$modal){
                     $.ajax({
                         url: "inputCompany",
                         type: "POST",
+                        async: false,
                         data: {
                             "list" : JSON.stringify(companyJSON)
                         },

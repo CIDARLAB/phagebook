@@ -20,14 +20,23 @@
     </build>
     
     <dependencies>
-        
-        
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-util</artifactId>
+            <version>8.1.10.v20130312</version>
+        </dependency>
+      
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-webapp</artifactId>
-            <version>9.3.3.v20150827</version>
+            <version>8.1.10.v20130312</version>
         </dependency>
-       
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-server</artifactId>
+            <version>8.1.10.v20130312</version>
+        </dependency>
+
         
         <dependency>
             <groupId>org.json</groupId>
