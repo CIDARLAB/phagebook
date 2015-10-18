@@ -5,6 +5,7 @@
  */
 package org.clothocad.phagebook.dom;
 
+import java.util.Date;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,5 +15,14 @@ import lombok.Setter;
  */
 public class Status{
     @Getter @Setter private String id;
+    @Getter @Setter private String text;
+    @Getter @Setter private Person user;
+    @Getter @Setter private Date created;
     
+    public Status(String message, Person creator, Date created){
+    this.text = message;
+    this.user = creator;
+    this.created = created;
+    }
 }
+
