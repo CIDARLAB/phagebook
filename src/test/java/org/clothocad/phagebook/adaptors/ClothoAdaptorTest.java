@@ -70,6 +70,7 @@ public class ClothoAdaptorTest {
        loginMap.put("credentials", "password");
        
        System.out.println("Login Map " + loginMap);
+       
        clothoObject.login(loginMap);
        
        Company amazon = new Company("Amazon");

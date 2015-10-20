@@ -55,14 +55,20 @@ public class ClothoAdaptor {
     {
         String id = "";
         Map map = new HashMap();
-        map.put("contact", company.getContact());
+        if (company.getContact() != null || company.getContact() != ""){
+            map.put("contact", company.getContact());
+        }
         if (company.getId() != null) {
             map.put("id", company.getId());
         }
         map.put("name", company.getName());
         map.put("description", company.getDescription());
-        map.put("phone", company.getPhone());
-        map.put("url", company.getUrl());
+        if (company.getPhone() != null || company.getContact() != ""){
+            map.put("phone", company.getPhone());
+        }
+        if (company.getUrl() != null || company.getUrl() != ""){
+            map.put("url", company.getUrl());
+        }
         id = (String) clothoObject.set(map);
         company.setId(id);
         makePublic(id, clothoObject);
@@ -347,6 +353,10 @@ public class ClothoAdaptor {
         }
         map.put("publications", publications);
         
+        map.put("firstName", person.getFirstName());
+        map.put("lastName", person.getLastName());
+        map.put("emailId", person.getEmailId());
+        map.put("password", person.getPassword());
        
         
         id = (String) clothoObject.set(map);
@@ -894,23 +904,38 @@ public class ClothoAdaptor {
     public static Company mapToCompany(Map map, Clotho clothoObject)
     {
         //id is in the parameter
-        Object contactResult = map.get("contact");
-        if (map.containsKey("contact"))
-                System.out.println("I'm am here feat. Prashant.");
-        else
-               System.out.println("not working");
+        String contact = "";
+        if (map.containsKey("contact")){
+             contact = (String) map.get("contact");
+        }
+       
+        String name = "";
         
-        if (contactResult == JSONNull.getInstance() ){
-            System.out.println("I'M HERE");
+        if (map.containsKey("name")){
+             name = (String) map.get("name");
         }
         
-        String name = (String) map.get("name");
-        String description = (String) map.get("description");
-        String phone = (String) map.get("phone");
-        String url = (String) map.get("url");
+        String description = "";
+        
+        if (map.containsKey("name")){
+             description = (String) map.get("description");;
+        }
+         
+        String phone = "";
+        
+        if (map.containsKey("phone")){
+             phone = (String) map.get("phone");;
+        }
+        
+        String url = "";
+        
+        if (map.containsKey("url")){
+             url = (String) map.get("url");;
+        }
+        
         
         Company savedCompany = new Company(name);
-//        savedCompany.setContact(contact);
+        savedCompany.setContact(contact);
         savedCompany.setDescription(description);
         savedCompany.setPhone(phone);
         savedCompany.setUrl(url);
@@ -1112,49 +1137,70 @@ public class ClothoAdaptor {
     
     public static Person mapToPerson(Map map, Clotho clothoObject)
     {
-        
-        JSONArray projectIds = (JSONArray) map.get("projects");
+        JSONArray projectIds = new JSONArray();
         List<Project> projects = new LinkedList<Project>() ;
-        for (int i = 0; i < projectIds.length(); i++){
-            projects.add(getProject(projectIds.getString(i) , clothoObject));
+        if ( map.containsKey("projects")){
+            projectIds = (JSONArray) map.get("projects");
+            
+            for (int i = 0; i < projectIds.length(); i++){
+                projects.add(getProject(projectIds.getString(i) , clothoObject));
+            }
         }
-        
-        JSONArray statusIds = (JSONArray) map.get("statuses");
+        JSONArray statusIds = new JSONArray();
         List<Status> statuses = new LinkedList<Status>() ;
-        for (int i = 0; i < statusIds.length(); i++){
-            statuses.add(getStatus(statusIds.getString(i) , clothoObject));
+        if ( map.containsKey("statuses")){
+            statusIds = (JSONArray) map.get("statuses");
+            
+            for (int i = 0; i < statusIds.length(); i++){
+                statuses.add(getStatus(statusIds.getString(i) , clothoObject));
+            }
         }
-        
-        JSONArray notebookIds = (JSONArray) map.get("notebooks");
+        JSONArray notebookIds = new JSONArray();
         List<Notebook> notebooks = new LinkedList<Notebook>() ;
-        for (int i = 0; i < notebookIds.length(); i++){
-            notebooks.add(getNotebook(notebookIds.getString(i) , clothoObject));
-        }
         
-        JSONArray labIds = (JSONArray) map.get("labs");
+        if ( map.containsKey("notebooks")){
+            notebookIds = (JSONArray) map.get("notebooks");
+            
+            for (int i = 0; i < notebookIds.length(); i++){
+                notebooks.add(getNotebook(notebookIds.getString(i) , clothoObject));
+            }
+        }
+        JSONArray labIds = new JSONArray();
         List<Institution> labs = new LinkedList<Institution>() ;
-        for (int i = 0; i < labIds.length(); i++){
-            labs.add(getInstitution(labIds.getString(i) , clothoObject));
+        if ( map.containsKey("labs")){
+            labIds = (JSONArray) map.get("labs");
+            
+            for (int i = 0; i < labIds.length(); i++){
+                labs.add(getInstitution(labIds.getString(i) , clothoObject));
+            }
         }
-        
-        JSONArray colleagueIds = (JSONArray) map.get("colleagues");
         List<Person> colleagues = new LinkedList<Person>() ;
-        for (int i = 0; i < colleagueIds.length(); i++){
-            colleagues.add(getPerson(colleagueIds.getString(i) , clothoObject));
+        JSONArray colleagueIds = new JSONArray();
+        if ( map.containsKey("colleagues")){
+            colleagueIds = (JSONArray) map.get("colleagues");
+            
+            for (int i = 0; i < colleagueIds.length(); i++){
+                colleagues.add(getPerson(colleagueIds.getString(i) , clothoObject));
+            }
         }
-        
-        JSONArray orderIds = (JSONArray) map.get("orders");
+        JSONArray orderIds = new JSONArray();
         List<Order> orders = new LinkedList<Order>() ;
-        for (int i = 0; i < orderIds.length(); i++){
-            orders.add(getOrder(orderIds.getString(i) , clothoObject));
+        if ( map.containsKey("orders")){
+            orderIds = (JSONArray) map.get("orders");
+            
+            for (int i = 0; i < orderIds.length(); i++){
+                orders.add(getOrder(orderIds.getString(i) , clothoObject));
+            }
         }
-        
-        JSONArray publicationIds = (JSONArray) map.get("publications");
+        JSONArray publicationIds = new JSONArray();
         List<Publication> publications = new LinkedList<Publication>() ;
-        for (int i = 0; i < publicationIds.length(); i++){
-            publications.add(getPublication(publicationIds.getString(i) , clothoObject));
+        if ( map.containsKey("publications")){
+            publicationIds = (JSONArray) map.get("publications");
+            
+            for (int i = 0; i < publicationIds.length(); i++){
+                publications.add(getPublication(publicationIds.getString(i) , clothoObject));
+            }
         }
-        
         //JSONArray roles = (JSONArray) personMap.get("roles");
         //id and Roles are left
         
@@ -1177,16 +1223,24 @@ public class ClothoAdaptor {
         person.setColleagues(colleagues);
         person.setOrders(orders);
         person.setPublications(publications);
+        person.setFirstName((String) map.get("firstName"));
+        person.setLastName((String) map.get("lastName"));
+        person.setEmailId((String) map.get("emailId"));
+        person.setPassword((String) map.get("password"));
+        
+        
             
         Map rolesMap = new HashMap();
-        rolesMap = (Map)map.get("roles");
-        for(int i=0;i<labs.size();i++){
-            JSONArray labroles = new JSONArray();
-            labroles = (JSONArray)rolesMap.get(labs.get(i).getId());
-            for(int j=0;j<labroles.length();j++ ){
-                person.addRole(labs.get(i), PersonRole.valueOf((String)labroles.get(j)));
+        if ( map.containsKey("roles")){
+            rolesMap = (Map)map.get("roles");
+            for(int i=0;i<labs.size();i++){
+                JSONArray labroles = new JSONArray();
+                labroles = (JSONArray)rolesMap.get(labs.get(i).getId());
+                for(int j=0;j<labroles.length();j++ ){
+                    person.addRole(labs.get(i), PersonRole.valueOf((String)labroles.get(j)));
+                }
+
             }
-           
         }
         
         return person;
