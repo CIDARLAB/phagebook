@@ -10,6 +10,7 @@ import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 import javax.activation.*;
+import org.clothocad.phagebook.dom.Person;
 
 /**
  *
@@ -30,7 +31,7 @@ public class EmailHandler {
         return instance; 
     }
     //TODO: Implement a person type object.
-    /*
+    
     public boolean sendEmailVerification(Person pers){
        
             //try to send an email and stuff
@@ -76,7 +77,7 @@ public class EmailHandler {
                 try{
                     message.setFrom(new InternetAddress(SENDER_DOMAIN_NAME));
                     message.setRecipients(Message.RecipientType.TO,
-                        InternetAddress.parse(pers.getEmail()));
+                        InternetAddress.parse(pers.getEmailId()));
                     message.setSubject("Phagebook Activation Email");
                     message.setText("Hi " + pers.getFirstName() + " \n\n Please Validate"
                         + " Your email by following this link: " + "https://www.youtube.com/watch?v=79AR0VC5wCA" );
@@ -85,7 +86,7 @@ public class EmailHandler {
                 }
         return message;
   }
-
+  /*
   public void startVerification(Person pers, String code){
         //do stuff to begin checking verification dates
         pers.verify(code);
@@ -97,6 +98,7 @@ public class EmailHandler {
         }
         return false;
     }
-    */
+  */
+    
     
 }
