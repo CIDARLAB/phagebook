@@ -110,16 +110,9 @@ public class ClothoAdaptorTest {
         EmailHandler emailer = EmailHandler.getEmailHandler();
         emailer.sendEmailVerification(person);
        
-        // make this a fnction.
-        //Company comp = (Company) ClothoAdaptor.getCompany("",clothoObject);
-       
-        
-        
+        Person pers = ClothoAdaptor.getPerson(personId,clothoObject);
         
        conn.closeConnection();
-       
-       
-       
        
     }
     
