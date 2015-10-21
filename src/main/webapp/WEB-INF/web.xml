@@ -1,1 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+    <servlet>
+        <servlet-name>processProject</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.processProject</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>processOrder</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.processOrder</servlet-class>
+    </servlet>
     
+    <servlet>
+        <servlet-name>inputCompany</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.inputCompany</servlet-class>
+    </servlet>
+   <servlet-mapping>
+        <servlet-name>inputCompany</servlet-name>
+        <url-pattern>/inputCompany</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>createPerson</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.createPerson</servlet-class>
+    </servlet>
+   
+    <servlet-mapping>
+        <servlet-name>processProject</servlet-name>
+        <url-pattern>/processProject</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>processOrder</servlet-name>
+        <url-pattern>/processOrder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>createPerson</servlet-name>
+        <url-pattern>/createPerson</url-pattern>
+    </servlet-mapping>
+</web-app>
