@@ -296,68 +296,87 @@ public class ClothoAdaptor {
         String id = "";
         Map map = new HashMap();
         map.put("id", person.getId());
-        
-        JSONArray projects = new JSONArray();
-        for (Project project : person.getProjects()){
-            projects.put(project.getId());
-        }
-        map.put("project", projects);
-        
-        JSONArray statuses = new JSONArray();
-        for (Status status : person.getStatuses()){
-            statuses.put(status.getId());
-        }
-        map.put("statuses", statuses);
-        
-        
-        JSONArray notebooks = new JSONArray();
-        for (Notebook notebook : person.getNotebooks()){
-            notebooks.put(notebook.getId());
-        }
-        map.put("notebooks", notebooks);
-        
-        
-        JSONArray labs = new JSONArray();
-        JSONArray roles = new JSONArray();
-        Map rolesMap = new HashMap();
-        for (Institution institution : person.getLabs()){
-            labs.put(institution.getId());
-            //iterate through the roles in the Set
-            Iterator<PersonRole> it = person.getRole(institution).iterator();
-            roles = new JSONArray();
-            while(it.hasNext()){
-                roles.put(it.next().toString());
+        if (!person.getProjects().isEmpty()){
+            JSONArray projects = new JSONArray();
+            for (Project project : person.getProjects()){
+                projects.put(project.getId());
             }
-            rolesMap.put(institution.getId(), roles);
-            
+            map.put("project", projects);
         }
-        map.put("labs", labs);
-        map.put("roles", rolesMap);
         
-        JSONArray colleagues = new JSONArray();
-        for (Person colleague : person.getColleagues()){
-            colleagues.put(colleague.getId());
-            
+        if (!person.getStatuses().isEmpty()){
+            JSONArray statuses = new JSONArray();
+            for (Status status : person.getStatuses()){
+                statuses.put(status.getId());
+            }
+            map.put("statuses", statuses);
         }
-        map.put("colleagues", colleagues);
-        
-        JSONArray orders = new JSONArray();
-        for (Order order : person.getOrders()){
-            orders.put(order.getId());
+        if (!person.getNotebooks().isEmpty()){
+            JSONArray notebooks = new JSONArray();
+            for (Notebook notebook : person.getNotebooks()){
+                notebooks.put(notebook.getId());
+            }
+            map.put("notebooks", notebooks);
         }
-        map.put("orders", orders);
         
-        JSONArray publications = new JSONArray();
-        for (Publication publication : person.getPublications()){
-            publications.put(publication.getId());
+        if( !person.getLabs().isEmpty() ){
+            JSONArray labs = new JSONArray();
+            JSONArray roles = new JSONArray();
+            Map rolesMap = new HashMap();
+            for (Institution institution : person.getLabs()){
+                labs.put(institution.getId());
+                //iterate through the roles in the Set
+                Iterator<PersonRole> it = person.getRole(institution).iterator();
+                roles = new JSONArray();
+                while(it.hasNext()){
+                    roles.put(it.next().toString());
+                }
+                rolesMap.put(institution.getId(), roles);
+
+            }
+            map.put("labs", labs);
+            map.put("roles", rolesMap);
         }
-        map.put("publications", publications);
         
-        map.put("firstName", person.getFirstName());
-        map.put("lastName", person.getLastName());
-        map.put("emailId", person.getEmailId());
-        map.put("password", person.getPassword());
+        if (!person.getColleagues().isEmpty()){
+            JSONArray colleagues = new JSONArray();
+            for (Person colleague : person.getColleagues()){
+                colleagues.put(colleague.getId());
+
+            }
+            map.put("colleagues", colleagues);
+        
+        }
+        
+        if (!person.getOrders().isEmpty()){
+            JSONArray orders = new JSONArray();
+            for (Order order : person.getOrders()){
+                orders.put(order.getId());
+            }
+            map.put("orders", orders);
+        }
+        if (!person.getPublications().isEmpty()){
+            JSONArray publications = new JSONArray();
+            for (Publication publication : person.getPublications()){
+                publications.put(publication.getId());
+            }
+            map.put("publications", publications);
+        }
+        if (person.getFirstName() !=null)
+            map.put("firstName", person.getFirstName());
+        
+        if(person.getLastName() != null)
+            map.put("lastName", person.getLastName());
+        
+        if(person.getEmailId() != null)
+            map.put("emailId", person.getEmailId());
+        
+        if(person.getPassword() != null)
+            map.put("password", person.getPassword());
+        
         map.put("activated", person.isActivated());
+        
+        
         map.put("activationString", person.getActivationString());
        
         

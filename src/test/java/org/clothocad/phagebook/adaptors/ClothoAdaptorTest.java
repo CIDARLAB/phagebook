@@ -111,12 +111,18 @@ public class ClothoAdaptorTest {
         emailer.sendEmailVerification(person);
        
         // make this a function.
+<<<<<<< HEAD
         Person pers = ClothoAdaptor.getPerson(personId,clothoObject);
         
         
         
         
         conn.closeConnection();
+=======
+        //Company comp = (Company) ClothoAdaptor.getCompany("",clothoObject);
+         
+       conn.closeConnection();
+>>>>>>> c393d7bf844e5dd250373060645eaeccc7d3512d
                 
        
        
