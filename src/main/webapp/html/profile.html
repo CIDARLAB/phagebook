@@ -30,12 +30,12 @@
 <div ng-module="profileApp">
 <div ng-controller="profileController">
     <div class="row" >
-        <div class="col-md-3 text-center" >
-                <img src="../images/people/{{pictureName}}.png" alt="{{pictureName}}'s profile picture" class="img-rounded">
+        <div class="col-md-3 text-center">
+               <img src="../images/people/{{pictureName}}.png" alt="{{pictureName}}'s profile picture" class="img-rounded">
                 <div class="description" >
                     <span class="btn btn-file" ng-show="editBool"><input type="file" id="profilePicture" onchange="readProfilePic(this)" accept="image/gif, image/jpeg, image/png"></span>
                     <h3 style="text-align: center"><strong> {{ displayName }} </strong></h3>
-                </div>
+                </div> <!--[this is all being used in the Phagebook Sidebar in the same format]-->
         </div>
 
         <div class="col-md-6 user-wrapper">

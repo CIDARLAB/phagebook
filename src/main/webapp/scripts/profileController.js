@@ -1,6 +1,6 @@
 var profileModule = angular.module('profileApp',['clothoRoot','ui.bootstrap.tpls','ui.bootstrap.modal']);
 
-profileModule.controller('profileController', function($scope, Clotho, $modal){
+profileModule.controller('profileController', function($scope, Clotho, $modal, $window){
     $scope.personObj = {};
     $scope.personID = sessionStorage.getItem("uniqueid");
 
@@ -22,7 +22,8 @@ profileModule.controller('profileController', function($scope, Clotho, $modal){
 /*0: "26205025"
  1: "23651287"
  2: "3084710"
- 3: "3317443"*/
+ 3: "3317443"
+ the numbers above are pubmedIDs that are Doug's publications*/
         });
     });
 
@@ -40,7 +41,6 @@ profileModule.controller('profileController', function($scope, Clotho, $modal){
         //also needs to update the Clotho person object
         Clotho.get($scope.personID).then(function(){
             Clotho.set($scope.personObj);
-            $scope.apply();
         });
         //console.log($scope.personObj);
         $scope.editBool = false;
@@ -63,10 +63,10 @@ profileModule.controller('profileController', function($scope, Clotho, $modal){
             //eventually there could be a location key value pair
         };
 
-        Clotho.get($scope.personID).then(function () {
-            $scope.personObj['statusList'].push($scope.statusObj);
-            Clotho.set($scope.personObj);
-        });
+
+        $scope.personObj['statusList'].push($scope.statusObj);
+        Clotho.set($scope.personObj);
+
 
         $scope.statuses = $scope.personObj['statusList'];
     };
@@ -77,7 +77,7 @@ profileModule.controller('profileController', function($scope, Clotho, $modal){
 
     $scope.displayPub = function() {
 
-        Clotho.get($scope.personID).then(function(){
+
             var idArrayLength = $scope.personObj['pubmedIdList'].length;
             if(idArrayLength == 0)
             {
@@ -88,7 +88,8 @@ profileModule.controller('profileController', function($scope, Clotho, $modal){
                     var checkExist = false; //ng-repeat will not display the same publicaiton twice, so a check needs to exist
                     if ($scope.pubmedId == $scope.personObj['pubmedIdList'][i]) {
                         checkExist = true;
-                        console.log('unable to use same pubmed ID twice!')
+                        window.alert('unable to use same pubmed ID twice!');
+                        console.log('unable to use same pubmedID twice!!')
                     }
                     else {
                         $scope.personObj['pubmedIdList'].push($scope.pubmedId);
@@ -96,11 +97,12 @@ profileModule.controller('profileController', function($scope, Clotho, $modal){
                 }
             }
             //console.log(JSON.stringify($scope.personObj));
-        });
+
 
         pubmed.getCitationsFromIds($scope.personObj['pubmedIdList']).then(function(result){
             //console.log(JSON.stringify(result9));
             $scope.publications = result;
+            $scope.$apply();
         });
     };
 
@@ -132,9 +134,17 @@ profileModule.controller('profileController', function($scope, Clotho, $modal){
         $scope.colleagueEmail = "";
 
     $scope.ok = function() {
-        $modalInstance.close({'givenname' : $scope.colleagueFirstName,
-            'surname' : $scope.colleagueLastName,
-            'email' : $scope.colleagueEmail});
+        //if all fields are blank then an error needs to appear
+        if (($scope.colleagueLastName == null) && ($scope.colleagueEmail == null) && ($scope.colleagueFirstName == null))
+        {
+
+        }
+        else{
+            $modalInstance.close({'givenname' : $scope.colleagueFirstName,
+                'surname' : $scope.colleagueLastName,
+                'email' : $scope.colleagueEmail});
+        }
+
     };
 
     $scope.cancel = function() {
