@@ -18,8 +18,10 @@ import org.clothocad.phagebook.dom.Person;
  */
 //Singleton Handler
 public class EmailHandler {
-    public static String SENDER_DOMAIN_NAME = "johanseospina@gmail.com";
-    public static String SENDER_PASSWORD = "123456789kndoor";
+    // <editor-fold defaultstate="collapsed" desc="Johan's Email info">
+    public static String SENDER_DOMAIN_NAME = "phagebook.email@gmail.com";
+    public static String SENDER_PASSWORD = "Phagebook";
+    // </editor-fold>
     private static EmailHandler instance = null;
     protected EmailHandler(){
         
@@ -80,25 +82,25 @@ public class EmailHandler {
                         InternetAddress.parse(pers.getEmailId()));
                     message.setSubject("Phagebook Activation Email");
                     message.setText("Hi " + pers.getFirstName() + " \n\n Please Validate"
-                        + " Your email by following this link: " + "https://www.youtube.com/watch?v=79AR0VC5wCA" );
+                        + " Your email by following this link: " + "http://weloveshortvideos.com/post/131503905455/fall-is-life" );
                 } catch (MessagingException e){
                     throw e;
                 }
         return message;
   }
-  /*
+  
   public void startVerification(Person pers, String code){
         //do stuff to begin checking verification dates
-        pers.verify(code);
+        //pers.verify(code);
     }
     
     public boolean checkVerificationStatus(Person pers){
-        if (pers.isVerified()){
+        if (pers.isActivated()){
             return true;
         }
         return false;
     }
-  */
+  
     
     
 }

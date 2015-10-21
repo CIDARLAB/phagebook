@@ -357,6 +357,8 @@ public class ClothoAdaptor {
         map.put("lastName", person.getLastName());
         map.put("emailId", person.getEmailId());
         map.put("password", person.getPassword());
+        map.put("activated", person.isActivated());
+        map.put("activationString", person.getActivationString());
        
         
         id = (String) clothoObject.set(map);
@@ -1201,8 +1203,6 @@ public class ClothoAdaptor {
                 publications.add(getPublication(publicationIds.getString(i) , clothoObject));
             }
         }
-        //JSONArray roles = (JSONArray) personMap.get("roles");
-        //id and Roles are left
         
         /**
          * projects     : List<Project>
@@ -1223,10 +1223,14 @@ public class ClothoAdaptor {
         person.setColleagues(colleagues);
         person.setOrders(orders);
         person.setPublications(publications);
-        person.setFirstName((String) map.get("firstName"));
-        person.setLastName((String) map.get("lastName"));
-        person.setEmailId((String) map.get("emailId"));
-        person.setPassword((String) map.get("password"));
+                
+        person.setFirstName( map.containsKey("firstName") ? (String) map.get("firstName") : "");
+        person.setLastName( map.containsKey("lastName") ? (String) map.get("lastName") : "");
+        person.setEmailId( map.containsKey("emailId") ? (String) map.get("emailId") : "");
+        person.setPassword( map.containsKey("password") ? (String) map.get("password"): "");
+        person.setActivated( (boolean) map.get("activated") );
+        person.setActivationString((String) map.get("activationString"));
+        
         
         
             
