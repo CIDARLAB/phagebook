@@ -30,7 +30,7 @@ public class EmailHandler {
         return instance; 
     }
     //TODO: Implement a person type object.
-    /*
+    
     public boolean sendEmailVerification(Person pers){
        
             //try to send an email and stuff
@@ -97,6 +97,6 @@ public class EmailHandler {
         }
         return false;
     }
-    */
+   
     
 }

@@ -61,6 +61,7 @@ public class ClothoAdaptorTest {
        createUserMap.put("username", username);
        createUserMap.put("password", "password");
        
+       System.out.println("Create User Map " + createUserMap.toString());
        clothoObject.createUser(createUserMap);
        
        
@@ -68,18 +69,20 @@ public class ClothoAdaptorTest {
        loginMap.put("username", username);
        loginMap.put("credentials", "password");
        
+       System.out.println("Login Map " + loginMap);
        clothoObject.login(loginMap);
        
        Company amazon = new Company("Amazon");
-       amazon.setId("org.company.amazon");
+       String companyId = (String) ClothoAdaptor.createCompany(amazon, clothoObject);
+       amazon.setId(companyId);
+       
        Product microscope = new Product("Microscope",amazon,4000);
        microscope.setDescription("Magnifies stuff BETTER");
        microscope.setQuantity(65);
        microscope.setGoodType(GoodType.INSTRUMENT);
        microscope.setProductURL("www.example.com");
        
-        String productId = (String) createProduct(microscope,clothoObject);
-        
+       String productId = (String) ClothoAdaptor.createProduct(microscope,clothoObject);
         //This makes that object 
         List<String> add = new ArrayList<String>();
         List<String> remove = new ArrayList<String>();
@@ -93,11 +96,19 @@ public class ClothoAdaptorTest {
         grantMap.put("remove", remove);
         
         Map grantResult = new HashMap();
+        
         grantResult = (Map)(clothoObject.grant(grantMap));
+        
+        System.out.println("Grant Result " + grantResult.toString());
         // make this a function.
-        //Company comp = (Company) ClothoAdaptor.getCompany("",clothoObject);
-         
-       conn.closeConnection();
+
+        Product prod = ClothoAdaptor.getProduct(productId,clothoObject);
+        
+        
+        
+        
+        conn.closeConnection();
+
                 
        
        

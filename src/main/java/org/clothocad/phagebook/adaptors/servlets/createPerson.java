@@ -64,6 +64,11 @@ public class createPerson extends HttpServlet {
                 JSONObject result = new JSONObject();
                 result.put("success",1);
                 
+                
+                // create an email and send it to the email id 
+                // 
+                
+                
                 PrintWriter writer = response.getWriter();
                 writer.println(result);
                 writer.flush();
