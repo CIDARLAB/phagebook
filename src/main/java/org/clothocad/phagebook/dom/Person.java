@@ -26,6 +26,8 @@ public class Person {
     @Getter @Setter private List<Institution> labs;
     @Getter @Setter private List<Person> colleagues;
     @Getter @Setter private List<Order> orders;
+    @Getter @Setter private String firstName;
+    @Getter @Setter private String lastName;
     //When sign up -- how do you affiliate position with Organization? e.g. PI at BU but affiliate researcher at berkeley
     //profile pic? text link
     @Getter @Setter private List<Publication> publications;

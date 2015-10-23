@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.clothocad.phagebook.dom.Person;
 import org.json.JSONObject;
 
 // IMPORT PROJECT FILE HERE
@@ -37,6 +38,21 @@ public class createPerson extends HttpServlet {
             throws ServletException, IOException {
             response.setContentType("text/html;charset=UTF-8");
             try (PrintWriter out = response.getWriter()) {
+                
+//"id": loginResult.id,
+//"givenname"
+//"surname"
+//"fullname"
+//"email"
+//"friendsList"
+//"statusList"
+//"pubmedIdList"
+//"activated"
+//"activationString"
+                
+                Person person = new Person();
+                person.setFirstName(request.getParameter("givenname"));
+                person.setLastName(request.getParameter("surname"));
                 
                 System.out.println("got an a new Person request here!");
                 
