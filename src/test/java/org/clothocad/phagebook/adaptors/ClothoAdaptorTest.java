@@ -110,6 +110,7 @@ public class ClothoAdaptorTest {
         EmailHandler emailer = EmailHandler.getEmailHandler();
         emailer.sendEmailVerification(person);
        
+<<<<<<< HEAD
         // make this a function.
 
         //Company comp = (Company) ClothoAdaptor.getCompany("",clothoObject);
@@ -119,6 +120,11 @@ public class ClothoAdaptorTest {
                 
        
        
+=======
+        Person pers = ClothoAdaptor.getPerson(personId,clothoObject);
+        
+       conn.closeConnection();
+>>>>>>> 0373f47692654b83201ff4c3473a9b80a28a2614
        
     }
     
