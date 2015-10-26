@@ -62,7 +62,9 @@ public class ClothoAdaptor {
             map.put("id", company.getId());
         }
         map.put("name", company.getName());
-        map.put("description", company.getDescription());
+        if (company.getDescription() != null || company.getDescription() != ""){
+            map.put("description", company.getDescription());
+        }
         if (company.getPhone() != null || company.getContact() != ""){
             map.put("phone", company.getPhone());
         }
@@ -78,11 +80,16 @@ public class ClothoAdaptor {
     {
         String id = "";
         Map map = new HashMap();
-        map.put("name", container.getName());
+        if (container.getName() != null || container.getName() != ""){ 
+            map.put("name", container.getName());
+        }
         if (container.getId() != null) {
             map.put("id", container.getId());
         }
-        map.put("description", container.getDescription());
+        
+        if (container.getDescription() != null || container.getDescription() != ""){
+            map.put("description", container.getDescription());
+        }
         id = (String) clothoObject.set(map);
         container.setId(id);
         makePublic(id, clothoObject);
@@ -93,11 +100,27 @@ public class ClothoAdaptor {
     {
         String id = "";
         Map map = new HashMap();
-        map.put("notebook", entry.getNotebook().getId());
-        map.put("dateCreated", entry.getDateCreated().toString());
-        map.put("lastModified", entry.getLastModified().toString());
-        map.put("text", entry.getText());
-        map.put("title", entry.getTitle());
+        if (entry.getNotebook().getId() != null){
+            map.put("notebook", entry.getNotebook().getId());
+        }
+        
+        if (entry.getDateCreated() != null){
+            map.put("dateCreated", entry.getDateCreated().toString());
+        }
+        
+        if (entry.getLastModified() != null){
+            map.put("lastModified", entry.getLastModified().toString());
+        }
+        
+        if ( entry.getText() != null || entry.getText() != ""){  
+            map.put("text", entry.getText());
+        }
+        
+        if ( entry.getTitle() != null || entry.getTitle() != ""){  
+            map.put("title", entry.getTitle());
+        }
+        
+        
         if (entry.getId() != null){
             map.put("id", entry.getId());
         }
@@ -115,10 +138,21 @@ public class ClothoAdaptor {
         if (fundingAgency.getId() != null){
             map.put("id", fundingAgency.getId());
         }
-        map.put("name", fundingAgency.getName());
-        map.put("description", fundingAgency.getDescription());
-        map.put("phone", fundingAgency.getPhone());
-        map.put("url", fundingAgency.getUrl());
+        if (fundingAgency.getName() != null || fundingAgency.getName() != "" ){
+            map.put("name", fundingAgency.getName());
+        }
+        
+        if (fundingAgency.getDescription() != null || fundingAgency.getDescription() != "" ){
+            map.put("description", fundingAgency.getDescription());
+        }
+        
+        if (fundingAgency.getPhone() != null || fundingAgency.getPhone() != "" ){
+            map.put("phone", fundingAgency.getPhone());
+        }
+        
+        if (fundingAgency.getUrl() != null || fundingAgency.getUrl() != "" ){
+            map.put("url", fundingAgency.getUrl());
+        }
         id = (String) clothoObject.set(map);
         fundingAgency.setId(id);
         makePublic(id, clothoObject);
@@ -131,8 +165,12 @@ public class ClothoAdaptor {
         if (good.getId() != null){
             map.put("id", good.getId());
         }
-        map.put("name", good.getName());
-        map.put("description", good.getDescription());
+        if (good.getName() != null || good.getName() != "" ){
+            map.put("name", good.getName());
+        }
+        if (good.getDescription() != null || good.getDescription() != "" ){
+            map.put("description", good.getDescription());
+        }
                 
         id = (String) clothoObject.set(map);
         good.setId(id);
@@ -295,7 +333,6 @@ public class ClothoAdaptor {
     {
         String id = "";
         Map map = new HashMap();
-        map.put("id", person.getId());
         if (!person.getProjects().isEmpty()){
             JSONArray projects = new JSONArray();
             for (Project project : person.getProjects()){
@@ -379,9 +416,29 @@ public class ClothoAdaptor {
         
         map.put("activationString", person.getActivationString());
        
+       
+        String username = person.getEmailId()  ;
+        String password = person.getPassword();
+        
+        Map createUserMap = new HashMap();
+        createUserMap.put("username", username);
+        createUserMap.put("password", password);
+        
+        Map createUserResult = new HashMap();
+        createUserResult = (Map)(clothoObject.createUser(createUserMap));
+        
+        Map loginUserMap = new HashMap();
+        loginUserMap.put("username", username);
+        loginUserMap.put("credentials", password);
+        
+        Map loginResult = new HashMap();
+        loginResult = (Map)(clothoObject.login(loginUserMap));
+        System.out.println(loginResult.toString());
+        map.put("id", loginResult.get("id"));
         
         id = (String) clothoObject.set(map);
         makePublic(id, clothoObject);
+        clothoObject.logout();
         return id;
         
     }
@@ -593,6 +650,7 @@ public class ClothoAdaptor {
         Map personMap = new HashMap();
         personMap = (Map) clothoObject.get(id);
         
+        System.out.println(personMap);
         Person person = mapToPerson(personMap, clothoObject);
         person.setId(id);
          
@@ -1160,7 +1218,9 @@ public class ClothoAdaptor {
     {
         JSONArray projectIds = new JSONArray();
         List<Project> projects = new LinkedList<Project>() ;
+        
         if ( map.containsKey("projects")){
+            
             projectIds = (JSONArray) map.get("projects");
             
             for (int i = 0; i < projectIds.length(); i++){

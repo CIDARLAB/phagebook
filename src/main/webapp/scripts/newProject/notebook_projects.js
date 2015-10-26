@@ -1,6 +1,5 @@
-<SCRIPT LANGUAGE = "javascript">
+//!-- <SCRIPT LANGUAGE = "javascript"> -->
 
-<!--
 
 function OnChange(dropdown)
 {

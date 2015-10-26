@@ -57,6 +57,7 @@ public class ClothoAdaptorTest {
         
        ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
        Clotho clothoObject = new Clotho(conn);
+       
        Map createUserMap = new HashMap();
        String username = "test"+ System.currentTimeMillis() ;
        createUserMap.put("username", username);
@@ -73,7 +74,7 @@ public class ClothoAdaptorTest {
        System.out.println("Login Map " + loginMap);
        
        clothoObject.login(loginMap);
-       /*
+       
        Company amazon = new Company("Amazon");
        String companyId = (String) ClothoAdaptor.createCompany(amazon, clothoObject);
        amazon.setId(companyId);
@@ -83,46 +84,25 @@ public class ClothoAdaptorTest {
        microscope.setQuantity(65);
        microscope.setGoodType(GoodType.INSTRUMENT);
        microscope.setProductURL("www.example.com");
-               */
+          
+       String productId = (String) ClothoAdaptor.createProduct(microscope, clothoObject);
+       clothoObject.logout();
+       
        Person person = new Person();
        person.setEmailId("johanos@bu.edu");
        person.setFirstName("Johan");
        person.setLastName("Ospina");
+       person.setPassword("hello");
        
-       
+        
+        
+        
+        
        String personId = (String) ClothoAdaptor.createPerson(person,clothoObject);
-        //This makes that object 
-        List<String> add = new ArrayList<String>();
-        List<String> remove = new ArrayList<String>();
-        
-        add.add("public");
-        
-        Map grantMap = new HashMap();
-        grantMap.put("id", personId);
-        grantMap.put("user", "none");
-        grantMap.put("add", add);
-        grantMap.put("remove", remove);
-        
-        Map grantResult = new HashMap();
-        
-        grantResult = (Map)(clothoObject.grant(grantMap));
-        
-        EmailHandler emailer = EmailHandler.getEmailHandler();
-        emailer.sendEmailVerification(person);
-       
-        // make this a function.
-<<<<<<< HEAD
-        Person pers = ClothoAdaptor.getPerson(personId,clothoObject);
-        
-        
-        
-        
-        conn.closeConnection();
-=======
-        //Company comp = (Company) ClothoAdaptor.getCompany("",clothoObject);
+      
          
        conn.closeConnection();
->>>>>>> c393d7bf844e5dd250373060645eaeccc7d3512d
+
                 
        
        
