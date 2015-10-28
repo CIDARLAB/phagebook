@@ -18,16 +18,16 @@ import org.json.simple.parser.ParseException;
  *
  * @author KatieLewis
  */
-public class PhagebookSocket {
+public class PhagebookSocket extends WebSocketAdapter {
     @Override
-    public void onWebSocketConnect(session)
+    public void onWebSocketConnect(Session session)
     {
         super.onWebSocketConnect(session);
         System.out.println("Socket connected. Welcome ::" + session.getRemoteAddress());
         
     }
     
-    @Overrride
+    @Override
     public void onWebSocketText(String message)
     {
         super.onWebSocketText(message);
@@ -51,12 +51,12 @@ public class PhagebookSocket {
         cause.printStackTrace(System.err);
     }
     
-    private JSONObject handlIncomingMessage(String message){
+    private JSONObject handleIncomingMessage(String message){
         JSONObject messageObject = new JSONObject();
         JSONParser parser = new JSONParser();
         
         try{
-            messageObject = (JSONObject).parser.parse(message);
+            messageObject = (JSONObject)parser.parse(message);
         }
         catch(ParseException ex){
             Logger.getLogger(PhagebookSocket.class.getName()).log(Level.SEVERE, null,ex);
@@ -65,5 +65,9 @@ public class PhagebookSocket {
         JSONObject result = new JSONObject();
         result.put("channel", (String) messageObject.get("channel"));
         result.put("requestId",messageObject.get("requestId"));
+        
+        //check channel
+        return result;
     }
+    // get channel
 }

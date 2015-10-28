@@ -94,8 +94,6 @@ public class ClothoAdaptorTest {
        person.setLastName("Ospina");
        person.setPassword("hello");
        
-<<<<<<< HEAD
-       String productId = (String) ClothoAdaptor.createProduct(microscope,clothoObject);
         //This makes that object 
         List<String> add = new ArrayList<String>();
         List<String> remove = new ArrayList<String>();
@@ -116,21 +114,13 @@ public class ClothoAdaptorTest {
         // make this a function.
 
         Product prod = ClothoAdaptor.getProduct(productId,clothoObject);
-=======
->>>>>>> e2e50d3361b9cdebbfa58e527a907cdeabd3c488
         
         
         
         
-<<<<<<< HEAD
-        conn.closeConnection();
-
-                
-=======
         EmailHandler emailer = EmailHandler.getEmailHandler();
         String link = "HELLO";
         emailer.sendEmailVerification(person, link);
->>>>>>> e2e50d3361b9cdebbfa58e527a907cdeabd3c488
        
        
         
