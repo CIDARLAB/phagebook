@@ -116,6 +116,7 @@ public class createPerson extends HttpServlet {
         ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
         Clotho clothoObject = new Clotho(conn);
         
+        System.out.println("I am in the post");
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         String password = request.getParameter("password");
@@ -127,14 +128,15 @@ public class createPerson extends HttpServlet {
         createdPerson.setEmailId(emailId);
         createdPerson.setPassword(password);
         EmailSaltHasher salty = EmailSaltHasher.getEmailHandler();
-        byte[] salt = salty.getNextSalt();
+        byte[] salt = EmailSaltHasher.generateSaltForUserAccount().getBytes();
         createdPerson.setSalt(salt);
         byte[] SaltedHashedEmail = salty.hash(emailId.toCharArray(), salt);
+        createdPerson.setSaltedEmailHash(SaltedHashedEmail);
         
         ClothoAdaptor.createPerson(createdPerson, clothoObject);
         
         EmailHandler emailer = EmailHandler.getEmailHandler();
-        String link = "LINK WORKING";
+        String link = Args.phagebookBaseURL + "/verifyEmail?emailId=" +createdPerson.getEmailId() + "&salt=" + salt ;
         emailer.sendEmailVerification(createdPerson, link);
         
         

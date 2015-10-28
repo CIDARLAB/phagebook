@@ -12,6 +12,7 @@ package org.clothocad.phagebook.controller;
 public class Args {
     
     public static final String clothoLocation = "wss://localhost:8443/websocket";
+    public static final String phagebookBaseURL = "localhost:9090";
     
     public static String getFilepath()
     {
