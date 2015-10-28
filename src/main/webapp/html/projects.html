@@ -196,12 +196,23 @@
 
         $("#testButton").click(function(){
            console.log("button clicked!!!!");
-         $.post("processProject",testObject,
-            function(data, status)
-        {
-         console.log("Data: " + data + "\nStatus: " + status);
+           $.ajax({
+                url: "processProject",
+                type: "POST",
+                async: false,
+                data: {
+                    "name": "name_input",
+                    "labs": ["CIDAR","HYNESS"],
+                    "description": "project description"
+                },
+                success: function (response) {
+                    console.log(response);
+                },
+                error: function () {
+                    alert("ERROR!!");
+                }
+            });   
         });
-    });
     </script>
 </body>
 </html>

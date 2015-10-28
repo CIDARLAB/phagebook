@@ -14,6 +14,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Map;
+import org.clothoapi.clotho3javaapi.Clotho;
+import org.clothoapi.clotho3javaapi.ClothoConnection;
+import org.clothocad.phagebook.adaptors.ClothoAdaptor;
+import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Grant;
 import org.clothocad.phagebook.dom.Organization;
 import org.clothocad.phagebook.dom.Person;
@@ -65,21 +71,36 @@ public class processProject extends HttpServlet {
                 */
                 Person creator = new Person();
                 creator.setFirstName("Leela");
-
+                creator.setId("Leela");
                 // create project object
                 //Project project = new Project( createdDate, creator,  name,  lab,
                 //        lead, projectBudget, projectGrant,  description );
                 
                 Project project = new Project(creator, name,  description);
-               
-                // create a result object and send it to the frontend
+                
+                ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+                Clotho clothoObject = new Clotho(conn); 
+                String username = "phagebook";
+                Map createUserMap = new HashMap();
+                createUserMap.put("username", username);
+                createUserMap.put("password", "password");
+                clothoObject.createUser(createUserMap);
+                Map loginMap = new HashMap();
+                loginMap.put("username", username);
+                loginMap.put("credentials", "password");
+
+                clothoObject.login(loginMap);
+                
+                ClothoAdaptor.createProject(project, clothoObject);
+                System.out.println("hey");
+                
                 JSONObject res = new JSONObject();
                 String result = "creator is " + creator.getFirstName() + " description is " + project.getDescription();
                 System.out.println(result);
                 res.put(result,1);
                 
                 PrintWriter writer = response.getWriter();
-                writer.println(res);
+                writer.println(res.toString());
                 writer.flush();
                 writer.close();
             }

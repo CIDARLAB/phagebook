@@ -553,7 +553,7 @@ public class ClothoAdaptor {
         if (project.getDescription() != null && project.getDescription() != ""){
             map.put("description", project.getDescription());
         }
-        
+        System.out.println("Reached this point in createProject (ClothoAdaptor)");
         id = (String) clothoObject.set(map) ;
         project.setId(id);
         makePublic(id, clothoObject);
