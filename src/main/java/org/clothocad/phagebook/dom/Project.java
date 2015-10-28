@@ -38,6 +38,12 @@ public class Project {
        this.affiliatedLabs.add(lab);
        this.description = description;
    }
+      public Project(Person creator, String name, String description){
+       this.dateCreated = new Date();
+       this.creator = creator;
+       this.name = name;
+       this.description = description;
+   }
    
    
    public Project(Date createdDate,Person creator, String name, Organization lab, 

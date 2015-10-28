@@ -49,33 +49,37 @@ public class processProject extends HttpServlet {
                 // get all of the fields from the request
                 String name = request.getParameter("name");
                 String description = request.getParameter("description");
-                Double projectBudget = Double.parseDouble(request.getParameter("projectBudget"));
-
                 
                 // how to transfer date from the website? Maybe just initialize the
                 // date at the server
-                /*
-                String createdDate = request.getParameter("dateCreated");
-                DateFormat format = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
-                Date date = format.parse(createdDate); 
-                */
+                // get the name of the person who created the project
                 
-                //Person creator = new Person(request.getParameter("creator"));
-                //Organization lab = new Organization(request.getParameter("lab"));
-                //Grant projectGrant = new Grant(request.getParameter("projectGrant"));
-             
-                System.out.println("");
-                System.out.println("");
+                /*
+                Double projectBudget = Double.parseDouble(request.getParameter("projectBudget"));
+                Organization lab = new Organization(request.getParameter("lab"));
+                Grant projectGrant = new Grant(request.getParameter("projectGrant"));
+                
+                
+                // or get the object from the server?
+                
+                */
+                Person creator = new Person();
+                creator.setFirstName("Leela");
+
                 // create project object
                 //Project project = new Project( createdDate, creator,  name,  lab,
                 //        lead, projectBudget, projectGrant,  description );
                 
+                Project project = new Project(creator, name,  description);
+               
                 // create a result object and send it to the frontend
-                JSONObject result = new JSONObject();
-                result.put("success",1);
+                JSONObject res = new JSONObject();
+                String result = "creator is " + creator.getFirstName() + " description is " + project.getDescription();
+                System.out.println(result);
+                res.put(result,1);
                 
                 PrintWriter writer = response.getWriter();
-                writer.println(result);
+                writer.println(res);
                 writer.flush();
                 writer.close();
             }

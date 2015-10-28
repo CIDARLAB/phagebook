@@ -989,7 +989,7 @@ public class ClothoAdaptor {
         //id is in the parameter
         String contact = "";
         if (map.containsKey("contact")){
-             contact = (String) map.get("contact");
+             //contact = (String) map.get("contact");
         }
        
         String name = "";

@@ -19,6 +19,23 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
 
 <body>
+    <div> <button id = "testButton" class="btn btn-primary" > Test Button </button> </div>
+    <script> 
+        var testButton = Document.getElementByID("testButton");
+        console.log(testButton);
+        var testObject = {
+            “name”: name_input,
+            “labs”: [“CIDAR”,”HYNESS”],
+            “description”: “project description"
+        };
+        $("testButton").click(function(){
+         $.post("processProject",testObject,
+            function(data, status)
+            {
+             console.log("Data: " + data + "\nStatus: " + status);
+            });
+        });
+    </script>
 <div ng-module="clothoRoot">
     <div class="container">
         <div clotho-command-bar></div>
