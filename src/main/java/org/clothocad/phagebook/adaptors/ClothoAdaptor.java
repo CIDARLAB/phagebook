@@ -487,14 +487,22 @@ public class ClothoAdaptor {
     public static String createProject(Project project, Clotho clothoObject){
         String id ="";
         Map map = new HashMap();
-        if (project.getCreator().getId() != null){
-            map.put("creator", project.getCreator().getId());
+        if (project.getCreator() != null) {
+            System.out.println("Step 1");
+            if (project.getCreator().getId() != null) {
+                map.put("creator", project.getCreator().getId());
+            }
         }
         
-        if (project.getLead().getId() != null){
-            map.put("lead", project.getLead().getId());
+        if (project.getLead() != null) {
+            System.out.println("Step 2");
+            if (project.getLead().getId() != null) {
+                map.put("lead", project.getLead().getId());
+            }
         }
+        
         if (!project.getMembers().isEmpty()){
+            System.out.println("Step 3");
             JSONArray members = new JSONArray();
 
             for (Person member: project.getMembers() ){

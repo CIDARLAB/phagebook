@@ -37,12 +37,22 @@ public class Project {
        this.name = name;
        this.affiliatedLabs.add(lab);
        this.description = description;
+       this.updates = new ArrayList<Status>();
+       this.notebooks = new ArrayList<Notebook>();
+       this.affiliatedLabs = new ArrayList<Organization>();
+       this.members = new ArrayList<Person>();
+       
    }
       public Project(Person creator, String name, String description){
        this.dateCreated = new Date();
        this.creator = creator;
        this.name = name;
        this.description = description;
+       this.updates = new ArrayList<Status>();
+       this.notebooks = new ArrayList<Notebook>();
+       this.affiliatedLabs = new ArrayList<Organization>();
+       this.members = new ArrayList<Person>();
+       
    }
    
    
