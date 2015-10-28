@@ -34,7 +34,7 @@ public class EmailHandler {
     }
     //TODO: Implement a person type object.
     
-    public boolean sendEmailVerification(Person pers){
+    public boolean sendEmailVerification(Person pers, String link){
        
             //try to send an email and stuff
             //eventually check if person is verified and then throw an exception or something
@@ -57,7 +57,7 @@ public class EmailHandler {
                 try {
 
                     
-                    Message message = createMessage(SENDER_DOMAIN_NAME, pers, session);
+                    Message message = createMessage(SENDER_DOMAIN_NAME, pers, session, link);
                     Transport.send(message);
                     System.out.println("Done");
 
@@ -74,7 +74,7 @@ public class EmailHandler {
                 return false;
             }
    }
-  public Message createMessage(String senderDomain, Person pers, Session session) throws MessagingException{
+  public Message createMessage(String senderDomain, Person pers, Session session, String link) throws MessagingException{
       Message message = new MimeMessage(session);
                 try{
                     message.setFrom(new InternetAddress(SENDER_DOMAIN_NAME));
@@ -82,7 +82,7 @@ public class EmailHandler {
                         InternetAddress.parse(pers.getEmailId()));
                     message.setSubject("Phagebook Activation Email");
                     message.setText("Hi " + pers.getFirstName() + " \n\n Please Validate"
-                        + " Your email by following this link: " + "http://weloveshortvideos.com/post/131503905455/fall-is-life" );
+                        + " Your email by following this link: " + link );
                 } catch (MessagingException e){
                     throw e;
                 }

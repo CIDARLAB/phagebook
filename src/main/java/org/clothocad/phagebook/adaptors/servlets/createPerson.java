@@ -6,6 +6,7 @@
 package org.clothocad.phagebook.adaptors.servlets;
 
 
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -16,6 +17,7 @@ import org.clothocad.phagebook.adaptors.ClothoAdaptor;
 import org.clothocad.phagebook.dom.Person;
 import org.json.JSONObject;
 
+
 // IMPORT PROJECT FILE HERE
 
 /**
@@ -23,6 +25,7 @@ import org.json.JSONObject;
  * @author anna_g
  */
 public class createPerson extends HttpServlet {
+    private Object EmailSaltHasher;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -75,7 +78,6 @@ public class createPerson extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        
         processRequest(request, response);
     }
 
@@ -90,7 +92,18 @@ public class createPerson extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String password = request.getParameter("password");
+        String emailId = request.getParameter("emailId");
+        
+        //EmailSaltHasher salty = new EmailSaltHasher();
+        
+        
+        
         processRequest(request, response);
+        
     }
 
     /**

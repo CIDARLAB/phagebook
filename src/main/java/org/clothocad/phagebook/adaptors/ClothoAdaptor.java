@@ -333,6 +333,9 @@ public class ClothoAdaptor {
     {
         String id = "";
         Map map = new HashMap();
+        
+        map.put("salt", person.getSalt());
+        
         if (!person.getProjects().isEmpty()){
             JSONArray projects = new JSONArray();
             for (Project project : person.getProjects()){
@@ -1309,6 +1312,8 @@ public class ClothoAdaptor {
         person.setPassword( map.containsKey("password") ? (String) map.get("password"): "");
         person.setActivated( (boolean) map.get("activated") );
         person.setActivationString((String) map.get("activationString"));
+        person.setSalt((byte[]) map.get("salt"));
+        
         
         
         
