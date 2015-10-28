@@ -6,14 +6,22 @@
 package org.clothocad.phagebook.adaptors.servlets;
 
 
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.clothoapi.clotho3javaapi.Clotho;
+import org.clothoapi.clotho3javaapi.ClothoConnection;
+import org.clothocad.phagebook.adaptors.ClothoAdaptor;
+import org.clothocad.phagebook.adaptors.EmailHandler;
+import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Person;
 import org.json.JSONObject;
+import org.clothocad.phagebook.security.EmailSaltHasher;
+
 
 // IMPORT PROJECT FILE HERE
 
@@ -22,6 +30,7 @@ import org.json.JSONObject;
  * @author anna_g
  */
 public class createPerson extends HttpServlet {
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -56,19 +65,19 @@ public class createPerson extends HttpServlet {
                 
                 System.out.println("got an a new Person request here!");
                 
-                String name = request.getParameter("name");
-                System.out.println(name);
+                String firstName = request.getParameter("firstName");
+                String lastName = request.getParameter("lastName");
+                String password = request.getParameter("password");
+                String emailId = request.getParameter("emailId");
                 // create order object
                 
                 // create a result object and send it to the frontend
                 JSONObject result = new JSONObject();
                 result.put("success",1);
-                
-                
-                // create an email and send it to the email id 
-                // 
-                
-                
+                result.put("firstName", firstName);
+                result.put("lastName", lastName);
+                result.put("emailId",emailId);
+                result.put("password Before Hash", password);
                 PrintWriter writer = response.getWriter();
                 writer.println(result);
                 writer.flush();
@@ -88,6 +97,7 @@ public class createPerson extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         processRequest(request, response);
     }
 
@@ -102,7 +112,37 @@ public class createPerson extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+        Clotho clothoObject = new Clotho(conn);
+        
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String password = request.getParameter("password");
+        String emailId = request.getParameter("emailId");
+        
+        Person createdPerson = new Person();
+        createdPerson.setFirstName(firstName);
+        createdPerson.setLastName(lastName);
+        createdPerson.setEmailId(emailId);
+        createdPerson.setPassword(password);
+        EmailSaltHasher salty = EmailSaltHasher.getEmailHandler();
+        byte[] salt = salty.getNextSalt();
+        createdPerson.setSalt(salt);
+        byte[] SaltedHashedEmail = salty.hash(emailId.toCharArray(), salt);
+        
+        ClothoAdaptor.createPerson(createdPerson, clothoObject);
+        
+        EmailHandler emailer = EmailHandler.getEmailHandler();
+        String link = "LINK WORKING";
+        emailer.sendEmailVerification(createdPerson, link);
+        
+        
+        
+        
+        
         processRequest(request, response);
+        
     }
 
     /**

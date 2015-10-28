@@ -15,6 +15,7 @@ import static org.clothocad.phagebook.adaptors.ClothoAdaptor.createProduct;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Company;
 import org.clothocad.phagebook.dom.GoodType;
+import org.clothocad.phagebook.dom.Person;
 import org.clothocad.phagebook.dom.Product;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -56,6 +57,7 @@ public class ClothoAdaptorTest {
         
        ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
        Clotho clothoObject = new Clotho(conn);
+       
        Map createUserMap = new HashMap();
        String username = "test"+ System.currentTimeMillis() ;
        createUserMap.put("username", username);
@@ -70,6 +72,7 @@ public class ClothoAdaptorTest {
        loginMap.put("credentials", "password");
        
        System.out.println("Login Map " + loginMap);
+       
        clothoObject.login(loginMap);
        
        Company amazon = new Company("Amazon");
@@ -81,7 +84,17 @@ public class ClothoAdaptorTest {
        microscope.setQuantity(65);
        microscope.setGoodType(GoodType.INSTRUMENT);
        microscope.setProductURL("www.example.com");
+          
+       String productId = (String) ClothoAdaptor.createProduct(microscope, clothoObject);
+       clothoObject.logout();
        
+       Person person = new Person();
+       person.setEmailId("johanos@bu.edu");
+       person.setFirstName("Johan");
+       person.setLastName("Ospina");
+       person.setPassword("hello");
+       
+<<<<<<< HEAD
        String productId = (String) ClothoAdaptor.createProduct(microscope,clothoObject);
         //This makes that object 
         List<String> add = new ArrayList<String>();
@@ -103,15 +116,26 @@ public class ClothoAdaptorTest {
         // make this a function.
 
         Product prod = ClothoAdaptor.getProduct(productId,clothoObject);
+=======
+>>>>>>> e2e50d3361b9cdebbfa58e527a907cdeabd3c488
         
         
         
         
+<<<<<<< HEAD
         conn.closeConnection();
 
                 
+=======
+        EmailHandler emailer = EmailHandler.getEmailHandler();
+        String link = "HELLO";
+        emailer.sendEmailVerification(person, link);
+>>>>>>> e2e50d3361b9cdebbfa58e527a907cdeabd3c488
        
        
+        
+       conn.closeConnection();
+
        
     }
     
