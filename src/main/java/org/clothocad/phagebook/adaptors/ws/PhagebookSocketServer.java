@@ -33,7 +33,7 @@ public class PhagebookSocketServer {
         contextWeb.setContextPath("/");
         contextWeb.setParentLoaderPriority(true);
 
-        server.setHandler(contextWeb);
+        //server.setHandler(contextWeb);
 
         try
         {

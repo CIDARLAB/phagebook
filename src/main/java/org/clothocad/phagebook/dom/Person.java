@@ -132,9 +132,9 @@ public class Person {
        }
     }
     
-    public void addStatus(String text){
-        Date today = Calendar.getInstance().getTime();
-        Status newStatus = new Status(text, this, today);
+    public void addStatus(Status newStatus){
+       // Date today = Calendar.getInstance().getTime();
+        //Status newStatus = new Status(text, this);
         this.statuses.add(newStatus);
     }
     

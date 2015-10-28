@@ -1428,7 +1428,7 @@ public class ClothoAdaptor {
     public static Status mapToStatus(Map map, Clotho clothoObject)
     {
         
-        Status status = new Status("",null,null);
+        Status status = new Status("",null);
         return status;
     }  
     // </editor-fold>

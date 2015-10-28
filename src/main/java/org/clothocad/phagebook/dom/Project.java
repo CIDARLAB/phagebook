@@ -128,23 +128,23 @@ public class Project {
        }
    };
    
-   private void addNotebok(Person notebookPerson){
+   public void addNotebok(Person notebookPerson){
        //how do I pass this project?
        Date today = new Date();
        Notebook newNotebook = new Notebook(notebookPerson, this, today);
        notebooks.add(newNotebook);
    }
    
-   private void deleteNotebook(Notebook toDelete){
+   public void deleteNotebook(Notebook toDelete){
        notebooks.remove(toDelete);
    }
    
    //Need function to display most recent statuses (e.g. top 10?)
-   private void addStatus(Status toAdd){
+   public void addStatus(Status toAdd){
        updates.add(toAdd);
    }
    
-   private void deleteStatus(Status toDelete){
+   public void deleteStatus(Status toDelete){
        updates.remove(toDelete);
    }
 }
