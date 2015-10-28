@@ -79,11 +79,36 @@
             <version>3.0-SNAPSHOT</version>
             <type>jar</type>
         </dependency>
-    </dependencies>
+    <!-- To write basic websockets against -->
+    <dependency>
+      <groupId>org.eclipse.jetty.websocket</groupId>
+      <artifactId>websocket-api</artifactId>
+      <version>${jetty-version}</version>
+    </dependency>
+    <!-- To run websockets in embedded server -->
+    <dependency>
+      <groupId>org.eclipse.jetty.websocket</groupId>
+      <artifactId>websocket-server</artifactId>
+      <version>${jetty-version}</version>
+    </dependency>
+    <!-- To run websockets client -->
+    <dependency>
+      <groupId>org.eclipse.jetty.websocket</groupId>
+      <artifactId>websocket-client</artifactId>
+      <version>${jetty-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-websocket</artifactId>
+      <version>8.1.10.v20130312</version>
+      <type>jar</type>
+    </dependency>
+  </dependencies>
     
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
+        <jetty-version>9.2.7.v20150116</jetty-version>
     </properties>
 </project>
