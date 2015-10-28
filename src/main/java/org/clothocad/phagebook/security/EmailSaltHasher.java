@@ -26,7 +26,7 @@ public class EmailSaltHasher {
   private static EmailSaltHasher instance = null;
   protected EmailSaltHasher() { }
   
-    public static EmailSaltHasher getEmailHandler(){
+    public static EmailSaltHasher getEmailSaltHasher(){
         if (instance == null){
             instance = new EmailSaltHasher();
         }

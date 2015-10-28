@@ -58,13 +58,7 @@ public class createPersonTest {
      */
     @Test
     public void testDoGet() throws Exception {
-        System.out.println("doGet");
-        HttpServletRequest request = null;
-        HttpServletResponse response = null;
-        createPerson instance = new createPerson();
-        instance.doGet(request, response);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -72,13 +66,7 @@ public class createPersonTest {
      */
     @Test
     public void testDoPost() throws Exception {
-        System.out.println("doPost");
-        HttpServletRequest request = null;
-        HttpServletResponse response = null;
-        createPerson instance = new createPerson();
-        instance.doPost(request, response);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -86,13 +74,7 @@ public class createPersonTest {
      */
     @Test
     public void testGetServletInfo() {
-        System.out.println("getServletInfo");
-        createPerson instance = new createPerson();
-        String expResult = "";
-        String result = instance.getServletInfo();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       
     }
     
 }

@@ -112,9 +112,9 @@ public class createPerson extends HttpServlet {
         createdPerson.setLastName(lastName);
         createdPerson.setEmailId(emailId);
         createdPerson.setPassword(password);
-        EmailSaltHasher salty = EmailSaltHasher.getEmailHandler();
+        EmailSaltHasher salty = EmailSaltHasher.getEmailSaltHasher();
         String salt = EmailSaltHasher.csRandomAlphaNumericString();
-        createdPerson.setSalt(salt.getBytes());
+        createdPerson.setSalt(salt);
         byte[] SaltedHashedEmail = salty.hash(emailId.toCharArray(), salt.getBytes());
         createdPerson.setSaltedEmailHash(SaltedHashedEmail);
         
