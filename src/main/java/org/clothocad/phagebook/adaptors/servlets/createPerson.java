@@ -13,9 +13,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.clothoapi.clotho3javaapi.Clotho;
+import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.phagebook.adaptors.ClothoAdaptor;
+import org.clothocad.phagebook.adaptors.EmailHandler;
+import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Person;
 import org.json.JSONObject;
+import org.clothocad.phagebook.security.EmailSaltHasher;
 
 
 // IMPORT PROJECT FILE HERE
@@ -25,7 +30,7 @@ import org.json.JSONObject;
  * @author anna_g
  */
 public class createPerson extends HttpServlet {
-    private Object EmailSaltHasher;
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -93,12 +98,31 @@ public class createPerson extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+        Clotho clothoObject = new Clotho(conn);
+        
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         String password = request.getParameter("password");
         String emailId = request.getParameter("emailId");
         
-        //EmailSaltHasher salty = new EmailSaltHasher();
+        Person createdPerson = new Person();
+        createdPerson.setFirstName(firstName);
+        createdPerson.setLastName(lastName);
+        createdPerson.setEmailId(emailId);
+        createdPerson.setPassword(password);
+        EmailSaltHasher salty = EmailSaltHasher.getEmailHandler();
+        byte[] salt = salty.getNextSalt();
+        createdPerson.setSalt(salt);
+        byte[] SaltedHashedEmail = salty.hash(emailId.toCharArray(), salt);
+        
+        ClothoAdaptor.createPerson(createdPerson, clothoObject);
+        
+        EmailHandler emailer = EmailHandler.getEmailHandler();
+        String link = "LINK WORKING";
+        emailer.sendEmailVerification(createdPerson, link);
+        
+        
         
         
         

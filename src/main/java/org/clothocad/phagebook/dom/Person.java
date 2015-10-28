@@ -39,6 +39,8 @@ public class Person {
     //profile pic? text link
     @Getter @Setter private List<Publication> publications;
     @Getter @Setter private String id;
+    @Getter @Setter private byte[] salt;
+    @Getter @Setter private byte[] saltedEmailHash;
     Map<String,Set<PersonRole>> roles;
     
 

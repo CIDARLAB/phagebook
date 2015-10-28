@@ -98,14 +98,14 @@ public class ClothoAdaptorTest {
         
         
         
-       String personId = (String) ClothoAdaptor.createPerson(person,clothoObject);
-      
-         
+        EmailHandler emailer = EmailHandler.getEmailHandler();
+        String link = "HELLO";
+        emailer.sendEmailVerification(person, link);
+       
+       
+        
        conn.closeConnection();
 
-                
-       
-       
        
     }
     

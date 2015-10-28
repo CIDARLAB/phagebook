@@ -335,6 +335,7 @@ public class ClothoAdaptor {
         Map map = new HashMap();
         
         map.put("salt", person.getSalt());
+        map.put("saltedEmailHash", person.getSaltedEmailHash());
         
         if (!person.getProjects().isEmpty()){
             JSONArray projects = new JSONArray();
@@ -1313,6 +1314,8 @@ public class ClothoAdaptor {
         person.setActivated( (boolean) map.get("activated") );
         person.setActivationString((String) map.get("activationString"));
         person.setSalt((byte[]) map.get("salt"));
+        person.setSaltedEmailHash((byte[]) map.get("saltedEmailHash"));
+        
         
         
         
