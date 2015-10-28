@@ -337,11 +337,9 @@ public class ClothoAdaptor {
         String id = "";
         Map map = new HashMap();
         
-        try {
-            map.put("salt", new String(person.getSalt(), "UTF-8"));
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(ClothoAdaptor.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       
+            map.put("salt", person.getSalt());
+        
         try {
             if (person.getSaltedEmailHash() != null) {
                 map.put("saltedEmailHash", new String(person.getSaltedEmailHash(), "UTF-8"));
@@ -485,6 +483,83 @@ public class ClothoAdaptor {
         makePublic(id, clothoObject);
         return id;
        
+    }
+    public static String createProject(Project project, Clotho clothoObject){
+        String id ="";
+        Map map = new HashMap();
+        if (project.getCreator().getId() != null){
+            map.put("creator", project.getCreator().getId());
+        }
+        
+        if (project.getLead().getId() != null){
+            map.put("lead", project.getLead().getId());
+        }
+        if (!project.getMembers().isEmpty()){
+            JSONArray members = new JSONArray();
+
+            for (Person member: project.getMembers() ){
+
+                members.put(member.getId());
+
+            }
+            map.put("members", members);
+        }
+        if (!project.getNotebooks().isEmpty()){
+            JSONArray notebooks = new JSONArray();
+
+            for (Notebook notebook: project.getNotebooks() ){
+
+                notebooks.put(notebook.getId());
+
+            }
+            map.put("notebooks", notebooks);
+        }
+        if (!project.getAffiliatedLabs().isEmpty()){
+            JSONArray affiliatedLabs = new JSONArray();
+
+            for (Organization affiliatedLab: project.getAffiliatedLabs() ){
+
+                affiliatedLabs.put(affiliatedLab.getId());
+
+            }
+            map.put("affiliatedLabs", affiliatedLabs);
+        }
+        if (!project.getUpdates().isEmpty()){
+            JSONArray updates = new JSONArray();
+
+            for (Status update: project.getUpdates() ){
+
+                updates.put(update.getId());
+
+            }
+            map.put("affiliatedLabs", updates);
+        }
+        
+        if (project.getName() != null && project.getName() != ""){
+            map.put("name", project.getName());
+        }
+        
+        if (project.getDateCreated() != null){
+            map.put("dateCreated", project.getDateCreated().toString());
+        }
+        
+        if (project.getBudget() != null){
+            map.put("budget", project.getBudget());
+        }
+        
+        if (project.getGrant() != null){
+            map.put("grant", project.getGrant());
+        }
+        if (project.getDescription() != null && project.getDescription() != ""){
+            map.put("description", project.getDescription());
+        }
+        
+        id = (String) clothoObject.set(map) ;
+        project.setId(id);
+        makePublic(id, clothoObject);
+        
+        
+        return id;
     }
     public static String createProtocol(Protocol protocol, Clotho clothoObject)
     {
@@ -1326,8 +1401,8 @@ public class ClothoAdaptor {
         person.setPassword( map.containsKey("password") ? (String) map.get("password"): "");
         person.setActivated( (boolean) map.get("activated") );
         person.setActivationString((String) map.get("activationString"));
-        person.setSalt((byte[]) map.get("salt"));
-        person.setSaltedEmailHash((byte[]) map.get("saltedEmailHash"));
+        person.setSalt((String) map.get("salt"));
+        person.setSaltedEmailHash(((String) map.get("saltedEmailHash")).getBytes());
         
         
         

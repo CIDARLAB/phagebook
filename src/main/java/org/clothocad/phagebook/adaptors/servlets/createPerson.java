@@ -113,9 +113,9 @@ public class createPerson extends HttpServlet {
         createdPerson.setEmailId(emailId);
         createdPerson.setPassword(password);
         EmailSaltHasher salty = EmailSaltHasher.getEmailHandler();
-        byte[] salt = EmailSaltHasher.generateSaltForUserAccount().getBytes();
-        createdPerson.setSalt(salt);
-        byte[] SaltedHashedEmail = salty.hash(emailId.toCharArray(), salt);
+        String salt = EmailSaltHasher.csRandomAlphaNumericString();
+        createdPerson.setSalt(salt.getBytes());
+        byte[] SaltedHashedEmail = salty.hash(emailId.toCharArray(), salt.getBytes());
         createdPerson.setSaltedEmailHash(SaltedHashedEmail);
         
         ClothoAdaptor.createPerson(createdPerson, clothoObject);

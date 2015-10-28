@@ -98,9 +98,7 @@ public class ClothoAdaptorTest {
         
         
         
-        EmailHandler emailer = EmailHandler.getEmailHandler();
-        String link = "HELLO";
-        emailer.sendEmailVerification(person, link);
+        
        
         
        
