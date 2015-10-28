@@ -15,6 +15,7 @@ import static org.clothocad.phagebook.adaptors.ClothoAdaptor.createProduct;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Company;
 import org.clothocad.phagebook.dom.GoodType;
+import org.clothocad.phagebook.dom.Person;
 import org.clothocad.phagebook.dom.Product;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -70,8 +71,9 @@ public class ClothoAdaptorTest {
        loginMap.put("credentials", "password");
        
        System.out.println("Login Map " + loginMap);
-       clothoObject.login(loginMap);
        
+       clothoObject.login(loginMap);
+       /*
        Company amazon = new Company("Amazon");
        String companyId = (String) ClothoAdaptor.createCompany(amazon, clothoObject);
        amazon.setId(companyId);
@@ -81,8 +83,14 @@ public class ClothoAdaptorTest {
        microscope.setQuantity(65);
        microscope.setGoodType(GoodType.INSTRUMENT);
        microscope.setProductURL("www.example.com");
+               */
+       Person person = new Person();
+       person.setEmailId("johanos@bu.edu");
+       person.setFirstName("Johan");
+       person.setLastName("Ospina");
        
-       String productId = (String) ClothoAdaptor.createProduct(microscope,clothoObject);
+       
+       String personId = (String) ClothoAdaptor.createPerson(person,clothoObject);
         //This makes that object 
         List<String> add = new ArrayList<String>();
         List<String> remove = new ArrayList<String>();
@@ -90,7 +98,7 @@ public class ClothoAdaptorTest {
         add.add("public");
         
         Map grantMap = new HashMap();
-        grantMap.put("id", productId);
+        grantMap.put("id", personId);
         grantMap.put("user", "none");
         grantMap.put("add", add);
         grantMap.put("remove", remove);
@@ -99,19 +107,15 @@ public class ClothoAdaptorTest {
         
         grantResult = (Map)(clothoObject.grant(grantMap));
         
-        System.out.println("Grant Result " + grantResult.toString());
-        // make this a function.
-
-        Product prod = ClothoAdaptor.getProduct(productId,clothoObject);
-        
-        
-        
-        
-        conn.closeConnection();
+        EmailHandler emailer = EmailHandler.getEmailHandler();
+        emailer.sendEmailVerification(person);
+       
+       conn.closeConnection();
 
                 
        
        
+
        
     }
     
