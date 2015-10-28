@@ -94,7 +94,7 @@ public class ClothoAdaptorTest {
        person.setLastName("Ospina");
        person.setPassword("hello");
        
-        
+        Product prod = (Product) ClothoAdaptor.getProduct(productId, clothoObject);
         
         
         
@@ -102,6 +102,7 @@ public class ClothoAdaptorTest {
         String link = "HELLO";
         emailer.sendEmailVerification(person, link);
        
+        
        
         
        conn.closeConnection();

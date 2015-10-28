@@ -58,20 +58,20 @@ public class ClothoAdaptor {
     {
         String id = "";
         Map map = new HashMap();
-        if (company.getContact() != null || company.getContact() != ""){
+        if (company.getContact() != null && company.getContact() != ""){
             map.put("contact", company.getContact());
         }
         if (company.getId() != null) {
             map.put("id", company.getId());
         }
         map.put("name", company.getName());
-        if (company.getDescription() != null || company.getDescription() != ""){
+        if (company.getDescription() != null && company.getDescription() != ""){
             map.put("description", company.getDescription());
         }
-        if (company.getPhone() != null || company.getContact() != ""){
+        if (company.getPhone() != null && company.getContact() != ""){
             map.put("phone", company.getPhone());
         }
-        if (company.getUrl() != null || company.getUrl() != ""){
+        if (company.getUrl() != null && company.getUrl() != ""){
             map.put("url", company.getUrl());
         }
         id = (String) clothoObject.set(map);
@@ -83,14 +83,14 @@ public class ClothoAdaptor {
     {
         String id = "";
         Map map = new HashMap();
-        if (container.getName() != null || container.getName() != ""){ 
+        if (container.getName() != null && container.getName() != ""){ 
             map.put("name", container.getName());
         }
         if (container.getId() != null) {
             map.put("id", container.getId());
         }
         
-        if (container.getDescription() != null || container.getDescription() != ""){
+        if (container.getDescription() != null && container.getDescription() != ""){
             map.put("description", container.getDescription());
         }
         id = (String) clothoObject.set(map);
@@ -115,11 +115,11 @@ public class ClothoAdaptor {
             map.put("lastModified", entry.getLastModified().toString());
         }
         
-        if ( entry.getText() != null || entry.getText() != ""){  
+        if ( entry.getText() != null && entry.getText() != ""){  
             map.put("text", entry.getText());
         }
         
-        if ( entry.getTitle() != null || entry.getTitle() != ""){  
+        if ( entry.getTitle() != null && entry.getTitle() != ""){  
             map.put("title", entry.getTitle());
         }
         
@@ -141,19 +141,19 @@ public class ClothoAdaptor {
         if (fundingAgency.getId() != null){
             map.put("id", fundingAgency.getId());
         }
-        if (fundingAgency.getName() != null || fundingAgency.getName() != "" ){
+        if (fundingAgency.getName() != null && fundingAgency.getName() != "" ){
             map.put("name", fundingAgency.getName());
         }
         
-        if (fundingAgency.getDescription() != null || fundingAgency.getDescription() != "" ){
+        if (fundingAgency.getDescription() != null && fundingAgency.getDescription() != "" ){
             map.put("description", fundingAgency.getDescription());
         }
         
-        if (fundingAgency.getPhone() != null || fundingAgency.getPhone() != "" ){
+        if (fundingAgency.getPhone() != null && fundingAgency.getPhone() != "" ){
             map.put("phone", fundingAgency.getPhone());
         }
         
-        if (fundingAgency.getUrl() != null || fundingAgency.getUrl() != "" ){
+        if (fundingAgency.getUrl() != null && fundingAgency.getUrl() != "" ){
             map.put("url", fundingAgency.getUrl());
         }
         id = (String) clothoObject.set(map);
@@ -168,10 +168,10 @@ public class ClothoAdaptor {
         if (good.getId() != null){
             map.put("id", good.getId());
         }
-        if (good.getName() != null || good.getName() != "" ){
+        if (good.getName() != null && good.getName() != "" ){
             map.put("name", good.getName());
         }
-        if (good.getDescription() != null || good.getDescription() != "" ){
+        if (good.getDescription() != null && good.getDescription() != "" ){
             map.put("description", good.getDescription());
         }
                 
@@ -336,7 +336,7 @@ public class ClothoAdaptor {
     {
         String id = "";
         Map map = new HashMap();
-      
+        
         try {
             map.put("salt", new String(person.getSalt(), "UTF-8"));
         } catch (UnsupportedEncodingException ex) {
@@ -1129,8 +1129,8 @@ public class ClothoAdaptor {
             e.printStackTrace();
         }
        
-        Double budget = Double.parseDouble((String) map.get("budget"));
-        Double amountSpent = Double.parseDouble((String) map.get("amountSpent"));
+        double budget = (double) map.get("budget");
+        double amountSpent = (double) map.get("amountSpent");
         
         JSONArray projectIds = (JSONArray) map.get("projects");
         List<Project> projects = new LinkedList<Project>();
@@ -1360,8 +1360,8 @@ public class ClothoAdaptor {
             company = getCompany(companyId, clothoObject);
         }
         GoodType goodType = GoodType.valueOf((String) map.get("goodType"));
-        double cost = Double.parseDouble((String) map.get("cost"));
-        int quantity = Integer.parseInt((String) map.get("quantity"));
+        double cost = (Double) map.get("cost");
+        int quantity = (int) map.get("quantity");
         
         Product product = new Product(name, company, cost);
         product.setDescription(description);
@@ -1396,7 +1396,7 @@ public class ClothoAdaptor {
         
         List<Status> updates = new LinkedList<Status>() ;
         
-        Double budget = Double.parseDouble((String) map.get("budget"));
+        double budget = (double) map.get("budget");
         
         String description = (String) map.get("description");
         

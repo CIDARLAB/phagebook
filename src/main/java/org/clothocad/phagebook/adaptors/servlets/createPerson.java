@@ -121,7 +121,7 @@ public class createPerson extends HttpServlet {
         ClothoAdaptor.createPerson(createdPerson, clothoObject);
         
         EmailHandler emailer = EmailHandler.getEmailHandler();
-        String link = Args.phagebookBaseURL + "/verifyEmail?emailId=" +createdPerson.getEmailId() + "&salt=" + salt ;
+        String link = Args.phagebookBaseURL + "/verifyEmail?emailId=" +createdPerson.getEmailId() + "&salt=" + createdPerson.getSalt() ;
         emailer.sendEmailVerification(createdPerson, link);
         
         

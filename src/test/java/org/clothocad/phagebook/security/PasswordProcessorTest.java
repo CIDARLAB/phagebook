@@ -65,7 +65,7 @@ public class PasswordProcessorTest {
        johan.setPassword("koala");
        
        
-       ClothoAdaptor.createPerson(johan, clothoObject);
+       //ClothoAdaptor.createPerson(johan, clothoObject);
   
     }
 
