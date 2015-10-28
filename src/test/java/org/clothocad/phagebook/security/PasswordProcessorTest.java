@@ -5,6 +5,10 @@
  */
 package org.clothocad.phagebook.security;
 
+import org.clothoapi.clotho3javaapi.Clotho;
+import org.clothoapi.clotho3javaapi.ClothoConnection;
+import org.clothocad.phagebook.adaptors.ClothoAdaptor;
+import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Person;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -51,13 +55,17 @@ public class PasswordProcessorTest {
      */
     @Test
     public void testCreateSaltedHash() throws Exception {
-          
+       
+       ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+       Clotho clothoObject = new Clotho(conn);
        Person johan = new Person();
        johan.setEmailId("johanos@bu.edu");
        johan.setFirstName("Johan");
        johan.setLastName("Ospina");
        johan.setPassword("koala");
        
+       
+       ClothoAdaptor.createPerson(johan, clothoObject);
   
     }
 

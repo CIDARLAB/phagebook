@@ -5,6 +5,7 @@
  */
 package org.clothocad.phagebook.adaptors;
 
+import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,6 +18,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.text.DateFormatter;
 import net.sf.json.JSON;
 import org.clothoapi.clotho3javaapi.Clotho;
@@ -333,9 +336,19 @@ public class ClothoAdaptor {
     {
         String id = "";
         Map map = new HashMap();
-        
-        map.put("salt", person.getSalt());
-        map.put("saltedEmailHash", person.getSaltedEmailHash());
+      
+        try {
+            map.put("salt", new String(person.getSalt(), "UTF-8"));
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(ClothoAdaptor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            if (person.getSaltedEmailHash() != null) {
+                map.put("saltedEmailHash", new String(person.getSaltedEmailHash(), "UTF-8"));
+            }
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(ClothoAdaptor.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         if (!person.getProjects().isEmpty()){
             JSONArray projects = new JSONArray();
