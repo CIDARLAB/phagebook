@@ -114,16 +114,7 @@ public class ClothoAdaptorTest {
         // make this a function.
 
         Product prod = ClothoAdaptor.getProduct(productId,clothoObject);
-        
-        
-        
-        
-        EmailHandler emailer = EmailHandler.getEmailHandler();
-        String link = "HELLO";
-        emailer.sendEmailVerification(person, link);
-       
-       
-        
+
        conn.closeConnection();
 
        
