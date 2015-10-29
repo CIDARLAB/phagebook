@@ -32,15 +32,18 @@ public class Project {
    
    
    public Project(Person creator, String name, Organization lab, String description){
+       System.out.println("start of constructor");
        this.dateCreated = new Date();
        this.creator = creator;
        this.name = name;
-       this.affiliatedLabs.add(lab);
        this.description = description;
        this.notebooks = new ArrayList<Notebook>();
        this.affiliatedLabs = new ArrayList<Organization>();
        this.members = new ArrayList<Person>();
        this.updates = new ArrayList<Status>();
+       this.affiliatedLabs.add(lab);
+       
+       System.out.println("end of constructor");
        
    }
    
@@ -54,13 +57,14 @@ public class Project {
        this.description = description;
        this.updates = new ArrayList<Status>();
        this.grant = projectGrant;
-       this.members.add(creator);
-       this.affiliatedLabs.add(lab);
        this.lead = lead;
        this.notebooks = new ArrayList<Notebook>();
        this.affiliatedLabs = new ArrayList<Organization>();
        this.members = new ArrayList<Person>();
-       //Create new lab notebook for creator?
+       this.affiliatedLabs.add(lab);
+       this.members.add(creator);
+              
+        //Create new lab notebook for creator?
        Notebook creatorNotebook = new Notebook(creator, this, createdDate);
        notebooks.add(creatorNotebook);
    }
@@ -146,7 +150,9 @@ public class Project {
    
    //Need function to display most recent statuses (e.g. top 10?)
    public void addStatus(Status toAdd){
+       System.out.println("add status");
        updates.add(toAdd);
+       System.out.println("finish status");
    }
    
    public void deleteStatus(Status toDelete){

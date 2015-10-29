@@ -122,6 +122,7 @@ public class PhagebookSocket
                      Map loginMap = new HashMap();
                     loginMap.put("username", username);
                     loginMap.put("credentials", password);
+                    clothoObject.login(loginMap);
                     
                     String userID = (String) map.get("personID");
                     Person user = new Person();
@@ -129,15 +130,21 @@ public class PhagebookSocket
                     Status newStatus = new Status((String) map.get("text"), user);
                     user.addStatus(newStatus);
                     
-                    if(map.get("projectID") != null){
+                    if(map.containsKey("projectID")){
+                        System.out.println("Reached here!!!!!");
                         String projectID = (String) map.get("projectID");
                         
                         Project project = new Project(user,"Phagebook",new Institution("BU"),"Social Synbio project");
                         project.setId(projectID);
+                        System.out.println("Here Again!!!!!");
+
                         ClothoAdaptor.createProject(project, clothoObject);
-                        
-                        //Project project = (Project) ClothoAdaptor.getProject(projectID, clothoObject);
+                        Project projectFromClotho = ClothoAdaptor.getProject(projectID, clothoObject);
+                        System.out.println("And we are Here Again!!!!!");
+                        String statusId = ClothoAdaptor.createStatus(newStatus, clothoObject);
+                        newStatus.setId(statusId);
                         project.addStatus(newStatus);
+                        ClothoAdaptor.createProject(project, clothoObject);
                     }
                     //Create a map, with key "id" , and the id of the status as the value. pass that to data.
                     JSONObject returnObj = new JSONObject();
