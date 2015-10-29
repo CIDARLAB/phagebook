@@ -20,6 +20,15 @@ import lombok.Setter;
  * @author KatieLewis
  */
 public class Person {
+    
+    //ADDED properties
+    @Getter @Setter private String emailId;
+    @Getter @Setter private String firstName;
+    @Getter @Setter private String lastName;
+    @Getter @Setter private String password;
+    @Getter @Setter private boolean activated;
+    @Getter @Setter private String activationString;
+    
     @Getter @Setter private List<Project> projects;
     @Getter @Setter private List<Status> statuses;
     @Getter @Setter private List<Notebook> notebooks;
@@ -30,6 +39,8 @@ public class Person {
     //profile pic? text link
     @Getter @Setter private List<Publication> publications;
     @Getter @Setter private String id;
+    @Getter @Setter private String salt;
+    @Getter @Setter private byte[] saltedEmailHash;
     Map<String,Set<PersonRole>> roles;
     
 
@@ -42,6 +53,9 @@ public class Person {
         this.publications = new ArrayList<Publication>();
         this.roles = new HashMap<String,Set<PersonRole>>();
         this.orders = new ArrayList<Order>();
+        this.activated = false;
+        this.activationString = "";
+        
     }
     
     public void addRole(Institution institution, PersonRole role){

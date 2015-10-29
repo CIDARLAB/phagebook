@@ -10,6 +10,7 @@ import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 import javax.activation.*;
+import org.clothocad.phagebook.dom.Person;
 
 /**
  *
@@ -17,8 +18,10 @@ import javax.activation.*;
  */
 //Singleton Handler
 public class EmailHandler {
-    public static String SENDER_DOMAIN_NAME = "johanseospina@gmail.com";
-    public static String SENDER_PASSWORD = "123456789kndoor";
+    // <editor-fold defaultstate="collapsed" desc="Johan's Email info">
+    public static String SENDER_DOMAIN_NAME = "phagebook.email@gmail.com";
+    public static String SENDER_PASSWORD = "Phagebook";
+    // </editor-fold>
     private static EmailHandler instance = null;
     protected EmailHandler(){
         
@@ -30,8 +33,8 @@ public class EmailHandler {
         return instance; 
     }
     //TODO: Implement a person type object.
-    /*
-    public boolean sendEmailVerification(Person pers){
+    
+    public boolean sendEmailVerification(Person pers, String link){
        
             //try to send an email and stuff
             //eventually check if person is verified and then throw an exception or something
@@ -54,7 +57,7 @@ public class EmailHandler {
                 try {
 
                     
-                    Message message = createMessage(SENDER_DOMAIN_NAME, pers, session);
+                    Message message = createMessage(SENDER_DOMAIN_NAME, pers, session, link);
                     Transport.send(message);
                     System.out.println("Done");
 
@@ -71,32 +74,33 @@ public class EmailHandler {
                 return false;
             }
    }
-  public Message createMessage(String senderDomain, Person pers, Session session) throws MessagingException{
+  public Message createMessage(String senderDomain, Person pers, Session session, String link) throws MessagingException{
       Message message = new MimeMessage(session);
                 try{
                     message.setFrom(new InternetAddress(SENDER_DOMAIN_NAME));
                     message.setRecipients(Message.RecipientType.TO,
-                        InternetAddress.parse(pers.getEmail()));
+                        InternetAddress.parse(pers.getEmailId()));
                     message.setSubject("Phagebook Activation Email");
                     message.setText("Hi " + pers.getFirstName() + " \n\n Please Validate"
-                        + " Your email by following this link: " + "https://www.youtube.com/watch?v=79AR0VC5wCA" );
+                        + " Your email by following this link: " + link );
                 } catch (MessagingException e){
                     throw e;
                 }
         return message;
   }
-
+  
   public void startVerification(Person pers, String code){
         //do stuff to begin checking verification dates
-        pers.verify(code);
+        //pers.verify(code);
     }
     
     public boolean checkVerificationStatus(Person pers){
-        if (pers.isVerified()){
+        if (pers.isActivated()){
             return true;
         }
         return false;
     }
-    */
+  
+    
     
 }

@@ -15,6 +15,7 @@ import static org.clothocad.phagebook.adaptors.ClothoAdaptor.createProduct;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Company;
 import org.clothocad.phagebook.dom.GoodType;
+import org.clothocad.phagebook.dom.Person;
 import org.clothocad.phagebook.dom.Product;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -56,51 +57,63 @@ public class ClothoAdaptorTest {
         
        ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
        Clotho clothoObject = new Clotho(conn);
-       Map createUserMap = new HashMap();
-       String username = "test"+ System.currentTimeMillis() ;
-       createUserMap.put("username", username);
-       createUserMap.put("password", "password");
        
-       clothoObject.createUser(createUserMap);
+//       Map createUserMap = new HashMap();
+//       String username = "test"+ System.currentTimeMillis() ;
+//       createUserMap.put("username", username);
+//       createUserMap.put("password", "password");
+//       
+//       System.out.println("Create User Map " + createUserMap.toString());
+//       clothoObject.createUser(createUserMap);
+//       
+//       
+//       Map loginMap = new HashMap();
+//       loginMap.put("username", username);
+//       loginMap.put("credentials", "password");
+//       
+//       System.out.println("Login Map " + loginMap);
+//       
+//       clothoObject.login(loginMap);
+//       
+//       Company amazon = new Company("Amazon");
+//       String companyId = (String) ClothoAdaptor.createCompany(amazon, clothoObject);
+//       amazon.setId(companyId);
+//       
+//       Product microscope = new Product("Microscope",amazon,4000);
+//       microscope.setDescription("Magnifies stuff BETTER");
+//       microscope.setQuantity(65);
+//       microscope.setGoodType(GoodType.INSTRUMENT);
+//       microscope.setProductURL("www.example.com");
+//          
+//       String productId = (String) ClothoAdaptor.createProduct(microscope, clothoObject);
+//       
+//       microscope.setDescription("Magnifies stuff AND I CHANGED DESC");
+//       microscope.setQuantity(20);
+//       String productId2 = (String) ClothoAdaptor.createProduct(microscope, clothoObject);
+//       
+//       clothoObject.logout();
        
-       
-       Map loginMap = new HashMap();
-       loginMap.put("username", username);
-       loginMap.put("credentials", "password");
-       
-       clothoObject.login(loginMap);
-       
-       Company amazon = new Company("Amazon");
-       amazon.setId("org.company.amazon");
-       Product microscope = new Product("Microscope",amazon,4000);
-       microscope.setDescription("Magnifies stuff BETTER");
-       microscope.setQuantity(65);
-       microscope.setGoodType(GoodType.INSTRUMENT);
-       microscope.setProductURL("www.example.com");
-       
-        String productId = (String) createProduct(microscope,clothoObject);
+       Person person = new Person();
+       person.setEmailId("johanos@bu.edu");
+       person.setFirstName("Johan");
+       person.setLastName("Ospina");
+       person.setPassword("hello");
+       ClothoAdaptor.createPerson(person, clothoObject);
+        //Product prod = (Product) ClothoAdaptor.getProduct(productId, clothoObject);
+        Map query = new HashMap();
+        query.put("emailId", "johanos@bu.edu");
+        List<Person> people = ClothoAdaptor.queryPerson(query, clothoObject);
+        for(Person pers : people){
+            System.out.println(pers.getEmailId());
+        }
         
-        //This makes that object 
-        List<String> add = new ArrayList<String>();
-        List<String> remove = new ArrayList<String>();
         
-        add.add("public");
+       
         
-        Map grantMap = new HashMap();
-        grantMap.put("id", productId);
-        grantMap.put("user", "none");
-        grantMap.put("add", add);
-        grantMap.put("remove", remove);
+       
         
-        Map grantResult = new HashMap();
-        grantResult = (Map)(clothoObject.grant(grantMap));
-        // make this a function.
-        //Company comp = (Company) ClothoAdaptor.getCompany("",clothoObject);
-         
        conn.closeConnection();
-                
-       
-       
+
        
     }
     
