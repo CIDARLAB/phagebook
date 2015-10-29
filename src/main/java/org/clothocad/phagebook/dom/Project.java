@@ -44,7 +44,7 @@ public class Project {
        this.affiliatedLabs.add(lab);
        
        System.out.println("end of constructor");
-       
+     
    }
    
    

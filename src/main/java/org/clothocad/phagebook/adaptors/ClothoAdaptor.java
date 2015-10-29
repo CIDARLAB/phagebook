@@ -504,8 +504,10 @@ public class ClothoAdaptor {
             }    
         }
         System.out.println("Step 3");
+
         
         if (!project.getMembers().isEmpty()){
+            System.out.println("Step 3");
             JSONArray members = new JSONArray();
 
             for (Person member: project.getMembers() ){
@@ -564,7 +566,8 @@ public class ClothoAdaptor {
         if (project.getDescription() != null && project.getDescription() != ""){
             map.put("description", project.getDescription());
         }
-        System.out.println("Step 100");
+
+        System.out.println("Reached this point in createProject (ClothoAdaptor)");
         id = (String) clothoObject.set(map) ;
         project.setId(id);
         makePublic(id, clothoObject);
@@ -1092,7 +1095,7 @@ public class ClothoAdaptor {
         //id is in the parameter
         String contact = "";
         if (map.containsKey("contact")){
-             contact = (String) map.get("contact");
+             //contact = (String) map.get("contact");
         }
        
         String name = "";

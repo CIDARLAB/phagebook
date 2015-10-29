@@ -48,6 +48,21 @@ public class createPerson extends HttpServlet {
             response.setContentType("text/html;charset=UTF-8");
             try (PrintWriter out = response.getWriter()) {
                 
+//"id": loginResult.id,
+//"givenname"
+//"surname"
+//"fullname"
+//"email"
+//"friendsList"
+//"statusList"
+//"pubmedIdList"
+//"activated"
+//"activationString"
+                
+                Person person = new Person();
+                person.setFirstName(request.getParameter("givenname"));
+                person.setLastName(request.getParameter("surname"));
+                
                 System.out.println("got an a new Person request here!");
                 
                 String firstName = request.getParameter("firstName");
@@ -59,7 +74,7 @@ public class createPerson extends HttpServlet {
                 // create a result object and send it to the frontend
                 JSONObject result = new JSONObject();
                 result.put("success",1);
-
+s
                 result.put("firstName", firstName);
                 result.put("lastName", lastName);
                 result.put("emailId",emailId);

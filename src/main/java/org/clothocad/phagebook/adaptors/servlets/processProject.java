@@ -14,6 +14,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Map;
+import org.clothoapi.clotho3javaapi.Clotho;
+import org.clothoapi.clotho3javaapi.ClothoConnection;
+import org.clothocad.phagebook.adaptors.ClothoAdaptor;
+import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Grant;
 import org.clothocad.phagebook.dom.Organization;
 import org.clothocad.phagebook.dom.Person;
@@ -44,40 +50,7 @@ public class processProject extends HttpServlet {
             response.setContentType("text/html;charset=UTF-8");
             try (PrintWriter out = response.getWriter()) {
                 
-                System.out.println("got request here!");
                 
-                // get all of the fields from the request
-                String name = request.getParameter("name");
-                String description = request.getParameter("description");
-                Double projectBudget = Double.parseDouble(request.getParameter("projectBudget"));
-
-                
-                // how to transfer date from the website? Maybe just initialize the
-                // date at the server
-                /*
-                String createdDate = request.getParameter("dateCreated");
-                DateFormat format = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
-                Date date = format.parse(createdDate); 
-                */
-                
-                //Person creator = new Person(request.getParameter("creator"));
-                //Organization lab = new Organization(request.getParameter("lab"));
-                //Grant projectGrant = new Grant(request.getParameter("projectGrant"));
-             
-                System.out.println("");
-                System.out.println("");
-                // create project object
-                //Project project = new Project( createdDate, creator,  name,  lab,
-                //        lead, projectBudget, projectGrant,  description );
-                
-                // create a result object and send it to the frontend
-                JSONObject result = new JSONObject();
-                result.put("success",1);
-                
-                PrintWriter writer = response.getWriter();
-                writer.println(result);
-                writer.flush();
-                writer.close();
             }
     }
 
@@ -107,7 +80,61 @@ public class processProject extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        System.out.println("got request here!");
+                
+                // get all of the fields from the request
+                String name = request.getParameter("name");
+                String description = request.getParameter("description");
+                
+                // how to transfer date from the website? Maybe just initialize the
+                // date at the server
+                // get the name of the person who created the project
+                
+                /*
+                Double projectBudget = Double.parseDouble(request.getParameter("projectBudget"));
+                Organization lab = new Organization(request.getParameter("lab"));
+                Grant projectGrant = new Grant(request.getParameter("projectGrant"));
+                
+                
+                // or get the object from the server?
+                
+                */
+                Person creator = new Person();
+                creator.setFirstName("Leela");
+                creator.setId("Leela");
+                // create project object
+                //Project project = new Project( createdDate, creator,  name,  lab,
+                //        lead, projectBudget, projectGrant,  description );
+                
+                Project project = new Project(creator, name,  description);
+                
+                ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+                Clotho clothoObject = new Clotho(conn); 
+                String username = "phagebook";
+                Map createUserMap = new HashMap();
+                createUserMap.put("username", username);
+                createUserMap.put("password", "password");
+                clothoObject.createUser(createUserMap);
+                Map loginMap = new HashMap();
+                loginMap.put("username", username);
+                loginMap.put("credentials", "password");
+
+                clothoObject.login(loginMap);
+                
+                ClothoAdaptor.createProject(project, clothoObject);
+                conn.closeConnection();
+                System.out.println("hey");
+                
+                JSONObject res = new JSONObject();
+                String result = "creator is " + creator.getFirstName() + " description is " + project.getDescription();
+                System.out.println(result);
+                res.put(result,1);
+                
+                PrintWriter writer = response.getWriter();
+                writer.println(res.toString());
+                writer.flush();
+                writer.close();
     }
 
     /**
