@@ -47,6 +47,17 @@ public class Project {
      
    }
    
+   public Project(Person creator, String name, String description){
+       this.dateCreated = new Date();
+       this.creator = creator;
+       this.name = name;
+       this.description = description;
+       this.notebooks = new ArrayList<Notebook>();
+       this.affiliatedLabs = new ArrayList<Organization>();
+       this.members = new ArrayList<Person>();
+       this.updates = new ArrayList<Status>();
+   }
+   
    
    public Project(Date createdDate,Person creator, String name, Organization lab, 
         Person lead, Double projectBudget, Grant projectGrant, String description){
