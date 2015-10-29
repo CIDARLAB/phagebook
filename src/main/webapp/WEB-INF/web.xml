@@ -20,6 +20,15 @@
     </servlet-mapping>
     
     <servlet>
+        <servlet-name>newOrder</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.newOrder</servlet-class>
+    </servlet>
+   <servlet-mapping>
+        <servlet-name>newOrder</servlet-name>
+        <url-pattern>/newOrder</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
         <servlet-name>createPerson</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.createPerson</servlet-class>
     </servlet>

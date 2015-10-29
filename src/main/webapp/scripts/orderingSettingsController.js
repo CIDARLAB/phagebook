@@ -1,7 +1,7 @@
-var orderingModule = angular.module('orderingApp',['clothoRoot','ui.bootstrap.tpls','ui.bootstrap.modal']);
+var orderingSettingsModule = angular.module('orderingSettingsApp',['clothoRoot','ui.bootstrap.tpls','ui.bootstrap.modal']);
 
 
-orderingModule.controller('orderingController',function($scope,Clotho,$modal){
+orderingSettingsModule.controller('orderingSettingsController',function($scope,Clotho,$modal){
 
     $scope.uploadCompanies = function(){
 

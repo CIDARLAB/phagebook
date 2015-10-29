@@ -10,7 +10,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.clothocad.phagebook.dom.Company;
 import org.clothocad.phagebook.dom.GoodType;
 import org.clothocad.phagebook.dom.Order;
@@ -50,6 +52,9 @@ public class OrderController {
                 price = (String) productList.get(5);
 
             }
+            Map companyQuery = new HashMap();
+            companyQuery.put("name",companyName);
+            
             Company company = new Company(companyName);
             Product product = new Product(productName, company, Double.valueOf(price));
 
