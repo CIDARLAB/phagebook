@@ -24,7 +24,11 @@ public class Order {
     
     @Getter
     @Setter
-    private String id, name; 
+    private String id, name, description,createdOn;
+    
+    @Getter
+    @Setter
+    private Person createdBy;
     
     /**
      *
