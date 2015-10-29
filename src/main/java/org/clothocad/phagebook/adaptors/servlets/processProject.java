@@ -96,10 +96,7 @@ public class processProject extends HttpServlet {
                 Organization lab = new Organization(request.getParameter("lab"));
                 Grant projectGrant = new Grant(request.getParameter("projectGrant"));
                 
-                
-                // or get the object from the server?
-                
-                */
+                // or get the object from the server? */
                 Person creator = new Person();
                 creator.setFirstName("Leela");
                 creator.setId("Leela");
@@ -122,14 +119,15 @@ public class processProject extends HttpServlet {
 
                 clothoObject.login(loginMap);
                 
-                ClothoAdaptor.createProject(project, clothoObject);
+                String projectID = ClothoAdaptor.createProject(project, clothoObject);
+                
                 conn.closeConnection();
-                System.out.println("hey");
+                
+                String result = "projectID is " + projectID + " description is " + project.getDescription();
+                System.out.println(result);
                 
                 JSONObject res = new JSONObject();
-                String result = "creator is " + creator.getFirstName() + " description is " + project.getDescription();
-                System.out.println(result);
-                res.put(result,1);
+                res.put("id", projectID);
                 
                 PrintWriter writer = response.getWriter();
                 writer.println(res.toString());
