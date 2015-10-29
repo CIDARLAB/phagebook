@@ -20,7 +20,6 @@ import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.phagebook.adaptors.ClothoAdaptor;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.controller.OrderController;
-import org.clothocad.phagebook.dom.Company;
 import org.clothocad.phagebook.dom.Product;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -30,7 +29,7 @@ import org.json.JSONObject;
  *
  * @author innaturshudzhyan
  */
-public class inputCompany extends HttpServlet {
+public class inputProduct extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -54,19 +53,16 @@ public class inputCompany extends HttpServlet {
 
         clothoObject.login(loginMap);
         
-        List<Company> companies = new ArrayList<Company>();
-        companies = OrderController.getCompanies(data, clothoObject);
+        List<Product> products = new ArrayList<Product>();
+        products = OrderController.getProducts(data, clothoObject);
+
         
-        /*List<Product> products = new ArrayList<Product>();
-        products = OrderController.getProducts(data,clothoObject);
-        */
-        
-        for(Company company:companies){
-            ClothoAdaptor.createCompany(company, clothoObject);
+        for(Product product:products){
+            ClothoAdaptor.createProduct(product, clothoObject);
         }
         conn.closeConnection();
         //writer.println("Done!");
-        writer.println(companies.size() + " companies created");
+        writer.println(products.size() + " products created");
         writer.flush();
         writer.close();
 

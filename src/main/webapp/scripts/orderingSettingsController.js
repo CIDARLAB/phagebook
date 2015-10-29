@@ -36,12 +36,15 @@ orderingSettingsModule.controller('orderingSettingsController',function($scope,C
         var results = Papa.parse(file, {
             //header: true,
             complete: function(productJSON) {
+                console.log(JSON.stringify(productJSON));
                 $.ajax({
                     url: "inputProduct",
                     type: "POST",
-                    data: productJSON,
+                    data: {
+                            "list" : JSON.stringify(productJSON)
+                        },
                     success: function (response) {
-                        result = JSON.parse(response);
+                        alert(response);
                     },
                     error: function () {
                         alert("ERROR!!");
@@ -52,4 +55,4 @@ orderingSettingsModule.controller('orderingSettingsController',function($scope,C
     };
 
 
-})
+});

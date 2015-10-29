@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.clothoapi.clotho3javaapi.Clotho;
+import org.clothocad.phagebook.adaptors.ClothoAdaptor;
 import org.clothocad.phagebook.dom.Company;
 import org.clothocad.phagebook.dom.GoodType;
 import org.clothocad.phagebook.dom.Order;
@@ -28,7 +30,7 @@ import org.json.JSONArray;
  */
 public class OrderController {
 
-    public static List<Product> getProducts(JSONArray list) {
+    public static List<Product> getProducts(JSONArray list,Clotho clothoObject) {
         List<Product> products = new ArrayList<Product>();
         for (int i = 0; i < (list.length()); i++) {
 
@@ -52,10 +54,18 @@ public class OrderController {
                 price = (String) productList.get(5);
 
             }
+            Company company; 
             Map companyQuery = new HashMap();
             companyQuery.put("name",companyName);
-            
-            Company company = new Company(companyName);
+            List<Company> companyList = ClothoAdaptor.queryCompany(companyQuery, clothoObject);
+            if(companyList.isEmpty()){
+                company = new Company(companyName);
+                ClothoAdaptor.createCompany(company, clothoObject);
+            }
+            else{
+               company = companyList.get(0);
+            }
+                
             Product product = new Product(productName, company, Double.valueOf(price));
 
             product.setProductURL(url);
@@ -66,6 +76,56 @@ public class OrderController {
         return products;
     }
 
+    public static List<Company> getCompanies(JSONArray list,Clotho clothoObject) {
+        List<Company> companies = new ArrayList<Company>();
+        for (int i = 0; i < (list.length()); i++) {
+
+            JSONArray companyList = new JSONArray();
+            companyList = (JSONArray) list.get(i);
+            if(companyList.length() != 5){
+                continue;
+            }
+            String companyName = "";
+            String description = "";
+            String phone = "";
+            String url = "";
+            String contact = "";
+            
+            for (int j = 0; j < companyList.length(); j++) {
+                companyName = (String) companyList.get(0);
+                description = (String) companyList.get(1);
+                phone = (String) companyList.get(2);
+                url = (String) companyList.get(3);
+                contact = (String) companyList.get(4);
+                
+            }
+            
+                Company company = new Company(companyName);
+
+                Map companyQuery = new HashMap();
+                companyQuery.put("name",companyName);
+                List<Company> companyArray = ClothoAdaptor.queryCompany(companyQuery, clothoObject);
+                if(companyArray.isEmpty()){
+                    company = new Company(companyName);
+                    ClothoAdaptor.createCompany(company, clothoObject);
+                }
+                else{
+                   company = companyArray.get(0);
+                }
+                
+                company.setDescription(description);
+                company.setPhone(phone);
+                company.setUrl(url);
+                company.setContact(contact);
+
+                companies.add(company);
+             
+        }
+        return companies;
+    }
+
+    
+    
     public static List<Product> getProducts(String filename) {
 
         BufferedReader br = null;
