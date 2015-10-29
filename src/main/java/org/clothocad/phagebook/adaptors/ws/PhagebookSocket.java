@@ -13,11 +13,13 @@ import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.phagebook.adaptors.ClothoAdaptor;
 import org.clothocad.phagebook.controller.Args;
+import org.clothocad.phagebook.dom.Institution;
 import org.clothocad.phagebook.dom.Person;
 import org.clothocad.phagebook.dom.Project;
 import org.clothocad.phagebook.dom.Status;
 import org.eclipse.jetty.websocket.WebSocket;
-import org.json.JSONObject;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 /**
@@ -32,19 +34,8 @@ public class PhagebookSocket
     
     @Override
     public void onMessage(String data) {
-        JSONObject object;
-        object = new JSONObject(data);
-        System.out.println("Channel :: " + (String)object.get("channel"));
         try {
-            JSONObject result = new JSONObject();
-            JSONObject resultData = new JSONObject();
-            
-            resultData.put("meh","blah");
-            result.put("data", resultData);
-            result.put("channel", object.get("channel"));
-            result.put("requestId", object.get("requestId"));
-            connection.sendMessage(result.toString());
-            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            connection.sendMessage(handleIncomingMessage(data).toString());
         } catch (IOException ex) {
             Logger.getLogger(PhagebookSocket.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -133,17 +124,25 @@ public class PhagebookSocket
                     loginMap.put("credentials", password);
                     
                     String userID = (String) map.get("personID");
-                    Person user = ClothoAdaptor.getPerson(userID, clothoObject);
+                    Person user = new Person();
+                    user.setFirstName("Katie Jr.");
                     Status newStatus = new Status((String) map.get("text"), user);
                     user.addStatus(newStatus);
                     
                     if(map.get("projectID") != null){
                         String projectID = (String) map.get("projectID");
-                        Project project = (Project) ClothoAdaptor.getProject(projectID, clothoObject);
+                        
+                        Project project = new Project(user,"Phagebook",new Institution("BU"),"Social Synbio project");
+                        project.setId(projectID);
+                        ClothoAdaptor.createProject(project, clothoObject);
+                        
+                        //Project project = (Project) ClothoAdaptor.getProject(projectID, clothoObject);
                         project.addStatus(newStatus);
                     }
                     //Create a map, with key "id" , and the id of the status as the value. pass that to data.
-                    result.put("data", "");
+                    JSONObject returnObj = new JSONObject();
+                    returnObj.put("id", newStatus.getId());
+                    result.put("data",returnObj);
                     break;
                 case updateOrderStatus:
                     break;

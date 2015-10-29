@@ -37,6 +37,11 @@ public class Project {
        this.name = name;
        this.affiliatedLabs.add(lab);
        this.description = description;
+       this.notebooks = new ArrayList<Notebook>();
+       this.affiliatedLabs = new ArrayList<Organization>();
+       this.members = new ArrayList<Person>();
+       this.updates = new ArrayList<Status>();
+       
    }
    
    
