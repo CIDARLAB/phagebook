@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
 import org.clothocad.phagebook.dom.Grant;
 import org.clothocad.phagebook.dom.Organization;
-import org.clothocad.phagebook.dom.Person;
+import org.clothocad.model.Person;
 import org.clothocad.phagebook.dom.Project;
 import org.json.JSONObject;
 

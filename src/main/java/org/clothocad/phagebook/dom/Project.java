@@ -5,6 +5,7 @@
  */
 package org.clothocad.phagebook.dom;
 
+import org.clothocad.model.Person;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
