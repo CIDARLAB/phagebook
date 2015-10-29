@@ -16,17 +16,58 @@ import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Person;
 import org.clothocad.phagebook.dom.Project;
 import org.clothocad.phagebook.dom.Status;
-import org.eclipse.jetty.websocket.api.Session;
-import org.eclipse.jetty.websocket.api.WebSocketAdapter;
-import org.json.simple.JSONObject;
+import org.eclipse.jetty.websocket.WebSocket;
+import org.json.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 /**
  *
  * @author KatieLewis
  */
-public class PhagebookSocket extends WebSocketAdapter {
+public class PhagebookSocket 
+        implements WebSocket.OnTextMessage {
+    
+    private WebSocket.Connection connection;
+    
+    
     @Override
+    public void onMessage(String data) {
+        JSONObject object;
+        object = new JSONObject(data);
+        System.out.println("Channel :: " + (String)object.get("channel"));
+        try {
+            JSONObject result = new JSONObject();
+            JSONObject resultData = new JSONObject();
+            
+            resultData.put("meh","blah");
+            result.put("data", resultData);
+            result.put("channel", object.get("channel"));
+            result.put("requestId", object.get("requestId"));
+            connection.sendMessage(result.toString());
+            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        } catch (IOException ex) {
+            Logger.getLogger(PhagebookSocket.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void onOpen(Connection connection) {
+        this.connection = connection;
+        connection.setMaxIdleTime(7 * 24 * 3600000);
+        connection.setMaxBinaryMessageSize(999999);
+        connection.setMaxTextMessageSize(999999);
+        System.out.println("New Connection opened :: " + connection.getProtocol());
+        
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void onClose(int closeCode, String message) {
+        System.out.println("Connection Closed");
+    }
+    
+    
+    /*@Override
     public void onWebSocketConnect(Session session)
     {
         super.onWebSocketConnect(session);
@@ -57,7 +98,7 @@ public class PhagebookSocket extends WebSocketAdapter {
         super.onWebSocketError(cause);
         cause.printStackTrace(System.err);
     }
-    
+    */
     private JSONObject handleIncomingMessage(String message){
         JSONObject messageObject = new JSONObject();
         JSONParser parser = new JSONParser();
@@ -101,7 +142,8 @@ public class PhagebookSocket extends WebSocketAdapter {
                         Project project = (Project) ClothoAdaptor.getProject(projectID, clothoObject);
                         project.addStatus(newStatus);
                     }
- 
+                    //Create a map, with key "id" , and the id of the status as the value. pass that to data.
+                    result.put("data", "");
                     break;
                 case updateOrderStatus:
                     break;
@@ -123,4 +165,6 @@ public class PhagebookSocket extends WebSocketAdapter {
         channel = Channel.valueOf(messageChannel);
         return channel;
     }
+
+    
 }

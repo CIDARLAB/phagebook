@@ -4,11 +4,14 @@
  * and open the template in the editor.
  */
 package org.clothocad.phagebook.adaptors.ws;
+import javax.servlet.http.HttpServletRequest;
 import org.eclipse.jetty.server.Server;
 
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.webapp.WebAppContext;
+import org.eclipse.jetty.websocket.WebSocket;
+import org.eclipse.jetty.websocket.WebSocketServlet;
 /**
  *
  * @author KatieLewis
@@ -20,12 +23,20 @@ public class PhagebookSocketServer {
         //connector.setPort(9090);
         //server.addConnector(connector);
         
+        WebSocketServlet wsServlet = new WebSocketServlet() {
+            @Override
+            public WebSocket doWebSocketConnect(HttpServletRequest request, String protocol) {
+                return new PhagebookSocket(); 
+            }
+        };
+        
+        
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.setContextPath("/");
         server.setHandler(context);
         
         ServletHolder holderEvents = new ServletHolder("ws-events", PhagebookServlet.class);
-        context.addServlet(holderEvents, "/phagebook/*");
+        context.addServlet(new ServletHolder(wsServlet), "/websocket");        
         
         WebAppContext contextWeb = new WebAppContext();
         contextWeb.setDescriptor(context + "/WEB-INF/web.xml");
