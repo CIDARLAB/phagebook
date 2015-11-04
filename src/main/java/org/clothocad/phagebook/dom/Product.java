@@ -49,6 +49,7 @@ public class Product extends Good{
         this.company = company;
         this.goodType = goodType;
         this.cost = cost;
+        
     }
     
 }
