@@ -6,6 +6,8 @@
 package org.clothocad.model;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
@@ -136,6 +138,12 @@ public class Person {
            this.labs.add(institution);
            this.roles.put(institution.getId(),roles);
        }
+    }
+    
+    public void addStatus(String text){
+        Date today = Calendar.getInstance().getTime();
+        Status newStatus = new Status(text, this, today);
+        this.statuses.add(newStatus);
     }
     
     

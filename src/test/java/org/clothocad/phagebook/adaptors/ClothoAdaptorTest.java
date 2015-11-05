@@ -5,28 +5,19 @@
  */
 package org.clothocad.phagebook.adaptors;
 
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
-import static org.clothocad.phagebook.adaptors.ClothoAdaptor.createProduct;
 import org.clothocad.phagebook.controller.Args;
-import org.clothocad.phagebook.dom.Company;
-import org.clothocad.phagebook.dom.GoodType;
 import org.clothocad.model.Person;
-import org.clothocad.phagebook.dom.Product;
 import org.clothocad.phagebook.security.EmailSaltHasher;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -57,8 +48,11 @@ public class ClothoAdaptorTest {
      * Test of createProduct method, of class ClothoAdaptor.
      */
     @Test
-    public void testCreateProduct() {
-        
+    public void testCreateProduct() {       
+    }
+    
+    public void anotherTest(){
+                
        ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
        Clotho clothoObject = new Clotho(conn);
        
@@ -124,14 +118,10 @@ public class ClothoAdaptorTest {
 //            Logger.getLogger(ClothoAdaptorTest.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 //        
-        
-       
-        
-       
-        
+    
+
        conn.closeConnection();
 
-       
     }
     
 }

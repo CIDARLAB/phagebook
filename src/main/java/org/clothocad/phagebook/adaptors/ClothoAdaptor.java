@@ -486,14 +486,22 @@ public class ClothoAdaptor {
     public static String createProject(Project project, Clotho clothoObject){
         String id ="";
         Map map = new HashMap();
-        if (project.getCreator().getId() != null){
-            map.put("creator", project.getCreator().getId());
+        if (project.getCreator() != null) {
+            System.out.println("Step 1");
+            if (project.getCreator().getId() != null) {
+                map.put("creator", project.getCreator().getId());
+            }
         }
         
-        if (project.getLead().getId() != null){
-            map.put("lead", project.getLead().getId());
+        if (project.getLead() != null) {
+            System.out.println("Step 2");
+            if (project.getLead().getId() != null) {
+                map.put("lead", project.getLead().getId());
+            }
         }
+        
         if (!project.getMembers().isEmpty()){
+            System.out.println("Step 3");
             JSONArray members = new JSONArray();
 
             for (Person member: project.getMembers() ){
@@ -552,7 +560,7 @@ public class ClothoAdaptor {
         if (project.getDescription() != null && project.getDescription() != ""){
             map.put("description", project.getDescription());
         }
-        
+        System.out.println("Reached this point in createProject (ClothoAdaptor)");
         id = (String) clothoObject.set(map) ;
         project.setId(id);
         makePublic(id, clothoObject);
@@ -1079,7 +1087,7 @@ public class ClothoAdaptor {
         //id is in the parameter
         String contact = "";
         if (map.containsKey("contact")){
-             contact = (String) map.get("contact");
+             //contact = (String) map.get("contact");
         }
        
         String name = "";
@@ -1585,7 +1593,7 @@ public class ClothoAdaptor {
     public static Status mapToStatus(Map map, Clotho clothoObject)
     {
         
-        Status status = new Status();
+        Status status = new Status("",null,null);
         return status;
     }  
     // </editor-fold>

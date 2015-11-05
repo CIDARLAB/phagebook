@@ -32,11 +32,28 @@ public class Project {
    @Getter @Setter private String id;
    
    
-   public Project(Date createdDate, Person creator, String name, Organization lab){
-       this.dateCreated = createdDate;
+   public Project(Person creator, String name, Organization lab, String description){
+       this.dateCreated = new Date();
        this.creator = creator;
        this.name = name;
        this.affiliatedLabs.add(lab);
+       this.description = description;
+       this.updates = new ArrayList<Status>();
+       this.notebooks = new ArrayList<Notebook>();
+       this.affiliatedLabs = new ArrayList<Organization>();
+       this.members = new ArrayList<Person>();
+       
+   }
+      public Project(Person creator, String name, String description){
+       this.dateCreated = new Date();
+       this.creator = creator;
+       this.name = name;
+       this.description = description;
+       this.updates = new ArrayList<Status>();
+       this.notebooks = new ArrayList<Notebook>();
+       this.affiliatedLabs = new ArrayList<Organization>();
+       this.members = new ArrayList<Person>();
+       
    }
    
    
@@ -48,7 +65,6 @@ public class Project {
        this.budget = projectBudget;
        this.description = description;
        this.updates = new ArrayList<Status>();
-       //Not sure what grant information needs to be present. Can there be more than one?
        this.grant = projectGrant;
        this.members.add(creator);
        this.affiliatedLabs.add(lab);
