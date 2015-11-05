@@ -74,6 +74,7 @@ public class createPerson extends HttpServlet {
                 // create a result object and send it to the frontend
                 JSONObject result = new JSONObject();
                 result.put("success",1);
+
                 result.put("firstName", firstName);
                 result.put("lastName", lastName);
                 result.put("emailId",emailId);

@@ -108,20 +108,6 @@ public class ClothoAdaptorTest {
         for(Person pers : people){
             System.out.println(pers.getEmailId());
         }
-        
-        EmailSaltHasher salty = EmailSaltHasher.getEmailSaltHasher();
-//        try {
-//            //System.out.println(salty.hash("johanospina@me.com".toCharArray(), "SP3zzlOq9Z1xUdsJnAWHPaHx8".getBytes("UTF-8")));
-//            //System.out.println(salty.hash(people.get(0).getEmailId().toCharArray(), people.get(0).getSalt().getBytes("UTF-8")));
-//           // System.out.println(people.get(0).getSaltedEmailHash());
-//        } catch (UnsupportedEncodingException ex) {
-//            Logger.getLogger(ClothoAdaptorTest.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        
-    
-
-       conn.closeConnection();
-
     }
     
 }
