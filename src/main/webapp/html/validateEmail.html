@@ -26,16 +26,15 @@
     <terminal-aside></terminal-aside>
 </div>
 
-<div class="container-fluid" id="ordering">
-    <!--<div ng-module="orderingApp">
-        <div ng-controller="orderingCtrl">-->
-
-    <div class = "mainContent">
+<div class="container-fluid">
+   
+    <div class = "mainContent text-info text-center">
         <h2>PLEASE CHECK YOUR EMAIL FOR THE VALIDATION CODE</h2>
-
     </div>
-    <!--</div>
-</div>-->
+    
+    <div class="button" id="resendButton">Resend Email</div>
+    
+    
 </div>
 
 
@@ -59,3 +58,12 @@
 
 </body>
 </html>
+
+<script>
+    $("#resendButton").click(function () {
+        alert("this is working");
+        sessionStorage.getItem("username");
+        //Johan needs to help with the code hash send thing??
+    }
+    
+</script>

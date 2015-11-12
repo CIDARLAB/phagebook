@@ -25,13 +25,13 @@
     </div>
     <terminal-aside></terminal-aside>
 </div>
-
-<div class="container-fluid" id="profile">
 <div ng-module="profileApp">
 <div ng-controller="profileController">
+<!--phagebook-sidebar user="currentUser"/>-->
+<div class="container-fluid" id="profile">
     <div class="row" >
         <div class="col-md-3 text-center">
-               <img src="../images/people/{{pictureName}}.png" alt="{{pictureName}}'s profile picture" class="img-rounded">
+               <img src="../images/people/Great_white_shark_south_africa.jpg" alt="{{pictureName}}'s profile picture" class="img-rounded">
                 <div class="description" >
                     <span class="btn btn-file" ng-show="editBool"><input type="file" id="profilePicture" onchange="readProfilePic(this)" accept="image/gif, image/jpeg, image/png"></span>
                     <h3 style="text-align: center"><strong> {{ displayName }} </strong></h3>

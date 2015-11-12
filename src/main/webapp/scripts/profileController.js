@@ -3,11 +3,11 @@ var profileModule = angular.module('profileApp',['clothoRoot','ui.bootstrap.tpls
 profileModule.controller('profileController', function($scope, Clotho, $modal, $window){
     $scope.personObj = {};
     $scope.personID = sessionStorage.getItem("uniqueid");
-
-
+    
     Clotho.login(sessionStorage.getItem("username"),sessionStorage.getItem("password")).then(function(result) {
         Clotho.get(result.id).then(function(person){
             $scope.personObj = person;
+            $scope.currentUser = person;
             $scope.personID = result.id;
             $scope.displayName = person.fullname;
             $scope.pictureName = person.givenname + person.surname;
