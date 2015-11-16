@@ -20,14 +20,14 @@ public class JettyAdaptor {
         Server server = new Server(9090);
         try {
             
-            WebAppContext context = new WebAppContext();
+            /*WebAppContext context = new WebAppContext();
             context.setDescriptor(context+"/WEB-INF/web.xml");
             context.setResourceBase("../phagebook/src/main/webapp");
             context.setContextPath("/");
             context.setParentLoaderPriority(true);
  
-             server.setHandler(context);
-            
+            server.setHandler(context);
+            */
             
             server.start();
             server.join();

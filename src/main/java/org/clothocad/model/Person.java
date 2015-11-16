@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.clothocad.phagebook.dom;
+package org.clothocad.model;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
@@ -13,6 +15,12 @@ import java.util.HashSet;
 import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
+import org.clothocad.phagebook.dom.Institution;
+import org.clothocad.phagebook.dom.Notebook;
+import org.clothocad.phagebook.dom.Order;
+import org.clothocad.phagebook.dom.Project;
+import org.clothocad.phagebook.dom.Publication;
+import org.clothocad.phagebook.dom.Status;
 
 /**
  *
@@ -20,6 +28,15 @@ import lombok.Setter;
  * @author KatieLewis
  */
 public class Person {
+    
+    //ADDED properties
+    @Getter @Setter private String emailId;
+    @Getter @Setter private String firstName;
+    @Getter @Setter private String lastName;
+    @Getter @Setter private String password;
+    @Getter @Setter private boolean activated;
+    @Getter @Setter private String activationString;
+    
     @Getter @Setter private List<Project> projects;
     @Getter @Setter private List<Status> statuses;
     @Getter @Setter private List<Notebook> notebooks;
@@ -30,6 +47,8 @@ public class Person {
     //profile pic? text link
     @Getter @Setter private List<Publication> publications;
     @Getter @Setter private String id;
+    @Getter @Setter private String salt;
+    @Getter @Setter private String saltedEmailHash;
     Map<String,Set<PersonRole>> roles;
     
 
@@ -42,6 +61,9 @@ public class Person {
         this.publications = new ArrayList<Publication>();
         this.roles = new HashMap<String,Set<PersonRole>>();
         this.orders = new ArrayList<Order>();
+        this.activated = false;
+        this.activationString = "";
+        
     }
     
     public void addRole(Institution institution, PersonRole role){
@@ -116,6 +138,12 @@ public class Person {
            this.labs.add(institution);
            this.roles.put(institution.getId(),roles);
        }
+    }
+    
+    public void addStatus(Status newStatus){
+       // Date today = Calendar.getInstance().getTime();
+        //Status newStatus = new Status(text, this);
+        this.statuses.add(newStatus);
     }
     
     

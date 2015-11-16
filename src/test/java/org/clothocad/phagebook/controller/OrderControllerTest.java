@@ -45,14 +45,14 @@ public class OrderControllerTest {
     }
 
     
-    @Test
+    //@Test
     public void testGetProducts(){
         List<Product> products = getProducts(getResourcesFilepath()+"orderingTemplates/productTemplate.csv");
         assertEquals(3,products.size());
         assertEquals("Microscope",products.get(0).getName());
     }
     
-    @Test
+    //@Test
     public void testGetCompanies(){
         List<Company> companies = getCompanies(getResourcesFilepath()+"orderingTemplates/companyTemplate.csv");
         assertEquals(1,companies.size());
