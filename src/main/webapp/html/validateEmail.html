@@ -2,7 +2,7 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>Ordering</title>
+    <title>Validate Email</title>
     <link rel="shorcut icon" href="../styles/images/phagebookLogoMin_16x16.ico"/>
     <base href="/">
     <link rel="stylesheet" href="../styles/cssBootstrap/bootstrap.css"/>
@@ -32,7 +32,7 @@
         <h2>PLEASE CHECK YOUR EMAIL FOR THE VALIDATION CODE</h2>
     </div>
     
-    <div class="button" id="resendButton">Resend Email</div>
+    <button class="button" id="resendButton">Resend Email</button>
     
     
 </div>
@@ -62,8 +62,28 @@
 <script>
     $("#resendButton").click(function () {
         alert("this is working");
-        sessionStorage.getItem("username");
         //Johan needs to help with the code hash send thing??
+       $.ajax({
+                    url: "resendVerification",
+                    type: "GET",
+                    async: false,
+                    data: {
+                        //need to get emailId from sessionStorage
+                        //"emailId": code to get it from session Storage
+                        "emailId" : "azulad7@bu.edu"
+                    },
+                    success: function (response) {
+                        alert(response);
+                        //reload the page? HTML pop-up? 
+                    },
+                    error: function () {
+                        alert("some sort of error occurred");
+                    }
+                });
+        
+        
+        return false;
+    });
     }
     
 </script>

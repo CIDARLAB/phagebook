@@ -19,4 +19,4 @@ profileModule.directive('phagebookSidebar', function(){
 });
 
 //<phageboook-sidebar user = "currentUser"> on the eg profile page with 
-//$scope.currentUser = {the person object thats logged in}
+//$scope.currentUser = {the person object thats logged in} which should happen in the controller
