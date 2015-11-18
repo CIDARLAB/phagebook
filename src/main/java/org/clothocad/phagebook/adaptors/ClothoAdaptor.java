@@ -37,8 +37,8 @@ import org.clothocad.phagebook.dom.Inventory;
 import org.clothocad.phagebook.dom.Notebook;
 import org.clothocad.phagebook.dom.Order;
 import org.clothocad.phagebook.dom.Organization;
-import org.clothocad.phagebook.dom.Person;
-import org.clothocad.phagebook.dom.Person.PersonRole;
+import org.clothocad.model.Person;
+import org.clothocad.model.Person.PersonRole;
 import org.clothocad.phagebook.dom.Product;
 import org.clothocad.phagebook.dom.Project;
 import org.clothocad.phagebook.dom.Protocol;
@@ -336,17 +336,16 @@ public class ClothoAdaptor {
     {
         String id = "";
         Map map = new HashMap();
-        
        
+       if(person.getSalt() != null && person.getSalt() != ""){
             map.put("salt", person.getSalt());
+    }
         
-        try {
-            if (person.getSaltedEmailHash() != null) {
-                map.put("saltedEmailHash", new String(person.getSaltedEmailHash(), "UTF-8"));
-            }
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(ClothoAdaptor.class.getName()).log(Level.SEVERE, null, ex);
+    
+        if (person.getSaltedEmailHash() != null && person.getSaltedEmailHash() != "") {
+            map.put("saltedEmailHash", person.getSaltedEmailHash());
         }
+        
         
         if (!person.getProjects().isEmpty()){
             JSONArray projects = new JSONArray();
@@ -487,6 +486,7 @@ public class ClothoAdaptor {
     public static String createProject(Project project, Clotho clothoObject){
         String id ="";
         Map map = new HashMap();
+
         if(project.getId() != null){
             map.put("id",project.getId());
         }
@@ -504,7 +504,6 @@ public class ClothoAdaptor {
             }    
         }
         System.out.println("Step 3");
-
         
         if (!project.getMembers().isEmpty()){
             System.out.println("Step 3");
@@ -567,7 +566,6 @@ public class ClothoAdaptor {
             map.put("description", project.getDescription());
         }
 
-        System.out.println("Reached this point in createProject (ClothoAdaptor)");
         id = (String) clothoObject.set(map) ;
         project.setId(id);
         makePublic(id, clothoObject);
@@ -959,7 +957,7 @@ public class ClothoAdaptor {
     public static List<Order> queryOrder(Map query , Clotho clothoObject)
     {
         query.put("schema", Order.class.getCanonicalName());
-        List<Order> orders = new LinkedList<Order>();
+        List<Order> orders = new LinkedList<>();
         
         JSONArray queryResults = (JSONArray) clothoObject.query(query);
         
@@ -977,7 +975,7 @@ public class ClothoAdaptor {
         
         //query.put("schema", Person.class.getCanonicalName());
         //TODO CHANGE THIS IN THE FUTURE
-        query.put("schema", "org.clothocad.model.Person");
+        query.put("schema", Person.class.getCanonicalName());
         
         List<Person> people = new LinkedList<Person>();
         
@@ -1328,7 +1326,7 @@ public class ClothoAdaptor {
     {
         JSONArray projectIds = new JSONArray();
         List<Project> projects = new LinkedList<Project>() ;
-        
+        System.out.println(map.toString());
         if ( map.containsKey("projects")){
             
             projectIds = (JSONArray) map.get("projects");
@@ -1375,7 +1373,7 @@ public class ClothoAdaptor {
             }
         }
         JSONArray orderIds = new JSONArray();
-        List<Order> orders = new LinkedList<Order>() ;
+        List<Order> orders = new LinkedList<>() ;
         if ( map.containsKey("orders")){
             orderIds = (JSONArray) map.get("orders");
             
@@ -1419,10 +1417,9 @@ public class ClothoAdaptor {
         person.setPassword( map.containsKey("password") ? (String) map.get("password"): "");
         person.setActivated( (boolean) map.get("activated") );
         person.setActivationString((String) map.get("activationString"));
-        person.setSalt((String) map.get("salt"));
-        person.setSaltedEmailHash(((String) map.get("saltedEmailHash")).getBytes());
         
-        
+        person.setSalt(map.containsKey("salt") ? (String) map.getOrDefault("salt", "") : "");
+        person.setSaltedEmailHash(map.containsKey("saltedEmailHash") ? (String) map.getOrDefault("saltedEmailHash", "") : "");
         
         
         

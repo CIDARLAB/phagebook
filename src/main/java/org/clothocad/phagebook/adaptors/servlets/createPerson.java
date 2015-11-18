@@ -18,7 +18,7 @@ import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.phagebook.adaptors.ClothoAdaptor;
 import org.clothocad.phagebook.adaptors.EmailHandler;
 import org.clothocad.phagebook.controller.Args;
-import org.clothocad.phagebook.dom.Person;
+import org.clothocad.model.Person;
 import org.json.JSONObject;
 import org.clothocad.phagebook.security.EmailSaltHasher;
 
@@ -74,6 +74,7 @@ public class createPerson extends HttpServlet {
                 // create a result object and send it to the frontend
                 JSONObject result = new JSONObject();
                 result.put("success",1);
+
                 result.put("firstName", firstName);
                 result.put("lastName", lastName);
                 result.put("emailId",emailId);
@@ -130,7 +131,8 @@ public class createPerson extends HttpServlet {
         EmailSaltHasher salty = EmailSaltHasher.getEmailSaltHasher();
         String salt = EmailSaltHasher.csRandomAlphaNumericString();
         createdPerson.setSalt(salt);
-        byte[] SaltedHashedEmail = salty.hash(emailId.toCharArray(), salt.getBytes());
+        String SaltedHashedEmail = salty.hash(emailId.toCharArray(), salt.getBytes("UTF-8"));
+
         createdPerson.setSaltedEmailHash(SaltedHashedEmail);
         
         ClothoAdaptor.createPerson(createdPerson, clothoObject);

@@ -14,7 +14,7 @@ import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.phagebook.adaptors.ClothoAdaptor;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Institution;
-import org.clothocad.phagebook.dom.Person;
+import org.clothocad.model.Person;
 import org.clothocad.phagebook.dom.Project;
 import org.clothocad.phagebook.dom.Status;
 import org.eclipse.jetty.websocket.WebSocket;

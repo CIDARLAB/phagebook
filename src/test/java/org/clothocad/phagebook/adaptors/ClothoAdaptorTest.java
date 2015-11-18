@@ -5,24 +5,19 @@
  */
 package org.clothocad.phagebook.adaptors;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
-import static org.clothocad.phagebook.adaptors.ClothoAdaptor.createProduct;
 import org.clothocad.phagebook.controller.Args;
-import org.clothocad.phagebook.dom.Company;
-import org.clothocad.phagebook.dom.GoodType;
-import org.clothocad.phagebook.dom.Person;
-import org.clothocad.phagebook.dom.Product;
+import org.clothocad.model.Person;
+import org.clothocad.phagebook.security.EmailSaltHasher;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -54,10 +49,5 @@ public class ClothoAdaptorTest {
      */
     @Test
     public void testCreateProduct() {
-        
-
-
-       
     }
-    
 }

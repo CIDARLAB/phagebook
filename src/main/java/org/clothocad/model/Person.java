@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.clothocad.phagebook.dom;
+package org.clothocad.model;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -15,6 +15,12 @@ import java.util.HashSet;
 import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
+import org.clothocad.phagebook.dom.Institution;
+import org.clothocad.phagebook.dom.Notebook;
+import org.clothocad.phagebook.dom.Order;
+import org.clothocad.phagebook.dom.Project;
+import org.clothocad.phagebook.dom.Publication;
+import org.clothocad.phagebook.dom.Status;
 
 /**
  *
@@ -42,7 +48,7 @@ public class Person {
     @Getter @Setter private List<Publication> publications;
     @Getter @Setter private String id;
     @Getter @Setter private String salt;
-    @Getter @Setter private byte[] saltedEmailHash;
+    @Getter @Setter private String saltedEmailHash;
     Map<String,Set<PersonRole>> roles;
     
 
