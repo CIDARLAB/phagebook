@@ -115,50 +115,58 @@ public class PhagebookSocket
                     //Get data from incoming message JSON
                     map = (HashMap) messageObject.get("data");
                     //Get username and password from data JSON
-                    String username = (String) map.get("username");
-                    String password = (String) map.get("password");
+                    //String username = (String) map.get("username");
+                    //String password = (String) map.get("password");
                     //Create new Clotho connection and Clotho object
+                    System.out.println(map);
                     ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
                     Clotho clothoObject = new Clotho(conn);
                     //Create a map for user's username and password
-                    Map createUserMap = new HashMap();
-                    createUserMap.put("username", username);
-                    createUserMap.put("password", password);
-
-                    // Create user in Clotho
-                    clothoObject.createUser(createUserMap);
-                    //Create login map
-                    Map loginMap = new HashMap();
-                    loginMap.put("username", username);
-                    loginMap.put("credentials", password);
-                    //Login with person's credentials
-                    clothoObject.login(loginMap);
+//                    Map createUserMap = new HashMap();
+//                    createUserMap.put("username", username);
+//                    createUserMap.put("password", password);
+//
+//                    // Create user in Clotho
+//                    clothoObject.createUser(createUserMap);
+//                    //Create login map
+//                    Map loginMap = new HashMap();
+//                    loginMap.put("username", username);
+//                    loginMap.put("credentials", password);
+//                    //Login with person's credentials
+//                    clothoObject.login(loginMap);
 
                     //Get person id from data object -- need to use it somewhere
                     String userID = (String) map.get("personID");
-
-                    //??
-                    Person user = new Person();
-                    user.setFirstName("Katie");
-
+                    System.out.println(userID);
+                    //Person user = new Person();
+                    //user = (Person)clothoObject.get(userID);
+                    //user = (Person)clothoObject.get(userID);
+                    Map personMap1 = new HashMap();
+                        //Person newPerson = new Person();
+                    personMap1 = (Map)clothoObject.get(userID);
                     //Create new status with text in data object
-                    Status newStatus = new Status((String) map.get("text"), user);
+                    String statusText = (String)map.get("text");
+                    System.out.println(statusText);
+                    System.out.println("personMap1:: " + personMap1);
+                    //Person user = (Person) personMap1;
+                    Person user = ClothoAdaptor.mapToPerson(personMap1, clothoObject);
+                    System.out.println(user);
+                    Status newStatus = new Status(statusText, user);
+                    System.out.println("made new status object");
                     //Add new status to the user
+                    String statusId = ClothoAdaptor.createStatus(newStatus, clothoObject);
+                    System.out.println("Status created");
+                    newStatus.setId(statusId);
                     user.addStatus(newStatus);
-
+                    ClothoAdaptor.createPerson(user, clothoObject);
+//                  //Do I need to recreate the user once I add the status?
                     //Check if data json contains a project ID (to add new status to)
                     if (map.containsKey("projectID")) {
                         String projectID = (String) map.get("projectID");
-
-                        Project project = new Project(user, "Phagebook", new Institution("BU"), "Social Synbio project");
-                        project.setId(projectID);
-
-                        ClothoAdaptor.createProject(project, clothoObject);
                         Project projectFromClotho = ClothoAdaptor.getProject(projectID, clothoObject);
-                        String statusId = ClothoAdaptor.createStatus(newStatus, clothoObject);
-                        newStatus.setId(statusId);
-                        project.addStatus(newStatus);
-                        ClothoAdaptor.createProject(project, clothoObject);
+                        projectFromClotho.addStatus(newStatus);
+                        //why do I need to recreate projcet when I add the new status? Do I need to recreate everything once it is updated?
+                        ClothoAdaptor.createProject(projectFromClotho, clothoObject);
                     }
                     //Create a map, with key "id" , and the id of the status as the value. pass that to data.
                     JSONObject returnObj = new JSONObject();
@@ -193,12 +201,15 @@ public class PhagebookSocket
                         //Return the person object
                         JSONObject resultObject = new JSONObject();
                         Map personMap = new HashMap();
-
+                        //Person newPerson = new Person();
                         personMap = (Map)clothoObject1.get(id);
+                        
+                        //newPerson= (Person)clothoObject1.get(id);
                         
                         System.out.println("Person Map :: " + personMap.toString());
                         
                         resultObject.put("personObject", personMap);
+                        System.out.println("back in Phagebook Socket");
                         result.put("data", resultObject);
                         System.out.println("Reached here. End of login API block.");
                     } //If login was successful, send error message
