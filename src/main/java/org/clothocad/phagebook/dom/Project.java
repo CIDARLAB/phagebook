@@ -56,10 +56,10 @@ public class Project {
    }
    
    
-   public Project(Date createdDate,Person creator, String name, Organization lab, 
+   public Project(Person creator, String name, Organization lab, 
         Person lead, Double projectBudget, Grant projectGrant, String description){
        this.creator = creator;
-       this.dateCreated = createdDate;
+       this.dateCreated = new Date();;
        this.name = name;
        this.budget = projectBudget;
        this.description = description;
