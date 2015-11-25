@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.util.Date;
 import lombok.Getter;
 import lombok.Setter;
+import org.clothocad.model.Person;
 
 /**
  *

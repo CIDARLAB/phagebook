@@ -5,6 +5,7 @@
  */
 package org.clothocad.phagebook.dom;
 
+import org.clothocad.model.Person;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -37,13 +38,22 @@ public class Project {
        this.creator = creator;
        this.name = name;
        this.description = description;
+       this.updates = new ArrayList<Status>();
        this.notebooks = new ArrayList<Notebook>();
        this.affiliatedLabs = new ArrayList<Organization>();
        this.members = new ArrayList<Person>();
-       this.updates = new ArrayList<Status>();
-       this.affiliatedLabs.add(lab);
        
-       System.out.println("end of constructor");
+   }
+      public Project(Person creator, String name, String description){
+       this.dateCreated = new Date();
+       this.creator = creator;
+       this.name = name;
+       this.description = description;
+       this.updates = new ArrayList<Status>();
+       this.notebooks = new ArrayList<Notebook>();
+       this.affiliatedLabs = new ArrayList<Organization>();
+       this.members = new ArrayList<Person>();
+
        
    }
    

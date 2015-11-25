@@ -5,24 +5,19 @@
  */
 package org.clothocad.phagebook.adaptors;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
-import static org.clothocad.phagebook.adaptors.ClothoAdaptor.createProduct;
 import org.clothocad.phagebook.controller.Args;
-import org.clothocad.phagebook.dom.Company;
-import org.clothocad.phagebook.dom.GoodType;
-import org.clothocad.phagebook.dom.Person;
-import org.clothocad.phagebook.dom.Product;
+import org.clothocad.model.Person;
+import org.clothocad.phagebook.security.EmailSaltHasher;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -53,8 +48,11 @@ public class ClothoAdaptorTest {
      * Test of createProduct method, of class ClothoAdaptor.
      */
     @Test
-    public void testCreateProduct() {
-        
+    public void testCreateProduct() {       
+    }
+    
+    public void anotherTest(){
+                
        ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
        Clotho clothoObject = new Clotho(conn);
        
@@ -74,7 +72,7 @@ public class ClothoAdaptorTest {
 //       System.out.println("Login Map " + loginMap);
 //       
 //       clothoObject.login(loginMap);
-//       
+       
 //       Company amazon = new Company("Amazon");
 //       String companyId = (String) ClothoAdaptor.createCompany(amazon, clothoObject);
 //       amazon.setId(companyId);
@@ -94,27 +92,22 @@ public class ClothoAdaptorTest {
 //       clothoObject.logout();
        
        Person person = new Person();
-       person.setEmailId("johanos@bu.edu");
+       person.setEmailId("johanospina@me.com");
        person.setFirstName("Johan");
        person.setLastName("Ospina");
-       person.setPassword("hello");
+       person.setPassword("123");
+       person.setSalt("SP3zzlOq9Z1xUdsJnAWHPaHx8");
+       
+       person.setSaltedEmailHash("\"j��2y��{^����`����4�ř�Uʭ'�z�~\"");
+       
        ClothoAdaptor.createPerson(person, clothoObject);
         //Product prod = (Product) ClothoAdaptor.getProduct(productId, clothoObject);
         Map query = new HashMap();
-        query.put("emailId", "johanos@bu.edu");
+        query.put("emailId", "johanospina@me.com");
         List<Person> people = ClothoAdaptor.queryPerson(query, clothoObject);
         for(Person pers : people){
             System.out.println(pers.getEmailId());
         }
-        
-       conn.closeConnection();
-
-                
-       
-       
-
-
-       
     }
     
 }

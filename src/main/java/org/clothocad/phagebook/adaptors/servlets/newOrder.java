@@ -20,7 +20,7 @@ import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.phagebook.adaptors.ClothoAdaptor;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.controller.OrderController;
-import org.clothocad.phagebook.dom.Company;
+import org.clothocad.phagebook.dom.Order;
 import org.clothocad.phagebook.dom.Product;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -30,15 +30,15 @@ import org.json.JSONObject;
  *
  * @author innaturshudzhyan
  */
-public class inputCompany extends HttpServlet {
+public class newOrder extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         PrintWriter writer = response.getWriter();
-        //System.out.println("Request :: " + request.getParameter("list"));
-        JSONObject papaParseData = new JSONObject(request.getParameter("list"));
-        JSONArray data = new JSONArray();
-        data = (JSONArray) papaParseData.get("data");
+        
+        String name = request.getParameter("name");
+        String description = request.getParameter("description");
+        String timeStamp = request.getParameter("timeStamp");
         
         ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
         Clotho clothoObject = new Clotho(conn);
@@ -54,19 +54,15 @@ public class inputCompany extends HttpServlet {
 
         clothoObject.login(loginMap);
         
-        List<Company> companies = new ArrayList<Company>();
-        companies = OrderController.getCompanies(data, clothoObject);
+        Order order = new Order(name);
+        order.setDescription(description);
+        order.setCreatedOn(timeStamp);
         
-        /*List<Product> products = new ArrayList<Product>();
-        products = OrderController.getProducts(data,clothoObject);
-        */
+        String id = (String)ClothoAdaptor.createOrder(order, clothoObject);
         
-        for(Company company:companies){
-            ClothoAdaptor.createCompany(company, clothoObject);
-        }
         conn.closeConnection();
-        //writer.println("Done!");
-        writer.println(companies.size() + " companies created");
+        
+        writer.println(id);
         writer.flush();
         writer.close();
 

@@ -19,7 +19,7 @@ import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.phagebook.adaptors.ClothoAdaptor;
 import org.clothocad.phagebook.controller.Args;
-import org.clothocad.phagebook.dom.Person;
+import org.clothocad.model.Person;
 import org.clothocad.phagebook.security.EmailSaltHasher;
 
 /**
@@ -83,25 +83,42 @@ public class verifyEmail extends HttpServlet {
             Map query = new HashMap();
             List<Person> queryPersons = new LinkedList<Person>();
             query.put("emailId", emailId);
+            
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
-            Map login = new HashMap();
+            Map createUserMap = new HashMap();
+            createUserMap.put("username", "ClothoBackend");
+            createUserMap.put("password", "phagebook");
+
+           
+            clothoObject.createUser(createUserMap);
+
+            Map loginMap = new HashMap();
+            loginMap.put("username", "ClothoBackend");
+            loginMap.put("credentials", "phagebook");
+
+
+            clothoObject.login(loginMap);
+           
           
             queryPersons = ClothoAdaptor.queryPerson(query, clothoObject);
-            Person possiblePerson = new Person();
-            for (Person pers : queryPersons){
-                if (pers.getEmailId() == emailId){
-                    possiblePerson = pers;
-                }
-            }
-            boolean isValidated = salty.isExpectedPassword(emailId.toCharArray(), salt.getBytes(), possiblePerson.getSaltedEmailHash());
             
+            String recreatedHash = salty.hash(emailId.toCharArray(), salt.getBytes("UTF-8"));
+            //System.out.println(salty.hash(people.get(0).getEmailId().toCharArray(), people.get(0).getSalt().getBytes("UTF-8"))
+            
+            boolean isValidated = queryPersons.get(0).getSaltedEmailHash().equals(recreatedHash);
+            System.out.println("is Validated = " + isValidated);
+            System.out.println("retrieved Hash = " + queryPersons.get(0).getSaltedEmailHash());
+            System.out.println("recreatedHash = " + recreatedHash);
             if (isValidated){
-                possiblePerson.setActivated(true);
-                ClothoAdaptor.setPerson(possiblePerson, clothoObject);
-                
+                System.out.println("-------I'm at isValidated--------");
+                queryPersons.get(0).setActivated(true);
                 clothoObject.logout();
+                ClothoAdaptor.setPerson(queryPersons.get(0), clothoObject);
+                
+                
             }
+            clothoObject.logout();
             
             
         }
