@@ -20,6 +20,10 @@
         <servlet-name>resendVerification</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.resendVerification</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>queryProductByName</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.queryProductByName</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>inputProduct</servlet-name>
         <url-pattern>/inputProduct</url-pattern>
@@ -63,5 +67,9 @@
     <servlet-mapping>
         <servlet-name>resendVerification</servlet-name>
         <url-pattern>/resendVerification</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>queryProductByName</servlet-name>
+        <url-pattern>/queryProductByName</url-pattern>
     </servlet-mapping>
 </web-app>

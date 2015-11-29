@@ -336,7 +336,8 @@ public class ClothoAdaptor {
     {
         String id = "";
         Map map = new HashMap();
-       
+        
+        
        if(person.getSalt() != null && person.getSalt() != ""){
             map.put("salt", person.getSalt());
     }
@@ -429,7 +430,7 @@ public class ClothoAdaptor {
         
         
         map.put("activationString", person.getActivationString());
-       
+        
        
         String username = person.getEmailId()  ;
         String password = person.getPassword();
@@ -461,6 +462,7 @@ public class ClothoAdaptor {
     {
         String id = "";
         Map map = new HashMap();
+        map.put("schema", Product.class.getCanonicalName());
         map.put("cost",product.getCost());
         map.put("productURL", product.getProductURL());
         map.put("goodType", product.getGoodType().toString());
