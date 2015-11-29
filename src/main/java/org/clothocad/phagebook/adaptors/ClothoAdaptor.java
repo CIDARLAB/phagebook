@@ -461,6 +461,7 @@ public class ClothoAdaptor {
     {
         String id = "";
         Map map = new HashMap();
+        map.put("schema", Product.class.getCanonicalName());
         map.put("cost",product.getCost());
         map.put("productURL", product.getProductURL());
         map.put("goodType", product.getGoodType().toString());
