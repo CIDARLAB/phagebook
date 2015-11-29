@@ -1,4 +1,4 @@
- body {
+body {
     font-family: "Lucida Sans Unicode","Lucida Grande",sans-serif;
      overflow-x: hidden;
      font-size: medium;
@@ -64,7 +64,7 @@
 }
 
 .btn-default{
-    font-family: "Lucida Sans Unicode", "lucida grande", sans-serif
+    font-family: "Lucida Sans Unicode", "lucida grande", sans-serif;
     background-color: whitesmoke;
 
 }
@@ -314,4 +314,54 @@
      margin-right:auto;
      text-align:justify;
      padding:15px;
+ }
+ /* Ordering page CSS */
+ #products {
+     float: left;
+     width: 40%;
+     height: fit-content;
+     
+     
+ }
+ 
+ #companies {
+     float: left;
+     max-width: 49%;
+     height: fit-content;
+     
+     
+    
+     
+ }
+ .search {
+     float: left;
+     text-align: center;
+     vertical-align: top;
+     height: 30px;
+     position: relative;
+     
+ }
+ #orderList{
+     clear: left;
+     position: relative;
+ }
+ #description {
+     vertical-align: top;
+ }
+ #nameBox{
+     margin-top: 5px;
+     margin-bottom: 5px;
+ }
+ textarea[name=orderDescription]{
+    width: 70%;
+    height: 40%;
+    border: 1px solid #cccccc;
+    padding: 5px;
+    font-family: "Lucida Sans Unicode","Lucida Grande",sans-serif;
+    background-position: bottom right;
+    background-repeat: no-repeat;
+ }
+ input[name=orderName]{
+    margin-left: 38.8px;
+    position: relative;
  }

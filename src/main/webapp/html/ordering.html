@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="../styles/clothoNavBar.css">
     <link rel="stylesheet" href="../styles/phagebookMainStyle.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+    
     <script src="../scripts/angular.js"></script>
     <script src="../scripts/jquery.js"></script>
     <script src="../scripts/lodash.js"></script>
@@ -17,7 +19,26 @@
     <script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
-
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script>
+       
+    $("document").ready( function() {
+        $("#companyPopUp").dialog( {autoOpen:false});
+        $("#productsPopUp").dialog({autoOpen:false});
+        
+        $("#productNameSearch").click( function ()
+        {
+           window.location.href = "/html/queryProduct.html";
+        
+        });
+        $("#companyNameSearch").click( function ()
+        {
+            window.location.href = "/html/queryCompanyProduct.html";
+        });
+        
+    });
+    </script>
+</head>
 <body>
 <div ng-module="clothoRoot">
     <div class="container">
@@ -31,8 +52,47 @@
         <div ng-controller="orderingCtrl">-->
 
             <div class = "mainContent">
-                <h2>This page is still being developed...</h2>
-
+                <div id="container">
+                    <div id="orderingButtons">
+                        <div id="products">
+                            <input class="search" type="text" name="productQuery" placeholder="Product Name">
+                            <input class="search btn btn-default" type="submit" id="productNameSearch" value="Search By Name">                   
+                        </div>
+                        <div id="companies">
+                            <input class="search" type="text" name="companyQuery" placeholder="Company Name">
+                            <input class="search btn btn-default" type="submit" id="companyNameSearch" value="Search By Company">
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                   
+                    <div>
+                        <div id="nameBox"> 
+                            Name: <input type="text" name="orderName" placeholder="Order Name">
+                        </div>
+                        
+                        <span id="description"> Description: </span>
+                        <textarea name="orderDescription" placeholder="Please provide a small description for your order!" rows="4"></textarea>
+                    </div>
+                    <div id="orderList"> 
+                        <span class="description">Current Order</span>
+                        <ol>
+                            <li>order item 1</li>
+                            <li>order item 2</li>
+                            <li>order item 3</li>
+                        </ol>
+                    </div>
+                    <input class="btn btn-default" type="submit" value="Place Order">
+                </div>
+                <div id="productsPopUp" title="Choose A Product"> <p class="container">Product Search</p>
+                    
+                
+                
+                </div>
+                <div id="companyPopUp" title="Choose A Company"> <p class="container">Company Search</p>
+                    
+                
+                </div>
             </div>
         <!--</div>
     </div>-->
