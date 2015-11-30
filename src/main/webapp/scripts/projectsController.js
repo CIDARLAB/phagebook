@@ -19,18 +19,29 @@ projectsApp.controller('projectsController',['$scope', '$http', function($scope,
     $scope.formData.date = createdDate;
 
     $scope.nameRequired = '';
-    $scope.emailRequired = '';
+    //$scope.emailRequired = '';
     $scope.labsRequired = '';
     $scope.leadRequired = '';
     $scope.projectBudgetRequired = '';
     $scope.projectGrantRequired = '';
     $scope.descriptionRequired = '';
-    
-
     $scope.passwordRequired = '';
+    var submit = true;
     if(!$scope.formData.name){
-      $scope.nameRequired = 'Please type in a title for your new project.';
+      $scope.nameRequired = 'Please provide a title for your new project.';
+      submit = false;
     }
+    //submit = true;
+    /*if(!$scope.formData.labs){
+      $scope.labsRequired = 'Please input the associated organizations.';
+      submit = false;
+    }*/
+    submit = true;
+    if(!$scope.formData.description){
+      $scope.descriptionRequired = 'Please provide a description.'
+      submit = false;
+    }
+  
   //console.log($scope.formData);
   
   var dataSubmit =  {
@@ -42,21 +53,26 @@ projectsApp.controller('projectsController',['$scope', '$http', function($scope,
     description: $scope.formData.description,
     date: $scope.formData.date
    };
-
-   $.ajax({
-        url: "processProject",
-        type: "POST",
-        async: false,
-        data: dataSubmit,
-        success: function (response) {
-          console.log(dataSubmit); 
-          console.log(response);
-          console.log("response!!!");
-        },
-        error: function () {
-            alert("ERROR!!");
-        }
-    });   
+   //dataSubmit = JSON.stringify(dataSubmit);
+   console.log(dataSubmit);
+   if(submit){
+     $.ajax({
+      url: "processProject",
+      type: "POST",
+      dataType: "json",
+      async: false,
+      data: dataSubmit,
+      success: function (response) {
+        console.log(dataSubmit); 
+        console.log(response);
+        console.log("response!!!");
+      },
+      error: function () {
+        alert("ERROR!!");
+      }
+    }); 
+   }
+  
 
 
 

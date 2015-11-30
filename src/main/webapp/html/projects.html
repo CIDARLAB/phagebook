@@ -40,11 +40,11 @@
     </div>
     
     <div class="form-group"> <!-- Organization lab -->
-      <label for="inputLab3" class="col-sm-2 control-label" >Lab(s)</label>  
+      <label for="inputLab3" class="col-sm-2 control-label" >Lab(s)/Organization(s)</label>  
       <div class="col-sm-4">
         <input class="form-control" id="inputLab3" placeholder="Lab(s)" ng-model="formData.labs">
       </div>
-       <span ng-show="labRequired">{{labsRequired}}</span>
+       <span ng-show="labsRequired">{{labsRequired}}</span>
     </div>
 
     <div class="form-group"> <!-- Person lead -->
@@ -74,7 +74,7 @@
     <div class="form-group"> <!--String Description-->
       <label for="inputDescription3" class="col-sm-2 control-label" >Description</label>  
       <div class="col-sm-4">
-        <input class="form-control" id="inputDescription3" placeholder="Description" ng-model="formData.description">
+        <textarea class="form-control" id="inputDescription3" placeholder="Description" ng-model="formData.description"></textarea>
       </div>
        <span ng-show="descriptionRequired">{{descriptionRequired}}</span>
     </div>

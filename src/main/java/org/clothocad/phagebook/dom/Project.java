@@ -72,7 +72,7 @@ public class Project {
        this.affiliatedLabs = new ArrayList<Organization>();
        this.members = new ArrayList<Person>();
        //Create new lab notebook for creator?
-       Notebook creatorNotebook = new Notebook(creator, this, createdDate);
+       Notebook creatorNotebook = new Notebook(creator, this, dateCreated);
        notebooks.add(creatorNotebook);
    }
    

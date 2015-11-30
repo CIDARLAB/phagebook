@@ -84,18 +84,29 @@ public class processProject extends HttpServlet {
         throws ServletException, IOException {
 
       System.out.println("request is: ");
+      System.out.println("got here1!"); 
+      System.out.println(request);
+      System.out.println("got here2!"); 
 
 
        // who is the user ?
        // get all of the fields from the request
        String name = request.getParameter("name");
+       System.out.println(name);
+
        String leadString = request.getParameter("lead");
+       System.out.println(leadString);
        String labs = request.getParameter("labs");
        
-       double projectBudget = Double.parseDouble(request.getParameter("projectBudget"));
+       double projectBudget = 0;
+       projectBudget = Double.parseDouble(request.getParameter("projectBudget"));
+       
        String grantString = request.getParameter("grant");
        String description = request.getParameter("description");
+       System.out.println(description);
+       
        String date = request.getParameter("date");
+       System.out.println(date);
 
        // a sample user
        Person creator = new Person();
@@ -104,8 +115,8 @@ public class processProject extends HttpServlet {
        
        // create a lead object using the name from the form
        Person lead = new Person();
-       creator.setFirstName(leadString);
-       creator.setId("Leela");
+       lead.setFirstName(leadString);
+       lead.setId("Leela2"); // what is this supposed to be? maybe find the person in the db and set them there
       
        // create a Grant object -- edit grant class later to allow for 
        // creating grants
@@ -116,38 +127,68 @@ public class processProject extends HttpServlet {
        // for now assume there is only one organization/lab
        Organization lab = new Organization(labs);
        
-       // initialize a null string to store a projectID value
+       // initialize a null string to store the projectID value
        String projectID = null;
        
+       /*
+       System.out.println(creator); 
+       System.out.println(name);
+        System.out.println(lab);
+        System.out.println(lead);
+        System.out.println(projectBudget);
+        System.out.println(grant);
+        System.out.println(description); 
+       */
        // use different contructors based on how filled out the form is
        if(lead == null && projectBudget == 0 && labs == null ){
-
+        System.out.println("1");  
+        System.out.println(creator); 
+        System.out.println(name);
+        System.out.println(description); 
         Project newProject = new Project(creator, name, description); 
         projectID = createProjectInClotho(newProject);
 
        }else if(lead == null && projectBudget == 0) {
+        System.out.println("2");  
+        System.out.println(creator); 
+        System.out.println(name);
+        System.out.println(lab);
+        System.out.println(description); 
          
         Project newProject = new Project(creator, name, lab, description); 
         projectID = createProjectInClotho(newProject);
       
        }else{
         // here assume that all vals are present
+        System.out.println("3");  
+        System.out.println(creator); 
+        System.out.println(name);
+        System.out.println(lab);
+        System.out.println(lead);
+        System.out.println(projectBudget);
+        System.out.println(grant);
+        System.out.println(description); 
+         
         Project newProject = new Project(creator, name, lab, lead, projectBudget, grant, description); 
         projectID = createProjectInClotho(newProject);
+        System.out.println(projectID);
        
        }
-       
-      JSONObject res = new JSONObject();
+      System.out.println("almost done"); 
+      System.out.println(projectID);
+      JSONObject result = new JSONObject();
  
       if(projectID != null){
-        res.put("projectID", projectID);
+        result.put("success",1);
+        result.put("projectID", projectID);
+        System.out.println("result is: ");
+        System.out.println(result);
       }else{
-        // how to say that the save was not successful?
+         System.out.println("not successful"); 
       }
-
-
+      
       PrintWriter writer = response.getWriter();
-      writer.println(request.toString());
+      writer.println(result);
       writer.flush();
       writer.close();
     }
