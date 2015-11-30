@@ -57,10 +57,12 @@ public class ClothoAdaptor {
     public static String createCompany(Company company, Clotho clothoObject)
     {
         String id = "";
+        
         Map map = new HashMap();
         if (company.getContact() != null && company.getContact() != ""){
             map.put("contact", company.getContact());
         }
+        map.put("schema", Company.class.getCanonicalName());
         if (company.getId() != null) {
             map.put("id", company.getId());
         }
@@ -1092,10 +1094,15 @@ public class ClothoAdaptor {
     // <editor-fold defaultstate="collapsed" desc="Map Methods">
     public static Company mapToCompany(Map map, Clotho clothoObject)
     {
-        //id is in the parameter
+        String id = "";
+        
+        if(map.containsKey("id")){
+            id = (String) map.get("id");
+        }
+        
         String contact = "";
         if (map.containsKey("contact")){
-             //contact = (String) map.get("contact");
+             contact = (String) map.get("contact");
         }
        
         String name = "";
@@ -1128,8 +1135,10 @@ public class ClothoAdaptor {
         savedCompany.setDescription(description);
         savedCompany.setPhone(phone);
         savedCompany.setUrl(url);
+        savedCompany.setId(id);
                
         return savedCompany;
+        
     }
     public static Container mapToContainer(Map map, Clotho clothoObject)
     {
@@ -1317,6 +1326,7 @@ public class ClothoAdaptor {
         for (int i = 0; i < productIds.size(); i++){
             products.add(getProduct(productIds.getString(i) , clothoObject));
         }
+        
         
         Order order = new Order(name);
         order.setProducts(products);

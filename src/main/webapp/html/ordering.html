@@ -28,12 +28,18 @@
         
         $("#productNameSearch").click( function ()
         {
-           window.location.href = "/html/queryProduct.html";
+           var productQuery = $('input[name=productQuery]').val();
+           if (productQuery != ""){
+                window.location.href = "/html/queryProduct.html?Name=" + productQuery;
+            }
         
         });
         $("#companyNameSearch").click( function ()
         {
-            window.location.href = "/html/queryCompanyProduct.html";
+            var companyQuery = $('input[name=companyQuery]').val();
+            if (companyQuery != ""){
+            window.location.href = "/html/queryCompanyProduct.html?Name=" + companyQuery;
+            }
         });
         
     });

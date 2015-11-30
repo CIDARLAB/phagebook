@@ -23,6 +23,19 @@
         </div>
         <terminal-aside></terminal-aside>
     </div>
+        <table style="width:90%;  padding-left: 10px" id="productTable">
+            <tr>
+                <th>Select</th>
+                <th>Product</th>
+                <th>Company</th>
+                <th>Cost</th>
+                <th>Description</th>
+                <th>Good Type</th>
+                <th>Product URL</th>
+                <th>Quantity</th>
+            </tr>
+        </table>
+        <input class="btn btn-default" type="submit" style="margin-top:10px;" value="Select Products">
         
     </body>
     
@@ -35,5 +48,77 @@
     <script src="../scripts/clotho/clotho3API.js"></script>
     <script src='../scripts/clotho/68a2b2df.clotho-command-module.js'></script>
     <script src="../scripts/angular.ng-modules.js"></script>
+    <script>
+        
+        $("document").ready( function () {
+           var companyQueryName = getParameterByName("Name");
+           
+           $.ajax({
+                url: 'queryProductByCompany',
+                type: 'GET',
+                async: false,
+                data: {
+                    'Name': companyQueryName,
+                },
+                success: function (response) {
+                    //Load Product Data'
+                    sortProductsFromResponse(response);
+                },
+                error: function(){
+                    //Nothing found or bad query
+                    alert("It's me");
+                }
+            });
+        });
+        function getParameterByName(name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+        /*
+        function sortProductsFromResponse(response) {
+            
+            for (var i = 0; i < response.length; i++) {
+                for (var ind in response[i]){
+                    $("#products").append(response[i][ind] + " ");
+                }
+            }
+        }*/
+        function sortProductsFromResponse(response) {
+            for (var i = 0; i < response.length; i++){
+                //
+                var productTable = document.getElementById("productTable");
+                var row = productTable.insertRow(i+1);
+                row.id = "product" + i.toString();
+                var selectCell = row.insertCell(0);
+                var nameCell = row.insertCell(1);
+                var companyCell = row.insertCell(2);
+                var costCell = row.insertCell(3);
+                var descriptionCell = row.insertCell(4);
+                var goodTypeCell = row.insertCell(5);
+                var productURLCell = row.insertCell(6);
+                var quantityCell = row.insertCell(7);
+                
+                var name = response[i]['name'];
+                var company = response[i]['company'];
+                var cost = response[i]['cost'];
+                var description = response[i]['description'];
+                var goodType = response[i]['goodType'];
+                var productURL = response[i]['productURL'];
+                var quantity = response[i]['quantity'];
+                
+                
+                
+                selectCell.innerHTML = "<input type='checkbox' id='product"+i +"'>";
+                nameCell.innerHTML = name;
+                companyCell.innerHTML = company;
+                costCell.innerHTML = cost;
+                descriptionCell.innerHTML = description;
+                goodTypeCell.innerHTML = goodType;
+                productURLCell.innerHTML = productURL;
+                quantityCell.innerHTML = quantity;
+            }
+        }
+    </script>
 </html>
-
