@@ -25,7 +25,6 @@
             <artifactId>jetty-util</artifactId>
             <version>8.1.10.v20130312</version>
         </dependency>
-      
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-webapp</artifactId>
@@ -37,9 +36,6 @@
             <version>8.1.10.v20130312</version>
             <type>jar</type>
         </dependency>
-        
-
-
         
         <dependency>
             <groupId>org.json</groupId>
@@ -70,21 +66,11 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>mail</artifactId>
-            <version>1.4</version>
+            <groupId>net.sf.json-lib</groupId>
+            <artifactId>json-lib</artifactId>
+            <version>2.4</version>
+            <classifier>jdk15</classifier>
         </dependency>
-        <dependency>
-            <groupId>javax.activation</groupId>
-            <artifactId>activation</artifactId>
-            <version>1.1.1</version>
-        </dependency>
-            <dependency>
-                <groupId>net.sf.json-lib</groupId>
-                <artifactId>json-lib</artifactId>
-                <version>2.4</version>
-                <classifier>jdk15</classifier>
-            </dependency>
         <dependency>
             <groupId>org.clothocad</groupId>
             <artifactId>Clotho3JavaAPI</artifactId>
@@ -97,19 +83,21 @@
       <artifactId>websocket-api</artifactId>
       <version>${jetty-version}</version>
     </dependency>
-    <!-- To run websockets in embedded server -->
+    <!--To run websockets in embedded server-->
     <dependency>
       <groupId>org.eclipse.jetty.websocket</groupId>
       <artifactId>websocket-server</artifactId>
       <version>${jetty-version}</version>
     </dependency>
-    <!-- To run websockets client -->
+    <!--To run websockets client-->
     <dependency>
       <groupId>org.eclipse.jetty.websocket</groupId>
       <artifactId>websocket-client</artifactId>
       <version>${jetty-version}</version>
     </dependency>
+    
     <dependency>
+       
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-websocket</artifactId>
       <version>8.1.10.v20130312</version>
@@ -122,11 +110,13 @@
             <type>war</type>
         </dependency>
     </dependencies>
+
     
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
+        <!-- ONLY FOR THE API, SERVER, AND CLIENT, WE use jetty 8.1.10 for anything else -->
         <jetty-version>9.2.7.v20150116</jetty-version>
     </properties>
 </project>

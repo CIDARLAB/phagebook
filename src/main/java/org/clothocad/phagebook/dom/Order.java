@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
+import org.clothocad.model.Person;
 /**
  *
  * @author prash,innaturshudzhyan
@@ -24,7 +25,11 @@ public class Order {
     
     @Getter
     @Setter
-    private String id, name; 
+    private String id, name, description,createdOn;
+    
+    @Getter
+    @Setter
+    private Person createdBy;
     
     /**
      *

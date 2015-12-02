@@ -7,11 +7,12 @@ package org.clothocad.phagebook.adaptors.ws;
 import javax.servlet.annotation.WebServlet;
 import org.eclipse.jetty.websocket.servlet.WebSocketServlet;
 import org.eclipse.jetty.websocket.servlet.WebSocketServletFactory;
-@SuppressWarnings("serial")
+
 /**
  *
  * @author KatieLewis
  */
+@SuppressWarnings("serial")
 public class PhagebookServlet extends WebSocketServlet {
     @Override
     public void configure(WebSocketServletFactory factory){
