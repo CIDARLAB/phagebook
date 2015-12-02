@@ -1691,7 +1691,7 @@ public class ClothoAdaptor {
         
     }
     
-    public static Status mapToStatus(Map map, Clotho clothoObject) throws Exception
+    public static Status mapToStatus(Map map, Clotho clothoObject)
     {
         /*TODO: ACTUALLY WRITE STATUS.
         Status status = new Status("",null);
@@ -1703,7 +1703,9 @@ public class ClothoAdaptor {
         
         return status;
                 */
-      throw new Exception();
+      //Status result = Status(null);
+      System.out.println("not complete");
+      return null;
     }
     
     // </editor-fold>
