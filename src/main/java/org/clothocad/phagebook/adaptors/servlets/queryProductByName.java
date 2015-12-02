@@ -92,6 +92,7 @@ public class queryProductByName extends HttpServlet {
             JSONArray results = new JSONArray();
             for (Product product : queryProductResults){
                 JSONObject productAsJson = new JSONObject();
+                productAsJson.put("clothoID", product.getId());
                 productAsJson.put("cost", product.getCost());
                 productAsJson.put("productURL", (product.getProductURL() != null) ? product.getProductURL() : "");
                 productAsJson.put("goodType", (product.getGoodType() != null) ? product.getGoodType() : "");

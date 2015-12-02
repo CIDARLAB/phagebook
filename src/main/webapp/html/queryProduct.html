@@ -35,7 +35,7 @@
                 <th>Quantity</th>
             </tr>
         </table>
-        <input class="btn btn-default" type="submit" style="margin-top:10px;" value="Select Products">
+        <input class="btn btn-default" type="submit" style="margin-top:10px;" value="Select Products" onclick="selectProducts();">
         
     </body>
     
@@ -48,6 +48,7 @@
     <script src="../scripts/clotho/clotho3API.js"></script>
     <script src='../scripts/clotho/68a2b2df.clotho-command-module.js'></script>
     <script src="../scripts/angular.ng-modules.js"></script>
+    <script src="../scripts/ordering.js"></script>
     <script>
         
         $("document").ready( function () {
@@ -70,21 +71,9 @@
                 }
             });
         });
-        function getParameterByName(name) {
-            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-                results = regex.exec(location.search);
-            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-        }
-        /*
-        function sortProductsFromResponse(response) {
-            
-            for (var i = 0; i < response.length; i++) {
-                for (var ind in response[i]){
-                    $("#products").append(response[i][ind] + " ");
-                }
-            }
-        }*/
+        
+       
+    
         function sortProductsFromResponse(response) {
             for (var i = 0; i < response.length; i++){
                 //
@@ -120,5 +109,26 @@
                 quantityCell.innerHTML = quantity;
             }
         }
+        
+        function selectProducts(){
+            var finished = false;
+            
+            var productNumber = 0;
+            
+            while (!finished){
+                var checkbox = document.getElementById('product' + productNumber);
+                if (checkbox === null){
+                    finished = true;
+                } else {
+                    //for clarity
+                    finished = false
+                    productNumber++;
+                }
+                
+            }
+            
+            alert(productNumber);
+        }
+        
     </script>
 </html>

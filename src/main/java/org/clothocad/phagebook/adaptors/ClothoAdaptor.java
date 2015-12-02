@@ -1454,6 +1454,7 @@ public class ClothoAdaptor {
     public static Product mapToProduct(Map map, Clotho clothoObject)
     {
         String name = (String) map.get("name");
+        String id = (String) map.get("id");
         String description = (String) map.get("description");
         String productURL = (String) map.get("productURL");
         String companyId = (String) map.get("company");
@@ -1469,7 +1470,7 @@ public class ClothoAdaptor {
         product.setDescription(description);
         product.setProductURL(productURL);
         product.setQuantity(quantity);
-        
+        product.setId(id);
         return product;
         
     }

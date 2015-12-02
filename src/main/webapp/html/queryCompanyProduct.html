@@ -48,6 +48,7 @@
     <script src="../scripts/clotho/clotho3API.js"></script>
     <script src='../scripts/clotho/68a2b2df.clotho-command-module.js'></script>
     <script src="../scripts/angular.ng-modules.js"></script>
+    <script src="../scripts/ordering.js"></script>
     <script>
         
         $("document").ready( function () {
@@ -66,16 +67,11 @@
                 },
                 error: function(){
                     //Nothing found or bad query
-                    alert("It's me");
+                    alert("Error with the AJAX call response");
                 }
             });
         });
-        function getParameterByName(name) {
-            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-                results = regex.exec(location.search);
-            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-        }
+        
         /*
         function sortProductsFromResponse(response) {
             
