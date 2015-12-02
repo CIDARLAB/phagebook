@@ -1532,9 +1532,11 @@ public class ClothoAdaptor {
             creator = getPerson(creatorId, clothoObject);
         }
         
+        
+        Person lead = null;
         if(map.containsKey("lead")){
             String leadId = (String) map.get("lead");
-            Person lead = getPerson(leadId, clothoObject);
+            lead = getPerson(leadId, clothoObject);
             
         }
         
