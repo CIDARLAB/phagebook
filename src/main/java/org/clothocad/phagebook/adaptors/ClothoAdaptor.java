@@ -58,6 +58,7 @@ public class ClothoAdaptor {
     {
         String id = "";
         Map map = new HashMap();
+        map.put("schema", Company.class.getCanonicalName());
         if (company.getContact() != null && company.getContact() != ""){
             map.put("contact", company.getContact());
         }
@@ -83,6 +84,7 @@ public class ClothoAdaptor {
     {
         String id = "";
         Map map = new HashMap();
+        map.put("schema", Container.class.getCanonicalName());
         if (container.getName() != null && container.getName() != ""){ 
             map.put("name", container.getName());
         }
@@ -103,6 +105,7 @@ public class ClothoAdaptor {
     {
         String id = "";
         Map map = new HashMap();
+        map.put("schema", Entry.class.getCanonicalName());
         if (entry.getNotebook().getId() != null){
             map.put("notebook", entry.getNotebook().getId());
         }
@@ -138,6 +141,7 @@ public class ClothoAdaptor {
     {
         String id = "";
         Map map = new HashMap();
+        map.put("schema", FundingAgency.class.getCanonicalName());
         if (fundingAgency.getId() != null){
             map.put("id", fundingAgency.getId());
         }
@@ -165,6 +169,7 @@ public class ClothoAdaptor {
     {
         String id = "";
         Map map = new HashMap();
+        map.put("schema", Good.class.getCanonicalName());
         if (good.getId() != null){
             map.put("id", good.getId());
         }
@@ -184,6 +189,7 @@ public class ClothoAdaptor {
     {
         String id = "";
         Map map = new HashMap();
+        map.put("schema", Grant.class.getCanonicalName());
         map.put("name", grant.getName());
         map.put("leadPI", grant.getLeadPI().getId());
                
@@ -225,6 +231,7 @@ public class ClothoAdaptor {
         if (institution.getId() != null){
             map.put("id", institution.getId());
         }
+        map.put("schema", Institution.class.getCanonicalName());
         map.put("name", institution.getName());
         map.put("description", institution.getDescription());
         map.put("phone", institution.getPhone());
@@ -242,6 +249,7 @@ public class ClothoAdaptor {
         if (instrument.getId() != null){
             map.put("id", instrument.getId());
         }
+        map.put("schema", Instrument.class.getCanonicalName());
         map.put("name", instrument.getName());
         map.put("description", instrument.getDescription());
         
@@ -254,6 +262,7 @@ public class ClothoAdaptor {
     {
         String id = "";
         Map map = new HashMap();
+        map.put("schema", Inventory.class.getCanonicalName());
         JSONArray samples = new JSONArray();
         for (Sample sample : inventory.getSamples()){
             samples.add(sample.getId());
@@ -278,6 +287,7 @@ public class ClothoAdaptor {
     {
         String id = "";
         Map map = new HashMap();
+        map.put("schema", Notebook.class.getCanonicalName());
         map.put("owner", notebook.getOwner().getId());
         JSONArray entries = new JSONArray();
         for (Entry entry : notebook.getEntries()){
@@ -299,6 +309,7 @@ public class ClothoAdaptor {
     {
         String id = "";
         Map map = new HashMap();
+        map.put("schema", Order.class.getCanonicalName());
         if (order.getId() != null){
             map.put("id", order.getId());
         }
@@ -319,6 +330,7 @@ public class ClothoAdaptor {
     {
         String id = "";
         Map map = new HashMap();
+        map.put("schema", Organization.class.getCanonicalName());
         if (organization.getId() != null){
             map.put("id", organization.getId());
         }
@@ -336,6 +348,7 @@ public class ClothoAdaptor {
     {
         String id = "";
         Map map = new HashMap();
+        map.put("schema", Person.class.getCanonicalName());
        
        if(person.getSalt() != null && person.getSalt() != ""){
             map.put("salt", person.getSalt());
@@ -461,6 +474,7 @@ public class ClothoAdaptor {
     {
         String id = "";
         Map map = new HashMap();
+        
         map.put("schema", Product.class.getCanonicalName());
         map.put("cost",product.getCost());
         map.put("productURL", product.getProductURL());
@@ -487,6 +501,7 @@ public class ClothoAdaptor {
     public static String createProject(Project project, Clotho clothoObject){
         String id ="";
         Map map = new HashMap();
+        map.put("schema", Project.class.getCanonicalName());
 
         if(project.getId() != null){
             map.put("id",project.getId());
@@ -578,6 +593,7 @@ public class ClothoAdaptor {
     {
         String id = "";
         Map map = new HashMap();
+        map.put("schema", Protocol.class.getCanonicalName());
         map.put("creator", protocol.getCreator().getId());
         map.put("protocolName", protocol.getProtocolName());
         
@@ -620,6 +636,7 @@ public class ClothoAdaptor {
     {
         String id = "";
         Map map = new HashMap();
+        map.put("schema", Sample.class.getCanonicalName());
         if (sample.getId() != null){
             map.put("id", sample.getId());
         }
@@ -636,6 +653,7 @@ public class ClothoAdaptor {
     {
         String id = "";
         Map map = new HashMap();
+        map.put("schema", Status.class.getCanonicalName());
         if (status.getId() != null){
             map.put("id", status.getId());
         }
