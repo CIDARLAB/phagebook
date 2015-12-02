@@ -101,7 +101,12 @@ public class processProject extends HttpServlet {
        String labs = request.getParameter("labs");
        
        double projectBudget = 0;
-       projectBudget = Double.parseDouble(request.getParameter("projectBudget"));
+       
+       String projectBudgetfromJSON = request.getParameter("projectBudget");
+       
+       if(projectBudgetfromJSON != null){
+         projectBudget = Double.parseDouble(projectBudgetfromJSON);
+       }
        
        String grantString = request.getParameter("grant");
        String description = request.getParameter("description");
@@ -117,10 +122,11 @@ public class processProject extends HttpServlet {
        creator.setFirstName("Leela");
        creator.setId("Leela");
        
+       
        // create a lead object using the name from the form
        Person lead = new Person();
        lead.setFirstName(leadString);
-       lead.setId("Leela2"); // what is this supposed to be? maybe find the person in the db and set them there
+       
       
        // create a Grant object -- edit grant class later to allow for 
        // creating grants
