@@ -42,7 +42,7 @@ public class createPersonTest {
     /**
      * Test of processRequest method, of class createPerson.
      */
-    @Test
+    //@Test
     public void testProcessRequest() throws Exception {
         System.out.println("processRequest");
         HttpServletRequest request = null;
@@ -56,7 +56,7 @@ public class createPersonTest {
     /**
      * Test of doGet method, of class createPerson.
      */
-    @Test
+    //@Test
     public void testDoGet() throws Exception {
         System.out.println("doGet");
         HttpServletRequest request = null;
@@ -70,7 +70,7 @@ public class createPersonTest {
     /**
      * Test of doPost method, of class createPerson.
      */
-    @Test
+    //@Test
     public void testDoPost() throws Exception {
         System.out.println("doPost");
         HttpServletRequest request = null;
@@ -84,7 +84,7 @@ public class createPersonTest {
     /**
      * Test of getServletInfo method, of class createPerson.
      */
-    @Test
+    //@Test
     public void testGetServletInfo() {
         System.out.println("getServletInfo");
         createPerson instance = new createPerson();

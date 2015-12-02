@@ -92,9 +92,11 @@ public class processProject extends HttpServlet {
        // who is the user ?
        // get all of the fields from the request
        String name = request.getParameter("name");
+       System.out.println("name is"); 
        System.out.println(name);
 
        String leadString = request.getParameter("lead");
+       System.out.println("lead is"); 
        System.out.println(leadString);
        String labs = request.getParameter("labs");
        
@@ -103,9 +105,11 @@ public class processProject extends HttpServlet {
        
        String grantString = request.getParameter("grant");
        String description = request.getParameter("description");
+       System.out.println("description is");
        System.out.println(description);
        
        String date = request.getParameter("date");
+       System.out.println("date is");
        System.out.println(date);
 
        // a sample user
@@ -130,15 +134,24 @@ public class processProject extends HttpServlet {
        // initialize a null string to store the projectID value
        String projectID = null;
        
-       /*
+       System.out.println("creator"); 
        System.out.println(creator); 
+       System.out.println("name");
        System.out.println(name);
-        System.out.println(lab);
-        System.out.println(lead);
-        System.out.println(projectBudget);
-        System.out.println(grant);
-        System.out.println(description); 
-       */
+       System.out.println("lab");
+       System.out.println(lab);
+       System.out.println("lead");
+       System.out.println(lead);
+       System.out.println("projectBudget");
+       System.out.println(projectBudget);
+       System.out.println("grant");
+       System.out.println(grant);
+       System.out.println("description"); 
+       System.out.println(description);
+       
+       Project newProject = new Project(creator, name, description); 
+       projectID = createProjectInClotho(newProject);
+        /*
        // use different contructors based on how filled out the form is
        if(lead == null && projectBudget == 0 && labs == null ){
         System.out.println("1");  
@@ -171,13 +184,17 @@ public class processProject extends HttpServlet {
          
         Project newProject = new Project(creator, name, lab, lead, projectBudget, grant, description); 
         projectID = createProjectInClotho(newProject);
+        System.out.println("project id is");
         System.out.println(projectID);
        
        }
+       
+      */ 
       System.out.println("almost done"); 
       System.out.println(projectID);
       JSONObject result = new JSONObject();
  
+      
       if(projectID != null){
         result.put("success",1);
         result.put("projectID", projectID);
@@ -196,8 +213,9 @@ public class processProject extends HttpServlet {
     // separate method for opening a connection to clotho and saving the project
     // in Clotho;
     // returns the ID given to the project by the database
-    private String createProjectInClotho(Project newProject){
-        
+    public String createProjectInClotho(Project newProject){
+      System.out.println("newProject in createProjectInClotho");
+      
       ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
       Clotho clothoObject = new Clotho(conn); 
       String username = "phagebook";

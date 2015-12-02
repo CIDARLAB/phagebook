@@ -1521,7 +1521,12 @@ public class ClothoAdaptor {
             updates.add(getStatus(updateIds.getString(i) , clothoObject));
         }
         
-        Project project = new Project(dateCreated, creator, name, null, 
+        //   public Project(Person creator, String name, Organization lab, String description){
+        // public Project(Person creator, String name, Organization lab, 
+        // Person lead, Double projectBudget, Grant projectGrant, String description)
+
+        
+        Project project = new Project(creator, name, null, 
         lead, budget, grant, description);
         
             
