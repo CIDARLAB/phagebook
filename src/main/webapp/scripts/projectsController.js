@@ -26,24 +26,40 @@ projectsApp.controller('projectsController',['$scope', '$http', function($scope,
     $scope.projectGrantRequired = '';
     $scope.descriptionRequired = '';
     $scope.passwordRequired = '';
-    var submit = true;
-    if(!$scope.formData.name){
-      $scope.nameRequired = 'Please provide a title for your new project.';
-      submit = false;
+
+    var validateForm = function(){
+      var count = 0; // has to meet a number of conditions before sending the ajax call
+
+      if(!$scope.formData.name ){
+        $scope.nameRequired = 'Please provide a valid title for your new project.';
+      
+      }else{
+        $scope.nameRequired = '';
+        count++;
+      }
+
+
+      if(!$scope.formData.description){
+        $scope.descriptionRequired = 'Please provide a valid description.';
+      }else{
+        $scope.formData.description = '';
+        count++;
+      }
+
+      if(count >=2){
+        return true;
+      }else{
+        return false;
+      }
+
     }
-    //submit = true;
-    /*if(!$scope.formData.labs){
-      $scope.labsRequired = 'Please input the associated organizations.';
-      submit = false;
-    }*/
-    submit = true;
-    if(!$scope.formData.description){
-      $scope.descriptionRequired = 'Please provide a description.'
-      submit = false;
-    }
-  
-  //console.log($scope.formData);
-  
+
+    var submit = validateForm();
+    console.log(submit);
+
+  // !!!! create a check that pr budget is an int !!!!!!
+
+
   var dataSubmit =  {
     name: $scope.formData.name,
     lead:  $scope.formData.lead,
@@ -73,35 +89,7 @@ projectsApp.controller('projectsController',['$scope', '$http', function($scope,
     }); 
    }
   
-
-
-
   };
-
-
 
 }]);
 
-
-
-
-
-// $(document).ready(function() {
-// var testButton = Document.getElementByID("testButton");
-// console.log(testButton);
-// console.log("loads@222");
-// var testObject = {
-// "name": "name_input",
-// "labs": ["CIDAR","HYNESS"],
-// "description": "project description"
-// };
-
-// $("testButton").click(function(){
-// console.log("button clicked!!!!");
-// $.post("processProject",testObject,
-// function(data, status)
-// {
-// console.log("Data: " + data + "\nStatus: " + status);
-// });
-// });
-// });

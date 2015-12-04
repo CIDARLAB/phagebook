@@ -121,7 +121,31 @@ public class processProject extends HttpServlet {
        Person creator = new Person();
        creator.setFirstName("Leela");
        creator.setId("Leela");
+       /*
+       Person creator2 = new Person();
+       creator2.setFirstName("Anna");
        
+       ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+      Clotho clothoObject = new Clotho(conn); 
+      String username = "phagebook";
+      Map createUserMap = new HashMap();
+      createUserMap.put("username", username);
+      createUserMap.put("password", "password");
+      clothoObject.createUser(createUserMap);
+      Map loginMap = new HashMap();
+      loginMap.put("username", username);
+      loginMap.put("credentials", "password");
+      clothoObject.login(loginMap);
+       
+       String creator2ID = ClothoAdaptor.createPerson( creator2, clothoObject);
+       
+       */
+       /*
+       
+       in cookie clotho ID (eventually) 
+       ClothoAdapter.getPerson( clothoID, clothoObject);
+       
+       */
        
        // create a lead object using the name from the form
        Person lead = new Person();

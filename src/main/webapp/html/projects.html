@@ -28,15 +28,19 @@
 </div>
 
 
-  <form class="form-horizontal" role="form" ng-controller="projectsController"> 
+  <form name="submitProject" sclass="form-horizontal" role="form" ng-controller="projectsController"> 
     
     <h3 class="projectFormTitle">New Project</h3>  
     <div class="form-group">    <!-- String name -->
       <label for="inputName3" class="col-sm-2 control-label">Project Title</label>
       <div class="col-sm-4">
-        <input class="form-control" id="inputName3" placeholder="Name" ng-model="formData.name">
+        <input name="name" class="form-control" ng-maxlength="100" ng-minlength="5" id="inputName3" placeholder="Name" ng-model="formData.name">
       </div>
        <span ng-show="nameRequired">{{nameRequired}}</span>
+       <span class="error" ng-show="submitProject.name.$error.minlength">
+        Minimum length is 5 characters.</span>
+       <span class="error" ng-show="submitProject.name.$error.maxlength">
+        Maximum length is 100 characters.</span>
     </div>
     
     <div class="form-group"> <!-- Organization lab -->
@@ -58,15 +62,18 @@
     <div class="form-group">  <!-- Double projectBudget -->
       <label for="inputProjectBudget3" class="col-sm-2 control-label" >Project Budget</label>  
       <div class="col-sm-4">
-        <input class="form-control" id="inputEmail3" placeholder="Budget" ng-model="formData.projectBudget">
+        <input name="projectBudget" type="number" class="form-control" id="inputEmail3" placeholder="Budget" min="0" ng-model="formData.projectBudget">
       </div>
        <span ng-show="projectBudgetRequired">{{projectBudgetRequired}}</span>
+       <span class="error" ng-show="submitProject.projectBudget.$error.number">
+         Not a valid number.
+       </span>
     </div>
     
     <div class="form-group"> <!-- Grant projectGrant by string name? -->
       <label for="inputGrant3" class="col-sm-2 control-label" >Grant</label>  
       <div class="col-sm-4">
-        <input class="form-control" id="inputGrant3" placeholder="Grant" ng-model="formData.grant">
+        <input  class="form-control" id="inputGrant3" placeholder="Grant" ng-model="formData.grant">
       </div>
        <span ng-show="projectGrantRequired">{{projectGrantRequired}}</span>
     </div>
@@ -74,9 +81,13 @@
     <div class="form-group"> <!--String Description-->
       <label for="inputDescription3" class="col-sm-2 control-label" >Description</label>  
       <div class="col-sm-4">
-        <textarea class="form-control" id="inputDescription3" placeholder="Description" ng-model="formData.description"></textarea>
+        <textarea name="description" class="form-control" id="inputDescription3" placeholder="Description"  ng-maxlength="1000" ng-minlength="50" ng-model="formData.description"></textarea>
       </div>
        <span ng-show="descriptionRequired">{{descriptionRequired}}</span>
+       <span class="error" ng-show="submitProject.description.$error.minlength">
+        Minimum length is 50 characters.</span>
+       <span class="error" ng-show="submitProject.description.$error.maxlength">
+        Maximum length is 1000 characters.</span>
     </div>
 
 
