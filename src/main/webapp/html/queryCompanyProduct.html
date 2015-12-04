@@ -35,7 +35,7 @@
                 <th>Quantity</th>
             </tr>
         </table>
-        <input class="btn btn-default" type="submit" style="margin-top:10px;" value="Select Products">
+        <input class="btn btn-default" type="submit" style="margin-top:10px;" value="Select Products" onclick="selectProducts()">
         
     </body>
     
@@ -106,7 +106,7 @@
                 
                 
                 
-                selectCell.innerHTML = "<input type='checkbox' id='product"+i +"'>";
+                selectCell.innerHTML = "<input type='checkbox' id='productCheck"+i +"'>";
                 nameCell.innerHTML = name;
                 companyCell.innerHTML = company;
                 costCell.innerHTML = cost;
@@ -115,6 +115,68 @@
                 productURLCell.innerHTML = productURL;
                 quantityCell.innerHTML = quantity;
             }
+        }
+        
+        function populateSortedOrderCookies(ids){
+            var idString = ids[0];
+            
+            for (var i = 1; i < ids.length ; i++){
+                
+                idString = idString + "," +  ids[i];
+            }
+            
+            
+            setCookie("LoadedOrders", idString , 1);
+        }
+        
+        function selectProducts(){
+            var numberOfCheckBoxes = totalNumberOfCheckBoxesWithName('productCheck');
+           
+                var OrderIds = []; // create an empty array
+                var loadedOrderString = getCookie("LoadedOrders");
+                var loadedOrdersOnPage = loadedOrderString.split(',');
+                var selectedBoxCount = 0;
+                for (var i = 0; i < numberOfCheckBoxes; i++){
+                    if( document.getElementById('productCheck' + i).checked){
+
+                        OrderIds.push(loadedOrdersOnPage[i]);
+                        selectedBoxCount++;
+                    } else{
+
+                    }
+                }
+                if (selectedBoxCount !== 0){
+                    appendToCookie("Order", OrderIds, 1);
+                    window.location.href = "./html/ordering.html";
+                } else {
+                    alert("Select Something Dang");
+                }
+                //should not need to delete LoadedOrder cookie
+             
+            
+        }
+        
+       
+       
+
+        function totalNumberOfCheckBoxesWithName(name){
+            var finished = false;
+            
+            var productNumber = 0;
+            
+            while (!finished){
+                var checkbox = document.getElementById(name + productNumber);
+                if (checkbox === null){
+                    finished = true;
+                } else {
+                    //for clarity
+                    finished = false
+                    productNumber++;
+                }
+                
+            }
+            
+            return productNumber;
         }
     </script>
 </html>

@@ -7,6 +7,7 @@ package org.clothocad.phagebook.adaptors.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,20 +17,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-import net.sf.json.JSONSerializer;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.phagebook.adaptors.ClothoAdaptor;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Product;
-
+import org.json.JSONObject;
 
 /**
  *
  * @author Herb
  */
-public class queryProductByName extends HttpServlet {
+public class getProductById extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,8 +41,7 @@ public class queryProductByName extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-       
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -60,68 +58,81 @@ public class queryProductByName extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         
-        String productName = ""; 
-        productName = request.getParameter("Name");
-        boolean isValidRequest = false;
-        if (productName != "" && productName != null){
-            isValidRequest = true;
-        }
         
-        if (isValidRequest){
-            //create a clothoUser and Login to Query
+       String ids = request.getParameter("ids");
+      
+       
+       boolean isValidRequest = false;
+       if (ids != "" && ids != null){
+           isValidRequest = true;
+       }
+       // items = [565f5518d4c61fb21a163eac, 565f5518d4c61fb21a163eaa, 565f5518d4c61fb21a163eab, 565f5518d4c61fb21a163eac]
+       
+       
+       
+        //ESTABLISH CONNECTION
+       if (isValidRequest)
+       {
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
             Map createUserMap = new HashMap();
-            createUserMap.put("username", "ClothoBackend");
-            createUserMap.put("password", "phagebook");
+            String username = "test"+ System.currentTimeMillis() ;
+            createUserMap.put("username", username);
+            createUserMap.put("password", "password");
             clothoObject.createUser(createUserMap);
             Map loginMap = new HashMap();
-            loginMap.put("username", "ClothoBackend");
-            loginMap.put("credentials", "phagebook");
+            loginMap.put("username", username);
+            loginMap.put("credentials", "password");     
             clothoObject.login(loginMap);
-
-            //Query for the products
+       //
+            List<String> productsAsStrings = Arrays.asList(ids.split("\\s*,\\s*"));
+            System.out.println(productsAsStrings);
+            List<Product> products = new LinkedList<>();
+           
+            //Populate the number of Products in a JSONArray
+            JSONArray responseData = new JSONArray();
             
-            Map query = new HashMap();
-            query.put("schema", Product.class.getCanonicalName());
-            query.put("name", productName);
+            for (int i = 0; i < productsAsStrings.size(); i++) {
+                    JSONObject product = new JSONObject();
+                    JSONObject productAtIndex = new JSONObject();
+                    Product temp = ClothoAdaptor.getProduct(productsAsStrings.get(i), clothoObject);
+                    productAtIndex.put("clothoID", temp.getId());
+                    productAtIndex.put("name", temp.getName());
+                    productAtIndex.put("company", temp.getCompany().getName());
+                    productAtIndex.put("cost", temp.getCost());
+                    productAtIndex.put("description", temp.getDescription());
+                    productAtIndex.put("goodType", temp.getGoodType());
+                    productAtIndex.put("url", temp.getProductURL());
+                    productAtIndex.put("quantity", temp.getQuantity());
+                    
+                    product.put("product"+i, productAtIndex);
+                    
+                    responseData.add(i, temp);
+                    System.out.println(responseData.toString());
+                    for (int j = 0 ; j < responseData.size(); j++){
+                        System.out.println(responseData.get(i));
+                    }
+                    
+	    } 
             
-            List<Product> queryProductResults = new LinkedList<>();
-            queryProductResults = ClothoAdaptor.queryProduct(query, clothoObject);//NOT USING THIS BECAUSE WE WANT A JSON ARRAY BACK
-            //To get Company Name...
-            JSONArray results = new JSONArray();
-            for (Product product : queryProductResults){
-                JSONObject productAsJson = new JSONObject();
-                productAsJson.put("clothoID", product.getId());
-                productAsJson.put("cost", product.getCost());
-                productAsJson.put("productURL", (product.getProductURL() != null) ? product.getProductURL() : "");
-                productAsJson.put("goodType", product.getGoodType());
-                productAsJson.put("quantity", product.getQuantity());
-                productAsJson.put("name", product.getName());
-                productAsJson.put("description", product.getDescription());
-                productAsJson.put("company", product.getCompany().getName());
-                
-                results.add(productAsJson);
-            }
             
-            
-            
-            if (!results.isEmpty()){
+            if (!responseData.isEmpty()){
                 
                 
                 response.setContentType("application/json");
                 response.setStatus(HttpServletResponse.SC_OK);
                 PrintWriter out = response.getWriter();
-                out.print(results.toString());
+                out.print(responseData.toString());
                 out.flush();
             } else {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             }
             
-        } else {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        }
-        
+            
+       }
+       
+       
+       
     }
 
     /**

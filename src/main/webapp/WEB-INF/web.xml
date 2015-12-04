@@ -28,6 +28,14 @@
         <servlet-name>queryProductByCompany</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.queryProductByCompany</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>getProductById</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.getProductById</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>createOrderWithIdArray</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.createOrderWithIdArray</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>inputProduct</servlet-name>
         <url-pattern>/inputProduct</url-pattern>
@@ -79,5 +87,13 @@
     <servlet-mapping>
         <servlet-name>queryProductByCompany</servlet-name>
         <url-pattern>/queryProductByCompany</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getProductById</servlet-name>
+        <url-pattern>/getProductById</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>createOrderWithIdArray</servlet-name>
+        <url-pattern>/createOrderWithIdArray</url-pattern>
     </servlet-mapping>
 </web-app>
