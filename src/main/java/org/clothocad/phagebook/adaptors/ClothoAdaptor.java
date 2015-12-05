@@ -1506,6 +1506,7 @@ public class ClothoAdaptor {
             try 
             {
                 int quantity = (int) productIds.get(key);
+                products.put(productOrder, quantity);
                 
             } catch (JSONException e)
             {
@@ -1513,9 +1514,7 @@ public class ClothoAdaptor {
                 System.out.println("something went wrong in mapToOrder");
             }
         }
-        for (int i = 0; i < productIds.length(); i++){
-            products.add(getProduct(productIds.getString(i) , clothoObject));
-        }
+        
         String id = "";
         if (map.containsKey("id")){
              id = (String) map.get("id");;
