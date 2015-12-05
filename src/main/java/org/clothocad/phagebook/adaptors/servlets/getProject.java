@@ -35,8 +35,10 @@ public class getProject extends HttpServlet {
         Clotho clothoObject = new Clotho(conn);
         Map projectMap = new HashMap();
         JSONObject projectObject = new JSONObject();
+        System.out.println("before getProject");
         projectMap = (Map) ClothoAdaptor.getProject(id, clothoObject);
-        System.out.println(projectMap);
+        System.out.println("after getProject");
+        System.out.println("Project :: " + projectMap);
         if(projectMap.containsKey("description")){
             if(projectMap.get("description") != null){
                projectObject.put("description", projectMap.get("description"));

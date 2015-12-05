@@ -35,7 +35,7 @@ angular.module('tabsApp',[]).controller('tabsController',['$scope',function($sco
                 var object = JSON.parse(response);
                 $scope.projectName = object.projectName;
                 $scope.description = object.description;
-                $scope.lead = object.lead;
+                //$scope.lead = object.lead;
 
             },
             error: function () {

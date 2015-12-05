@@ -896,13 +896,15 @@ public class ClothoAdaptor {
     public static Project getProject(String id, Clotho clothoObject)
     {
         System.out.println("Enter get project");
+        System.out.println(id);
         Map projectMap = new HashMap();
         projectMap = (Map) clothoObject.get(id);
-        
+        System.out.println("got id");
         Project project = mapToProject(projectMap, clothoObject);
         project.setId(id);
+        System.out.println(project);
         System.out.println("leave get project");
-        
+  
         return project;
            
     }
@@ -1645,14 +1647,15 @@ public class ClothoAdaptor {
     }
     public static Project mapToProject(Map map, Clotho clothoObject)
     {
-       
+       System.out.println("Map :: " + map);
         Person creator = null;
+        System.out.println("here");
         if(map.containsKey("creator")){
             String creatorId = (String) map.get("creator");
         
             creator = getPerson(creatorId, clothoObject);
         }
-        
+        System.out.println("here2");
         
         Person lead = null;
         if(map.containsKey("lead")){
@@ -1670,67 +1673,69 @@ public class ClothoAdaptor {
         List<Organization> affiliatedLabs = new LinkedList<Organization>() ;
         
         String name = (String) map.get("name");
-        
+        System.out.println("idk");
         
         Date dateCreated = new Date();
-        double budget = (double) map.get("budget");
         
+        if(map.containsKey("budget")){
+         double budget = (double) map.get("budget");
+        }
+        System.out.println("idk2");
         String description = (String) map.get("description");
+//        
+//        String grantId = (String) map.get("grant");
+//        Grant grant = getGrant(grantId, clothoObject);
+//        
+//        
+//        for (int i = 0; i < memberIds.size(); i++){
+//            members.add(getPerson(memberIds.getString(i) , clothoObject));
+//        }
+//        
+//        JSONArray notebookIds = (JSONArray) map.get("notebooks");
+//        
+//        for (int i = 0; i < notebookIds.size(); i++){
+//            notebooks.add(getNotebook(notebookIds.getString(i) , clothoObject));
+//        }
+//        
+//        
+//        
+//        JSONArray affiliatedLabIds = (JSONArray) map.get("affiliatedLabs");
+//        for (int i = 0; i < affiliatedLabIds.size(); i++){
+//            affiliatedLabs.add(getInstitution(affiliatedLabIds.getString(i) , clothoObject));
+//        }
+//        Institution institution = new Institution("BU");
         
-        String grantId = (String) map.get("grant");
-        Grant grant = getGrant(grantId, clothoObject);
         
-        
-        for (int i = 0; i < memberIds.size(); i++){
-            members.add(getPerson(memberIds.getString(i) , clothoObject));
-        }
-        
-        JSONArray notebookIds = (JSONArray) map.get("notebooks");
-        
-        for (int i = 0; i < notebookIds.size(); i++){
-            notebooks.add(getNotebook(notebookIds.getString(i) , clothoObject));
-        }
-        
-        
-        
-        JSONArray affiliatedLabIds = (JSONArray) map.get("affiliatedLabs");
-        for (int i = 0; i < affiliatedLabIds.size(); i++){
-            affiliatedLabs.add(getInstitution(affiliatedLabIds.getString(i) , clothoObject));
-        }
-        Institution institution = new Institution("BU");
-        
-        
-        String dateCreatedText = (String) map.get("dateCreated");
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy"); 
-        
-        try {
-            dateCreated = df.parse(dateCreatedText);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        
-        List<Status> updates = new LinkedList<Status>() ;
-        JSONArray updateIds = (JSONArray) map.get("updates");
-       
-        for (int i = 0; i < updateIds.size(); i++){
-            updates.add(getStatus(updateIds.getString(i) , clothoObject));
-        }
+//        String dateCreatedText = (String) map.get("dateCreated");
+//        DateFormat df = new SimpleDateFormat("MM/dd/yyyy"); 
+//        
+//        try {
+//            dateCreated = df.parse(dateCreatedText);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        
+//        List<Status> updates = new LinkedList<Status>() ;
+//        JSONArray updateIds = (JSONArray) map.get("updates");
+//       
+//        for (int i = 0; i < updateIds.size(); i++){
+//            updates.add(getStatus(updateIds.getString(i) , clothoObject));
+//        }
         
         //   public Project(Person creator, String name, Organization lab, String description){
         // public Project(Person creator, String name, Organization lab, 
         // Person lead, Double projectBudget, Grant projectGrant, String description)
 
         
-        Project project = new Project(creator, name, null, 
-        lead, budget, grant, description);
+        Project project = new Project(creator, name,description);
         
 //Project project = new Project(null,name,institution,description);
         
             
-        project.setMembers(members);
-        project.setUpdates(updates);
-        project.setAffiliatedLabs(affiliatedLabs);
-        project.setNotebooks(notebooks);
+//        project.setMembers(members);
+//        project.setUpdates(updates);
+//        project.setAffiliatedLabs(affiliatedLabs);
+//        project.setNotebooks(notebooks);
         String id = "";
         if (map.containsKey("id")){
              id = (String) map.get("id");;
