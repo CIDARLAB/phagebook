@@ -94,8 +94,10 @@ public class processProject extends HttpServlet {
        String name = request.getParameter("name");
        System.out.println("name is"); 
        System.out.println(name);
+       
+       String leadString = null;
 
-       String leadString = request.getParameter("lead");
+       leadString = request.getParameter("lead");
        System.out.println("lead is"); 
        System.out.println(leadString);
        String labs = request.getParameter("labs");
@@ -149,7 +151,7 @@ public class processProject extends HttpServlet {
        
        // create a lead object using the name from the form
        Person lead = new Person();
-       lead.setFirstName(leadString);
+       if(leadString != null)lead.setFirstName(leadString);
        
       
        // create a Grant object -- edit grant class later to allow for 
