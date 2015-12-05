@@ -68,28 +68,34 @@
     function createOrder(ids){
          if (getCookie("Order") !== ""){
             var ids = getCookie("Order");
-            var name = document.getElementById("");
-            var description = document.getElementById("");
-            //var dateCreated = 
+            var name = $("#orderNameBox").val();
+            var description = $("#orderDescriptionBox").val();
+          
+            
             $.ajax({
-                url: 'createOrderWithIdArray',
+                url: 'newOrder',
                 type: 'POST',
                 async: false,
                 data :{
-                    'ids' : ids,
-                    'name':
+                    'orderIds' : ids,
+                    'name' : name,
+                    'description' : description
+                    
                 },
                 success: function (response) {
-                    alert("Success!");
+                    alert(response);
+                    id = response
+                    window.location.href = "/html/SelectColumns.html?orderId=" + response
                 },
                 error: function(){ } 
             });
+            
        }
     }
         
         
         
-    }
+    
     
     
     function sortProductsFromResponse(response) {
@@ -131,6 +137,8 @@
                 
             }
         }
+        
+     
     </script>
 </head>
 <body>
@@ -162,11 +170,11 @@
                    
                     <div>
                         <div id="nameBox"> 
-                            Name: <input type="text" name="orderName" placeholder="Order Name">
+                            Name: <input type="text" name="orderName" id="orderNameBox" placeholder="Order Name">
                         </div>
                         
                         <span id="description"> Description: </span>
-                        <textarea name="orderDescription" placeholder="Please provide a small description for your order!" rows="4"></textarea>
+                        <textarea name="orderDescription" id="orderDescriptionBox" placeholder="Please provide a small description for your order!" rows="4"></textarea>
                     </div>
                     <div id="orderList"> 
                         <span class="description">Current Order</span>
