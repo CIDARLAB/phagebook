@@ -82,6 +82,7 @@ public class Project {
         //Create new lab notebook for creator?
        notebooks.add(creatorNotebook);
    }
+      
    
    private void addMember(Person newMember){
        boolean exists = false;

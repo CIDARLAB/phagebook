@@ -82,37 +82,60 @@ public class processProject extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
-
       System.out.println("request is: ");
-      System.out.println("got here1!"); 
       System.out.println(request);
-      System.out.println("got here2!"); 
-
 
        // who is the user ?
        // get all of the fields from the request
        String name = request.getParameter("name");
        System.out.println("name is"); 
-       System.out.println(name);
+       System.out.println(name);  
        
-       String leadString = null;
+       // gets the lead's name
+       String lead = "";
+       String leadString = request.getParameter("lead");
+       System.out.println(leadString);  
+       
+       if(leadString != null ){
+         System.out.println("here");  
+         lead = leadString; 
+       }       
 
-       leadString = request.getParameter("lead");
        System.out.println("lead is"); 
-       System.out.println(leadString);
-       String labs = request.getParameter("labs");
+       System.out.println(lead);
        
-       double projectBudget = 0;
+       // gets the labs 
+       String labs = "";
+       String labsString = request.getParameter("labs");
        
+       if(labsString != null){
+         labs = labsString;        
+       }
+       System.out.println("labs is"); 
+       System.out.println(labs);
+          
+      // gets the project budget from the form
+       double projectBudget = 0; 
        String projectBudgetfromJSON = request.getParameter("projectBudget");
        
-       if(projectBudgetfromJSON != null){
+       if(projectBudgetfromJSON != null ){
          projectBudget = Double.parseDouble(projectBudgetfromJSON);
-       }
+       }  
        
+       String grant = "";
        String grantString = request.getParameter("grant");
-       String description = request.getParameter("description");
-       System.out.println("description is");
+       if(grantString != null){
+         grant = grantString;        
+       }
+       System.out.println("grant is"); 
+       System.out.println(grant);
+       
+       String description = "";
+       String descriptionString = request.getParameter("description");
+       if(descriptionString != null ){
+         description = descriptionString;        
+       }
+       System.out.println("description is"); 
        System.out.println(description);
        
        String date = request.getParameter("date");
@@ -123,40 +146,16 @@ public class processProject extends HttpServlet {
        Person creator = new Person();
        creator.setFirstName("Leela");
        creator.setId("Leela");
-       /*
-       Person creator2 = new Person();
-       creator2.setFirstName("Anna");
-       
-       ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
-      Clotho clothoObject = new Clotho(conn); 
-      String username = "phagebook";
-      Map createUserMap = new HashMap();
-      createUserMap.put("username", username);
-      createUserMap.put("password", "password");
-      clothoObject.createUser(createUserMap);
-      Map loginMap = new HashMap();
-      loginMap.put("username", username);
-      loginMap.put("credentials", "password");
-      clothoObject.login(loginMap);
-       
-       String creator2ID = ClothoAdaptor.createPerson( creator2, clothoObject);
-       
-       */
-       /*
-       
-       in cookie clotho ID (eventually) 
-       ClothoAdapter.getPerson( clothoID, clothoObject);
-       
-       */
-       
-       // create a lead object using the name from the form
-       Person lead = new Person();
-       if(leadString != null)lead.setFirstName(leadString);
-       
-      
+          
+       // create a lead object using the name from the form\
+       // set the lea's name to name from the form
+       // ***** have to add split string code for creating first and last name
+       Person leadPerson = new Person();
+       leadPerson.setFirstName(lead);
+          
        // create a Grant object -- edit grant class later to allow for 
        // creating grants
-       Grant grant = new Grant();
+       Grant grantObject = new Grant(name);
        
        // need to add support for creating and adding a number of labs/ organizations
        // format of passed in lab?
@@ -164,7 +163,7 @@ public class processProject extends HttpServlet {
        Organization lab = new Organization(labs);
        
        // initialize a null string to store the projectID value
-       String projectID = null;
+       String projectID = "";
        
        System.out.println("creator"); 
        System.out.println(creator); 
@@ -173,55 +172,20 @@ public class processProject extends HttpServlet {
        System.out.println("lab");
        System.out.println(lab);
        System.out.println("lead");
-       System.out.println(lead);
+       System.out.println(leadPerson);
        System.out.println("projectBudget");
        System.out.println(projectBudget);
        System.out.println("grant");
-       System.out.println(grant);
+       System.out.println(grantObject);
        System.out.println("description"); 
        System.out.println(description);
        
-       Project newProject = new Project(creator, name, description); 
-       projectID = createProjectInClotho(newProject);
-        /*
-       // use different contructors based on how filled out the form is
-       if(lead == null && projectBudget == 0 && labs == null ){
-        System.out.println("1");  
-        System.out.println(creator); 
-        System.out.println(name);
-        System.out.println(description); 
-        Project newProject = new Project(creator, name, description); 
-        projectID = createProjectInClotho(newProject);
-
-       }else if(lead == null && projectBudget == 0) {
-        System.out.println("2");  
-        System.out.println(creator); 
-        System.out.println(name);
-        System.out.println(lab);
-        System.out.println(description); 
-         
-        Project newProject = new Project(creator, name, lab, description); 
-        projectID = createProjectInClotho(newProject);
-      
-       }else{
-        // here assume that all vals are present
-        System.out.println("3");  
-        System.out.println(creator); 
-        System.out.println(name);
-        System.out.println(lab);
-        System.out.println(lead);
-        System.out.println(projectBudget);
-        System.out.println(grant);
-        System.out.println(description); 
-         
-        Project newProject = new Project(creator, name, lab, lead, projectBudget, grant, description); 
-        projectID = createProjectInClotho(newProject);
-        System.out.println("project id is");
-        System.out.println(projectID);
+      System.out.println("about to create the project");  
+      Project newProject = new Project(creator, name, lab, leadPerson, projectBudget, grantObject, descriptionString); 
+      projectID = createProjectInClotho(newProject);
+      System.out.println("project id is");
+      System.out.println(projectID);
        
-       }
-       
-      */ 
       System.out.println("almost done"); 
       System.out.println(projectID);
       JSONObject result = new JSONObject();
@@ -230,10 +194,10 @@ public class processProject extends HttpServlet {
       if(projectID != null){
         result.put("success",1);
         result.put("projectID", projectID);
-        System.out.println("result is: ");
-        System.out.println(result);
+        System.out.println("successful");     
       }else{
-         System.out.println("not successful"); 
+        result.put("error",1);
+        System.out.println("not successful"); 
       }
       
       PrintWriter writer = response.getWriter();
