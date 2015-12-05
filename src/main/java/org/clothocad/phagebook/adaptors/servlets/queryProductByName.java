@@ -1,4 +1,4 @@
-                                                                      /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -15,18 +15,21 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+import net.sf.json.JSONSerializer;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.phagebook.adaptors.ClothoAdaptor;
 import org.clothocad.phagebook.controller.Args;
-import org.clothocad.model.Person;
-import org.clothocad.phagebook.security.EmailSaltHasher;
+import org.clothocad.phagebook.dom.Product;
+
 
 /**
  *
  * @author Herb
  */
-public class verifyEmail extends HttpServlet {
+public class queryProductByName extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,6 +43,7 @@ public class verifyEmail extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -56,6 +60,68 @@ public class verifyEmail extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         
+        String productName = ""; 
+        productName = request.getParameter("Name");
+        boolean isValidRequest = false;
+        if (productName != "" && productName != null){
+            isValidRequest = true;
+        }
+        
+        if (isValidRequest){
+            //create a clothoUser and Login to Query
+            ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+            Clotho clothoObject = new Clotho(conn);
+            Map createUserMap = new HashMap();
+            createUserMap.put("username", "ClothoBackend");
+            createUserMap.put("password", "phagebook");
+            clothoObject.createUser(createUserMap);
+            Map loginMap = new HashMap();
+            loginMap.put("username", "ClothoBackend");
+            loginMap.put("credentials", "phagebook");
+            clothoObject.login(loginMap);
+
+            //Query for the products
+            
+            Map query = new HashMap();
+            query.put("schema", Product.class.getCanonicalName());
+            query.put("name", productName);
+            
+            List<Product> queryProductResults = new LinkedList<>();
+            queryProductResults = ClothoAdaptor.queryProduct(query, clothoObject);//NOT USING THIS BECAUSE WE WANT A JSON ARRAY BACK
+            //To get Company Name...
+            JSONArray results = new JSONArray();
+            for (Product product : queryProductResults){
+                JSONObject productAsJson = new JSONObject();
+                productAsJson.put("clothoID", product.getId());
+                productAsJson.put("cost", product.getCost());
+                productAsJson.put("productURL", (product.getProductURL() != null) ? product.getProductURL() : "");
+                productAsJson.put("goodType", product.getGoodType());
+                productAsJson.put("quantity", product.getQuantity());
+                productAsJson.put("name", product.getName());
+                productAsJson.put("description", product.getDescription());
+                productAsJson.put("company", product.getCompany().getName());
+                
+                results.add(productAsJson);
+            }
+            
+            
+            
+            if (!results.isEmpty()){
+                
+                
+                response.setContentType("application/json");
+                response.setStatus(HttpServletResponse.SC_OK);
+                PrintWriter out = response.getWriter();
+                out.print(results.toString());
+                out.flush();
+            } else {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            }
+            
+        } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+        
     }
 
     /**
@@ -70,62 +136,6 @@ public class verifyEmail extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        String emailId = "";
-        String salt = "";
-        boolean hasValidParameters = false;
-        salt = request.getParameter("salt");
-        emailId = request.getParameter("emailId");
-        if (salt != "" && emailId != ""){
-            hasValidParameters = true;
-        }
-        if (hasValidParameters){
-            
-            EmailSaltHasher salty = EmailSaltHasher.getEmailSaltHasher();
-            Map query = new HashMap();
-            List<Person> queryPersons = new LinkedList<Person>();
-            query.put("emailId", emailId);
-            
-            ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
-            Clotho clothoObject = new Clotho(conn);
-            Map createUserMap = new HashMap();
-            createUserMap.put("username", "ClothoBackend");
-            createUserMap.put("password", "phagebook");
-
-           
-            clothoObject.createUser(createUserMap);
-
-            Map loginMap = new HashMap();
-            loginMap.put("username", "ClothoBackend");
-            loginMap.put("credentials", "phagebook");
-
-
-            clothoObject.login(loginMap);
-           
-          
-            queryPersons = ClothoAdaptor.queryPerson(query, clothoObject);
-            
-            String recreatedHash = salty.hash(emailId.toCharArray(), salt.getBytes("UTF-8"));
-            //System.out.println(salty.hash(people.get(0).getEmailId().toCharArray(), people.get(0).getSalt().getBytes("UTF-8"))
-            
-            boolean isValidated = queryPersons.get(0).getSaltedEmailHash().equals(recreatedHash);
-            System.out.println("is Validated = " + isValidated);
-            System.out.println("retrieved Hash = " + queryPersons.get(0).getSaltedEmailHash());
-            System.out.println("recreatedHash = " + recreatedHash);
-            if (isValidated){
-                System.out.println("-------I'm at isValidated--------");
-                queryPersons.get(0).setActivated(true);
-                clothoObject.logout();
-                ClothoAdaptor.setPerson(queryPersons.get(0), clothoObject);  
-                
-            } else if (!isValidated){
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            }
-            clothoObject.logout();
-            
-            
-        }
-      
-       
     }
 
     /**

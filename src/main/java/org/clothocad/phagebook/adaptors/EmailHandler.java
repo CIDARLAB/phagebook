@@ -10,7 +10,7 @@ import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 import javax.activation.*;
-import org.clothocad.phagebook.dom.Person;
+import org.clothocad.model.Person;
 
 /**
  *
@@ -34,8 +34,8 @@ public class EmailHandler {
     }
     //TODO: Implement a person type object.
     
-    public boolean sendEmailVerification(Person pers, String link){
-       
+
+    public boolean sendEmailVerification(Person pers, String link){       
             //try to send an email and stuff
             //eventually check if person is verified and then throw an exception or something
             //so it doesn't look like you ain't got your shit together
@@ -100,7 +100,7 @@ public class EmailHandler {
         }
         return false;
     }
-  
-    
-    
+   
+
+
 }

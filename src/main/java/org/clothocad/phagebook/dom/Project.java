@@ -5,6 +5,7 @@
  */
 package org.clothocad.phagebook.dom;
 
+import org.clothocad.model.Person;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -31,11 +32,29 @@ public class Project {
    @Getter @Setter private String id;
    
    
-   public Project(Date createdDate, Person creator, String name, Organization lab){
-       this.dateCreated = createdDate;
+   public Project(Person creator, String name, Organization lab, String description){
+       System.out.println("start of constructor");
+       this.dateCreated = new Date();
        this.creator = creator;
        this.name = name;
-       this.affiliatedLabs.add(lab);
+       this.description = description;
+       this.updates = new ArrayList<Status>();
+       this.notebooks = new ArrayList<Notebook>();
+       this.affiliatedLabs = new ArrayList<Organization>();
+       this.members = new ArrayList<Person>();
+       
+   }
+      public Project(Person creator, String name, String description){
+       this.dateCreated = new Date();
+       this.creator = creator;
+       this.name = name;
+       this.description = description;
+       this.updates = new ArrayList<Status>();
+       this.notebooks = new ArrayList<Notebook>();
+       this.affiliatedLabs = new ArrayList<Organization>();
+       this.members = new ArrayList<Person>();
+
+       
    }
    
    
@@ -47,15 +66,15 @@ public class Project {
        this.budget = projectBudget;
        this.description = description;
        this.updates = new ArrayList<Status>();
-       //Not sure what grant information needs to be present. Can there be more than one?
        this.grant = projectGrant;
-       this.members.add(creator);
-       this.affiliatedLabs.add(lab);
        this.lead = lead;
        this.notebooks = new ArrayList<Notebook>();
        this.affiliatedLabs = new ArrayList<Organization>();
        this.members = new ArrayList<Person>();
-       //Create new lab notebook for creator?
+       this.affiliatedLabs.add(lab);
+       this.members.add(creator);
+              
+        //Create new lab notebook for creator?
        Notebook creatorNotebook = new Notebook(creator, this, createdDate);
        notebooks.add(creatorNotebook);
    }
@@ -128,23 +147,25 @@ public class Project {
        }
    };
    
-   private void addNotebok(Person notebookPerson){
+   public void addNotebok(Person notebookPerson){
        //how do I pass this project?
        Date today = new Date();
        Notebook newNotebook = new Notebook(notebookPerson, this, today);
        notebooks.add(newNotebook);
    }
    
-   private void deleteNotebook(Notebook toDelete){
+   public void deleteNotebook(Notebook toDelete){
        notebooks.remove(toDelete);
    }
    
    //Need function to display most recent statuses (e.g. top 10?)
-   private void addStatus(Status toAdd){
+   public void addStatus(Status toAdd){
+       System.out.println("add status");
        updates.add(toAdd);
+       System.out.println("finish status");
    }
    
-   private void deleteStatus(Status toDelete){
+   public void deleteStatus(Status toDelete){
        updates.remove(toDelete);
    }
 }

@@ -26,7 +26,7 @@ public class JettyAdaptor {
             context.setContextPath("/");
             context.setParentLoaderPriority(true);
  
-             server.setHandler(context);
+            server.setHandler(context);
             
             
             server.start();

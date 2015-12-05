@@ -1,9 +1,12 @@
 package org.clothocad.phagebook.security;
+import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Arrays;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import org.apache.commons.lang.RandomStringUtils;
@@ -53,17 +56,23 @@ public class EmailSaltHasher {
    *
    * @return the hashed password with a pinch of salt
    */
-  public byte[] hash(char[] password, byte[] salt) {
+  public String hash(char[] password, byte[] salt) {
     PBEKeySpec spec = new PBEKeySpec(password, salt, ITERATIONS, KEY_LENGTH);
     Arrays.fill(password, Character.MIN_VALUE);
     try {
+      String hash = new String();
       SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-      return skf.generateSecret(spec).getEncoded();
+      hash = new String(skf.generateSecret(spec).getEncoded(),"UTF-8");
+      return hash;
     } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
       throw new AssertionError("Error while hashing a password: " + e.getMessage(), e);
+    }
+    catch (UnsupportedEncodingException ex) {
+          Logger.getLogger(EmailSaltHasher.class.getName()).log(Level.SEVERE, null, ex);
     } finally {
       spec.clearPassword();
     }
+    return "";
   }
   
   
@@ -102,13 +111,18 @@ public class EmailSaltHasher {
    * @return true if the given password and salt match the hashed value, false otherwise
    */
   public boolean isExpectedPassword(char[] password, byte[] salt, byte[] expectedHash) {
-    byte[] pwdHash = hash(password, salt);
-    Arrays.fill(password, Character.MIN_VALUE);
-    if (pwdHash.length != expectedHash.length) return false;
-    for (int i = 0; i < pwdHash.length; i++) {
-      if (pwdHash[i] != expectedHash[i]) return false;
-    }
-    return true;
+      try {
+          byte[] pwdHash = hash(password, salt).getBytes("UTF-8");
+          Arrays.fill(password, Character.MIN_VALUE);
+          if (pwdHash.length != expectedHash.length) return false;
+          for (int i = 0; i < pwdHash.length; i++) {
+              if (pwdHash[i] != expectedHash[i]) return false;
+          }
+          return true;
+      } catch (UnsupportedEncodingException ex) {
+          Logger.getLogger(EmailSaltHasher.class.getName()).log(Level.SEVERE, null, ex);
+      }
+      return false;
   }
 
   /**

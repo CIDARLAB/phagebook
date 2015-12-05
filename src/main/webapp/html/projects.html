@@ -10,15 +10,18 @@
     <link rel="stylesheet" href="../styles/phagebookMainStyle.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <script src="../scripts/angular.js"></script>
-    <script src="../scripts/jquery.js"></script>
     <script src="../scripts/lodash.js"></script>
 
 
     <script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
+    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
 <body>
+    <div> 
+        <button id = "testButton" class="btn btn-primary" > Test Button </button> 
+    </div>
 <div ng-module="clothoRoot">
     <div class="container">
         <div clotho-command-bar></div>
@@ -179,6 +182,37 @@
 <script src="../scripts/projectsController.js"></script>
 <script src='../scripts/clotho/68a2b2df.clotho-command-module.js'></script>
 <script src="../scripts/angular.ng-modules.js"></script>
+    <script>
+        console.log('loads!');
+        //var testButton = Document.getElementByID("testButton");
+        console.log(testButton);
+        console.log("loads@222");
+        var testObject = {
+            "name": "name_input",
+            "labs": ["CIDAR","HYNESS"],
+            "description": "project description"
+        };
+        console.log(testObject);
 
+        $("#testButton").click(function(){
+           console.log("button clicked!!!!");
+           $.ajax({
+                url: "processProject",
+                type: "POST",
+                async: false,
+                data: {
+                    "name": "CPS",
+                    //"labs": ["CIDAR","HYNESS"],
+                    "description": "Create Turing Patterns"
+                },
+                success: function (response) {
+                    console.log(response);
+                },
+                error: function () {
+                    alert("ERROR!!");
+                }
+            });   
+        });
+    </script>
 </body>
 </html>

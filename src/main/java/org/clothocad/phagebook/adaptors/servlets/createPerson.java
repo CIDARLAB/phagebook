@@ -18,7 +18,7 @@ import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.phagebook.adaptors.ClothoAdaptor;
 import org.clothocad.phagebook.adaptors.EmailHandler;
 import org.clothocad.phagebook.controller.Args;
-import org.clothocad.phagebook.dom.Person;
+import org.clothocad.model.Person;
 import org.json.JSONObject;
 import org.clothocad.phagebook.security.EmailSaltHasher;
 
@@ -48,6 +48,21 @@ public class createPerson extends HttpServlet {
             response.setContentType("text/html;charset=UTF-8");
             try (PrintWriter out = response.getWriter()) {
                 
+//"id": loginResult.id,
+//"givenname"
+//"surname"
+//"fullname"
+//"email"
+//"friendsList"
+//"statusList"
+//"pubmedIdList"
+//"activated"
+//"activationString"
+                
+                Person person = new Person();
+                person.setFirstName(request.getParameter("givenname"));
+                person.setLastName(request.getParameter("surname"));
+                
                 System.out.println("got an a new Person request here!");
                 
                 String firstName = request.getParameter("firstName");
@@ -59,6 +74,7 @@ public class createPerson extends HttpServlet {
                 // create a result object and send it to the frontend
                 JSONObject result = new JSONObject();
                 result.put("success",1);
+
                 result.put("firstName", firstName);
                 result.put("lastName", lastName);
                 result.put("emailId",emailId);
@@ -115,13 +131,14 @@ public class createPerson extends HttpServlet {
         EmailSaltHasher salty = EmailSaltHasher.getEmailSaltHasher();
         String salt = EmailSaltHasher.csRandomAlphaNumericString();
         createdPerson.setSalt(salt);
-        byte[] SaltedHashedEmail = salty.hash(emailId.toCharArray(), salt.getBytes());
+        String SaltedHashedEmail = salty.hash(emailId.toCharArray(), salt.getBytes("UTF-8"));
+
         createdPerson.setSaltedEmailHash(SaltedHashedEmail);
         
         ClothoAdaptor.createPerson(createdPerson, clothoObject);
         
         EmailHandler emailer = EmailHandler.getEmailHandler();
-        String link = Args.phagebookBaseURL + "/verifyEmail?emailId=" +createdPerson.getEmailId() + "&salt=" + createdPerson.getSalt() ;
+        String link = Args.phagebookBaseURL + "/html/verifyEmail.html?emailId=" +createdPerson.getEmailId() + "&salt=" + createdPerson.getSalt() ;
         emailer.sendEmailVerification(createdPerson, link);
         
         
