@@ -5,10 +5,16 @@
  */
 package org.clothocad.phagebook.security;
 
+import org.clothocad.phagebook.dom.Institution;
+
 /**
  *
  * @author anna_g
  */
 public class testSampleSecurity {
+  
+  Institution BU = new Institution("BU");
+  
+  
   
 }

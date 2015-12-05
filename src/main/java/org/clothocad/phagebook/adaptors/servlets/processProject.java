@@ -181,7 +181,7 @@ public class processProject extends HttpServlet {
        System.out.println(description);
        
       System.out.println("about to create the project");  
-      Project newProject = new Project(creator, name, lab, leadPerson, projectBudget, grantObject, descriptionString); 
+      Project newProject = new Project(creator, name, descriptionString); 
       projectID = createProjectInClotho(newProject);
       System.out.println("project id is");
       System.out.println(projectID);
