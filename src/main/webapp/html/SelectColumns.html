@@ -27,62 +27,70 @@
     <terminal-aside></terminal-aside>
 </div>
 
-<div class = "mainContent">
-    <div class ="col-md-6">
-        <h1 style="font-weight:bold">Select Column for CSV Form</h1>
+    
+<div class="container-fluid" id="ordering">
+    <div ng-module="SelectColumnsApp">
+        <div ng-controller="SelectColumnsController">
+               
+            <div class = "mainContent">
+                <div class ="col-md-6">
+                    <div id="SelectColumns">
+                        <h1 style="font-weight:bold">Select Column for CSV Form</h1>
 
-        <br>
+                        <br>
 
-        <div class ="radio">
-            <label><input type="radio" id="serialNumber">Serial Number</label>
-        </div>
-        <div class ="radio">
-            <label><input type="radio" id="productName">Product name</label>
-        </div>
-        <div class ="radio">
-            <label><input type="radio" id="productId">Product ID</label>
-        </div>
-        <div class ="radio">
-            <label><input type="radio" id="productUrl">Product URL</label>
-        </div>
-        <div class ="radio">
-            <label><input type="radio" id="productDescription">Product Description</label>
-        </div>
-        <div class ="radio">
-            <label><input type="radio" id="quantity">Quantity</label>
-        </div>
-        <div class ="radio">
-            <label><input type="radio" id="companyName">Company Name</label>
-        </div>
-        <div class ="radio">
-            <label><input type="radio" id="companyId">Company ID</label>
-        </div>
-        <div class ="radio">
-            <label><input type="radio" id="companyUrl">Company URL</label>
-        </div>
-        <div class ="radio">
-            <label><input type="radio" id="companyDescription">Company Description</label>
-        </div>
-        <div class ="radio">
-            <label><input type="radio" id="companyContact">Company Contact</label>
-        </div>
-        <div class ="radio">
-            <label><input type="radio" id="companyPhone">Company Phone</label>
-        </div>
-        <div class ="radio">
-            <label><input type="radio" id="unitPrice">Unit Price</label>
-        </div>
-        <div class ="radio">
-            <label><input type="radio" id="totalPrice">Total Price</label>
-        </div>
-        <br>
-        <button type="button" class="btn btn-default" id="CreateSelectedColumns" 
-                ng-model="CreateSelectedColumns" ng-click="CreateSelectedColumns()">Submit</button>
-        <br><br><br>
+                        <div class ="checkbox">
+                            <label><input type="checkbox" id="serialNumber" ng-model="serialNumber">Serial Number</label>
+                        </div>
+                        <div class ="checkbox">
+                            <label><input type="checkbox" id="productName" ng-model="productName">Product name</label>
+                        </div>
+                        <div class ="checkbox">
+                            <label><input type="checkbox" id="productUrl" ng-model="productUrl">Product URL</label>
+                        </div>
+                        <div class ="checkbox">
+                            <label><input type="checkbox" id="productDescription" ng-model="productDescription">Product Description</label>
+                        </div>
+                        <div class ="checkbox">
+                            <label><input type="checkbox" id="quantity" ng-model="quantity">Quantity</label>
+                        </div>
+                        <div class ="checkbox">
+                            <label><input type="checkbox" id="companyName" ng-model="companyName">Company Name</label>
+                        </div>
+                        <div class ="checkbox">
+                            <label><input type="checkbox" id="companyUrl" ng-model="companyUrl">Company URL</label>
+                        </div>
+                        <div class ="checkbox">
+                            <label><input type="checkbox" id="companyDescription" ng-model="companyDescription">Company Description</label>
+                        </div>
+                        <div class ="checkbox">
+                            <label><input type="checkbox" id="companyContact" ng-model="companyContact">Company Contact</label>
+                        </div>
+                        <div class ="checkbox">
+                            <label><input type="checkbox" id="companyPhone" ng-model="companyPhone">Company Phone</label>
+                        </div>
+                        <div class ="checkbox">
+                            <label><input type="checkbox" id="unitPrice" ng-model="unitPrice">Unit Price</label>
+                        </div>
+                        <div class ="checkbox">
+                            <label><input type="checkbox" id="totalPrice" ng-model="totalPrice">Total Price</label>
+                        </div>
+                        <br>
+                        <button type="button" class="btn btn-default" id="CreateSelectedColumnsButton" 
+                                ng-model="CreateSelectedColumns" ng-click="CreateSelectedColumns()">Submit</button>
+                        <br><br><br>
+                    </div>
+                </div>
+            </div>
+        </div>    
     </div>
 </div>
+    
 
-
+<!-- see selected, create a servelet, pass those selected items 
+to java serveler, match with enums, OrderController - 
+createOrder function, find order by its id
+-->
     
     
 <div class="modal-footer">
@@ -96,12 +104,13 @@
 <script src="../scripts/clotho/b18fc8c8.clotho-app-command.js"></script>
 <script src="../scripts/clotho/c0f113c2.clotho-core-module.js"></script>
 <script type='text/javascript' src="../scripts/clotho/b18fc8c8.clotho-app-command.js"></script>
-<script type='text/javascript' vsrc="../scripts/clotho/c0f113c2.clotho-core-module.js"></script>
+<script type='text/javascript' src="../scripts/clotho/c0f113c2.clotho-core-module.js"></script>
 <script type='text/javascript' src="../scripts/clotho/c2a11f43.clotho-foundation-module.js"></script>
 <script src="../scripts/clotho/clotho3API.js"></script>
 <script src='../scripts/clotho/68a2b2df.clotho-command-module.js'></script>
 <script src="../scripts/angular.ng-modules.js"></script>
-<script src="../scripts/addProductController.js"></script>
+<script src="../scripts/SelectColumnsController.js"></script>
+<script src="../scripts/ordering.js"></script>
 <script src="../scripts/jsBootstrap/ui-bootstrap-tpls-0.12.0.min.js"></script>
 <script src="../scripts/papaparse.min.js"></script>
 
