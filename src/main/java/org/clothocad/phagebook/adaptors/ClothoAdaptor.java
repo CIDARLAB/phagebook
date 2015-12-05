@@ -190,30 +190,79 @@ public class ClothoAdaptor {
         String id = "";
         Map map = new HashMap();
         map.put("schema", Grant.class.getCanonicalName());
-        map.put("name", grant.getName());
-        map.put("leadPI", grant.getLeadPI().getId());
-               
-        JSONArray coPIs = new JSONArray();
         
-        for (Person coPI: grant.getCoPIs() ){
-            
-            coPIs.add(coPI.getId());
-            
+        if (grant.getName() != "" && grant.getName() != null)
+        {
+            map.put("name", grant.getName());
         }
-        map.put("coPIs", coPIs);
-        map.put("programManager", grant.getProgramManager());
-        map.put("startDate", grant.getStartDate().toString());
-        map.put("endDate", grant.getEndDate().toString());
-        map.put("budget", grant.getBudget());
-        map.put("amountSpent", grant.getAmountSpent());
         
-        JSONArray projects = new JSONArray();
-        for (Project project : grant.getProjects()){
-            projects.add(project.getId());
+        if (grant.getLeadPI() != null)
+        {
+            map.put("leadPI", grant.getLeadPI().getId());
         }
-        map.put("projects" , projects);
-        map.put("description", grant.getDescription());
-        if (grant.getId() != null){
+        
+        if (grant.getCoPIs() != null)
+        { 
+            if (!grant.getCoPIs().isEmpty())
+            {
+                JSONArray coPIs = new JSONArray();
+
+                for (Person coPI: grant.getCoPIs() )
+                {
+
+                    coPIs.add(coPI.getId());
+
+                }
+
+                map.put("coPIs", coPIs);
+            }
+        }
+        
+        if (grant.getProgramManager() != "" && grant.getProgramManager() != null)
+        {
+            map.put("programManager", grant.getProgramManager());
+        }
+        
+        if (grant.getStartDate() != null) 
+        {
+            map.put("startDate", grant.getStartDate().toString());
+        }
+        
+        if (grant.getEndDate() != null)
+        {
+            map.put("endDate", grant.getEndDate().toString());
+        }
+        
+        if (grant.getBudget() != null)
+        {
+            map.put("budget", grant.getBudget());
+        }
+        
+        if (grant.getAmountSpent() != null)
+        {
+            map.put("amountSpent", grant.getAmountSpent());
+        }
+        
+        if (grant.getProjects() != null) 
+        {
+            if (!grant.getProjects().isEmpty())
+            {
+                JSONArray projects = new JSONArray();
+                for (Project project : grant.getProjects())
+                {
+                    projects.add(project.getId());
+                }
+                map.put("projects" , projects);
+            }
+        }
+        
+        
+        if (grant.getDescription() != null)
+        {
+            map.put("description", grant.getDescription());
+        }
+        if (grant.getId() != null)
+        {
         map.put("id", grant.getId());
         }
         
@@ -228,7 +277,8 @@ public class ClothoAdaptor {
     {
         String id = "";
         Map map = new HashMap();
-        if (institution.getId() != null){
+        if (institution.getId() != null)
+        {
             map.put("id", institution.getId());
         }
         map.put("schema", Institution.class.getCanonicalName());
@@ -350,81 +400,110 @@ public class ClothoAdaptor {
         Map map = new HashMap();
         map.put("schema", Person.class.getCanonicalName());
        
-       if(person.getSalt() != null && person.getSalt() != ""){
+        if(person.getSalt() != null && person.getSalt() != "")
+        {
             map.put("salt", person.getSalt());
-    }
-        
+        }
+         
     
-        if (person.getSaltedEmailHash() != null && person.getSaltedEmailHash() != "") {
+        if (person.getSaltedEmailHash() != null && person.getSaltedEmailHash() != "") 
+        {
             map.put("saltedEmailHash", person.getSaltedEmailHash());
         }
         
-        
-        if (!person.getProjects().isEmpty()){
-            JSONArray projects = new JSONArray();
-            for (Project project : person.getProjects()){
-                projects.add(project.getId());
-            }
-            map.put("project", projects);
-        }
-        
-        if (!person.getStatuses().isEmpty()){
-            JSONArray statuses = new JSONArray();
-            for (Status status : person.getStatuses()){
-                statuses.add(status.getId());
-            }
-            map.put("statuses", statuses);
-        }
-        if (!person.getNotebooks().isEmpty()){
-            JSONArray notebooks = new JSONArray();
-            for (Notebook notebook : person.getNotebooks()){
-                notebooks.add(notebook.getId());
-            }
-            map.put("notebooks", notebooks);
-        }
-        
-        if( !person.getLabs().isEmpty() ){
-            JSONArray labs = new JSONArray();
-            JSONArray roles = new JSONArray();
-            Map rolesMap = new HashMap();
-            for (Institution institution : person.getLabs()){
-                labs.add(institution.getId());
-                //iterate through the roles in the Set
-                Iterator<PersonRole> it = person.getRole(institution).iterator();
-                roles = new JSONArray();
-                while(it.hasNext()){
-                    roles.add(it.next().toString());
+        if (person.getProjects() != null)
+        {
+            if (!person.getProjects().isEmpty())
+            {
+                JSONArray projects = new JSONArray();
+                for (Project project : person.getProjects()){
+                    projects.add(project.getId());
                 }
-                rolesMap.put(institution.getId(), roles);
+                map.put("project", projects);
+            }
+        }
+       
+        if (person.getStatuses() != null)
+        {
+            if (!person.getStatuses().isEmpty()){
+                JSONArray statuses = new JSONArray();
+                for (Status status : person.getStatuses()){
+                    statuses.add(status.getId());
+                }
+                map.put("statuses", statuses);
+            }
+        }
+        
+        if (person.getStatuses() != null)
+        {
+            if (!person.getNotebooks().isEmpty()){
+                JSONArray notebooks = new JSONArray();
+                for (Notebook notebook : person.getNotebooks()){
+                    notebooks.add(notebook.getId());
+                }
+                map.put("notebooks", notebooks);
+            }
+        }
+        if (person.getLabs() != null)
+        {
+            if(!person.getLabs().isEmpty())
+            {
+                JSONArray labs = new JSONArray();
+                JSONArray roles = new JSONArray();
+                Map rolesMap = new HashMap();
+                for (Institution institution : person.getLabs())
+                {
+                    labs.add(institution.getId());
+                    //iterate through the roles in the Set
+                    Iterator<PersonRole> it = person.getRole(institution).iterator();
+                    roles = new JSONArray();
+                    while(it.hasNext())
+                    {
+                        roles.add(it.next().toString());
+                    }
+                    rolesMap.put(institution.getId(), roles);
 
+                }
+                map.put("labs", labs);
+                map.put("roles", rolesMap);
             }
-            map.put("labs", labs);
-            map.put("roles", rolesMap);
         }
-        
-        if (!person.getColleagues().isEmpty()){
-            JSONArray colleagues = new JSONArray();
-            for (Person colleague : person.getColleagues()){
-                colleagues.add(colleague.getId());
+        if (person.getColleagues() != null)
+        {
+            if (!person.getColleagues().isEmpty())
+            {
+                JSONArray colleagues = new JSONArray();
+                for (Person colleague : person.getColleagues())
+                {
+                    colleagues.add(colleague.getId());
 
+                }
+                map.put("colleagues", colleagues);
             }
-            map.put("colleagues", colleagues);
-        
         }
-        
-        if (!person.getOrders().isEmpty()){
-            JSONArray orders = new JSONArray();
-            for (Order order : person.getOrders()){
-                orders.add(order.getId());
+        if (person.getOrders() != null)
+        {
+            if (!person.getOrders().isEmpty())
+            {
+                JSONArray orders = new JSONArray();
+                for (Order order : person.getOrders())
+                {
+                    orders.add(order.getId());
+                }
+                map.put("orders", orders);
             }
-            map.put("orders", orders);
         }
-        if (!person.getPublications().isEmpty()){
-            JSONArray publications = new JSONArray();
-            for (Publication publication : person.getPublications()){
-                publications.add(publication.getId());
+        if(person.getPublications() != null)
+        {
+            if (!person.getPublications().isEmpty())
+            {
+                JSONArray publications = new JSONArray();
+                for (Publication publication : person.getPublications())
+                {
+                    publications.add(publication.getId());
+                }
+                map.put("publications", publications);
             }
-            map.put("publications", publications);
         }
         if (person.getFirstName() !=null)
             map.put("firstName", person.getFirstName());
@@ -503,12 +582,16 @@ public class ClothoAdaptor {
         Map map = new HashMap();
         map.put("schema", Project.class.getCanonicalName());
 
-        if(project.getId() != null){
+        if(project.getId() != null && project.getId() != "")
+        {
             map.put("id",project.getId());
         }
+        
         System.out.println("Step 1");
-        if(project.getCreator() != null){
-            if (project.getCreator().getId() != null){
+        if(project.getCreator() != null)
+        {
+            if (project.getCreator().getId() != null)
+            {
                 map.put("creator", project.getCreator().getId());
             }    
         }
@@ -520,65 +603,85 @@ public class ClothoAdaptor {
             }    
         }
         System.out.println("Step 3");
-        
-        if (!project.getMembers().isEmpty()){
-            System.out.println("Step 3");
-            JSONArray members = new JSONArray();
+        if (project.getMembers() != null){
+            if (!project.getMembers().isEmpty())
+            {
+                System.out.println("Step 3");
+                JSONArray members = new JSONArray();
 
-            for (Person member: project.getMembers() ){
+                for (Person member: project.getMembers() ){
 
-                members.add(member.getId());
+                    members.add(member.getId());
 
+                }
+                map.put("members", members);
             }
-            map.put("members", members);
         }
-        if (!project.getNotebooks().isEmpty()){
-            JSONArray notebooks = new JSONArray();
+        if (project.getNotebooks() != null)
+        {
+            if (!project.getNotebooks().isEmpty()){
+                JSONArray notebooks = new JSONArray();
 
-            for (Notebook notebook: project.getNotebooks() ){
+                for (Notebook notebook: project.getNotebooks() ){
 
-                notebooks.add(notebook.getId());
+                    notebooks.add(notebook.getId());
 
+                }
+                map.put("notebooks", notebooks);
             }
-            map.put("notebooks", notebooks);
-        }
-        if (!project.getAffiliatedLabs().isEmpty()){
-            JSONArray affiliatedLabs = new JSONArray();
-
-            for (Organization affiliatedLab: project.getAffiliatedLabs() ){
-
-                affiliatedLabs.add(affiliatedLab.getId());
-
-            }
-            map.put("affiliatedLabs", affiliatedLabs);
-        }
-        if (!project.getUpdates().isEmpty()){
-            JSONArray updates = new JSONArray();
-
-            for (Status update: project.getUpdates() ){
-
-                updates.add(update.getId());
-
-            }
-            map.put("updates", updates);
         }
         
-        if (project.getName() != null && project.getName() != ""){
+        if (project.getAffiliatedLabs() != null)
+        {
+            if (!project.getAffiliatedLabs().isEmpty())
+            {
+                JSONArray affiliatedLabs = new JSONArray();
+
+                for (Organization affiliatedLab: project.getAffiliatedLabs() ){
+
+                    affiliatedLabs.add(affiliatedLab.getId());
+
+                }
+                map.put("affiliatedLabs", affiliatedLabs);
+            }
+        }
+        if (project.getUpdates() != null)
+        {
+            if (!project.getUpdates().isEmpty())
+            {
+                JSONArray updates = new JSONArray();
+
+                for (Status update: project.getUpdates() )
+                {
+
+                    updates.add(update.getId());
+
+                }
+                map.put("updates", updates);
+            }
+        }
+        
+        if (project.getName() != null && project.getName() != "")
+        {
             map.put("name", project.getName());
         }
         
-        if (project.getDateCreated() != null){
+        if (project.getDateCreated() != null)
+        {
             map.put("dateCreated", project.getDateCreated().toString());
         }
         
-        if (project.getBudget() != null){
+        if (project.getBudget() != null)
+        {
             map.put("budget", project.getBudget());
         }
         
-        if (project.getGrant() != null){
+        if (project.getGrant() != null)
+        {
             map.put("grant", project.getGrant());
         }
-        if (project.getDescription() != null && project.getDescription() != ""){
+        if (project.getDescription() != null && project.getDescription() != "")
+        {
             map.put("description", project.getDescription());
         }
 
