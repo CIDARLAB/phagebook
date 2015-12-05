@@ -1,6 +1,4 @@
-var profileModule = angular.module('profileApp',['clothoRoot','ui.bootstrap.tpls','ui.bootstrap.modal']);
-
-profileModule.controller('profileController', function($scope, Clotho, $modal, $window){
+function profileCtrl($scope, $modal){
     $scope.personObj = {};
     $scope.personID = sessionStorage.getItem("uniqueid");
     
@@ -127,9 +125,9 @@ profileModule.controller('profileController', function($scope, Clotho, $modal, $
                 //do stuff with returned data, like Clotho.set??
             });
         };
-})
+}
 
-.controller('profileWindowController', function($scope, $modalInstance, items){
+function profileWindowCtrl($scope, $modalInstance, items){
        $scope.colleagueFirstName = "";
         $scope.colleagueLastName = "";
         $scope.colleagueEmail = "";
@@ -151,4 +149,4 @@ profileModule.controller('profileController', function($scope, Clotho, $modal, $
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
     };
-});
+}
