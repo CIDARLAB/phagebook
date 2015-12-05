@@ -8,11 +8,7 @@
     <link rel="stylesheet" href="../styles/cssBootstrap/bootstrap.css"/>
     <link rel="stylesheet" href="../styles/clothoNavBar.css">
     <link rel="stylesheet" href="../styles/phagebookMainStyle.css"/>
-<<<<<<< HEAD
     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">-->
-=======
-    <link rel="stylesheet" href="../styles/projectsPage.css"/>
->>>>>>> 9628bc6baee656df83c5c3eb0787e6f32f60ed50
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <script src="../scripts/angular.js"></script>
     <script src="../scripts/jquery.js"></script>
@@ -22,27 +18,17 @@
 
 
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-<<<<<<< HEAD
-    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script> -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
 
-<body>
-    <!--<div> -->
-        <!--<button id = "testButton" class="btn btn-primary" > Test Button </button> -->
-    <!--</div>-->
-<div ng-module="clothoRoot">
-=======
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
 <body ng-module="projectsApp">
 
 <div>
->>>>>>> 9628bc6baee656df83c5c3eb0787e6f32f60ed50
     <div class="container">
         <div clotho-command-bar></div>
     </div>
 </div>
-<<<<<<< HEAD
+
     <div class = "row">
         <div class="col-md-2"></div>
         <div class="col-md-10">
@@ -101,117 +87,8 @@
     </div>
     </div>
         </div>
-=======
+        </div>
 
-
-  <form name="submitProject" sclass="form-horizontal" role="form" ng-controller="projectsController"> 
-    
-    <h3 class="projectFormTitle">New Project</h3>  
-    <div class="form-group">    <!-- String name -->
-      <label for="inputName3" class="col-sm-2 control-label">Project Title</label>
-      <div class="col-sm-4">
-        <input name="name" class="form-control" ng-maxlength="100" ng-minlength="5" id="inputName3" placeholder="Name" ng-model="formData.name">
-      </div>
-       <span ng-show="nameRequired">{{nameRequired}}</span>
-       <span class="error" ng-show="submitProject.name.$error.minlength">
-        Minimum length is 5 characters.</span>
-       <span class="error" ng-show="submitProject.name.$error.maxlength">
-        Maximum length is 100 characters.</span>
-    </div>
-    
-    <div class="form-group"> <!-- Organization lab -->
-      <label for="inputLab3" class="col-sm-2 control-label" >Lab(s)/Organization(s)</label>  
-      <div class="col-sm-4">
-        <input class="form-control" id="inputLab3" placeholder="Lab(s)" ng-model="formData.labs">
-      </div>
-       <span ng-show="labsRequired">{{labsRequired}}</span>
->>>>>>> 9628bc6baee656df83c5c3eb0787e6f32f60ed50
-    </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
-    <!--<div ng-app="TabsApp">-->
-        <!--<div id="tabs" ng-controller="TabsCtrl">-->
-            <!--<ul>-->
-                <!--<li ng-repeat="tab in tabs"-->
-                    <!--ng-class="{active:isActiveTab(tab.url)}"-->
-                    <!--ng-click="onClickTab(tab)">{{tab.title}}</li>-->
-            <!--</ul>-->
-            <!--<div id="mainView">-->
-                <!--<div ng-include="currentTab"></div>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--<script type = "text/ng-template" id="about.tpl.html">-->
-                <!--<div id="viewAbout">-->
-                    <!--<h1>About</h1>-->
-                <!--</div>-->
-            <!--</script>-->
-        <!--<script type="text/ng-template" id="newsfeed.tpl.html">-->
-            <!--<div id="newsfeedView">-->
-                <!--<h1>Newsfeed</h1>-->
-            <!--</div>-->
-        <!--</script>-->
-        <!--<script type="text/ng-template" id="notebooks.tpl.html">-->
-        <!--<div id="notebooksView">-->
-            <!--<h1>Notebooks</h1>-->
-        <!--</div>-->
-    <!--</script>-->
-        <!--</div>-->
-
-
-    <div class="form-group"> <!-- Person lead -->
-      <label for="inputLead3" class="col-sm-2 control-label" >Lead</label>  
-      <div class="col-sm-4">
-        <input class="form-control" id="inputLead3" placeholder="Lead" ng-model="formData.lead">
-      </div>
-       <span ng-show="leadRequired">{{leadRequired}}</span>
-    </div>
-
-    <div class="form-group">  <!-- Double projectBudget -->
-      <label for="inputProjectBudget3" class="col-sm-2 control-label" >Project Budget</label>  
-      <div class="col-sm-4">
-        <input name="projectBudget" type="number" class="form-control" id="inputEmail3" placeholder="Budget" min="0" ng-model="formData.projectBudget">
-      </div>
-       <span ng-show="projectBudgetRequired">{{projectBudgetRequired}}</span>
-       <span class="error" ng-show="submitProject.projectBudget.$error.number">
-         Not a valid number.
-       </span>
-    </div>
-    
-    <div class="form-group"> <!-- Grant projectGrant by string name? -->
-      <label for="inputGrant3" class="col-sm-2 control-label" >Grant</label>  
-      <div class="col-sm-4">
-        <input  class="form-control" id="inputGrant3" placeholder="Grant" ng-model="formData.grant">
-      </div>
-       <span ng-show="projectGrantRequired">{{projectGrantRequired}}</span>
-    </div>
-
-    <div class="form-group"> <!--String Description-->
-      <label for="inputDescription3" class="col-sm-2 control-label" >Description</label>  
-      <div class="col-sm-4">
-        <textarea name="description" class="form-control" id="inputDescription3" placeholder="Description"  ng-maxlength="1000" ng-minlength="50" ng-model="formData.description"></textarea>
-      </div>
-       <span ng-show="descriptionRequired">{{descriptionRequired}}</span>
-       <span class="error" ng-show="submitProject.description.$error.minlength">
-        Minimum length is 50 characters.</span>
-       <span class="error" ng-show="submitProject.description.$error.maxlength">
-        Maximum length is 1000 characters.</span>
-    </div>
-
-
-    <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-10">
-        <button type="submit" ng-click="saveData()" class="btn btn-success">Create</button>
-      </div>
-    </div>
-
-  </form>
-
-
-<div class="modal-footer">
-    Created by <a href="http://www.cidarlab.org" target="_blank">CIDAR at Boston University</a><br>
-    Built by <a href="mailto:azulad7@bu.edu">Allison Z. Durkan</a><br>
-    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
-</div>
 
 
 <!---SCRIPTS-->
@@ -226,41 +103,6 @@
 <script src="../scripts/projectsController.js"></script>
 <script src='../scripts/clotho/68a2b2df.clotho-command-module.js'></script>
 <script src="../scripts/angular.ng-modules.js"></script>
-<<<<<<< HEAD
-    <!--<script>-->
-        <!--console.log('loads!');-->
-        <!--//var testButton = Document.getElementByID("testButton");-->
-        <!--console.log(testButton);-->
-        <!--console.log("loads@222");-->
-        <!--var testObject = {-->
-            <!--"name": "name_input",-->
-            <!--"labs": ["CIDAR","HYNESS"],-->
-            <!--"description": "project description"-->
-        <!--};-->
-        <!--console.log(testObject);-->
 
-        <!--$("#testButton").click(function(){-->
-           <!--console.log("button clicked!!!!");-->
-           <!--$.ajax({-->
-                <!--url: "processProject",-->
-                <!--type: "POST",-->
-                <!--async: false,-->
-                <!--data: {-->
-                    <!--"name": "CPS",-->
-                    <!--//"labs": ["CIDAR","HYNESS"],-->
-                    <!--"description": "Create Turing Patterns"-->
-                <!--},-->
-                <!--success: function (response) {-->
-                    <!--console.log(response);-->
-                <!--},-->
-                <!--error: function () {-->
-                    <!--alert("ERROR!!");-->
-                <!--}-->
-            <!--});   -->
-        <!--});-->
-    <!--</script>-->
-=======
-
->>>>>>> 9628bc6baee656df83c5c3eb0787e6f32f60ed50
 </body>
 </html>
