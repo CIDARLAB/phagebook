@@ -317,9 +317,15 @@ public class ClothoAdaptor {
             map.put("id", order.getId());
         }
         
-        JSONArray products = new JSONArray();
-        for (Product product : order.getProducts()){
-           products.add(product.getId());
+        JSONObject products = new JSONObject();
+        Iterator it = order.getProducts().entrySet().iterator();
+        while (it.hasNext()){
+            Map.Entry pair = (Map.Entry)it.next();
+            
+            JSONObject productQuantityPair = new JSONObject();
+            products.put(((Product)pair.getKey()).getId(), pair.getValue());
+            
+            it.remove();
         }
         map.put("products" , products);
         map.put("name", order.getName());
@@ -1379,10 +1385,12 @@ public class ClothoAdaptor {
     {
         String name = (String) map.get("name");
         
-        JSONArray productIds = (JSONArray) map.get("products");
-        List<Product> products = new LinkedList<Product>() ;
-        for (int i = 0; i < productIds.size(); i++){
-            products.add(getProduct(productIds.getString(i) , clothoObject));
+        JSONArray productJSON = (JSONArray) map.get("products");
+        Map<Product, Integer> products = new HashMap<>() ;
+        for (int i = 0; i < productJSON.size(); i++){
+            JSONObject entry = (JSONObject) productJSON.get(i);
+            
+            products.put(, productJSON[i][1]);
         }
         String id = "";
         if (map.containsKey("id")){
