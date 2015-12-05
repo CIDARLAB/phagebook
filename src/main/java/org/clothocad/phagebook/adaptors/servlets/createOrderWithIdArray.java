@@ -7,25 +7,16 @@ package org.clothocad.phagebook.adaptors.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.clothoapi.clotho3javaapi.Clotho;
-import org.clothoapi.clotho3javaapi.ClothoConnection;
-import org.clothocad.model.Person;
-import org.clothocad.phagebook.adaptors.ClothoAdaptor;
-import org.clothocad.phagebook.controller.Args;
-import org.clothocad.phagebook.adaptors.EmailHandler;
 
 /**
  *
- * @author Allison Durkan
+ * @author Herb
  */
-public class resendVerification extends HttpServlet {
+public class createOrderWithIdArray extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +30,17 @@ public class resendVerification extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-       
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet createOrderWithIdArray</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet createOrderWithIdArray at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -58,34 +56,7 @@ public class resendVerification extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         processRequest(request, response);
-        ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
-        Clotho clothoObject = new Clotho(conn);
-        Map createUserMap = new HashMap();
-        createUserMap.put("username", "ClothoBackend");
-        createUserMap.put("password", "phagebook");
-
-
-        clothoObject.createUser(createUserMap);
-
-        Map loginMap = new HashMap();
-        loginMap.put("username", "ClothoBackend");
-        loginMap.put("credentials", "phagebook");
-
-
-        clothoObject.login(loginMap);
-        String emailId = request.getParameter("emailId");
-        Map query = new HashMap();
-        query.put("emailId", emailId);
-        
-        List<Person> users = ClothoAdaptor.queryPerson(query, clothoObject);
-        Person user = users.get(0);
-        EmailHandler handly = EmailHandler.getEmailHandler();
-        
-        String link = Args.phagebookBaseURL + "/html/verifyEmail.html?emailId=" + user.getEmailId() + "&salt=" + user.getSalt();
-        handly.sendEmailVerification(user, link);
-        
     }
 
     /**
