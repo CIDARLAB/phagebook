@@ -1,8 +1,8 @@
-angular.module('ngphagebookSearchBar').directive('ngphagebookSearchBar', function(){
+function searchBar(){
     return{
         restrict: 'E',
         replace: true,
-        template: '<div class="form">Search Bar</div>',
+        templateUrl: '<div class="form">Search Bar</div>',
         scope: {
             
         },
@@ -13,7 +13,7 @@ angular.module('ngphagebookSearchBar').directive('ngphagebookSearchBar', functio
             
         }
     }
-});
+};
 
 
 //do the html elements that are bootstrap need the classes declared here?
