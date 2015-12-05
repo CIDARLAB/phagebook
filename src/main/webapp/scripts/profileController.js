@@ -127,7 +127,7 @@ function profileCtrl($scope, $modal){
         };
 }
 
-function profileWindowCtrl($scope, $modalInstance, items){
+function profileWindowController($scope, $modalInstance){
        $scope.colleagueFirstName = "";
         $scope.colleagueLastName = "";
         $scope.colleagueEmail = "";

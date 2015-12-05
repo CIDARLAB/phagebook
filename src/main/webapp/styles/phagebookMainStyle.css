@@ -365,3 +365,12 @@ body {
     margin-left: 38.8px;
     position: relative;
  }
+
+ #teamPage img{
+     width: 250px;
+     height: 250px;
+     object-fit: cover;
+     display: block;
+     margin-left: auto;
+     margin-right: auto;
+ }
