@@ -13,7 +13,7 @@ angular.module('tabsApp',[]).controller('tabsController',['$scope',function($sco
     $scope.active = 1;
     $scope.selectTab = function(value){
         $scope.active = value;
-    }
+    };
 
     $scope.isActive = function(value){
         if($scope.active==value){

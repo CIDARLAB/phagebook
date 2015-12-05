@@ -8,17 +8,15 @@
     <link rel="stylesheet" href="../styles/cssBootstrap/bootstrap.css"/>
     <link rel="stylesheet" href="../styles/clothoNavBar.css">
     <link rel="stylesheet" href="../styles/phagebookMainStyle.css"/>
-    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="../styles/projectsPage.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <script src="../scripts/angular.js"></script>
-    <script src="../scripts/jquery.js"></script>
     <script src="../scripts/lodash.js"></script>
     <script src="../scripts/projectsController.js"></script>
 
 
 
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
 <body ng-module="projectsApp">
@@ -29,66 +27,84 @@
     </div>
 </div>
 
-    <div class = "row">
-        <div class="col-md-2"></div>
-        <div class="col-md-10">
-    <div class="container-fluid" id="projects">
-        <div class="row">
-            <div class="col-md-12" id="projectName">
-                <br>
-                <h1>Project Name</h1>
-                <br>
-            </div>
-        </div>
-    <div ng-app="tabsApp" ng-controller="tabsController">
-    <ul class="nav nav-tabs">
-        <li role="presentation" ng-click="selectTab(1)" ng-class="{active:isActive(1)}"><a href="javascript:void(0);">About</a></li>
-        <li role="presentation" ng-click="selectTab(2)" ng-class="{active:isActive(2)}"><a href="javascript:void(0);">Newsfeed</a></li>
-        <li role="presentation" ng-click="selectTab(3)" ng-class="{active:isActive(3)}"><a href="javascript:void(0);">Notebooks</a></li>
-        <li role="presentation" ng-click="selectTab(4)" ng-class="{active:isActive(4)}"><a href="javascript:void(0);">Orders</a></li>
-        <li role="presentation" ng-click="selectTab(5)" ng-class="{active:isActive(5)}"><a href="javascript:void(0);">Grant</a></li>
-    </ul>
-    <div ng-show="isActive(1)">
-        <br>
-        <div id="firstRow" class = "row">
-            <div class = "col-md-6">
-                <h3>Lead PI: </h3>
-            </div>
-            <div class="col-md-6">
-                <h3>Labs: </h3>
-            </div>
-        </div>
-        <div id="secondRow" class="row">
-            <div class="col-md-6">
-                <h3>Co-PIs:</h3>
-            </div>
-            <div class="col-md-6">
-                <h3>Members:</h3>
-            </div>
-        </div>
-        <div id="thirdRow" class="row">
-            <div class="col-md-12">
-                <h3>Description:</h3>
-            </div>
-        </div>
-    </div>
-    <div ng-show="isActive(2)">
-        This is content under Tab 2
-    </div>
-    <div ng-show="isActive(3)">
-        This is content under Tab 3
-    </div>
-    <div ng-show="isActive(4)">
-        This is content under Tab 4
-    </div>
-    <div ng-show="isActive(5)">
-        This is content under Tab 5
-    </div>
-    </div>
-    </div>
-        </div>
-        </div>
 
+<form name="submitProject" sclass="form-horizontal" role="form" ng-controller="projectsController">
+
+    <h3 class="projectFormTitle">New Project</h3>
+    <div class="form-group">    <!-- String name -->
+        <label for="inputName3" class="col-sm-2 control-label">Project Title</label>
+        <div class="col-sm-4">
+            <input name="name" class="form-control" ng-maxlength="100" ng-minlength="5" id="inputName3" placeholder="Name" ng-model="formData.name">
+        </div>
+        <span ng-show="nameRequired">{{nameRequired}}</span>
+       <span class="error" ng-show="submitProject.name.$error.minlength">
+        Minimum length is 5 characters.</span>
+       <span class="error" ng-show="submitProject.name.$error.maxlength">
+        Maximum length is 100 characters.</span>
+    </div>
+
+    <div class="form-group"> <!-- Organization lab -->
+        <label for="inputLab3" class="col-sm-2 control-label" >Lab(s)/Organization(s)</label>
+        <div class="col-sm-4">
+            <input class="form-control" id="inputLab3" placeholder="Lab(s)" ng-model="formData.labs">
+        </div>
+        <span ng-show="labsRequired">{{labsRequired}}</span>
+    </div>
+
+    <div class="form-group"> <!-- Person lead -->
+        <label for="inputLead3" class="col-sm-2 control-label" >Lead</label>
+        <div class="col-sm-4">
+            <input class="form-control" id="inputLead3" placeholder="Lead" ng-model="formData.lead">
+        </div>
+        <span ng-show="leadRequired">{{leadRequired}}</span>
+    </div>
+
+    <div class="form-group">  <!-- Double projectBudget -->
+        <label for="inputProjectBudget3" class="col-sm-2 control-label" >Project Budget</label>
+        <div class="col-sm-4">
+            <input name="projectBudget" type="number" class="form-control" id="inputEmail3" placeholder="Budget" min="0" ng-model="formData.projectBudget">
+        </div>
+        <span ng-show="projectBudgetRequired">{{projectBudgetRequired}}</span>
+       <span class="error" ng-show="submitProject.projectBudget.$error.number">
+         Not a valid number.
+       </span>
+    </div>
+
+    <div class="form-group"> <!-- Grant projectGrant by string name? -->
+        <label for="inputGrant3" class="col-sm-2 control-label" >Grant</label>
+        <div class="col-sm-4">
+            <input  class="form-control" id="inputGrant3" placeholder="Grant" ng-model="formData.grant">
+        </div>
+        <span ng-show="projectGrantRequired">{{projectGrantRequired}}</span>
+    </div>
+
+    <div class="form-group"> <!--String Description-->
+        <label for="inputDescription3" class="col-sm-2 control-label" >Description</label>
+        <div class="col-sm-4">
+            <textarea name="description" class="form-control" id="inputDescription3" placeholder="Description"  ng-maxlength="1000" ng-minlength="50" ng-model="formData.description"></textarea>
+        </div>
+        <span ng-show="descriptionRequired">{{descriptionRequired}}</span>
+       <span class="error" ng-show="submitProject.description.$error.minlength">
+        Minimum length is 50 characters.</span>
+       <span class="error" ng-show="submitProject.description.$error.maxlength">
+        Maximum length is 1000 characters.</span>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" ng-click="saveData()" class="btn btn-success">Create</button>
+        </div>
+    </div>
+
+</form>
+
+
+<div class="modal-footer">
+    Created by <a href="http://www.cidarlab.org" target="_blank">CIDAR at Boston University</a><br>
+    Built by <a href="mailto:azulad7@bu.edu">Allison Z. Durkan</a><br>
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+</div>
 
 
 <!---SCRIPTS-->
