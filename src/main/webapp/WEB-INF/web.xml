@@ -86,10 +86,10 @@
         <url-pattern>/resendVerification</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-<<<<<<< HEAD
+
         <servlet-name>loginUser</servlet-name>
         <url-pattern>/loginUser</url-pattern>
-=======
+
         <servlet-name>queryProductByName</servlet-name>
         <url-pattern>/queryProductByName</url-pattern>
     </servlet-mapping>
@@ -104,6 +104,6 @@
     <servlet-mapping>
         <servlet-name>createOrderWithIdArray</servlet-name>
         <url-pattern>/createOrderWithIdArray</url-pattern>
->>>>>>> d98f824fe83403aed010b18cfbb103e04c81d4fe
+
     </servlet-mapping>
 </web-app>
