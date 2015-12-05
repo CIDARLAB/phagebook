@@ -53,13 +53,13 @@
         
         $("document").ready( function () {
            var productQueryName = getParameterByName("Name");
-           
+           console.log("ready");
            $.ajax({
                 url: 'queryProductByName',
                 type: 'GET',
                 async: false,
                 data: {
-                    'Name': productQueryName,
+                    'Name': productQueryName
                 },
                 success: function (response) {
                     //Load Product Data'
@@ -110,6 +110,7 @@
                 productURLCell.innerHTML = productURL;
                 quantityCell.innerHTML = quantity;
                 
+                
                 ids.push(response[i]['clothoID']);
                 
                 setCookie("LoadedOrders", "", 1);
@@ -119,6 +120,7 @@
         
         function populateSortedOrderCookies(ids){
             var idString = ids[0];
+            console.log("populate");
             
             for (var i = 1; i < ids.length ; i++){
                 
@@ -131,7 +133,7 @@
         
         function selectProducts(){
             var numberOfCheckBoxes = totalNumberOfCheckBoxesWithName('productCheck');
-           
+            console.log("selectProducts");
                 var OrderIds = []; // create an empty array
                 var loadedOrderString = getCookie("LoadedOrders");
                 var loadedOrdersOnPage = loadedOrderString.split(',');
@@ -163,7 +165,7 @@
             var finished = false;
             
             var productNumber = 0;
-            
+            console.log("total#");
             while (!finished){
                 var checkbox = document.getElementById(name + productNumber);
                 if (checkbox === null){
