@@ -22,18 +22,21 @@ angular.module('tabsApp',[]).controller('tabsController',['$scope',function($sco
         }
     };
 
-    $scope.getProject = function(id){
+    $scope.getProject = function(){
+        console.log("Get Project ajax call");
         $.ajax({
             url: "getProject",
-            type: "GET",
-            async: false,
+            type: "POST",
             data: {
-                "id": id //put id here
+                "id": "56634a6b3004006cd61abf16" //put id here
             },
             success: function (response) {
                 alert(response);
+                var object = JSON.parse(response);
+                $scope.projectName = object.projectName;
+                $scope.description = object.description;
+                $scope.lead = object.lead;
 
-                //parse string response into JSON, send data to correct fields
             },
             error: function () {
                 alert("ERROR!!");

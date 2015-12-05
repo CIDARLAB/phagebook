@@ -27,15 +27,16 @@ public class getProject extends HttpServlet {
  @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         PrintWriter writer = response.getWriter();
-        JSONObject papaParseData = new JSONObject(request.getParameter("id"));
-        String id = (String) papaParseData.get("data");
+        String id = request.getParameter("id");
+        System.out.println("id ::" + id);
+        System.out.println("inside servlet " + id);
         
         ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
         Clotho clothoObject = new Clotho(conn);
         Map projectMap = new HashMap();
         JSONObject projectObject = new JSONObject();
         projectMap = (Map) ClothoAdaptor.getProject(id, clothoObject);
-        
+        System.out.println(projectMap);
         if(projectMap.containsKey("description")){
             if(projectMap.get("description") != null){
                projectObject.put("description", projectMap.get("description"));
@@ -63,7 +64,7 @@ public class getProject extends HttpServlet {
         }
         if(projectMap.containsKey("name")){
             if(projectMap.get("name") != null){
-                projectObject.put("name", projectMap.get("name"));
+                projectObject.put("projectName", projectMap.get("name"));
             }
         }
         if(projectMap.containsKey("dateCreated")){
@@ -91,9 +92,9 @@ public class getProject extends HttpServlet {
                 projectObject.put("notebooks", projectMap.get("notebooks"));
             }
         }
-      
+        System.out.println(projectObject);
         String project = projectObject.toString();
-        
+        System.out.println("stringified :: " + project);
          conn.closeConnection();
         writer.println(project); //Send back stringified JSON object
         writer.flush();

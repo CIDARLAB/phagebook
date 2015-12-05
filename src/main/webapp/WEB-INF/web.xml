@@ -52,7 +52,6 @@
         <url-pattern>/getProject</url-pattern>
     </servlet-mapping>
     
-    
     <servlet>
         <servlet-name>createPerson</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.createPerson</servlet-class>
