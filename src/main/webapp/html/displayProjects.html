@@ -39,7 +39,7 @@
                     <br>
                 </div>
             </div>
-            <div ng-app="tabsApp" ng-controller="tabsController">
+            <div ng-app="tabsApp" ng-controller="tabsController" data-ng-init="getProject()">
                 <ul class="nav nav-tabs">
                     <li role="presentation" ng-click="selectTab(1)" ng-class="{active:isActive(1)}"><a href="javascript:void(0);">About</a></li>
                     <li role="presentation" ng-click="selectTab(2)" ng-class="{active:isActive(2)}"><a href="javascript:void(0);">Newsfeed</a></li>
@@ -52,22 +52,27 @@
                     <div id="firstRow" class = "row">
                         <div class = "col-md-6">
                             <h3>Lead PI: </h3>
+                            <p ng-model="lead"></p>
                         </div>
                         <div class="col-md-6">
                             <h3>Labs: </h3>
+                            <p ng-model="labs"></p>
                         </div>
                     </div>
                     <div id="secondRow" class="row">
                         <div class="col-md-6">
                             <h3>Co-PIs:</h3>
+                            <p ng-model="coPIs"></p>
                         </div>
                         <div class="col-md-6">
                             <h3>Members:</h3>
+                            <p ng-model="members"></p>
                         </div>
                     </div>
                     <div id="thirdRow" class="row">
                         <div class="col-md-12">
                             <h3>Description:</h3>
+                            <p ng-model="description"></p>
                         </div>
                     </div>
                 </div>
