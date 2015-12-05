@@ -24,6 +24,16 @@
     </servlet-mapping>
     
     <servlet>
+        <servlet-name>addProducts</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.AddProducts</servlet-class>
+    </servlet>
+   
+    <servlet-mapping>
+        <servlet-name>addProducts</servlet-name>
+        <url-pattern>/addProducts</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
         <servlet-name>inputCompany</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.inputCompany</servlet-class>
     </servlet>

@@ -65,6 +65,7 @@ public class ClothoAdaptor {
             map.put("id", company.getId());
         }
         map.put("name", company.getName());
+        map.put("schema",Company.class.getCanonicalName());
         if (company.getDescription() != null && company.getDescription() != ""){
             map.put("description", company.getDescription());
         }
