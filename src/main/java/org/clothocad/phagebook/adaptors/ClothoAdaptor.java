@@ -1418,8 +1418,8 @@ public class ClothoAdaptor {
         person.setActivated( (boolean) map.get("activated") );
         person.setActivationString((String) map.get("activationString"));
         
-        person.setSalt(map.containsKey("salt") ? (String) map.getOrDefault("salt", "") : "");
-        person.setSaltedEmailHash(map.containsKey("saltedEmailHash") ? (String) map.getOrDefault("saltedEmailHash", "") : "");
+        person.setSalt(map.containsKey("salt") ? (String) map.get("salt") : "");
+        person.setSaltedEmailHash(map.containsKey("saltedEmailHash") ? (String) map.get("saltedEmailHash") : "");
         
         
         
