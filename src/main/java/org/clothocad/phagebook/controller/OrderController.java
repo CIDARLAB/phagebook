@@ -225,7 +225,7 @@ public class OrderController {
 
     //inputs: order and list of enums
     //return a list of strings
-    public static List<String> createOrder(Order order, List<OrderColumns> ColumnList) {
+    public static List<String> createOrderForm(Order order, List<OrderColumns> ColumnList) {
         List<String> orders = new ArrayList<String>();
         String orderString;
         int count = 1;
@@ -236,46 +236,47 @@ public class OrderController {
             for (OrderColumns clist1 : ColumnList) {
                 switch (clist1) {
                     case SERIAL_NUMBER:
-                        orderString += count;
+                        orderString = orderString + count + ",";
                         count++;
                         break;
                     case PRODUCT_NAME:
-                        orderString += product.getName();
-                        break;
+                        orderString = orderString + product.getName() + ",";
+                        break;                    
                     case PRODUCT_URL:
-                        orderString += product.getProductURL();
+                        orderString = orderString + product.getProductURL() + ",";
                         break;
                     case PRODUCT_DESCRIPTION:
-                        orderString += product.getDescription();
+                        orderString = orderString + product.getDescription() + ",";
                         break;
                     case QUANTITY:
-                        orderString += product.getQuantity();
+                        orderString = orderString + product.getQuantity() + ",";
                         break;
                     case COMPANY_NAME:
-                        orderString += product.getCompany().getName();
+                        orderString = orderString + product.getCompany().getName() + ",";
                         break;
                     case COMPANY_URL:
-                        orderString += product.getCompany().getUrl();
+                        orderString = orderString + product.getCompany().getUrl() + ",";
                         break;
                     case COMPANY_DESCRIPTION:
-                        orderString += product.getCompany().getDescription();
+                        orderString = orderString + product.getCompany().getDescription() + ",";
                         break;
                     case COMPANY_CONTACT:
-                        orderString += product.getCompany().getContact();
+                        orderString = orderString + product.getCompany().getContact() + ",";
                         break;
                     case COMPANY_PHONE:
-                        orderString += product.getCompany().getPhone();
+                        orderString = orderString + product.getCompany().getPhone() + ",";
                         break;
                     case UNIT_PRICE:
-                        orderString += product.getCost();
+                        orderString = orderString + product.getCost() + ",";
                         break;
                     case TOTAL_PRICE:
-                        orderString += (product.getCost() * product.getQuantity());
+                        orderString = orderString + (product.getCost() * product.getQuantity()) + ",";
                         break;
                 }
             }
             orders.add(orderString);
         }
+        System.out.println(orders);
         return orders;
     }
 

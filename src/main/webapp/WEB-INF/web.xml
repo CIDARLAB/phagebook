@@ -65,16 +65,16 @@
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.newOrder</servlet-class>
     </servlet>
     
-    <servlet-mapping>
-        <servlet-name>SelectColumns</servlet-name>
-        <url-pattern>/SelectColumns</url-pattern>
-    </servlet-mapping>
+    
     
    <servlet>
         <servlet-name>SelectColumns</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.SelectColumns</servlet-class>
     </servlet>
-   
+   <servlet-mapping>
+        <servlet-name>SelectColumns</servlet-name>
+        <url-pattern>/SelectColumns</url-pattern>
+    </servlet-mapping>
 
     
     
