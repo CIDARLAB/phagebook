@@ -69,6 +69,7 @@ public class ClothoAdaptor {
             map.put("id", company.getId());
         }
         map.put("name", company.getName());
+        map.put("schema",Company.class.getCanonicalName());
         if (company.getDescription() != null && company.getDescription() != ""){
             map.put("description", company.getDescription());
         }
@@ -368,8 +369,9 @@ public class ClothoAdaptor {
             map.put("id", order.getId());
         }
         
+
         if (order.getProducts() != null)
-        {/*
+        {
             JSONObject products = new JSONObject();
         
             Iterator it = order.getProducts().entrySet().iterator();
@@ -381,10 +383,11 @@ public class ClothoAdaptor {
             }
 
             map.put("products" , products);
-        } */}
+        } 
         if (order.getName() != null)
         {
             map.put("name", order.getName());
+            
         }
         
         id = (String) clothoObject.set(map);
@@ -416,6 +419,7 @@ public class ClothoAdaptor {
         Map map = new HashMap();
 
         map.put("schema", Person.class.getCanonicalName());
+
 
        if(person.getSalt() != null && person.getSalt() != ""){
             map.put("salt", person.getSalt());
@@ -1502,25 +1506,34 @@ public class ClothoAdaptor {
     {
         String name = (String) map.get("name");
         
-        JSONObject productIds = (JSONObject) map.get("products");
-        Map<Product, Integer> products = new HashMap<Product, Integer>() ;
+
+        Map productIds = (Map) map.get("products");
+        Map<Product, Integer> products = new HashMap<>() ;
         
-        Iterator<String> it = productIds.keys();
+        Iterator it = productIds.entrySet().iterator();
         while (it.hasNext()) 
-            {
-            String key = it.next();
-            Product productOrder = ClothoAdaptor.getProduct(key, clothoObject);
+        {
+            Map.Entry entryPair = (Map.Entry) it.next();
+            System.out.println("HERE in CLOTHO APP 0 --" + entryPair.getKey());
+            Product productOrder = ClothoAdaptor.getProduct((String) entryPair.getKey(), clothoObject);
             
+            System.out.println("HERE in CLOTHO APP");
             try 
             {
-                int quantity = (int) productIds.get(key);
+                System.out.println(entryPair);
+                System.out.println( entryPair.getValue().getClass());
+                int quantity = (int) entryPair.getValue();
+                System.out.println("HERE AT AFTER QUANTITY" + quantity);
                 products.put(productOrder, quantity);
                 
-            } catch (JSONException e)
+                
+            } catch (Exception e)
             {
                 // Something went wrong!
                 System.out.println("something went wrong in mapToOrder");
+                e.toString();
             }
+            
         }
         
         String id = "";
@@ -1532,6 +1545,7 @@ public class ClothoAdaptor {
         Order order = new Order(name);
       //  order.setProducts(products);
         order.setId(id);
+        
         
         return order;
     }

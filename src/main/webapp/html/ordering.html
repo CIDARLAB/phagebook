@@ -44,7 +44,8 @@
         });
         
         if (getCookie("Order") !== ""){
-            var idList = getCookie("Order");
+            var idList = getCookie("Order"); //list of orders 
+            
             
             $.ajax({
                     url: 'getProductById',
@@ -67,25 +68,31 @@
     
     function createOrder(ids){
          if (getCookie("Order") !== ""){
-            var ids = getCookie("Order");
+            var ids = getCookie("Order").split(',');
             var name = $("#orderNameBox").val();
             var description = $("#orderDescriptionBox").val();
-          
+            var idQuantityCombinations = {};
+            var totalQuantityBoxes = totalNumberOfBoxesWithName("quantity");
+            for (var i = 0; i < totalQuantityBoxes; i++)
+            {
+                idQuantityCombinations[ids[i]] = $("#quantity"+i+"").val();
+            }
             
+                    
             $.ajax({
                 url: 'newOrder',
                 type: 'POST',
                 async: false,
                 data :{
-                    'orderIds' : ids,
+                    'orderIds' : JSON.stringify(idQuantityCombinations),
                     'name' : name,
                     'description' : description
                     
                 },
                 success: function (response) {
-                    alert(response);
-                    id = response
-                    window.location.href = "/html/SelectColumns.html?orderId=" + response
+                    
+                    setCookie("Order", "", 1);
+                    window.location.href = "/html/SelectColumns.html?orderId=" + response;
                 },
                 error: function(){ } 
             });
@@ -133,11 +140,29 @@
                 descriptionCell.innerHTML = description;
                 goodTypeCell.innerHTML = goodType;
                 productURLCell.innerHTML = productURL;
-                quantityCell.innerHTML = quantity;
+                quantityCell.innerHTML = "<input type='number' class='quantity' id='quantity"+ i + "' min=0 max=1000></input>";
                 
             }
         }
-        
+        function totalNumberOfBoxesWithName(name){
+            var finished = false;
+            
+            var productNumber = 0;
+           
+            while (!finished){
+                var checkbox = document.getElementById(name + productNumber);
+                if (checkbox === null){
+                    finished = true;
+                } else {
+                    //for clarity
+                    finished = false;
+                    productNumber++;
+                }
+                
+            }
+            
+            return productNumber;
+        }
      
     </script>
 </head>
