@@ -86,6 +86,9 @@ projectsApp.controller('projectsController',['$scope', '$http', function($scope,
         console.log(dataSubmit); 
         console.log(response);
         console.log("response!!!");
+        setCookie("projectID", response.projectID);
+        location.assign("./displayProjects.html");
+
       },
       error: function () {
         alert("ERROR!!");
