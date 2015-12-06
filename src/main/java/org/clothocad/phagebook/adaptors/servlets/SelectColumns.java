@@ -110,9 +110,9 @@ public class SelectColumns extends HttpServlet{
             loginMap.put("credentials", "password");
 
             clothoObject.login(loginMap);
-
+            System.out.println("HERE AT SELECT 1");
             Order order = ClothoAdaptor.getOrder(id, clothoObject);
-
+            System.out.println("HERE AT SELECT 2");
             List<String> orderFormLines = createOrderForm(order,orderColumns);
             
             String filepath = SelectColumns.class.getClassLoader().getResource(".").getPath();
