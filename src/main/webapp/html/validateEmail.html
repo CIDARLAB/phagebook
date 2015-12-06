@@ -58,7 +58,7 @@
 <script src="../scripts/angular.ng-modules.js"></script>
 <script>
     $("#resendButton").click(function ()
-        {
+        { console.log(sessionStorage.getItem("username"));
         //Johan needs to help with the code hash send thing??
         $.ajax({
                     url: "resendVerification",
@@ -67,7 +67,7 @@
                     data: {
                         //need to get emailId from sessionStorage
                         //"emailId": code to get it from session Storage
-                        "emailId" : "Johanospina@me.com"
+                        "emailId" : sessionStorage.getItem("username")
                     },
                     success: function (response) {
                         alert(response);
