@@ -15,6 +15,8 @@ angular.module('tabsApp',[]).controller('tabsController',['$scope',function($sco
     $scope.labs = '';
     $scope.CoPIs = '';
     $scope.members = '';
+    $scope.creator = '';
+    $scope.dateCreated = '';
 
     $scope.active = 1;
     $scope.selectTab = function (value) {
@@ -39,25 +41,29 @@ angular.module('tabsApp',[]).controller('tabsController',['$scope',function($sco
                 "id": "56634a6b3004006cd61abf16" //put id here
             },
             success: function (response) {
-               // alert(response);
+               alert(response);
                 console.log(response);
                 var object = JSON.parse(response);
                 console.log("object");
                 console.log(object.projectName);
                 console.log(object.description);
                 $scope.$apply(function(){ //necessary to $apply the changes
-                    if(object.projectName != null){
+                    if(object.projectName != undefined){
                         $scope.projectName = object.projectName;
                     }
-                    if(object.description != null){
+                    if(object.description != undefined){
                         $scope.description = object.description;
                     }
-                    if(object.members != null){
+
+                    if(object.members.length > 0){
                         $scope.members = object.members;
                     }
-                    //if(object.creator !=null){
-                    //    $scope.creator =
-                    //}
+                    if(object.creator !=null){
+                        $scope.creator = object.creator;
+                    }
+                    if(object.dateCreated != null){
+                        $scope.dateCreated = object.dateCreated;
+                    }
 
                 });
 
