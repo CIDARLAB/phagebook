@@ -42,7 +42,7 @@ public class Project {
        this.notebooks = new ArrayList<Notebook>();
        this.affiliatedLabs = new ArrayList<Organization>();
        this.members = new ArrayList<Person>();
-       System.out.println("created a new project?? 1");
+       //System.out.println("created a new project?? 1");
        
    }
       public Project(Person creator, String name, String description){
@@ -54,7 +54,13 @@ public class Project {
        this.notebooks = new ArrayList<Notebook>();
        this.affiliatedLabs = new ArrayList<Organization>();
        this.members = new ArrayList<Person>();
+<<<<<<< HEAD
        System.out.println("created a new project?? 2");
+=======
+       //System.out.println("created a new project?? 2");
+
+       
+>>>>>>> 0696d0f7aaa2edc0858bbc4540f2edbb24979583
    }
    
    
@@ -80,6 +86,7 @@ public class Project {
         //Create new lab notebook for creator?
        notebooks.add(creatorNotebook);
    }
+      
    
    private void addMember(Person newMember){
        boolean exists = false;

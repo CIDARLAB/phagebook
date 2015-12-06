@@ -35,15 +35,17 @@ projectsApp.controller('projectsController',['$scope', '$http', function($scope,
         $scope.nameRequired = 'Please provide a valid title for your new project.';
       
       }else{
-        $scope.nameRequired = '';
         count++;
       }
-
-
+      console.log("1");
+      console.log($scope.formData.description);
       if(!$scope.formData.description){
+        console.log("2");
+        console.log($scope.formData.description);
         $scope.descriptionRequired = 'Please provide a valid description.';
       }else{
-        $scope.formData.description = '';
+        console.log("3");
+        console.log($scope.formData.description);
         count++;
       }
 
@@ -54,6 +56,8 @@ projectsApp.controller('projectsController',['$scope', '$http', function($scope,
       }
 
     }
+
+    console.log($scope.formData.description);
 
     var submit = validateForm();
     console.log(submit);

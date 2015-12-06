@@ -1397,7 +1397,7 @@ public class ClothoAdaptor {
         }
         String description = (String) map.get("description");
         
-        Grant grant = new Grant();
+        Grant grant = new Grant("");
         grant.setName(name);
         grant.setLeadPI(leadPI);
         grant.setCoPIs(coPIs);

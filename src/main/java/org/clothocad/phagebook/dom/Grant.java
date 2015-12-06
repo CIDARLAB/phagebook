@@ -28,5 +28,7 @@ public class Grant {
     @Getter @Setter private String description;
     @Getter @Setter private String id;
     
-    
+    public Grant(String name){
+        this.name = name;    
+    }
 }
