@@ -24,7 +24,7 @@
     </div>
 
     <terminal-aside></terminal-aside>   the normal Clotho bar isn't needed for the landing page-->
-
+<div ng-module="indexApp" ng-controller="indexCtrl">
 <div class="navbar navbar-static-top">
     <div class="container-fluid">
 
@@ -152,12 +152,16 @@
 </div>
 
 <!--centered at the bottom is the write-up copyright stuff-->
-<div class="modal-footer" style="font-size: small">
-    Created by <a href="http://www.cidarlab.org" target="_blank">CIDAR at Boston University</a><br>
-    Built by <a href="mailto:phagebookdevelopment@googlegroups.com">The Phagebook Team</a><br><img src="../styles/images/logo-trace_black.png" style="height:50px">
-    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
-</div>
+    <div class="modal-footer">
+        Created by <a href="http://www.cidarlab.org" target="_blank">CIDAR at Boston University</a><br>
+        Built by <a href="mailto:phagebookdevelopment@googlegroups.com">The Phagebook Team</a><br> 
+        <img src="../styles/images/logo-trace_black.png" style="height:50px">
+        <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
+        <img src="../images/logos/cidar-backgbround-no-js.png" style="height:50px">
+        <br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+    </div>
 
+</div>
 <!--------
 SCRIPTS
 --------->
@@ -235,14 +239,12 @@ SCRIPTS
 
 
 <script src="scripts/clotho/b18fc8c8.clotho-app-command.js"></script>
-
 <script src="scripts/clotho/c0f113c2.clotho-core-module.js"></script>
-
 <!--note - remove all scripts below this for api-only build-->
-
 <script src="scripts/clotho/c2a11f43.clotho-foundation-module.js"></script>
-
-
+<script src="scripts/footerDirective.js"></script>
+<script src="scripts/indexCtrl.js"></script>
+<script src="scripts/indexApp.js"></script>
 <script src="scripts/clotho/68a2b2df.clotho-command-module.js"></script>
 <script src="scripts/indexAPI.js"></script>
 
