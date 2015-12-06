@@ -5,7 +5,9 @@
  */
 package org.clothocad.phagebook.security;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
@@ -79,10 +81,12 @@ public class AuthPrivileges {
     String institutionIDcidar = ClothoAdaptor.createInstiution(cidar, clothoObject);
     
     clothoObject.logout();
-    
+
     String personIDdoug = ClothoAdaptor.createPerson(doug, clothoObject);
     String personIDanna = ClothoAdaptor.createPerson(anna, clothoObject);    
     String personIDsher = ClothoAdaptor.createPerson(sherlock, clothoObject);
+    
+    makePrivate(projectIDpb, clothoObject);
     
     clothoObject.logout();
     conn.closeConnection();
@@ -94,6 +98,29 @@ public class AuthPrivileges {
     System.out.println(personIDdoug);
     System.out.println(personIDanna);
     System.out.println(personIDsher);
+    
+    
+
+
+  }
+  
+  private static void makePrivate(String objectId, Clotho clothoObject){
+    List<String> add = new ArrayList<String>();
+    List<String> remove = new ArrayList<String>();
+
+    add.add("private");
+
+    Map grantMap = new HashMap();
+    grantMap.put("id", objectId);
+    grantMap.put("user", "none");
+    grantMap.put("add", add);
+    grantMap.put("remove", remove);
+    
+    System.out.println(grantMap);
+    
+    Map grantResult = new HashMap();
+    grantResult = (Map)(clothoObject.grant(grantMap));
+    System.out.println(grantResult);
 
   }
   
