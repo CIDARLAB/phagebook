@@ -24,7 +24,8 @@
 
         <servlet-name>loginUser</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.loginUser</servlet-class>
-
+    </servlet>
+    <servlet>
         <servlet-name>queryProductByName</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.queryProductByName</servlet-class>
     </servlet>
@@ -89,7 +90,8 @@
 
         <servlet-name>loginUser</servlet-name>
         <url-pattern>/loginUser</url-pattern>
-
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>queryProductByName</servlet-name>
         <url-pattern>/queryProductByName</url-pattern>
     </servlet-mapping>
