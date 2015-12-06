@@ -1,10 +1,11 @@
-
 'use strict';
 
+console.log("loaded");
 
 
 var projectsApp = angular.module('projectsApp',['clothoRoot']);
 
+console.log(projectsApp);
 projectsApp.controller('projectsController',['$scope', '$http', function($scope, $http ,Clotho){
 
   $scope.greeting = 'Hello!';
@@ -88,7 +89,8 @@ projectsApp.controller('projectsController',['$scope', '$http', function($scope,
         console.log(response);
         console.log("response!!!");
         setCookie("projectID", response.projectID);
-        location.assign("./displayProjects.html");
+        console.log(document.cookie);
+        location.assign("./html/displayProjects.html");
 
       },
       error: function () {
@@ -100,3 +102,4 @@ projectsApp.controller('projectsController',['$scope', '$http', function($scope,
   };
 
 }]);
+
