@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Verify</title>
+    <link rel="shorcut icon" href="../styles/images/phagebookLogoMin_16x16.ico"/>
+    <base href="/">
+    <link rel="stylesheet" href="../styles/cssBootstrap/bootstrap.css"/>
+    <link rel="stylesheet" href="../styles/clothoNavBar.css">
+    <link rel="stylesheet" href="../styles/phagebookMainStyle.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <script src="../scripts/angular.js"></script>
+    <script src="../scripts/jquery.js"></script>
+    <script src="../scripts/lodash.js"></script>
+
+
+    <script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
+
+<body onload="verifyEmail()">
+<div ng-module="clothoRoot">
+    <div class="container">
+        <div clotho-command-bar></div>
+    </div>
+    <terminal-aside></terminal-aside>
+</div>
+
+<div class="container-fluid" id="verify">
+    <!--<div ng-module="orderingApp">
+        <div ng-controller="orderingCtrl">-->
+
+            <div class = "mainContent">
+                <h2 id="validationStat">Validating Email...</h2>
+                <button type="button" style="display:none" id="returnBtn">Back To Login</button>
+            </div>
+        <!--</div>
+    </div>-->
+</div>
+
+
+<div class="modal-footer">
+    Created by <a href="http://www.cidarlab.org" target="_blank">CIDAR at Boston University</a><br>
+    Built by <a href="mailto:azulad7@bu.edu">Allison Z. Durkan</a><br>
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+</div>
+
+ <!---SCRIPTS-->
+
+<script src="../scripts/clotho/b18fc8c8.clotho-app-command.js"></script>
+<script src="../scripts/clotho/c0f113c2.clotho-core-module.js"></script>
+<!--note - remove all scripts below this for api-only build-->
+<script type='text/javascript' src="../scripts/clotho/b18fc8c8.clotho-app-command.js"></script>
+<script type='text/javascript' src="../scripts/clotho/c0f113c2.clotho-core-module.js"></script>
+<script type='text/javascript' src="../scripts/clotho/c2a11f43.clotho-foundation-module.js"></script>
+<script src="../scripts/clotho/clotho3API.js"></script>
+<script src='../scripts/clotho/68a2b2df.clotho-command-module.js'></script>
+<script src="../scripts/angular.ng-modules.js"></script>
+<script>
+    function verifyEmail(){
+        var emailId = getParameterByName('emailId');
+        var salt = getParameterByName('salt');
+        
+        if (emailId && salt){
+            $.ajax({
+                url: 'verifyEmail',
+                type: 'POST',
+                async: false,
+                data: {
+                    'emailId': emailId,
+                    'salt': salt
+                },
+                success: function (response) {
+                    
+                    $('#returnBtn').show();
+                    $('#validationStat').html("<h2> Email Validated!</h2>" +
+                        "<p>Please return To login</p>");
+                    
+                },
+                
+                error: function(){
+                    $('#returnBtn').hide();
+                    $('#validationStat').text("Something Went wrong, Try again later or contact an Administrator");
+                }
+            });
+                
+        }
+    }
+    function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+    $("#returnBtn").click(function() {
+            window.location.href = "./";
+        }
+    );
+</script>
+
+</body>
+</html>
+

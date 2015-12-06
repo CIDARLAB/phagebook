@@ -8,7 +8,10 @@ package org.clothocad.phagebook.dom;
 //experiment, sample, institution=
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
 import org.clothocad.model.Person;
@@ -19,9 +22,6 @@ import org.clothocad.model.Person;
 
 public class Order {
     
-    @Getter
-    @Setter
-    private List<Product> products;
     
     @Getter
     @Setter
@@ -31,13 +31,18 @@ public class Order {
     @Setter
     private Person createdBy;
     
+    @Getter
+    @Setter
+    private List<Product> products;
+    
     /**
      *
      * @param name
      */
     public Order(String name) {
         this.name = name;
-        this.products = new ArrayList<Product>();
+        this.products = new LinkedList<Product>();
+        
     };   
     
 }

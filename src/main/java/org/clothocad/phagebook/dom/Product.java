@@ -51,5 +51,8 @@ public class Product extends Good{
         this.cost = cost;
         
     }
+    public Product(){
+        super();
+    }
     
 }

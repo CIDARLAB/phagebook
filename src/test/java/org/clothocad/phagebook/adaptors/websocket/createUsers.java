@@ -9,10 +9,14 @@ import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.phagebook.adaptors.ClothoAdaptor;
 import org.clothocad.phagebook.controller.Args;
+<<<<<<< HEAD
 import org.clothocad.phagebook.dom.Institution;
 import org.clothocad.phagebook.dom.Organization;
 import org.clothocad.model.Person;
 import org.clothocad.phagebook.dom.Project;
+=======
+import org.clothocad.model.Person;
+>>>>>>> 6147b675b22cc32edd83bd0ba5424c0306eb20b5
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

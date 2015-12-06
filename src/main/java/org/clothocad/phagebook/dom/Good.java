@@ -30,4 +30,7 @@ public abstract class Good {
         this.name = name;
         this.description = description;
     }
+    public Good(){
+        
+    }
 }
