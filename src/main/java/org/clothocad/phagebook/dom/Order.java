@@ -9,6 +9,7 @@ package org.clothocad.phagebook.dom;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import lombok.Getter;
@@ -32,7 +33,7 @@ public class Order {
     
     @Getter
     @Setter
-    private Map<Product, Integer> products;
+    private List<Product> products;
     
     /**
      *
@@ -40,7 +41,7 @@ public class Order {
      */
     public Order(String name) {
         this.name = name;
-        this.products = new HashMap<Product, Integer>();
+        this.products = new LinkedList<Product>();
         
     };   
     

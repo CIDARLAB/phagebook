@@ -8,6 +8,14 @@ angular.module('projectsApp',['clothoRoot']).controller('projectsController',
 
 
 angular.module('tabsApp',[]).controller('tabsController',['$scope',function($scope) {
+
+    $scope.projectName = '';
+    $scope.description = '';
+    $scope.lead = '';
+    $scope.labs = '';
+    $scope.CoPIs = '';
+    $scope.members = '';
+
     $scope.active = 1;
     $scope.selectTab = function (value) {
         $scope.active = value;
@@ -31,11 +39,27 @@ angular.module('tabsApp',[]).controller('tabsController',['$scope',function($sco
                 "id": "56634a6b3004006cd61abf16" //put id here
             },
             success: function (response) {
-                alert(response);
+               // alert(response);
+                console.log(response);
                 var object = JSON.parse(response);
-                $scope.projectName = object.projectName;
-                $scope.description = object.description;
-                //$scope.lead = object.lead;
+                console.log("object");
+                console.log(object.projectName);
+                console.log(object.description);
+                $scope.$apply(function(){ //necessary to $apply the changes
+                    if(object.projectName != null){
+                        $scope.projectName = object.projectName;
+                    }
+                    if(object.description != null){
+                        $scope.description = object.description;
+                    }
+                    if(object.members != null){
+                        $scope.members = object.members;
+                    }
+                    //if(object.creator !=null){
+                    //    $scope.creator =
+                    //}
+
+                });
 
             },
             error: function () {

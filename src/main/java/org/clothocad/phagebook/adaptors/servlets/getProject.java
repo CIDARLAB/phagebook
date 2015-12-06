@@ -18,6 +18,7 @@ import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.phagebook.adaptors.ClothoAdaptor;
 import org.clothocad.phagebook.controller.Args;
+import org.clothocad.phagebook.dom.Project;
 import org.json.JSONObject;
 /**
  *
@@ -36,64 +37,80 @@ public class getProject extends HttpServlet {
         Map projectMap = new HashMap();
         JSONObject projectObject = new JSONObject();
         System.out.println("before getProject");
-        projectMap = (Map) ClothoAdaptor.getProject(id, clothoObject);
+        Project proj =  ClothoAdaptor.getProject(id, clothoObject);
+        projectObject.put("description",proj.getDescription());
+        
+        projectObject.put("budget", proj.getBudget());
+        projectObject.put("affiliatedLabs", proj.getAffiliatedLabs());
+        projectObject.put("projectName", proj.getName());
+        projectObject.put("notebooks", proj.getNotebooks());
+        projectObject.put("dateCreated", proj.getDateCreated());
+        projectObject.put("updates", proj.getUpdates());
+        projectObject.put("grant", proj.getGrant());
+
+        if(proj.getMembers() != null){
+        }
+        projectObject.put("members", proj.getMembers());
+        projectObject.put("creator", proj.getCreator());
+        projectObject.put("lead",proj.getLead());
+        //projectMap = (Map) ClothoAdaptor.getProject(id, clothoObject);
         System.out.println("after getProject");
-        System.out.println("Project :: " + projectMap);
-        if(projectMap.containsKey("description")){
-            if(projectMap.get("description") != null){
-               projectObject.put("description", projectMap.get("description"));
-            }
-        }
-        if(projectMap.containsKey("lead")){
-            if(projectMap.get("lead") != null){
-                projectObject.put("lead",projectMap.get("lead"));
-            }
-        }
-        if(projectMap.containsKey("budget")){
-            if(projectMap.get("budget") != null){
-                projectObject.put("budget", projectMap.get("budget"));
-            }
-        }
-        if(projectMap.containsKey("members")){
-            if(projectMap.get("members") != null){
-                projectObject.put("members", projectMap.get("members"));
-            }
-        }
-        if(projectMap.containsKey("affiliatedLabs")){
-            if(projectMap.get("affiliatedLabs") !=null){
-                projectObject.put("affiliatedLabs", projectMap.get("affiliatedLabs"));
-            }
-        }
-        if(projectMap.containsKey("name")){
-            if(projectMap.get("name") != null){
-                projectObject.put("projectName", projectMap.get("name"));
-            }
-        }
-        if(projectMap.containsKey("dateCreated")){
-            if(projectMap.get("dateCreated") != null){
-                projectObject.put("dateCreated", projectMap.get("dateCreated"));
-            }
-        }
-        if(projectMap.containsKey("updates")){
-            if(projectMap.get("updates") != null){
-                projectObject.put("updates", projectMap.get("updates"));
-            }
-        }
-        if(projectMap.containsKey("creator")){
-            if(projectMap.get("creator") != null){
-                projectObject.put("creator", projectMap.get("creator"));
-            }
-        }
-        if(projectMap.containsKey("grant")){
-            if(projectMap.get("grant") != null){
-                projectObject.put("grant", projectMap.get("grant"));
-            }
-        }
-        if(projectMap.containsKey("notebooks")){
-            if(projectMap.get("notebooks") != null){
-                projectObject.put("notebooks", projectMap.get("notebooks"));
-            }
-        }
+//        System.out.println("Project :: " + projectMap);
+//        if(projectMap.containsKey("description")){
+//            if(projectMap.get("description") != null){
+//               projectObject.put("description", projectMap.get("description"));
+//            }
+//        }
+//        if(projectMap.containsKey("lead")){
+//            if(projectMap.get("lead") != null){
+//                projectObject.put("lead",projectMap.get("lead"));
+//            }
+//        }
+//        if(projectMap.containsKey("budget")){
+//            if(projectMap.get("budget") != null){
+//                projectObject.put("budget", projectMap.get("budget"));
+//            }
+//        }
+//        if(projectMap.containsKey("members")){
+//            if(projectMap.get("members") != null){
+//                projectObject.put("members", projectMap.get("members"));
+//            }
+//        }
+//        if(projectMap.containsKey("affiliatedLabs")){
+//            if(projectMap.get("affiliatedLabs") !=null){
+//                projectObject.put("affiliatedLabs", projectMap.get("affiliatedLabs"));
+//            }
+//        }
+//        if(projectMap.containsKey("name")){
+//            if(projectMap.get("name") != null){
+//                projectObject.put("projectName", projectMap.get("name"));
+//            }
+//        }
+//        if(projectMap.containsKey("dateCreated")){
+//            if(projectMap.get("dateCreated") != null){
+//                projectObject.put("dateCreated", projectMap.get("dateCreated"));
+//            }
+//        }
+//        if(projectMap.containsKey("updates")){
+//            if(projectMap.get("updates") != null){
+//                projectObject.put("updates", projectMap.get("updates"));
+//            }
+//        }
+//        if(projectMap.containsKey("creator")){
+//            if(projectMap.get("creator") != null){
+//                projectObject.put("creator", projectMap.get("creator"));
+//            }
+//        }
+//        if(projectMap.containsKey("grant")){
+//            if(projectMap.get("grant") != null){
+//                projectObject.put("grant", projectMap.get("grant"));
+//            }
+//        }
+//        if(projectMap.containsKey("notebooks")){
+//            if(projectMap.get("notebooks") != null){
+//                projectObject.put("notebooks", projectMap.get("notebooks"));
+//            }
+//        }
         System.out.println(projectObject);
         String project = projectObject.toString();
         System.out.println("stringified :: " + project);

@@ -37,7 +37,7 @@
                         <div class="row">
                             <div class="col-md-12" id="projectName">
                                 <br>
-                                <h1 ng-model="projectName"></h1>
+                                <h1>{{projectName}}</h1>
                                 <br>
                             </div>
                         </div>
@@ -51,29 +51,39 @@
                 <div ng-show="isActive(1)">
                     <br>
                     <div id="firstRow" class = "row">
-                        <div class = "col-md-6">
-                            <h3>Lead PI: </h3>
-                            <p ng-model="lead"></p>
+                        <div class = "col-md-3">
+                            Project Lead:
                         </div>
-                        <div class="col-md-6">
-                            <h3>Labs: </h3>
-                            <p ng-model="labs"></p>
+                        <div class = "col-md-3">
+                            <p> {{lead}}</p>
+                        </div>
+                        <div class="col-md-3">
+                            Labs:
+                        </div>
+                        <div class="col-md-3">
+                            <p> {{labs}}</p>
                         </div>
                     </div>
                     <div id="secondRow" class="row">
-                        <div class="col-md-6">
-                            <h3>Co-PIs:</h3>
-                            <p ng-model="coPIs"></p>
+                        <div class="col-md-3">
+                            Co-PIs:
                         </div>
-                        <div class="col-md-6">
-                            <h3>Members:</h3>
-                            <p ng-model="members"></p>
+                        <div class="col-md-3">
+                            <p>{{CoPIs}}</p>
+                        </div>
+                        <div class="col-md-3">
+                            Members:
+                        </div>
+                        <div class="col-md-3">
+                            <p>{{members}}</p>
                         </div>
                     </div>
                     <div id="thirdRow" class="row">
-                        <div class="col-md-12">
-                            <h3>Description:</h3>
-                            <p ng-model="description"></p>
+                        <div class="col-md-2">
+                            Description:
+                        </div>
+                        <div class="col-md-10">
+                            <p> {{description}}</p>
                         </div>
                     </div>
                 </div>

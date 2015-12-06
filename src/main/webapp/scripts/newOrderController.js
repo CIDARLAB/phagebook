@@ -15,18 +15,11 @@ newOrderModule.controller('newOrderController',function($scope, Clotho, $modal){
             },
             success: function (response) {
                 alert(response);
-               var project =  response.toJSON();
-                if(project.contains("lead")){
-                    $scope.lead = project.lead;
-                }
-                if(project.contains("description")){
-                    $scope.description = project.description;
-                }
             },
             error: function () {
                 alert("ERROR!!");
             }
         });
     };
-});
+})
 

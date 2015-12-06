@@ -367,7 +367,7 @@ public class ClothoAdaptor {
         }
         
         if (order.getProducts() != null)
-        {
+        {/*
             JSONObject products = new JSONObject();
         
             Iterator it = order.getProducts().entrySet().iterator();
@@ -379,7 +379,7 @@ public class ClothoAdaptor {
             }
 
             map.put("products" , products);
-        }
+        } */}
         if (order.getName() != null)
         {
             map.put("name", order.getName());
@@ -918,7 +918,6 @@ public class ClothoAdaptor {
         System.out.println("got id");
         Project project = mapToProject(projectMap, clothoObject);
         project.setId(id);
-        System.out.println(project);
         System.out.println("leave get project");
   
         return project;
@@ -1523,7 +1522,7 @@ public class ClothoAdaptor {
         }
         
         Order order = new Order(name);
-        order.setProducts(products);
+      //  order.setProducts(products);
         order.setId(id);
         
         return order;
@@ -1773,13 +1772,13 @@ public class ClothoAdaptor {
         
             dateCreatedText = (String) map.get("dateCreated");
 
-            DateFormat df = new SimpleDateFormat("MM/dd/yyyy"); 
-
-            try {
-                dateCreated = df.parse(dateCreatedText);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+//            DateFormat df = new SimpleDateFormat("MM/dd/yyyy"); 
+//
+//            try {
+//                dateCreated = df.parse(dateCreatedText);
+//            } catch (ParseException e) {
+//                e.printStackTrace();
+//            }
         }
         System.out.println("idk2");
 
