@@ -27,7 +27,8 @@ SelectColumnsModule.controller('SelectColumnsController',function($scope, Clotho
                 "orderId" : getParameterByName("orderId")
             },
             success: function (response) {
-                alert(getParameterByName("orderId"));  
+                alert(response); 
+                window.location.href = "file:///" + response;
             },
             error: function () {
                 alert("ERROR!!" +getParameterByName("orderId"));

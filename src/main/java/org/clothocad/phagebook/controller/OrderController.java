@@ -256,7 +256,7 @@ public class OrderController {
                         orderString = orderString + product.getDescription() + ",";
                         break;
                     case QUANTITY:
-                        orderString = orderString + product.getQuantity() + ",";
+                        orderString = orderString + pair.getValue() + ",";
                         break;
                     case COMPANY_NAME:
                         orderString = orderString + product.getCompany().getName() + ",";

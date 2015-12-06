@@ -91,7 +91,7 @@
                 },
                 success: function (response) {
                     
-                    
+                    setCookie("Order", "", 1);
                     window.location.href = "/html/SelectColumns.html?orderId=" + response;
                 },
                 error: function(){ } 
