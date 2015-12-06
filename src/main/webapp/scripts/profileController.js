@@ -1,16 +1,14 @@
-var profileModule = angular.module('profileApp',['clothoRoot','ui.bootstrap.tpls','ui.bootstrap.modal']);
-
-profileModule.controller('profileController', function($scope, Clotho, $modal, $window){
+function profileCtrl($scope, $modal){
     $scope.personObj = {};
     $scope.personID = sessionStorage.getItem("uniqueid");
-
-
+    
     Clotho.login(sessionStorage.getItem("username"),sessionStorage.getItem("password")).then(function(result) {
         Clotho.get(result.id).then(function(person){
             $scope.personObj = person;
+            $scope.currentUser = person;//links the sidebar to the person who is logged in
             $scope.personID = result.id;
             $scope.displayName = person.fullname;
-            $scope.pictureName = person.givenname + person.surname;
+            $scope.pictureName = person.givenname + person.surname;//will need to change based on where pictures go
             $scope.statuses = person['statusList'];
 
             pubmed.getCitationsFromIds(person.pubmedIdList).then(function(result){
@@ -23,7 +21,7 @@ profileModule.controller('profileController', function($scope, Clotho, $modal, $
  1: "23651287"
  2: "3084710"
  3: "3317443"
- the numbers above are pubmedIDs that are Doug's publications*/
+ the numbers above are pubmedIDs that are Doug's publications used for testing purposes*/
         });
     });
 
@@ -33,7 +31,7 @@ profileModule.controller('profileController', function($scope, Clotho, $modal, $
     };
 
     $scope.readProfilePic = function(){
-      //save the uploaded file to google drive
+      //save the uploaded file to google drive? or whereever we are going to put them
     };
 
     $scope.save = function() {
@@ -48,7 +46,7 @@ profileModule.controller('profileController', function($scope, Clotho, $modal, $
 
     $scope.cancel = function() {
         //function makes the text boxes not editable
-        //restores personObj to the latest version of Clotho Obj
+        //restores personObj to the latest (NOT SAVED) version of Clotho Obj
         Clotho.get($scope.personId).then(function(result){
            $scope.personObj = result;
         });
@@ -114,6 +112,7 @@ profileModule.controller('profileController', function($scope, Clotho, $modal, $
                 resolve: {
                     items: function () {
                         //this object will get passed to the modal's controlller
+                        //need to probably send an ajax call to find the person/data stuff
                         return {myPerson: {name: "Bobby"}, myData: 42};
                     }
                 }
@@ -126,18 +125,18 @@ profileModule.controller('profileController', function($scope, Clotho, $modal, $
                 //do stuff with returned data, like Clotho.set??
             });
         };
-})
+}
 
-.controller('profileWindowController', function($scope, $modalInstance, items){
+function profileWindowController($scope, $modalInstance){
        $scope.colleagueFirstName = "";
         $scope.colleagueLastName = "";
         $scope.colleagueEmail = "";
 
     $scope.ok = function() {
-        //if all fields are blank then an error needs to appear
+        //if all fields are blank then an error needs to appear, or a prompt to fill in some of the fields
         if (($scope.colleagueLastName == null) && ($scope.colleagueEmail == null) && ($scope.colleagueFirstName == null))
         {
-
+            alert("Please fill in at least one field");
         }
         else{
             $modalInstance.close({'givenname' : $scope.colleagueFirstName,
@@ -150,4 +149,4 @@ profileModule.controller('profileController', function($scope, Clotho, $modal, $
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
     };
-});
+}

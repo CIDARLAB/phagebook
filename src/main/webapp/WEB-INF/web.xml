@@ -8,26 +8,47 @@
         <servlet-name>processOrder</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.processOrder</servlet-class>
     </servlet>
-     <servlet>
+    <servlet>
         <servlet-name>verifyEmail</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.verifyEmail</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>inputProduct</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.inputProduct</servlet-class>
     </servlet>
-   
+    <servlet>
+        <servlet-name>resendVerification</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.resendVerification</servlet-class>
+    </servlet>
+    <servlet>
+
+        <servlet-name>loginUser</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.loginUser</servlet-class>
+
+        <servlet-name>queryProductByName</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.queryProductByName</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>queryProductByCompany</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.queryProductByCompany</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>getProductById</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.getProductById</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>createOrderWithIdArray</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.createOrderWithIdArray</servlet-class>
+
+    </servlet>
     <servlet-mapping>
         <servlet-name>inputProduct</servlet-name>
         <url-pattern>/inputProduct</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>inputCompany</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.inputCompany</servlet-class>
     </servlet>
-   
     <servlet-mapping>
         <servlet-name>inputCompany</servlet-name>
         <url-pattern>/inputCompany</url-pattern>
@@ -36,11 +57,10 @@
         <servlet-name>newOrder</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.newOrder</servlet-class>
     </servlet>
-   <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>newOrder</servlet-name>
         <url-pattern>/newOrder</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>createPerson</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.createPerson</servlet-class>
@@ -60,5 +80,30 @@
     <servlet-mapping>
         <servlet-name>verifyEmail</servlet-name>
         <url-pattern>/verifyEmail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>resendVerification</servlet-name>
+        <url-pattern>/resendVerification</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+
+        <servlet-name>loginUser</servlet-name>
+        <url-pattern>/loginUser</url-pattern>
+
+        <servlet-name>queryProductByName</servlet-name>
+        <url-pattern>/queryProductByName</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>queryProductByCompany</servlet-name>
+        <url-pattern>/queryProductByCompany</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getProductById</servlet-name>
+        <url-pattern>/getProductById</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>createOrderWithIdArray</servlet-name>
+        <url-pattern>/createOrderWithIdArray</url-pattern>
+
     </servlet-mapping>
 </web-app>

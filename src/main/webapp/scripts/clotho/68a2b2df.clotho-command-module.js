@@ -209,6 +209,8 @@ angular.module("clotho.tokenizer", []), angular.module("clotho.commandbar", ["cl
                     Clotho.logout();
                     sessionStorage.clear();
                     f.location.href = rootURL;
+                }, b.aboutPhagebook = function() {
+                    f.location.href = rootURL + "/html/about.html";
                 }
             }
         }

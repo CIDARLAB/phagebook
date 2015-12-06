@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Product Query Results</title>
+        <link rel="shorcut icon" href="../styles/images/phagebookLogoMin_16x16.ico"/>
+        <base href="/">
+        <link rel="stylesheet" href="../styles/cssBootstrap/bootstrap.css"/>
+        <link rel="stylesheet" href="../styles/clothoNavBar.css">
+        <link rel="stylesheet" href="../styles/phagebookMainStyle.css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+
+        <script src="../scripts/angular.js"></script>
+        <script src="../scripts/jquery.js"></script>
+        <script src="../scripts/lodash.js"></script>
+        <script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+        <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+    <div ng-module="clothoRoot">
+        <div class="container">
+            <div clotho-command-bar></div>
+        </div>
+        <terminal-aside></terminal-aside>
+    </div>
+        <table style="width:90%;  padding-left: 10px" id="productTable">
+            <tr>
+                <th>Select</th>
+                <th>Product</th>
+                <th>Company</th>
+                <th>Cost</th>
+                <th>Description</th>
+                <th>Good Type</th>
+                <th>Product URL</th>
+                <th>Quantity</th>
+            </tr>
+        </table>
+        <input class="btn btn-default" type="submit" style="margin-top:10px;" value="Select Products" onclick="selectProducts()">
+        
+    </body>
+    
+    <script src="../scripts/clotho/b18fc8c8.clotho-app-command.js"></script>
+    <script src="../scripts/clotho/c0f113c2.clotho-core-module.js"></script>
+    <!--note - remove all scripts below this for api-only build-->
+    <script type='text/javascript' src="../scripts/clotho/b18fc8c8.clotho-app-command.js"></script>
+    <script type='text/javascript' src="../scripts/clotho/c0f113c2.clotho-core-module.js"></script>
+    <script type='text/javascript' src="../scripts/clotho/c2a11f43.clotho-foundation-module.js"></script>
+    <script src="../scripts/clotho/clotho3API.js"></script>
+    <script src='../scripts/clotho/68a2b2df.clotho-command-module.js'></script>
+    <script src="../scripts/angular.ng-modules.js"></script>
+    <script src="../scripts/ordering.js"></script>
+    <script>
+        
+        $("document").ready( function () {
+           var companyQueryName = getParameterByName("Name");
+           
+           $.ajax({
+                url: 'queryProductByCompany',
+                type: 'GET',
+                async: false,
+                data: {
+                    'Name': companyQueryName,
+                },
+                success: function (response) {
+                    //Load Product Data'
+                    sortProductsFromResponse(response);
+                },
+                error: function(){
+                    //Nothing found or bad query
+                    alert("Error with the AJAX call response");
+                }
+            });
+        });
+        
+        /*
+        function sortProductsFromResponse(response) {
+            
+            for (var i = 0; i < response.length; i++) {
+                for (var ind in response[i]){
+                    $("#products").append(response[i][ind] + " ");
+                }
+            }
+        }*/
+        function sortProductsFromResponse(response) {
+            var ids = [];
+            for (var i = 0; i < response.length; i++){
+                //
+                var productTable = document.getElementById("productTable");
+                var row = productTable.insertRow(i+1);
+                row.id = "product" + i.toString();
+                var selectCell = row.insertCell(0);
+                var nameCell = row.insertCell(1);
+                var companyCell = row.insertCell(2);
+                var costCell = row.insertCell(3);
+                var descriptionCell = row.insertCell(4);
+                var goodTypeCell = row.insertCell(5);
+                var productURLCell = row.insertCell(6);
+                var quantityCell = row.insertCell(7);
+                
+                var name = response[i]['name'];
+                var company = response[i]['company'];
+                var cost = response[i]['cost'];
+                var description = response[i]['description'];
+                var goodType = response[i]['goodType'];
+                var productURL = response[i]['productURL'];
+                var quantity = response[i]['quantity'];
+                
+                
+                
+                selectCell.innerHTML = "<input type='checkbox' id='productCheck"+i +"'>";
+                nameCell.innerHTML = name;
+                companyCell.innerHTML = company;
+                costCell.innerHTML = cost;
+                descriptionCell.innerHTML = description;
+                goodTypeCell.innerHTML = goodType;
+                productURLCell.innerHTML = productURL;
+                quantityCell.innerHTML = quantity;
+                
+                ids.push(response[i]['clothoID']);
+                
+                setCookie("LoadedOrders", "", 1);
+                populateSortedOrderCookies(ids);
+            }
+        }
+        
+        function populateSortedOrderCookies(ids){
+            var idString = ids[0];
+            
+            for (var i = 1; i < ids.length ; i++){
+                
+                idString = idString + "," +  ids[i];
+            }
+            
+            
+            setCookie("LoadedOrders", idString , 1);
+        }
+        
+        function selectProducts(){
+            var numberOfCheckBoxes = totalNumberOfCheckBoxesWithName('productCheck');
+           
+                var OrderIds = []; // create an empty array
+                var loadedOrderString = getCookie("LoadedOrders");
+                var loadedOrdersOnPage = loadedOrderString.split(',');
+                var selectedBoxCount = 0;
+                for (var i = 0; i < numberOfCheckBoxes; i++){
+                    if( document.getElementById('productCheck' + i).checked){
+
+                        OrderIds.push(loadedOrdersOnPage[i]);
+                        selectedBoxCount++;
+                    } else{
+
+                    }
+                }
+                if (selectedBoxCount !== 0){
+                    appendToCookie("Order", OrderIds, 1);
+                    window.location.href = "./html/ordering.html";
+                } else {
+                    alert("Select Something Dang");
+                }
+                //should not need to delete LoadedOrder cookie
+             
+            
+        }
+        
+       
+       
+
+        function totalNumberOfCheckBoxesWithName(name){
+            var finished = false;
+            
+            var productNumber = 0;
+            
+            while (!finished){
+                var checkbox = document.getElementById(name + productNumber);
+                if (checkbox === null){
+                    finished = true;
+                } else {
+                    //for clarity
+                    finished = false
+                    productNumber++;
+                }
+                
+            }
+            
+            return productNumber;
+        }
+    </script>
+</html>

@@ -1,10 +1,4 @@
-angular.module('Index').controller('indexCtrl', function ($scope, Clotho, indexAPI, TrackingIndex, PubSub) {
-
-    this.queryObj = function(){
-        indexAPI.query($scope.item).then(function()
-        {
-
-        });
-    };
-
+var index = angular.module("indexApp", []).controller("indexCtrl", function($scope){
+    
 });
+index.directive('footer',footer);
