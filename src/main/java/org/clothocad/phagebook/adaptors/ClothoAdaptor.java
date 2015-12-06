@@ -469,13 +469,16 @@ public class ClothoAdaptor {
                 {
                     labs.add(institution.getId());
                     //iterate through the roles in the Set
-                    Iterator<PersonRole> it = person.getRole(institution).iterator();
-                    roles = new JSONArray();
-                    while(it.hasNext())
+                    if (person.getRole(institution) != null)
                     {
-                        roles.add(it.next().toString());
+                        Iterator<PersonRole> it = person.getRole(institution).iterator();
+                        roles = new JSONArray();
+                        while(it.hasNext())
+                        {
+                            roles.add(it.next().toString());
+                        }
+                        rolesMap.put(institution.getId(), roles);
                     }
-                    rolesMap.put(institution.getId(), roles);
 
                 }
                 map.put("labs", labs);
