@@ -169,14 +169,15 @@ SCRIPTS
     $("#login").click(function () {
                 $.ajax({
                     url: "loginUser",
-                    type: "GET",
+                    type: "POST",
                     async: false,
                     data: {
                         "email": document.getElementById("returnEmail").value,
                         "password": document.getElementById("returnPassword").value
                     },
                     success: function (response) {
-                        alert(response);
+                        //alert(response);
+                        alert("Got Some Response" + response);
                         sessionStorage.setItem("username", document.getElementById("returnEmail").value);
                         sessionStorage.setItem("password", document.getElementById("password").value);
 
