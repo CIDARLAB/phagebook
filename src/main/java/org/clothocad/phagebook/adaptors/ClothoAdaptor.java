@@ -369,7 +369,7 @@ public class ClothoAdaptor {
         }
         
         if (order.getProducts() != null)
-        {
+        {/*
             JSONObject products = new JSONObject();
         
             Iterator it = order.getProducts().entrySet().iterator();
@@ -381,7 +381,7 @@ public class ClothoAdaptor {
             }
 
             map.put("products" , products);
-        }
+        } */}
         if (order.getName() != null)
         {
             map.put("name", order.getName());
@@ -416,7 +416,6 @@ public class ClothoAdaptor {
         Map map = new HashMap();
 
         map.put("schema", Person.class.getCanonicalName());
-
 
        if(person.getSalt() != null && person.getSalt() != ""){
             map.put("salt", person.getSalt());
@@ -919,13 +918,14 @@ public class ClothoAdaptor {
     public static Project getProject(String id, Clotho clothoObject)
     {
         System.out.println("Enter get project");
+        System.out.println(id);
         Map projectMap = new HashMap();
         projectMap = (Map) clothoObject.get(id);
-        
+        System.out.println("got id");
         Project project = mapToProject(projectMap, clothoObject);
         project.setId(id);
         System.out.println("leave get project");
-        
+  
         return project;
            
     }
@@ -1530,7 +1530,7 @@ public class ClothoAdaptor {
         
         
         Order order = new Order(name);
-        order.setProducts(products);
+      //  order.setProducts(products);
         order.setId(id);
         
         return order;
@@ -1636,9 +1636,9 @@ public class ClothoAdaptor {
         person.setActivated( (boolean) map.get("activated") );
         person.setActivationString((String) map.get("activationString"));
         
-        person.setSalt(map.containsKey("salt") ? (String) map.getOrDefault("salt", "") : "");
-        person.setSaltedEmailHash(map.containsKey("saltedEmailHash") ? (String) map.getOrDefault("saltedEmailHash", "") : "");
-        person.setId(id);
+        person.setSalt(map.containsKey("salt") ? (String) map.get("salt") : "");
+        person.setSaltedEmailHash(map.containsKey("saltedEmailHash") ? (String) map.get("saltedEmailHash") : "");
+
         
         
             
@@ -1688,14 +1688,15 @@ public class ClothoAdaptor {
     }
     public static Project mapToProject(Map map, Clotho clothoObject)
     {
-       
+       System.out.println("Map :: " + map);
+        
         Person creator = new Person();
         if(map.containsKey("creator"))
         {
             String creatorId = (String) map.get("creator");
             creator = getPerson(creatorId, clothoObject);
         }
-        
+        System.out.println("here2");
         
         Person lead = new Person();
         if(map.containsKey("lead")){
@@ -1734,8 +1735,8 @@ public class ClothoAdaptor {
         {
                 description = (String) map.get("description");
         }
-        
-        Grant grant = new Grant("");
+
+        Grant grant = new Grant("grant");
         if (map.containsKey("grant"))
         {
             String grantId = (String) map.get("grant");
@@ -1779,15 +1780,16 @@ public class ClothoAdaptor {
         
             dateCreatedText = (String) map.get("dateCreated");
 
-            DateFormat df = new SimpleDateFormat("MM/dd/yyyy"); 
-
-            try {
-                dateCreated = df.parse(dateCreatedText);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+//            DateFormat df = new SimpleDateFormat("MM/dd/yyyy"); 
+//
+//            try {
+//                dateCreated = df.parse(dateCreatedText);
+//            } catch (ParseException e) {
+//                e.printStackTrace();
+//            }
         }
-        
+        System.out.println("idk2");
+
         
         List<Status> updates = new LinkedList<Status>() ;
         
@@ -1799,14 +1801,13 @@ public class ClothoAdaptor {
                 updates.add(getStatus(updateIds.getString(i) , clothoObject));
             }
         }
+        Project project = new Project(creator,name,description);
         
-
-        Project project = new Project(creator,name,description);        
             
-        project.setMembers(members);
-        project.setUpdates(updates);
-        project.setAffiliatedLabs(affiliatedLabs);
-        project.setNotebooks(notebooks);
+//        project.setMembers(members);
+//        project.setUpdates(updates);
+//        project.setAffiliatedLabs(affiliatedLabs);
+//        project.setNotebooks(notebooks);
         String id = "";
         if (map.containsKey("id")){
              id = (String) map.get("id");;
@@ -1815,6 +1816,7 @@ public class ClothoAdaptor {
         return project;
      
     }
+    
     public static Protocol mapToProtocol(Map map, Clotho clothoObject)
     {
         /**

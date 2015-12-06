@@ -61,6 +61,16 @@
         <servlet-name>newOrder</servlet-name>
         <url-pattern>/newOrder</url-pattern>
     </servlet-mapping>
+  <servlet>
+        <servlet-name>getProject</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.getProject</servlet-class>
+    </servlet>
+   
+    <servlet-mapping>
+        <servlet-name>getProject</servlet-name>
+        <url-pattern>/getProject</url-pattern>
+    </servlet-mapping>
+
     <servlet>
         <servlet-name>createPerson</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.createPerson</servlet-class>

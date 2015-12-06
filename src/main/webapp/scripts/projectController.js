@@ -1,3 +1,4 @@
+
 'use strict';
 
 
@@ -99,4 +100,3 @@ projectsApp.controller('projectsController',['$scope', '$http', function($scope,
   };
 
 }]);
-

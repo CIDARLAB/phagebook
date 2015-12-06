@@ -69,6 +69,7 @@ body {
 
 }
 
+
 #friends img{
     height: 150px;
     width: 110px;
@@ -116,6 +117,16 @@ body {
      margin: 0;
      padding: 15px;
  }
+a{
+    font-weight:bold;
+    color:#015300;
+    font-size:medium;
+    text-align:center;
+    width:200px;
+}
+.nav-tabs{
+    text-align:center;
+}
 
  .headerID {
      position:relative;
@@ -135,6 +146,10 @@ body {
  #wrapper {
      position:relative;
      float:right;
+ }
+
+ #projectName{
+     text-align:center;
  }
 
  #createProject {
@@ -208,6 +223,7 @@ body {
      float: left;
      padding: 15px;
  }
+
 
  #heading {
      position:relative;
