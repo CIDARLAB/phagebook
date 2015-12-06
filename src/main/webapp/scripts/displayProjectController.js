@@ -32,12 +32,10 @@ angular.module('tabsApp',[]).controller('tabsController',['$scope',function($sco
         }
     };
 
-    
 
-    $scope.getProject = function(){
-        console.log("Get Project ajax call");
-        var id = getCookie("projectID");
-        console.log(id);
+
+    var getProject = function(id){
+        console.log("getProject" + id);
         $.ajax({
             url: "getProject",
             type: "POST",
@@ -77,7 +75,14 @@ angular.module('tabsApp',[]).controller('tabsController',['$scope',function($sco
             }
         });
     };
-
+    $scope.getcookie = function(){
+        console.log("Get Project ajax call");
+        var id = getCookie("projectID");
+        console.log("inget cookie" + id);
+        if(id != undefined){
+            getProject(id);
+        }
+    };
 
 }]);
 
