@@ -21,10 +21,10 @@
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.resendVerification</servlet-class>
     </servlet>
     <servlet>
-
         <servlet-name>loginUser</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.loginUser</servlet-class>
-
+    </servlet>
+    <servlet>
         <servlet-name>queryProductByName</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.queryProductByName</servlet-class>
     </servlet>
@@ -39,7 +39,10 @@
     <servlet>
         <servlet-name>createOrderWithIdArray</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.createOrderWithIdArray</servlet-class>
-
+    </servlet>
+    <servlet>
+        <servlet-name>getPersonById</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.getPersonById</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>inputProduct</servlet-name>
@@ -61,16 +64,14 @@
         <servlet-name>newOrder</servlet-name>
         <url-pattern>/newOrder</url-pattern>
     </servlet-mapping>
-  <servlet>
+    <servlet>
         <servlet-name>getProject</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.getProject</servlet-class>
     </servlet>
-   
     <servlet-mapping>
         <servlet-name>getProject</servlet-name>
         <url-pattern>/getProject</url-pattern>
     </servlet-mapping>
-
     <servlet>
         <servlet-name>createPerson</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.createPerson</servlet-class>
@@ -96,10 +97,10 @@
         <url-pattern>/resendVerification</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-
         <servlet-name>loginUser</servlet-name>
         <url-pattern>/loginUser</url-pattern>
-
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>queryProductByName</servlet-name>
         <url-pattern>/queryProductByName</url-pattern>
     </servlet-mapping>
@@ -114,6 +115,9 @@
     <servlet-mapping>
         <servlet-name>createOrderWithIdArray</servlet-name>
         <url-pattern>/createOrderWithIdArray</url-pattern>
-
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getPersonById</servlet-name>
+        <url-pattern>/getPersonById</url-pattern>
     </servlet-mapping>
 </web-app>

@@ -1,14 +1,9 @@
 /**
  * Created by KatieLewis on 12/5/15.
  */
-angular.module('projectsApp',['clothoRoot']).controller('projectsController',
-    function($scope, Clotho){
-        $scope.personId = sessionStorage.getItem("uniqueid");
-    });
 
-
-angular.module('tabsApp',[]).controller('tabsController',['$scope',function($scope) {
-
+function tabsController($scope) {
+    $scope.personId = sessionStorage.getItem("uniqueid");    
     $scope.projectName = '';
     $scope.description = '';
     $scope.lead = '';
@@ -76,6 +71,6 @@ angular.module('tabsApp',[]).controller('tabsController',['$scope',function($sco
     };
 
 
-}]);
+};
 
 

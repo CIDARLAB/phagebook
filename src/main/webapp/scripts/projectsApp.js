@@ -1,6 +1,8 @@
 angular
         .module('projectsApp', ['clothoRoot'])
-        .controller('newOrderController', newOrderController)
+        .module('tabsApp',[])
+        .controller('tabsController', tabsController)
+        .controller('projectsController', projectsController)
         .controller('orderingSettingsController', orderingSettingsController)
         .directive('phagebookSidebar', phagebookSidebar)
         .directive('searchBar', searchBar); 

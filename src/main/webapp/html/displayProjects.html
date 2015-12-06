@@ -27,11 +27,12 @@
         <div clotho-command-bar></div>
     </div>
 </div>
-
+<phagebook-sidebar user="currentUser"></phagebook-sidebar>
 <div class = "row">
     <div class="col-md-2"></div>
 
             <div ng-app="tabsApp" ng-controller="tabsController" data-ng-init="getProject()">
+                
                 <div class="col-md-10">
                     <div class="container-fluid" id="projects">
                         <div class="row">
@@ -97,6 +98,7 @@
                 </div>
             </div>
         </div>
+                <footer></footer>                
     </div>
 </div>
 
@@ -112,8 +114,12 @@
 <script type='text/javascript' src="../scripts/clotho/c2a11f43.clotho-foundation-module.js"></script>
 <script src="../scripts/clotho/clotho3API.js"></script>
 <script src="../scripts/displayProjectController.js"></script>
+<script src="../scripts/footerDirective.js"></script>
+<script src="../scripts/sidebarDirective.js"></script>
+<script src="../scripts/searchBarDirective.js"></script>
+<script src="../scripts/projectController.js"></script>
 <script src='../scripts/clotho/68a2b2df.clotho-command-module.js'></script>
 <script src="../scripts/angular.ng-modules.js"></script>
-
+<script src="../scripts/projectApp.js"></script>
 </body>
 </html>
