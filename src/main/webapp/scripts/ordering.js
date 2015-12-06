@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+// **** change name to cookie_manager.js *****
 
 function setCookie(cname, cvalue, exdays)
 {

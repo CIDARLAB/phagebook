@@ -27,9 +27,10 @@ function tabsController($scope) {
         }
     };
 
-    $scope.getProject = function(){
-        console.log("Get Project ajax call");
-        var id = getCookie("projectID");
+
+
+    var getProject = function(id){
+        console.log("getProject" + id);
         $.ajax({
             url: "getProject",
             type: "POST",
@@ -69,7 +70,14 @@ function tabsController($scope) {
             }
         });
     };
-
+    $scope.getcookie = function(){
+        console.log("Get Project ajax call");
+        var id = getCookie("projectID");
+        console.log("inget cookie" + id);
+        if(id != undefined){
+            getProject(id);
+        }
+    };
 
 };
 

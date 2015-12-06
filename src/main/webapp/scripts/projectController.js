@@ -1,9 +1,9 @@
-
 'use strict';
 
-
+console.log("loaded");
 
 function projectsController($scope, $http){
+
   $scope.greeting = 'Hello!';
   $scope.personId = sessionStorage.getItem("uniqueid");
 
@@ -84,6 +84,10 @@ function projectsController($scope, $http){
         console.log(dataSubmit); 
         console.log(response);
         console.log("response!!!");
+        setCookie("projectID", response.projectID);
+        console.log(document.cookie);
+        location.assign("./html/displayProjects.html");
+
       },
       error: function () {
         alert("ERROR!!");
@@ -92,5 +96,6 @@ function projectsController($scope, $http){
    }
   
   };
+
 
 };
