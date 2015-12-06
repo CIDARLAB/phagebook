@@ -7,10 +7,15 @@ package org.clothocad.phagebook.adaptors.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.clothoapi.clotho3javaapi.Clotho;
+import org.clothoapi.clotho3javaapi.ClothoConnection;
+import org.clothocad.phagebook.controller.Args;
 
 /**
  *
@@ -49,6 +54,36 @@ public class loginUser extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");  
+        boolean isValidRequest = false;
+        if((email != "") && (password != "")){
+            isValidRequest = true;
+        }
+        else{
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+        
+        if(isValidRequest){
+            //ESTABLISH CONNECTION
+            ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+            Clotho clothoObject = new Clotho(conn);
+            Map loginMap = new HashMap();
+            loginMap.put("username", email);
+            loginMap.put("credentials", password);     
+            String id = (String)clothoObject.login(loginMap);
+            System.out.println(id);
+            if ((id != null) && (id != "")){
+                //return success, this means its a valid request
+                PrintWriter out = response.getWriter();
+                out.print(id);
+                out.flush();
+            }
+            else{
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            }
+        }
     }
 
     /**
