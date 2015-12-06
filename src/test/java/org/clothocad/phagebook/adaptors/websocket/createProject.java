@@ -29,6 +29,8 @@ public class createProject {
         Person person1 = new Person();
         person1.setEmailId("lewis");
         person1.setPassword("abc");
+        person1.setFirstName("Katie");
+        person1.setLastName("Lewis");
         ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
         Clotho clothoObject = new Clotho(conn);
         String id = ClothoAdaptor.createPerson(person1, clothoObject);
@@ -40,7 +42,12 @@ public class createProject {
         Person person2 = new Person();
         person2 = ClothoAdaptor.getPerson(id,clothoObject);
         
-        Project project = new Project(person2, "Phagebook", "description1");
+        Project project = new Project(person2, "Phagebook", "Currently, synthetic biology lacks a systematic "
+                + "design-build-test workflow for creating genetic circuits. Researchers often waste time and "
+                + "resources on traditional trial-and-error approaches in designing and assembling large devices. "
+                + "My research works towards overcoming this roadblock by creating a standardized experimental-computational "
+                + "workflow that is clearly defined and applicable to a wide variety of researchers and projects. This workflow integrates software tools to "
+                + "reduce human error and to structure the way designs are chosen, assembled, and tested.");
         ClothoAdaptor.createProject(project, clothoObject);
     }
     

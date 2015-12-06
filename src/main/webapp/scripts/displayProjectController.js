@@ -34,11 +34,12 @@ angular.module('tabsApp',[]).controller('tabsController',['$scope',function($sco
 
     $scope.getProject = function(){
         console.log("Get Project ajax call");
+        var id = getCookie("projectID");
         $.ajax({
             url: "getProject",
             type: "POST",
             data: {
-                "id": "56634a6b3004006cd61abf16" //put id here
+                "id": id //put id here
             },
             success: function (response) {
                alert(response);

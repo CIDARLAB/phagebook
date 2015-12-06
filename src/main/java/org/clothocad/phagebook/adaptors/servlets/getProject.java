@@ -35,7 +35,6 @@ public class getProject extends HttpServlet {
         
         ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
         Clotho clothoObject = new Clotho(conn);
-        Map projectMap = new HashMap();
         JSONObject projectObject = new JSONObject();
         System.out.println("before getProject");
         Project proj =  ClothoAdaptor.getProject(id, clothoObject);
@@ -45,20 +44,28 @@ public class getProject extends HttpServlet {
         projectObject.put("affiliatedLabs", proj.getAffiliatedLabs());
         projectObject.put("projectName", proj.getName());
         projectObject.put("notebooks", proj.getNotebooks());
-        projectObject.put("dateCreated", proj.getDateCreated());
         projectObject.put("updates", proj.getUpdates());
         projectObject.put("grant", proj.getGrant());
 
+        if(proj.getDateCreated() != null){
+            String delims = "[ ]+";
+            String string = proj.getDateCreated().toString();
+            String[] tokens = string.split(delims);
+            projectObject.put("dateCreated", tokens[1] + " " + tokens[2] + " " + tokens[5]);
+        }
+        
         if(proj.getMembers() != null){
         }
         if(proj.getCreator() != null){
             Person creator = proj.getCreator();
-            projectObject.put("creator", creator.getFirstName()+creator.getLastName());
+            projectObject.put("creator", creator.getFirstName()+" " +creator.getLastName());
         }
         projectObject.put("members", proj.getMembers());
         if(proj.getLead() != null){
             Person lead = proj.getLead();
-            projectObject.put("lead", lead.getFirstName()+lead.getLastName());
+            if(lead.getFirstName() != null && lead.getLastName() != null){
+                projectObject.put("lead", lead.getFirstName()+lead.getLastName());
+            }
         }
         //projectMap = (Map) ClothoAdaptor.getProject(id, clothoObject);
         System.out.println("after getProject");

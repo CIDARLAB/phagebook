@@ -14,7 +14,7 @@
     <script src="../scripts/jquery.js"></script>
     <script src="../scripts/lodash.js"></script>
     <script src="../scripts/displayProjectController.js"></script>
-
+    <script src="../scripts/ordering.js"></script>
 
 
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
@@ -38,7 +38,6 @@
                             <div class="col-md-12" id="projectName">
                                 <br>
                                 <h1>{{projectName}}</h1>
-                                <br>
                                 {{creator}} {{dateCreated}}
                             </div>
                         </div>
@@ -65,20 +64,16 @@
                             <p> {{labs}}</p>
                         </div>
                     </div>
+                    <br>
                     <div id="secondRow" class="row">
-                        <div class="col-md-3">
-                            Co-PIs:
-                        </div>
-                        <div class="col-md-3">
-                            <p>{{CoPIs}}</p>
-                        </div>
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             Members:
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <p>{{members}}</p>
                         </div>
                     </div>
+                    <br>
                     <div id="thirdRow" class="row">
                         <div class="col-md-2">
                             Description:
