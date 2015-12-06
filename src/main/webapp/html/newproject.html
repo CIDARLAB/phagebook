@@ -32,7 +32,7 @@
     <h3 class="projectFormTitle">New Project</h3>  
     <div class="form-group">    <!-- String name -->
       <label for="inputName" class="control-label">Project Title*</label>
-        <input name="name" class="form-control" ng-maxlength="100" ng-minlength="5" id="inputName3" placeholder="Name" ng-model="formData.name">
+        <input name="name" class="form-control" ng-maxlength="100" ng-minlength="5" id="inputName" placeholder="Name" ng-model="formData.name">
        <span ng-show="nameRequired">{{nameRequired}}</span>
        <span class="error" ng-show="submitProject.name.$error.minlength">
         Minimum length is 5 characters.</span>
