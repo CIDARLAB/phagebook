@@ -47,6 +47,7 @@ import org.clothocad.phagebook.dom.Sample;
 import org.clothocad.phagebook.dom.Status;
 import org.json.JSONObject;
 import net.sf.json.JSONNull;
+import org.json.JSONException;
 
 /**
  * @author Johan Ospina
@@ -192,30 +193,79 @@ public class ClothoAdaptor {
         String id = "";
         Map map = new HashMap();
         map.put("schema", Grant.class.getCanonicalName());
-        map.put("name", grant.getName());
-        map.put("leadPI", grant.getLeadPI().getId());
-               
-        JSONArray coPIs = new JSONArray();
         
-        for (Person coPI: grant.getCoPIs() ){
-            
-            coPIs.add(coPI.getId());
-            
+        if (grant.getName() != "" && grant.getName() != null)
+        {
+            map.put("name", grant.getName());
         }
-        map.put("coPIs", coPIs);
-        map.put("programManager", grant.getProgramManager());
-        map.put("startDate", grant.getStartDate().toString());
-        map.put("endDate", grant.getEndDate().toString());
-        map.put("budget", grant.getBudget());
-        map.put("amountSpent", grant.getAmountSpent());
         
-        JSONArray projects = new JSONArray();
-        for (Project project : grant.getProjects()){
-            projects.add(project.getId());
+        if (grant.getLeadPI() != null)
+        {
+            map.put("leadPI", grant.getLeadPI().getId());
         }
-        map.put("projects" , projects);
-        map.put("description", grant.getDescription());
-        if (grant.getId() != null){
+        
+        if (grant.getCoPIs() != null)
+        { 
+            if (!grant.getCoPIs().isEmpty())
+            {
+                JSONArray coPIs = new JSONArray();
+
+                for (Person coPI: grant.getCoPIs() )
+                {
+
+                    coPIs.add(coPI.getId());
+
+                }
+
+                map.put("coPIs", coPIs);
+            }
+        }
+        
+        if (grant.getProgramManager() != "" && grant.getProgramManager() != null)
+        {
+            map.put("programManager", grant.getProgramManager());
+        }
+        
+        if (grant.getStartDate() != null) 
+        {
+            map.put("startDate", grant.getStartDate().toString());
+        }
+        
+        if (grant.getEndDate() != null)
+        {
+            map.put("endDate", grant.getEndDate().toString());
+        }
+        
+        if (grant.getBudget() != null)
+        {
+            map.put("budget", grant.getBudget());
+        }
+        
+        if (grant.getAmountSpent() != null)
+        {
+            map.put("amountSpent", grant.getAmountSpent());
+        }
+        
+        if (grant.getProjects() != null) 
+        {
+            if (!grant.getProjects().isEmpty())
+            {
+                JSONArray projects = new JSONArray();
+                for (Project project : grant.getProjects())
+                {
+                    projects.add(project.getId());
+                }
+                map.put("projects" , projects);
+            }
+        }
+        
+        
+        if (grant.getDescription() != null)
+        {
+            map.put("description", grant.getDescription());
+        }
+        if (grant.getId() != null)
+        {
         map.put("id", grant.getId());
         }
         
@@ -230,7 +280,8 @@ public class ClothoAdaptor {
     {
         String id = "";
         Map map = new HashMap();
-        if (institution.getId() != null){
+        if (institution.getId() != null)
+        {
             map.put("id", institution.getId());
         }
         map.put("schema", Institution.class.getCanonicalName());
@@ -312,16 +363,29 @@ public class ClothoAdaptor {
         String id = "";
         Map map = new HashMap();
         map.put("schema", Order.class.getCanonicalName());
-        if (order.getId() != null){
+        if (order.getId() != null)
+        {
             map.put("id", order.getId());
         }
         
-        JSONArray products = new JSONArray();
-        for (Product product : order.getProducts()){
-           products.add(product.getId());
+        if (order.getProducts() != null)
+        {/*
+            JSONObject products = new JSONObject();
+        
+            Iterator it = order.getProducts().entrySet().iterator();
+            while (it.hasNext()) 
+            {
+                Map.Entry pair = (Map.Entry)it.next();
+                products.put(((Product)pair.getKey()).getId(), pair.getValue());
+                it.remove(); // avoids a ConcurrentModificationException
+            }
+
+            map.put("products" , products);
+        } */}
+        if (order.getName() != null)
+        {
+            map.put("name", order.getName());
         }
-        map.put("products" , products);
-        map.put("name", order.getName());
         
         id = (String) clothoObject.set(map);
         order.setId(id);
@@ -355,79 +419,107 @@ public class ClothoAdaptor {
 
        if(person.getSalt() != null && person.getSalt() != ""){
             map.put("salt", person.getSalt());
-    }
-        
+        }
+         
     
-        if (person.getSaltedEmailHash() != null && person.getSaltedEmailHash() != "") {
+        if (person.getSaltedEmailHash() != null && person.getSaltedEmailHash() != "") 
+        {
             map.put("saltedEmailHash", person.getSaltedEmailHash());
         }
         
-        
-        if (!person.getProjects().isEmpty()){
-            JSONArray projects = new JSONArray();
-            for (Project project : person.getProjects()){
-                projects.add(project.getId());
-            }
-            map.put("project", projects);
-        }
-        
-        if (!person.getStatuses().isEmpty()){
-            JSONArray statuses = new JSONArray();
-            for (Status status : person.getStatuses()){
-                statuses.add(status.getId());
-            }
-            map.put("statuses", statuses);
-        }
-        if (!person.getNotebooks().isEmpty()){
-            JSONArray notebooks = new JSONArray();
-            for (Notebook notebook : person.getNotebooks()){
-                notebooks.add(notebook.getId());
-            }
-            map.put("notebooks", notebooks);
-        }
-        
-        if( !person.getLabs().isEmpty() ){
-            JSONArray labs = new JSONArray();
-            JSONArray roles = new JSONArray();
-            Map rolesMap = new HashMap();
-            for (Institution institution : person.getLabs()){
-                labs.add(institution.getId());
-                //iterate through the roles in the Set
-                Iterator<PersonRole> it = person.getRole(institution).iterator();
-                roles = new JSONArray();
-                while(it.hasNext()){
-                    roles.add(it.next().toString());
+        if (person.getProjects() != null)
+        {
+            if (!person.getProjects().isEmpty())
+            {
+                JSONArray projects = new JSONArray();
+                for (Project project : person.getProjects()){
+                    projects.add(project.getId());
                 }
-                rolesMap.put(institution.getId(), roles);
+                map.put("project", projects);
+            }
+        }
+       
+        if (person.getStatuses() != null)
+        {
+            if (!person.getStatuses().isEmpty()){
+                JSONArray statuses = new JSONArray();
+                for (Status status : person.getStatuses()){
+                    statuses.add(status.getId());
+                }
+                map.put("statuses", statuses);
+            }
+        }
+        
+        if (person.getStatuses() != null)
+        {
+            if (!person.getNotebooks().isEmpty()){
+                JSONArray notebooks = new JSONArray();
+                for (Notebook notebook : person.getNotebooks()){
+                    notebooks.add(notebook.getId());
+                }
+                map.put("notebooks", notebooks);
+            }
+        }
+        if (person.getLabs() != null)
+        {
+            if(!person.getLabs().isEmpty())
+            {
+                JSONArray labs = new JSONArray();
+                JSONArray roles = new JSONArray();
+                Map rolesMap = new HashMap();
+                for (Institution institution : person.getLabs())
+                {
+                    labs.add(institution.getId());
+                    //iterate through the roles in the Set
+                    Iterator<PersonRole> it = person.getRole(institution).iterator();
+                    roles = new JSONArray();
+                    while(it.hasNext())
+                    {
+                        roles.add(it.next().toString());
+                    }
+                    rolesMap.put(institution.getId(), roles);
 
+                }
+                map.put("labs", labs);
+                map.put("roles", rolesMap);
             }
-            map.put("labs", labs);
-            map.put("roles", rolesMap);
         }
-        
-        if (!person.getColleagues().isEmpty()){
-            JSONArray colleagues = new JSONArray();
-            for (Person colleague : person.getColleagues()){
-                colleagues.add(colleague.getId());
+        if (person.getColleagues() != null)
+        {
+            if (!person.getColleagues().isEmpty())
+            {
+                JSONArray colleagues = new JSONArray();
+                for (Person colleague : person.getColleagues())
+                {
+                    colleagues.add(colleague.getId());
 
+                }
+                map.put("colleagues", colleagues);
             }
-            map.put("colleagues", colleagues);
-        
         }
-        
-        if (!person.getOrders().isEmpty()){
-            JSONArray orders = new JSONArray();
-            for (Order order : person.getOrders()){
-                orders.add(order.getId());
+        if (person.getOrders() != null)
+        {
+            if (!person.getOrders().isEmpty())
+            {
+                JSONArray orders = new JSONArray();
+                for (Order order : person.getOrders())
+                {
+                    orders.add(order.getId());
+                }
+                map.put("orders", orders);
             }
-            map.put("orders", orders);
         }
-        if (!person.getPublications().isEmpty()){
-            JSONArray publications = new JSONArray();
-            for (Publication publication : person.getPublications()){
-                publications.add(publication.getId());
+        if(person.getPublications() != null)
+        {
+            if (!person.getPublications().isEmpty())
+            {
+                JSONArray publications = new JSONArray();
+                for (Publication publication : person.getPublications())
+                {
+                    publications.add(publication.getId());
+                }
+                map.put("publications", publications);
             }
-            map.put("publications", publications);
         }
         if (person.getFirstName() !=null)
             map.put("firstName", person.getFirstName());
@@ -507,12 +599,16 @@ public class ClothoAdaptor {
         Map map = new HashMap();
         map.put("schema", Project.class.getCanonicalName());
 
-        if(project.getId() != null){
+        if(project.getId() != null && project.getId() != "")
+        {
             map.put("id",project.getId());
         }
+        
         System.out.println("Step 1");
-        if(project.getCreator() != null){
-            if (project.getCreator().getId() != null){
+        if(project.getCreator() != null)
+        {
+            if (project.getCreator().getId() != null)
+            {
                 map.put("creator", project.getCreator().getId());
             }    
         }
@@ -524,65 +620,87 @@ public class ClothoAdaptor {
             }    
         }
         System.out.println("Step 3");
-        
-        if (!project.getMembers().isEmpty()){
-            System.out.println("Step 3");
-            JSONArray members = new JSONArray();
+        if (project.getMembers() != null){
+            if (!project.getMembers().isEmpty())
+            {
+                System.out.println("Step 3");
+                JSONArray members = new JSONArray();
 
-            for (Person member: project.getMembers() ){
+                for (Person member: project.getMembers() ){
 
-                members.add(member.getId());
+                    members.add(member.getId());
 
+                }
+                map.put("members", members);
             }
-            map.put("members", members);
         }
-        if (!project.getNotebooks().isEmpty()){
-            JSONArray notebooks = new JSONArray();
+        if (project.getNotebooks() != null)
+        {
+            if (!project.getNotebooks().isEmpty()){
+                JSONArray notebooks = new JSONArray();
 
-            for (Notebook notebook: project.getNotebooks() ){
+                for (Notebook notebook: project.getNotebooks() ){
 
-                notebooks.add(notebook.getId());
+                    notebooks.add(notebook.getId());
 
+                }
+                map.put("notebooks", notebooks);
             }
-            map.put("notebooks", notebooks);
-        }
-        if (!project.getAffiliatedLabs().isEmpty()){
-            JSONArray affiliatedLabs = new JSONArray();
-
-            for (Organization affiliatedLab: project.getAffiliatedLabs() ){
-
-                affiliatedLabs.add(affiliatedLab.getId());
-
-            }
-            map.put("affiliatedLabs", affiliatedLabs);
-        }
-        if (!project.getUpdates().isEmpty()){
-            JSONArray updates = new JSONArray();
-
-            for (Status update: project.getUpdates() ){
-
-                updates.add(update.getId());
-
-            }
-            map.put("updates", updates);
         }
         
-        if (project.getName() != null && project.getName() != ""){
+        if (project.getAffiliatedLabs() != null)
+        {
+            if (!project.getAffiliatedLabs().isEmpty())
+            {
+                JSONArray affiliatedLabs = new JSONArray();
+
+                for (Organization affiliatedLab: project.getAffiliatedLabs() ){
+
+                    affiliatedLabs.add(affiliatedLab.getId());
+
+                }
+                map.put("affiliatedLabs", affiliatedLabs);
+            }
+        }
+        if (project.getUpdates() != null)
+        {
+            if (!project.getUpdates().isEmpty())
+            {
+                JSONArray updates = new JSONArray();
+
+                for (Status update: project.getUpdates() )
+                {
+
+                    updates.add(update.getId());
+
+                }
+                map.put("updates", updates);
+            }
+        }
+        
+        if (project.getName() != null && project.getName() != "")
+        {
             map.put("name", project.getName());
         }
         
-        if (project.getDateCreated() != null){
+        if (project.getDateCreated() != null)
+        {
             map.put("dateCreated", project.getDateCreated().toString());
         }
         
-        if (project.getBudget() != null){
+       
+        
+        if (project.getBudget() != null)
+        {
             map.put("budget", project.getBudget());
         }
         
-        if (project.getGrant() != null){
+        if (project.getGrant() != null)
+        {
             map.put("grant", project.getGrant());
         }
-        if (project.getDescription() != null && project.getDescription() != ""){
+        if (project.getDescription() != null && project.getDescription() != "")
+        {
             map.put("description", project.getDescription());
         }
 
@@ -797,13 +915,14 @@ public class ClothoAdaptor {
     public static Project getProject(String id, Clotho clothoObject)
     {
         System.out.println("Enter get project");
+        System.out.println(id);
         Map projectMap = new HashMap();
         projectMap = (Map) clothoObject.get(id);
-        
+        System.out.println("got id");
         Project project = mapToProject(projectMap, clothoObject);
         project.setId(id);
         System.out.println("leave get project");
-        
+  
         return project;
            
     }
@@ -1116,13 +1235,15 @@ public class ClothoAdaptor {
         
         
         String contact = "";
+
         if (map.containsKey("contact")){
              contact = (String) map.get("contact");
         }
        
         String name = "";
         
-        if (map.containsKey("name")){
+        if (map.containsKey("name"))
+        {
              name = (String) map.get("name");
         }
         
@@ -1280,7 +1401,7 @@ public class ClothoAdaptor {
         }
         String description = (String) map.get("description");
         
-        Grant grant = new Grant();
+        Grant grant = new Grant("");
         grant.setName(name);
         grant.setLeadPI(leadPI);
         grant.setCoPIs(coPIs);
@@ -1378,11 +1499,27 @@ public class ClothoAdaptor {
     {
         String name = (String) map.get("name");
         
-        JSONArray productIds = (JSONArray) map.get("products");
-        List<Product> products = new LinkedList<Product>() ;
-        for (int i = 0; i < productIds.size(); i++){
-            products.add(getProduct(productIds.getString(i) , clothoObject));
+        JSONObject productIds = (JSONObject) map.get("products");
+        Map<Product, Integer> products = new HashMap<Product, Integer>() ;
+        
+        Iterator<String> it = productIds.keys();
+        while (it.hasNext()) 
+            {
+            String key = it.next();
+            Product productOrder = ClothoAdaptor.getProduct(key, clothoObject);
+            
+            try 
+            {
+                int quantity = (int) productIds.get(key);
+                products.put(productOrder, quantity);
+                
+            } catch (JSONException e)
+            {
+                // Something went wrong!
+                System.out.println("something went wrong in mapToOrder");
+            }
         }
+        
         String id = "";
         if (map.containsKey("id")){
              id = (String) map.get("id");;
@@ -1390,7 +1527,7 @@ public class ClothoAdaptor {
         
         
         Order order = new Order(name);
-        order.setProducts(products);
+      //  order.setProducts(products);
         order.setId(id);
         
         return order;
@@ -1496,9 +1633,9 @@ public class ClothoAdaptor {
         person.setActivated( (boolean) map.get("activated") );
         person.setActivationString((String) map.get("activationString"));
         
-        person.setSalt(map.containsKey("salt") ? (String) map.getOrDefault("salt", "") : "");
-        person.setSaltedEmailHash(map.containsKey("saltedEmailHash") ? (String) map.getOrDefault("saltedEmailHash", "") : "");
-        person.setId(id);
+        person.setSalt(map.containsKey("salt") ? (String) map.get("salt") : "");
+        person.setSaltedEmailHash(map.containsKey("saltedEmailHash") ? (String) map.get("saltedEmailHash") : "");
+
         
         
             
@@ -1548,47 +1685,71 @@ public class ClothoAdaptor {
     }
     public static Project mapToProject(Map map, Clotho clothoObject)
     {
-       
-        Person creator = null;
-        if(map.containsKey("creator")){
-            String creatorId = (String) map.get("creator");
+       System.out.println("Map :: " + map);
         
+        Person creator = new Person();
+        if(map.containsKey("creator"))
+        {
+            String creatorId = (String) map.get("creator");
             creator = getPerson(creatorId, clothoObject);
         }
+        System.out.println("here2");
         
-        
-        Person lead = null;
+        Person lead = new Person();
         if(map.containsKey("lead")){
             String leadId = (String) map.get("lead");
             lead = getPerson(leadId, clothoObject);
-            
         }
         
         List<Person> members = new LinkedList<Person>() ;
         
-        JSONArray memberIds = (JSONArray) map.get("members");
+        JSONArray memberIds = new JSONArray();
+        if (map.containsKey("members"))
+        {
+                memberIds = (JSONArray) map.get("members");
+        }
         
         List<Notebook> notebooks = new LinkedList<Notebook>() ;
         
         List<Organization> affiliatedLabs = new LinkedList<Organization>() ;
         
-        String name = (String) map.get("name");
+        String name = "";
+        if (map.containsKey("name"))
+        {
+            name = (String) map.get("name");
+        }
         
+       
         
-        Date dateCreated = new Date();
-        double budget = (double) map.get("budget");
+        double budget = 0;
+        if (map.containsKey("budget"))
+        {
+            budget = (double) map.get("budget");
+        }
         
-        String description = (String) map.get("description");
+        String description = "";
+        if (map.containsKey("description"))
+        {
+                description = (String) map.get("description");
+        }
         
-        String grantId = (String) map.get("grant");
-        Grant grant = getGrant(grantId, clothoObject);
+        Grant grant = new Grant("grant");
+        if (map.containsKey("grant"))
+        {
+            String grantId = (String) map.get("grant");
+            grant = getGrant(grantId, clothoObject);
+        }
         
-        
-        for (int i = 0; i < memberIds.size(); i++){
+        for (int i = 0; i < memberIds.size(); i++)
+        {
             members.add(getPerson(memberIds.getString(i) , clothoObject));
         }
         
-        JSONArray notebookIds = (JSONArray) map.get("notebooks");
+        JSONArray notebookIds = new JSONArray();
+        if (map.containsKey("notebooks")){
+            notebookIds = (JSONArray) map.get("notebooks");
+        }
+        
         
         for (int i = 0; i < notebookIds.size(); i++){
             notebooks.add(getNotebook(notebookIds.getString(i) , clothoObject));
@@ -1596,36 +1757,55 @@ public class ClothoAdaptor {
         
         
         
-        JSONArray affiliatedLabIds = (JSONArray) map.get("affiliatedLabs");
+        JSONArray affiliatedLabIds = new JSONArray();
+        if (map.containsKey("affiliatedLabs"))
+        {
+            affiliatedLabIds = (JSONArray) map.get("affiliatedLabs");
+        }       
         for (int i = 0; i < affiliatedLabIds.size(); i++){
             affiliatedLabs.add(getInstitution(affiliatedLabIds.getString(i) , clothoObject));
         }
-        Institution institution = new Institution("BU");
+        
+      
         
         
-        String dateCreatedText = (String) map.get("dateCreated");
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy"); 
+        String dateCreatedText = "";
+        Date dateCreated = new Date();
+       
+        if (map.containsKey("dateCreated"))
+        {
         
-        try {
-            dateCreated = df.parse(dateCreatedText);
-        } catch (ParseException e) {
-            e.printStackTrace();
+            dateCreatedText = (String) map.get("dateCreated");
+
+//            DateFormat df = new SimpleDateFormat("MM/dd/yyyy"); 
+//
+//            try {
+//                dateCreated = df.parse(dateCreatedText);
+//            } catch (ParseException e) {
+//                e.printStackTrace();
+//            }
         }
+        System.out.println("idk2");
+
         
         List<Status> updates = new LinkedList<Status>() ;
-        JSONArray updateIds = (JSONArray) map.get("updates");
-       
-        for (int i = 0; i < updateIds.size(); i++){
-            updates.add(getStatus(updateIds.getString(i) , clothoObject));
+        
+        JSONArray updateIds = new JSONArray();
+        
+        if (map.containsKey("updates")){
+
+            for (int i = 0; i < updateIds.size(); i++){
+                updates.add(getStatus(updateIds.getString(i) , clothoObject));
+            }
         }
         
-        Project project = new Project(null,name,institution,description);
+        Project project = new Project(creator,name,description);
         
             
-        project.setMembers(members);
-        project.setUpdates(updates);
-        project.setAffiliatedLabs(affiliatedLabs);
-        project.setNotebooks(notebooks);
+//        project.setMembers(members);
+//        project.setUpdates(updates);
+//        project.setAffiliatedLabs(affiliatedLabs);
+//        project.setNotebooks(notebooks);
         String id = "";
         if (map.containsKey("id")){
              id = (String) map.get("id");;
@@ -1634,6 +1814,7 @@ public class ClothoAdaptor {
         return project;
      
     }
+    
     public static Protocol mapToProtocol(Map map, Clotho clothoObject)
     {
         /**
@@ -1643,6 +1824,7 @@ public class ClothoAdaptor {
          * samples       : List<Samples>
          * id            : String
          */
+        
         String creatorId = (String) map.get("creatorId");
         Person creator = getPerson(creatorId, clothoObject);
         String protocolName = (String) map.get("protocolName");
@@ -1706,9 +1888,10 @@ public class ClothoAdaptor {
         return sample;
         
     }
+    
     public static Status mapToStatus(Map map, Clotho clothoObject)
     {
-        //TODO: ACTUALLY WRITE STATUS.
+        /*TODO: ACTUALLY WRITE STATUS.
         Status status = new Status("",null);
         String id = "";
         if (map.containsKey("id")){
@@ -1717,7 +1900,12 @@ public class ClothoAdaptor {
         status.setId(id);
         
         return status;
-    }  
+                */
+      //Status result = Status(null);
+      System.out.println("not complete");
+      return null;
+    }
+    
     // </editor-fold>
     //  <editor-fold defaultstate="collapsed" desc="Set Methods ">
     public static String setPerson(Person person, Clotho clothoObject){

@@ -67,6 +67,8 @@ public class processProject extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        System.out.println("got request here!");
+
     }
 
     /**
@@ -79,60 +81,154 @@ public class processProject extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
-        System.out.println("got request here!");
-                
-                // get all of the fields from the request
-                String name = request.getParameter("name");
-                String description = request.getParameter("description");
-                
-                // how to transfer date from the website? Maybe just initialize the
-                // date at the server
-                // get the name of the person who created the project
-                
-                /*
-                Double projectBudget = Double.parseDouble(request.getParameter("projectBudget"));
-                Organization lab = new Organization(request.getParameter("lab"));
-                Grant projectGrant = new Grant(request.getParameter("projectGrant"));
-                
-                // or get the object from the server? */
-                Person creator = new Person();
-                creator.setFirstName("Leela");
-                creator.setId("Leela");
-                // create project object
-                //Project project = new Project( createdDate, creator,  name,  lab,
-                //        lead, projectBudget, projectGrant,  description );
-                
-                Project project = new Project(creator, name,  description);
-                
-                ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
-                Clotho clothoObject = new Clotho(conn); 
-                String username = "phagebook";
-                Map createUserMap = new HashMap();
-                createUserMap.put("username", username);
-                createUserMap.put("password", "password");
-                clothoObject.createUser(createUserMap);
-                Map loginMap = new HashMap();
-                loginMap.put("username", username);
-                loginMap.put("credentials", "password");
+        throws ServletException, IOException {
+      System.out.println("request is: ");
+      System.out.println(request);
 
-                clothoObject.login(loginMap);
-                
-                String projectID = ClothoAdaptor.createProject(project, clothoObject);
-                
-                conn.closeConnection();
-                
-                String result = "projectID is " + projectID + " description is " + project.getDescription();
-                System.out.println(result);
-                
-                JSONObject res = new JSONObject();
-                res.put("id", projectID);
-                
-                PrintWriter writer = response.getWriter();
-                writer.println(res.toString());
-                writer.flush();
-                writer.close();
+       // who is the user ?
+       // get all of the fields from the request
+       String name = request.getParameter("name");
+       System.out.println("name is"); 
+       System.out.println(name);  
+       
+       // gets the lead's name
+       String lead = "";
+       String leadString = request.getParameter("lead");
+       System.out.println(leadString);  
+       
+       if(leadString != null ){
+         System.out.println("here");  
+         lead = leadString; 
+       }       
+
+       System.out.println("lead is"); 
+       System.out.println(lead);
+       
+       // gets the labs 
+       String labs = "";
+       String labsString = request.getParameter("labs");
+       
+       if(labsString != null){
+         labs = labsString;        
+       }
+       System.out.println("labs is"); 
+       System.out.println(labs);
+          
+      // gets the project budget from the form
+       double projectBudget = 0; 
+       String projectBudgetfromJSON = request.getParameter("projectBudget");
+       
+       if(projectBudgetfromJSON != null ){
+         projectBudget = Double.parseDouble(projectBudgetfromJSON);
+       }  
+       
+       String grant = "";
+       String grantString = request.getParameter("grant");
+       if(grantString != null){
+         grant = grantString;        
+       }
+       System.out.println("grant is"); 
+       System.out.println(grant);
+       
+       String description = "";
+       String descriptionString = request.getParameter("description");
+       if(descriptionString != null ){
+         description = descriptionString;        
+       }
+       System.out.println("description is"); 
+       System.out.println(description);
+       
+       String date = request.getParameter("date");
+       System.out.println("date is");
+       System.out.println(date);
+
+       // a sample user
+       Person creator = new Person();
+       creator.setFirstName("Leela");
+       creator.setId("Leela");
+          
+       // create a lead object using the name from the form\
+       // set the lea's name to name from the form
+       // ***** have to add split string code for creating first and last name
+       Person leadPerson = new Person();
+       leadPerson.setFirstName(lead);
+          
+       // create a Grant object -- edit grant class later to allow for 
+       // creating grants
+       Grant grantObject = new Grant(name);
+       
+       // need to add support for creating and adding a number of labs/ organizations
+       // format of passed in lab?
+       // for now assume there is only one organization/lab
+       Organization lab = new Organization(labs);
+       
+       // initialize a null string to store the projectID value
+       String projectID = "";
+       
+       System.out.println("creator"); 
+       System.out.println(creator); 
+       System.out.println("name");
+       System.out.println(name);
+       System.out.println("lab");
+       System.out.println(lab);
+       System.out.println("lead");
+       System.out.println(leadPerson);
+       System.out.println("projectBudget");
+       System.out.println(projectBudget);
+       System.out.println("grant");
+       System.out.println(grantObject);
+       System.out.println("description"); 
+       System.out.println(description);
+       
+      System.out.println("about to create the project");  
+      Project newProject = new Project(creator, name, descriptionString); 
+      projectID = createProjectInClotho(newProject);
+      System.out.println("project id is");
+      System.out.println(projectID);
+       
+      System.out.println("almost done"); 
+      System.out.println(projectID);
+      JSONObject result = new JSONObject();
+ 
+      
+      if(projectID != null){
+        result.put("success",1);
+        result.put("projectID", projectID);
+        System.out.println("successful");     
+      }else{
+        result.put("error",1);
+        System.out.println("not successful"); 
+      }
+      
+      PrintWriter writer = response.getWriter();
+      writer.println(result);
+      writer.flush();
+      writer.close();
+    }
+    
+    // separate method for opening a connection to clotho and saving the project
+    // in Clotho;
+    // returns the ID given to the project by the database
+    public String createProjectInClotho(Project newProject){
+      System.out.println("newProject in createProjectInClotho");
+      
+      ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+      Clotho clothoObject = new Clotho(conn); 
+      String username = "phagebook";
+      Map createUserMap = new HashMap();
+      createUserMap.put("username", username);
+      createUserMap.put("password", "password");
+      clothoObject.createUser(createUserMap);
+      Map loginMap = new HashMap();
+      loginMap.put("username", username);
+      loginMap.put("credentials", "password");
+      clothoObject.login(loginMap);
+
+      String projectID = ClothoAdaptor.createProject(newProject, clothoObject);
+
+      conn.closeConnection();
+      
+      return projectID;
     }
 
     /**

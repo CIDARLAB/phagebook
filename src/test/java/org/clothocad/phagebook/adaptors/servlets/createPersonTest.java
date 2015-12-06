@@ -42,12 +42,20 @@ public class createPersonTest {
     /**
      * Test of processRequest method, of class createPerson.
      */
-   
-
+    //@Test
+    public void testProcessRequest() throws Exception {
+        System.out.println("processRequest");
+        HttpServletRequest request = null;
+        HttpServletResponse response = null;
+        createPerson instance = new createPerson();
+        instance.processRequest(request, response);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
     /**
      * Test of doGet method, of class createPerson.
      */
-    @Test
+    //@Test
     public void testDoGet() throws Exception {
         
     }
@@ -55,7 +63,7 @@ public class createPersonTest {
     /**
      * Test of doPost method, of class createPerson.
      */
-    @Test
+    //@Test
     public void testDoPost() throws Exception {
         
     }
@@ -63,7 +71,7 @@ public class createPersonTest {
     /**
      * Test of getServletInfo method, of class createPerson.
      */
-    @Test
+    //@Test
     public void testGetServletInfo() {
        
     }
