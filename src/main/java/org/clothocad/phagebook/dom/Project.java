@@ -54,13 +54,7 @@ public class Project {
        this.notebooks = new ArrayList<Notebook>();
        this.affiliatedLabs = new ArrayList<Organization>();
        this.members = new ArrayList<Person>();
-<<<<<<< HEAD
-       System.out.println("created a new project?? 2");
-=======
-       //System.out.println("created a new project?? 2");
 
-       
->>>>>>> 0696d0f7aaa2edc0858bbc4540f2edbb24979583
    }
    
    

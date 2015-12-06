@@ -58,11 +58,13 @@ public class ClothoAdaptor {
     public static String createCompany(Company company, Clotho clothoObject)
     {
         String id = "";
+        
         Map map = new HashMap();
         map.put("schema", Company.class.getCanonicalName());
         if (company.getContact() != null && company.getContact() != ""){
             map.put("contact", company.getContact());
         }
+        map.put("schema", Company.class.getCanonicalName());
         if (company.getId() != null) {
             map.put("id", company.getId());
         }
@@ -412,10 +414,10 @@ public class ClothoAdaptor {
     {
         String id = "";
         Map map = new HashMap();
+
         map.put("schema", Person.class.getCanonicalName());
-       
-        if(person.getSalt() != null && person.getSalt() != "")
-        {
+
+       if(person.getSalt() != null && person.getSalt() != ""){
             map.put("salt", person.getSalt());
         }
          
@@ -535,7 +537,7 @@ public class ClothoAdaptor {
         
         
         map.put("activationString", person.getActivationString());
-       
+        
        
         String username = person.getEmailId()  ;
         String password = person.getPassword();
@@ -567,11 +569,12 @@ public class ClothoAdaptor {
     {
         String id = "";
         Map map = new HashMap();
-        
         map.put("schema", Product.class.getCanonicalName());
         map.put("cost",product.getCost());
         map.put("productURL", product.getProductURL());
         map.put("goodType", product.getGoodType().toString());
+        System.out.println(product.getGoodType().toString());
+        
         map.put("quantity", product.getQuantity());
         map.put("name", product.getName());
         map.put("description", product.getDescription());
@@ -1229,11 +1232,12 @@ public class ClothoAdaptor {
     // <editor-fold defaultstate="collapsed" desc="Map Methods">
     public static Company mapToCompany(Map map, Clotho clothoObject)
     {
-        //id is in the parameter
+        
+        
         String contact = "";
-        if (map.containsKey("contact"))
-        {
-             //contact = (String) map.get("contact");
+
+        if (map.containsKey("contact")){
+             contact = (String) map.get("contact");
         }
        
         String name = "";
@@ -1273,9 +1277,9 @@ public class ClothoAdaptor {
         savedCompany.setPhone(phone);
         savedCompany.setUrl(url);
         savedCompany.setId(id);
-        
                
         return savedCompany;
+        
     }
     public static Container mapToContainer(Map map, Clotho clothoObject)
     {
@@ -1521,6 +1525,7 @@ public class ClothoAdaptor {
              id = (String) map.get("id");;
         }
         
+        
         Order order = new Order(name);
       //  order.setProducts(products);
         order.setId(id);
@@ -1652,6 +1657,7 @@ public class ClothoAdaptor {
     public static Product mapToProduct(Map map, Clotho clothoObject)
     {
         String name = (String) map.get("name");
+        
         String description = (String) map.get("description");
         String productURL = (String) map.get("productURL");
         String companyId = (String) map.get("company");
@@ -1659,7 +1665,7 @@ public class ClothoAdaptor {
         if (companyId != null){
             company = getCompany(companyId, clothoObject);
         }
-        GoodType goodType = GoodType.valueOf((String) map.get("goodType"));
+        GoodType goodType = GoodType.valueOf( (String) map.get("goodType"));
         double cost = (Double) map.get("cost");
         int quantity = (int) map.get("quantity");
         
@@ -1671,10 +1677,9 @@ public class ClothoAdaptor {
         Product product = new Product(name, company, cost);
         product.setDescription(description);
         product.setProductURL(productURL);
+        product.setGoodType(goodType);
         product.setQuantity(quantity);
         product.setId(id);
-        
-        
         return product;
         
     }
@@ -1728,7 +1733,7 @@ public class ClothoAdaptor {
                 description = (String) map.get("description");
         }
         
-        Grant grant = new Grant();
+        Grant grant = new Grant("grant");
         if (map.containsKey("grant"))
         {
             String grantId = (String) map.get("grant");
