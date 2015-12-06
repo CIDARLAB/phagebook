@@ -471,13 +471,16 @@ public class ClothoAdaptor {
                 {
                     labs.add(institution.getId());
                     //iterate through the roles in the Set
-                    Iterator<PersonRole> it = person.getRole(institution).iterator();
-                    roles = new JSONArray();
-                    while(it.hasNext())
+                    if (person.getRole(institution) != null)
                     {
-                        roles.add(it.next().toString());
+                        Iterator<PersonRole> it = person.getRole(institution).iterator();
+                        roles = new JSONArray();
+                        while(it.hasNext())
+                        {
+                            roles.add(it.next().toString());
+                        }
+                        rolesMap.put(institution.getId(), roles);
                     }
-                    rolesMap.put(institution.getId(), roles);
 
                 }
                 map.put("labs", labs);
@@ -1732,7 +1735,7 @@ public class ClothoAdaptor {
         {
                 description = (String) map.get("description");
         }
-        
+
         Grant grant = new Grant("grant");
         if (map.containsKey("grant"))
         {
@@ -1798,7 +1801,6 @@ public class ClothoAdaptor {
                 updates.add(getStatus(updateIds.getString(i) , clothoObject));
             }
         }
-        
         Project project = new Project(creator,name,description);
         
             

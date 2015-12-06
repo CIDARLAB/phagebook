@@ -16,13 +16,11 @@ import static org.junit.Assert.*;
  *
  * @author anna_g
  */
-public class authTest {
+public class AuthTest {
    
   @BeforeClass
   public static void setUpClass() {
-    
-    
-    
+
   }
 
   @AfterClass

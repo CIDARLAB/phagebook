@@ -216,11 +216,11 @@ public class OrderController {
     public static double getTotalPrice(Order order) {
         double total = 0.0;
 
-        for (Product product : order.getProducts()) {
+        /*for (Product product : order.getProducts()) {
             total = +product.getCost();
-        }
+        }*/
 
-        return total;
+        return 0;
     }
 
     //inputs: order and list of enums
@@ -230,7 +230,7 @@ public class OrderController {
         String orderString;
         int count = 1;
 
-        for (Product product : order.getProducts()) {
+        /*for (Product product : order.getProducts()) {
             orderString = "";
 
             for (OrderColumns clist1 : ColumnList) {
@@ -275,8 +275,8 @@ public class OrderController {
                 }
             }
             orders.add(orderString);
-        }
-        return orders;
+        }*/
+        return null;
     }
 
 }
