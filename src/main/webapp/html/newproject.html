@@ -21,13 +21,18 @@
 
 <body>
 
-<div>
+<div ng-module="clothoRoot">
     <div class="container">
         <div clotho-command-bar></div>
     </div>
+    <terminal-aside></terminal-aside>
 </div>
+    
+<div ng-module="projectsApp">
+<div ng-contorller="projectsController">
+<phagebook-sidebar></phagebook-sidebar>
+<div class="container-fluid" id="newProject">
 
-<div class="container-fluid" ng-module="projectsApp" ng-controller="projectsController">
   <form name="submitProject" class="form-horizontal" role="form"> 
     
     <h3 class="projectFormTitle">New Project</h3>  
@@ -90,10 +95,12 @@
         <button type="submit" ng-click="saveData()" class="btn btn-success">Create</button>
     </div>  
   </form>
+
+</div>
+<br> <br>
 <footer></footer>
 </div>
-
-
+</div>
 
 
 <!---SCRIPTS-->
@@ -113,6 +120,5 @@
 <script src="../scripts/searchBarDirective.js"></script>
 <script src="../scripts/projectController.js"></script>
 <script src='../scripts/clotho/68a2b2df.clotho-command-module.js'></script>
-<script src="../scripts/angular.ng-modules.js"></script>
-<script src="../scripts/projectTabsApp.js"></script>
+<script src="../scripts/projectsApp.js"></script>
 </body>
