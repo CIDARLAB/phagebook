@@ -9,6 +9,8 @@ function profileCtrl($scope, $modal){
         },
         success: function (response) {
             var responseAsJSON = JSON.parse(response);
+            $scope.personID = responseAsJSON['loggedUserId'];
+            sessionStorage.setItem("loggedUserId", responseAsJSON['loggedUserId']);
             $scope.displayName = responseAsJSON['fullname'];
             $scope.pictureName = responseAsJSON["fullname"];
             $scope.statuses = responseAsJSON["statusList"];
@@ -20,7 +22,7 @@ function profileCtrl($scope, $modal){
     });
     });
 
-    $scope.personID = sessionStorage.getItem("uniqueid");
+
 
 /*0: "26205025"
  1: "23651287"

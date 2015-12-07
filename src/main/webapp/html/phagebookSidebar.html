@@ -1,23 +1,22 @@
 <div>
-    <div class="col-md-3" id="sidebar">
+    <div class="col-md-3 col-lg-3 col-sm-3" id="sidebar">
         <img src="../images/people/Great_white_shark_south_africa.jpg" alt="{{currentUser.pictureName}}'s profile picture" class="img-rounded">
         <div>
-            <h3 style="text-align: center"><strong> {{ currentUser.displayName }} </strong></h3>
+            <h3 style="text-align: center"><strong> {{currentUser.fullname}} </strong></h3>
         </div>
-        <h4>Navigation</h4>
+        <h3>Navigation</h3>
         <ul style="font-size: medium"> 
             <li>
-                <button class="btn btn-default" type="button">Profile</button>
+                <button class="btn btn-default" type="button"><a href="../html/profile.html">Profile</a></button>
             </li>
             <br> <br> 
             <li>
                 <div class="dropdown">
                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Profile Links
+                    Project Links
                     <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownProfile">
-                        <li><a href="../html/submitProject.html">Submit Project</a></li>
                         <li><a href="../html/displayProjects.html">Display Project</a></li>
                         <li><a href="../html/newproject.html">New Project</a></li>
                     </ul>
@@ -33,7 +32,6 @@
                     <ul class="dropdown-menu" aria-labelledby="dropdownOrdering">
                         <li><a href="../html/orderingSettings.html">Ordering Settings</a></li>
                         <li><a href="../html/ordering.html">Ordering Portal</a></li>
-                        <li><a href="../html/newOrder.html">New Order</a></li>
                     </ul>
                 </div>
             </li>

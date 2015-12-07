@@ -88,6 +88,7 @@ public class getPersonById extends HttpServlet {
         //get position? role?? we will look into this
         retrievedAsJSON.put("firstName", retrieve.getFirstName());
         retrievedAsJSON.put("lastName", retrieve.getLastName());
+        retrievedAsJSON.put("loggedUserId", retrieve.getId());
         
         JSONObject statusList = new JSONObject();
         if (retrieve.getStatuses() != null){

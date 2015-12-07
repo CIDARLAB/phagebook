@@ -2,7 +2,7 @@ function projectController($scope, $http){
 console.log("loaded");
 
   $scope.greeting = 'Hello!';
-  $scope.personId = sessionStorage.getItem("uniqueid");
+  $scope.personId = sessionStorage.getItem("loggedUserId");//retrieves the user id from session storage
 
   // form data object -- here are the results from the form are stored
   $scope.formData = {};
