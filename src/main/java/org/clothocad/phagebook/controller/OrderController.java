@@ -235,7 +235,8 @@ public class OrderController {
         System.out.println("HERE IN ORDERFORM");
         int count = 1;               
         Iterator it = order.getProducts().entrySet().iterator();   
-        System.out.println("after the it");
+        System.out.println("column list " + ColumnList.toString());
+        
         while (it.hasNext()) {
             System.out.println("inside the while");
             Map.Entry pair = (Map.Entry)it.next();

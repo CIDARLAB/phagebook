@@ -54,10 +54,12 @@ public class SelectColumns extends HttpServlet{
        if ((id!=null) && (!id.equals("")))
        {    
             System.out.println("ID is not null");
-            List<OrderColumns> orderColumns = new ArrayList<OrderColumns>();
-            System.out.println("Serial Number "+request.getParameter("serialNumber"));
-            System.out.println("Product Name :: "+request.getParameter("productName"));
-            if("true".equals(request.getParameter("serialNumber"))){
+            List<OrderColumns> orderColumns = new ArrayList<>();
+            System.out.println("Serial Number " + request.getParameter("serialNumber"));
+            System.out.println("Product Name :: " +request.getParameter("productName"));
+            if("true".equals(request.getParameter("serialNumber")))
+                
+            {
                 orderColumns.add(OrderColumns.SERIAL_NUMBER);
             }
             
@@ -124,7 +126,8 @@ public class SelectColumns extends HttpServlet{
             File file = new File(filepathOrderForm);
             
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-            for(String line:orderFormLines){
+            for(String line : orderFormLines)
+            {
                 writer.write(line);
                 writer.newLine();
             }
