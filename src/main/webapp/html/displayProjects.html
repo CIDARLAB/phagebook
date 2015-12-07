@@ -15,10 +15,9 @@
     <script src="../scripts/lodash.js"></script>
     <script src="../scripts/displayProjectController.js"></script>
     <script src="../scripts/ordering.js"></script>
-
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
 
 <body ng-module="projectsApp">
 
@@ -27,7 +26,15 @@
         <div clotho-command-bar></div>
     </div>
 </div>
-        <div ng-app="tabsApp" ng-controller="tabsController" data-ng-init="getcookie()">
+    <div ng-app="tabsApp" ng-controller="tabsController">
+<phagebook-sidebar user="currentUser"></phagebook-sidebar>
+<div class = "row">
+    <div class="col-md-2"></div>
+                
+                <div class="col-md-10">
+
+        <div data-ng-init="getcookie()">
+
                     <div class="container-fluid" id="projects">
                         <div class="row">
                             <div class="col-md-12" id="projectName">
@@ -91,11 +98,13 @@
                     This is content under Tab 5
                 </div>
             </div>
+           
         </div>
+                                
     </div>
 </div>
-
-
+ <footer></footer>
+    </div>
 
 <!---SCRIPTS-->
 
@@ -107,8 +116,12 @@
 <script type='text/javascript' src="../scripts/clotho/c2a11f43.clotho-foundation-module.js"></script>
 <script src="../scripts/clotho/clotho3API.js"></script>
 <script src="../scripts/displayProjectController.js"></script>
+<script src="../scripts/footerDirective.js"></script>
+<script src="../scripts/sidebarDirective.js"></script>
+<script src="../scripts/searchBarDirective.js"></script>
+<script src="../scripts/projectController.js"></script>
 <script src='../scripts/clotho/68a2b2df.clotho-command-module.js'></script>
 <script src="../scripts/angular.ng-modules.js"></script>
-
+<script src="../scripts/projecstApp.js"></script>
 </body>
 </html>

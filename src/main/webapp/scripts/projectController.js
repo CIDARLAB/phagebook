@@ -2,11 +2,7 @@
 
 console.log("loaded");
 
-
-var projectsApp = angular.module('projectsApp',['clothoRoot']);
-
-console.log(projectsApp);
-projectsApp.controller('projectsController',['$scope', '$http', function($scope, $http ,Clotho){
+function projectsController($scope, $http){
 
   $scope.greeting = 'Hello!';
   $scope.personId = sessionStorage.getItem("uniqueid");
@@ -101,5 +97,5 @@ projectsApp.controller('projectsController',['$scope', '$http', function($scope,
   
   };
 
-}]);
 
+};

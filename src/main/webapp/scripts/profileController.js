@@ -1,30 +1,33 @@
 function profileCtrl($scope, $modal){
-    $scope.personObj = {};
-    $scope.personID = sessionStorage.getItem("uniqueid");
-    
-    Clotho.login(sessionStorage.getItem("username"),sessionStorage.getItem("password")).then(function(result) {
-        Clotho.get(result.id).then(function(person){
-            $scope.personObj = person;
-            $scope.currentUser = person;//links the sidebar to the person who is logged in
-            $scope.personID = result.id;
-            $scope.displayName = person.fullname;
-            $scope.pictureName = person.givenname + person.surname;//will need to change based on where pictures go
-            $scope.statuses = person['statusList'];
+    $("document").ready(function () {
+    $.ajax({
+        url: 'getPersonById',
+        type: 'GET',
+        async: false,
+        data: {
+            "userId": getParameterByName("user")
+        },
+        success: function (response) {
+            var responseAsJSON = JSON.parse(response);
+            $scope.displayName = responseAsJSON['fullname'];
+            $scope.pictureName = responseAsJSON["fullname"];
+            $scope.statuses = responseAsJSON["statusList"];
+            $scope.publications = responseAsJSON["publicationList"];
+        },
+        error: {
+        }
 
-            pubmed.getCitationsFromIds(person.pubmedIdList).then(function(result){
-                console.log(JSON.stringify(result));
-                $scope.publications = result;
-                $scope.$apply();
-            });
-            $scope.$apply();
+    });
+    });
+
+    $scope.personID = sessionStorage.getItem("uniqueid");
+
 /*0: "26205025"
  1: "23651287"
  2: "3084710"
  3: "3317443"
  the numbers above are pubmedIDs that are Doug's publications used for testing purposes*/
-        });
-    });
-
+   
     $scope.editInfo = function(){
         //this function just turns the boxes into editable text boxes
         $scope.editBool = true;
@@ -149,4 +152,12 @@ function profileWindowController($scope, $modalInstance){
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
     };
+}
+
+function getParameterByName(name) 
+{
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }

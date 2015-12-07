@@ -40,6 +40,10 @@
         <servlet-name>createOrderWithIdArray</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.createOrderWithIdArray</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>getPersonById</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.getPersonById</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>inputProduct</servlet-name>
         <url-pattern>/inputProduct</url-pattern>
@@ -82,16 +86,14 @@
         <servlet-name>newOrder</servlet-name>
         <url-pattern>/newOrder</url-pattern>
     </servlet-mapping>
-  <servlet>
+    <servlet>
         <servlet-name>getProject</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.getProject</servlet-class>
     </servlet>
-   
     <servlet-mapping>
         <servlet-name>getProject</servlet-name>
         <url-pattern>/getProject</url-pattern>
     </servlet-mapping>
-
     <servlet>
         <servlet-name>createPerson</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.createPerson</servlet-class>
@@ -135,5 +137,9 @@
     <servlet-mapping>
         <servlet-name>createOrderWithIdArray</servlet-name>
         <url-pattern>/createOrderWithIdArray</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getPersonById</servlet-name>
+        <url-pattern>/getPersonById</url-pattern>
     </servlet-mapping>
 </web-app>

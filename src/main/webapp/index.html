@@ -167,34 +167,28 @@ SCRIPTS
 --------->
 <script>
     $("#login").click(function () {
-        Clotho.login(document.getElementById("returnEmail").value, document.getElementById("returnPassword").value).then(function (result) {
-            if (result == null) {
-                alert("Login unsuccessful");
-            }
-            else {
                 $.ajax({
                     url: "loginUser",
                     type: "POST",
                     async: false,
                     data: {
-                        "id": result.id,
-                        "email": document.getElementById("returnEmail").value
+                        "email": document.getElementById("returnEmail").value,
+                        "password": document.getElementById("returnPassword").value
                     },
                     success: function (response) {
-                        alert(response);
-                        sessionStorage.setItem("uniqueid", loginResult.id);
-                        sessionStorage.setItem("username", document.getElementById("email").value);
+                        //alert(response);
+                        alert("Got Some Response" + response);
+                        sessionStorage.setItem("username", document.getElementById("returnEmail").value);
                         sessionStorage.setItem("password", document.getElementById("password").value);
 
-                        window.location.href = './html/profile.html';
+                        window.location.href = './html/profile.html?user=' + response;
                     },
                     error: function () {
                         alert("some sort of error occurred");
                     }
                 });
             }
-        });
-    });
+    );
 
     $("#addPerson").click(function () {
         //should create a person and send an email verification
@@ -222,9 +216,9 @@ SCRIPTS
                     },
                     success: function (response) {
                         alert(response);
-                        /*sessionStorage.setItem("uniqueid", loginResult.id);
+                       // sessionStorage.setItem("uniqueid", loginResult.id);
                         sessionStorage.setItem("username", document.getElementById("email").value);
-                        sessionStorage.setItem("password", document.getElementById("password").value);*/
+                        //sessionStorage.setItem("password", document.getElementById("password").value);
 
                         window.location.href = './html/validateEmail.html';
                     },
