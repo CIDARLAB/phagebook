@@ -66,7 +66,8 @@ console.log("loaded");
     projectBudget: $scope.formData.projectBudget,
     grant: $scope.formData.grant,
     description: $scope.formData.description,
-    date: $scope.formData.date
+    date: $scope.formData.date,
+    id: $scope.personId
    };
    //dataSubmit = JSON.stringify(dataSubmit);
    console.log(dataSubmit);

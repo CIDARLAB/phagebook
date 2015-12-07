@@ -142,11 +142,15 @@ public class processProject extends HttpServlet {
        System.out.println("date is");
        System.out.println(date);
 
+       ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+       Clotho clothoObject = new Clotho(conn);
+       String userId = request.getParameter("id");
+       Person creator = ClothoAdaptor.getPerson(userId, clothoObject); 
        // a sample user
-       Person creator = new Person();
-       creator.setFirstName("Anna");
-       creator.setEmailId("abcdejkhf@gmail.com");
-       creator.setPassword("12345786678");;
+//       Person creator = new Person();
+//       creator.setFirstName("Anna");
+//       creator.setEmailId("abcdejkhf@gmail.com");
+//       creator.setPassword("12345786678");;
           
        // create a lead object using the name from the form\
        // set the lea's name to name from the form
@@ -180,26 +184,23 @@ public class processProject extends HttpServlet {
        System.out.println(grantObject);
        System.out.println("description"); 
        System.out.println(description);
-       
-       
-      ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
-      Clotho clothoObject = new Clotho(conn);
       
-      System.out.println("about to create the creator");
-      String creatorID = ClothoAdaptor.createPerson(creator, clothoObject);    
+//      System.out.println("about to create the creator");
+//      String creatorID = ClothoAdaptor.createPerson(creator, clothoObject);    
 
-      String username = "phagebook";
-      Map createUserMap = new HashMap();
-      createUserMap.put("username", username);
-      createUserMap.put("password", "password");
-      clothoObject.createUser(createUserMap);
+      String username = creator.getEmailId();
+      String password = creator.getPassword();
+//      Map createUserMap = new HashMap();
+//      createUserMap.put("username", username);
+//      createUserMap.put("password", password);
+//      clothoObject.createUser(createUserMap);
       Map loginMap = new HashMap();
       loginMap.put("username", username);
-      loginMap.put("credentials", "password");
+      loginMap.put("credentials", password);
       clothoObject.login(loginMap);
        
 
-      creator = ClothoAdaptor.getPerson(creatorID, clothoObject);
+//      creator = ClothoAdaptor.getPerson(creatorID, clothoObject);
       
       System.out.println("about to create the project");
 
@@ -211,8 +212,8 @@ public class processProject extends HttpServlet {
 
       System.out.println("project id is");
       System.out.println(projectID);
-      System.out.println("creator id is");
-      System.out.println(creatorID);
+//      System.out.println("creator id is");
+//      System.out.println(creatorID);
 
       JSONObject result = new JSONObject();
  
