@@ -235,8 +235,9 @@ public class OrderController {
         System.out.println("HERE IN ORDERFORM");
         int count = 1;               
         Iterator it = order.getProducts().entrySet().iterator();   
-        
+        System.out.println("after the it");
         while (it.hasNext()) {
+            System.out.println("inside the while");
             Map.Entry pair = (Map.Entry)it.next();
             orderString = "";
             Product product = (Product) pair.getKey();
@@ -282,6 +283,8 @@ public class OrderController {
                 }
             }
             orders.add(orderString);
+            System.out.println(orders);
+            it.remove();
         }
         System.out.println(orders);
         return orders;
