@@ -1,8 +1,5 @@
-'use strict';
-
-console.log("loaded");
-
 function projectsController($scope, $http){
+console.log("loaded");
 
   $scope.greeting = 'Hello!';
   $scope.personId = sessionStorage.getItem("uniqueid");
