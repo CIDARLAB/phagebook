@@ -1,7 +1,3 @@
-/**
- * Created by KatieLewis on 12/5/15.
- */
-
 function tabsController($scope) {
     $scope.personId = sessionStorage.getItem("uniqueid");    
     $scope.projectName = '';
@@ -79,6 +75,6 @@ function tabsController($scope) {
         }
     };
 
-};
+}
 
 

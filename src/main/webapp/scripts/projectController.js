@@ -1,4 +1,4 @@
-function projectsController($scope, $http){
+function projectController($scope, $http){
 console.log("loaded");
 
   $scope.greeting = 'Hello!';
