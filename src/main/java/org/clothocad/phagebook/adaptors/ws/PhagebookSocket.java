@@ -111,28 +111,10 @@ public class PhagebookSocket
             switch (getChannel((String) messageObject.get("channel"))) {
                 case createStatus:
                     Map map = new HashMap();
-                    //Get data from incoming message JSON
                     map = (HashMap) messageObject.get("data");
-                    //Get username and password from data JSON
-                    //String username = (String) map.get("username");
-                    //String password = (String) map.get("password");
-                    //Create new Clotho connection and Clotho object
                     System.out.println(map);
                     ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
                     Clotho clothoObject = new Clotho(conn);
-                    //Create a map for user's username and password
-//                    Map createUserMap = new HashMap();
-//                    createUserMap.put("username", username);
-//                    createUserMap.put("password", password);
-//
-//                    // Create user in Clotho
-//                    clothoObject.createUser(createUserMap);
-//                    //Create login map
-//                    Map loginMap = new HashMap();
-//                    loginMap.put("username", username);
-//                    loginMap.put("credentials", password);
-//                    //Login with person's credentials
-//                    clothoObject.login(loginMap);
 
                     //Get person id from data object -- need to use it somewhere
                     String userID = (String) map.get("personID");
@@ -178,9 +160,13 @@ public class PhagebookSocket
                     Map dataMap = new HashMap();
                     //Get data from message
                     dataMap = (HashMap) messageObject.get("data");
+                    System.out.println("dataMap :: " + dataMap);
                     //Get username and password from data map
                     String username1 = (String) dataMap.get("username");
                     String password1 = (String) dataMap.get("password");
+                    
+                    System.out.println(username1);
+                    System.out.println(password1);
                     //Start new Clotho connection and create Clotho object
                     ClothoConnection connect = new ClothoConnection(Args.clothoLocation);
                     Clotho clothoObject1 = new Clotho(connect);
