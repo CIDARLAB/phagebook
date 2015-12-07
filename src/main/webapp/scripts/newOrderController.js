@@ -1,6 +1,4 @@
-var newOrderModule = angular.module('newOrderApp', ['clothoRoot', 'ui.bootstrap.tpls', 'ui.bootstrap.modal']);
-
-newOrderModule.controller('newOrderController',function($scope, Clotho, $modal){
+function newOrderController($scope){
     $scope.createOrder = function(){
        console.log($scope.orderName +" :: "+ $scope.orderDescription);
 
@@ -21,5 +19,5 @@ newOrderModule.controller('newOrderController',function($scope, Clotho, $modal){
             }
         });
     };
-})
+}
 

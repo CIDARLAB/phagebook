@@ -1,5 +1,6 @@
 angular
-        .module('orderingApp', ['clothoRoot', 'ui.bootstrap.tpls', 'ui.bootstrap.modal'])
+        .module('orderingApp', ['clothoRoot', 'ui.bootstrap'])
+        .controller('orderingCtrl', orderingCtrl)
         .controller('newOrderController', newOrderController)
         .controller('orderingSettingsController', orderingSettingsController)
         .directive('phagebookSidebar', phagebookSidebar)
