@@ -122,7 +122,7 @@ public class getPersonById extends HttpServlet {
         retrievedAsJSON.put("labList", labList);
         
         PrintWriter out = response.getWriter();
-        out.print(retrievedAsJSON.toString());
+        out.print(retrievedAsJSON);
         out.flush();
         out.close();
         

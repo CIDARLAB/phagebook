@@ -8,10 +8,11 @@ function profileCtrl($scope, $modal){
             "userId": getParameterByName("user")
         },
         success: function (response) {
-            $scope.displayName = response["fullname"];
-            $scope.pictureName = response["fullname"];
-            $scope.statuses = response["statusList"];
-            $scope.publications = response["publicationList"];
+            var responseAsJSON = JSON.parse(response);
+            $scope.displayName = responseAsJSON['fullname'];
+            $scope.pictureName = responseAsJSON["fullname"];
+            $scope.statuses = responseAsJSON["statusList"];
+            $scope.publications = responseAsJSON["publicationList"];
         },
         error: {
         }

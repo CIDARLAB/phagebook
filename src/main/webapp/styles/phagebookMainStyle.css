@@ -379,8 +379,7 @@ a{
     margin-left: 38.8px;
     position: relative;
  }
-
- #teamPage img{
+#teamPage img{
      width: 250px;
      height: 250px;
      object-fit: cover;
@@ -408,6 +407,6 @@ a{
     text-align: center;
 }
 
-#sidebar .btn-default {
-    
+#quantity{
+     width: 60px;
 }

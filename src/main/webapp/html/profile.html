@@ -41,7 +41,7 @@
 
         <div class="col-md-6 user-wrapper">
             <div class="description" id="profileInfo">
-                <h3><strong> About Me </strong>
+                <h3><strong> About {{ displayName }} </strong>
                     <button class="btn btn-default" ng-click="editInfo()" ng-show="!editBool"> <span class="glyphicon glyphicon-pencil"></span> Edit profile</button>
                     <button class="btn btn-default" ng-click="save()" ng-show="editBool"> <span class="glyphicon glyphicon-save"></span> Save</button>
                     <button class="btn btn-default" ng-click="cancel()" ng-show="editBool"> <span class="glyphicon glyphicon-erase"></span> Cancel</button></h3>

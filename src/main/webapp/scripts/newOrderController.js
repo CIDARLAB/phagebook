@@ -1,3 +1,4 @@
+
 function newOrderController($scope){
     $scope.createOrder = function(){
        console.log($scope.orderName +" :: "+ $scope.orderDescription);
@@ -13,11 +14,15 @@ function newOrderController($scope){
             },
             success: function (response) {
                 alert(response);
+                
+                window.location.href = '/html/addProducts.html';
             },
             error: function () {
                 alert("ERROR!!");
             }
         });
+
     };
 }
+
 
