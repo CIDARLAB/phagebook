@@ -19,7 +19,7 @@
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
-<body ng-module="projectsApp">
+<body>
 
 <div>
     <div class="container">
@@ -27,8 +27,8 @@
     </div>
 </div>
 
-<div class="container-fluid">
-  <form name="submitProject" sclass="form-horizontal" role="form" ng-controller="projectsController"> 
+<div class="container-fluid" ng-module="projectsApp" ng-controller="projectsController">
+  <form name="submitProject" class="form-horizontal" role="form"> 
     
     <h3 class="projectFormTitle">New Project</h3>  
     <div class="form-group">    <!-- String name -->
@@ -88,16 +88,12 @@
 
     <div class="form-group">
         <button type="submit" ng-click="saveData()" class="btn btn-success">Create</button>
-    </div>
-
+    </div>  
   </form>
+<footer></footer>
 </div>
 
-<div class="modal-footer">
-    Created by <a href="http://www.cidarlab.org" target="_blank">CIDAR at Boston University</a><br>
-    Built by <a href="mailto:azulad7@bu.edu">Allison Z. Durkan</a><br>
-    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
-</div>
+
 
 
 <!---SCRIPTS-->
@@ -106,10 +102,17 @@
 <script src="../scripts/clotho/c0f113c2.clotho-core-module.js"></script>
 <!--note - remove all scripts below this for api-only build-->
 <script type='text/javascript' src="../scripts/clotho/b18fc8c8.clotho-app-command.js"></script>
-<script type='text/javascript' vsrc="../scripts/clotho/c0f113c2.clotho-core-module.js"></script>
+<script type='text/javascript' src="../scripts/clotho/c0f113c2.clotho-core-module.js"></script>
 <script type='text/javascript' src="../scripts/clotho/c2a11f43.clotho-foundation-module.js"></script>
 <script src="../scripts/clotho/clotho3API.js"></script>
 <script src='../scripts/clotho/68a2b2df.clotho-command-module.js'></script>
 <script src="../scripts/angular.ng-modules.js"></script>
-
+<script src="../scripts/displayProjectController.js"></script>
+<script src="../scripts/footerDirective.js"></script>
+<script src="../scripts/sidebarDirective.js"></script>
+<script src="../scripts/searchBarDirective.js"></script>
+<script src="../scripts/projectController.js"></script>
+<script src='../scripts/clotho/68a2b2df.clotho-command-module.js'></script>
+<script src="../scripts/angular.ng-modules.js"></script>
+<script src="../scripts/projectTabsApp.js"></script>
 </body>

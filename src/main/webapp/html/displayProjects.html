@@ -27,14 +27,14 @@
         <div clotho-command-bar></div>
     </div>
 </div>
-
+    <div ng-app="tabsApp" ng-controller="tabsController">
 <phagebook-sidebar user="currentUser"></phagebook-sidebar>
 <div class = "row">
     <div class="col-md-2"></div>
                 
                 <div class="col-md-10">
 
-        <div ng-app="tabsApp" ng-controller="tabsController" data-ng-init="getcookie()">
+        <div data-ng-init="getcookie()">
 
                     <div class="container-fluid" id="projects">
                         <div class="row">
@@ -99,13 +99,13 @@
                     This is content under Tab 5
                 </div>
             </div>
-            <footer></footer>
+           
         </div>
                                 
     </div>
 </div>
-
-
+ <footer></footer>
+    </div>
 
 <!---SCRIPTS-->
 
@@ -123,6 +123,6 @@
 <script src="../scripts/projectController.js"></script>
 <script src='../scripts/clotho/68a2b2df.clotho-command-module.js'></script>
 <script src="../scripts/angular.ng-modules.js"></script>
-<script src="../scripts/projectApp.js"></script>
+<script src="../scripts/projecstApp.js"></script>
 </body>
 </html>
