@@ -18,16 +18,18 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
 
 
-<body ng-app="myApp">
+<body>
 <div ng-module="clothoRoot">
     <div class="container">
         <div clotho-command-bar></div>
     </div>
     <terminal-aside></terminal-aside>
 </div>
-<div  ng-module="projectsApp">
+    
+<div ng-module="projectsApp">
+    <div ng-controller="projectsController">
     <phagebook-sidebar></phagebook-sidebar>    
-<div class="container-fluid">
+<div class="container-fluid" id="submitProjectPage">
 
     <!--  <div class="text-center col-md-6">
 
@@ -76,7 +78,7 @@
 <br> <br>
 <footer></footer>
 </div>
-
+</div>
 
 <!---SCRIPTS-->
 

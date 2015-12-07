@@ -18,7 +18,6 @@
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
 
-</head>
 <body>
 <div ng-module="clothoRoot">
     <div class="container">
@@ -26,12 +25,13 @@
     </div>
     <terminal-aside></terminal-aside>
 </div>
+    
 <div ng-module="orderingApp">
-    <div ng-controller="orderingCtrl">
-        <phagebook-sidebar></phagebook-sidebar>
+<div ng-controller="newOrderController">
+<phagebook-sidebar></phagebook-sidebar>
 <div class="container-fluid" id="ordering">
 
-
+    <div class="row">
             <div class = "mainContent">
                 <div id="container">
                     <div id="orderingButtons">
@@ -84,6 +84,7 @@
             </div>
         <!--</div>
     </div>-->
+</div>
 </div>
         <footer></footer>
 </div>

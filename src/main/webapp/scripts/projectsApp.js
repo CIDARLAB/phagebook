@@ -1,5 +1,5 @@
 angular
-        .module('projectsApp', ['clothoRoot','ui.bootstrap'])
+        .module('projectsApp', ['ui.bootstrap'])
         .controller('tabsController', tabsController)
         .controller('projectsController', projectsController)
         .directive('phagebookSidebar', phagebookSidebar)
