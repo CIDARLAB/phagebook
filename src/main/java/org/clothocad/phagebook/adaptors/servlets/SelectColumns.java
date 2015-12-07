@@ -51,6 +51,7 @@ public class SelectColumns extends HttpServlet{
     */
        System.out.println("Reached doPost");
        String id = request.getParameter("orderId");
+       System.out.println(id);
        if ((id!=null) && (!id.equals("")))
        {    
             System.out.println("ID is not null");
@@ -116,6 +117,7 @@ public class SelectColumns extends HttpServlet{
             Order order = ClothoAdaptor.getOrder(id, clothoObject);
             System.out.println("HERE AT SELECT 2");
             List<String> orderFormLines = createOrderForm(order,orderColumns);
+            System.out.println(orderFormLines);
             
             String filepath = SelectColumns.class.getClassLoader().getResource(".").getPath();
             System.out.println("File path ::" + filepath);

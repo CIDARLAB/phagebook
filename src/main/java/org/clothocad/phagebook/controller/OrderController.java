@@ -216,11 +216,11 @@ public class OrderController {
 
     public static double getTotalPrice(Order order) {
         double total = 0.0;
+
         Iterator it = order.getProducts().entrySet().iterator();    
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry)it.next();
             Product product = (Product) pair.getKey();
-
             total = +product.getCost();
         }
 
@@ -235,10 +235,8 @@ public class OrderController {
         System.out.println("HERE IN ORDERFORM");
         int count = 1;               
         Iterator it = order.getProducts().entrySet().iterator();   
-        System.out.println("column list " + ColumnList.toString());
         
         while (it.hasNext()) {
-            System.out.println("inside the while");
             Map.Entry pair = (Map.Entry)it.next();
             orderString = "";
             Product product = (Product) pair.getKey();
@@ -284,7 +282,6 @@ public class OrderController {
                 }
             }
             orders.add(orderString);
-            System.out.println(orders);
             it.remove();
         }
         System.out.println(orders);

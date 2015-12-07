@@ -7,6 +7,7 @@ SelectColumnsModule.controller('SelectColumnsController',function($scope, Clotho
                +" :: "+$scope.companyName+" :: "+$scope.companyId+" :: "+$scope.companyUrl
                +" :: "+$scope.companyDescription+" :: "+$scope.companyContact+" :: "+$scope.companyPhone
                +" :: "+$scope.unitPrice+" :: "+$scope.totalPrice);
+       
         $.ajax({
             url: "SelectColumns",
             type: "POST",
