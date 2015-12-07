@@ -1543,7 +1543,7 @@ public class ClothoAdaptor {
         
         
         Order order = new Order(name);
-      //  order.setProducts(products);
+        order.setProducts(products);
         order.setId(id);
         
         

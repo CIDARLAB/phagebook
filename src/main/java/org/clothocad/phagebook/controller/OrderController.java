@@ -233,7 +233,8 @@ public class OrderController {
         List<String> orders = new ArrayList<String>();
         String orderString;
         System.out.println("HERE IN ORDERFORM");
-        int count = 1;               
+        int count = 1;       
+        System.out.println("The products= " + order.getProducts().toString());
         Iterator it = order.getProducts().entrySet().iterator();   
         
         while (it.hasNext()) {
