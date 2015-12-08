@@ -7,8 +7,8 @@ function phagebookSidebar(){
             user: '='
         },
         controller: function($scope, $element){
+            
             //put code here if want the code to run before compilation
-            //log the user in? pass the person object in?
             //ajax call to servlet which will have the person info
         },
         link: function(scope, elem, attr){

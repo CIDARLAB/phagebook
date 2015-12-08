@@ -21,7 +21,6 @@
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.resendVerification</servlet-class>
     </servlet>
     <servlet>
-
         <servlet-name>loginUser</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.loginUser</servlet-class>
     </servlet>
@@ -40,11 +39,22 @@
     <servlet>
         <servlet-name>createOrderWithIdArray</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.createOrderWithIdArray</servlet-class>
-
+    </servlet>
+    <servlet>
+        <servlet-name>getPersonById</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.getPersonById</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>inputProduct</servlet-name>
         <url-pattern>/inputProduct</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>addProducts</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.AddProducts</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>addProducts</servlet-name>
+        <url-pattern>/addProducts</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>inputCompany</servlet-name>
@@ -58,9 +68,31 @@
         <servlet-name>newOrder</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.newOrder</servlet-class>
     </servlet>
+    
+    
+    
+   <servlet>
+        <servlet-name>SelectColumns</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.SelectColumns</servlet-class>
+    </servlet>
+   <servlet-mapping>
+        <servlet-name>SelectColumns</servlet-name>
+        <url-pattern>/SelectColumns</url-pattern>
+    </servlet-mapping>
+
+    
+    
     <servlet-mapping>
         <servlet-name>newOrder</servlet-name>
         <url-pattern>/newOrder</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>getProject</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.getProject</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>getProject</servlet-name>
+        <url-pattern>/getProject</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>createPerson</servlet-name>
@@ -87,7 +119,6 @@
         <url-pattern>/resendVerification</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-
         <servlet-name>loginUser</servlet-name>
         <url-pattern>/loginUser</url-pattern>
     </servlet-mapping>
@@ -106,6 +137,9 @@
     <servlet-mapping>
         <servlet-name>createOrderWithIdArray</servlet-name>
         <url-pattern>/createOrderWithIdArray</url-pattern>
-
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getPersonById</servlet-name>
+        <url-pattern>/getPersonById</url-pattern>
     </servlet-mapping>
 </web-app>

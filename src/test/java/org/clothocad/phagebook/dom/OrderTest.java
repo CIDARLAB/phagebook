@@ -44,10 +44,6 @@ public class OrderTest {
      */
     @Test
     public void testCreateOrder() {
-        Order o = new Order("Order 1");
-        Company amazon = new Company("Amazon");
-        Product p = new Product("Microscope",amazon,90);
-        o.getProducts().add(p);
     
     }
 
@@ -57,12 +53,6 @@ public class OrderTest {
     
     //@org.junit.Test
     public void testSetProducts() {
-        System.out.println("setProducts");
-        List<Product> products = null;
-        Order instance = null;
-        instance.setProducts(products);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**

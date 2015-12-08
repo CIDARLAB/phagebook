@@ -30,7 +30,7 @@
 
         <div class="navbar-header">
             <ul class="navbar">
-                <li><img src="styles/images/phagebookWhite.png"></a></li>
+                <li><img src="styles/images/phagebookWhite.png"></li>
             </ul>
         </div>
         <div role="form" class="navbar-form navbar-right" method="post">
@@ -177,7 +177,8 @@ SCRIPTS
                     },
                     success: function (response) {
                         //alert(response);
-                        alert("Got Some Response" + response);
+                        //alert("Got Some Response" + response);
+                        sessionStorage.setItem("response", response);
                         sessionStorage.setItem("username", document.getElementById("returnEmail").value);
                         sessionStorage.setItem("password", document.getElementById("password").value);
 
@@ -236,9 +237,6 @@ SCRIPTS
 <script src="scripts/clotho/c0f113c2.clotho-core-module.js"></script>
 <!--note - remove all scripts below this for api-only build-->
 <script src="scripts/clotho/c2a11f43.clotho-foundation-module.js"></script>
-<script src="scripts/footerDirective.js"></script>
-<script src="scripts/indexCtrl.js"></script>
-<script src="scripts/indexApp.js"></script>
 <script src="scripts/clotho/68a2b2df.clotho-command-module.js"></script>
 <script src="scripts/indexAPI.js"></script>
 

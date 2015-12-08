@@ -12,7 +12,7 @@ import lombok.Setter;
  *
  * @author prash
  */
-public abstract class Organization {
+public class Organization {
     
     @Getter @Setter 
     protected String id;

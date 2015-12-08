@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
+import org.clothocad.model.Person;
+import org.clothocad.phagebook.adaptors.ClothoAdaptor;
 import org.clothocad.phagebook.controller.Args;
 
 /**
@@ -74,9 +76,10 @@ public class loginUser extends HttpServlet {
             loginMap.put("credentials", password);
             
             Map id = (Map) clothoObject.login(loginMap);
-           
+            Person loggedInPerson = ClothoAdaptor.getPerson(((String) id.get("id")), clothoObject);
             
-            if (id.containsKey("id"))
+            
+            if (id.containsKey("id") && loggedInPerson.isActivated())
             {
                 System.out.println("I'm HERE");
                 //return success, this means its a valid request
@@ -92,6 +95,10 @@ public class loginUser extends HttpServlet {
             else
             {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                PrintWriter out = response.getWriter();
+                out.print("false");
+                out.flush();
+                out.close();
             }
         }
     }

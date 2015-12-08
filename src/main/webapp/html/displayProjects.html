@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Projects</title>
+    <link rel="shorcut icon" href="../styles/images/phagebookLogoMin_16x16.ico"/>
+    <base href="/">
+    <link rel="stylesheet" href="../styles/cssBootstrap/bootstrap.css"/>
+    <link rel="stylesheet" href="../styles/clothoNavBar.css">
+    <link rel="stylesheet" href="../styles/phagebookMainStyle.css"/>
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <script src="../scripts/angular.js"></script>
+    <script src="../scripts/jquery.js"></script>
+    <script src="../scripts/lodash.js"></script>
+    <!--<script src="../scripts/displayProjectController.js"></script>-->
+    <script src="../scripts/ordering.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
+        <!--note - remove all scripts below this for api-only build-->
+    <script type='text/javascript' src="../scripts/clotho/b18fc8c8.clotho-app-command.js"></script>
+    <script type='text/javascript' src="../scripts/clotho/c0f113c2.clotho-core-module.js"></script>
+    <script type='text/javascript' src="../scripts/clotho/c2a11f43.clotho-foundation-module.js"></script>
+    <script src="../scripts/clotho/clotho3API.js"></script>
+    <script src='../scripts/clotho/68a2b2df.clotho-command-module.js'></script>
+    <script src="../scripts/angular.ng-modules.js"></script>
+    <script src="../scripts/displayProjectController.js"></script>
+    <script src="../scripts/footerDirective.js"></script>
+    <script src="../scripts/sidebarDirective.js"></script>
+    <script src="../scripts/searchBarDirective.js"></script>
+    <script src="../scripts/projectController.js"></script>
+    <script src='../scripts/clotho/68a2b2df.clotho-command-module.js'></script>
+    <script src="../scripts/projectsApp.js"></script>
+
+<body>
+<div ng-module="clothoRoot">
+    <div class="container">
+        <div clotho-command-bar></div>
+    </div>
+    <terminal-aside></terminal-aside>
+</div>
+    
+<div ng-module="projectsApp">
+<div ng-controller="tabsController">
+    <div>
+        <phagebook-sidebar></phagebook-sidebar>
+    </div>
+<div class="container-fluid" id="projects">
+    <div class="row user-wrapper">
+        <div data-ng-init="getcookie()">
+
+                        <div class="row">
+                            <div class="col-md-12" id="projectName">
+                                <br>
+                                <h1>{{projectName}}</h1>
+                                {{creator}} {{dateCreated}}
+                            </div>
+                        </div>
+                <ul class="nav nav-tabs">
+                    <li role="presentation" ng-click="selectTab(1)" ng-class="{active:isActive(1)}"><a href="javascript:void(0);">About</a></li>
+                    <li role="presentation" ng-click="selectTab(2)" ng-class="{active:isActive(2)}"><a href="javascript:void(0);">Newsfeed</a></li>
+                    <li role="presentation" ng-click="selectTab(3)" ng-class="{active:isActive(3)}"><a href="javascript:void(0);">Notebooks</a></li>
+                    <li role="presentation" ng-click="selectTab(4)" ng-class="{active:isActive(4)}"><a href="javascript:void(0);">Orders</a></li>
+                    <li role="presentation" ng-click="selectTab(5)" ng-class="{active:isActive(5)}"><a href="javascript:void(0);">Grant</a></li>
+                </ul>
+                <div ng-show="isActive(1)">
+                    <br>
+                    <div id="firstRow" class = "row">
+                        <div class = "col-md-3">
+                            Project Lead:
+                        </div>
+                        <div class = "col-md-3">
+                            <p> {{lead}}</p>
+                        </div>
+                        <div class="col-md-3">
+                            Labs:
+                        </div>
+                        <div class="col-md-3">
+                            <p> {{labs}}</p>
+                        </div>
+                    </div>
+                    <br>
+                    <div id="secondRow" class="row">
+                        <div class="col-md-2">
+                            Members:
+                        </div>
+                        <div class="col-md-10">
+                            <p>{{members}}</p>
+                        </div>
+                    </div>
+                    <br>
+                    <div id="thirdRow" class="row">
+                        <div class="col-md-2">
+                            Description:
+                        </div>
+                        <div class="col-md-10">
+                            <p> {{description}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="isActive(2)">
+                    This is content under Tab 2
+                </div>
+                <div ng-show="isActive(3)">
+                    This is content under Tab 3
+                </div>
+                <div ng-show="isActive(4)">
+                    This is content under Tab 4
+                </div>
+                <div ng-show="isActive(5)">
+                    This is content under Tab 5
+                </div>
+            </div>
+           
+       
+
+    </div>
+</div>
+<footer></footer>
+</div>    
+</div>
+<!---SCRIPTS-->
+
+<script src="../scripts/clotho/b18fc8c8.clotho-app-command.js"></script>
+<script src="../scripts/clotho/c0f113c2.clotho-core-module.js"></script>
+<script type='text/javascript' src="../scripts/clotho/b18fc8c8.clotho-app-command.js"></script>
+<script type='text/javascript' src="../scripts/clotho/c0f113c2.clotho-core-module.js"></script>
+<script type='text/javascript' src="../scripts/clotho/c2a11f43.clotho-foundation-module.js"></script>
+<script src='../scripts/clotho/68a2b2df.clotho-command-module.js'></script>
+<script src="../scripts/clotho/clotho3API.js"></script>
+<script src="../scripts/jsBootstrap/ui-bootstrap-tpls-0.12.0.min.js"></script>
+<script src="../scripts/footerDirective.js"></script>
+<script src="../scripts/sidebarDirective.js"></script>
+<script src="../scripts/searchBarDirective.js"></script>
+<script src="../scripts/projectController.js"></script>
+<script src="../scripts/displayProjectController.js"></script>
+<script src='../scripts/clotho/68a2b2df.clotho-command-module.js'></script>
+<script src="../scripts/projectsApp.js"></script>
+</body>
+</html>

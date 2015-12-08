@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Ordering</title>
+    <link rel="shorcut icon" href="../styles/images/phagebookLogoMin_16x16.ico"/>
+    <base href="/">
+    <link rel="stylesheet" href="../styles/cssBootstrap/bootstrap.css"/>
+    <link rel="stylesheet" href="../styles/clothoNavBar.css">
+    <link rel="stylesheet" href="../styles/phagebookMainStyle.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <script src="../scripts/angular.js"></script>
+    <script src="../scripts/jquery.js"></script>
+    <script src="../scripts/lodash.js"></script>
+
+
+
+    <script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
+
+<body>
+<div ng-module="clothoRoot">
+    <div class="container">
+        <div clotho-command-bar></div>
+    </div>
+    <terminal-aside></terminal-aside>
+</div>
+
+    
+<div class="container-fluid" id="ordering">
+    <div ng-module="SelectColumnsApp">
+        <div ng-controller="SelectColumnsController">
+               
+            <div class = "mainContent">
+                <div class ="col-md-6">
+                    <div id="SelectColumns">
+                        <h1 style="font-weight:bold">Select Column for CSV Form</h1>
+
+                        <br>
+
+                        <div class ="checkbox">
+                            <label><input type="checkbox" id="serialNumber" ng-model="serialNumber">Serial Number</label>
+                        </div>
+                        <div class ="checkbox">
+                            <label><input type="checkbox" id="productName" ng-model="productName">Product name</label>
+                        </div>
+                        <div class ="checkbox">
+                            <label><input type="checkbox" id="productUrl" ng-model="productUrl">Product URL</label>
+                        </div>
+                        <div class ="checkbox">
+                            <label><input type="checkbox" id="productDescription" ng-model="productDescription">Product Description</label>
+                        </div>
+                        <div class ="checkbox">
+                            <label><input type="checkbox" id="quantity" ng-model="quantity">Quantity</label>
+                        </div>
+                        <div class ="checkbox">
+                            <label><input type="checkbox" id="companyName" ng-model="companyName">Company Name</label>
+                        </div>
+                        <div class ="checkbox">
+                            <label><input type="checkbox" id="companyUrl" ng-model="companyUrl">Company URL</label>
+                        </div>
+                        <div class ="checkbox">
+                            <label><input type="checkbox" id="companyDescription" ng-model="companyDescription">Company Description</label>
+                        </div>
+                        <div class ="checkbox">
+                            <label><input type="checkbox" id="companyContact" ng-model="companyContact">Company Contact</label>
+                        </div>
+                        <div class ="checkbox">
+                            <label><input type="checkbox" id="companyPhone" ng-model="companyPhone">Company Phone</label>
+                        </div>
+                        <div class ="checkbox">
+                            <label><input type="checkbox" id="unitPrice" ng-model="unitPrice">Unit Price</label>
+                        </div>
+                        <div class ="checkbox">
+                            <label><input type="checkbox" id="totalPrice" ng-model="totalPrice">Total Price</label>
+                        </div>
+                        <br>
+                        <button type="button" class="btn btn-default" id="CreateSelectedColumnsButton" 
+                                ng-model="CreateSelectedColumns" ng-click="CreateSelectedColumns()">Submit</button>
+                        <br><br><br>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>
+</div>
+    
+
+<!-- see selected, create a servelet, pass those selected items 
+to java serveler, match with enums, OrderController - 
+createOrder function, find order by its id
+-->
+    
+    
+<div class="modal-footer">
+    Created by <a href="http://www.cidarlab.org" target="_blank">CIDAR at Boston University</a><br>
+    Built by <a href="mailto:azulad7@bu.edu">Allison Z. Durkan</a><br>
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+</div>
+
+<!---SCRIPTS-->
+
+<script src="../scripts/clotho/b18fc8c8.clotho-app-command.js"></script>
+<script src="../scripts/clotho/c0f113c2.clotho-core-module.js"></script>
+<script type='text/javascript' src="../scripts/clotho/b18fc8c8.clotho-app-command.js"></script>
+<script type='text/javascript' src="../scripts/clotho/c0f113c2.clotho-core-module.js"></script>
+<script type='text/javascript' src="../scripts/clotho/c2a11f43.clotho-foundation-module.js"></script>
+<script src="../scripts/clotho/clotho3API.js"></script>
+<script src='../scripts/clotho/68a2b2df.clotho-command-module.js'></script>
+<script src="../scripts/angular.ng-modules.js"></script>
+<script src="../scripts/SelectColumnsController.js"></script>
+<script src="../scripts/ordering.js"></script>
+<script src="../scripts/jsBootstrap/ui-bootstrap-tpls-0.12.0.min.js"></script>
+<script src="../scripts/papaparse.min.js"></script>
+
+
+</body>
+</html>
