@@ -9,7 +9,10 @@ import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.phagebook.adaptors.ClothoAdaptor;
 import org.clothocad.phagebook.controller.Args;
+import org.clothocad.phagebook.dom.Institution;
+import org.clothocad.phagebook.dom.Organization;
 import org.clothocad.model.Person;
+import org.clothocad.phagebook.dom.Project;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -43,8 +46,19 @@ public class createUsers {
         Person person1 = new Person();
         person1.setEmailId("kmlewis");
         person1.setPassword("abc");
+        person1.setFirstName("Katie");
         ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
         Clotho clothoObject = new Clotho(conn);
-        ClothoAdaptor.createPerson(person1, clothoObject);
-    }
+        String id = ClothoAdaptor.createPerson(person1, clothoObject);
+        System.out.println("createUser :: " + person1);
+        Person getPerson = ClothoAdaptor.getPerson(id, clothoObject);
+        System.out.println("get person :: " + getPerson);
+        //person1.setId(id);
+        //How can I set the person ID as a property so that I can retrieve it later?
+        //Person user = ClothoAdaptor.getPerson(id, clothoObject);
+        //Organization BU = new Institution("BU");
+        //Project project = new Project(user, "Phagebook",BU , "Social Synbio project");
+       // String projectID = ClothoAdaptor.createProject(project, clothoObject);
+        //project.setId(projectID);
+    }//
 }

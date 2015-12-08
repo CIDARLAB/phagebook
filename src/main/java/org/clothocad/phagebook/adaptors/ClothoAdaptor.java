@@ -1618,12 +1618,12 @@ public class ClothoAdaptor {
                 publications.add(getPublication(publicationIds.getString(i) , clothoObject));
             }
         }
+
         String id = "";
         if (map.containsKey("id")){
              id = (String) map.get("id");;
         }
-        
-        /**
+                /**
          * projects     : List<Project>
          * statuses     : List<Statuses>
          * notebooks    : List<Notebook>
@@ -1642,13 +1642,19 @@ public class ClothoAdaptor {
         person.setColleagues(colleagues);
         person.setOrders(orders);
         person.setPublications(publications);
+        
+        System.out.println("first set done");
                 
         person.setFirstName( map.containsKey("firstName") ? (String) map.get("firstName") : "");
         person.setLastName( map.containsKey("lastName") ? (String) map.get("lastName") : "");
+        
+        System.out.println("has name");
         person.setEmailId( map.containsKey("emailId") ? (String) map.get("emailId") : "");
         person.setPassword( map.containsKey("password") ? (String) map.get("password"): "");
+        System.out.println("has email and password");
         person.setActivated( (boolean) map.get("activated") );
         person.setActivationString((String) map.get("activationString"));
+    
         
         person.setSalt(map.containsKey("salt") ? (String) map.get("salt") : "");
         person.setSaltedEmailHash(map.containsKey("saltedEmailHash") ? (String) map.get("saltedEmailHash") : "");
@@ -1668,7 +1674,7 @@ public class ClothoAdaptor {
 
             }
         }
-        
+        System.out.println("reached end of person map ");
         return person;
     }
     public static Product mapToProduct(Map map, Clotho clothoObject)
