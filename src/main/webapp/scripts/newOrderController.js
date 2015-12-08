@@ -1,4 +1,3 @@
-
 function newOrderController($scope){
     $scope.createOrder = function(){
        console.log($scope.orderName +" :: "+ $scope.orderDescription);

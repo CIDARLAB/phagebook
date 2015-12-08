@@ -1,7 +1,6 @@
 angular
-        .module('profileApp', ['ui.bootstrap'])
+        .module('profileApp', ['ui.bootstrap.modal'])
         .controller('profileCtrl', profileCtrl)
         .controller('profileWindowController', profileWindowController)
         .directive('phagebookSidebar', phagebookSidebar)
-        .directive('searchBar', searchBar)
         .directive('footer', footer);
