@@ -108,6 +108,46 @@
 <script src="../scripts/ordering.js"></script>
 <script src="../scripts/jsBootstrap/ui-bootstrap-tpls-0.12.0.min.js"></script>
 <script src="../scripts/orderingApp.js"></script>
+<script type="text/javascript">
+    $("document").ready(function () {
+        $("#companyPopUp").dialog({autoOpen: false});
+        $("#productsPopUp").dialog({autoOpen: false});
 
+        $("#productNameSearch").click(function () {
+            var productQuery = $('input[name=productQuery]').val();
+            if (productQuery != "") {
+                window.location.href = "/html/queryProduct.html?Name=" + productQuery;
+            }
+
+        });
+        $("#companyNameSearch").click(function () {
+            var companyQuery = $('input[name=companyQuery]').val();
+            if (companyQuery != "") {
+                window.location.href = "/html/queryCompanyProduct.html?Name=" + companyQuery;
+            }
+        });
+
+        if (getCookie("Order") !== "") {
+            var idList = getCookie("Order");
+            alert("hello");
+            $.ajax({
+                url: 'getProductById',
+                type: 'GET',
+                async: false,
+                data: {
+                    'ids': idList
+                },
+                success: function (response) {
+                    //Load Product Data'
+                    sortProductsFromResponse(response);
+                },
+                error: function () {
+                    //Nothing found or bad query
+                    alert("NOPE");
+                }
+            });
+        }
+    });
+</script>
 </body>
 </html>
