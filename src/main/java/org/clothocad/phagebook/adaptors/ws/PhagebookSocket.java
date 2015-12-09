@@ -135,11 +135,20 @@ public class PhagebookSocket
                     Status newStatus = new Status(statusText, user);
                     System.out.println("made new status object");
                     //Add new status to the user
+                    //ClothoAdaptor.createPerson(user, clothoObject);
+                    String username = user.getEmailId();
+                    String password = user.getPassword();
+                    Map loginMap = new HashMap();
+                    loginMap.put("username", username);
+                    loginMap.put("credentials", password);
+                    clothoObject.login(loginMap);
                     String statusId = ClothoAdaptor.createStatus(newStatus, clothoObject);
                     System.out.println("Status created");
                     newStatus.setId(statusId);
                     user.addStatus(newStatus);
-                    ClothoAdaptor.createPerson(user, clothoObject);
+                    clothoObject.logout();
+                    ClothoAdaptor.setPerson(user, clothoObject);
+                    
 //                  //Do I need to recreate the user once I add the status?
                     //Check if data json contains a project ID (to add new status to)
                     if (map.containsKey("projectID")) {
