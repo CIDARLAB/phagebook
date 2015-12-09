@@ -1,5 +1,6 @@
 function tabsController($scope) {
     $scope.personId = sessionStorage.getItem("uniqueid");    
+
     $scope.projectName = '';
     $scope.description = '';
     $scope.lead = '';
