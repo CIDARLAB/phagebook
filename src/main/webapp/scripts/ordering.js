@@ -202,7 +202,6 @@ function appendToCookie(cname, cvalue, exdays) {
     } else if (currentCookie != "") {
         updatedCookie = currentCookie + ',' + cvalue;
     }
-    alert(updatedCookie);
     setCookie("Order", updatedCookie, exdays);
 }
 
