@@ -33,7 +33,7 @@ public class Order {
     
     @Getter
     @Setter
-    private List<Product> products;
+    private Map<Product, Integer> products;
     
     /**
      *
@@ -41,8 +41,8 @@ public class Order {
      */
     public Order(String name) {
         this.name = name;
-        this.products = new LinkedList<Product>();
-        
+
+        this.products = new HashMap<Product, Integer>();
     };   
     
 }

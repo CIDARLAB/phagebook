@@ -1,14 +1,5 @@
-/**
- * Created by KatieLewis on 12/5/15.
- */
-angular.module('projectsApp',['clothoRoot']).controller('projectsController',
-    function($scope, Clotho){
-        $scope.personId = sessionStorage.getItem("uniqueid");
-    });
-
-
-angular.module('tabsApp',[]).controller('tabsController',['$scope',function($scope) {
-
+function tabsController($scope) {
+    $scope.personId = sessionStorage.getItem("uniqueid");    
     $scope.projectName = '';
     $scope.description = '';
     $scope.lead = '';
@@ -32,15 +23,10 @@ angular.module('tabsApp',[]).controller('tabsController',['$scope',function($sco
         }
     };
 
-    
 
-    $scope.getProject = function(){
-        console.log("Get Project ajax call");
-        var id = getCookie("projectID");
-        /*console.log(cookie);
-        var idArr = cookie.split("=");
-        var id = idArr[1];*/
-        console.log(id);
+
+    var getProject = function(id){
+        console.log("getProject" + id);
         $.ajax({
             url: "getProject",
             type: "POST",
@@ -80,8 +66,15 @@ angular.module('tabsApp',[]).controller('tabsController',['$scope',function($sco
             }
         });
     };
+    $scope.getcookie = function(){
+        console.log("Get Project ajax call");
+        var id = getCookie("projectID");
+        console.log("inget cookie" + id);
+        if(id != undefined){
+            getProject(id);
+        }
+    };
 
-
-}]);
+}
 
 

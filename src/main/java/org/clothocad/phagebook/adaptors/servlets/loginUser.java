@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
+import org.clothocad.model.Person;
+import org.clothocad.phagebook.adaptors.ClothoAdaptor;
 import org.clothocad.phagebook.controller.Args;
 
 /**
@@ -34,11 +36,11 @@ public class loginUser extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        //response.setContentType("text/html;charset=UTF-8");
+        //try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
 
-        }
+        //}
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -51,7 +53,7 @@ public class loginUser extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
         
@@ -71,34 +73,37 @@ public class loginUser extends HttpServlet {
             Clotho clothoObject = new Clotho(conn);
             Map loginMap = new HashMap();
             loginMap.put("username", email);
-            loginMap.put("credentials", password);     
-            String id = (String)clothoObject.login(loginMap);
-            System.out.println(id);
-            if ((id != null) && (id != "")){
+            loginMap.put("credentials", password);
+            
+            Map id = (Map) clothoObject.login(loginMap);
+            Person loggedInPerson = ClothoAdaptor.getPerson(((String) id.get("id")), clothoObject);
+            
+            
+            if (id.containsKey("id") && loggedInPerson.isActivated())
+            {
+                System.out.println("I'm HERE");
                 //return success, this means its a valid request
+                //response.setStatus(HttpServletResponse.SC_OK);
+                System.out.print("Id is " + id.get("id"));
+                String idVal = (String) id.get("id");
+                response.setContentType("text/plain");
                 PrintWriter out = response.getWriter();
-                out.print(id);
+                out.print(idVal);
                 out.flush();
+                out.close();
             }
-            else{
+            else
+            {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                PrintWriter out = response.getWriter();
+                out.print("false");
+                out.flush();
+                out.close();
             }
         }
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
+    
 
     /**
      * Returns a short description of the servlet.

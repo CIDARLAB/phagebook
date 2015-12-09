@@ -1,15 +1,8 @@
-'use strict';
-
+function projectController($scope, $http){
 console.log("loaded");
 
-
-var projectsApp = angular.module('projectsApp',['clothoRoot']);
-
-console.log(projectsApp);
-projectsApp.controller('projectsController',['$scope', '$http', function($scope, $http ,Clotho){
-
   $scope.greeting = 'Hello!';
-  $scope.personId = sessionStorage.getItem("uniqueid");
+  $scope.personId = sessionStorage.getItem("loggedUserId");//retrieves the user id from session storage
 
   // form data object -- here are the results from the form are stored
   $scope.formData = {};
@@ -73,7 +66,8 @@ projectsApp.controller('projectsController',['$scope', '$http', function($scope,
     projectBudget: $scope.formData.projectBudget,
     grant: $scope.formData.grant,
     description: $scope.formData.description,
-    date: $scope.formData.date
+    date: $scope.formData.date,
+    id: $scope.personId
    };
    //dataSubmit = JSON.stringify(dataSubmit);
    console.log(dataSubmit);
@@ -101,5 +95,5 @@ projectsApp.controller('projectsController',['$scope', '$http', function($scope,
   
   };
 
-}]);
 
+};

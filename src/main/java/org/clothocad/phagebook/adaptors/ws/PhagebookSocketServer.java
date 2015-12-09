@@ -6,6 +6,7 @@
 package org.clothocad.phagebook.adaptors.ws;
 import javax.servlet.http.HttpServletRequest;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.handler.HandlerList;
 
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -33,19 +34,23 @@ public class PhagebookSocketServer {
         
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.setContextPath("/");
-        server.setHandler(context);
+        //server.setHandler(context);
         
         ServletHolder holderEvents = new ServletHolder("ws-events", PhagebookServlet.class);
-        context.addServlet(new ServletHolder(wsServlet), "/websocket");        
+        context.addServlet(new ServletHolder(wsServlet), "/websocket/");        
         
         WebAppContext contextWeb = new WebAppContext();
         contextWeb.setDescriptor(context + "/WEB-INF/web.xml");
         contextWeb.setResourceBase("../phagebook/src/main/webapp");
         contextWeb.setContextPath("/");
         contextWeb.setParentLoaderPriority(true);
-
-        server.setHandler(contextWeb);
-
+        //server.setHandler(contextWeb);
+       
+        HandlerList handlers = new HandlerList();
+        handlers.addHandler(context);
+        handlers.addHandler(contextWeb);
+        server.setHandler(handlers);
+        
         try
         {
             server.start();

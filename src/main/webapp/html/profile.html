@@ -25,6 +25,7 @@
     </div>
     <terminal-aside></terminal-aside>
 </div>
+    
 <div ng-module="profileApp">
 <div ng-controller="profileCtrl">
 <phagebook-sidebar user="currentUser"></phagebook-sidebar>
@@ -40,7 +41,7 @@
 
         <div class="col-md-6 user-wrapper">
             <div class="description" id="profileInfo">
-                <h3><strong> About Me </strong>
+                <h3><strong> About {{ displayName }} </strong>
                     <button class="btn btn-default" ng-click="editInfo()" ng-show="!editBool"> <span class="glyphicon glyphicon-pencil"></span> Edit profile</button>
                     <button class="btn btn-default" ng-click="save()" ng-show="editBool"> <span class="glyphicon glyphicon-save"></span> Save</button>
                     <button class="btn btn-default" ng-click="cancel()" ng-show="editBool"> <span class="glyphicon glyphicon-erase"></span> Cancel</button></h3>
@@ -146,10 +147,8 @@
             </script>
         </div>
 </div>
-    </div>
-
 </div>
-
+</div>
 <br> <br>
 <footer></footer>
 </div>
@@ -163,6 +162,7 @@
 <script type='text/javascript' src="../scripts/clotho/c2a11f43.clotho-foundation-module.js"></script>
 <script src='../scripts/clotho/68a2b2df.clotho-command-module.js'></script>
 <script src="../scripts/clotho/clotho3API.js"></script>
+<!--<script src="../scripts/orderingApp.js"></script>-->
 <script src="../scripts/footerDirective.js"></script>
 <script src="../scripts/sidebarDirective.js"></script>
 <script src="../scripts/searchBarDirective.js"></script>
