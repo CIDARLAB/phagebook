@@ -1531,7 +1531,7 @@ public class ClothoAdaptor {
         }
         String id = "";
         if (map.containsKey("id")){
-             id = (String) map.get("id");;
+             id = (String) map.get("id");
         }
         String description = "";
         if (map.containsKey("description")){
@@ -1580,7 +1580,7 @@ public class ClothoAdaptor {
         institution.setDescription(description);
         String id = "";
         if (map.containsKey("id")){
-             id = (String) map.get("id");;
+             id = (String) map.get("id");
         }
         institution.setId(id);
         
@@ -1601,7 +1601,7 @@ public class ClothoAdaptor {
         if (map.containsKey("description")) {description = (String) map.get("description");}
         String id = "";
         if (map.containsKey("id")){
-             id = (String) map.get("id");;
+             id = (String) map.get("id");
         }
         
         Instrument instrument = new Instrument(name);
@@ -1647,7 +1647,7 @@ public class ClothoAdaptor {
         }
         String id = "";
         if (map.containsKey("id")){
-             id = (String) map.get("id");;
+             id = (String) map.get("id");
         }
         Notebook notebook = new Notebook(owner, affiliatedProject, dateCreated);
         notebook.setEntries(entries);
@@ -1658,41 +1658,48 @@ public class ClothoAdaptor {
     }
     public static Order mapToOrder(Map map, Clotho clothoObject)
     {
-        String name = (String) map.get("name");
-        
-
-        Map productIds = (Map) map.get("products");
-        Map<Product, Integer> products = new HashMap<>() ;
-        
-        Iterator it = productIds.entrySet().iterator();
-        while (it.hasNext()) 
-        {
-            Map.Entry entryPair = (Map.Entry) it.next();
-            System.out.println("HERE in CLOTHO APP 0 --" + entryPair.getKey());
-            Product productOrder = ClothoAdaptor.getProduct((String) entryPair.getKey(), clothoObject);
-            
-            System.out.println("HERE in CLOTHO APP");
-            try 
-            {
-                System.out.println(entryPair);
-                System.out.println( entryPair.getValue().getClass());
-                int quantity = (int) entryPair.getValue();
-                System.out.println("HERE AT AFTER QUANTITY" + quantity);
-                products.put(productOrder, quantity);
-                
-                
-            } catch (Exception e)
-            {
-                // Something went wrong!
-                System.out.println("something went wrong in mapToOrder");
-                e.toString();
-            }
-            
+        String name = "";
+        if (map.containsKey("name")) {
+            name = (String) map.get("name");
         }
+        
+        Map<Product, Integer> products = null;
+        if (map.containsKey("products")){
+            Map productIds = (Map) map.get("products");
+            products = new HashMap<>() ;
+        
+            Iterator it = productIds.entrySet().iterator();
+            while (it.hasNext()) 
+            {
+                Map.Entry entryPair = (Map.Entry) it.next();
+                System.out.println("HERE in CLOTHO APP 0 --" + entryPair.getKey());
+                Product productOrder = ClothoAdaptor.getProduct((String) entryPair.getKey(), clothoObject);
+
+                System.out.println("HERE in CLOTHO APP");
+                try 
+                {
+                    System.out.println(entryPair);
+                    System.out.println( entryPair.getValue().getClass());
+                    int quantity = (int) entryPair.getValue();
+                    System.out.println("HERE AT AFTER QUANTITY" + quantity);
+                    products.put(productOrder, quantity);
+
+
+                } catch (Exception e)
+                {
+                    // Something went wrong!
+                    System.out.println("something went wrong in mapToOrder");
+                    e.toString();
+                }
+
+            }
+        }
+        
+        
         
         String id = "";
         if (map.containsKey("id")){
-             id = (String) map.get("id");;
+             id = (String) map.get("id");
         }
         
         
@@ -1706,8 +1713,9 @@ public class ClothoAdaptor {
     
     public static Person mapToPerson(Map map, Clotho clothoObject)
     {
-        JSONArray projectIds = new JSONArray();
-        List<Project> projects = new LinkedList<Project>() ;
+        JSONArray projectIds;
+        List<Project> projects = new LinkedList<>() ;
+        
         System.out.println(map.toString());
         if ( map.containsKey("projects")){
             
@@ -1717,8 +1725,8 @@ public class ClothoAdaptor {
                 projects.add(getProject(projectIds.getString(i) , clothoObject));
             }
         }
-        JSONArray statusIds = new JSONArray();
-        List<Status> statuses = new LinkedList<Status>() ;
+        JSONArray statusIds;
+        List<Status> statuses = new LinkedList<>() ;
         if ( map.containsKey("statuses")){
             statusIds = (JSONArray) map.get("statuses");
             
