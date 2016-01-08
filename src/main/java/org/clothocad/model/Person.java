@@ -48,7 +48,7 @@ public class Person {
     @Getter @Setter private List<Publication> publications;
     @Getter @Setter private String id;
     @Getter @Setter private String salt;
-    @Getter @Setter private String saltedEmailHash;
+    @Getter @Setter private byte[] saltedEmailHash;
     Map<String,Set<PersonRole>> roles;
     
 

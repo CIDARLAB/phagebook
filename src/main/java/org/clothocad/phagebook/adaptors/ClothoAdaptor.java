@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package org.clothocad.phagebook.adaptors;
-
+import com.sun.istack.internal.logging.Logger;
 import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -12,16 +12,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.text.DateFormatter;
-import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothocad.phagebook.dom.Company;
@@ -46,8 +41,6 @@ import org.clothocad.phagebook.dom.Publication;
 import org.clothocad.phagebook.dom.Sample;
 import org.clothocad.phagebook.dom.Status;
 import org.json.JSONObject;
-import net.sf.json.JSONNull;
-import org.json.JSONException;
 
 /**
  * @author Johan Ospina
@@ -55,51 +48,58 @@ import org.json.JSONException;
 public class ClothoAdaptor {
     // <editor-fold defaultstate="collapsed" desc="Create Methods">
      
+    
+    //The way this works is that it creates a hashmap with ids for everything the object has pointers to 
+    //or a primitive value.
+    //schema is so that it can be queried by clotho.
+    
     public static String createCompany(Company company, Clotho clothoObject)
     {
-        String id = "";
         
         Map map = new HashMap();
         map.put("schema", Company.class.getCanonicalName());
-        if (company.getContact() != null && company.getContact() != ""){
+        if (company.getContact() != null && !company.getContact().isEmpty()){
+            
             map.put("contact", company.getContact());
+            
         }
-        map.put("schema", Company.class.getCanonicalName());
-        if (company.getId() != null) {
+        /* Don't need to put an ID if I am going to override it later...
+        if (company.getId()   != null && !company.getId().isEmpty()   ){
+            
             map.put("id", company.getId());
+            
         }
-        map.put("name", company.getName());
-        map.put("schema",Company.class.getCanonicalName());
-        if (company.getDescription() != null && company.getDescription() != ""){
+        */
+        if (company.getName()        != null && !company.getName().isEmpty()               ){
+            map.put("name", company.getName());
+        }
+        if (company.getDescription() != null && !company.getDescription().isEmpty()        ){
             map.put("description", company.getDescription());
         }
-        if (company.getPhone() != null && company.getContact() != ""){
+        if (company.getPhone()       != null && !company.getContact().isEmpty()            ){
             map.put("phone", company.getPhone());
         }
-        if (company.getUrl() != null && company.getUrl() != ""){
+        if (company.getUrl() != null && !company.getUrl().isEmpty()                        ){
             map.put("url", company.getUrl());
         }
-        id = (String) clothoObject.set(map);
+        String id = (String) clothoObject.set(map);
         company.setId(id);
         makePublic(id, clothoObject);
         return id;
     }
     public static String createContainer(Container container, Clotho clothoObject)
     {
-        String id = "";
+   
         Map map = new HashMap();
         map.put("schema", Container.class.getCanonicalName());
-        if (container.getName() != null && container.getName() != ""){ 
+        if (container.getName() != null && !container.getName().isEmpty()){ 
             map.put("name", container.getName());
         }
-        if (container.getId() != null) {
-            map.put("id", container.getId());
-        }
         
-        if (container.getDescription() != null && container.getDescription() != ""){
+        if (container.getDescription() != null && !container.getDescription().isEmpty()){
             map.put("description", container.getDescription());
         }
-        id = (String) clothoObject.set(map);
+        String id = (String) clothoObject.set(map);
         container.setId(id);
         makePublic(id, clothoObject);
         return id;
@@ -107,10 +107,9 @@ public class ClothoAdaptor {
     }
     public static String createEntry(Entry entry, Clotho clothoObject)
     {
-        String id = "";
         Map map = new HashMap();
         map.put("schema", Entry.class.getCanonicalName());
-        if (entry.getNotebook().getId() != null){
+        if (entry.getNotebook().getId() != null && !entry.getNotebook().getId().isEmpty()){
             map.put("notebook", entry.getNotebook().getId());
         }
         
@@ -122,20 +121,14 @@ public class ClothoAdaptor {
             map.put("lastModified", entry.getLastModified().toString());
         }
         
-        if ( entry.getText() != null && entry.getText() != ""){  
+        if ( entry.getText() != null && !entry.getText().isEmpty()){  
             map.put("text", entry.getText());
         }
         
-        if ( entry.getTitle() != null && entry.getTitle() != ""){  
+        if ( entry.getTitle() != null && !entry.getTitle().isEmpty()){  
             map.put("title", entry.getTitle());
         }
-        
-        
-        if (entry.getId() != null){
-            map.put("id", entry.getId());
-        }
-        
-        id = (String) clothoObject.set(map);
+        String id = (String) clothoObject.set(map);
         makePublic(id, clothoObject);
         entry.setId(id);
         return id;
@@ -143,59 +136,50 @@ public class ClothoAdaptor {
     }
     public static String createFundingAgency(FundingAgency fundingAgency, Clotho clothoObject)
     {
-        String id = "";
         Map map = new HashMap();
         map.put("schema", FundingAgency.class.getCanonicalName());
-        if (fundingAgency.getId() != null){
-            map.put("id", fundingAgency.getId());
-        }
-        if (fundingAgency.getName() != null && fundingAgency.getName() != "" ){
+        if (fundingAgency.getName() != null && !fundingAgency.getName().isEmpty()){
             map.put("name", fundingAgency.getName());
         }
         
-        if (fundingAgency.getDescription() != null && fundingAgency.getDescription() != "" ){
+        if (fundingAgency.getDescription() != null && !fundingAgency.getDescription().isEmpty()){
             map.put("description", fundingAgency.getDescription());
         }
         
-        if (fundingAgency.getPhone() != null && fundingAgency.getPhone() != "" ){
+        if (fundingAgency.getPhone() != null && !fundingAgency.getPhone().isEmpty() ){
             map.put("phone", fundingAgency.getPhone());
         }
         
-        if (fundingAgency.getUrl() != null && fundingAgency.getUrl() != "" ){
+        if (fundingAgency.getUrl() != null && !fundingAgency.getUrl().isEmpty()){
             map.put("url", fundingAgency.getUrl());
         }
-        id = (String) clothoObject.set(map);
+        String id = (String) clothoObject.set(map);
         fundingAgency.setId(id);
         makePublic(id, clothoObject);
         return id;
     }
     public static String createGood(Good good, Clotho clothoObject)
     {
-        String id = "";
         Map map = new HashMap();
         map.put("schema", Good.class.getCanonicalName());
-        if (good.getId() != null){
-            map.put("id", good.getId());
-        }
-        if (good.getName() != null && good.getName() != "" ){
+        if (good.getName() != null && !good.getName().isEmpty()    ){
             map.put("name", good.getName());
         }
-        if (good.getDescription() != null && good.getDescription() != "" ){
+        if (good.getDescription() != null && !good.getDescription().isEmpty()){
             map.put("description", good.getDescription());
         }
                 
-        id = (String) clothoObject.set(map);
+        String id = (String) clothoObject.set(map);
         good.setId(id);
         makePublic(id, clothoObject);
         return id;
     }
     public static String createGrant(Grant grant, Clotho clothoObject)
     {
-        String id = "";
         Map map = new HashMap();
         map.put("schema", Grant.class.getCanonicalName());
         
-        if (grant.getName() != "" && grant.getName() != null)
+        if ( !grant.getName().isEmpty() && grant.getName() != null)
         {
             map.put("name", grant.getName());
         }
@@ -213,8 +197,10 @@ public class ClothoAdaptor {
 
                 for (Person coPI: grant.getCoPIs() )
                 {
-
-                    coPIs.add(coPI.getId());
+                    if (coPI.getId() != null)
+                    {
+                        coPIs.add(coPI.getId());
+                    }
 
                 }
 
@@ -222,7 +208,7 @@ public class ClothoAdaptor {
             }
         }
         
-        if (grant.getProgramManager() != "" && grant.getProgramManager() != null)
+        if (!grant.getProgramManager().isEmpty() && grant.getProgramManager() != null)
         {
             map.put("programManager", grant.getProgramManager());
         }
@@ -254,7 +240,9 @@ public class ClothoAdaptor {
                 JSONArray projects = new JSONArray();
                 for (Project project : grant.getProjects())
                 {
-                    projects.add(project.getId());
+                    if (project.getId() != null){
+                        projects.add(project.getId());
+                    }
                 }
                 map.put("projects" , projects);
             }
@@ -265,13 +253,8 @@ public class ClothoAdaptor {
         {
             map.put("description", grant.getDescription());
         }
-        if (grant.getId() != null)
-        {
-        map.put("id", grant.getId());
-        }
         
-        
-        id = (String) clothoObject.set(map);
+        String id = (String) clothoObject.set(map);
         grant.setId(id);
         makePublic(id, clothoObject);
         return id;
@@ -279,59 +262,81 @@ public class ClothoAdaptor {
     }
     public static String createInstiution(Institution institution, Clotho clothoObject)
     {
-        String id = "";
         Map map = new HashMap();
-        if (institution.getId() != null)
-        {
-            map.put("id", institution.getId());
-        }
+
         map.put("schema", Institution.class.getCanonicalName());
-        map.put("name", institution.getName());
-        map.put("description", institution.getDescription());
-        map.put("phone", institution.getPhone());
-        map.put("url", institution.getUrl());
         
-        id = (String) clothoObject.set(map);
+        if (!institution.getName().isEmpty() && institution.getName() != null){
+              
+            map.put("name", institution.getName());
+        
+        }
+        if (!institution.getDescription().isEmpty() && institution.getDescription() != null){
+            map.put("description", institution.getDescription());
+        }
+        
+        if (!institution.getPhone().isEmpty() && institution.getPhone() != null){
+            map.put("phone", institution.getPhone());
+        }
+        
+        if (!institution.getUrl().isEmpty() && institution.getUrl() != null) {
+            map.put("url", institution.getUrl());
+        }
+        
+        
+        String id = (String) clothoObject.set(map);
         institution.setId(id);
         makePublic(id, clothoObject);
         return id;
     }
     public static String createInstrument(Instrument instrument, Clotho clothoObject)
     {
-        String id = "";
+  
         Map map = new HashMap();
-        if (instrument.getId() != null){
-            map.put("id", instrument.getId());
-        }
-        map.put("schema", Instrument.class.getCanonicalName());
-        map.put("name", instrument.getName());
-        map.put("description", instrument.getDescription());
         
-        id = (String) clothoObject.set(map);
+        map.put("schema", Instrument.class.getCanonicalName());
+        if (!instrument.getName().isEmpty() && instrument.getName() != null){
+            map.put("name", instrument.getName());
+        }
+        
+        if (!instrument.getDescription().isEmpty() && instrument.getDescription() != null) {
+            map.put("description", instrument.getDescription());
+        }
+        
+        String id = (String) clothoObject.set(map);
         makePublic(id, clothoObject);
         instrument.setId(id);
         return id;
     }
     public static String createInventory(Inventory inventory, Clotho clothoObject)
     {
-        String id = "";
+       
         Map map = new HashMap();
         map.put("schema", Inventory.class.getCanonicalName());
+    
         JSONArray samples = new JSONArray();
-        for (Sample sample : inventory.getSamples()){
-            samples.add(sample.getId());
+        if (!inventory.getSamples().isEmpty()){
+            for (Sample sample : inventory.getSamples()){
+                if (sample.getId() != null) {
+                    samples.add(sample.getId());
+                }
+            }
+           
         }
         map.put("samples", samples);
         JSONArray instruments = new JSONArray(); 
-        for (Instrument instrument : inventory.getInstruments()){
-            instruments.add(instrument.getId());
+        if (!inventory.getInstruments().isEmpty()){
+            for (Instrument instrument : inventory.getInstruments()){
+                if (instrument.getId() != null){
+                    instruments.add(instrument.getId());
+                }
+            }
         }
+        
         map.put("instruments", instruments);
         
-        if (inventory.getId() != null){
-            map.put("id", inventory.getId());
-        }
-        id = (String) clothoObject.set(map);
+      
+        String id = (String) clothoObject.set(map);
         makePublic(id, clothoObject);
         inventory.setId(id);
         
@@ -339,37 +344,43 @@ public class ClothoAdaptor {
     }
     public static String createNotebook(Notebook notebook, Clotho clothoObject)
     {
-        String id = "";
         Map map = new HashMap();
         map.put("schema", Notebook.class.getCanonicalName());
-        map.put("owner", notebook.getOwner().getId());
-        JSONArray entries = new JSONArray();
-        for (Entry entry : notebook.getEntries()){
-           entries.add(entry.getId());
+        if (notebook.getOwner().getId() != null){
+            map.put("owner", notebook.getOwner().getId());
         }
+        
+        JSONArray entries = new JSONArray();
+        if (!notebook.getEntries().isEmpty()){
+            for (Entry entry : notebook.getEntries()){
+                if (entry.getId() != null) {
+                    entries.add(entry.getId());
+                }
+            }
+        }
+        
         map.put("entries", entries);
          
-        map.put("affiliatedProject", notebook.getAffiliatedProject().getId());
-        map.put("dateCreated", notebook.getDateCreated().toString());
-        if (notebook.getId() != null){
-            map.put("id", notebook.getId());
+        if (notebook.getAffiliatedProject().getId() != null){
+            map.put("affiliatedProject", notebook.getAffiliatedProject().getId());
         }
-        id = (String) clothoObject.set(map);
+        
+        if (notebook.getDateCreated() != null){
+            map.put("dateCreated", notebook.getDateCreated().toString());
+        }
+       
+        String id = (String) clothoObject.set(map);
         makePublic(id, clothoObject);
         notebook.setId(id);
         return id;
     }
     public static String createOrder(Order order, Clotho clothoObject)
     {
-        String id = "";
+ 
         Map map = new HashMap();
         map.put("schema", Order.class.getCanonicalName());
-        if (order.getId() != null)
-        {
-            map.put("id", order.getId());
-        }
+     
         
-
         if (order.getProducts() != null)
         {
             JSONObject products = new JSONObject();
@@ -378,7 +389,9 @@ public class ClothoAdaptor {
             while (it.hasNext()) 
             {
                 Map.Entry pair = (Map.Entry)it.next();
-                products.put(((Product)pair.getKey()).getId(), pair.getValue());
+                if (((Product) pair.getKey()).getId() != null){
+                    products.put(((Product)pair.getKey()).getId(), pair.getValue());
+                }
                 it.remove(); // avoids a ConcurrentModificationException
             }
 
@@ -390,45 +403,55 @@ public class ClothoAdaptor {
             
         }
         
-        id = (String) clothoObject.set(map);
+        String id = (String) clothoObject.set(map);
         order.setId(id);
         makePublic(id, clothoObject);
         return id;
     }
     public static String createOrganization(Organization organization, Clotho clothoObject)
     {
-        String id = "";
         Map map = new HashMap();
         map.put("schema", Organization.class.getCanonicalName());
-        if (organization.getId() != null){
-            map.put("id", organization.getId());
+      
+        if (organization.getName() != null) {
+            map.put("name", organization.getName());
         }
-        map.put("name", organization.getName());
-        map.put("description", organization.getDescription());
-        map.put("phone", organization.getPhone());
-        map.put("url", organization.getUrl());
+        if (organization.getDescription() != null){
+            map.put("description", organization.getDescription());
+        }
+        if (organization.getPhone() != null){
+            map.put("phone", organization.getPhone());
+        }
+        if (organization.getUrl() != null) {
+            map.put("url", organization.getUrl());
+        }
         
-        id = (String) clothoObject.set(map);
+        String id = (String) clothoObject.set(map);
         makePublic(id, clothoObject);
         organization.setId(id);
         return id;
     }
     public static String createPerson(Person person, Clotho clothoObject)
     {
-        String id = "";
+       
         Map map = new HashMap();
-
         map.put("schema", Person.class.getCanonicalName());
 
 
-       if(person.getSalt() != null && person.getSalt() != ""){
+        if(person.getSalt() != null && !person.getSalt().isEmpty()){
             map.put("salt", person.getSalt());
         }
          
     
-        if (person.getSaltedEmailHash() != null && person.getSaltedEmailHash() != "") 
+        if (person.getSaltedEmailHash() != null) 
         {
-            map.put("saltedEmailHash", person.getSaltedEmailHash());
+            try {
+                String hash = new String (person.getSaltedEmailHash(), "UTF-8");
+                map.put("saltedEmailHash", hash);
+            }
+            catch (UnsupportedEncodingException ex){
+                Logger.getLogger(ClothoAdaptor.class).log(Level.SEVERE, null, ex);
+            }
         }
         
         if (person.getProjects() != null)
@@ -437,7 +460,9 @@ public class ClothoAdaptor {
             {
                 JSONArray projects = new JSONArray();
                 for (Project project : person.getProjects()){
-                    projects.add(project.getId());
+                    if (project.getId() != null){
+                        projects.add(project.getId());
+                    }
                 }
                 map.put("project", projects);
             }
@@ -448,7 +473,9 @@ public class ClothoAdaptor {
             if (!person.getStatuses().isEmpty()){
                 JSONArray statuses = new JSONArray();
                 for (Status status : person.getStatuses()){
-                    statuses.add(status.getId());
+                    if (status.getId() != null){
+                        statuses.add(status.getId());
+                    }
                 }
                 map.put("statuses", statuses);
             }
@@ -459,7 +486,9 @@ public class ClothoAdaptor {
             if (!person.getNotebooks().isEmpty()){
                 JSONArray notebooks = new JSONArray();
                 for (Notebook notebook : person.getNotebooks()){
-                    notebooks.add(notebook.getId());
+                    if (notebook.getId() != null){
+                        notebooks.add(notebook.getId());
+                    }
                 }
                 map.put("notebooks", notebooks);
             }
@@ -469,11 +498,13 @@ public class ClothoAdaptor {
             if(!person.getLabs().isEmpty())
             {
                 JSONArray labs = new JSONArray();
-                JSONArray roles = new JSONArray();
+                JSONArray roles;
                 Map rolesMap = new HashMap();
                 for (Institution institution : person.getLabs())
                 {
-                    labs.add(institution.getId());
+                    if (institution.getId() != null){
+                        labs.add(institution.getId());
+                    }
                     //iterate through the roles in the Set
                     if (person.getRole(institution) != null)
                     {
@@ -483,7 +514,9 @@ public class ClothoAdaptor {
                         {
                             roles.add(it.next().toString());
                         }
-                        rolesMap.put(institution.getId(), roles);
+                        if (institution.getId() != null){
+                            rolesMap.put(institution.getId(), roles);
+                        }
                     }
 
                 }
@@ -498,12 +531,15 @@ public class ClothoAdaptor {
                 JSONArray colleagues = new JSONArray();
                 for (Person colleague : person.getColleagues())
                 {
-                    colleagues.add(colleague.getId());
+                    if (colleague.getId() != null){
+                        colleagues.add(colleague.getId());
+                    }
 
                 }
                 map.put("colleagues", colleagues);
             }
         }
+        
         if (person.getOrders() != null)
         {
             if (!person.getOrders().isEmpty())
@@ -511,7 +547,10 @@ public class ClothoAdaptor {
                 JSONArray orders = new JSONArray();
                 for (Order order : person.getOrders())
                 {
-                    orders.add(order.getId());
+                    if (order.getId()!= null)
+                    {
+                        orders.add(order.getId());
+                    }
                 }
                 map.put("orders", orders);
             }
@@ -523,7 +562,10 @@ public class ClothoAdaptor {
                 JSONArray publications = new JSONArray();
                 for (Publication publication : person.getPublications())
                 {
-                    publications.add(publication.getId());
+                    if (publication.getId() != null){
+                        publications.add(publication.getId());
+                    }
+                    
                 }
                 map.put("publications", publications);
             }
@@ -540,9 +582,8 @@ public class ClothoAdaptor {
         if(person.getPassword() != null)
             map.put("password", person.getPassword());
         
+        //defaults are false and "" for these two lines in the constructors
         map.put("activated", person.isActivated());
-        
-        
         map.put("activationString", person.getActivationString());
         
        
@@ -560,12 +601,12 @@ public class ClothoAdaptor {
         loginUserMap.put("username", username);
         loginUserMap.put("credentials", password);
         
-        Map loginResult = new HashMap();
+        Map loginResult;
         loginResult = (Map)(clothoObject.login(loginUserMap));
         System.out.println(loginResult.toString());
         map.put("id", loginResult.get("id"));
         
-        id = (String) clothoObject.set(map);
+        String id = (String) clothoObject.set(map);
         makePublic(id, clothoObject);
         clothoObject.logout();
         return id;
@@ -574,44 +615,49 @@ public class ClothoAdaptor {
     
     public static String createProduct(Product product, Clotho clothoObject)
     {
-        String id = "";
+       
         Map map = new HashMap();
         map.put("schema", Product.class.getCanonicalName());
+      
         map.put("cost",product.getCost());
-        map.put("productURL", product.getProductURL());
-        map.put("goodType", product.getGoodType().toString());
-        System.out.println(product.getGoodType().toString());
-        
-        map.put("quantity", product.getQuantity());
-        map.put("name", product.getName());
-        map.put("description", product.getDescription());
-        if (product.getId() != null )
-        {
-            map.put("id", product.getId());
+       
+        if (product.getProductURL() != null){
+            map.put("productURL", product.getProductURL());
         }
+        if (product.getGoodType() != null) {
+            map.put("goodType", product.getGoodType().toString());
+        }
+        System.out.println(product.getGoodType().toString());
+     
+        map.put("quantity", product.getQuantity());
+        
+        if (product.getName() != null) {
+            map.put("name", product.getName());
+        }
+        
+        if (product.getDescription() != null) {
+            map.put("description", product.getDescription());
+        }
+  
         if (product.getCompany().getId() != null){
-        map.put("company", product.getCompany().getId());
+            map.put("company", product.getCompany().getId());
         } else {
             map.put("company", product.getCompany().getName());
         }
         
-        id = (String) clothoObject.set(map) ;
+        String id = (String) clothoObject.set(map) ;
         product.setId(id);
         makePublic(id, clothoObject);
         return id;
        
     }
-    public static String createProject(Project project, Clotho clothoObject){
-        String id ="";
+    public static String createProject(Project project, Clotho clothoObject)
+    {
+ 
         Map map = new HashMap();
         map.put("schema", Project.class.getCanonicalName());
-
-        if(project.getId() != null && project.getId() != "")
-        {
-            map.put("id",project.getId());
-        }
         
-        System.out.println("Step 1");
+       
         if(project.getCreator() != null)
         {
             if (project.getCreator().getId() != null)
@@ -619,23 +665,24 @@ public class ClothoAdaptor {
                 map.put("creator", project.getCreator().getId());
             }    
         }
-        System.out.println("Step 2");
+      
         if(project.getLead() != null)
         {
             if (project.getLead().getId() != null){
                 map.put("lead", project.getLead().getId());
             }    
         }
-        System.out.println("Step 3");
+
         if (project.getMembers() != null){
             if (!project.getMembers().isEmpty())
             {
-                System.out.println("Step 3");
+               
                 JSONArray members = new JSONArray();
 
                 for (Person member: project.getMembers() ){
-
-                    members.add(member.getId());
+                    if (member.getId() != null){
+                        members.add(member.getId());
+                    }
 
                 }
                 map.put("members", members);
@@ -647,8 +694,9 @@ public class ClothoAdaptor {
                 JSONArray notebooks = new JSONArray();
 
                 for (Notebook notebook: project.getNotebooks() ){
-
-                    notebooks.add(notebook.getId());
+                    if (notebook.getId() != null) {
+                        notebooks.add(notebook.getId());
+                    }
 
                 }
                 map.put("notebooks", notebooks);
@@ -662,8 +710,10 @@ public class ClothoAdaptor {
                 JSONArray affiliatedLabs = new JSONArray();
 
                 for (Organization affiliatedLab: project.getAffiliatedLabs() ){
-
-                    affiliatedLabs.add(affiliatedLab.getId());
+                    
+                    if (affiliatedLab.getId() != null){
+                        affiliatedLabs.add(affiliatedLab.getId());
+                    }
 
                 }
                 map.put("affiliatedLabs", affiliatedLabs);
@@ -677,15 +727,16 @@ public class ClothoAdaptor {
 
                 for (Status update: project.getUpdates() )
                 {
-
-                    updates.add(update.getId());
+                    if (update.getId() != null){
+                       updates.add(update.getId());
+                    }
 
                 }
                 map.put("updates", updates);
             }
         }
         
-        if (project.getName() != null && project.getName() != "")
+        if (project.getName() != null && !project.getName().isEmpty())
         {
             map.put("name", project.getName());
         }
@@ -706,12 +757,12 @@ public class ClothoAdaptor {
         {
             map.put("grant", project.getGrant());
         }
-        if (project.getDescription() != null && project.getDescription() != "")
+        if (project.getDescription() != null && !project.getDescription().isEmpty())
         {
             map.put("description", project.getDescription());
         }
 
-        id = (String) clothoObject.set(map) ;
+        String id = (String) clothoObject.set(map) ;
         project.setId(id);
         makePublic(id, clothoObject);
         
@@ -720,42 +771,48 @@ public class ClothoAdaptor {
     }
     public static String createProtocol(Protocol protocol, Clotho clothoObject)
     {
-        String id = "";
+
         Map map = new HashMap();
         map.put("schema", Protocol.class.getCanonicalName());
-        map.put("creator", protocol.getCreator().getId());
-        map.put("protocolName", protocol.getProtocolName());
+        if (protocol.getCreator().getId() != null) {
+            map.put("creator", protocol.getCreator().getId());
+        }
+        if (protocol.getProtocolName() != null && !protocol.getProtocolName().isEmpty()){
+            map.put("protocolName", protocol.getProtocolName());
+        }
         
         JSONArray equipment = new JSONArray();
+        if (!protocol.getEquipment().isEmpty()){
         for (Instrument instrument : protocol.getEquipment()){
-            equipment.add(instrument.getId());
+            if (instrument.getId() != null){
+                equipment.add(instrument.getId());
+            }
         }
-        map.put("equipment", equipment);
+            map.put("equipment", equipment);
+        }
         
         JSONArray samples = new JSONArray();
-        for (Sample sample : protocol.getSamples()){
-            samples.add(sample.getId());
+        if (!protocol.getSamples().isEmpty()){
+        for (Sample sample : protocol.getSamples())
+            {
+                if (sample.getId() != null) {
+                    samples.add(sample.getId());
+                }
+            }
+            map.put("samples", samples);
         }
-        map.put("samples", samples);
         
-        if (protocol.getId() != null){
-            map.put("id", protocol.getId());
-        }
-        
-        
-        id = (String) clothoObject.set(map);
+        String id = (String) clothoObject.set(map);
         makePublic(id, clothoObject);
         protocol.setId(id);
         return id;
     }
     public static String createPublication(Publication publication, Clotho clothoObject)
     {
-        String id = "";
+  
         Map map = new HashMap();
-        if (publication.getId() != null){
-            map.put("id", publication.getId());
-        }
-        id = (String) clothoObject.set(map);
+    
+        String id = (String) clothoObject.set(map);
         makePublic(id, clothoObject);
         publication.setId(id);
         
@@ -763,16 +820,18 @@ public class ClothoAdaptor {
     }
     public static String createSample(Sample sample, Clotho clothoObject)
     {
-        String id = "";
+     
         Map map = new HashMap();
         map.put("schema", Sample.class.getCanonicalName());
-        if (sample.getId() != null){
-            map.put("id", sample.getId());
+      
+        if (sample.getName() != null && !sample.getName().isEmpty()){
+            map.put("name", sample.getName());
         }
-        map.put("name", sample.getName());
-        map.put("description", sample.getDescription());
+        if (sample.getDescription() != null && !sample.getDescription().isEmpty()){
+            map.put("description", sample.getDescription());
+        }
         
-        id = (String) clothoObject.set(map);
+        String id = (String) clothoObject.set(map);
         sample.setId(id);
         makePublic(id, clothoObject);
         
@@ -780,14 +839,13 @@ public class ClothoAdaptor {
     }
     public static String createStatus(Status status, Clotho clothoObject)
     {
-        String id = "";
+  
         Map map = new HashMap();
         map.put("schema", Status.class.getCanonicalName());
-        if (status.getId() != null){
-            map.put("id", status.getId());
+        if (status.getText() != null && !status.getText().isEmpty()){
+            map.put("text", status.getText());
         }
-        map.put("text", status.getText());
-        id = (String) clothoObject.set(map);
+        String id = (String) clothoObject.set(map);
         makePublic(id, clothoObject);
         status.setId(id);
         return id;
@@ -797,7 +855,7 @@ public class ClothoAdaptor {
     // <editor-fold defaultstate="collapsed" desc="Get Methods">
     public static Company getCompany(String id, Clotho clothoObject)
     {
-        Map companyMap = new HashMap();
+        Map companyMap;
         companyMap = (Map) clothoObject.get(id);
         //id is in the parameter, not sent to map methods
         Company company = mapToCompany(companyMap, clothoObject);
@@ -808,7 +866,7 @@ public class ClothoAdaptor {
     }
     public static Container getContainer(String id, Clotho clothoObject)
     {
-        Map containerMap = new HashMap();
+        Map containerMap;
         containerMap = (Map) clothoObject.get(id);
         
         //container properties
@@ -820,7 +878,7 @@ public class ClothoAdaptor {
     }
     public static Entry getEntry(String id, Clotho clothoObject)
     {
-        Map entryMap = new HashMap();
+        Map entryMap;
         entryMap = (Map) clothoObject.get(id);
         
         //entry properties as strings
@@ -832,7 +890,7 @@ public class ClothoAdaptor {
     }
     public static FundingAgency getFundingAgency(String id, Clotho clothoObject)
     {
-        Map fundingAgencyMap = new HashMap();
+        Map fundingAgencyMap;
         fundingAgencyMap = (Map) clothoObject.get(id);
         
         FundingAgency fundingAgency = mapToFundingAgency(fundingAgencyMap, clothoObject);
@@ -844,7 +902,7 @@ public class ClothoAdaptor {
     //good is abstract, can't be gotten
     public static Grant getGrant(String id, Clotho clothoObject)
     {
-        Map grantMap = new HashMap();
+        Map grantMap;
         grantMap = (Map) clothoObject.get(id);
         
         Grant grant = mapToGrant(grantMap, clothoObject);
@@ -855,7 +913,7 @@ public class ClothoAdaptor {
     }
     public static Institution getInstitution(String id, Clotho clothoObject)
     {
-        Map institutionMap = new HashMap();
+        Map institutionMap;
         institutionMap = (Map) clothoObject.get(id);
         
         //id provided
@@ -867,7 +925,7 @@ public class ClothoAdaptor {
     public static Instrument getInstrument(String id, Clotho clothoObject)
     {
         
-        Map instrumentMap = new HashMap();
+        Map instrumentMap;
         instrumentMap = (Map) clothoObject.get(id);
         
         Instrument instrument = mapToInstrument(instrumentMap, clothoObject);
@@ -879,7 +937,7 @@ public class ClothoAdaptor {
     }
     public static Notebook getNotebook(String id, Clotho clothoObject)
     {
-        Map notebookMap = new HashMap();
+        Map notebookMap;
         notebookMap = (Map) clothoObject.get(id);
         Notebook notebook = mapToNotebook(notebookMap, clothoObject);
         notebook.setId(id);
@@ -888,7 +946,7 @@ public class ClothoAdaptor {
     }
     public static Order getOrder(String id, Clotho clothoObject)
     {
-        Map orderMap = new HashMap();
+        Map orderMap;
         orderMap = (Map) clothoObject.get(id);
         
         Order order = mapToOrder(orderMap, clothoObject);
@@ -899,7 +957,7 @@ public class ClothoAdaptor {
     public static Person getPerson(String id, Clotho clothoObject)
     {
         
-        Map personMap = new HashMap();
+        Map personMap;
         personMap = (Map) clothoObject.get(id);
         
         System.out.println(personMap);
@@ -910,7 +968,7 @@ public class ClothoAdaptor {
     }
     public static Product getProduct(String id, Clotho clothoObject)
     {
-        Map productMap = new HashMap();
+        Map productMap;
         productMap = (Map) clothoObject.get(id);
         
         Product product = mapToProduct(productMap, clothoObject);
@@ -923,7 +981,7 @@ public class ClothoAdaptor {
     {
         System.out.println("Enter get project");
         System.out.println(id);
-        Map projectMap = new HashMap();
+        Map projectMap;
         projectMap = (Map) clothoObject.get(id);
         System.out.println("got id");
         Project project = mapToProject(projectMap, clothoObject);
@@ -936,7 +994,7 @@ public class ClothoAdaptor {
     public static Protocol getProtocol(String id, Clotho clothoObject)
     {
         
-        Map protocolMap = new HashMap();
+        Map protocolMap;
         protocolMap = (Map) clothoObject.get(id);
         
         Protocol protocol = mapToProtocol(protocolMap, clothoObject);
@@ -946,7 +1004,7 @@ public class ClothoAdaptor {
     }
     public static Publication getPublication(String id, Clotho clothoObject)
     {
-        Map publicationMap = new HashMap();
+        Map publicationMap;
         publicationMap = (Map) clothoObject.get(id);
         Publication publication = mapToPublication(publicationMap, clothoObject);
         publication.setId(id);
@@ -954,7 +1012,7 @@ public class ClothoAdaptor {
     }
     public static Sample getSample(String id, Clotho clothoObject)
     {
-        Map sampleMap = new HashMap();
+        Map sampleMap;
         sampleMap = (Map) clothoObject.get(id);
         
         //instrument properties
@@ -966,7 +1024,7 @@ public class ClothoAdaptor {
     }
     public static Status getStatus(String id, Clotho clothoObject)
     {
-        Map statusMap = new HashMap();
+        Map statusMap;
         statusMap = (Map) clothoObject.get(id);
         Status status = mapToStatus(statusMap, clothoObject);
         status.setId(id);
@@ -979,12 +1037,12 @@ public class ClothoAdaptor {
     {
         //queries return a JSON array of maps
         query.put("schema", Company.class.getCanonicalName());
-        List<Company> companies = new LinkedList<Company>();
+        List<Company> companies = new LinkedList<>();
         
         JSONArray queryResults = (JSONArray) clothoObject.query(query);
         
-        for (int i = 0; i < queryResults.size(); i++){
-          companies.add(mapToCompany( (Map)queryResults.get(i), clothoObject));
+        for (Object queryResult : queryResults) {
+            companies.add(mapToCompany((Map) queryResult, clothoObject));
         }
         
         return companies;
@@ -994,12 +1052,12 @@ public class ClothoAdaptor {
     public static List<Container> queryContainer(Map query , Clotho clothoObject)
     {
         query.put("schema", Container.class.getCanonicalName());
-        List<Container> containers = new LinkedList<Container>();
+        List<Container> containers = new LinkedList<>();
         
         JSONArray queryResults = (JSONArray) clothoObject.query(query);
         
-        for (int i = 0; i < queryResults.size(); i++){
-          containers.add(mapToContainer( (Map)queryResults.get(i), clothoObject));
+        for (Object queryResult : queryResults) {
+            containers.add(mapToContainer((Map) queryResult, clothoObject));
         }
         
         
@@ -1009,12 +1067,12 @@ public class ClothoAdaptor {
     public static List<Entry> queryEntry(Map query , Clotho clothoObject)
     {
         query.put("schema", Entry.class.getCanonicalName());
-        List<Entry> entries = new LinkedList<Entry>();
+        List<Entry> entries = new LinkedList<>();
         
         JSONArray queryResults = (JSONArray) clothoObject.query(query);
         
-        for (int i = 0; i < queryResults.size(); i++){
-          entries.add(mapToEntry( (Map)queryResults.get(i), clothoObject));
+        for (Object queryResult : queryResults) {
+            entries.add(mapToEntry((Map) queryResult, clothoObject));
         }
         
         
@@ -1025,12 +1083,12 @@ public class ClothoAdaptor {
     public static List<FundingAgency> queryFundingAgency(Map query , Clotho clothoObject)
     {
         query.put("schema", FundingAgency.class.getCanonicalName());
-        List<FundingAgency> fundingAgencies = new LinkedList<FundingAgency>();
+        List<FundingAgency> fundingAgencies = new LinkedList<>();
         
         JSONArray queryResults = (JSONArray) clothoObject.query(query);
         
-        for (int i = 0; i < queryResults.size(); i++){
-          fundingAgencies.add(mapToFundingAgency( (Map)queryResults.get(i), clothoObject));
+        for (Object queryResult : queryResults) {
+            fundingAgencies.add(mapToFundingAgency((Map) queryResult, clothoObject));
         }
         
         
@@ -1042,12 +1100,12 @@ public class ClothoAdaptor {
     public static List<Grant> queryGrant(Map query , Clotho clothoObject)
     {
         query.put("schema", Grant.class.getCanonicalName());
-        List<Grant> grants = new LinkedList<Grant>();
+        List<Grant> grants = new LinkedList<>();
         
         JSONArray queryResults = (JSONArray) clothoObject.query(query);
         
-        for (int i = 0; i < queryResults.size(); i++){
-          grants.add(mapToGrant( (Map)queryResults.get(i), clothoObject));
+        for (Object queryResult : queryResults) {
+            grants.add(mapToGrant((Map) queryResult, clothoObject));
         }
         
         
@@ -1058,12 +1116,12 @@ public class ClothoAdaptor {
     public static List<Institution> queryInstitution(Map query , Clotho clothoObject)
     {
         query.put("schema", Institution.class.getCanonicalName());
-        List<Institution> institutions = new LinkedList<Institution>();
+        List<Institution> institutions = new LinkedList<>();
         
         JSONArray queryResults = (JSONArray) clothoObject.query(query);
         
-        for (int i = 0; i < queryResults.size(); i++){
-          institutions.add(mapToInstitution( (Map)queryResults.get(i), clothoObject));
+        for (Object queryResult : queryResults) {
+            institutions.add(mapToInstitution((Map) queryResult, clothoObject));
         }
         
         
@@ -1074,12 +1132,12 @@ public class ClothoAdaptor {
     {
         
         query.put("schema", Instrument.class.getCanonicalName());
-        List<Instrument> instruments = new LinkedList<Instrument>();
+        List<Instrument> instruments = new LinkedList<>();
         
         JSONArray queryResults = (JSONArray) clothoObject.query(query);
         
-        for (int i = 0; i < queryResults.size(); i++){
-          instruments.add(mapToInstrument( (Map)queryResults.get(i), clothoObject));
+        for (Object queryResult : queryResults) {
+            instruments.add(mapToInstrument((Map) queryResult, clothoObject));
         }
         
         
@@ -1090,12 +1148,12 @@ public class ClothoAdaptor {
     public static List<Notebook> queryNotebook(Map query , Clotho clothoObject)
     {
         query.put("schema", Notebook.class.getCanonicalName());
-        List<Notebook> notebooks = new LinkedList<Notebook>();
+        List<Notebook> notebooks = new LinkedList<>();
         
         JSONArray queryResults = (JSONArray) clothoObject.query(query);
         
-        for (int i = 0; i < queryResults.size(); i++){
-          notebooks.add(mapToNotebook( (Map)queryResults.get(i), clothoObject));
+        for (Object queryResult : queryResults) {
+            notebooks.add(mapToNotebook((Map) queryResult, clothoObject));
         }
         
         
@@ -1106,12 +1164,12 @@ public class ClothoAdaptor {
     public static List<Order> queryOrder(Map query , Clotho clothoObject)
     {
         query.put("schema", Order.class.getCanonicalName());
-        List<Order> orders = new LinkedList<Order>();
+        List<Order> orders = new LinkedList<>();
         
         JSONArray queryResults = (JSONArray) clothoObject.query(query);
         
-        for (int i = 0; i < queryResults.size(); i++){
-          orders.add(mapToOrder( (Map)queryResults.get(i), clothoObject));
+        for (Object queryResult : queryResults) {
+            orders.add(mapToOrder((Map) queryResult, clothoObject));
         }
         
         
@@ -1126,12 +1184,12 @@ public class ClothoAdaptor {
         //TODO CHANGE THIS IN THE FUTURE
         query.put("schema", Person.class.getCanonicalName());
         
-        List<Person> people = new LinkedList<Person>();
+        List<Person> people = new LinkedList<>();
         
         JSONArray queryResults = (JSONArray) clothoObject.query(query);
         
-        for (int i = 0; i < queryResults.size(); i++){
-          people.add(mapToPerson( (Map)queryResults.get(i), clothoObject));
+        for (Object queryResult : queryResults) {
+            people.add(mapToPerson((Map) queryResult, clothoObject));
         }
         
         
@@ -1142,12 +1200,12 @@ public class ClothoAdaptor {
     public static List<Product> queryProduct(Map query , Clotho clothoObject)
     {
         query.put("schema", Product.class.getCanonicalName());
-        List<Product> products = new LinkedList<Product>();
+        List<Product> products = new LinkedList<>();
         
         JSONArray queryResults = (JSONArray) clothoObject.query(query);
         
-        for (int i = 0; i < queryResults.size(); i++){
-          products.add(mapToProduct( (Map)queryResults.get(i), clothoObject));
+        for (Object queryResult : queryResults) {
+            products.add(mapToProduct((Map) queryResult, clothoObject));
         }
         
         
@@ -1158,12 +1216,12 @@ public class ClothoAdaptor {
     public static List<Project> queryProject(Map query , Clotho clothoObject)
     {
         query.put("schema", Project.class.getCanonicalName());
-        List<Project> projects = new LinkedList<Project>();
+        List<Project> projects = new LinkedList<>();
         
         JSONArray queryResults = (JSONArray) clothoObject.query(query);
         
-        for (int i = 0; i < queryResults.size(); i++){
-          projects.add(mapToProject((Map)queryResults.get(i), clothoObject));
+        for (Object queryResult : queryResults) {
+            projects.add(mapToProject((Map) queryResult, clothoObject));
         }
         
         
@@ -1174,12 +1232,12 @@ public class ClothoAdaptor {
     public static List<Protocol> queryProtocol(Map query , Clotho clothoObject)
     {
         query.put("schema", Protocol.class.getCanonicalName());
-        List<Protocol> protocols = new LinkedList<Protocol>();
+        List<Protocol> protocols = new LinkedList<>();
         
         JSONArray queryResults = (JSONArray) clothoObject.query(query);
         
-        for (int i = 0; i < queryResults.size(); i++){
-          protocols.add(mapToProtocol( (Map)queryResults.get(i), clothoObject));
+        for (Object queryResult : queryResults) {
+            protocols.add(mapToProtocol((Map) queryResult, clothoObject));
         }
         
         
@@ -1190,12 +1248,12 @@ public class ClothoAdaptor {
     public static List<Publication> queryPublication(Map query , Clotho clothoObject)
     {
         query.put("schema", Publication.class.getCanonicalName());
-        List<Publication> publications = new LinkedList<Publication>();
+        List<Publication> publications = new LinkedList<>();
         
         JSONArray queryResults = (JSONArray) clothoObject.query(query);
         
-        for (int i = 0; i < queryResults.size(); i++){
-          publications.add(mapToPublication( (Map)queryResults.get(i), clothoObject));
+        for (Object queryResult : queryResults) {
+            publications.add(mapToPublication((Map) queryResult, clothoObject));
         }
         
         
@@ -1205,12 +1263,12 @@ public class ClothoAdaptor {
     public static List<Sample> querySample(Map query , Clotho clothoObject)
     {
         query.put("schema", Sample.class.getCanonicalName());
-        List<Sample> samples = new LinkedList<Sample>();
+        List<Sample> samples = new LinkedList<>();
         
         JSONArray queryResults = (JSONArray) clothoObject.query(query);
         
-        for (int i = 0; i < queryResults.size(); i++){
-          samples.add(mapToSample( (Map)queryResults.get(i), clothoObject));
+        for (Object queryResult : queryResults) {
+            samples.add(mapToSample((Map) queryResult, clothoObject));
         }
         
         
@@ -1222,12 +1280,12 @@ public class ClothoAdaptor {
     public static List<Status> queryStatus(Map query , Clotho clothoObject)
     {
         query.put("schema", Product.class.getCanonicalName());
-        List<Status> statuses = new LinkedList<Status>();
+        List<Status> statuses = new LinkedList<>();
         
         JSONArray queryResults = (JSONArray) clothoObject.query(query);
         
-        for (int i = 0; i < queryResults.size(); i++){
-          statuses.add(mapToStatus( (Map)queryResults.get(i), clothoObject));
+        for (Object queryResult : queryResults) {
+            statuses.add(mapToStatus((Map) queryResult, clothoObject));
         }
         
         
@@ -1257,24 +1315,24 @@ public class ClothoAdaptor {
         String description = "";
         
         if (map.containsKey("name")){
-             description = (String) map.get("description");;
+             description = (String) map.get("description");
         }
          
         String phone = "";
         
         if (map.containsKey("phone")){
-             phone = (String) map.get("phone");;
+             phone = (String) map.get("phone");
         }
         
         String url = "";
         
         if (map.containsKey("url")){
-             url = (String) map.get("url");;
+             url = (String) map.get("url");
         }
         
         String id = "";
         if (map.containsKey("id")){
-             id = (String) map.get("id");;
+             id = (String) map.get("id");
         }
         
         
@@ -1293,11 +1351,18 @@ public class ClothoAdaptor {
         
         
         //container properties except the id property
-        String name = (String) map.get("name");
-        String description = (String) map.get("description");
+        String name = "";
+        if (map.containsKey("name")){
+            name = (String) map.get("name");
+        }
+        String description = "";
+        if (map.containsKey("description")){
+            description = (String) map.get("description");
+        }
+        
         String id = "";
         if (map.containsKey("id")){
-             id = (String) map.get("id");;
+             id = (String) map.get("id");
         }
         Container container = new Container(name);
         container.setDescription(description);
@@ -1310,30 +1375,46 @@ public class ClothoAdaptor {
     public static Entry mapToEntry(Map map, Clotho clothoObject)
     {
        
-        
+        Notebook notebook = null;
+        if (map.containsKey("notebook")){
         String notebookId = (String) map.get("notebook");
-        Notebook notebook = getNotebook(notebookId, clothoObject);
-        String dateCreatedText = (String) map.get("dateCreated");
+        
+        notebook = getNotebook(notebookId, clothoObject);
+        }
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy"); 
-        Date dateCreated = new Date();
-        try {
-            dateCreated = df.parse(dateCreatedText);
-        } catch (ParseException e) {
-            e.printStackTrace();
+        Date dateCreated = null;
+        if (map.containsKey("dateCreated")){
+            String dateCreatedText = (String) map.get("dateCreated");
+            
+            dateCreated = new Date();
+            try {
+                dateCreated = df.parse(dateCreatedText);
+            } catch (ParseException e) {
+            }
         }
-        String lastModifiedText = (String) map.get("lastModified");
-        Date lastModified = new Date();
-        try {
-            lastModified = df.parse(lastModifiedText);
-        } catch (ParseException e) {
-            e.printStackTrace();
+        
+        Date lastModified = null;
+        if (map.containsKey("lastModified")){
+            String lastModifiedText = (String) map.get("lastModified");
+            lastModified = new Date();
+            try {
+                lastModified = df.parse(lastModifiedText);
+            } catch (ParseException e) {
+            }
         }
-        String text = (String) map.get("text");
-        String title = (String) map.get("title");
+        String text = "";
+        if (map.containsKey("text")){
+            text = (String) map.get("text");
+        }
+        String title = "";
+        if (map.containsKey("title")){
+           title = (String) map.get("title");
+        }
+        
         Entry entry = new Entry(notebook, dateCreated, text, title);
         String id = "";
         if (map.containsKey("id")){
-             id = (String) map.get("id");;
+             id = (String) map.get("id");
         }
        
         entry.setLastModified(lastModified);
@@ -1657,7 +1738,7 @@ public class ClothoAdaptor {
     
         
         person.setSalt(map.containsKey("salt") ? (String) map.get("salt") : "");
-        person.setSaltedEmailHash(map.containsKey("saltedEmailHash") ? (String) map.get("saltedEmailHash") : "");
+        person.setSaltedEmailHash(map.containsKey("saltedEmailHash") ? ((String) map.get("saltedEmailHash")).getBytes() : "".getBytes());
 
         
         
@@ -1949,7 +2030,7 @@ public class ClothoAdaptor {
         grantMap.put("user", "none");
         grantMap.put("add", add);
         grantMap.put("remove", remove);
-        
+        8
         Map grantResult = new HashMap();
         grantResult = (Map)(clothoObject.grant(grantMap));
     }
