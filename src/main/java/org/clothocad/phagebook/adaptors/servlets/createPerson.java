@@ -48,16 +48,7 @@ public class createPerson extends HttpServlet {
             response.setContentType("text/html;charset=UTF-8");
             try (PrintWriter out = response.getWriter()) {
                 
-//"id": loginResult.id,
-//"givenname"
-//"surname"
-//"fullname"
-//"email"
-//"friendsList"
-//"statusList"
-//"pubmedIdList"
-//"activated"
-//"activationString"
+
                 
                 Person person = new Person();
                 person.setFirstName(request.getParameter("givenname"));
@@ -117,7 +108,7 @@ public class createPerson extends HttpServlet {
         ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
         Clotho clothoObject = new Clotho(conn);
         
-        System.out.println("I am in the post");
+       
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         String password = request.getParameter("password");
@@ -128,10 +119,13 @@ public class createPerson extends HttpServlet {
         createdPerson.setLastName(lastName);
         createdPerson.setEmailId(emailId);
         createdPerson.setPassword(password);
+        
+        
         EmailSaltHasher salty = EmailSaltHasher.getEmailSaltHasher();
         String salt = EmailSaltHasher.csRandomAlphaNumericString();
         createdPerson.setSalt(salt);
-        String SaltedHashedEmail = salty.hash(emailId.toCharArray(), salt.getBytes("UTF-8"));
+        
+        byte[] SaltedHashedEmail = salty.hash(emailId.toCharArray(), salt.getBytes("UTF-8"));
 
         createdPerson.setSaltedEmailHash(SaltedHashedEmail);
         

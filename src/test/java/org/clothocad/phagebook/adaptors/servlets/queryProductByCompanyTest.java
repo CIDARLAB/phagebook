@@ -81,8 +81,7 @@ public class queryProductByCompanyTest {
         Map query = new HashMap();
         query.put("name", "Amazon");
             
-        List<Company> queryCompanyResults = new LinkedList<>();
-        queryCompanyResults = ClothoAdaptor.queryCompany(query, clothoObject);
+        List<Company> queryCompanyResults = ClothoAdaptor.queryCompany(query, clothoObject);
         //To get Company Name and ID to query for products with that company...
         List<String> companyIDs = new LinkedList<>();
         for (Company company : queryCompanyResults ){

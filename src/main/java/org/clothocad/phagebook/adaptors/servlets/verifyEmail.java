@@ -7,6 +7,7 @@ package org.clothocad.phagebook.adaptors.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -82,7 +83,7 @@ public class verifyEmail extends HttpServlet {
             
             EmailSaltHasher salty = EmailSaltHasher.getEmailSaltHasher();
             Map query = new HashMap();
-            List<Person> queryPersons = new LinkedList<Person>();
+            List<Person> queryPersons = new LinkedList<>();
             query.put("emailId", emailId);
             
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
@@ -104,15 +105,15 @@ public class verifyEmail extends HttpServlet {
           
             queryPersons = ClothoAdaptor.queryPerson(query, clothoObject);
             
-            String recreatedHash = salty.hash(emailId.toCharArray(), salt.getBytes("UTF-8"));
+            byte[] recreatedHash = salty.hash(emailId.toCharArray(), salt.getBytes("UTF-8"));
             //System.out.println(salty.hash(people.get(0).getEmailId().toCharArray(), people.get(0).getSalt().getBytes("UTF-8"))
             
-            boolean isValidated = queryPersons.get(0).getSaltedEmailHash().equals(recreatedHash);
-            System.out.println("is Validated = " + isValidated);
-            System.out.println("retrieved Hash = " + queryPersons.get(0).getSaltedEmailHash());
-            System.out.println("recreatedHash = " + recreatedHash);
+            boolean isValidated = salty.isExpectedPassword(emailId.toCharArray(), salt.getBytes("UTF-8"), queryPersons.get(0).getSaltedEmailHash());
+            
+       
+            
             if (isValidated){
-                System.out.println("-------I'm at isValidated--------");
+                System.out.println("User "  + queryPersons.get(0).getEmailId() + " has been validated");
                 queryPersons.get(0).setActivated(true);
                 clothoObject.logout();
                 ClothoAdaptor.setPerson(queryPersons.get(0), clothoObject);  

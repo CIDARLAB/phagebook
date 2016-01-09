@@ -4,12 +4,12 @@
  * and open the template in the editor.
  */
 package org.clothocad.phagebook.adaptors;
-import com.sun.istack.internal.logging.Logger;
 import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -446,11 +446,15 @@ public class ClothoAdaptor {
         if (person.getSaltedEmailHash() != null) 
         {
             try {
+                System.out.println("BEFORE STORING HASH IN CLOTHO = " + Arrays.toString(person.getSaltedEmailHash()));
                 String hash = new String (person.getSaltedEmailHash(), "UTF-8");
-                map.put("saltedEmailHash", hash);
+                System.out.println("after converting to string = "+ hash);
+                System.out.println("hash as \"get bytes\" called = " + Arrays.toString(hash.getBytes("UTF-8")));
+                
+                map.put("saltedEmailHash", Arrays.toString(person.getSaltedEmailHash()) );
             }
             catch (UnsupportedEncodingException ex){
-                Logger.getLogger(ClothoAdaptor.class).log(Level.SEVERE, null, ex);
+                java.util.logging.Logger.getLogger(ClothoAdaptor.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         
@@ -1819,7 +1823,26 @@ public class ClothoAdaptor {
     
         
         person.setSalt(map.containsKey("salt") ? (String) map.get("salt") : "");
-        person.setSaltedEmailHash(map.containsKey("saltedEmailHash") ? ((String) map.get("saltedEmailHash")).getBytes() : "".getBytes());
+        System.out.println("got here");
+        if (map.containsKey("saltedEmailHash")){
+            JSONArray byteArrayAsJSONArray = (JSONArray) map.get("saltedEmailHash");
+            System.out.println("got here in saltedEmailHash");
+         
+           
+            
+            byte[] dataByte = new byte[ byteArrayAsJSONArray.size() ];
+            System.out.println("got here now in saltedEmailHash");
+            for ( int i = 0 ; i < byteArrayAsJSONArray.size() ; i++ ) 
+            { 
+                System.out.println("iterating through byte array??");
+                dataByte[ i ] = Byte.parseByte( byteArrayAsJSONArray.get( i ).toString()) ; 
+                System.out.println(i);
+            }
+            System.out.println("finished Parsin byte array");
+            System.out.println(Arrays.toString(dataByte));
+            person.setSaltedEmailHash(dataByte);
+        } 
+        
 
         
         
@@ -1850,7 +1873,7 @@ public class ClothoAdaptor {
         
         
         Company company = null;
-        if (map.containsKey("companyId")) { 
+        if (map.containsKey("company")) { 
             String companyId =  (String) map.get("company");
             company = getCompany(companyId, clothoObject);
         }
