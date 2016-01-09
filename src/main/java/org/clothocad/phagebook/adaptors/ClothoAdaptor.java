@@ -1823,23 +1823,22 @@ public class ClothoAdaptor {
     
         
         person.setSalt(map.containsKey("salt") ? (String) map.get("salt") : "");
-        System.out.println("got here");
+       
         if (map.containsKey("saltedEmailHash")){
             JSONArray byteArrayAsJSONArray = (JSONArray) map.get("saltedEmailHash");
-            System.out.println("got here in saltedEmailHash");
+    
          
            
             
             byte[] dataByte = new byte[ byteArrayAsJSONArray.size() ];
-            System.out.println("got here now in saltedEmailHash");
+       
             for ( int i = 0 ; i < byteArrayAsJSONArray.size() ; i++ ) 
             { 
-                System.out.println("iterating through byte array??");
+               
                 dataByte[ i ] = Byte.parseByte( byteArrayAsJSONArray.get( i ).toString()) ; 
                 System.out.println(i);
             }
-            System.out.println("finished Parsin byte array");
-            System.out.println(Arrays.toString(dataByte));
+          
             person.setSaltedEmailHash(dataByte);
         } 
         
