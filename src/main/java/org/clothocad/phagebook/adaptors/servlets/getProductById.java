@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONArray;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
-import org.clothocad.phagebook.adaptors.ClothoAdaptor;
+import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Product;
 import org.json.JSONObject;
@@ -95,7 +95,7 @@ public class getProductById extends HttpServlet {
             for (int i = 0; i < productsAsStrings.size(); i++) {
                     JSONObject product = new JSONObject();
                     JSONObject productAtIndex = new JSONObject();
-                    Product temp = ClothoAdaptor.getProduct(productsAsStrings.get(i), clothoObject);
+                    Product temp = ClothoAdapter.getProduct(productsAsStrings.get(i), clothoObject);
                     productAtIndex.put("clothoID", temp.getId());
                     productAtIndex.put("name", temp.getName());
                     productAtIndex.put("company", temp.getCompany().getName());

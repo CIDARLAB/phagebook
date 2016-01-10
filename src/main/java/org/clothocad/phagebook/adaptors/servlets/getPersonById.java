@@ -19,7 +19,7 @@ import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.model.Person;
 import org.clothocad.model.Person.PersonRole;
-import org.clothocad.phagebook.adaptors.ClothoAdaptor;
+import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Institution;
 import org.clothocad.phagebook.dom.Publication;
@@ -81,7 +81,7 @@ public class getPersonById extends HttpServlet {
            clothoObject.login(loginMap);
        //
        
-        Person retrieve = ClothoAdaptor.getPerson(userId, clothoObject);
+        Person retrieve = ClothoAdapter.getPerson(userId, clothoObject);
         
         JSONObject retrievedAsJSON = new JSONObject();
         retrievedAsJSON.put("fullname", retrieve.getFirstName() + " " + retrieve.getLastName());

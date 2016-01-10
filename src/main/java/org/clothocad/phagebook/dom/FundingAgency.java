@@ -15,5 +15,8 @@ public class FundingAgency extends Organization{
         super(name);
     }
     
-    public FundingAgency(){super();}
+    public FundingAgency()
+    {
+        super();
+    }
 }

@@ -14,11 +14,12 @@ import lombok.Setter;
  * @author KatieLewis
  */
 public class Entry {
-     @Getter @Setter private Notebook notebook;
+    @Getter @Setter private Notebook notebook;
     @Getter @Setter private Date dateCreated;
     @Getter @Setter private Date lastModified;
     //how would I incorporate photos?
-    @Getter @Setter private String text, title;
+    @Getter @Setter private String text;
+    @Getter @Setter private String title;
     @Getter @Setter private String id;
    
     public Entry(Notebook owner, Date created, String title, String text){
@@ -31,5 +32,14 @@ public class Entry {
     //Need add text or can I just set text to total text after done editing?
     //How to set read/write permissions?
     
-    public Entry(){}
+    public Entry()
+    {
+        this.notebook     = new Notebook();
+        this.dateCreated  = new Date();
+        this.lastModified = new Date();
+        this.text         = "Not Set";
+        this.title        = "Not Set";
+        this.id           = "Not Set";
+        
+    }
 }

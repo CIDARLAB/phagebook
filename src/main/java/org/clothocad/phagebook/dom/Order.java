@@ -23,17 +23,12 @@ import org.clothocad.model.Person;
 public class Order {
     
     
-    @Getter
-    @Setter
-    private String id, name, description,createdOn;
-    
-    @Getter
-    @Setter
-    private Person createdBy;
-    
-    @Getter
-    @Setter
-    private Map<Product, Integer> products;
+    @Getter @Setter private String id;
+    @Getter @Setter private String name; 
+    @Getter @Setter private String description;
+    @Getter @Setter private String createdOn;
+    @Getter @Setter private Person createdBy; 
+    @Getter @Setter private Map<Product, Integer> products;
     
     /**
      *
@@ -42,8 +37,17 @@ public class Order {
     public Order(String name) {
         this.name = name;
 
-        this.products = new HashMap<Product, Integer>();
+        this.products = new HashMap<>();
     };   
     
-    public Order(){}
+    public Order()
+    {
+        this.id          = "Not Set";
+        this.name        = "Not Set";
+        this.description = "Not Set";
+        this.createdOn   = "Not Set";
+        this.createdBy   = new Person();
+        this.products    = new HashMap<>();
+        
+    }
 }

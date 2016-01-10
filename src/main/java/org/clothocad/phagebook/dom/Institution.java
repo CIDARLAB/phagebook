@@ -15,5 +15,7 @@ public class Institution extends Organization {
        super(name);
     }
     
-    public Institution(){ super();}
+    public Institution(){
+        super();
+    }
 }

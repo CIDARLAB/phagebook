@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
-import org.clothocad.phagebook.adaptors.ClothoAdaptor;
+import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 import static org.clothocad.phagebook.controller.OrderController.createOrderForm;
 import org.clothocad.phagebook.dom.Order;
@@ -114,7 +114,7 @@ public class SelectColumns extends HttpServlet{
 
             clothoObject.login(loginMap);
             System.out.println("HERE AT SELECT 1");
-            Order order = ClothoAdaptor.getOrder(id, clothoObject);
+            Order order = ClothoAdapter.getOrder(id, clothoObject);
             System.out.println("HERE AT SELECT 2");
             List<String> orderFormLines = createOrderForm(order,orderColumns);
             System.out.println(orderFormLines);

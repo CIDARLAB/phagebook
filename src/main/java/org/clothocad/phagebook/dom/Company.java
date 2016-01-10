@@ -16,9 +16,7 @@ import lombok.Setter;
 public class Company extends Organization {
     
     
-    @Getter
-    @Setter
-    private String contact;
+    @Getter @Setter private String contact;
     
     /**
      *
@@ -32,6 +30,8 @@ public class Company extends Organization {
     public Company()
     {
         super();
+        this.contact = "Not Set";
+        
     } 
    
  

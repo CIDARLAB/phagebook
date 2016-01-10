@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
-import org.clothocad.phagebook.adaptors.ClothoAdaptor;
+import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.controller.OrderController;
 import org.clothocad.phagebook.dom.Company;
@@ -62,7 +62,7 @@ public class inputCompany extends HttpServlet {
         */
         
         for(Company company:companies){
-            ClothoAdaptor.createCompany(company, clothoObject);
+            ClothoAdapter.createCompany(company, clothoObject);
         }
         conn.closeConnection();
         //writer.println("Done!");

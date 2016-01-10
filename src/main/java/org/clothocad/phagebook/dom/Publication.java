@@ -16,5 +16,8 @@ public class Publication
 {
     @Getter @Setter private String id;
     
-    public Publication(){}
+    public Publication()
+    {
+        this.id = "Not Set";
+    }
 }

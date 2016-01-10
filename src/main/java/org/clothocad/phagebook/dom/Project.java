@@ -31,7 +31,21 @@ public class Project {
    @Getter @Setter private String description;
    @Getter @Setter private String id;
    
-   public Project(){}
+   public Project()
+   {
+       this.creator        = new Person();
+       this.lead           = new Person();
+       this.members        = new ArrayList<>();
+       this.notebooks      = new ArrayList<>();
+       this.affiliatedLabs = new ArrayList<>();
+       this.name           = "Not Set";
+       this.dateCreated    = new Date();
+       this.updates        = new ArrayList<>();
+       this.budget         = 0.0d;
+       this.grant          = new Grant();
+       this.description    = "Not Set";
+       this.id             = "Not Set";
+   }
    
    public Project(Person creator, String name, Organization lab, String description){
        System.out.println("start of constructor");

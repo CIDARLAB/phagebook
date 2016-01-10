@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
-import org.clothocad.phagebook.adaptors.ClothoAdaptor;
+import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.model.Person;
 import org.clothocad.phagebook.security.EmailSaltHasher;
@@ -103,7 +103,7 @@ public class verifyEmail extends HttpServlet {
             clothoObject.login(loginMap);
            
           
-            queryPersons = ClothoAdaptor.queryPerson(query, clothoObject);
+            queryPersons = ClothoAdapter.queryPerson(query, clothoObject);
             
             byte[] recreatedHash = salty.hash(emailId.toCharArray(), salt.getBytes("UTF-8"));
             //System.out.println(salty.hash(people.get(0).getEmailId().toCharArray(), people.get(0).getSalt().getBytes("UTF-8"))
@@ -116,7 +116,7 @@ public class verifyEmail extends HttpServlet {
                 System.out.println("User "  + queryPersons.get(0).getEmailId() + " has been validated");
                 queryPersons.get(0).setActivated(true);
                 clothoObject.logout();
-                ClothoAdaptor.setPerson(queryPersons.get(0), clothoObject);  
+                ClothoAdapter.setPerson(queryPersons.get(0), clothoObject);  
                 
             } else if (!isValidated){
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

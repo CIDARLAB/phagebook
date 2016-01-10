@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
-import org.clothocad.phagebook.adaptors.ClothoAdaptor;
+import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.adaptors.EmailHandler;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.model.Person;
@@ -129,7 +129,7 @@ public class createPerson extends HttpServlet {
 
         createdPerson.setSaltedEmailHash(SaltedHashedEmail);
         
-        ClothoAdaptor.createPerson(createdPerson, clothoObject);
+        ClothoAdapter.createPerson(createdPerson, clothoObject);
         
         EmailHandler emailer = EmailHandler.getEmailHandler();
         String link = Args.phagebookBaseURL + "/html/verifyEmail.html?emailId=" +createdPerson.getEmailId() + "&salt=" + createdPerson.getSalt() ;

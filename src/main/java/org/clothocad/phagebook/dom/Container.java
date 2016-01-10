@@ -16,6 +16,9 @@ public class Container extends Good{
         super(name);
     }
     
-    public Container(){ super(); }
+    public Container()
+    {
+        super(); 
+    }
     
 }

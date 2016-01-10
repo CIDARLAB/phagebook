@@ -19,7 +19,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
-import org.clothocad.phagebook.adaptors.ClothoAdaptor;
+import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Company;
 import org.clothocad.phagebook.dom.Product;
@@ -84,7 +84,7 @@ public class queryProductByCompany extends HttpServlet {
             query.put("name", companyName);
             
             List<Company> queryCompanyResults = new LinkedList<>();
-            queryCompanyResults = ClothoAdaptor.queryCompany(query, clothoObject);
+            queryCompanyResults = ClothoAdapter.queryCompany(query, clothoObject);
             //To get Company Name and ID to query for products with that company...
             List<String> companyIDs = new LinkedList<>();
             for (Company company : queryCompanyResults ){
@@ -98,7 +98,7 @@ public class queryProductByCompany extends HttpServlet {
             {
                 Map queryForClotho = new HashMap();
                 queryForClotho.put("company", companyID);
-                List<Product> queryProductResults = ClothoAdaptor.queryProduct(queryForClotho, clothoObject);
+                List<Product> queryProductResults = ClothoAdapter.queryProduct(queryForClotho, clothoObject);
             
                 for (Product product : queryProductResults){
                     JSONObject productAsJson = new JSONObject();

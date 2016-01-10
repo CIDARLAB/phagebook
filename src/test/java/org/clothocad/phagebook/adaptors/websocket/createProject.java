@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
-import org.clothocad.phagebook.adaptors.ClothoAdaptor;
+import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Project;
 import org.clothocad.model.Person;
@@ -33,14 +33,14 @@ public class createProject {
         person1.setLastName("Lewis");
         ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
         Clotho clothoObject = new Clotho(conn);
-        String id = ClothoAdaptor.createPerson(person1, clothoObject);
+        String id = ClothoAdapter.createPerson(person1, clothoObject);
         Map loginMap = new HashMap();
        loginMap.put("username", "lewis");
        loginMap.put("credentials", "abc");
        clothoObject.login(loginMap);
         
         Person person2 = new Person();
-        person2 = ClothoAdaptor.getPerson(id,clothoObject);
+        person2 = ClothoAdapter.getPerson(id,clothoObject);
         
         Project project = new Project(person2, "Phagebook", "Currently, synthetic biology lacks a systematic "
                 + "design-build-test workflow for creating genetic circuits. Researchers often waste time and "
@@ -48,7 +48,7 @@ public class createProject {
                 + "My research works towards overcoming this roadblock by creating a standardized experimental-computational "
                 + "workflow that is clearly defined and applicable to a wide variety of researchers and projects. This workflow integrates software tools to "
                 + "reduce human error and to structure the way designs are chosen, assembled, and tested.");
-        ClothoAdaptor.createProject(project, clothoObject);
+        ClothoAdapter.createProject(project, clothoObject);
     }
     
 }

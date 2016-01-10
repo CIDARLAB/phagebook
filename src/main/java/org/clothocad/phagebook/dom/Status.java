@@ -29,6 +29,12 @@ public class Status{
     this.created = today;
     }
     
-    public Status(){}
+    public Status()
+    {
+        this.id       = "Not Set";
+        this.text     = "Not Set"; 
+        this.user     = new Person();
+        this.created  = new Date();
+    }
 }
 
