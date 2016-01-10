@@ -108,7 +108,6 @@ public class AuthPrivileges {
     List<String> add = new ArrayList<String>();
     List<String> remove = new ArrayList<String>();
 
-    add.add("private");
 
     Map grantMap = new HashMap();
     grantMap.put("id", objectId);
