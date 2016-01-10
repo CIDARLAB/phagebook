@@ -1649,6 +1649,7 @@ public class ClothoAdaptor {
             }
             
         }
+        
         Inventory inventory = new Inventory();
         inventory.setSamples(samples);
         inventory.setInstruments(instruments);

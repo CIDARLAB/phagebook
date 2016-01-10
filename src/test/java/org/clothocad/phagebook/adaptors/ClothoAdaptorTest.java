@@ -6,16 +6,13 @@
 package org.clothocad.phagebook.adaptors;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.phagebook.controller.Args;
-import org.clothocad.model.Person;
 import org.clothocad.phagebook.dom.Company;
 import org.clothocad.phagebook.dom.GoodType;
 import org.clothocad.phagebook.dom.Product;
-import org.clothocad.phagebook.security.EmailSaltHasher;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -27,8 +24,22 @@ import org.junit.Test;
  * @author Herb
  */
 public class ClothoAdaptorTest {
-    
+    public Clotho clothoObject;
+    public ClothoConnection conn;
     public ClothoAdaptorTest() {
+       //ESTABLISH CONNECTION
+       conn = new ClothoConnection(Args.clothoLocation);
+       clothoObject = new Clotho(conn);
+       Map createUserMap = new HashMap();
+       String username = "test"+ System.currentTimeMillis() ;
+       createUserMap.put("username", username);
+       createUserMap.put("password", "password");
+       clothoObject.createUser(createUserMap);
+       Map loginMap = new HashMap();
+       loginMap.put("username", username);
+       loginMap.put("credentials", "password");     
+       clothoObject.login(loginMap);
+       //
     }
     
     @BeforeClass
@@ -41,15 +52,37 @@ public class ClothoAdaptorTest {
     
     @Before
     public void setUp() {
+       
     }
     
     @After
     public void tearDown() {
+        clothoObject.logout();
+        conn.closeConnection();
     }
 
     
     @Test
     public void testCreateCompany(){
+     
+        Company testCompany = new Company();
+        String contact = "Clotho Test";
+        String description = "Testing Company Object Creation Clotho";
+        String id = "";
+        String name = "Clotho Company Test";
+        String phone = "(123)456-7890";
+        String url = "red.com";
+                
+                
+                
+        testCompany.setContact(contact);
+        testCompany.setDescription(description);
+        testCompany.setId(id);
+        testCompany.setName(name);
+        testCompany.setPhone(phone);
+        testCompany.setUrl(url);
+        
+        
         
     }
     @Test
@@ -196,21 +229,9 @@ public class ClothoAdaptorTest {
     
     
     
-    @Test
+    //@Test
     public void anotherTest(){
-       //ESTABLISH CONNECTION
-       ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
-       Clotho clothoObject = new Clotho(conn);
-       Map createUserMap = new HashMap();
-       String username = "test"+ System.currentTimeMillis() ;
-       createUserMap.put("username", username);
-       createUserMap.put("password", "password");
-       clothoObject.createUser(createUserMap);
-       Map loginMap = new HashMap();
-       loginMap.put("username", username);
-       loginMap.put("credentials", "password");     
-       clothoObject.login(loginMap);
-       //
+       
        
        //COMPANIES
        Company amazon = new Company("Amazon");
@@ -296,8 +317,7 @@ public class ClothoAdaptorTest {
                
        
        
-       clothoObject.logout();
-       conn.closeConnection();
+       
        
        
     }
