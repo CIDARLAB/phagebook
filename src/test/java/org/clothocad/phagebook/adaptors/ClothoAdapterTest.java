@@ -29,7 +29,10 @@ import org.clothocad.phagebook.dom.Order;
 import org.clothocad.phagebook.dom.Organization;
 import org.clothocad.phagebook.dom.Product;
 import org.clothocad.phagebook.dom.Project;
+import org.clothocad.phagebook.dom.Protocol;
+import org.clothocad.phagebook.dom.Publication;
 import org.clothocad.phagebook.dom.Sample;
+import org.clothocad.phagebook.dom.Status;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertNotSame;
@@ -422,22 +425,103 @@ public class ClothoAdapterTest {
         if(idP.equals(testProject.getId())){
             fail();
         }
+        
+        testProject.setDescription("A different project");
+        
+        String idP3 = ClothoAdapter.createProject(testProject, clothoObject);
+        assertEquals(idP3, testProject.getId());
+        if(idP.equals(testProject.getId())){
+            fail();
+        }
+        
     }
     @Test
     public void testCreateProtocol(){
+        Protocol testProtocol = new Protocol();
+        String idP = "";
+        testProtocol.setId(idP);
+       
+        String idP2 = ClothoAdapter.createProtocol(testProtocol, clothoObject);
+        assertEquals(idP2, testProtocol.getId());
+        if(idP.equals(testProtocol.getId())){
+            fail();
+        }
+        
+        testProtocol.setProtocolName("A different protocol");
+        
+        String idP3 = ClothoAdapter.createProtocol(testProtocol, clothoObject);
+        assertEquals(idP3, testProtocol.getId());
+        if(idP.equals(testProtocol.getId())){
+            fail();
+        }
         
     }
     @Test
     public void testCreatePublication(){
+        Publication testPublication = new Publication();
+        String idP = "";
+        testPublication.setId(idP);
+        
+        String idP2 = ClothoAdapter.createPublication(testPublication, clothoObject);
+        assertEquals(idP2, testPublication.getId());
+        if(idP.equals(testPublication.getId())){
+            fail();
+        }
+        
+        Publication testPublication2 = new Publication();
+        testPublication.setId(idP);
+        
+        String idP3 = ClothoAdapter.createPublication(testPublication, clothoObject);
+        assertEquals(idP3, testPublication.getId());
+        if(idP.equals(testPublication.getId())){
+            fail();
+        }
+        
         
     }
     @Test
     public void testCreateSample(){
+        Sample testSample = new Sample();
+        String idS = "";
+        testSample.setId(idS);
+        
+        String idS2 = ClothoAdapter.createSample(testSample, clothoObject);
+        assertEquals(idS2, testSample.getId());
+        if(idS.equals(testSample.getId())){
+            fail();
+        }
+        
+        testSample.setDescription("Clotho Adapter test of Sample");
+        testSample.setName("Sample Test");
+        
+        String idS3 = ClothoAdapter.createSample(testSample, clothoObject);
+        assertEquals(idS3, testSample.getId());
+        if(idS.equals(testSample.getId())){
+            fail();
+        }
+       
         
     }
     @Test
     public void testCreateStatus(){
+        Status testStatus = new Status();
+        String idS = "";
+        testStatus.setId(idS);
         
+        String idS2 = ClothoAdapter.createStatus(testStatus, clothoObject);
+        assertEquals(idS2, testStatus.getId());
+        if(idS.equals(testStatus.getId())){
+            fail();
+        }
+        
+        testStatus.setText("Test Status");
+        testStatus.setUser(new Person());
+        
+        String idS3 = ClothoAdapter.createStatus(testStatus, clothoObject);
+        assertEquals(idS3, testStatus.getId());
+        if(idS.equals(testStatus.getId())){
+            fail();
+        }
     }
    
      @Test

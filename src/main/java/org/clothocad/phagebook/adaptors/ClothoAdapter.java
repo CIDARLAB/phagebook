@@ -613,6 +613,7 @@ public class ClothoAdapter {
         map.put("id", loginResult.get("id"));
         
         String id = (String) clothoObject.set(map);
+        person.setId(id);
         makePublic(id, clothoObject);
         clothoObject.logout();
         return id;
@@ -761,7 +762,7 @@ public class ClothoAdapter {
         
         if (project.getGrant() != null)
         {
-            map.put("grant", project.getGrant());
+            map.put("grant", project.getGrant().getId());
         }
         if (project.getDescription() != null && !project.getDescription().isEmpty())
         {
