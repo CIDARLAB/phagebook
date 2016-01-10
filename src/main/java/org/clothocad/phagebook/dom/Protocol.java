@@ -18,7 +18,12 @@ import lombok.Setter;
 public class Protocol {
     @Getter @Setter Person creator;
     @Getter @Setter String  protocolName;
-    @Getter @Setter List<Instrument> equipment = new ArrayList<Instrument>();
-    @Getter @Setter List<Sample> samples = new ArrayList<Sample>();
+    @Getter @Setter List<Instrument> equipment = new ArrayList<>();
+    @Getter @Setter List<Sample> samples = new ArrayList<>();
     @Getter @Setter private String id;
+    
+    
+    public Protocol () {}
 }
+
+

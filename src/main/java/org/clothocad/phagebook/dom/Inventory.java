@@ -27,4 +27,6 @@ public class Inventory{
     @Setter 
     private String id;
     
+    public Inventory(){}
+    
 }

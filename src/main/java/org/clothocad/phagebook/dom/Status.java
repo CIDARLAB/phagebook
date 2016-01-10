@@ -28,5 +28,7 @@ public class Status{
     Date today = Calendar.getInstance().getTime();
     this.created = today;
     }
+    
+    public Status(){}
 }
 

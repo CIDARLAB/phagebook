@@ -36,4 +36,5 @@ public class Notebook {
     private void deleteEntry(Entry toDelete){
         entries.remove(toDelete);
     }
+    public Notebook(){}
 }

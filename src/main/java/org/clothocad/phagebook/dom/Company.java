@@ -5,8 +5,7 @@
  */
 package org.clothocad.phagebook.dom;
 
-import java.util.ArrayList;
-import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,5 +29,10 @@ public class Company extends Organization {
         super(name);
     }
     
+    public Company()
+    {
+        super();
+    } 
+   
  
 }

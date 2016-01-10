@@ -158,6 +158,9 @@ public class ClothoAdaptor {
         makePublic(id, clothoObject);
         return id;
     }
+    
+    //this is for if we make a new class that doesn't have a 'Create' method, we can at least pass
+    //it's name and description
     public static String createGood(Good good, Clotho clothoObject)
     {
         Map map = new HashMap();
@@ -939,6 +942,13 @@ public class ClothoAdaptor {
         return instrument;
         
     }
+    public static Inventory getInventory (String id, Clotho clothoObject){
+        Map inventoryMap;
+        inventoryMap = (Map) clothoObject.get(id);
+        Inventory inventory = mapToInventory(inventoryMap, clothoObject);
+        inventory.setId(id);
+        return inventory;
+    }
     public static Notebook getNotebook(String id, Clotho clothoObject)
     {
         Map notebookMap;
@@ -1616,6 +1626,42 @@ public class ClothoAdaptor {
         return instrument;
         
     }
+    public static Inventory mapToInventory(Map map, Clotho clothoObject)
+    {
+        //List<Sample> samples
+        //List<Instrument> instruments
+        
+        List<Sample> samples= new LinkedList<>();
+        if (map.containsKey("samples"))
+        {
+            JSONArray sampleIds = (JSONArray) map.get("samples");
+            for (int i = 0; i < sampleIds.size(); i++){
+                samples.add(getSample(sampleIds.getString(i) , clothoObject));
+            }
+            
+        }
+        List<Instrument> instruments = new LinkedList<>();
+        if (map.containsKey("instruments"))
+        {
+            JSONArray instrumentIds = (JSONArray) map.get("instruments");
+            for (int i = 0; i < instrumentIds.size(); i++){
+                instruments.add(getInstrument(instrumentIds.getString(i) , clothoObject));
+            }
+            
+        }
+        Inventory inventory = new Inventory();
+        inventory.setSamples(samples);
+        inventory.setInstruments(instruments);
+        String id = "";
+        if (map.containsKey("id"))
+        {
+            id = (String) map.get("id");
+        }
+        inventory.setId(id);
+        return inventory;
+        
+        
+    }
     public static Notebook mapToNotebook(Map map, Clotho clothoObject)
     {
         Person owner = null;
@@ -2155,9 +2201,6 @@ public class ClothoAdaptor {
     public static String setPerson(Person person, Clotho clothoObject){
         return ClothoAdaptor.createPerson(person, clothoObject);
     }
-    
-    
-    
     // </editor-fold>
     //  <editor-fold defaultstate="collapsed" desc="Misc Methods">
     public static void makePublic(String objectId, Clotho clothoObject){

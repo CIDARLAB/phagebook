@@ -31,4 +31,6 @@ public class Grant {
     public Grant(String name){
         this.name = name;    
     }
+    
+    public Grant(){}
 }

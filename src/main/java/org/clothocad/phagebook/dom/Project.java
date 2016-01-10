@@ -31,6 +31,7 @@ public class Project {
    @Getter @Setter private String description;
    @Getter @Setter private String id;
    
+   public Project(){}
    
    public Project(Person creator, String name, Organization lab, String description){
        System.out.println("start of constructor");
@@ -38,10 +39,10 @@ public class Project {
        this.creator = creator;
        this.name = name;
        this.description = description;
-       this.updates = new ArrayList<Status>();
-       this.notebooks = new ArrayList<Notebook>();
-       this.affiliatedLabs = new ArrayList<Organization>();
-       this.members = new ArrayList<Person>();
+       this.updates = new ArrayList<>();
+       this.notebooks = new ArrayList<>();
+       this.affiliatedLabs = new ArrayList<>();
+       this.members = new ArrayList<>();
        //System.out.println("created a new project?? 1");
        
    }
@@ -50,10 +51,10 @@ public class Project {
        this.creator = creator;
        this.name = name;
        this.description = description;
-       this.updates = new ArrayList<Status>();
-       this.notebooks = new ArrayList<Notebook>();
-       this.affiliatedLabs = new ArrayList<Organization>();
-       this.members = new ArrayList<Person>();
+       this.updates = new ArrayList<>();
+       this.notebooks = new ArrayList<>();
+       this.affiliatedLabs = new ArrayList<>();
+       this.members = new ArrayList<>();
 
    }
    
@@ -61,16 +62,16 @@ public class Project {
    public Project(Person creator, String name, Organization lab, 
         Person lead, Double projectBudget, Grant projectGrant, String description){
        this.creator = creator;
-       this.dateCreated = new Date();;
+       this.dateCreated = new Date();
        this.name = name;
        this.budget = projectBudget;
        this.description = description;
-       this.updates = new ArrayList<Status>();
+       this.updates = new ArrayList<>();
        this.grant = projectGrant;
        this.lead = lead;
-       this.notebooks = new ArrayList<Notebook>();
-       this.affiliatedLabs = new ArrayList<Organization>();
-       this.members = new ArrayList<Person>();
+       this.notebooks = new ArrayList<>();
+       this.affiliatedLabs = new ArrayList<>();
+       this.members = new ArrayList<>();
        //Create new lab notebook for creator?
        
        System.out.println("created a new project??");
@@ -85,7 +86,7 @@ public class Project {
    private void addMember(Person newMember){
        boolean exists = false;
        for(Person member: this.members){
-           if(member.getId() == newMember.getId()){
+           if(member.getId().equals(newMember.getId())){
                exists =true;
            }
        }
@@ -104,7 +105,7 @@ public class Project {
        //Iterate through and compare unique ids
        boolean exists = false;
        for(Person member: this.members){
-           if(member.getId() == toRemove.getId()){
+           if(member.getId().equals(toRemove.getId())){
                exists =true;
            }
        }
@@ -122,7 +123,7 @@ public class Project {
    private void addOrganization(Organization newOrganization){
        boolean exists = false;
        for(Organization organization: this.affiliatedLabs){
-           if(organization.getId() == newOrganization.getId()){
+           if(organization.getId().equals(newOrganization.getId())){
                exists = true;
            }
        }
@@ -138,7 +139,7 @@ public class Project {
    private void deleteOrganization(Organization toDelete){
        boolean exists = false;
        for(Organization organization: this.affiliatedLabs){
-           if(organization.getId() == toDelete.getId()){
+           if(organization.getId().equals(toDelete.getId())){
                exists = true;
            }
        }

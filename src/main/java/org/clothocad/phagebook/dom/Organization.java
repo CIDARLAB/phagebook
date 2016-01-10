@@ -35,5 +35,7 @@ public class Organization {
         this.url = url;
         this.phone = phone;
     }
+    
+    public Organization(){}
 
 }

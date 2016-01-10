@@ -12,6 +12,9 @@ import lombok.Setter;
  *
  * @author KatieLewis
  */
-public class Publication {
+public class Publication 
+{
     @Getter @Setter private String id;
+    
+    public Publication(){}
 }

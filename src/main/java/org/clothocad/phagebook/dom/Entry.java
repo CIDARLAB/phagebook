@@ -30,4 +30,6 @@ public class Entry {
     
     //Need add text or can I just set text to total text after done editing?
     //How to set read/write permissions?
+    
+    public Entry(){}
 }

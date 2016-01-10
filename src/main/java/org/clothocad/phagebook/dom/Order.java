@@ -45,4 +45,5 @@ public class Order {
         this.products = new HashMap<Product, Integer>();
     };   
     
+    public Order(){}
 }

@@ -47,12 +47,155 @@ public class ClothoAdaptorTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of createProduct method, of class ClothoAdaptor.
-     */
+    
     @Test
-    public void testCreateProduct() {       
+    public void testCreateCompany(){
+        
     }
+    @Test
+    public void testCreateContainer(){
+        
+    }
+    @Test
+    public void testCreateEntry(){
+        
+    }
+    @Test
+    public void testCreateFundingAgency(){
+        
+    }
+    @Test
+    public void testCreateGood(){
+        
+    }
+    @Test
+    public void testCreateGrant(){
+        
+    }
+    @Test
+    public void testCreateInstitution(){
+        
+    }
+    @Test
+    public void testCreateInventory(){
+        
+    }
+    @Test
+    public void testCreateNotebook(){
+        
+    }
+    @Test
+    public void testCreateOrder(){
+        
+    }
+    @Test
+    public void testCreateOrganization(){
+        
+    }
+    @Test
+    public void testCreatePerson(){
+        
+    }
+    @Test
+    public void testCreateProduct(){
+        
+    }
+    @Test
+    public void testCreateProject(){
+        
+    }
+    @Test
+    public void testCreateProtocol(){
+        
+    }
+    @Test
+    public void testCreatePublication(){
+        
+    }
+    @Test
+    public void testCreateSample(){
+        
+    }
+    @Test
+    public void testCreateStatus(){
+        
+    }
+   
+     @Test
+    public void testGetCompany(){
+        
+    }
+    @Test
+    public void testGetContainer(){
+        
+    }
+    @Test
+    public void testGetEntry(){
+        
+    }
+    @Test
+    public void testGetFundingAgency(){
+        
+    }
+   
+    @Test
+    public void testGetGrant(){
+        
+    }
+    @Test
+    public void testGetInstitution(){
+        
+    }
+    @Test
+    public void testGetInventory(){
+        
+    }
+    @Test
+    public void testGetNotebook(){
+        
+    }
+    @Test
+    public void testGetOrder(){
+        
+    }
+    
+    @Test
+    public void testGetPerson(){
+        
+    }
+    @Test
+    public void testGetProduct(){
+        
+    }
+    @Test
+    public void testGetProject(){
+        
+    }
+    @Test
+    public void testGetProtocol(){
+        
+    }
+    @Test
+    public void testGetPublication(){
+        
+    }
+    @Test
+    public void testGetSample(){
+        
+    }
+    @Test
+    public void testGetStatus(){
+        
+    }
+ 
+    
+    
+    
+    
+    
+    
+    
+    
     @Test
     public void anotherTest(){
        //ESTABLISH CONNECTION
