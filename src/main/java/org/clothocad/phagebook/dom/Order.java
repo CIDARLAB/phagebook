@@ -8,6 +8,7 @@ package org.clothocad.phagebook.dom;
 //experiment, sample, institution=
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,9 +27,16 @@ public class Order {
     @Getter @Setter private String id;
     @Getter @Setter private String name; 
     @Getter @Setter private String description;
-    @Getter @Setter private String createdOn;
+    @Getter @Setter private Date dateCreated;
     @Getter @Setter private Person createdBy; 
     @Getter @Setter private Map<Product, Integer> products;
+    
+//    public Map<Product, Integer> getProducts(){
+//        return this.products;
+//    }
+//    public void setProducts(Map<Product, Integer> products){
+//        this.products = products;
+//    }
     
     /**
      *
@@ -45,7 +53,7 @@ public class Order {
         this.id          = "Not Set";
         this.name        = "Not Set";
         this.description = "Not Set";
-        this.createdOn   = "Not Set";
+        this.dateCreated   = new Date();
         this.createdBy   = new Person();
         this.products    = new HashMap<>();
         

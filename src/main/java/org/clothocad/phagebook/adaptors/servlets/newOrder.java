@@ -46,9 +46,9 @@ public class newOrder extends HttpServlet {
         String name = request.getParameter("name");
         String description = request.getParameter("description");
         
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        
         Date date = new Date();
-        String timeStamp = dateFormat.format(date);
+        
         
         String orderIds = request.getParameter("orderIds");
         JSONObject orderIdsObject = new JSONObject(orderIds);
@@ -102,7 +102,7 @@ public class newOrder extends HttpServlet {
         Order order = new Order(name);
         order.setProducts(products);
         order.setDescription(description);
-        order.setCreatedOn(timeStamp);
+        order.setDateCreated(date);
         
        //
         

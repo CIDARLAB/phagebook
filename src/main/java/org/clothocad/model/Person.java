@@ -64,7 +64,7 @@ public class Person {
         this.lastName         = "Doe";
         this.password         = "Not Set";
         this.activated        = false;
-        this.activationString = "";
+        this.activationString = "Not Set";
         this.colleagues       = new ArrayList<>();
         this.notebooks        = new ArrayList<>();
         this.statuses         = new ArrayList<>();

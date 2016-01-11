@@ -5,6 +5,7 @@
  */
 package org.clothocad.phagebook.dom;
 
+import java.util.Objects;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -46,8 +47,41 @@ public class Product extends Good{
         this.company = company;
         this.goodType = goodType;
         this.cost = cost;
+   
         
     }
+//    @Override
+//    public boolean equals(Object other){
+//    if (other == null) return false;
+//    if (other == this) return true;
+//    if (!(other instanceof Product))return false;
+//    Product product = (Product) other;
+//    return product.getId().equals(this.getId());
+//    }
+    @Override
+    public boolean equals(Object o){
+      if (o == null) return false;
+      if (o == this) return true;
+      if (! (o instanceof Product))return false;
+      Product product = (Product) o;
+      return product.getId().equals(this.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 97 * hash + Objects.hashCode(this.productURL);
+        hash = 97 * hash + Objects.hashCode(this.company);
+        hash = 97 * hash + Objects.hashCode(this.goodType);
+        hash = 97 * hash + (int) (Double.doubleToLongBits(this.cost) ^ (Double.doubleToLongBits(this.cost) >>> 32));
+        hash = 97 * hash + this.quantity;
+        return hash;
+    }
+    
+    
+    
+   
+    
     
     
 }
