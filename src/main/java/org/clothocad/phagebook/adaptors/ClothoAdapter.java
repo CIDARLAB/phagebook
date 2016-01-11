@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package org.clothocad.phagebook.adaptors;
-import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,7 +14,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 import net.sf.json.JSONArray;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothocad.phagebook.dom.Company;
@@ -410,7 +408,7 @@ public class ClothoAdapter {
         }
         
         if (order.getCreatedBy()!= null){
-            if (!order.getCreatedBy().equals("Not Set")){
+            if (!order.getCreatedBy().getId().equals("Not Set")){
                 map.put("createdBy", order.getCreatedBy().getId());
             }
         }
