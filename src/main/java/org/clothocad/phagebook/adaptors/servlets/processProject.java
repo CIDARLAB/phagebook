@@ -88,17 +88,22 @@ public class processProject extends HttpServlet {
        // who is the user ?
        // get all of the fields from the request
        String name = request.getParameter("name");
-       System.out.println("name is"); 
+       System.out.println("(line 91) name is"); 
        System.out.println(name);  
        
        // gets the lead's name
        String lead = "";
        String leadString = request.getParameter("lead");
        System.out.println(leadString);  
-       
-       if(leadString != null ){
-         System.out.println("here");  
-         lead = leadString; 
+       String[] leadName = new String[2];
+       if(!leadString.equals("")){
+         System.out.println(" (line 100)Lead name is not null");  
+         lead = leadString;
+         if(leadString.contains(" ")){
+           leadName = leadString.split(" ");
+           System.out.println("(line 104)Split lead name is " + leadName); 
+           
+         }
        }       
 
        System.out.println("lead is"); 
@@ -155,8 +160,8 @@ public class processProject extends HttpServlet {
        // create a lead object using the name from the form\
        // set the lea's name to name from the form
        // ***** have to add split string code for creating first and last name
-       Person leadPerson = new Person();
-       leadPerson.setFirstName(lead);
+
+
           
        // create a Grant object -- edit grant class later to allow for 
        // creating grants
@@ -176,8 +181,6 @@ public class processProject extends HttpServlet {
        System.out.println(name);
        System.out.println("lab");
        System.out.println(lab);
-       System.out.println("lead");
-       System.out.println(leadPerson);
        System.out.println("projectBudget");
        System.out.println(projectBudget);
        System.out.println("grant");
@@ -190,6 +193,9 @@ public class processProject extends HttpServlet {
 
       String username = creator.getEmailId();
       String password = creator.getPassword();
+      
+
+       
 //      Map createUserMap = new HashMap();
 //      createUserMap.put("username", username);
 //      createUserMap.put("password", password);
@@ -198,8 +204,13 @@ public class processProject extends HttpServlet {
       loginMap.put("username", username);
       loginMap.put("credentials", password);
       clothoObject.login(loginMap);
-       
-
+      
+      
+      Person leadPerson = new Person();
+      leadPerson.setFirstName(leadName[0]);
+      leadPerson.setLastName(leadName[1]);
+      System.out.println("Lead Person is " + leadPerson);
+      String leadPersonID = ClothoAdapter.createPerson(leadPerson, clothoObject); 
 //      creator = ClothoAdapter.getPerson(creatorID, clothoObject);
       
       System.out.println("about to create the project");

@@ -158,4 +158,18 @@ public class Person {
     public static enum PersonRole{
        MEMBER, PI, LABMANAGER, POSTDOC, GRADSTUDENT, UNDERGRADUATE,LABADMIN, VISITINGRESEARCHER,RAPROFESSOR
     }
+    
+    @Override public String toString(){
+       String result = "";
+       
+       if(!this.firstName.equals("") && !this.lastName.equals("")){
+        result += this.firstName + " " + this.lastName;
+       }
+       if(!this.id.equals("")){
+        result += "\n ID is: " + this.id;
+       }
+       
+       return result;
+      
+    }
 }
