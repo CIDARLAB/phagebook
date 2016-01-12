@@ -88,25 +88,25 @@ public class processProject extends HttpServlet {
        // who is the user ?
        // get all of the fields from the request
        String name = request.getParameter("name");
-       System.out.println("(line 91) name is"); 
+       System.out.println("(91) name is"); 
        System.out.println(name);  
        
        // gets the lead's name
        String lead = "";
        String leadString = request.getParameter("lead");
-       System.out.println(leadString);  
+       System.out.println("(97) leadString is: " + leadString);  
        String[] leadName = new String[2];
        if(!leadString.equals("")){
-         System.out.println(" (line 100)Lead name is not null");  
+         System.out.println("(100) Lead name is not null");  
          lead = leadString;
          if(leadString.contains(" ")){
            leadName = leadString.split(" ");
-           System.out.println("(line 104)Split lead name is " + leadName); 
+           System.out.println("(104) Split lead name is " + leadName[0] + " " + leadName[1]); 
            
          }
        }       
 
-       System.out.println("lead is"); 
+       System.out.println("(109) lead is"); 
        System.out.println(lead);
        
        // gets the labs 
@@ -116,7 +116,7 @@ public class processProject extends HttpServlet {
        if(labsString != null){
          labs = labsString;        
        }
-       System.out.println("labs is"); 
+       System.out.println("(119) labs is"); 
        System.out.println(labs);
           
       // gets the project budget from the form
@@ -132,7 +132,7 @@ public class processProject extends HttpServlet {
        if(grantString != null){
          grant = grantString;        
        }
-       System.out.println("grant is"); 
+       System.out.println("(135) grant is"); 
        System.out.println(grant);
        
        String description = "";
@@ -140,17 +140,19 @@ public class processProject extends HttpServlet {
        if(descriptionString != null ){
          description = descriptionString;        
        }
-       System.out.println("description is"); 
+       System.out.println("(143) description is"); 
        System.out.println(description);
        
        String date = request.getParameter("date");
-       System.out.println("date is");
+       System.out.println("(147) date is");
        System.out.println(date);
 
        ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
        Clotho clothoObject = new Clotho(conn);
-       String userId = request.getParameter("id");
-       Person creator = ClothoAdapter.getPerson(userId, clothoObject); 
+       String creatorId = request.getParameter("id");
+       
+       System.out.println("(151) id of the creator is: " + creatorId);
+       Person creator = ClothoAdapter.getPerson(creatorId, clothoObject); 
        // a sample user
 //       Person creator = new Person();
 //       creator.setFirstName("Anna");
