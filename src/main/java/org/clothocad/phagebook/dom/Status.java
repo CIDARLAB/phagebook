@@ -28,5 +28,13 @@ public class Status{
     Date today = Calendar.getInstance().getTime();
     this.created = today;
     }
+    
+    public Status()
+    {
+        this.id       = "Not Set";
+        this.text     = "Not Set"; 
+        this.user     = new Person();
+        this.created  = new Date();
+    }
 }
 

@@ -5,7 +5,7 @@
  */
 package org.clothocad.phagebook.adaptors.websocket;
 
-import org.clothocad.phagebook.adaptors.ClothoAdaptor;
+import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.dom.Institution;
 import org.clothocad.phagebook.dom.Project;
 import org.junit.After;

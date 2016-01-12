@@ -39,8 +39,12 @@ function appendToCookie(cname, cvalue, exdays){
     }else if(currentCookie != "") {
         updatedCookie = currentCookie + ','+  cvalue ;
     }
+<<<<<<< HEAD
     alert(updatedCookie);
     setCookie("Order" , updatedCookie, exdays);
+=======
+    setCookie("Order", updatedCookie, exdays);
+>>>>>>> clientside
 }
 
 function delete_cookie( name ) {

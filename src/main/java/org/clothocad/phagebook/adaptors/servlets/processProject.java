@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
-import org.clothocad.phagebook.adaptors.ClothoAdaptor;
+import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Grant;
 import org.clothocad.phagebook.dom.Organization;
@@ -145,7 +145,7 @@ public class processProject extends HttpServlet {
        ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
        Clotho clothoObject = new Clotho(conn);
        String userId = request.getParameter("id");
-       Person creator = ClothoAdaptor.getPerson(userId, clothoObject); 
+       Person creator = ClothoAdapter.getPerson(userId, clothoObject); 
        // a sample user
 //       Person creator = new Person();
 //       creator.setFirstName("Anna");
@@ -186,7 +186,7 @@ public class processProject extends HttpServlet {
        System.out.println(description);
       
 //      System.out.println("about to create the creator");
-//      String creatorID = ClothoAdaptor.createPerson(creator, clothoObject);    
+//      String creatorID = ClothoAdapter.createPerson(creator, clothoObject);    
 
       String username = creator.getEmailId();
       String password = creator.getPassword();
@@ -200,12 +200,12 @@ public class processProject extends HttpServlet {
       clothoObject.login(loginMap);
        
 
-//      creator = ClothoAdaptor.getPerson(creatorID, clothoObject);
+//      creator = ClothoAdapter.getPerson(creatorID, clothoObject);
       
       System.out.println("about to create the project");
 
       Project project = new Project(creator, name, description);            
-      projectID = ClothoAdaptor.createProject(project, clothoObject); 
+      projectID = ClothoAdapter.createProject(project, clothoObject); 
       
       clothoObject.logout();
       conn.closeConnection();

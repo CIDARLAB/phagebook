@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.model.Person;
-import org.clothocad.phagebook.adaptors.ClothoAdaptor;
+import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 
 /**
@@ -76,7 +76,7 @@ public class loginUser extends HttpServlet {
             loginMap.put("credentials", password);
             
             Map id = (Map) clothoObject.login(loginMap);
-            Person loggedInPerson = ClothoAdaptor.getPerson(((String) id.get("id")), clothoObject);
+            Person loggedInPerson = ClothoAdapter.getPerson(((String) id.get("id")), clothoObject);
             
             
             if (id.containsKey("id") && loggedInPerson.isActivated())

@@ -14,7 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
-import org.clothocad.phagebook.adaptors.ClothoAdaptor;
+import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Institution;
 import org.clothocad.model.Person;
@@ -130,24 +130,33 @@ public class PhagebookSocket
                     System.out.println(statusText);
                     System.out.println("personMap1:: " + personMap1);
                     //Person user = (Person) personMap1;
-                    Person user = ClothoAdaptor.mapToPerson(personMap1, clothoObject);
+                    Person user = ClothoAdapter.mapToPerson(personMap1, clothoObject);
                     System.out.println(user);
                     Status newStatus = new Status(statusText, user);
                     System.out.println("made new status object");
                     //Add new status to the user
-                    String statusId = ClothoAdaptor.createStatus(newStatus, clothoObject);
+                    //ClothoAdaptor.createPerson(user, clothoObject);
+                    String username = user.getEmailId();
+                    String password = user.getPassword();
+                    Map loginMap = new HashMap();
+                    loginMap.put("username", username);
+                    loginMap.put("credentials", password);
+                    clothoObject.login(loginMap);
+                    String statusId = ClothoAdapter.createStatus(newStatus, clothoObject);
                     System.out.println("Status created");
                     newStatus.setId(statusId);
                     user.addStatus(newStatus);
-                    ClothoAdaptor.createPerson(user, clothoObject);
+                    clothoObject.logout();
+                    ClothoAdapter.setPerson(user, clothoObject);
+                    
 //                  //Do I need to recreate the user once I add the status?
                     //Check if data json contains a project ID (to add new status to)
                     if (map.containsKey("projectID")) {
                         String projectID = (String) map.get("projectID");
-                        Project projectFromClotho = ClothoAdaptor.getProject(projectID, clothoObject);
+                        Project projectFromClotho = ClothoAdapter.getProject(projectID, clothoObject);
                         projectFromClotho.addStatus(newStatus);
                         //why do I need to recreate projcet when I add the new status? Do I need to recreate everything once it is updated?
-                        ClothoAdaptor.createProject(projectFromClotho, clothoObject);
+                        ClothoAdapter.createProject(projectFromClotho, clothoObject);
                     }
                     //Create a map, with key "id" , and the id of the status as the value. pass that to data.
                     JSONObject returnObj = new JSONObject();

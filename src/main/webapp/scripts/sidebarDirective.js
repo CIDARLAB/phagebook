@@ -4,10 +4,13 @@ function phagebookSidebar(){
         //replace: true,
         templateUrl: './html/phagebookSidebar.html',
         scope: {
-            user: '='
+            user: '=',
         },
         controller: function($scope, $element){
-            
+            $scope.profileBtn = function(){
+                var response = sessionStorage.getItem("loggedUserId");
+                window.location.href = './html/profile.html?user=' + response;;
+            };
             //put code here if want the code to run before compilation
             //ajax call to servlet which will have the person info
         },
