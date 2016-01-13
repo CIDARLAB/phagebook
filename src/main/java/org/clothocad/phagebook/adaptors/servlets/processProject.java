@@ -149,33 +149,62 @@ public class processProject extends HttpServlet {
 
        ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
        Clotho clothoObject = new Clotho(conn);
+
+       // Establish authorship here
+       /*
        String creatorId = request.getParameter("id");
-       
        System.out.println("(151) id of the creator is: " + creatorId);
-       Person creator = ClothoAdapter.getPerson(creatorId, clothoObject); 
-       // a sample user
-//       Person creator = new Person();
-//       creator.setFirstName("Anna");
-//       creator.setEmailId("abcdejkhf@gmail.com");
-//       creator.setPassword("12345786678");;
-          
-       // create a lead object using the name from the form\
-       // set the lea's name to name from the form
-       // ***** have to add split string code for creating first and last name
+       Person creator = ClothoAdapter.getPerson(creatorId, clothoObject);
+       */
+             
+       // *** for manual user creation
+       System.out.println("(161) about to create the creator");
+       
+       Person creator = new Person();
+       creator.setFirstName("Anna");
+       creator.setLastName("Goncharova");
+       creator.setEmailId("anna@gmail.com");
+       creator.setPassword("1234567890");
+       creator.setActivated(true);
+       
+       String username = creator.getEmailId();
+       String password = creator.getPassword();
+       
+       System.out.println("(173) creating a hashmap for the creator in Clotho");
 
+       Map createUserMap = new HashMap();
+       createUserMap.put("username", username);
+       createUserMap.put("password", password);
+       clothoObject.createUser(createUserMap);
+       
+       Map loginMap = new HashMap();
+       loginMap.put("username", username);
+       loginMap.put("credentials", password);     
+       clothoObject.login(loginMap);
+       
+       String creatorID = ClothoAdapter.createPerson(creator, clothoObject);
+       creator = ClothoAdapter.getPerson(creatorID, clothoObject);
+       
+       System.out.println("(187) creator id is " + creatorID);
+       // *** 
+      
+       // create a lead object using the name from the form
+       // set the lead's name to name from the form
+       // TODO: Add form checking for lead and 
+       // ajax support for getting lead names and displaying the
+       // options.
 
-          
-       // create a Grant object -- edit grant class later to allow for 
-       // creating grants
+       // create the Grant object
        Grant grantObject = new Grant(name);
        
-       // need to add support for creating and adding a number of labs/ organizations
-       // format of passed in lab?
+       // need to add support for creating and adding a number of labs/organizations
+       // format of passed in lab? 
+       // ** Send the input data as an array.
        // for now assume there is only one organization/lab
        Organization lab = new Organization(labs);
        
        // initialize a null string to store the projectID value
-       String projectID = "";
+       
        
        System.out.println("creator"); 
        System.out.println(creator); 
@@ -190,43 +219,25 @@ public class processProject extends HttpServlet {
        System.out.println("description"); 
        System.out.println(description);
       
-//      System.out.println("about to create the creator");
-//      String creatorID = ClothoAdapter.createPerson(creator, clothoObject);    
 
-      String username = creator.getEmailId();
-      String password = creator.getPassword();
-      
-
-       
-//      Map createUserMap = new HashMap();
-//      createUserMap.put("username", username);
-//      createUserMap.put("password", password);
-//      clothoObject.createUser(createUserMap);
-      Map loginMap = new HashMap();
-      loginMap.put("username", username);
-      loginMap.put("credentials", password);
-      clothoObject.login(loginMap);
-      
-      
       Person leadPerson = new Person();
       leadPerson.setFirstName(leadName[0]);
       leadPerson.setLastName(leadName[1]);
       System.out.println("Lead Person is " + leadPerson);
       String leadPersonID = ClothoAdapter.createPerson(leadPerson, clothoObject); 
-//      creator = ClothoAdapter.getPerson(creatorID, clothoObject);
+      
       
       System.out.println("about to create the project");
 
       Project project = new Project(creator, name, description);            
-      projectID = ClothoAdapter.createProject(project, clothoObject); 
+      String projectID = ClothoAdapter.createProject(project, clothoObject); 
       
       clothoObject.logout();
       conn.closeConnection();
 
       System.out.println("project id is");
       System.out.println(projectID);
-//      System.out.println("creator id is");
-//      System.out.println(creatorID);
+
 
       JSONObject result = new JSONObject();
  

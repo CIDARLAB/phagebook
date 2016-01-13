@@ -160,7 +160,7 @@ public class Person {
     }
     
     @Override public String toString(){
-       String result = "";
+       String result = "Person is ";
        
        if(!this.firstName.equals("") && !this.lastName.equals("")){
         result += this.firstName + " " + this.lastName;
