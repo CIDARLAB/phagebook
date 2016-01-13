@@ -46,35 +46,7 @@ public class createPerson extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
             response.setContentType("text/html;charset=UTF-8");
-            try (PrintWriter out = response.getWriter()) {
-                
-
-                
-                Person person = new Person();
-                person.setFirstName(request.getParameter("givenname"));
-                person.setLastName(request.getParameter("surname"));
-                
-                System.out.println("got an a new Person request here!");
-                
-                String firstName = request.getParameter("firstName");
-                String lastName = request.getParameter("lastName");
-                String password = request.getParameter("password");
-                String emailId = request.getParameter("emailId");
-                // create order object
-                
-                // create a result object and send it to the frontend
-                JSONObject result = new JSONObject();
-                result.put("success",1);
-
-                result.put("firstName", firstName);
-                result.put("lastName", lastName);
-                result.put("emailId",emailId);
-                result.put("password Before Hash", password);
-                PrintWriter writer = response.getWriter();
-                writer.println(result);
-                writer.flush();
-                writer.close();
-            }
+           
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -128,7 +100,7 @@ public class createPerson extends HttpServlet {
         byte[] SaltedHashedEmail = salty.hash(emailId.toCharArray(), salt.getBytes("UTF-8"));
 
         createdPerson.setSaltedEmailHash(SaltedHashedEmail);
-        
+        clothoObject.logout();
         ClothoAdapter.createPerson(createdPerson, clothoObject);
         
         EmailHandler emailer = EmailHandler.getEmailHandler();
