@@ -71,12 +71,12 @@ public class verifyEmail extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        String emailId = "";
-        String salt = "";
+        String emailId ;
+        String salt ;
         boolean hasValidParameters = false;
         salt = request.getParameter("salt");
         emailId = request.getParameter("emailId");
-        if (salt != "" && emailId != ""){
+        if (!salt.isEmpty() && !emailId.isEmpty()){
             hasValidParameters = true;
         }
         if (hasValidParameters){
@@ -106,8 +106,7 @@ public class verifyEmail extends HttpServlet {
             queryPersons = ClothoAdapter.queryPerson(query, clothoObject);
             
             byte[] recreatedHash = salty.hash(emailId.toCharArray(), salt.getBytes("UTF-8"));
-            //System.out.println(salty.hash(people.get(0).getEmailId().toCharArray(), people.get(0).getSalt().getBytes("UTF-8"))
-            
+           
             boolean isValidated = salty.isExpectedPassword(emailId.toCharArray(), salt.getBytes("UTF-8"), queryPersons.get(0).getSaltedEmailHash());
             
        
@@ -117,6 +116,8 @@ public class verifyEmail extends HttpServlet {
                 queryPersons.get(0).setActivated(true);
                 clothoObject.logout();
                 ClothoAdapter.setPerson(queryPersons.get(0), clothoObject);  
+                System.out.println("HERE AT VERIFY EMAIL: "+ClothoAdapter.getPerson(queryPersons.get(0).getId(), clothoObject).isActivated());
+                
                 
             } else if (!isValidated){
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
