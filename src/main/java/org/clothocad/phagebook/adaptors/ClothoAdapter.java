@@ -45,11 +45,13 @@ import org.json.JSONObject;
 public class ClothoAdapter {
     // <editor-fold defaultstate="collapsed" desc="Create Methods">
      
-    
-    //The way this works is that it creates a hashmap with ids for everything the object has pointers to 
-    //or a primitive value.
-    //schema is so that it can be queried by clotho.
-    
+    /**
+     * This method is to create a Company object in Clotho but It can also be used a SET method if the object that 
+     * gets passed in has a valid Clotho ID
+     * @param company company object to create
+     * @param clothoObject Instance of Clotho being used
+     * @return ID value of the object in the Clotho Database
+     */
     public static String createCompany(Company company, Clotho clothoObject)
     {
         
@@ -87,6 +89,13 @@ public class ClothoAdapter {
         makePublic(id, clothoObject);
         return id;
     }
+    /**
+     * This method is to create a Company object in Clotho but It can also be used a SET method if the object that 
+     * gets passed in has a valid Clotho ID
+     * @param container container object to create
+     * @param clothoObject Instance of Clotho being used
+     * @return ID value of the object in the Clotho Database
+     */
     public static String createContainer(Container container, Clotho clothoObject)
     {
        
@@ -113,6 +122,13 @@ public class ClothoAdapter {
         return id;
         
     }
+    /**
+     * This method is to create an Entry object in Clotho but It can also be used a SET method if the object that 
+     * gets passed in has a valid Clotho ID
+     * @param entry entry object to create
+     * @param clothoObject Instance of Clotho being used
+     * @return ID value of the object in the Clotho Database
+     */
     public static String createEntry(Entry entry, Clotho clothoObject)
     {
         Map map = new HashMap();
@@ -152,6 +168,13 @@ public class ClothoAdapter {
         return id;
         
     }
+    /**
+     * This method is to create a fundingAgency object in Clotho but It can also be used a SET method if the object that 
+     * gets passed in has a valid Clotho ID
+     * @param fundingAgency object to create
+     * @param clothoObject Instance of Clotho being used
+     * @return ID value of the object in the Clotho Database
+     */
     public static String createFundingAgency(FundingAgency fundingAgency, Clotho clothoObject)
     {
         Map map = new HashMap();
@@ -187,8 +210,16 @@ public class ClothoAdapter {
         makePublic(id, clothoObject);
         return id;
     }
-    //this is for if we make a new class that doesn't have a 'Create' method, we can at least pass
-    //it's name and description
+   
+    /**
+     * This method is to create a Good object in Clotho but It can also be used a SET method if the object that 
+     * gets passed in has a valid Clotho ID
+     * NOTE: Good is a base class and this should only be used if for some reason we have not implemented the right create method.
+     * it only cares about the Name, Description, and Clotho ID of whatever subclass object we pass in.
+     * @param good object to create
+     * @param clothoObject Instance of Clotho being used
+     * @return ID value of the object in the Clotho Database
+     */
     public static String createGood(Good good, Clotho clothoObject)
     {
         Map map = new HashMap();
@@ -212,6 +243,13 @@ public class ClothoAdapter {
         makePublic(id, clothoObject);
         return id;
     }
+    /**
+     * This method is to create a Grant object in Clotho but It can also be used a SET method if the object that 
+     * gets passed in has a valid Clotho ID
+     * @param grant object to create
+     * @param clothoObject Instance of Clotho being used
+     * @return ID value of the object in the Clotho Database
+     */
     public static String createGrant(Grant grant, Clotho clothoObject)
     {
         Map map = new HashMap();
@@ -314,6 +352,13 @@ public class ClothoAdapter {
         return id;
         
     }
+    /**
+     * This method is to create an Institution object in Clotho but It can also be used a SET method if the object that 
+     * gets passed in has a valid Clotho ID
+     * @param institution object to create
+     * @param clothoObject Instance of Clotho being used
+     * @return ID value of the object in the Clotho Database
+     */
     public static String createInstiution(Institution institution, Clotho clothoObject)
     {
         Map map = new HashMap();
@@ -355,6 +400,13 @@ public class ClothoAdapter {
         makePublic(id, clothoObject);
         return id;
     }
+    /**
+     * This method is to create an Instrument object in Clotho but It can also be used a SET method if the object that 
+     * gets passed in has a valid Clotho ID
+     * @param instrument object to create
+     * @param clothoObject Instance of Clotho being used
+     * @return ID value of the object in the Clotho Database
+     */
     public static String createInstrument(Instrument instrument, Clotho clothoObject)
     {
   
@@ -382,6 +434,13 @@ public class ClothoAdapter {
         instrument.setId(id);
         return id;
     }
+    /**
+     * This method is to create an Inventory object in Clotho but It can also be used a SET method if the object that 
+     * gets passed in has a valid Clotho ID
+     * @param inventory object to create
+     * @param clothoObject Instance of Clotho being used
+     * @return ID value of the object in the Clotho Database
+     */
     public static String createInventory(Inventory inventory, Clotho clothoObject)
     {
        
@@ -430,6 +489,13 @@ public class ClothoAdapter {
         
         return id;
     }
+    /**
+     * This method is to create a Notebook object in Clotho but It can also be used a SET method if the object that 
+     * gets passed in has a valid Clotho ID
+     * @param notebook object to create
+     * @param clothoObject Instance of Clotho being used
+     * @return ID value of the object in the Clotho Database
+     */
     public static String createNotebook(Notebook notebook, Clotho clothoObject)
     {
         Map map = new HashMap();
@@ -479,6 +545,13 @@ public class ClothoAdapter {
         notebook.setId(id);
         return id;
     }
+    /**
+     * This method is to create an Order object in Clotho but It can also be used a SET method if the object that 
+     * gets passed in has a valid Clotho ID
+     * @param order object to create
+     * @param clothoObject Instance of Clotho being used
+     * @return ID value of the object in the Clotho Database
+     */
     public static String createOrder(Order order, Clotho clothoObject)
     {
  
@@ -538,6 +611,13 @@ public class ClothoAdapter {
         makePublic(id, clothoObject);
         return id;
     }
+    /**
+     * This method is to create an Organization object in Clotho but It can also be used a SET method if the object that 
+     * gets passed in has a valid Clotho ID
+     * @param organization object to create
+     * @param clothoObject Instance of Clotho being used
+     * @return ID value of the object in the Clotho Database
+     */
     public static String createOrganization(Organization organization, Clotho clothoObject)
     {
         Map map = new HashMap();
@@ -571,14 +651,12 @@ public class ClothoAdapter {
         return id;
     }
     /**
-     * create Person object in Clotho
-     * <p>
-     * make sure you Log OUT of clotho before you call this method and login again after you
-     * create the person you are creating!!
-     * </p>
-     * @param person
-     * @param clothoObject
-     * @return 
+     * This method is to create a Person object in Clotho but It can also be used a SET method if the object that 
+     * gets passed in has a valid Clotho ID
+     * NOTE: You must be LOGGED OUT of Clotho when you call this Method because it logs in that person also you will end LOGGED OUT of Clotho once it returns. 
+     * @param person object to create
+     * @param clothoObject Instance of Clotho being used
+     * @return ID value of the object in the Clotho Database
      */
     public static String createPerson(Person person, Clotho clothoObject)
     {
@@ -781,6 +859,13 @@ public class ClothoAdapter {
         
     }
     
+    /**
+     * This method is to create a Product object in Clotho but It can also be used a SET method if the object that 
+     * gets passed in has a valid Clotho ID
+     * @param product object to create
+     * @param clothoObject Instance of Clotho being used
+     * @return ID value of the object in the Clotho Database
+     */
     public static String createProduct(Product product, Clotho clothoObject)
     {
        
@@ -830,6 +915,13 @@ public class ClothoAdapter {
         return id;
        
     }
+     /**
+     * This method is to create a Project object in Clotho but It can also be used a SET method if the object that 
+     * gets passed in has a valid Clotho ID
+     * @param project object to create
+     * @param clothoObject Instance of Clotho being used
+     * @return ID value of the object in the Clotho Database
+     */
     public static String createProject(Project project, Clotho clothoObject)
     {
  
@@ -972,6 +1064,13 @@ public class ClothoAdapter {
         
         return id;
     }
+     /**
+     * This method is to create a Protocol object in Clotho but It can also be used a SET method if the object that 
+     * gets passed in has a valid Clotho ID
+     * @param protocol object to create
+     * @param clothoObject Instance of Clotho being used
+     * @return ID value of the object in the Clotho Database
+     */
     public static String createProtocol(Protocol protocol, Clotho clothoObject)
     {
 
@@ -1029,6 +1128,13 @@ public class ClothoAdapter {
         protocol.setId(id);
         return id;
     }
+     /**
+     * This method is to create a Publication object in Clotho but It can also be used a SET method if the object that 
+     * gets passed in has a valid Clotho ID
+     * @param publication object to create
+     * @param clothoObject Instance of Clotho being used
+     * @return ID value of the object in the Clotho Database
+     */
     public static String createPublication(Publication publication, Clotho clothoObject)
     {
   
@@ -1045,6 +1151,13 @@ public class ClothoAdapter {
         
         return id;
     }
+     /**
+     * This method is to create a Sample object in Clotho but It can also be used a SET method if the object that 
+     * gets passed in has a valid Clotho ID
+     * @param sample object to create
+     * @param clothoObject Instance of Clotho being used
+     * @return ID value of the object in the Clotho Database
+     */
     public static String createSample(Sample sample, Clotho clothoObject)
     {
      
@@ -1071,6 +1184,13 @@ public class ClothoAdapter {
         
         return id;
     }
+    /**
+     * This method is to create a Status object in Clotho but It can also be used a SET method if the object that 
+     * gets passed in has a valid Clotho ID
+     * @param status object to create
+     * @param clothoObject Instance of Clotho being used
+     * @return ID value of the object in the Clotho Database
+     */
     public static String createStatus(Status status, Clotho clothoObject)
     {
   
@@ -1105,12 +1225,25 @@ public class ClothoAdapter {
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Get Methods">
+    
+    /**
+     * This gets a Company object from Clotho if it receives a valid ID, will give default values to properties that were not found.
+     * @param id Clotho ID
+     * @param clothoObject Instance of Clotho being used
+     * @return instance of object.
+     */
     public static Company getCompany(String id, Clotho clothoObject)
     {
         Map companyMap = (Map) clothoObject.get(id);
         Company company = mapToCompany(companyMap, clothoObject);
         return company;
     }
+    /**
+     * This gets a Container object from Clotho if it receives a valid ID, will give default values to properties that were not found.
+     * @param id Clotho ID
+     * @param clothoObject Instance of Clotho being used
+     * @return instance of object.
+     */
     public static Container getContainer(String id, Clotho clothoObject)
     {
         Map containerMap = (Map) clothoObject.get(id);
@@ -1118,6 +1251,12 @@ public class ClothoAdapter {
         Container container = mapToContainer(containerMap, clothoObject);
         return container;
     }
+    /**
+     * This gets a Entry object from Clotho if it receives a valid ID, will give default values to properties that were not found.
+     * @param id Clotho ID
+     * @param clothoObject Instance of Clotho being used
+     * @return instance of object.
+     */
     public static Entry getEntry(String id, Clotho clothoObject)
     {
         Map entryMap = (Map) clothoObject.get(id);
@@ -1126,6 +1265,12 @@ public class ClothoAdapter {
         return entry;
       
     }
+    /**
+     * This gets a FundingAgency object from Clotho if it receives a valid ID, will give default values to properties that were not found.
+     * @param id Clotho ID
+     * @param clothoObject Instance of Clotho being used
+     * @return instance of object.
+     */
     public static FundingAgency getFundingAgency(String id, Clotho clothoObject)
     {
         Map fundingAgencyMap = (Map) clothoObject.get(id);
@@ -1133,6 +1278,12 @@ public class ClothoAdapter {
         return fundingAgency;    
     }
     //good is abstract, can't be gotten
+    /**
+     * This gets a Grant object from Clotho if it receives a valid ID, will give default values to properties that were not found.
+     * @param id Clotho ID
+     * @param clothoObject Instance of Clotho being used
+     * @return instance of object.
+     */
     public static Grant getGrant(String id, Clotho clothoObject)
     {
         Map grantMap = (Map) clothoObject.get(id);
@@ -1140,12 +1291,24 @@ public class ClothoAdapter {
         return grant;
 
     }
+    /**
+     * This gets an Institution object from Clotho if it receives a valid ID, will give default values to properties that were not found.
+     * @param id Clotho ID
+     * @param clothoObject Instance of Clotho being used
+     * @return instance of object.
+     */
     public static Institution getInstitution(String id, Clotho clothoObject)
     {
         Map institutionMap = (Map) clothoObject.get(id);
         Institution institution = mapToInstitution(institutionMap, clothoObject);
         return institution;
     }
+    /**
+     * This gets an Instrument object from Clotho if it receives a valid ID, will give default values to properties that were not found.
+     * @param id Clotho ID
+     * @param clothoObject Instance of Clotho being used
+     * @return instance of object.
+     */
     public static Instrument getInstrument(String id, Clotho clothoObject)
     {
         Map instrumentMap = (Map) clothoObject.get(id);
@@ -1153,53 +1316,107 @@ public class ClothoAdapter {
         return instrument;
         
     }
+    /**
+     * This gets an Inventory object from Clotho if it receives a valid ID, will give default values to properties that were not found.
+     * @param id Clotho ID
+     * @param clothoObject Instance of Clotho being used
+     * @return instance of object.
+     */
     public static Inventory getInventory (String id, Clotho clothoObject){
         Map inventoryMap = (Map) clothoObject.get(id);
         Inventory inventory = mapToInventory(inventoryMap, clothoObject);
         return inventory;
     }
+    /**
+     * This gets a Notebook object from Clotho if it receives a valid ID, will give default values to properties that were not found.
+     * @param id Clotho ID
+     * @param clothoObject Instance of Clotho being used
+     * @return instance of object.
+     */
     public static Notebook getNotebook(String id, Clotho clothoObject)
     {
         Map notebookMap = (Map) clothoObject.get(id);
         Notebook notebook = mapToNotebook(notebookMap, clothoObject);
         return notebook;
     }
+    /**
+     * This gets an Order object from Clotho if it receives a valid ID, will give default values to properties that were not found.
+     * @param id Clotho ID
+     * @param clothoObject Instance of Clotho being used
+     * @return instance of object.
+     */
     public static Order getOrder(String id, Clotho clothoObject)
     {
         Map orderMap = (Map) clothoObject.get(id);
         Order order = mapToOrder(orderMap, clothoObject);
         return order;
     }
+    /**
+     * This gets a Person object from Clotho if it receives a valid ID, will give default values to properties that were not found.
+     * @param id Clotho ID
+     * @param clothoObject Instance of Clotho being used
+     * @return instance of object.
+     */
     public static Person getPerson(String id, Clotho clothoObject)
     {
         Map personMap = (Map) clothoObject.get(id);
         Person person = mapToPerson(personMap, clothoObject);
         return person;
     }
+    /**
+     * This gets a Product object from Clotho if it receives a valid ID, will give default values to properties that were not found.
+     * @param id Clotho ID
+     * @param clothoObject Instance of Clotho being used
+     * @return instance of object.
+     */
     public static Product getProduct(String id, Clotho clothoObject)
     {
         Map productMap = (Map) clothoObject.get(id);
         Product product = mapToProduct(productMap, clothoObject);
         return product;   
     }
+    /**
+     * This gets a Project object from Clotho if it receives a valid ID, will give default values to properties that were not found.
+     * @param id Clotho ID
+     * @param clothoObject Instance of Clotho being used
+     * @return instance of object.
+     */
     public static Project getProject(String id, Clotho clothoObject)
     {
         Map projectMap = (Map) clothoObject.get(id);
         Project project = mapToProject(projectMap, clothoObject);
         return project;     
     }
+    /**
+     * This gets a Protocol object from Clotho if it receives a valid ID, will give default values to properties that were not found.
+     * @param id Clotho ID
+     * @param clothoObject Instance of Clotho being used
+     * @return instance of object.
+     */
     public static Protocol getProtocol(String id, Clotho clothoObject)
     {
         Map protocolMap = (Map) clothoObject.get(id);
         Protocol protocol = mapToProtocol(protocolMap, clothoObject);
         return protocol;
     }
+    /**
+     * This gets a Publication object from Clotho if it receives a valid ID, will give default values to properties that were not found.
+     * @param id Clotho ID
+     * @param clothoObject Instance of Clotho being used
+     * @return instance of object.
+     */
     public static Publication getPublication(String id, Clotho clothoObject)
     {
         Map publicationMap = (Map) clothoObject.get(id);
         Publication publication = mapToPublication(publicationMap, clothoObject);
         return publication;
     }
+    /**
+     * This gets a Sample object from Clotho if it receives a valid ID, will give default values to properties that were not found.
+     * @param id Clotho ID
+     * @param clothoObject Instance of Clotho being used
+     * @return instance of object.
+     */
     public static Sample getSample(String id, Clotho clothoObject)
     {
         Map sampleMap = (Map) clothoObject.get(id);
@@ -1207,6 +1424,12 @@ public class ClothoAdapter {
         return sample;
         
     }
+    /**
+     * This gets a Status object from Clotho if it receives a valid ID, will give default values to properties that were not found.
+     * @param id Clotho ID
+     * @param clothoObject Instance of Clotho being used
+     * @return instance of object.
+     */
     public static Status getStatus(String id, Clotho clothoObject)
     {
         Map statusMap = (Map) clothoObject.get(id);
@@ -1478,29 +1701,30 @@ public class ClothoAdapter {
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Map Methods">
-    public static Company mapToCompany(Map map, Clotho clothoObject)
+    private static Company mapToCompany(Map map, Clotho clothoObject)
     {
         
-        
+        //I set each property of a Company object to a default value (that match the constructors)
         String contact = "";
-
+        //I see if the map contains a key for that Company property
         if (map.containsKey("contact")){
+            //if so then I assign that value to my local variable
              contact = (String) map.get("contact");
         }
-       
+        //Same thing here
         String name = "";
         
         if (map.containsKey("name"))
         {
              name = (String) map.get("name");
         }
-        
+        //Same
         String description = "";
         
         if (map.containsKey("name")){
              description = (String) map.get("description");
         }
-         
+        //Same
         String phone = "";
         
         if (map.containsKey("phone")){
@@ -1514,12 +1738,14 @@ public class ClothoAdapter {
         }
         
         String id = "";
+        //I get the ID from the map because it should come with it and it especially makes sure I am parsing the right object
         if (map.containsKey("id")){
              id = (String) map.get("id");
         }
         
-        
+        //create a new Company object
         Company savedCompany = new Company(name);
+        //assign it those values
         savedCompany.setContact(contact);
         savedCompany.setDescription(description);
         savedCompany.setPhone(phone);
@@ -1529,7 +1755,7 @@ public class ClothoAdapter {
         return savedCompany;
         
     }
-    public static Container mapToContainer(Map map, Clotho clothoObject)
+    private static Container mapToContainer(Map map, Clotho clothoObject)
     {
         
         
@@ -1547,6 +1773,7 @@ public class ClothoAdapter {
         if (map.containsKey("id")){
              id = (String) map.get("id");
         }
+        //new container object
         Container container = new Container(name);
         container.setDescription(description);
         container.setId(id);
@@ -1555,27 +1782,28 @@ public class ClothoAdapter {
         
         return container;
     }
-    public static Entry mapToEntry(Map map, Clotho clothoObject)
+    private static Entry mapToEntry(Map map, Clotho clothoObject)
     {
        
         Notebook notebook = null;
         if (map.containsKey("notebook")){
-        String notebookId = (String) map.get("notebook");
+            //The map would contain the ID of the notebook being pointed to so I need to call getNotebook to build its corresponding object
+            String notebookId = (String) map.get("notebook");
         
         notebook = getNotebook(notebookId, clothoObject);
         }
-        DateFormat df = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy"); 
-        Date dateCreated = null;
+        DateFormat df = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy"); // This is to parse dates
+        Date dateCreated = null; //
         if (map.containsKey("dateCreated")){
             String dateCreatedText = (String) map.get("dateCreated");
             
-            dateCreated = new Date();
+            dateCreated = new Date(); //current date
             try {
-                dateCreated = df.parse(dateCreatedText);
+                dateCreated = df.parse(dateCreatedText); //Tries to parse the date objecet, if successful we get the date stored in the DB, else we get the current date
             } catch (ParseException e) {
             }
         }
-        
+        //same process but we onlt need one date formatter.
         Date lastModified = null;
         if (map.containsKey("lastModified")){
             String lastModifiedText = (String) map.get("lastModified");
@@ -1606,8 +1834,10 @@ public class ClothoAdapter {
         return entry;
       
     }
-    public static FundingAgency mapToFundingAgency(Map map, Clotho clothoObject)
+    private static FundingAgency mapToFundingAgency(Map map, Clotho clothoObject)
     {
+        //see map to company for a more indepth explanation
+        //checking to see if the map I received has any of the properties i want, else I initialize dummy variables
         String name = "";
         if (map.containsKey("name")){
            name = (String) map.get("name");
@@ -1633,6 +1863,7 @@ public class ClothoAdapter {
              id = (String) map.get("id");
         }
         
+        //set properties
         FundingAgency fundingAgency = new FundingAgency(name);
         fundingAgency.setPhone(phone);
         fundingAgency.setName(name);
@@ -1646,8 +1877,9 @@ public class ClothoAdapter {
        
     }
     //good is abstract, can't be gotten
-    public static Grant mapToGrant(Map map, Clotho clothoObject)
+    private static Grant mapToGrant(Map map, Clotho clothoObject)
     {
+        //See Map to Company for a more indepth explanation
         String name = "";
         if (map.containsKey("name")) {
             name = (String) map.get("name");
@@ -1666,7 +1898,7 @@ public class ClothoAdapter {
         List<Person> coPIs = new ArrayList<>() ;
         if (map.containsKey("coPIs")){
             JSONArray coPIids = (JSONArray) map.get("coPIs");
-        
+            //iterates through coPI ids and adds the getPerson result to my current coPIs var. 
             for (int i = 0; i < coPIids.size(); i++){
                 coPIs.add(getPerson(coPIids.getString(i) , clothoObject));
             }
@@ -1676,7 +1908,7 @@ public class ClothoAdapter {
         if (map.containsKey("programManager")) {
             programManager = (String) map.get("programManager");
         }
-        
+        //see above for explanation
         DateFormat df = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy"); 
         Date startDate = new Date();
         if (map.containsKey("startDate")) {
@@ -1736,11 +1968,13 @@ public class ClothoAdapter {
         grant.setDescription(description);
         grant.setId(id);
         
+        //create new grant object and assign the variables
         
         return grant;
 
     }
-    public static Institution mapToInstitution(Map map, Clotho clothoObject)
+    //********From here on out its pretty much the same process so I will only add new explanations where something completely new happens ******//
+    private static Institution mapToInstitution(Map map, Clotho clothoObject)
     {
         //id provided
         
@@ -1774,7 +2008,7 @@ public class ClothoAdapter {
         
         return institution;
     }
-    public static Instrument mapToInstrument(Map map, Clotho clothoObject)
+    private static Instrument mapToInstrument(Map map, Clotho clothoObject)
     {
         
               
@@ -1797,7 +2031,7 @@ public class ClothoAdapter {
         return instrument;
         
     }
-    public static Inventory mapToInventory(Map map, Clotho clothoObject)
+    private static Inventory mapToInventory(Map map, Clotho clothoObject)
     {
         //List<Sample> samples
         //List<Instrument> instruments
@@ -1834,7 +2068,7 @@ public class ClothoAdapter {
         
         
     }
-    public static Notebook mapToNotebook(Map map, Clotho clothoObject)
+    private static Notebook mapToNotebook(Map map, Clotho clothoObject)
     {
         Person owner = new Person();
         if (map.containsKey("owner")) {
@@ -1855,6 +2089,7 @@ public class ClothoAdapter {
             String affiliatedProjectId = (String) map.get("affiliatedProject");
             affiliatedProject = getProject(affiliatedProjectId, clothoObject);
         }
+        //EEE MMM dd HH:mm:ss z yyyy is the same as THU DEC 20 12:30:23 EST 2015, aka it looks for these patterns when parsing
         DateFormat df = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy"); 
         Date dateCreated = new Date();
         
@@ -1879,8 +2114,9 @@ public class ClothoAdapter {
                 
         return notebook;
     }
-    public static Order mapToOrder(Map map, Clotho clothoObject)
+    private static Order mapToOrder(Map map, Clotho clothoObject)
     {
+        //Look above at the first 4 map methods for a better explanation of
         String name = "";
         if (map.containsKey("name")) {
             name = (String) map.get("name");
@@ -1912,15 +2148,16 @@ public class ClothoAdapter {
             createdBy = getPerson(ownerId, clothoObject);
         }
         
-        
+        //A MAP OF A PRODUCT AS A KEY AND AN INTEGER VALUE FOR THE VALUE FOR THAT KEY
         Map<Product, Integer> products = null;
         if (map.containsKey("products")){
             Map productIds = (Map) map.get("products");
             products = new HashMap<>() ;
-        
+            //This declares an iterator to iterate through all of the key value pairs in a hash map
             Iterator it = productIds.entrySet().iterator();
             while (it.hasNext()) 
             {
+                //an example of an entry pair is <OBJECT MEM LOCATION
                 Map.Entry entryPair = (Map.Entry) it.next();
                 Product productOrder = ClothoAdapter.getProduct((String) entryPair.getKey(), clothoObject);
 
@@ -1959,9 +2196,8 @@ public class ClothoAdapter {
         order.setProducts(products);
         
         return order;
-    }
-    
-    public static Person mapToPerson(Map map, Clotho clothoObject)
+    }   
+    private static Person mapToPerson(Map map, Clotho clothoObject)
     {
         
         List<Project> projects = new ArrayList<>() ;
@@ -2110,7 +2346,7 @@ public class ClothoAdapter {
         }
         return person;
     }
-    public static Product mapToProduct(Map map, Clotho clothoObject)
+    private static Product mapToProduct(Map map, Clotho clothoObject)
     {
         String name = "";
         if (map.containsKey("name")){ name = (String) map.get("name"); }
@@ -2150,7 +2386,7 @@ public class ClothoAdapter {
         return product;
         
     }
-    public static Project mapToProject(Map map, Clotho clothoObject)
+    private static Project mapToProject(Map map, Clotho clothoObject)
     {
  
         
@@ -2284,8 +2520,7 @@ public class ClothoAdapter {
         return project;
      
     }
-    
-    public static Protocol mapToProtocol(Map map, Clotho clothoObject)
+    private static Protocol mapToProtocol(Map map, Clotho clothoObject)
     {
         /**
          * creator       : Person
@@ -2340,7 +2575,7 @@ public class ClothoAdapter {
         return protocol;
         
     }
-    public static Publication mapToPublication(Map map, Clotho clothoObject)
+    private static Publication mapToPublication(Map map, Clotho clothoObject)
     {
         String id = "";
         if (map.containsKey("id")){  id = (String) map.get("id");  }
@@ -2349,7 +2584,7 @@ public class ClothoAdapter {
         
         return publication;
     }
-    public static Sample mapToSample(Map map, Clotho clothoObject)
+    private static Sample mapToSample(Map map, Clotho clothoObject)
     {
         //sample properties
         
@@ -2374,8 +2609,7 @@ public class ClothoAdapter {
         return sample;
         
     }
-    
-    public static Status mapToStatus(Map map, Clotho clothoObject)
+    private static Status mapToStatus(Map map, Clotho clothoObject)
     { 
        
         
@@ -2425,11 +2659,64 @@ public class ClothoAdapter {
     
     // </editor-fold>
     //  <editor-fold defaultstate="collapsed" desc="Set Methods ">
+    public static String setCompany(Company company, Clotho clothoObject){
+        return ClothoAdapter.createCompany(company, clothoObject);
+    }
+    public static String setContainer(Container container, Clotho clothoObject){
+        return ClothoAdapter.createContainer(container, clothoObject);
+    }
+    public static String setEntry(Entry entry, Clotho clothoObject){
+        return ClothoAdapter.createEntry(entry, clothoObject);
+    }
+    public static String setFundingAgency(FundingAgency fundingAgency, Clotho clothoObject){
+        return ClothoAdapter.createFundingAgency(fundingAgency, clothoObject);
+    }
+    public static String setGrant(Grant grant, Clotho clothoObject){
+        return ClothoAdapter.createGrant(grant, clothoObject);
+    }
+    public static String setInstitution(Institution institution, Clotho clothoObject){
+        return ClothoAdapter.createInstiution(institution, clothoObject);
+    }
+    public static String setInstrument(Instrument instrument, Clotho clothoObject){
+        return ClothoAdapter.createInstrument(instrument, clothoObject);
+    }
+    public static String setInventory(Inventory inventory, Clotho clothoObject){
+        return ClothoAdapter.createInventory(inventory, clothoObject);
+    }
+    public static String setNotebook(Notebook notebook, Clotho clothoObject){
+        return ClothoAdapter.createNotebook(notebook, clothoObject);
+    }
+    public static String setOrder(Order order, Clotho clothoObject){
+        return ClothoAdapter.createOrder(order, clothoObject);
+    }
     public static String setPerson(Person person, Clotho clothoObject){
         return ClothoAdapter.createPerson(person, clothoObject);
     }
+    public static String setProduct(Product product, Clotho clothoObject){
+        return ClothoAdapter.createProduct(product, clothoObject);
+    }
+    public static String setProject(Project project, Clotho clothoObject){
+        return ClothoAdapter.createProject(project, clothoObject);
+    }
+    public static String setProtocol(Protocol protocol, Clotho clothoObject){
+        return ClothoAdapter.createProtocol(protocol, clothoObject);
+    }
+    public static String setPublication(Publication publication, Clotho clothoObject){
+        return ClothoAdapter.createPublication(publication, clothoObject);
+    }
+    public static String setSample(Sample sample , Clotho clothoObject){
+        return ClothoAdapter.createSample(sample, clothoObject);
+    }
+    public static String setStatus(Status status, Clotho clothoObject){
+        return ClothoAdapter.createStatus(status, clothoObject);
+    }
     // </editor-fold>
     //  <editor-fold defaultstate="collapsed" desc="Misc Methods">
+    /**
+     * Makes an object Public in Clotho
+     * @param objectId Clotho ID
+     * @param clothoObject 
+     */
     public static void makePublic(String objectId, Clotho clothoObject){
         List<String> add = new ArrayList<>();
         List<String> remove = new ArrayList<>();

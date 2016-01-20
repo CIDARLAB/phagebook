@@ -102,6 +102,7 @@ public class verifyEmail extends HttpServlet {
 
             clothoObject.login(loginMap);
            
+           
           
             queryPersons = ClothoAdapter.queryPerson(query, clothoObject);
             
