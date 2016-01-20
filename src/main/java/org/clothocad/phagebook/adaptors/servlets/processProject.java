@@ -151,12 +151,14 @@ public class processProject extends HttpServlet {
        Clotho clothoObject = new Clotho(conn);
 
        // Establish authorship here
-       /*
+      
        String creatorId = request.getParameter("id");
        System.out.println("(151) id of the creator is: " + creatorId);
        Person creator = ClothoAdapter.getPerson(creatorId, clothoObject);
-       */
-             
+       String username = creator.getEmailId();
+       String password = creator.getPassword();
+       
+       /*      
        // *** for manual user creation
        System.out.println("(161) about to create the creator");
        
@@ -171,7 +173,7 @@ public class processProject extends HttpServlet {
        String password = creator.getPassword();
        
        System.out.println("(173) creating a hashmap for the creator in Clotho");
-
+       */
        Map createUserMap = new HashMap();
        createUserMap.put("username", username);
        createUserMap.put("password", password);
@@ -187,7 +189,7 @@ public class processProject extends HttpServlet {
        
        System.out.println("(187) creator id is " + creatorID);
        // *** 
-      
+       
        // create a lead object using the name from the form
        // set the lead's name to name from the form
        // TODO: Add form checking for lead and 
@@ -229,7 +231,8 @@ public class processProject extends HttpServlet {
       
       System.out.println("about to create the project");
 
-      Project project = new Project(creator, name, description);            
+      Project project = new Project(creator, name, lab, leadPerson, projectBudget,
+              grantObject, description);            
       String projectID = ClothoAdapter.createProject(project, clothoObject); 
       
       clothoObject.logout();
