@@ -15,7 +15,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import org.clothoapi.clotho3javaapi.Clotho;
-import org.clothocad.phagebook.adaptors.ClothoAdaptor;
+import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.dom.Company;
 import org.clothocad.phagebook.dom.GoodType;
 import org.clothocad.phagebook.dom.Order;
@@ -58,10 +58,10 @@ public class OrderController {
             Company company; 
             Map companyQuery = new HashMap();
             companyQuery.put("name",companyName);
-            List<Company> companyList = ClothoAdaptor.queryCompany(companyQuery, clothoObject);
+            List<Company> companyList = ClothoAdapter.queryCompany(companyQuery, clothoObject);
             if(companyList.isEmpty()){
                 company = new Company(companyName);
-                ClothoAdaptor.createCompany(company, clothoObject);
+                ClothoAdapter.createCompany(company, clothoObject);
             }
             else{
                company = companyList.get(0);
@@ -105,10 +105,10 @@ public class OrderController {
 
                 Map companyQuery = new HashMap();
                 companyQuery.put("name",companyName);
-                List<Company> companyArray = ClothoAdaptor.queryCompany(companyQuery, clothoObject);
+                List<Company> companyArray = ClothoAdapter.queryCompany(companyQuery, clothoObject);
                 if(companyArray.isEmpty()){
                     company = new Company(companyName);
-                    ClothoAdaptor.createCompany(company, clothoObject);
+                    ClothoAdapter.createCompany(company, clothoObject);
                 }
                 else{
                    company = companyArray.get(0);

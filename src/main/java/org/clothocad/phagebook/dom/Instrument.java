@@ -16,4 +16,6 @@ public class Instrument extends Good{
         super(name);
     }
     
+    public Instrument(){ super(); }
+    
 }

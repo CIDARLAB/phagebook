@@ -16,9 +16,21 @@ import lombok.Setter;
  * @author KatieLewis
  */
 public class Protocol {
-    @Getter @Setter Person creator;
-    @Getter @Setter String  protocolName;
-    @Getter @Setter List<Instrument> equipment = new ArrayList<Instrument>();
-    @Getter @Setter List<Sample> samples = new ArrayList<Sample>();
-    @Getter @Setter private String id;
+    @Getter @Setter Person           creator;
+    @Getter @Setter String           protocolName;
+    @Getter @Setter List<Instrument> equipment;
+    @Getter @Setter List<Sample>     samples;
+    @Getter @Setter private String   id;
+    
+    
+    public Protocol () 
+    {
+        this.creator       = new Person();
+        this.protocolName  = "Not Set";
+        this.equipment     = new ArrayList<>();
+        this.samples       = new ArrayList<>();
+        this.id            = "Not Set";
+    }
 }
+
+

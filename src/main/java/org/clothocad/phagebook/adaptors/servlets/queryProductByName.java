@@ -20,7 +20,7 @@ import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
-import org.clothocad.phagebook.adaptors.ClothoAdaptor;
+import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Product;
 
@@ -87,7 +87,7 @@ public class queryProductByName extends HttpServlet {
             query.put("name", productName);
             
             List<Product> queryProductResults = new LinkedList<>();
-            queryProductResults = ClothoAdaptor.queryProduct(query, clothoObject);//NOT USING THIS BECAUSE WE WANT A JSON ARRAY BACK
+            queryProductResults = ClothoAdapter.queryProduct(query, clothoObject);//NOT USING THIS BECAUSE WE WANT A JSON ARRAY BACK
             //To get Company Name...
             JSONArray results = new JSONArray();
             for (Product product : queryProductResults){

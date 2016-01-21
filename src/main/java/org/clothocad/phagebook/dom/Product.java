@@ -5,6 +5,7 @@
  */
 package org.clothocad.phagebook.dom;
 
+import java.util.Objects;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,29 +15,26 @@ import lombok.Setter;
  */
 public class Product extends Good{
     
-    @Getter
-    @Setter
-    private String productURL;
-    
-    @Getter
-    @Setter
-    private Company company;
-    
-    @Getter
-    @Setter
-    private GoodType goodType;
-    
-    @Getter
-    @Setter
-    private double cost;
-    
-    @Getter
-    @Setter
-    private int quantity;
+    @Getter @Setter private String   productURL;
+    @Getter @Setter private Company  company;
+    @Getter @Setter private GoodType goodType;
+    @Getter @Setter private double   cost;
+    @Getter @Setter private int      quantity;
 
+    
+    public Product(){
+        super();
+        this.productURL = "Not Set";
+        this.company    = new Company();
+        this.goodType   = GoodType.INSTRUMENT;
+        this.cost       = 0.0d;
+        this.quantity   = 0;
+    }
     /**
      *
      * @param name
+     * @param company
+     * @param cost
      */
     public Product(String name, Company company,double cost){
         super(name,"");
@@ -49,10 +47,41 @@ public class Product extends Good{
         this.company = company;
         this.goodType = goodType;
         this.cost = cost;
+   
         
     }
-    public Product(){
-        super();
+//    @Override
+//    public boolean equals(Object other){
+//    if (other == null) return false;
+//    if (other == this) return true;
+//    if (!(other instanceof Product))return false;
+//    Product product = (Product) other;
+//    return product.getId().equals(this.getId());
+//    }
+    @Override
+    public boolean equals(Object o){
+      if (o == null) return false;
+      if (o == this) return true;
+      if (! (o instanceof Product))return false;
+      Product product = (Product) o;
+      return product.getId().equals(this.getId());
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 97 * hash + Objects.hashCode(this.productURL);
+        hash = 97 * hash + Objects.hashCode(this.company);
+        hash = 97 * hash + Objects.hashCode(this.goodType);
+        hash = 97 * hash + (int) (Double.doubleToLongBits(this.cost) ^ (Double.doubleToLongBits(this.cost) >>> 32));
+        hash = 97 * hash + this.quantity;
+        return hash;
+    }
+    
+    
+    
+   
+    
+    
     
 }

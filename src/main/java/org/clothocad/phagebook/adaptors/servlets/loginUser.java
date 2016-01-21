@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.model.Person;
-import org.clothocad.phagebook.adaptors.ClothoAdaptor;
+import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 
 /**
@@ -60,7 +60,7 @@ public class loginUser extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");  
         boolean isValidRequest = false;
-        if((email != "") && (password != "")){
+        if((!email.isEmpty()) && (!password.isEmpty())){
             isValidRequest = true;
         }
         else{
@@ -76,16 +76,22 @@ public class loginUser extends HttpServlet {
             loginMap.put("credentials", password);
             
             Map id = (Map) clothoObject.login(loginMap);
-            Person loggedInPerson = ClothoAdaptor.getPerson(((String) id.get("id")), clothoObject);
+            
+            Map clothoQuery = new HashMap();
+            clothoQuery.put("emailId", email);
+            Person loggedInPerson = ClothoAdapter.queryPerson(clothoQuery, clothoObject).get(0);
+            System.out.println(loggedInPerson.isActivated());
+            
+            System.out.println("GOT HERE IN LOGIN PERSON");
             
             
-            if (id.containsKey("id") && loggedInPerson.isActivated())
+            if (loggedInPerson.isActivated() )
             {
                 System.out.println("I'm HERE");
                 //return success, this means its a valid request
                 //response.setStatus(HttpServletResponse.SC_OK);
-                System.out.print("Id is " + id.get("id"));
-                String idVal = (String) id.get("id");
+                System.out.print("Id is " + loggedInPerson.getId());
+                String idVal = (String) loggedInPerson.getId();
                 response.setContentType("text/plain");
                 PrintWriter out = response.getWriter();
                 out.print(idVal);

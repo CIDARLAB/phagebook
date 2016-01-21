@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
-import org.clothocad.phagebook.adaptors.ClothoAdaptor;
+import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.controller.OrderController;
 import org.clothocad.phagebook.dom.Order;
@@ -46,9 +46,9 @@ public class newOrder extends HttpServlet {
         String name = request.getParameter("name");
         String description = request.getParameter("description");
         
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        
         Date date = new Date();
-        String timeStamp = dateFormat.format(date);
+        
         
         String orderIds = request.getParameter("orderIds");
         JSONObject orderIdsObject = new JSONObject(orderIds);
@@ -75,7 +75,7 @@ public class newOrder extends HttpServlet {
         while (it.hasNext()) 
         {
             String key = it.next();
-            Product productOrder = ClothoAdaptor.getProduct(key, clothoObject);
+            Product productOrder = ClothoAdapter.getProduct(key, clothoObject);
             System.out.println(key.toString());
             try 
             { 
@@ -102,11 +102,11 @@ public class newOrder extends HttpServlet {
         Order order = new Order(name);
         order.setProducts(products);
         order.setDescription(description);
-        order.setCreatedOn(timeStamp);
+        order.setDateCreated(date);
         
        //
         
-        String id = (String)ClothoAdaptor.createOrder(order, clothoObject);
+        String id = (String)ClothoAdapter.createOrder(order, clothoObject);
         
         conn.closeConnection();
         
