@@ -13,9 +13,9 @@ import lombok.Setter;
  * @author prash,innaturshudzhyan
  */
 public abstract class Good {
-    @Getter
-    @Setter
-    protected String name,description, id;
+    @Getter @Setter protected String name;
+    @Getter @Setter protected String description;
+    @Getter @Setter protected String id;
     
     /**
      *
@@ -29,5 +29,12 @@ public abstract class Good {
     public Good(String name,String description){
         this.name = name;
         this.description = description;
+    }
+    public Good()
+    {
+        this.name        = "Not Set";
+        this.description = "Not Set";
+        this.id          = "Not Set";
+        
     }
 }

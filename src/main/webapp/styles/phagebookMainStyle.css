@@ -1,4 +1,4 @@
- body {
+body {
     font-family: "Lucida Sans Unicode","Lucida Grande",sans-serif;
      overflow-x: hidden;
      font-size: medium;
@@ -64,10 +64,11 @@
 }
 
 .btn-default{
-    font-family: "Lucida Sans Unicode", "lucida grande", sans-serif
+    font-family: "Lucida Sans Unicode", "lucida grande", sans-serif;
     background-color: whitesmoke;
 
 }
+
 
 #friends img{
     height: 150px;
@@ -116,6 +117,14 @@
      margin: 0;
      padding: 15px;
  }
+a{
+    color:#015300;
+    font-size:medium;
+    
+}
+.nav-tabs{
+    text-align:center;
+}
 
  .headerID {
      position:relative;
@@ -135,6 +144,10 @@
  #wrapper {
      position:relative;
      float:right;
+ }
+
+ #projectName{
+     text-align:center;
  }
 
  #createProject {
@@ -208,6 +221,7 @@
      float: left;
      padding: 15px;
  }
+
 
  #heading {
      position:relative;
@@ -315,3 +329,84 @@
      text-align:justify;
      padding:15px;
  }
+ /* Ordering page CSS */
+ #products {
+     float: left;
+     width: 40%;
+     height: fit-content;
+     
+     
+ }
+ 
+ #companies {
+     float: left;
+     max-width: 49%;
+     height: fit-content;
+     
+     
+    
+     
+ }
+ .search {
+     float: left;
+     text-align: center;
+     vertical-align: top;
+     height: 30px;
+     position: relative;
+     
+ }
+ #orderList{
+     clear: left;
+     position: relative;
+ }
+ #description {
+     vertical-align: top;
+ }
+ #nameBox{
+     margin-top: 5px;
+     margin-bottom: 5px;
+ }
+ textarea[name=orderDescription]{
+    width: 70%;
+    height: 40%;
+    border: 1px solid #cccccc;
+    padding: 5px;
+    font-family: "Lucida Sans Unicode","Lucida Grande",sans-serif;
+    background-position: bottom right;
+    background-repeat: no-repeat;
+ }
+ input[name=orderName]{
+    margin-left: 38.8px;
+    position: relative;
+ }
+#teamPage img{
+     width: 250px;
+     height: 250px;
+     object-fit: cover;
+     display: block;
+     margin-left: auto;
+     margin-right: auto;
+ }
+ 
+.jumbotron {
+    background-image: url('../images/logos/boston.jpg');
+    background-size:cover;
+    background-color: #EEEEEE;
+    height:100%;
+  
+  }
+.jumbotron h1 {
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 60px;
+    letter-spacing: -1px;
+    line-height: 1;
+    margin-bottom: 0;
+}
+.jumbotron p {
+    text-align: center;
+}
+
+#quantity{
+     width: 60px;
+}

@@ -3,16 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.clothocad.phagebook.adaptors;
+package org.clothocad.phagebook.adaptors.websocket;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import org.clothoapi.clotho3javaapi.Clotho;
-import org.clothoapi.clotho3javaapi.ClothoConnection;
-import org.clothocad.phagebook.controller.Args;
-import org.clothocad.model.Person;
-import org.clothocad.phagebook.security.EmailSaltHasher;
+import org.clothocad.phagebook.adaptors.ClothoAdapter;
+import org.clothocad.phagebook.dom.Institution;
+import org.clothocad.phagebook.dom.Project;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -21,12 +16,9 @@ import org.junit.Test;
 
 /**
  *
- * @author Herb
+ * @author KatieLewis
  */
-public class ClothoAdaptorTest {
-    
-    public ClothoAdaptorTest() {
-    }
+public class createProjects {
     
     @BeforeClass
     public static void setUpClass() {
@@ -43,11 +35,11 @@ public class ClothoAdaptorTest {
     @After
     public void tearDown() {
     }
-
-    /**
-     * Test of createProduct method, of class ClothoAdaptor.
-     */
+    
     @Test
-    public void testCreateProduct() {
+    public void createProjects(){
+       
     }
+    
+   
 }

@@ -1,39 +1,42 @@
-var profileModule = angular.module('profileApp',['clothoRoot','ui.bootstrap.tpls','ui.bootstrap.modal']);
+function profileCtrl($scope, $modal){
+    $("document").ready(function () {
+    $.ajax({
+        url: 'getPersonById',
+        type: 'GET',
+        async: false,
+        data: {
+            "userId": getParameterByName("user")
+        },
+        success: function (response) {
+            var responseAsJSON = JSON.parse(response);
+            $scope.personID = responseAsJSON['loggedUserId'];
+            sessionStorage.setItem("loggedUserId", responseAsJSON['loggedUserId']);
+            $scope.displayName = responseAsJSON['fullname'];
+            $scope.pictureName = responseAsJSON["fullname"];
+            $scope.statuses = responseAsJSON["statusList"];
+            $scope.publications = responseAsJSON["publicationList"];
+        },
+        error: {
+        }
 
-profileModule.controller('profileController', function($scope, Clotho, $modal, $window){
-    $scope.personObj = {};
-    $scope.personID = sessionStorage.getItem("uniqueid");
+    });
+    });
 
 
-    Clotho.login(sessionStorage.getItem("username"),sessionStorage.getItem("password")).then(function(result) {
-        Clotho.get(result.id).then(function(person){
-            $scope.personObj = person;
-            $scope.personID = result.id;
-            $scope.displayName = person.fullname;
-            $scope.pictureName = person.givenname + person.surname;
-            $scope.statuses = person['statusList'];
 
-            pubmed.getCitationsFromIds(person.pubmedIdList).then(function(result){
-                console.log(JSON.stringify(result));
-                $scope.publications = result;
-                $scope.$apply();
-            });
-            $scope.$apply();
 /*0: "26205025"
  1: "23651287"
  2: "3084710"
  3: "3317443"
- the numbers above are pubmedIDs that are Doug's publications*/
-        });
-    });
-
+ the numbers above are pubmedIDs that are Doug's publications used for testing purposes*/
+   
     $scope.editInfo = function(){
         //this function just turns the boxes into editable text boxes
         $scope.editBool = true;
     };
 
     $scope.readProfilePic = function(){
-      //save the uploaded file to google drive
+      //save the uploaded file to google drive? or whereever we are going to put them
     };
 
     $scope.save = function() {
@@ -48,7 +51,7 @@ profileModule.controller('profileController', function($scope, Clotho, $modal, $
 
     $scope.cancel = function() {
         //function makes the text boxes not editable
-        //restores personObj to the latest version of Clotho Obj
+        //restores personObj to the latest (NOT SAVED) version of Clotho Obj
         Clotho.get($scope.personId).then(function(result){
            $scope.personObj = result;
         });
@@ -114,6 +117,7 @@ profileModule.controller('profileController', function($scope, Clotho, $modal, $
                 resolve: {
                     items: function () {
                         //this object will get passed to the modal's controlller
+                        //need to probably send an ajax call to find the person/data stuff
                         return {myPerson: {name: "Bobby"}, myData: 42};
                     }
                 }
@@ -126,18 +130,18 @@ profileModule.controller('profileController', function($scope, Clotho, $modal, $
                 //do stuff with returned data, like Clotho.set??
             });
         };
-})
+}
 
-.controller('profileWindowController', function($scope, $modalInstance, items){
+function profileWindowController($scope, $modalInstance){
        $scope.colleagueFirstName = "";
         $scope.colleagueLastName = "";
         $scope.colleagueEmail = "";
 
     $scope.ok = function() {
-        //if all fields are blank then an error needs to appear
+        //if all fields are blank then an error needs to appear, or a prompt to fill in some of the fields
         if (($scope.colleagueLastName == null) && ($scope.colleagueEmail == null) && ($scope.colleagueFirstName == null))
         {
-
+            alert("Please fill in at least one field");
         }
         else{
             $modalInstance.close({'givenname' : $scope.colleagueFirstName,
@@ -150,4 +154,12 @@ profileModule.controller('profileController', function($scope, Clotho, $modal, $
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
     };
-});
+}
+
+function getParameterByName(name) 
+{
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}

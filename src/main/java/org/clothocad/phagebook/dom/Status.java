@@ -27,8 +27,14 @@ public class Status{
     this.user = creator;
     Date today = Calendar.getInstance().getTime();
     this.created = today;
-   // String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
-    //this.dateCreated = timeStamp;
+    }
+    
+    public Status()
+    {
+        this.id       = "Not Set";
+        this.text     = "Not Set"; 
+        this.user     = new Person();
+        this.created  = new Date();
     }
 }
 
