@@ -68,7 +68,11 @@
 
               <div class="form-group"> <!-- Person lead -->
                 <label for="inputLead3" class="control-label" >Lead</label>  
-                  <input class="form-control" id="inputLead3" placeholder="Lead" ng-model="formData.lead">
+                <!--
+                  <input class="form-control" id="inputLead3" placeholder="Lead" ng-model="formData.lead"> 
+                -->
+                  <input class="form-control" id="inputLead3" placeholder="Lead" ng-model="formData.lead.firstName">
+                  <input class="form-control" id="inputLead3" placeholder="Lead" ng-model="formData.lead.lastName">
                  <span ng-show="leadRequired">{{leadRequired}}</span>
               </div>
 

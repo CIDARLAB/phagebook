@@ -17,6 +17,8 @@ console.log("loaded");
     //$scope.emailRequired = '';
     $scope.labsRequired = '';
     $scope.leadRequired = '';
+    $scope.leadFirstNameRequired = '';
+    $scope.leadLastNameRequired = '';
     $scope.projectBudgetRequired = '';
     $scope.projectGrantRequired = '';
     $scope.descriptionRequired = '';
@@ -61,7 +63,8 @@ console.log("loaded");
 
   var dataSubmit =  {
     name: $scope.formData.name,
-    lead:  $scope.formData.lead,
+    leadFirstName:  $scope.formData.lead.leadFirstName,
+    leadLastName:  $scope.formData.lead.leadLastName,
     labs:  $scope.formData.labs,
     projectBudget: $scope.formData.projectBudget,
     grant: $scope.formData.grant,
