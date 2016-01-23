@@ -5,7 +5,8 @@
  */
 package org.clothocad.phagebook.dom;
 
-
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,7 +17,9 @@ import lombok.Setter;
 public class Company extends Organization {
     
     
-    @Getter @Setter private String contact;
+    @Getter
+    @Setter
+    private String contact;
     
     /**
      *
@@ -27,12 +30,5 @@ public class Company extends Organization {
         super(name);
     }
     
-    public Company()
-    {
-        super();
-        this.contact = "Not Set";
-        
-    } 
-   
  
 }

@@ -16,5 +16,4 @@ public class Sample extends Good{
         super(name);
     }
     
-    public Sample(){ super(); }
 }

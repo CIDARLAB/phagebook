@@ -24,13 +24,13 @@
     </div>
 
     <terminal-aside></terminal-aside>   the normal Clotho bar isn't needed for the landing page-->
-<div ng-module="indexApp" ng-controller="indexCtrl">
+
 <div class="navbar navbar-static-top">
     <div class="container-fluid">
 
         <div class="navbar-header">
             <ul class="navbar">
-                <li><img src="styles/images/phagebookWhite.png"></li>
+                <li><img src="styles/images/phagebookWhite.png"></a></li>
             </ul>
         </div>
         <div role="form" class="navbar-form navbar-right" method="post">
@@ -152,44 +152,47 @@
 </div>
 
 <!--centered at the bottom is the write-up copyright stuff-->
-    <div class="modal-footer">
-        Created by <a href="http://www.cidarlab.org" target="_blank">CIDAR at Boston University</a><br>
-        Built by <a href="mailto:phagebookdevelopment@googlegroups.com">The Phagebook Team</a><br> 
-        <img src="../styles/images/logo-trace_black.png" style="height:50px">
-        <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
-        <img src="../images/logos/cidar-backgbround-no-js.png" style="height:50px">
-        <br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
-    </div>
-
+<div class="modal-footer" style="font-size: small">
+    Created by <a href="http://www.cidarlab.org" target="_blank">CIDAR at Boston University</a><br>
+    Built by <a href="mailto:azulad7@bu.edu">Allison Z. Durkan</a><br><img src="../styles/images/logo-trace_black.png" style="height:50px">
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
 </div>
+
 <!--------
 SCRIPTS
 --------->
 <script>
     $("#login").click(function () {
+        //alert("login");
+        //window.name = "clotho.developer."+ document.getElementById("username").value;
+        Clotho.login(document.getElementById("returnEmail").value, document.getElementById("returnPassword").value).then(function (result) {
+            if (result == null) {
+                alert("Login unsuccessful");
+            }
+            else {
                 $.ajax({
-                    url: "loginUser",
+                    url: "loginPerson",
                     type: "POST",
                     async: false,
                     data: {
-                        "email": document.getElementById("returnEmail").value,
-                        "password": document.getElementById("returnPassword").value
+                        "id": result.id,
+                        "email": document.getElementById("returnEmail").value
                     },
                     success: function (response) {
-                        //alert(response);
-                        //alert("Got Some Response" + response);
-                        sessionStorage.setItem("response", response);
-                        sessionStorage.setItem("username", document.getElementById("returnEmail").value);
+                        alert(response);
+                        sessionStorage.setItem("uniqueid", loginResult.id);
+                        sessionStorage.setItem("username", document.getElementById("email").value);
                         sessionStorage.setItem("password", document.getElementById("password").value);
 
-                        window.location.href = './html/profile.html?user=' + response;
+                        window.location.href = './html/profile.html';
                     },
                     error: function () {
                         alert("some sort of error occurred");
                     }
                 });
             }
-    );
+        });
+    });
 
     $("#addPerson").click(function () {
         //should create a person and send an email verification
@@ -216,10 +219,10 @@ SCRIPTS
                         "password": document.getElementById("password").value
                     },
                     success: function (response) {
-                        
-                       // sessionStorage.setItem("uniqueid", loginResult.id);
+                        alert(response);
+                        sessionStorage.setItem("uniqueid", loginResult.id);
                         sessionStorage.setItem("username", document.getElementById("email").value);
-                        //sessionStorage.setItem("password", document.getElementById("password").value);
+                        sessionStorage.setItem("password", document.getElementById("password").value);
 
                         window.location.href = './html/validateEmail.html';
                     },
@@ -227,6 +230,54 @@ SCRIPTS
                         alert("some sort of error occurred");
                     }
                 });
+        
+        /*Clotho.createUser(document.getElementById("email").value, document.getElementById("password").value).then(function (result) {
+            if ((result == NULL) || (document.getElementById("password")!= document.getElementById("confirmPassword")))
+            {
+                alert("Create person unsuccessful");
+            }
+            else{
+            Clotho.login(document.getElementById("email").value,document.getElementById("password").value).then(function(loginResult) {
+                console.log("reached clotho.login");
+                $.ajax({
+                    url: "createPerson",
+                    type: "POST",
+                    async: false,
+                    data: {
+                        //"id": loginResult.id,
+                        "firstName": document.getElementById("firstname").value,
+                        "lastName": document.getElementById("lastname").value,
+                        //"fullname": document.getElementById("firstname").value + " " + document.getElementById("lastname").value,
+                        //"lab": document.getElementById("lab").value,
+                        "emailId": document.getElementById("email").value,
+                        //"institution": document.getElementById("institution").value,
+                        //"position": document.getElementById("positionList").value,
+                        //"permissions": document.getElementById("permissionsList").value,
+                        //"friendsList": [],
+                        //"statusList": [],
+                        //"pubmedIdList": [],
+                        //"activated": false,
+                        //"activationString": ""
+                        "password": document.getElementById("password").value
+                    },
+                    success: function (response) {
+                        alert(response);
+                        sessionStorage.setItem("uniqueid", loginResult.id);
+                        sessionStorage.setItem("username", document.getElementById("email").value);
+                        sessionStorage.setItem("password", document.getElementById("password").value);
+
+                        window.location.href = './html/validateEmail.html';
+                    },
+                    error: function () {
+                        alert("some sort of error occurred");
+                    }
+                });
+            });
+            }
+
+
+        });*/
+
         return false;
     });
 
@@ -234,9 +285,14 @@ SCRIPTS
 
 
 <script src="scripts/clotho/b18fc8c8.clotho-app-command.js"></script>
+
 <script src="scripts/clotho/c0f113c2.clotho-core-module.js"></script>
+
 <!--note - remove all scripts below this for api-only build-->
+
 <script src="scripts/clotho/c2a11f43.clotho-foundation-module.js"></script>
+
+
 <script src="scripts/clotho/68a2b2df.clotho-command-module.js"></script>
 <script src="scripts/indexAPI.js"></script>
 

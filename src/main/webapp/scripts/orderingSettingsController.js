@@ -1,4 +1,7 @@
-function orderingSettingsController($scope){
+var orderingSettingsModule = angular.module('orderingSettingsApp',['clothoRoot','ui.bootstrap.tpls','ui.bootstrap.modal']);
+
+
+orderingSettingsModule.controller('orderingSettingsController',function($scope,Clotho,$modal){
 
     $scope.uploadCompanies = function(){
 
@@ -52,4 +55,4 @@ function orderingSettingsController($scope){
     };
 
 
-}
+});

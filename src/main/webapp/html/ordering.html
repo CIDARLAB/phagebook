@@ -5,19 +5,19 @@
     <title>Ordering</title>
     <link rel="shorcut icon" href="../styles/images/phagebookLogoMin_16x16.ico"/>
     <base href="/">
-    
-    <script src="../scripts/jquery.js"></script>
     <link rel="stylesheet" href="../styles/cssBootstrap/bootstrap.css"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="../styles/clothoNavBar.css">
     <link rel="stylesheet" href="../styles/phagebookMainStyle.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
-    <script src="../scripts/angular.ng-modules.js"></script>
+    <script src="../scripts/angular.js"></script>
+    <script src="../scripts/jquery.js"></script>
     <script src="../scripts/lodash.js"></script>
+
+
+    <script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
-</head>
+
 <body>
 <div ng-module="clothoRoot">
     <div class="container">
@@ -25,89 +25,37 @@
     </div>
     <terminal-aside></terminal-aside>
 </div>
-    
-<div ng-module="orderingApp">
-<div ng-controller="newOrderController">
-<phagebook-sidebar></phagebook-sidebar>
-<div class="container-fluid" id="ordering">
 
-    <div class="row" ng-controller="orderingCtrl">
-            <div class = "col-md-9" style="float: right">
-                <div id="container">
-                    <div id="orderingButtons">
-                        <div id="products">
-                            <input class="search" type="text" ng-model="productQuery" placeholder="Product Name">
-                            <input class="search btn btn-default" type="submit" ng-click="productNameSearch()" value="Search By Name">                   
-                        </div>
-                        <div id="companies">
-                            <input class="search" type="text" ng-model="companyQuery" placeholder="Company Name">
-                            <input class="search btn btn-default" type="submit" ng-click="companyNameSearch()" value="Search By Company">
-                        </div>
-                    </div>
-                    <br>
-                    <br>
-                   
-                    <div>
-                        <div id="nameBox"> 
-                            Name: <input type="text" name="orderName" id="orderNameBox" placeholder="Order Name">
-                        </div>
-                        
-                        <span id="description"> Description: </span>
-                        <textarea name="orderDescription" id="orderDescriptionBox" placeholder="Please provide a small description for your order!" rows="4"></textarea>
-                    </div>
-                    <div id="orderList"> 
-                        <span class="description">Current Order</span>
-                        <br>
-                        <table style="width:90%;  padding-left: 10px" id="productTable">
-                        <tr>
-                            <th>Product</th>
-                            <th>Company</th>
-                            <th>Cost</th>
-                            <th>Description</th>
-                            <th>Good Type</th>
-                            <th>Product URL</th>
-                            <th>Quantity</th>
-                        </tr>
-                    </table>
-                    </div>
-                    <input class="btn btn-default" type="submit" value="Place Order" onclick="createOrder()">
-                </div>
-             <!--   <div id="productsPopUp" title="Choose A Product"> <p class="container">Product Search</p>
-                    
-                
-                
-                </div>
-                <div id="companyPopUp" title="Choose A Company"> <p class="container">Company Search</p>
-             -->       
-                
-                </div>
+<div class="container-fluid" id="ordering">
+    <!--<div ng-module="orderingApp">
+        <div ng-controller="orderingCtrl">-->
+
+            <div class = "mainContent">
+                <h2>This page is still being developed...</h2>
+
             </div>
         <!--</div>
     </div>-->
 </div>
+
+
+<div class="modal-footer">
+    Created by <a href="http://www.cidarlab.org" target="_blank">CIDAR at Boston University</a><br>
+    Built by <a href="mailto:azulad7@bu.edu">Allison Z. Durkan</a><br>
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
 </div>
-<footer></footer>
-</div>
-</div>
-    <script>
-    </script>
+
  <!---SCRIPTS-->
+
 <script src="../scripts/clotho/b18fc8c8.clotho-app-command.js"></script>
 <script src="../scripts/clotho/c0f113c2.clotho-core-module.js"></script>
 <!--note - remove all scripts below this for api-only build-->
 <script type='text/javascript' src="../scripts/clotho/b18fc8c8.clotho-app-command.js"></script>
-<script type='text/javascript' src="../scripts/clotho/c0f113c2.clotho-core-module.js"></script>
+<script type='text/javascript' vsrc="../scripts/clotho/c0f113c2.clotho-core-module.js"></script>
 <script type='text/javascript' src="../scripts/clotho/c2a11f43.clotho-foundation-module.js"></script>
 <script src="../scripts/clotho/clotho3API.js"></script>
 <script src='../scripts/clotho/68a2b2df.clotho-command-module.js'></script>
-<script src="../scripts/footerDirective.js"></script>
-<script src="../scripts/sidebarDirective.js"></script>
-<script src="../scripts/searchBarDirective.js"></script>
-<script src="../scripts/orderingSettingsController.js"></script>
-<script src="../scripts/newOrderController.js"></script>
-<script src="../scripts/ordering.js"></script>
-<script src="../scripts/jsBootstrap/ui-bootstrap-tpls-0.12.0.min.js"></script>
-<script src="../scripts/orderingApp.js"></script>
+<script src="../scripts/angular.ng-modules.js"></script>
 
 </body>
 </html>

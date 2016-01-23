@@ -14,9 +14,4 @@ public class FundingAgency extends Organization{
     public FundingAgency(String name){
         super(name);
     }
-    
-    public FundingAgency()
-    {
-        super();
-    }
 }
