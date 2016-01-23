@@ -223,9 +223,7 @@ public class processProject extends HttpServlet {
       
 
       Person leadPerson = new Person();
-      if(){
       
-      }
       leadPerson.setFirstName(leadName[0]);
       leadPerson.setLastName(leadName[1]);
       System.out.println("Lead Person is " + leadPerson);
