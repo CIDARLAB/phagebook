@@ -17,17 +17,17 @@ import lombok.Setter;
  * @author KatieLewis
  */
 public class Notebook {
-    @Getter @Setter private Person owner;
-    @Getter @Setter private List<Entry> entries;
-    @Getter @Setter private Project affiliatedProject;
-    @Getter @Setter private Date dateCreated;
-    @Getter @Setter private String id;
+    @Getter @Setter private Person       owner;
+    @Getter @Setter private List<Entry>  entries;
+    @Getter @Setter private Project      affiliatedProject;
+    @Getter @Setter private Date         dateCreated;
+    @Getter @Setter private String       id;
     //Need to set privacy level of entries (read/write access)..
     public Notebook(Person creator, Project project, Date created){
         this.owner = creator;
         this.dateCreated = created;
         this.affiliatedProject = project;
-        this.entries = new ArrayList<Entry>();
+        this.entries = new ArrayList<>();
     }
     
     private void addEntry(Entry toAdd){
@@ -35,5 +35,14 @@ public class Notebook {
     }
     private void deleteEntry(Entry toDelete){
         entries.remove(toDelete);
+    }
+    public Notebook()
+    {
+        this.owner             = new Person();
+        this.entries           = new ArrayList<>();
+        this.affiliatedProject = new Project();
+        this.dateCreated       = new Date();
+        this.id                = "Not Set";
+        
     }
 }

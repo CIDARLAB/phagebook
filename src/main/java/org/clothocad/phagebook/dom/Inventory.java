@@ -5,6 +5,7 @@
  */
 package org.clothocad.phagebook.dom;
 
+import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,16 +16,15 @@ import lombok.Setter;
  */
 public class Inventory{
     
-    @Getter
-    @Setter
-    private List<Sample> samples;
+    @Getter @Setter private List<Sample>      samples;
+    @Getter @Setter private List<Instrument>  instruments;
+    @Getter @Setter private String            id;
     
-    @Getter
-    @Setter
-    private List<Instrument> instruments;
-    
-    @Getter
-    @Setter 
-    private String id;
+    public Inventory()
+    {
+        this.samples     = new ArrayList<>();
+        this.instruments = new ArrayList<>();
+        this.id          = "Not Set";
+    }
     
 }
