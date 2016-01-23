@@ -59,15 +59,23 @@ public class ClothoAdapterTest {
     public void clothoLogin(){
        this.conn = new ClothoConnection(Args.clothoLocation);
        this.clothoObject = new Clotho(conn);
+       
        Map createUserMap = new HashMap();
        String username = "test"+ System.currentTimeMillis() ;
+       
+       
        createUserMap.put("username", username);
        createUserMap.put("password", "password");
+       
+       
        clothoObject.createUser(createUserMap);
+       
        Map loginMap = new HashMap();
        loginMap.put("username", username);
-       loginMap.put("credentials", "password");     
+       loginMap.put("credentials", "password");  
+       
        clothoObject.login(loginMap);
+       
         
     }
     
@@ -997,7 +1005,9 @@ public class ClothoAdapterTest {
                     ClothoAdapter.createPerson(P1, clothoObject);
                     ClothoAdapter.createPerson(P2, clothoObject);
                     ClothoAdapter.createPerson(P3, clothoObject);
+                    
                     clothoLogin();
+                    
                 colleagues.add(P1);
                 colleagues.add(P2);
                 colleagues.add(P3);
@@ -1106,6 +1116,7 @@ public class ClothoAdapterTest {
         }
            
         Person person2 = ClothoAdapter.getPerson(personId, clothoObject);
+        
         assertEquals(person1.getId(), person2.getId());
         assertEquals(person1.getSalt(), person2.getSalt());
         Assert.assertArrayEquals(person1.getSaltedEmailHash(), person2.getSaltedEmailHash());
