@@ -57,6 +57,7 @@ public class ClothoAdapter {
         
         Map map = new HashMap();
         map.put("schema", Company.class.getCanonicalName());
+        
         if (company.getContact() != null ){  
             if (!company.getContact().equals("Not Set") && !company.getContact().isEmpty()) {
             map.put("contact", company.getContact());          
@@ -660,7 +661,7 @@ public class ClothoAdapter {
      */
     public static String createPerson(Person person, Clotho clothoObject)
     {
-       
+        
         Map map = new HashMap();
         map.put("schema", Person.class.getCanonicalName());
 
@@ -2197,7 +2198,7 @@ public class ClothoAdapter {
         
         return order;
     }   
-    private static Person mapToPerson(Map map, Clotho clothoObject)
+    public static Person mapToPerson(Map map, Clotho clothoObject)
     {
         
         List<Project> projects = new ArrayList<>() ;

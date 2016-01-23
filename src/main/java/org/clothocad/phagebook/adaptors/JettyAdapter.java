@@ -14,7 +14,7 @@ import org.eclipse.jetty.webapp.WebAppContext;
  *
  * @author prash
  */
-public class JettyAdaptor {
+public class JettyAdapter {
     public static void main(String[] args) {
       
         Server server = new Server(9090);
@@ -32,7 +32,7 @@ public class JettyAdaptor {
             server.start();
             server.join();
         } catch (Exception ex) {
-            Logger.getLogger(JettyAdaptor.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JettyAdapter.class.getName()).log(Level.SEVERE, null, ex);
         }
                 
     }
