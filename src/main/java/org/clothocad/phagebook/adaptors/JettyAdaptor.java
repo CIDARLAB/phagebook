@@ -8,13 +8,14 @@ package org.clothocad.phagebook.adaptors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.eclipse.jetty.server.Server;
+
 import org.eclipse.jetty.webapp.WebAppContext;
 
 /**
  *
  * @author prash
  */
-public class JettyAdapter {
+public class JettyAdaptor {
     public static void main(String[] args) {
       
         Server server = new Server(9090);
@@ -32,7 +33,7 @@ public class JettyAdapter {
             server.start();
             server.join();
         } catch (Exception ex) {
-            Logger.getLogger(JettyAdapter.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JettyAdaptor.class.getName()).log(Level.SEVERE, null, ex);
         }
                 
     }

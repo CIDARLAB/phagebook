@@ -1082,8 +1082,7 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 body {
-  font-family: "Lucida Sans Unicode", "lucida grande", sans-serif;
-  font-size: 14px;
+  font-family: "Lucida Sans Unicode", "lucida grande", sans-serif  font-size: 14px;
   line-height: 1.42857143;
   color: #333;
   background-color: #fff;
@@ -1097,9 +1096,8 @@ textarea {
   line-height: inherit;
 }
 a {
-  color: #015300;
+  color: #337ab7;
   text-decoration: none;
-    font-weight:bold;
 }
 a:hover,
 a:focus {

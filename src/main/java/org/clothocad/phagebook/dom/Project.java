@@ -31,21 +31,6 @@ public class Project {
    @Getter @Setter private String description;
    @Getter @Setter private String id;
    
-   public Project()
-   {
-       this.creator        = new Person();
-       this.lead           = new Person();
-       this.members        = new ArrayList<>();
-       this.notebooks      = new ArrayList<>();
-       this.affiliatedLabs = new ArrayList<>();
-       this.name           = "Not Set";
-       this.dateCreated    = new Date();
-       this.updates        = new ArrayList<>();
-       this.budget         = 0.0d;
-       this.grant          = new Grant();
-       this.description    = "Not Set";
-       this.id             = "Not Set";
-   }
    
    public Project(Person creator, String name, Organization lab, String description){
        System.out.println("start of constructor");
@@ -53,54 +38,57 @@ public class Project {
        this.creator = creator;
        this.name = name;
        this.description = description;
-       this.updates = new ArrayList<>();
-       this.notebooks = new ArrayList<>();
-       this.affiliatedLabs = new ArrayList<>();
-       this.members = new ArrayList<>();
-       //System.out.println("created a new project?? 1");
+       this.notebooks = new ArrayList<Notebook>();
+       this.affiliatedLabs = new ArrayList<Organization>();
+       this.members = new ArrayList<Person>();
+       this.updates = new ArrayList<Status>();
+       this.affiliatedLabs.add(lab);
        
+       System.out.println("end of constructor");
+    
    }
-      public Project(Person creator, String name, String description){
+   
+   public Project(Person creator, String name, String description){
        this.dateCreated = new Date();
        this.creator = creator;
        this.name = name;
        this.description = description;
-       this.updates = new ArrayList<>();
-       this.notebooks = new ArrayList<>();
-       this.affiliatedLabs = new ArrayList<>();
-       this.members = new ArrayList<>();
+       this.notebooks = new ArrayList<Notebook>();
+       this.affiliatedLabs = new ArrayList<Organization>();
+       this.members = new ArrayList<Person>();
 
+       this.updates = new ArrayList<Status>();
+
+
+      
    }
    
    
-   public Project(Person creator, String name, Organization lab, 
+   public Project(Date createdDate,Person creator, String name, Organization lab, 
         Person lead, Double projectBudget, Grant projectGrant, String description){
        this.creator = creator;
-       this.dateCreated = new Date();
+       this.dateCreated = createdDate;
        this.name = name;
        this.budget = projectBudget;
        this.description = description;
-       this.updates = new ArrayList<>();
+       this.updates = new ArrayList<Status>();
        this.grant = projectGrant;
        this.lead = lead;
-       this.notebooks = new ArrayList<>();
-       this.affiliatedLabs = new ArrayList<>();
-       this.members = new ArrayList<>();
-       //Create new lab notebook for creator?
-       
-       System.out.println("created a new project??");
-       Notebook creatorNotebook = new Notebook(creator, this, dateCreated);
+       this.notebooks = new ArrayList<Notebook>();
+       this.affiliatedLabs = new ArrayList<Organization>();
+       this.members = new ArrayList<Person>();
        this.affiliatedLabs.add(lab);
-       this.members.add(creator);            
+       this.members.add(creator);
+              
         //Create new lab notebook for creator?
+       Notebook creatorNotebook = new Notebook(creator, this, createdDate);
        notebooks.add(creatorNotebook);
    }
-      
    
    private void addMember(Person newMember){
        boolean exists = false;
        for(Person member: this.members){
-           if(member.getId().equals(newMember.getId())){
+           if(member.getId() == newMember.getId()){
                exists =true;
            }
        }
@@ -119,7 +107,7 @@ public class Project {
        //Iterate through and compare unique ids
        boolean exists = false;
        for(Person member: this.members){
-           if(member.getId().equals(toRemove.getId())){
+           if(member.getId() == toRemove.getId()){
                exists =true;
            }
        }
@@ -137,7 +125,7 @@ public class Project {
    private void addOrganization(Organization newOrganization){
        boolean exists = false;
        for(Organization organization: this.affiliatedLabs){
-           if(organization.getId().equals(newOrganization.getId())){
+           if(organization.getId() == newOrganization.getId()){
                exists = true;
            }
        }
@@ -153,7 +141,7 @@ public class Project {
    private void deleteOrganization(Organization toDelete){
        boolean exists = false;
        for(Organization organization: this.affiliatedLabs){
-           if(organization.getId().equals(toDelete.getId())){
+           if(organization.getId() == toDelete.getId()){
                exists = true;
            }
        }

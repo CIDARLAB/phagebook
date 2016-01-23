@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Projects</title>
+    <link rel="shorcut icon" href="../styles/images/phagebookLogoMin_16x16.ico"/>
+    <base href="/">
+    <link rel="stylesheet" href="../styles/cssBootstrap/bootstrap.css"/>
+    <link rel="stylesheet" href="../styles/clothoNavBar.css">
+    <link rel="stylesheet" href="../styles/phagebookMainStyle.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <script src="../scripts/angular.js"></script>
+    <script src="../scripts/lodash.js"></script>
+
+
+    <script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<body>
+    <div> 
+        <button id = "testButton" class="btn btn-primary" > Test Button </button> 
+    </div>
+<div ng-module="clothoRoot">
+    <div class="container">
+        <div clotho-command-bar></div>
+    </div>
+    <terminal-aside></terminal-aside>
+</div>
+
+<div class="container-fluid" id="projects">
+<div ng-module="projectApp">
+    <div ng-controller="projectCtrl" onload="displayProjects()">
+
+        <div class = "mainContent">
+            <div class = "col-md-6">
+                <div id="notebookEntry">
+                    <form class="form-horizontal" id="notebookEn" ng-class="{'has-error' : projectForm.name.$dirty && projectForm.name.$invalid}">
+                        <h1 class = "pageHeading"> New Lab Notebook Entry </h1><br><br> 
+                        <label>Date (d/m/y): </label><br>
+                        <input id="entryDate" type="date"><br><br>
+                        <label>Heading: </label><br>
+                        <input id="entryHeadin" type="text"><br><br>
+                        <label>Images: </label>
+                        <input type="file" id ="file1" name="filename" onchange="readImage(this)" accept="image/gif, image/jpeg, image/png"><br>
+                        <!--<img id="uploadPreview" style="width: 100px; height: 100px;" />-->
+
+                    </form>
+                    <p id="entryText">Notebook Entry:</p>
+                    <textarea rows="4"; cols="50"; id="textEntry"></textarea><br>
+                    <!--<form action="scripts/newProject/uploadFile.php" method="post" id="uploader" enctype="multipart/form-data">-->
+                    <!--Select image to upload:-->
+                    <!--<input type="file" name="fileToUpload" id="fileToUpload">-->
+                    <!--<input type="submit" value="Upload Image" name="submit">-->
+                    <!--</form>-->
+                    <button id="entryButton" onclick = "createEntry()">Create</button>
+
+                </div>
+
+                <button type="button" id="CreateButton">Create New Project </button>
+
+            </div>
+
+            <!--<div id = "rightColumn" ondrop="drop(event)" ondragover="allowDrop(event)">-->
+            <div class="col-md-6">
+                <!--<button>  <img src = "/images/Editing-Edit-icon.png" onclick = "editProject()" id="editIcon"></button>-->
+                <h1 class = "pageHeading" id = "projTitle"> </h1>
+                <!--<div class = "information">
+                    <ul class = "labInfo">
+                        <li> Associated Labs: </li>
+                        <li> Primary Investigator: </li>
+                        <li> Project Lead: </li>
+                        <li> Project Advisor: </li>
+                        <li> Description: </li>
+                    </ul>
+                    <ul class = "labInfo2">
+                        <li id="currentLab"> </li>
+                        <li id="currentPI"> </li>
+                        <li id="currentLead"> </li>
+                        <li id="currentAdvisor"> </li>
+                    </ul>
+                    <p id = "projectDescription" ></p>
+                    <br><br>
+                    <p id = "partsLink"> <a href="Parts.html">Sample Inventory</a></p>
+                    <p id = "createPartsLink"><a href="CreateParts.html">Create New Sample</a></p>
+                </div>-->
+
+                <!--<img height="100" width="100" id = "image2"  ondragstart="drag(event)" draggable="true" src="/images/socialmedia/twitter.png">-->
+                <!--<p>  Currently, synthetic biology lacks a systematic design-build-test workflow for creating genetic circuits. Researchers often waste time and resources on traditional trial-and-error approaches in designing and assembling large devices. My research works towards overcoming this roadblock by creating a standardized experimental-computational workflow that is clearly defined and applicable to a wide variety of researchers and projects. This workflow integrates software tools to reduce human error and to structure the way designs are chosen, assembled, and tested.-->
+                <!--</p>-->
+                <br><br>
+                <div id="entryButtons">
+                    <button onclick = "newEntry()" id = "newEntry" >New Entry</button>
+                    <button onclick="editEntry()" id="entryEdit">Edit Entry</button>
+                    <button id="doneEditingEntry" onclick = "changeEntry()">Done</button>
+                    <p id="entryToChange"></p>
+                </div>
+                <!--<h1 class = "labnotebook" id="notebookTitle">Notebook</h1>-->
+                <div id="searchingNotebook">
+                    <button id="searchButton" onclick="searchEntries()">search</button>
+                    <ng-form class="form-horizontal" id="searchNotebook" ng-class="{'has-error' : projectForm.name.$dirty && projectForm.name.$invalid}">
+                        <input id="searchDate" type="date">
+                        <input id="keywordInsert" type="text" placeholder="keyword"><br><br>
+                        <br><br>
+                    </ng-form>
+                    <p id="keywordSearch" onclick="searchByKeyword()">Keyword</p>
+                    <p id="dateSearch" onclick="searchByDate()">Date</p>
+                </div>
+                <!--<button onclick="upload('labels.csv')">Upload CSV File</button>-->
+                <div class = "notebook" id="noteID" ondrop="drop(event)" ondragover="allowDrop(event)" onload="photoAppear()">
+                    <h3 id="heading" align="center"></h3>
+                    <p id="entryGoesHere" contenteditable="false" onload="disp()"></p>
+                    <!--<form action ="" class = "dropDown">-->
+                    <!--<select name = "notebook" onchange = "notebooks()" id="whosNotebook">-->
+                    <!--<option value = "Katie Lewis">Katie Lewis</option>-->
+                    <!--<option value = "Yash Agarwal">Yash Agarwal </option>-->
+                    <!--<option value = "Alan Pacheco">Alan Pacheco </option>-->
+                    <!--</select>-->
+                    <!--</form>-->
+                    <!--<input type="button" id="uploader" value="Upload">-->
+                    <!--<textarea rows="30" cols="50" ondrop="drop(event)" ondragover="allowDrop(event)"></textarea>-->
+                    <!--<img height="100" width="100" id = "image0"  draggable="true">-->
+                </div>
+                <br>
+                <button id="next" onclick ="nextEntry()">Next</button>
+                <button id="previous" onclick="prevEntry()">Previous</button>
+            </div>
+
+            <div id="createProject">
+                <ng-form class="form-horizontal" name="projectForm" ng-class="{'has-error' : projectForm.name.$dirty && projectForm.name.$invalid}">
+
+                    <h1 class = "pageHeading"> Create New Project </h1><br><br> 
+                    <label>Project Name: </label> <br> 
+                    <input id="projName" type="text"><br><br> 
+                    <label>Lab(s):</label><br>
+                    <input id="projLabs" type="text"><br><br>
+                    <label> PI:</label><br> 
+                    <!--onkeypress="autocomp()" add below-->
+                    <input id="pi" type="text"><br><br> 
+                    <label>Project Lead:</label><br>
+                    <input id="projLead" type="text"><br><br>
+                    <label>Project Advisor:</label><br>
+                    <input id="advisor" type="text"><br><br>
+                    <!--<label>Parts Used</label>-->
+                    <!--<label>Project Members:</label>-->
+                    <!--<input id="projMembers" type="text"><br><br>-->
+                    <label>Project Description:</label> <br><br>
+                    <textarea id="description" rows="7" cols="50"> </textarea><br><br> 
+                    <button id = "create" class="btn btn-primary" >Create</button><br>
+
+
+                </ng-form>
+            </div>
+
+            <!--<img height="100" width="100" id = "image1"  ondragstart="drag(event)" draggable="true" src="/images/socialmedia/twitter.png">-->
+
+        </div>
+    </div>
+
+
+</div>
+</div>
+
+<br> <br>
+<div class="modal-footer">
+    Created by <a href="http://www.cidarlab.org" target="_blank">CIDAR at Boston University</a><br>
+    Built by <a href="mailto:azulad7@bu.edu">Allison Z. Durkan</a><br>
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+</div>
+
+
+<!---SCRIPTS-->
+
+<script src="../scripts/clotho/b18fc8c8.clotho-app-command.js"></script>
+<script src="../scripts/clotho/c0f113c2.clotho-core-module.js"></script>
+<!--note - remove all scripts below this for api-only build-->
+<script type='text/javascript' src="../scripts/clotho/b18fc8c8.clotho-app-command.js"></script>
+<script type='text/javascript' vsrc="../scripts/clotho/c0f113c2.clotho-core-module.js"></script>
+<script type='text/javascript' src="../scripts/clotho/c2a11f43.clotho-foundation-module.js"></script>
+<script src="../scripts/clotho/clotho3API.js"></script>
+<script src="../scripts/projectsController.js"></script>
+<script src='../scripts/clotho/68a2b2df.clotho-command-module.js'></script>
+<script src="../scripts/angular.ng-modules.js"></script>
+    <script>
+        console.log('loads!');
+        //var testButton = Document.getElementByID("testButton");
+        console.log(testButton);
+        console.log("loads@222");
+        var testObject = {
+            "name": "name_input",
+            "labs": ["CIDAR","HYNESS"],
+            "description": "project description"
+        };
+        console.log(testObject);
+
+        $("#testButton").click(function(){
+           console.log("button clicked!!!!");
+           $.ajax({
+                url: "processProject",
+                type: "POST",
+                async: false,
+                data: {
+                    "name": "CPS",
+                    //"labs": ["CIDAR","HYNESS"],
+                    "description": "Create Turing Patterns"
+                },
+                success: function (response) {
+                    console.log(response);
+                },
+                error: function () {
+                    alert("ERROR!!");
+                }
+            });   
+        });
+    </script>
+</body>
+</html>

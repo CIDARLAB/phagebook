@@ -13,9 +13,5 @@ public class Institution extends Organization {
    
     public Institution(String name){
        super(name);
-    }
-    
-    public Institution(){
-        super();
-    }
+   }
 }

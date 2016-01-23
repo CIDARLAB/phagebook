@@ -1,4 +1,6 @@
-function newOrderController($scope){
+var newOrderModule = angular.module('newOrderApp', ['clothoRoot', 'ui.bootstrap.tpls', 'ui.bootstrap.modal']);
+
+newOrderModule.controller('newOrderController',function($scope, Clotho, $modal){
     $scope.createOrder = function(){
        console.log($scope.orderName +" :: "+ $scope.orderDescription);
 
@@ -13,15 +15,11 @@ function newOrderController($scope){
             },
             success: function (response) {
                 alert(response);
-                
-                window.location.href = '/html/addProducts.html';
             },
             error: function () {
                 alert("ERROR!!");
             }
         });
-
     };
-}
-
+})
 

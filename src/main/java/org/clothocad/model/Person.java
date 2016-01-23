@@ -6,6 +6,8 @@
 package org.clothocad.model;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
@@ -28,51 +30,39 @@ import org.clothocad.phagebook.dom.Status;
 public class Person {
     
     //ADDED properties
-    @Getter @Setter private String                      id;
-    @Getter @Setter private String                      salt;
-    @Getter @Setter private byte[]                      saltedEmailHash;
-    @Getter @Setter private String                      emailId;
-    @Getter @Setter private String                      firstName;
-    @Getter @Setter private String                      lastName;
-    @Getter @Setter private String                      password;
-    @Getter @Setter private boolean                     activated;
-    @Getter @Setter private String                      activationString;
-    @Getter @Setter private List<Person>                colleagues;
-    @Getter @Setter private List<Notebook>              notebooks;
-    @Getter @Setter private List<Status>                statuses;
-    @Getter @Setter private List<Institution>           labs;
-    @Getter @Setter private List<Project>               projects;
-    @Getter @Setter private List<Publication>           publications;
-    @Getter @Setter private Map<String,Set<PersonRole>> roles;
-    @Getter @Setter private List<Order>                 orders;
+    @Getter @Setter private String emailId;
+    @Getter @Setter private String firstName;
+    @Getter @Setter private String lastName;
+    @Getter @Setter private String password;
+    @Getter @Setter private boolean activated;
+    @Getter @Setter private String activationString;
     
-   
-   
+    @Getter @Setter private List<Project> projects;
+    @Getter @Setter private List<Status> statuses;
+    @Getter @Setter private List<Notebook> notebooks;
+    @Getter @Setter private List<Institution> labs;
+    @Getter @Setter private List<Person> colleagues;
+    @Getter @Setter private List<Order> orders;
     //When sign up -- how do you affiliate position with Organization? e.g. PI at BU but affiliate researcher at berkeley
     //profile pic? text link
-    
-    
-    
+    @Getter @Setter private List<Publication> publications;
+    @Getter @Setter private String id;
+    @Getter @Setter private String salt;
+    @Getter @Setter private String saltedEmailHash;
+    Map<String,Set<PersonRole>> roles;
     
 
     public Person(){
-        this.id               = "Not Set";
-        this.salt             = "Not Set";
-        this.saltedEmailHash  =  new byte[1];
-        this.emailId          = "Not set";
-        this.firstName        = "Jane";
-        this.lastName         = "Doe";
-        this.password         = "Not Set";
-        this.activated        = false;
-        this.activationString = "Not Set";
-        this.colleagues       = new ArrayList<>();
-        this.notebooks        = new ArrayList<>();
-        this.statuses         = new ArrayList<>();
-        this.labs             = new ArrayList<>();
-        this.projects         = new ArrayList<>();
-        this.publications     = new ArrayList<>();
-        this.roles            = new HashMap<>();
-        this.orders           = new ArrayList<>();
+        this.colleagues = new ArrayList<Person>();
+        this.notebooks = new ArrayList<Notebook>();
+        this.statuses = new ArrayList<Status>();
+        this.labs = new ArrayList<Institution>();
+        this.projects = new ArrayList<Project>();
+        this.publications = new ArrayList<Publication>();
+        this.roles = new HashMap<String,Set<PersonRole>>();
+        this.orders = new ArrayList<Order>();
+        this.activated = false;
+        this.activationString = "";
         
     }
     
@@ -83,7 +73,7 @@ public class Person {
             }
         }
         else{
-            Set<PersonRole> roleList = new HashSet<>();
+            Set<PersonRole> roleList = new HashSet<PersonRole>();
             roleList.add(role);
             this.roles.put(institution.getId(), roleList);
         }
@@ -119,7 +109,7 @@ public class Person {
     public void addInstitution(Institution institution){
         boolean exists = false;
        for(Institution institutions: this.labs){
-           if(institutions.getId().equals(institution.getId())){
+           if(institutions.getId() == institution.getId()){
                exists = true;
            }
        }
@@ -128,7 +118,7 @@ public class Person {
        }
        else{
            this.labs.add(institution);
-           Set<PersonRole> roleList = new HashSet<>();
+           Set<PersonRole> roleList = new HashSet<PersonRole>();
            roleList.add(PersonRole.MEMBER);
            this.roles.put(institution.getId(),roleList);
        }
@@ -137,7 +127,7 @@ public class Person {
     public void addInstitution(Institution institution, Set<PersonRole> roles ){
         boolean exists = false;
        for(Institution institutions: this.labs){
-           if(institutions.getId().equals(institution.getId())){
+           if(institutions.getId() == institution.getId()){
                exists = true;
            }
        }
@@ -155,6 +145,8 @@ public class Person {
         //Status newStatus = new Status(text, this);
         this.statuses.add(newStatus);
     }
+    
+    
     public static enum PersonRole{
        MEMBER, PI, LABMANAGER, POSTDOC, GRADSTUDENT, UNDERGRADUATE,LABADMIN, VISITINGRESEARCHER,RAPROFESSOR
     }

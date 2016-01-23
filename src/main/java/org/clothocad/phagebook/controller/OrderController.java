@@ -11,11 +11,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import org.clothoapi.clotho3javaapi.Clotho;
-import org.clothocad.phagebook.adaptors.ClothoAdapter;
+import org.clothocad.phagebook.adaptors.ClothoAdaptor;
 import org.clothocad.phagebook.dom.Company;
 import org.clothocad.phagebook.dom.GoodType;
 import org.clothocad.phagebook.dom.Order;
@@ -58,10 +57,10 @@ public class OrderController {
             Company company; 
             Map companyQuery = new HashMap();
             companyQuery.put("name",companyName);
-            List<Company> companyList = ClothoAdapter.queryCompany(companyQuery, clothoObject);
+            List<Company> companyList = ClothoAdaptor.queryCompany(companyQuery, clothoObject);
             if(companyList.isEmpty()){
                 company = new Company(companyName);
-                ClothoAdapter.createCompany(company, clothoObject);
+                ClothoAdaptor.createCompany(company, clothoObject);
             }
             else{
                company = companyList.get(0);
@@ -105,10 +104,10 @@ public class OrderController {
 
                 Map companyQuery = new HashMap();
                 companyQuery.put("name",companyName);
-                List<Company> companyArray = ClothoAdapter.queryCompany(companyQuery, clothoObject);
+                List<Company> companyArray = ClothoAdaptor.queryCompany(companyQuery, clothoObject);
                 if(companyArray.isEmpty()){
                     company = new Company(companyName);
-                    ClothoAdapter.createCompany(company, clothoObject);
+                    ClothoAdaptor.createCompany(company, clothoObject);
                 }
                 else{
                    company = companyArray.get(0);
@@ -217,10 +216,7 @@ public class OrderController {
     public static double getTotalPrice(Order order) {
         double total = 0.0;
 
-        Iterator it = order.getProducts().entrySet().iterator();    
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry)it.next();
-            Product product = (Product) pair.getKey();
+        for (Product product : order.getProducts()) {
             total = +product.getCost();
         }
 
@@ -229,63 +225,57 @@ public class OrderController {
 
     //inputs: order and list of enums
     //return a list of strings
-    public static List<String> createOrderForm(Order order, List<OrderColumns> ColumnList) {
+    public static List<String> createOrder(Order order, List<OrderColumns> ColumnList) {
         List<String> orders = new ArrayList<String>();
         String orderString;
-        System.out.println("HERE IN ORDERFORM");
-        int count = 1;       
-        System.out.println("The products= " + order.getProducts().toString());
-        Iterator it = order.getProducts().entrySet().iterator();   
-        
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry)it.next();
+        int count = 1;
+
+        for (Product product : order.getProducts()) {
             orderString = "";
-            Product product = (Product) pair.getKey();
+
             for (OrderColumns clist1 : ColumnList) {
                 switch (clist1) {
                     case SERIAL_NUMBER:
-                        orderString = orderString + count + ",";
+                        orderString += count;
                         count++;
                         break;
                     case PRODUCT_NAME:
-                        orderString = orderString + product.getName() + ",";
-                        break;                    
+                        orderString += product.getName();
+                        break;
                     case PRODUCT_URL:
-                        orderString = orderString + product.getProductURL() + ",";
+                        orderString += product.getProductURL();
                         break;
                     case PRODUCT_DESCRIPTION:
-                        orderString = orderString + product.getDescription() + ",";
+                        orderString += product.getDescription();
                         break;
                     case QUANTITY:
-                        orderString = orderString + pair.getValue() + ",";
+                        orderString += product.getQuantity();
                         break;
                     case COMPANY_NAME:
-                        orderString = orderString + product.getCompany().getName() + ",";
+                        orderString += product.getCompany().getName();
                         break;
                     case COMPANY_URL:
-                        orderString = orderString + product.getCompany().getUrl() + ",";
+                        orderString += product.getCompany().getUrl();
                         break;
                     case COMPANY_DESCRIPTION:
-                        orderString = orderString + product.getCompany().getDescription() + ",";
+                        orderString += product.getCompany().getDescription();
                         break;
                     case COMPANY_CONTACT:
-                        orderString = orderString + product.getCompany().getContact() + ",";
+                        orderString += product.getCompany().getContact();
                         break;
                     case COMPANY_PHONE:
-                        orderString = orderString + product.getCompany().getPhone() + ",";
+                        orderString += product.getCompany().getPhone();
                         break;
                     case UNIT_PRICE:
-                        orderString = orderString + product.getCost() + ",";
+                        orderString += product.getCost();
                         break;
                     case TOTAL_PRICE:
-                        orderString = orderString + (product.getCost() * (int)pair.getValue()) + ",";
+                        orderString += (product.getCost() * product.getQuantity());
                         break;
                 }
             }
             orders.add(orderString);
-            it.remove();
         }
-        System.out.println(orders);
         return orders;
     }
 
