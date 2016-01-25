@@ -116,11 +116,13 @@ console.log("loaded");
         console.log("response!!!");
         setCookie("projectID", response.projectID);
         console.log(document.cookie);
-        location.assign("./html/displayProjects.html");
+        //location.assign("./html/displayProjects.html");
 
       },
-      error: function () {
-        alert("ERROR!!");
+      error: function (err) {
+        console.log("ERROR!!");
+        console.log(err);
+
       }
     }); 
    }
