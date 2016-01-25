@@ -1,3 +1,5 @@
+// Author: Anna Goncharova (agonchar@bu.edu)
+
 function projectController($scope, $http){
 console.log("loaded");
 
@@ -90,8 +92,8 @@ console.log("loaded");
 
   var dataSubmit =  {
     name: $scope.formData.name,
-    leadFirstName:  $scope.formData.lead.leadFirstName,
-    leadLastName:  $scope.formData.lead.leadLastName,
+    leadFirstName:  $scope.formData.lead.firstName,
+    leadLastName:  $scope.formData.lead.lastName,
     labs:  $scope.formData.labs,
     projectBudget: $scope.formData.projectBudget,
     grant: $scope.formData.grant,

@@ -93,27 +93,27 @@ public class processProject extends HttpServlet {
        
        // gets the lead's name
        String lead = "";
-       String leadString = request.getParameter("lead");
-       System.out.println("(97) leadString is: " + leadString);  
-       String[] leadName = new String[2];
-       if(!leadString.equals("")){
-         System.out.println("(100) Lead name is not null");  
-         lead = leadString;
-         if(leadString.contains(" ")){
-           leadName = leadString.split(" ");
-           System.out.println("(104) Split lead name is " + leadName[0] + " " + leadName[1]); 
-           
-         }
-       }       
-
-       System.out.println("(109) lead is"); 
-       System.out.println(lead);
-       
+       String leadStringFirstName = request.getParameter("leadFirstName");
+       String leadStringLastName = request.getParameter("leadLastName");
+//       System.out.println("(97) leadString is: " + leadStringFirstName + " " +leadStringLastName);  
+//       if(!leadString.equals("")){
+//         System.out.println("(100) Lead name is not null");  
+//         lead = leadString;
+//         if(leadString.contains(" ")){
+//           leadName = leadString.split(" ");
+//           System.out.println("(104) Split lead name is " + leadName[0] + " " + leadName[1]); 
+//           
+//         }
+//       }        
        // gets the labs 
+       
+       // Q: How do I check if something is null? Do I need to check if it is null or 
+       // do something else???
+       
        String labs = "";
        String labsString = request.getParameter("labs");
        
-       if(labsString != null){
+       if( labsString != null ){
          labs = labsString;        
        }
        System.out.println("(119) labs is"); 
@@ -151,14 +151,14 @@ public class processProject extends HttpServlet {
        Clotho clothoObject = new Clotho(conn);
 
        // Establish authorship here
-      
+        /*
        String creatorId = request.getParameter("id");
        System.out.println("(151) id of the creator is: " + creatorId);
        Person creator = ClothoAdapter.getPerson(creatorId, clothoObject);
        String username = creator.getEmailId();
        String password = creator.getPassword();
-       
-       /*      
+       */
+             
        // *** for manual user creation
        System.out.println("(161) about to create the creator");
        
@@ -173,7 +173,7 @@ public class processProject extends HttpServlet {
        String password = creator.getPassword();
        
        System.out.println("(173) creating a hashmap for the creator in Clotho");
-       */
+       
        Map createUserMap = new HashMap();
        createUserMap.put("username", username);
        createUserMap.put("password", password);
@@ -207,28 +207,25 @@ public class processProject extends HttpServlet {
        
        // initialize a null string to store the projectID value
        
-       
-       System.out.println("creator"); 
-       System.out.println(creator); 
-       System.out.println("name");
-       System.out.println(name);
-       System.out.println("lab");
-       System.out.println(lab);
-       System.out.println("projectBudget");
-       System.out.println(projectBudget);
-       System.out.println("grant");
-       System.out.println(grantObject);
-       System.out.println("description"); 
-       System.out.println(description);
+//      System.out.println("creator"); 
+//      System.out.println(creator); 
+//      System.out.println("name");
+//      System.out.println(name);
+//      System.out.println("lab");
+//      System.out.println(lab);
+//      System.out.println("projectBudget");
+//      System.out.println(projectBudget);
+//      System.out.println("grant");
+//      System.out.println(grantObject);
+//      System.out.println("description"); 
+//      System.out.println(description);
       
-
+      // Create a Person object for the project's lead
       Person leadPerson = new Person();
-      
-      leadPerson.setFirstName(leadName[0]);
-      leadPerson.setLastName(leadName[1]);
-      System.out.println("Lead Person is " + leadPerson);
-      String leadPersonID = ClothoAdapter.createPerson(leadPerson, clothoObject); 
-      
+      leadPerson.setFirstName(leadStringFirstName);
+      leadPerson.setLastName(leadStringLastName);
+      System.out.println("Lead is " + leadPerson);
+      String leadPersonID = ClothoAdapter.createPerson(leadPerson, clothoObject);
       
       System.out.println("about to create the project");
 
@@ -242,10 +239,8 @@ public class processProject extends HttpServlet {
       System.out.println("project id is");
       System.out.println(projectID);
 
-
       JSONObject result = new JSONObject();
  
-      
       if(projectID != null){
         result.put("success",1);
         result.put("projectID", projectID);
