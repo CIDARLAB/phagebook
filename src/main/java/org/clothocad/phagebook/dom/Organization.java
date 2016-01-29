@@ -14,26 +14,32 @@ import lombok.Setter;
  */
 public class Organization {
     
-    @Getter @Setter 
-    protected String id;
+    @Getter @Setter protected String id;
+    @Getter @Setter protected String name;
+    @Getter @Setter protected String description;
+    @Getter @Setter protected String phone;
+    @Getter @Setter protected String url;
     
-    @Getter
-    @Setter
-    protected String name, description;
-    
-    @Getter
-    @Setter
-    protected String phone, url;
-    
-    public Organization(String name){
+    public Organization(String name)
+    {
         this.name = name;
     }
     
-    public Organization(String name, String description, String phone, String url){
+    public Organization(String name, String description, String phone, String url)
+    {
         this.name = name;
         this.description = description;
         this.url = url;
         this.phone = phone;
+    }
+    
+    public Organization()
+    {
+        this.id          = "Not Set";
+        this.name        = "Not Set";
+        this.description = "Not Set";
+        this.phone       = "Not Set";
+        this.url         = "Not Set";
     }
 
 }

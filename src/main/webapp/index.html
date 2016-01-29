@@ -30,7 +30,7 @@
 
         <div class="navbar-header">
             <ul class="navbar">
-                <li><img src="styles/images/phagebookWhite.png"></a></li>
+                <li><img src="styles/images/phagebookWhite.png"></li>
             </ul>
         </div>
         <div role="form" class="navbar-form navbar-right" method="post">
@@ -167,34 +167,29 @@ SCRIPTS
 --------->
 <script>
     $("#login").click(function () {
-        Clotho.login(document.getElementById("returnEmail").value, document.getElementById("returnPassword").value).then(function (result) {
-            if (result == null) {
-                alert("Login unsuccessful");
-            }
-            else {
                 $.ajax({
                     url: "loginUser",
                     type: "POST",
                     async: false,
                     data: {
-                        "id": result.id,
-                        "email": document.getElementById("returnEmail").value
+                        "email": document.getElementById("returnEmail").value,
+                        "password": document.getElementById("returnPassword").value
                     },
                     success: function (response) {
-                        alert(response);
-                        sessionStorage.setItem("uniqueid", loginResult.id);
-                        sessionStorage.setItem("username", document.getElementById("email").value);
+                        //alert(response);
+                        //alert("Got Some Response" + response);
+                        sessionStorage.setItem("response", response);
+                        sessionStorage.setItem("username", document.getElementById("returnEmail").value);
                         sessionStorage.setItem("password", document.getElementById("password").value);
 
-                        window.location.href = './html/profile.html';
+                        window.location.href = './html/profile.html?user=' + response;
                     },
                     error: function () {
                         alert("some sort of error occurred");
                     }
                 });
             }
-        });
-    });
+    );
 
     $("#addPerson").click(function () {
         //should create a person and send an email verification
@@ -221,10 +216,10 @@ SCRIPTS
                         "password": document.getElementById("password").value
                     },
                     success: function (response) {
-                        alert(response);
-                        /*sessionStorage.setItem("uniqueid", loginResult.id);
+                        
+                       // sessionStorage.setItem("uniqueid", loginResult.id);
                         sessionStorage.setItem("username", document.getElementById("email").value);
-                        sessionStorage.setItem("password", document.getElementById("password").value);*/
+                        //sessionStorage.setItem("password", document.getElementById("password").value);
 
                         window.location.href = './html/validateEmail.html';
                     },
@@ -242,9 +237,6 @@ SCRIPTS
 <script src="scripts/clotho/c0f113c2.clotho-core-module.js"></script>
 <!--note - remove all scripts below this for api-only build-->
 <script src="scripts/clotho/c2a11f43.clotho-foundation-module.js"></script>
-<script src="scripts/footerDirective.js"></script>
-<script src="scripts/indexCtrl.js"></script>
-<script src="scripts/indexApp.js"></script>
 <script src="scripts/clotho/68a2b2df.clotho-command-module.js"></script>
 <script src="scripts/indexAPI.js"></script>
 

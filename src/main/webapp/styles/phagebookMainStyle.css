@@ -118,11 +118,9 @@ body {
      padding: 15px;
  }
 a{
-    font-weight:bold;
     color:#015300;
     font-size:medium;
-    text-align:center;
-    width:200px;
+    
 }
 .nav-tabs{
     text-align:center;
@@ -381,8 +379,7 @@ a{
     margin-left: 38.8px;
     position: relative;
  }
-
- #teamPage img{
+#teamPage img{
      width: 250px;
      height: 250px;
      object-fit: cover;
@@ -408,4 +405,8 @@ a{
 }
 .jumbotron p {
     text-align: center;
+}
+
+#quantity{
+     width: 60px;
 }

@@ -10,7 +10,7 @@ import java.util.Map;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.model.Person;
-import org.clothocad.phagebook.adaptors.ClothoAdaptor;
+import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Institution;
 import org.clothocad.phagebook.dom.Project;
@@ -72,17 +72,17 @@ public class AuthPrivileges {
     
     // now save these objects in clotho
   
-    String projectIDpb = ClothoAdaptor.createProject(pb, clothoObject);
-    String projectIDcl = ClothoAdaptor.createProject(cl, clothoObject);
+    String projectIDpb = ClothoAdapter.createProject(pb, clothoObject);
+    String projectIDcl = ClothoAdapter.createProject(cl, clothoObject);
     
-    String institutionIDboston = ClothoAdaptor.createInstiution(boston, clothoObject);    
-    String institutionIDcidar = ClothoAdaptor.createInstiution(cidar, clothoObject);
+    String institutionIDboston = ClothoAdapter.createInstiution(boston, clothoObject);    
+    String institutionIDcidar = ClothoAdapter.createInstiution(cidar, clothoObject);
     
     clothoObject.logout();
     
-    String personIDdoug = ClothoAdaptor.createPerson(doug, clothoObject);
-    String personIDanna = ClothoAdaptor.createPerson(anna, clothoObject);    
-    String personIDsher = ClothoAdaptor.createPerson(sherlock, clothoObject);
+    String personIDdoug = ClothoAdapter.createPerson(doug, clothoObject);
+    String personIDanna = ClothoAdapter.createPerson(anna, clothoObject);    
+    String personIDsher = ClothoAdapter.createPerson(sherlock, clothoObject);
     
     clothoObject.logout();
     conn.closeConnection();

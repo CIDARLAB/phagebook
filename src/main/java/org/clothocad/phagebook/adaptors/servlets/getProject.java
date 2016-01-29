@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.model.Person;
-import org.clothocad.phagebook.adaptors.ClothoAdaptor;
+import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Project;
 import org.json.JSONObject;
@@ -37,7 +37,7 @@ public class getProject extends HttpServlet {
         Clotho clothoObject = new Clotho(conn);
         JSONObject projectObject = new JSONObject();
         System.out.println("before getProject");
-        Project proj =  ClothoAdaptor.getProject(id, clothoObject);
+        Project proj =  ClothoAdapter.getProject(id, clothoObject);
         projectObject.put("description",proj.getDescription());
         
         projectObject.put("budget", proj.getBudget());
@@ -67,7 +67,7 @@ public class getProject extends HttpServlet {
                 projectObject.put("lead", lead.getFirstName()+lead.getLastName());
             }
         }
-        //projectMap = (Map) ClothoAdaptor.getProject(id, clothoObject);
+        //projectMap = (Map) ClothoAdapter.getProject(id, clothoObject);
         System.out.println("after getProject");
         System.out.println(projectObject);
         String project = projectObject.toString();

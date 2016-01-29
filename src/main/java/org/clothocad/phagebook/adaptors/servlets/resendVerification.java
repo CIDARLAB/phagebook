@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.model.Person;
-import org.clothocad.phagebook.adaptors.ClothoAdaptor;
+import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.adaptors.EmailHandler;
 
@@ -79,7 +79,7 @@ public class resendVerification extends HttpServlet {
         Map query = new HashMap();
         query.put("emailId", emailId);
         
-        List<Person> users = ClothoAdaptor.queryPerson(query, clothoObject);
+        List<Person> users = ClothoAdapter.queryPerson(query, clothoObject);
         Person user = users.get(0);
         EmailHandler handly = EmailHandler.getEmailHandler();
         
