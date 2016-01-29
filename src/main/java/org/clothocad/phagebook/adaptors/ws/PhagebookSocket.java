@@ -53,8 +53,6 @@ public class PhagebookSocket
         connection.setMaxBinaryMessageSize(999999);
         connection.setMaxTextMessageSize(999999);
         System.out.println("New Connection opened :: " + connection.getProtocol());
-
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -84,7 +82,7 @@ public class PhagebookSocket
                 case login:
                     break;
                 default:
-                    result.put("data", "");
+                    result.put("data", "Error...");
                     break;
             }
         }
