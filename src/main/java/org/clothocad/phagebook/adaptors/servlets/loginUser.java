@@ -80,14 +80,13 @@ public class loginUser extends HttpServlet {
             Map clothoQuery = new HashMap();
             clothoQuery.put("emailId", email);
             Person loggedInPerson = ClothoAdapter.queryPerson(clothoQuery, clothoObject).get(0);
-            System.out.println(loggedInPerson.isActivated());
-            
+          
             System.out.println("GOT HERE IN LOGIN PERSON");
             
             
             if (loggedInPerson.isActivated() )
             {
-                System.out.println("I'm HERE");
+              
                 //return success, this means its a valid request
                 //response.setStatus(HttpServletResponse.SC_OK);
                 System.out.print("Id is " + loggedInPerson.getId());
