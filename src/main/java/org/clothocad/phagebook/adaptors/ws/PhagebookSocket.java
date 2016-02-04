@@ -75,11 +75,18 @@ public class PhagebookSocket
         result.put("requestId", messageObject.get("requestId"));
         if (isValidMessage(messageObject)) {
             switch (getChannel((String) messageObject.get("channel"))) {
-                case createStatus:
-                    break;
-                case updateOrderStatus:
-                    break;
-                case login:
+                case CREATE_STATUS:
+                {
+                    Map userMap = new HashMap();
+                    userMap = (Map)messageObject.get("data");
+                    
+                    
+                    
+                }
+                    //break the map (the value of the key "data") from messageObject into user password and status
+                    //login with map, update status, return a successful message
+                    //cello API  - create a similar thing - ramal to html conversion 
+
                     break;
                 default:
                     result.put("data", "Error...");
