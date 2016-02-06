@@ -75,16 +75,14 @@ public class resendVerification extends HttpServlet {
 
 
         clothoObject.login(loginMap);
-        String emailId = request.getParameter("emailId");
-        Map query = new HashMap();
-        query.put("emailId", emailId);
+        String userId = request.getParameter("userId");
+        //operating under the assumption that we will have the saved clotho ID of the user
         
-        List<Person> users = ClothoAdapter.queryPerson(query, clothoObject);
-        Person user = users.get(0);
+        Person person1 = ClothoAdapter.getPerson(userId, clothoObject);
+        
+        String link = Args.phagebookBaseURL + "/html/verifyEmail.html?emailId=" + person1.getEmailId() + "&salt=" + person1.getSalt();
         EmailHandler handly = EmailHandler.getEmailHandler();
-        
-        String link = Args.phagebookBaseURL + "/html/verifyEmail.html?emailId=" + user.getEmailId() + "&salt=" + user.getSalt();
-        handly.sendEmailVerification(user, link);
+        handly.sendEmailVerification(person1, link);
         
     }
 

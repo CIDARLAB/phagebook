@@ -18,6 +18,7 @@ import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.model.Person;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
+import org.json.JSONObject;
 
 /**
  *
@@ -89,11 +90,14 @@ public class loginUser extends HttpServlet {
               
                 //return success, this means its a valid request
                 //response.setStatus(HttpServletResponse.SC_OK);
-                System.out.print("Id is " + loggedInPerson.getId());
+                
                 String idVal = (String) loggedInPerson.getId();
-                response.setContentType("text/plain");
+                JSONObject responseJSON = new JSONObject();
+                responseJSON.put("id", idVal);
+                responseJSON.put("activated", "true");
+                response.setContentType("application/json");
                 PrintWriter out = response.getWriter();
-                out.print(idVal);
+                out.print(responseJSON.toString());
                 out.flush();
                 out.close();
             }
@@ -101,7 +105,11 @@ public class loginUser extends HttpServlet {
             {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 PrintWriter out = response.getWriter();
-                out.print("false");
+                String idVal = (String) loggedInPerson.getId();
+                JSONObject responseJSON = new JSONObject();
+                responseJSON.put("id", idVal);
+                responseJSON.put("activated", "false");
+                response.setContentType("application/json");
                 out.flush();
                 out.close();
             }
