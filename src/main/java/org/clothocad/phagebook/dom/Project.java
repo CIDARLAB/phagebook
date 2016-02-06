@@ -186,4 +186,24 @@ public class Project {
    public void deleteStatus(Status toDelete){
        updates.remove(toDelete);
    }
+   /*
+   ** To string method for the project
+   ** Outputformat:
+   ** Project name is x
+   ** Creator is x
+   ** Was created on x
+   */
+   @Override public String toString(){
+       String result = "Project";
+       
+       if(!this.name.equals("")){
+        result += " name is " + this.name +"\n";
+       }
+       String creatorFirstName = creator.getFirstName();
+       String creatorLastName = creator.getLastName();
+       result += "Creator is "+ creatorFirstName + " " + creatorLastName + "\n";
+       result += "Was created on "+ this.dateCreated + "\n";
+       return result;
+      
+    }
 }

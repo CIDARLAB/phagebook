@@ -44,7 +44,7 @@ public class processProject extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     
-    //processes requests for projects and created "Project" objet
+    //processes requests for projects and created "Project" object
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
             response.setContentType("text/html;charset=UTF-8");
@@ -200,12 +200,10 @@ public class processProject extends HttpServlet {
       // create a lead object using the name from the form
       // set the lead's name to name from the form
       
-// TODO: Add form checking for lead and 
+      // TODO: Add form checking for lead and 
       // ajax support for getting lead names and displaying the
       // options.
 
-      // If lead 
-      
       clothoObject.login(loginMap);
 
       Person leadPerson = new Person();
@@ -254,7 +252,8 @@ public class processProject extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "This servlet is responsible to processing a 'create new "
+                + "project' request";
     }// </editor-fold>
 
 }

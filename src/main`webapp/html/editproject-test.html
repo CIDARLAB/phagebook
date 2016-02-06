@@ -1,0 +1,30 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+<button class="editProject" onclick="edit()">
+	Edit Project
+</button>
+
+<script type="text/javascript">
+	
+  var edit = function(){
+  	console.log("in edit function!!");
+		$.ajax({
+			url: "editProject",
+			type: "POST",
+			dataType: "json",
+			async: false,
+			data: "true",
+			success: function (response) {
+			  console.log(dataSubmit); 
+			  console.log(response);
+			  console.log("response!!!");
+			},
+			error: function (err) {
+			  console.log("ERROR!!");
+			  console.log(err);
+			}
+		}); 
+  }
+
+
+</script>

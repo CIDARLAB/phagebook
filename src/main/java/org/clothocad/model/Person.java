@@ -163,10 +163,10 @@ public class Person {
        String result = "Person is ";
        
        if(!this.firstName.equals("") && !this.lastName.equals("")){
-        result += this.firstName + " " + this.lastName;
+        result += this.firstName + " " + this.lastName +"\n";
        }
        if(!this.id.equals("")){
-        result += "\n ID is: " + this.id;
+        result += "ID is: " + this.id +"\n";
        }
        
        return result;
