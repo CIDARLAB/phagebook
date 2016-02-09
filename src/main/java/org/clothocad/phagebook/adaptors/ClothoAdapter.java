@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 import net.sf.json.JSONArray;
 import org.clothoapi.clotho3javaapi.Clotho;
-import org.clothocad.phagebook.dom.Company;
+import org.clothocad.phagebook.dom.Vendor;
 import org.clothocad.phagebook.dom.Container;
 import org.clothocad.phagebook.dom.Entry;
 import org.clothocad.phagebook.dom.FundingAgency;
@@ -46,17 +46,17 @@ public class ClothoAdapter {
     // <editor-fold defaultstate="collapsed" desc="Create Methods">
      
     /**
-     * This method is to create a Company object in Clotho but It can also be used a SET method if the object that 
-     * gets passed in has a valid Clotho ID
+     * This method is to create a Vendor object in Clotho but It can also be used a SET method if the object that 
+ gets passed in has a valid Clotho ID
      * @param company company object to create
      * @param clothoObject Instance of Clotho being used
      * @return ID value of the object in the Clotho Database
      */
-    public static String createCompany(Company company, Clotho clothoObject)
+    public static String createVendor(Vendor company, Clotho clothoObject)
     {
         
         Map map = new HashMap();
-        map.put("schema", Company.class.getCanonicalName());
+        map.put("schema", Vendor.class.getCanonicalName());
         
         if (company.getContact() != null ){  
             if (!company.getContact().equals("Not Set") && !company.getContact().isEmpty()) {
@@ -91,8 +91,8 @@ public class ClothoAdapter {
         return id;
     }
     /**
-     * This method is to create a Company object in Clotho but It can also be used a SET method if the object that 
-     * gets passed in has a valid Clotho ID
+     * This method is to create a Vendor object in Clotho but It can also be used a SET method if the object that 
+ gets passed in has a valid Clotho ID
      * @param container container object to create
      * @param clothoObject Instance of Clotho being used
      * @return ID value of the object in the Clotho Database
@@ -1228,15 +1228,15 @@ public class ClothoAdapter {
     // <editor-fold defaultstate="collapsed" desc="Get Methods">
     
     /**
-     * This gets a Company object from Clotho if it receives a valid ID, will give default values to properties that were not found.
+     * This gets a Vendor object from Clotho if it receives a valid ID, will give default values to properties that were not found.
      * @param id Clotho ID
      * @param clothoObject Instance of Clotho being used
      * @return instance of object.
      */
-    public static Company getCompany(String id, Clotho clothoObject)
+    public static Vendor getVendor(String id, Clotho clothoObject)
     {
         Map companyMap = (Map) clothoObject.get(id);
-        Company company = mapToCompany(companyMap, clothoObject);
+        Vendor company = mapToVendor(companyMap, clothoObject);
         return company;
     }
     /**
@@ -1440,16 +1440,16 @@ public class ClothoAdapter {
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Query Methods">
-        public static List<Company> queryCompany(Map query , Clotho clothoObject)
+        public static List<Vendor> queryVendor(Map query , Clotho clothoObject)
     {
         //queries return a JSON array of maps
-        query.put("schema", Company.class.getCanonicalName());
-        List<Company> companies = new ArrayList<>();
+        query.put("schema", Vendor.class.getCanonicalName());
+        List<Vendor> companies = new ArrayList<>();
         
         JSONArray queryResults = (JSONArray) clothoObject.query(query);
         
         for (Object queryResult : queryResults) {
-            companies.add(mapToCompany((Map) queryResult, clothoObject));
+            companies.add(mapToVendor((Map) queryResult, clothoObject));
         }
         
         return companies;
@@ -1702,12 +1702,12 @@ public class ClothoAdapter {
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Map Methods">
-    private static Company mapToCompany(Map map, Clotho clothoObject)
+    private static Vendor mapToVendor(Map map, Clotho clothoObject)
     {
         
-        //I set each property of a Company object to a default value (that match the constructors)
+        //I set each property of a Vendor object to a default value (that match the constructors)
         String contact = "";
-        //I see if the map contains a key for that Company property
+        //I see if the map contains a key for that Vendor property
         if (map.containsKey("contact")){
             //if so then I assign that value to my local variable
              contact = (String) map.get("contact");
@@ -1744,8 +1744,8 @@ public class ClothoAdapter {
              id = (String) map.get("id");
         }
         
-        //create a new Company object
-        Company savedCompany = new Company(name);
+        //create a new Vendor object
+        Vendor savedCompany = new Vendor(name);
         //assign it those values
         savedCompany.setContact(contact);
         savedCompany.setDescription(description);
@@ -1880,7 +1880,7 @@ public class ClothoAdapter {
     //good is abstract, can't be gotten
     private static Grant mapToGrant(Map map, Clotho clothoObject)
     {
-        //See Map to Company for a more indepth explanation
+        //See Map to Vendor for a more indepth explanation
         String name = "";
         if (map.containsKey("name")) {
             name = (String) map.get("name");
@@ -2359,10 +2359,10 @@ public class ClothoAdapter {
         if (map.containsKey("description")) { productURL = (String) map.get("productURL"); }
         
         
-        Company company = null;
+        Vendor company = null;
         if (map.containsKey("company")) { 
             String companyId =  (String) map.get("company");
-            company = getCompany(companyId, clothoObject);
+            company = getVendor(companyId, clothoObject);
         }
         GoodType goodType = null;
         if (map.containsKey("goodType")){
@@ -2660,8 +2660,8 @@ public class ClothoAdapter {
     
     // </editor-fold>
     //  <editor-fold defaultstate="collapsed" desc="Set Methods ">
-    public static String setCompany(Company company, Clotho clothoObject){
-        return ClothoAdapter.createCompany(company, clothoObject);
+    public static String setVendor(Vendor company, Clotho clothoObject){
+        return ClothoAdapter.createVendor(company, clothoObject);
     }
     public static String setContainer(Container container, Clotho clothoObject){
         return ClothoAdapter.createContainer(container, clothoObject);

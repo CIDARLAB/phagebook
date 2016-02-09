@@ -21,7 +21,7 @@ import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
-import org.clothocad.phagebook.dom.Company;
+import org.clothocad.phagebook.dom.Vendor;
 import org.clothocad.phagebook.dom.Product;
 
 /**
@@ -83,11 +83,11 @@ public class queryProductByCompany extends HttpServlet {
             
             query.put("name", companyName);
             
-            List<Company> queryCompanyResults = new LinkedList<>();
-            queryCompanyResults = ClothoAdapter.queryCompany(query, clothoObject);
-            //To get Company Name and ID to query for products with that company...
+            List<Vendor> queryCompanyResults = new LinkedList<>();
+            queryCompanyResults = ClothoAdapter.queryVendor(query, clothoObject);
+            //To get Vendor Name and ID to query for products with that company...
             List<String> companyIDs = new LinkedList<>();
-            for (Company company : queryCompanyResults ){
+            for (Vendor company : queryCompanyResults ){
                 companyIDs.add(company.getId());
             }
             

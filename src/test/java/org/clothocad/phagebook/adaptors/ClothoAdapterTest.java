@@ -18,7 +18,7 @@ import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.model.Person;
 import org.clothocad.model.Person.PersonRole;
 import org.clothocad.phagebook.controller.Args;
-import org.clothocad.phagebook.dom.Company;
+import org.clothocad.phagebook.dom.Vendor;
 import org.clothocad.phagebook.dom.Container;
 import org.clothocad.phagebook.dom.Entry;
 import org.clothocad.phagebook.dom.FundingAgency;
@@ -100,10 +100,10 @@ public class ClothoAdapterTest {
 
     
     @Test
-    public void testCreateCompany()
+    public void testCreateVendor()
     {
         System.out.println("-----CREATE COMPANY TEST-----");
-        Company testCompany = new Company();
+        Vendor testCompany = new Vendor();
         String contact = "Clotho Test";
         String description = "Testing Company Object Creation Clotho";
         String id1 = "";
@@ -120,7 +120,7 @@ public class ClothoAdapterTest {
         testCompany.setPhone(phone);
         testCompany.setUrl(url);
         
-        String id2 = ClothoAdapter.createCompany(testCompany, clothoObject);
+        String id2 = ClothoAdapter.createVendor(testCompany, clothoObject);
         assertEquals(id2, testCompany.getId());
         if (id1.equals(testCompany.getId())){
             fail();
@@ -588,7 +588,7 @@ public class ClothoAdapterTest {
    
     //make and receive back exactly what you made
     @Test
-    public void testGetCompany()
+    public void testGetVendor()
     {
         System.out.println("-----GET COMPANY TEST-----");
 
@@ -599,19 +599,19 @@ public class ClothoAdapterTest {
         String phone       = "Clotho Test Phone";
         String url         = "Clotho Test Url";
         //
-        Company company1 = new Company();
+        Vendor company1 = new Vendor();
         company1.setContact(contact);
         company1.setName(name);
         company1.setDescription(description);
         company1.setPhone(phone);
         company1.setUrl(url);
         
-        String companyId = ClothoAdapter.createCompany(company1, clothoObject);
+        String companyId = ClothoAdapter.createVendor(company1, clothoObject);
         if(company1.getId().equals("Not Set")){
             fail();
         }
         
-        Company company2 = ClothoAdapter.getCompany(companyId, clothoObject);
+        Vendor company2 = ClothoAdapter.getVendor(companyId, clothoObject);
         
         assertEquals(company1.getContact(), company2.getContact());
         assertEquals(company1.getName(), company2.getName());
@@ -1165,8 +1165,8 @@ public class ClothoAdapterTest {
         System.out.println("-----GET PRODUCT TEST-----");
         //PRODUCT FIELDS
         String productURL = "CLOTHO TEST URL";
-        Company company = new Company();
-            ClothoAdapter.createCompany(company, clothoObject);
+        Vendor company = new Vendor();
+            ClothoAdapter.createVendor(company, clothoObject);
         GoodType goodType = GoodType.SAMPLE;
         double cost = 10.0d;
         int quantity = 5;

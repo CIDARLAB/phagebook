@@ -20,7 +20,7 @@ import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.controller.OrderController;
-import org.clothocad.phagebook.dom.Company;
+import org.clothocad.phagebook.dom.Vendor;
 import org.clothocad.phagebook.dom.Product;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -54,15 +54,15 @@ public class inputCompany extends HttpServlet {
 
         clothoObject.login(loginMap);
         
-        List<Company> companies = new ArrayList<Company>();
+        List<Vendor> companies = new ArrayList<Vendor>();
         companies = OrderController.getCompanies(data, clothoObject);
         
         /*List<Product> products = new ArrayList<Product>();
         products = OrderController.getProducts(data,clothoObject);
         */
         
-        for(Company company:companies){
-            ClothoAdapter.createCompany(company, clothoObject);
+        for(Vendor company:companies){
+            ClothoAdapter.createVendor(company, clothoObject);
         }
         conn.closeConnection();
         //writer.println("Done!");
