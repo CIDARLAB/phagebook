@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package org.clothocad.phagebook.adaptors;
+import com.sun.media.jfxmedia.logging.Logger;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -2691,7 +2692,200 @@ public class ClothoAdapter {
         return ClothoAdapter.createOrder(order, clothoObject);
     }
     public static String setPerson(Person person, Clotho clothoObject){
-        return ClothoAdapter.createPerson(person, clothoObject);
+        /*add logic */ 
+        Map map = new HashMap();
+        map.put("schema", Person.class.getCanonicalName());
+
+
+        if(person.getSalt() != null ){
+            if (!person.getSalt().isEmpty() && !person.getSalt().equals("Not Set"))
+                map.put("salt", person.getSalt());
+        }
+         
+    
+        if (person.getSaltedEmailHash() != null) 
+        {
+            map.put("saltedEmailHash", Arrays.toString(person.getSaltedEmailHash()) );
+
+        }
+        
+        if (person.getProjects() != null)
+        {
+            if (!person.getProjects().isEmpty())
+            {
+                JSONArray projects = new JSONArray();
+                for (Project project : person.getProjects()){
+                    if (project.getId() != null){
+                        if (!project.getId().equals("Not Set") && !project.getId().isEmpty()){
+                            projects.add(project.getId());
+                        }
+                    }
+                }
+                map.put("projects", projects);
+            }
+        }
+       
+        if (person.getStatuses() != null)
+        {
+            if (!person.getStatuses().isEmpty()){
+                JSONArray statuses = new JSONArray();
+                for (Status status : person.getStatuses()){
+                    if (status.getId() != null){
+                        if (!status.getId().equals("Not Set") && !status.getId().isEmpty() ){
+                           statuses.add(status.getId());
+                        }
+                    }
+                }
+                map.put("statuses", statuses);
+            }
+        }
+        
+        if (person.getNotebooks() != null)
+        {
+            if (!person.getNotebooks().isEmpty()){
+                JSONArray notebooks = new JSONArray();
+                for (Notebook notebook : person.getNotebooks()){
+                    if (notebook.getId() != null){
+                        if (!notebook.getId().equals("Not Set") && !notebook.getId().isEmpty()){
+                            notebooks.add(notebook.getId());
+                        }
+                    }
+                }
+                map.put("notebooks", notebooks);
+            }
+        }
+        if (person.getLabs() != null)
+        {
+            if(!person.getLabs().isEmpty())
+            {
+                JSONArray labs = new JSONArray();
+                JSONArray roles;
+                Map rolesMap = new HashMap();
+                for (Institution institution : person.getLabs())
+                {
+                    if (institution.getId() != null){
+                        if (!institution.getId().equals("Not Set") && !institution.getId().isEmpty()){
+                            labs.add(institution.getId());
+                        }
+                    }
+                    //iterate through the roles in the Set
+                    if (person.getRole(institution) != null)
+                    {
+                        Iterator<PersonRole> it = person.getRole(institution).iterator();
+                        roles = new JSONArray();
+                        while(it.hasNext())
+                        {
+                            roles.add(it.next().toString());
+                        }
+                        if (institution.getId() != null){
+                            if (!institution.getId().equals("Not Set") && !institution.getId().isEmpty()){
+                                rolesMap.put(institution.getId(), roles);
+                            }
+                        }
+                    }
+
+                }
+                map.put("labs", labs);
+                map.put("roles", rolesMap);
+            }
+        }
+        if (person.getColleagues() != null)
+        {
+            if (!person.getColleagues().isEmpty())
+            {
+                JSONArray colleagues = new JSONArray();
+                for (Person colleague : person.getColleagues())
+                {
+                    if (colleague.getId() != null){
+                        if (!colleague.getId().equals("Not Set") && !colleague.getId().isEmpty()){
+                            colleagues.add(colleague.getId());
+                        }
+                    }
+
+                }
+                map.put("colleagues", colleagues);
+            }
+        }
+        
+        if (person.getOrders() != null)
+        {
+            if (!person.getOrders().isEmpty())
+            {
+                JSONArray orders = new JSONArray();
+                for (Order order : person.getOrders())
+                {
+                    if (order.getId()!= null)
+                    {
+                        if (!order.getId().equals("Not Set") && !order.getId().isEmpty()){
+                            orders.add(order.getId());
+                        }
+                    }
+                }
+                map.put("orders", orders);
+            }
+        }
+        if(person.getPublications() != null)
+        {
+            if (!person.getPublications().isEmpty())
+            {
+                JSONArray publications = new JSONArray();
+                for (Publication publication : person.getPublications())
+                {
+                    if (publication.getId() != null){
+                        if (!publication.getId().equals("Not Set") && !publication.getId().isEmpty()){
+                            publications.add(publication.getId());
+                        }
+                    }
+                    
+                }
+                map.put("publications", publications);
+            }
+        }
+        if (person.getFirstName() !=null)
+            map.put("firstName", person.getFirstName());
+        
+        if(person.getLastName() != null)
+            map.put("lastName", person.getLastName());
+        
+        if(person.getEmailId() != null){
+            map.put("emailId", person.getEmailId());
+            map.put("name", person.getEmailId());
+        }
+        if(person.getPassword() != null)
+            map.put("password", person.getPassword());
+        
+        //defaults are false and "Not Set" for these two lines in the constructors
+        //SHOULD BE
+        map.put("activated", person.isActivated());
+        map.put("activationString", person.getActivationString());
+        
+       
+        if (person.getId() != null){
+            if (!person.getId().equals("Not Set") && !person.getId().isEmpty()){
+                map.put("id", person.getId());
+            }
+        }
+        String username = person.getEmailId()  ;
+        String password = person.getPassword();
+        
+        Map loginUserMap = new HashMap();
+        loginUserMap.put("username", username);
+        loginUserMap.put("credentials", password);
+        
+        Map loginResult = (Map)(clothoObject.login(loginUserMap));
+        
+        String id = "Not Set";
+        if (!loginResult.isEmpty()){
+            id = (String) clothoObject.set(map);
+        }else {
+            System.out.println("NO USER FOUND OR INVALID CREDENTIALS IN PERSON OBJECT");
+        }
+        
+        person.setId(id);
+        makePublic(id, clothoObject);
+        clothoObject.logout();
+        return id;
+    
     }
     public static String setProduct(Product product, Clotho clothoObject){
         return ClothoAdapter.createProduct(product, clothoObject);
