@@ -74,14 +74,28 @@ public class PhagebookSocket
         result.put("channel", (String) messageObject.get("channel"));
         result.put("requestId", messageObject.get("requestId"));
         if (isValidMessage(messageObject)) {
+            ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+            Clotho clothoObject = new Clotho(conn);
             switch (getChannel((String) messageObject.get("channel"))) {
                 case CREATE_STATUS:
                 {
-                    Map userMap = new HashMap();
-                    userMap = (Map)messageObject.get("data");
+                    Map createStatusMap = new HashMap();
+                    createStatusMap = (Map)messageObject.get("data");
                     
+                    Map loginMap = new HashMap();
+                    loginMap.put("username",createStatusMap.get("username"));
+                    loginMap.put("credentials",createStatusMap.get("password"));
                     
+                    Map loginResult = new HashMap();
+                    loginResult = (Map)clothoObject.login(loginMap);
                     
+                    Person person = ClothoAdapter.getPerson(loginResult.get("id").toString(), clothoObject);
+                    //talk to Johan about this, login should return phagebook person
+                    person.getStatuses().add(new Status(createStatusMap.get("status").toString(),person));
+                    ClothoAdapter.setPerson(person, clothoObject);
+                    
+                    result.put("data", "Status created successfully.");
+                   
                 }
                     //break the map (the value of the key "data") from messageObject into user password and status
                     //login with map, update status, return a successful message
@@ -92,6 +106,7 @@ public class PhagebookSocket
                     result.put("data", "Error...");
                     break;
             }
+            conn.closeConnection();
         }
         return result;
     }
