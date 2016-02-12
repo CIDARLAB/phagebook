@@ -189,7 +189,7 @@ SCRIPTS
                         window.location.href = './html/profile.html?user=' + response["id"];
                     },
                     error: function (response) {
-                        alert(response["message"]);
+                        alert( response.responseJSON["message"]);
                     }
                 });
             }
