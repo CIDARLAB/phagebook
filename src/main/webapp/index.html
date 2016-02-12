@@ -185,8 +185,14 @@ SCRIPTS
                         setCookie("username", document.getElementById("returnEmail").value, 1 );
                         sessionStorage.setItem("password", document.getElementById("returnPassword").value);
                         setCookie("password", document.getElementById("returnPassword").value, 1);
-
-                        window.location.href = './html/profile.html?user=' + response["id"];
+                        if (response["activated"] == "false")
+                        {
+                            window.location.href = './html/validateEmail.html?id=' + getCookie("username");
+                        }
+                        else 
+                        {
+                            window.location.href = './html/profile.html?user=' + response["id"];
+                        }
                     },
                     error: function (response) {
                         alert( response.responseJSON["message"]);
