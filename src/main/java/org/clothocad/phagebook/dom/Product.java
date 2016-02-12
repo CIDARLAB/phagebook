@@ -16,10 +16,11 @@ import lombok.Setter;
 public class Product extends Good{
     
     @Getter @Setter private String   productURL;
-    @Getter @Setter private Vendor  company;
+    @Getter @Setter private Vendor   company;
     @Getter @Setter private GoodType goodType;
     @Getter @Setter private double   cost;
     @Getter @Setter private int      quantity;
+    @Getter @Setter private double   unitPrice;
 
     
     public Product(){
@@ -29,6 +30,7 @@ public class Product extends Good{
         this.goodType   = GoodType.INSTRUMENT;
         this.cost       = 0.0d;
         this.quantity   = 0;
+        this.unitPrice  = 0;
     }
     /**
      *

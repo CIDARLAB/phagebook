@@ -16,6 +16,7 @@ import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
 import org.clothocad.model.Person;
+import org.clothocad.phagebook.dom.CartItem;
 /**
  *
  * @author prash,innaturshudzhyan
@@ -29,7 +30,12 @@ public class Order {
     @Getter @Setter private String description;
     @Getter @Setter private Date dateCreated;
     @Getter @Setter private Person createdBy; 
-    @Getter @Setter private Map<Product, Integer> products;
+    @Getter @Setter private Map<CartItem, Integer> products;
+    @Getter @Setter private double budget;
+    @Getter @Setter private int maxOrderSize;
+    @Getter @Setter private Person approvedBy;
+    @Getter @Setter private Person receivedBy;
+    
     
 //    public Map<Product, Integer> getProducts(){
 //        return this.products;
@@ -44,7 +50,7 @@ public class Order {
      */
     public Order(String name) {
         this.name = name;
-
+        
         this.products = new HashMap<>();
     };   
     
@@ -53,9 +59,15 @@ public class Order {
         this.id          = "Not Set";
         this.name        = "Not Set";
         this.description = "Not Set";
-        this.dateCreated   = new Date();
+        this.dateCreated = new Date();
         this.createdBy   = new Person();
+        this.receivedBy  = new Person();
+        this.approvedBy  = new Person();
         this.products    = new HashMap<>();
+        this.budget      = 0;
+       this.maxOrderSize = 1;
+        
+        
         
     }
 }

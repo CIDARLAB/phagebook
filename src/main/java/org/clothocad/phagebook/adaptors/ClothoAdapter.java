@@ -32,6 +32,7 @@ import org.clothocad.phagebook.dom.Order;
 import org.clothocad.phagebook.dom.Organization;
 import org.clothocad.model.Person;
 import org.clothocad.model.Person.PersonRole;
+import org.clothocad.phagebook.dom.CartItem;
 import org.clothocad.phagebook.dom.Product;
 import org.clothocad.phagebook.dom.Project;
 import org.clothocad.phagebook.dom.Protocol;
@@ -46,51 +47,45 @@ import org.json.JSONObject;
 public class ClothoAdapter {
     // <editor-fold defaultstate="collapsed" desc="Create Methods">
      
+    
     /**
-     * This method is to create a Vendor object in Clotho but It can also be used a SET method if the object that 
- gets passed in has a valid Clotho ID
-     * @param company company object to create
+     * This method is to create a CartItem Object in Clotho
+     * @param CartItem cartItem object to create 
      * @param clothoObject Instance of Clotho being used
      * @return ID value of the object in the Clotho Database
      */
-    public static String createVendor(Vendor company, Clotho clothoObject)
+    public static String createCartItem(CartItem cartItem, Clotho clothoObject) 
     {
         
         Map map = new HashMap();
-        map.put("schema", Vendor.class.getCanonicalName());
+        map.put("schema", CartItem.class.getCanonicalName());
         
-        if (company.getContact() != null ){  
-            if (!company.getContact().equals("Not Set") && !company.getContact().isEmpty()) {
-            map.put("contact", company.getContact());          
+        if (cartItem.getProductWithDiscount() != null ){  
+            if (!cartItem.getProductWithDiscount().isEmpty()) {
+                
+                
+            JSONObject productsWithDiscount = new JSONObject();
+        
+            for (Map.Entry pair : cartItem.getProductWithDiscount().entrySet()) {
+                if (((Product) pair.getKey()).getId() != null){
+                    if (!((Product)pair.getKey()).getId().equals("Not Set") && !((Product)pair.getKey()).getId().isEmpty() ){
+                        productsWithDiscount.put(((Product)pair.getKey()).getId(), pair.getValue());
+                    }
+                }
+            }
+
+            map.put("productWithDiscount" , productsWithDiscount);
+            
+            
             }
         }
        
-        if (company.getName() != null    ){
-            if ( !company.getName().equals("Not Set") && !company.getName().isEmpty())
-                map.put("name", company.getName());
-        }
-        if (company.getDescription() != null   ){
-            if (!company.getDescription().isEmpty() && !company.getDescription().equals("Not Set"))
-                map.put("description", company.getDescription());
-        }
-        if (company.getPhone() != null  ){
-            if (!company.getPhone().isEmpty() && !company.getPhone().equals("Not Set"))
-                map.put("phone", company.getPhone());
-        }
-        if (company.getUrl() != null ){
-            if (!company.getUrl().isEmpty() && !company.getUrl().equals("Not Set") )
-                map.put("url", company.getUrl());
-        }
-        if (company.getId() != null){
-            if (!company.getId().isEmpty() && !company.getId().equals("Not Set")){
-                map.put("id", company.getId());
-            }
-        }
         String id = (String) clothoObject.set(map);
-        company.setId(id);
+        cartItem.setId(id);
         makePublic(id, clothoObject);
         return id;
     }
+   
     /**
      * This method is to create a Vendor object in Clotho but It can also be used a SET method if the object that 
  gets passed in has a valid Clotho ID
@@ -860,7 +855,6 @@ public class ClothoAdapter {
         return id;
         
     }
-    
     /**
      * This method is to create a Product object in Clotho but It can also be used a SET method if the object that 
      * gets passed in has a valid Clotho ID
@@ -1224,10 +1218,57 @@ public class ClothoAdapter {
         status.setId(id);
         return id;
     }
+     /**
+     * This method is to create a Vendor object in Clotho but It can also be used a SET method if the object that 
+ gets passed in has a valid Clotho ID
+     * @param company company object to create
+     * @param clothoObject Instance of Clotho being used
+     * @return ID value of the object in the Clotho Database
+     */
+    public static String createVendor(Vendor company, Clotho clothoObject)
+    {
+        
+        Map map = new HashMap();
+        map.put("schema", Vendor.class.getCanonicalName());
+        
+        if (company.getContact() != null ){  
+            if (!company.getContact().equals("Not Set") && !company.getContact().isEmpty()) {
+            map.put("contact", company.getContact());          
+            }
+        }
+       
+        if (company.getName() != null    ){
+            if ( !company.getName().equals("Not Set") && !company.getName().isEmpty())
+                map.put("name", company.getName());
+        }
+        if (company.getDescription() != null   ){
+            if (!company.getDescription().isEmpty() && !company.getDescription().equals("Not Set"))
+                map.put("description", company.getDescription());
+        }
+        if (company.getPhone() != null  ){
+            if (!company.getPhone().isEmpty() && !company.getPhone().equals("Not Set"))
+                map.put("phone", company.getPhone());
+        }
+        if (company.getUrl() != null ){
+            if (!company.getUrl().isEmpty() && !company.getUrl().equals("Not Set") )
+                map.put("url", company.getUrl());
+        }
+        if (company.getId() != null){
+            if (!company.getId().isEmpty() && !company.getId().equals("Not Set")){
+                map.put("id", company.getId());
+            }
+        }
+        String id = (String) clothoObject.set(map);
+        company.setId(id);
+        makePublic(id, clothoObject);
+        return id;
+    }
     // </editor-fold>
-    
     // <editor-fold defaultstate="collapsed" desc="Get Methods">
     
+    public static CartItem getCartItem(String id, Clotho clothoObject){
+       return null;
+    }
     /**
      * This gets a Vendor object from Clotho if it receives a valid ID, will give default values to properties that were not found.
      * @param id Clotho ID
@@ -2927,4 +2968,6 @@ public class ClothoAdapter {
         Map grantResult = (Map)(clothoObject.grant(grantMap));
     }
     //  </editor-fold>
+
+    
 }

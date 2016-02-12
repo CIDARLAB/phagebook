@@ -18,6 +18,7 @@ import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.model.Person;
 import org.clothocad.model.Person.PersonRole;
 import org.clothocad.phagebook.controller.Args;
+import org.clothocad.phagebook.dom.CartItem;
 import org.clothocad.phagebook.dom.Vendor;
 import org.clothocad.phagebook.dom.Container;
 import org.clothocad.phagebook.dom.Entry;
@@ -930,13 +931,32 @@ public class ClothoAdapterTest {
                 clothoObject.logout();
                 ClothoAdapter.createPerson(createdBy, clothoObject);
                 clothoLogin();
-            Map<Product, Integer> products = new HashMap<>();
-                Product P1 = new Product();
-                Product P2 = new Product();
+            Map<CartItem, Integer> cartItems = new HashMap<>();
+                CartItem C1 = new CartItem();
+                CartItem C2 = new CartItem();
+                //CART ITEM PROPERTIES
+         
+                    Product P1 = new Product();
+                    Product P2 = new Product();
+                    
+                   
+                    
+                
                     ClothoAdapter.createProduct(P1, clothoObject);
                     ClothoAdapter.createProduct(P2, clothoObject);
-                products.put(P1, 10);
-                products.put(P2, 20);
+                    Map<Product, Double> productsWithDiscount1 = new HashMap();
+                    productsWithDiscount1.put(P1, 100.0);
+                    Map<Product, Double> productsWithDiscount2 = new HashMap();
+                    productsWithDiscount2.put(P2, 50.0);
+                    C1.setProductWithDiscount(productsWithDiscount1);
+                    C2.setProductWithDiscount(productsWithDiscount2);
+                    ClothoAdapter.createCartItem(C1, clothoObject);
+                    ClothoAdapter.createCartItem(C2, clothoObject);
+                //
+                cartItems.put(C1, 10);
+                cartItems.put(C2, 20);
+                
+                //
         //
         Order order1 = new Order();
         order1.setName(name);
