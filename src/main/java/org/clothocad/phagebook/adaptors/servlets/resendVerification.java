@@ -20,6 +20,7 @@ import org.clothocad.model.Person;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.adaptors.EmailHandler;
+import org.json.JSONObject;
 
 /**
  *
@@ -40,10 +41,7 @@ public class resendVerification extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
        
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            
-        }
+      
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -60,29 +58,58 @@ public class resendVerification extends HttpServlet {
             throws ServletException, IOException {
         
         processRequest(request, response);
-        ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
-        Clotho clothoObject = new Clotho(conn);
-        Map createUserMap = new HashMap();
-        createUserMap.put("username", "ClothoBackend");
-        createUserMap.put("password", "phagebook");
+        String userId = request.getParameter("id");
+        boolean isValid = false;
+        if (!userId.isEmpty()){
+            isValid = true;
+        }
+        if (isValid){
+            ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+            Clotho clothoObject = new Clotho(conn);
+            Map createUserMap = new HashMap();
+            createUserMap.put("username", "ClothoBackend");
+            createUserMap.put("password", "phagebook");
 
 
-        clothoObject.createUser(createUserMap);
+            clothoObject.createUser(createUserMap);
 
-        Map loginMap = new HashMap();
-        loginMap.put("username", "ClothoBackend");
-        loginMap.put("credentials", "phagebook");
+            Map loginMap = new HashMap();
+            loginMap.put("username", "ClothoBackend");
+            loginMap.put("credentials", "phagebook");
 
 
-        clothoObject.login(loginMap);
-        String userId = request.getParameter("userId");
-        //operating under the assumption that we will have the saved clotho ID of the user
+            clothoObject.login(loginMap);
+            
+            //operating under the assumption that we will have the saved clotho ID of the user
+
+            Person person1 = ClothoAdapter.getPerson(userId, clothoObject);
+            
+            if (person1 != null){
+                String link = Args.phagebookBaseURL + "/html/verifyEmail.html?emailId=" + person1.getEmailId() + "&salt=" + person1.getSalt();
+                EmailHandler handly = EmailHandler.getEmailHandler();
+                handly.sendEmailVerification(person1, link);
+                response.setStatus(HttpServletResponse.SC_OK);
+                response.setContentType("application/json");
+                PrintWriter out = response.getWriter();
+                JSONObject responseJSON = new JSONObject();
+                responseJSON.put("message", "Email Sent!");
+                out.print(responseJSON.toString());
+                out.flush();
+                out.close();
+            } 
+        }
+        else {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.setContentType("application/json");
+            PrintWriter out = response.getWriter();
+            JSONObject responseJSON = new JSONObject();
+            responseJSON.put("message", "Cannot find the user. Try again later!");
+            out.print(responseJSON.toString());
+            out.flush();
+            out.close();
+        }
         
-        Person person1 = ClothoAdapter.getPerson(userId, clothoObject);
         
-        String link = Args.phagebookBaseURL + "/html/verifyEmail.html?emailId=" + person1.getEmailId() + "&salt=" + person1.getSalt();
-        EmailHandler handly = EmailHandler.getEmailHandler();
-        handly.sendEmailVerification(person1, link);
         
     }
 

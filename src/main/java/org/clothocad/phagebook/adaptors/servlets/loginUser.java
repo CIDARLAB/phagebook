@@ -78,19 +78,32 @@ public class loginUser extends HttpServlet {
             loginMap.put("credentials", password);
             clothoObject.logout();
             //should have been successful its null if not successful.
-            Map logInResponse = (Map) (clothoObject.login(loginMap));
+            Object NULL = null;
             
-            System.out.println("HERE IN LOGIN");
+            boolean isLoggedIn = false;
+            
+            if(clothoObject.login(loginMap).equals(NULL)){
+                System.out.println("Null OBJECT!!");
+                isLoggedIn = false;
+            }
+            else{
+                System.out.println("Reached here..");
+                isLoggedIn = true;
+            }
+           
+            System.out.println("abcd");
+            
             
             Map clothoQuery = new HashMap();
             clothoQuery.put("emailId", email);
             Person loggedInPerson = null;
-            if (!logInResponse.isEmpty()){
+            if (isLoggedIn){
+                System.out.println("something");
                 loggedInPerson = ClothoAdapter.queryPerson(clothoQuery, clothoObject).get(0);
             }
-            System.out.println("GOT HERE IN LOGIN PERSON");
             
-            if ( logInResponse != null && loggedInPerson != null)
+            
+            if ( isLoggedIn && !loggedInPerson.equals(NULL))
             {
                 if (loggedInPerson.isActivated())
                 {
