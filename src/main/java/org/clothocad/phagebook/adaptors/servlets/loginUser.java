@@ -8,6 +8,7 @@ package org.clothocad.phagebook.adaptors.servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -75,43 +76,63 @@ public class loginUser extends HttpServlet {
             Map loginMap = new HashMap();
             loginMap.put("username", email);
             loginMap.put("credentials", password);
+            clothoObject.logout();
+            //should have been successful its null if not successful.
+            Map logInResponse = (Map) (clothoObject.login(loginMap));
             
-            Map id = (Map) clothoObject.login(loginMap);
+            System.out.println("HERE IN LOGIN");
             
             Map clothoQuery = new HashMap();
             clothoQuery.put("emailId", email);
-            Person loggedInPerson = ClothoAdapter.queryPerson(clothoQuery, clothoObject).get(0);
-          
+            Person loggedInPerson = null;
+            if (!logInResponse.isEmpty()){
+                loggedInPerson = ClothoAdapter.queryPerson(clothoQuery, clothoObject).get(0);
+            }
             System.out.println("GOT HERE IN LOGIN PERSON");
             
-            
-            if (loggedInPerson.isActivated() )
+            if ( logInResponse != null && loggedInPerson != null)
             {
-              
-                //return success, this means its a valid request
-                //response.setStatus(HttpServletResponse.SC_OK);
-                
-                String idVal = (String) loggedInPerson.getId();
-                JSONObject responseJSON = new JSONObject();
-                responseJSON.put("id", idVal);
-                responseJSON.put("activated", "true");
+                if (loggedInPerson.isActivated())
+                {
+
+                    //return success, this means its a valid request
+                    //response.setStatus(HttpServletResponse.SC_OK);
+
+                    String idVal = (String) loggedInPerson.getId();
+                    JSONObject responseJSON = new JSONObject();
+                    responseJSON.put("id", idVal);
+                    responseJSON.put("activated", "true");
+                    response.setContentType("application/json");
+                    PrintWriter out = response.getWriter();
+                    out.print(responseJSON.toString());
+                    out.flush();
+                    out.close();
+                }
+                else
+                {
+                    //person is not activated in need to go to the email verification page
+                    String idVal = (String) loggedInPerson.getId();
+                    JSONObject responseJSON = new JSONObject();
+                    responseJSON.put("id", idVal);
+                    responseJSON.put("activated", "false");
+                    response.setContentType("application/json");
+                    PrintWriter out = response.getWriter();
+                    out.print(responseJSON.toString());
+                    out.flush();
+                    out.close();
+                    
+                }
+            }else {
+                //user did not make clotho return a login response...
+                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                 response.setContentType("application/json");
                 PrintWriter out = response.getWriter();
+                JSONObject responseJSON = new JSONObject();
+                responseJSON.put("message", "No user found with those credenteials");
                 out.print(responseJSON.toString());
                 out.flush();
                 out.close();
-            }
-            else
-            {
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                PrintWriter out = response.getWriter();
-                String idVal = (String) loggedInPerson.getId();
-                JSONObject responseJSON = new JSONObject();
-                responseJSON.put("id", idVal);
-                responseJSON.put("activated", "false");
-                response.setContentType("application/json");
-                out.flush();
-                out.close();
+            
             }
         }
     }
