@@ -14,7 +14,7 @@ import lombok.Setter;
  * @author KatieLewis
  */
 public class Entry {
-    @Getter @Setter private Notebook notebook;
+    @Getter @Setter private String notebookId;
     @Getter @Setter private Date dateCreated;
     @Getter @Setter private Date lastModified;
     //how would I incorporate photos?
@@ -22,8 +22,8 @@ public class Entry {
     @Getter @Setter private String title;
     @Getter @Setter private String id;
    
-    public Entry(Notebook owner, Date created, String title, String text){
-        this.notebook = owner;
+    public Entry(String owner, Date created, String title, String text){
+        this.notebookId = owner;
         this.dateCreated = created;
         this.title = title;
         this.text = text;
@@ -34,7 +34,7 @@ public class Entry {
     
     public Entry()
     {
-        this.notebook     = new Notebook();
+        this.notebookId   = "Not Set";
         this.dateCreated  = new Date();
         this.lastModified = new Date();
         this.text         = "Not Set";

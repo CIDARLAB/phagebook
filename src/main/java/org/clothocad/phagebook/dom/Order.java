@@ -7,6 +7,7 @@ package org.clothocad.phagebook.dom;
 
 //experiment, sample, institution=
 
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -29,12 +30,13 @@ public class Order {
     @Getter @Setter private String name; 
     @Getter @Setter private String description;
     @Getter @Setter private Date dateCreated;
-    @Getter @Setter private Person createdBy; 
-    @Getter @Setter private Map<CartItem, Integer> products;
-    @Getter @Setter private double budget;
-    @Getter @Setter private int maxOrderSize;
-    @Getter @Setter private Person approvedBy;
-    @Getter @Setter private Person receivedBy;
+    @Getter @Setter private String createdById; 
+    @Getter @Setter private Map<String, Integer> products; //CART ITEM ID AND INTEGER...
+    @Getter @Setter private Double budget;
+    @Getter @Setter private Integer maxOrderSize;
+    @Getter @Setter private String approvedById;
+    @Getter @Setter private String receivedById;
+    @Getter @Setter private List<String> relatedProjects;
     
     
 //    public Map<Product, Integer> getProducts(){
@@ -60,11 +62,12 @@ public class Order {
         this.name        = "Not Set";
         this.description = "Not Set";
         this.dateCreated = new Date();
-        this.createdBy   = new Person();
-        this.receivedBy  = new Person();
-        this.approvedBy  = new Person();
+        this.createdById   = "Not Set";
+        this.relatedProjects = new ArrayList<>();
+        this.receivedById  = "Not Set";
+        this.approvedById  = "Not Set";
         this.products    = new HashMap<>();
-        this.budget      = 0;
+        this.budget      = 0.0d;
        this.maxOrderSize = 1;
         
         

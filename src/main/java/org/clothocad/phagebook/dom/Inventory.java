@@ -16,8 +16,8 @@ import lombok.Setter;
  */
 public class Inventory{
     
-    @Getter @Setter private List<Sample>      samples;
-    @Getter @Setter private List<Instrument>  instruments;
+    @Getter @Setter private List<String>      samples;
+    @Getter @Setter private List<String>      instruments;
     @Getter @Setter private String            id;
     
     public Inventory()

@@ -19,12 +19,12 @@ import org.clothocad.model.Person;
 public class Status{
     @Getter @Setter private String id;
     @Getter @Setter private String text;
-    @Getter @Setter private Person user;
+    @Getter @Setter private String userId;
     @Getter @Setter private Date created;
     
     public Status(String message, Person creator){
     this.text = message;
-    this.user = creator;
+    this.userId = "Not Set";
     Date today = Calendar.getInstance().getTime();
     this.created = today;
     }
@@ -33,7 +33,7 @@ public class Status{
     {
         this.id       = "Not Set";
         this.text     = "Not Set"; 
-        this.user     = new Person();
+        this.userId     = "Not Set";
         this.created  = new Date();
     }
 }

@@ -37,12 +37,12 @@ public class Person {
     @Getter @Setter private String                      password;
     @Getter @Setter private boolean                     activated;
     @Getter @Setter private String                      activationString;
-    @Getter @Setter private List<Person>                colleagues;
-    @Getter @Setter private List<Notebook>              notebooks;
-    @Getter @Setter private List<Status>                statuses;
-    @Getter @Setter private List<Institution>           labs;
-    @Getter @Setter private List<Project>               projects;
-    @Getter @Setter private List<Publication>           publications;
+    @Getter @Setter private List<String>                colleagues;
+    @Getter @Setter private List<String>                notebooks;
+    @Getter @Setter private List<String>                statuses;
+    @Getter @Setter private List<String>                labs;
+    @Getter @Setter private List<String>                projects;
+    @Getter @Setter private List<String>                publications;
     @Getter @Setter private Map<String,Set<PersonRole>> roles;
     @Getter @Setter private List<Order>                 orders;
     
@@ -117,9 +117,90 @@ public class Person {
     }
     
     public void addInstitution(Institution institution){
+       boolean exists = false;
+       for(String institutions: this.labs){
+           if(institutions.equals(institution.getId())){
+               exists = true;
+           }
+       }
+       if(exists == true){
+           //Throw error
+       }
+       else{
+           this.labs.add(institution.getId());
+           Set<PersonRole> roleList = new HashSet<>();
+           roleList.add(PersonRole.MEMBER);
+           this.roles.put(institution.getId(),roleList);
+       }
+    }
+    
+    public void addInstitution(Institution institution, Set<PersonRole> roles ){
         boolean exists = false;
-       for(Institution institutions: this.labs){
-           if(institutions.getId().equals(institution.getId())){
+       for(String institutions: this.labs){
+           if(institutions.equals(institution.getId())){
+               exists = true;
+           }
+       }
+       if(exists == true){
+           //Throw error
+       }
+       else{
+           this.labs.add(institution.getId());
+           this.roles.put(institution.getId(),roles);
+       }
+    }
+    
+    public void addStatus(Status newStatus){
+       // Date today = Calendar.getInstance().getTime();
+        //Status newStatus = new Status(text, this);
+        this.statuses.add(newStatus.getId());
+    }
+    
+    
+    public void addRole(String institution, PersonRole role){
+        if(this.roles.containsKey(institution)){
+            if(!this.roles.get(institution).contains(role)){
+                this.roles.get(institution).add(role);
+            }
+        }
+        else{
+            Set<PersonRole> roleList = new HashSet<>();
+            roleList.add(role);
+            this.roles.put(institution, roleList);
+        }
+    }
+    
+    
+    public Set<PersonRole> getRole(String institution){
+           if(this.roles.containsKey(institution)){
+               if(this.roles.get(institution).isEmpty()){
+                   return null;
+               }
+               else{
+                   return this.roles.get(institution);
+               }
+           }
+           else{
+               return null;
+           }
+    }
+    
+    public void removeRole(String institution, PersonRole role){
+        if(this.roles.containsKey(institution)){
+            if(!this.roles.get(institution).contains(role)){
+                Set<PersonRole> roleList = this.roles.get(institution);
+                roleList.remove(role);
+                this.roles.put(institution, roleList);
+            }
+        }
+        else{
+        }
+    }
+    
+    public void addInstitution(String institution){
+       boolean exists = false;
+       for(String institutions: this.labs){
+           if(institutions.equals(institution)){
                exists = true;
            }
        }
@@ -130,14 +211,14 @@ public class Person {
            this.labs.add(institution);
            Set<PersonRole> roleList = new HashSet<>();
            roleList.add(PersonRole.MEMBER);
-           this.roles.put(institution.getId(),roleList);
+           this.roles.put(institution,roleList);
        }
     }
     
-    public void addInstitution(Institution institution, Set<PersonRole> roles ){
+    public void addInstitution(String institution, Set<PersonRole> roles ){
         boolean exists = false;
-       for(Institution institutions: this.labs){
-           if(institutions.getId().equals(institution.getId())){
+       for(String institutions: this.labs){
+           if(institutions.equals(institution)){
                exists = true;
            }
        }
@@ -146,11 +227,11 @@ public class Person {
        }
        else{
            this.labs.add(institution);
-           this.roles.put(institution.getId(),roles);
+           this.roles.put(institution,roles);
        }
     }
     
-    public void addStatus(Status newStatus){
+    public void addStatus(String newStatus){
        // Date today = Calendar.getInstance().getTime();
         //Status newStatus = new Status(text, this);
         this.statuses.add(newStatus);

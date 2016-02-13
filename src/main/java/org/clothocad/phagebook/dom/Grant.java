@@ -18,14 +18,14 @@ import lombok.Setter;
  */
 public class Grant {
     @Getter @Setter private String         name;
-    @Getter @Setter private Person         leadPI;
-    @Getter @Setter private List<Person>   coPIs;
-    @Getter @Setter private String         programManager;
+    @Getter @Setter private String         leadPI;
+    @Getter @Setter private List<String>   coPIs;
+    @Getter @Setter private String         programManagerId;
     @Getter @Setter private Date           startDate;
     @Getter @Setter private Date           endDate;
     @Getter @Setter private Double         budget;
     @Getter @Setter private Double         amountSpent;
-    @Getter @Setter private List<Project>  projects;
+    @Getter @Setter private List<String>   projects;
     @Getter @Setter private String         description;
     @Getter @Setter private String         id;
     
@@ -35,16 +35,16 @@ public class Grant {
     
     public Grant()
     {
-        this.name           = "Not Set";
-        this.leadPI         = new Person();
-        this.coPIs          = new ArrayList<>();
-        this.programManager = "Not Set";
-        this.startDate      = new Date();
-        this.endDate        = new Date();
-        this.budget         = 0.0d;
-        this.amountSpent    = 0.0d;
-        this.projects       = new ArrayList<>();
-        this.description    = "Not Set";
-        this.id             = "Not Set";
+        this.name             = "Not Set";
+        this.leadPI           = "Not Set";
+        this.coPIs            = new ArrayList<>();
+        this.programManagerId = "Not Set";
+        this.startDate        = new Date();
+        this.endDate          = new Date();
+        this.budget           = 0.0d;
+        this.amountSpent      = 0.0d;
+        this.projects         = new ArrayList<>();
+        this.description      = "Not Set";
+        this.id               = "Not Set";
     }
 }
