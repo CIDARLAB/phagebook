@@ -292,7 +292,7 @@ public class ClothoAdapter {
         if (grant.getProgramManagerId() != null )
         {
             if(!grant.getProgramManagerId().isEmpty() && !grant.getProgramManagerId().equals("Not Set") )
-                map.put("programManager", grant.getProgramManagerId());
+                map.put("programManagerId", grant.getProgramManagerId());
         }
         
         if (grant.getStartDate() != null) 
@@ -1303,23 +1303,18 @@ public class ClothoAdapter {
     }
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Get Methods">
-    
-    public static CartItem getCartItem(String id, Clotho clothoObject){
+    /**
+     * This method is used to retrieve an instance of a Cart Item in clotho
+     * make sure you are logged into Clotho before using it!
+     * @param id id of the object in clotho
+     * @param clothoObject
+     * @return Cart Item object
+     */
+    public static CartItem        getCartItem(String id, Clotho clothoObject)
+    {
         Map cartItemMap = (Map) clothoObject.get(id);
         CartItem cartItem = mapToCartItem(cartItemMap, clothoObject);
         return cartItem;
-    }
-    /**
-     * This gets a Vendor object from Clotho if it receives a valid ID, will give default values to properties that were not found.
-     * @param id Clotho ID
-     * @param clothoObject Instance of Clotho being used
-     * @return instance of object.
-     */
-    public static Vendor getVendor(String id, Clotho clothoObject)
-    {
-        Map companyMap = (Map) clothoObject.get(id);
-        Vendor company = mapToVendor(companyMap, clothoObject);
-        return company;
     }
     /**
      * This gets a Container object from Clotho if it receives a valid ID, will give default values to properties that were not found.
@@ -1327,39 +1322,39 @@ public class ClothoAdapter {
      * @param clothoObject Instance of Clotho being used
      * @return instance of object.
      */
-    public static Container getContainer(String id, Clotho clothoObject)
+    public static Container       getContainer(String id, Clotho clothoObject)
     {
         Map containerMap = (Map) clothoObject.get(id);
         //container properties
         Container container = mapToContainer(containerMap, clothoObject);
         return container;
-    }
+    } 
     /**
      * This gets a Entry object from Clotho if it receives a valid ID, will give default values to properties that were not found.
      * @param id Clotho ID
      * @param clothoObject Instance of Clotho being used
      * @return instance of object.
      */
-    public static Entry getEntry(String id, Clotho clothoObject)
+    public static Entry           getEntry(String id, Clotho clothoObject)
     {
         Map entryMap = (Map) clothoObject.get(id);
         //entry properties as strings
         Entry entry = mapToEntry(entryMap, clothoObject);  
         return entry;
       
-    }
+    } 
     /**
      * This gets a FundingAgency object from Clotho if it receives a valid ID, will give default values to properties that were not found.
      * @param id Clotho ID
      * @param clothoObject Instance of Clotho being used
      * @return instance of object.
      */
-    public static FundingAgency getFundingAgency(String id, Clotho clothoObject)
+    public static FundingAgency   getFundingAgency(String id, Clotho clothoObject)
     {
         Map fundingAgencyMap = (Map) clothoObject.get(id);
         FundingAgency fundingAgency = mapToFundingAgency(fundingAgencyMap, clothoObject);
         return fundingAgency;    
-    }
+    } 
     //good is abstract, can't be gotten
     /**
      * This gets a Grant object from Clotho if it receives a valid ID, will give default values to properties that were not found.
@@ -1367,7 +1362,7 @@ public class ClothoAdapter {
      * @param clothoObject Instance of Clotho being used
      * @return instance of object.
      */
-    public static Grant getGrant(String id, Clotho clothoObject)
+    public static Grant           getGrant(String id, Clotho clothoObject)
     {
         Map grantMap = (Map) clothoObject.get(id);
         Grant grant = mapToGrant(grantMap, clothoObject);
@@ -1380,7 +1375,7 @@ public class ClothoAdapter {
      * @param clothoObject Instance of Clotho being used
      * @return instance of object.
      */
-    public static Institution getInstitution(String id, Clotho clothoObject)
+    public static Institution     getInstitution(String id, Clotho clothoObject)
     {
         Map institutionMap = (Map) clothoObject.get(id);
         Institution institution = mapToInstitution(institutionMap, clothoObject);
@@ -1392,7 +1387,7 @@ public class ClothoAdapter {
      * @param clothoObject Instance of Clotho being used
      * @return instance of object.
      */
-    public static Instrument getInstrument(String id, Clotho clothoObject)
+    public static Instrument      getInstrument(String id, Clotho clothoObject)
     {
         Map instrumentMap = (Map) clothoObject.get(id);
         Instrument instrument = mapToInstrument(instrumentMap, clothoObject);
@@ -1405,7 +1400,7 @@ public class ClothoAdapter {
      * @param clothoObject Instance of Clotho being used
      * @return instance of object.
      */
-    public static Inventory getInventory (String id, Clotho clothoObject){
+    public static Inventory       getInventory (String id, Clotho clothoObject){
         Map inventoryMap = (Map) clothoObject.get(id);
         Inventory inventory = mapToInventory(inventoryMap, clothoObject);
         return inventory;
@@ -1416,7 +1411,7 @@ public class ClothoAdapter {
      * @param clothoObject Instance of Clotho being used
      * @return instance of object.
      */
-    public static Notebook getNotebook(String id, Clotho clothoObject)
+    public static Notebook        getNotebook(String id, Clotho clothoObject)
     {
         Map notebookMap = (Map) clothoObject.get(id);
         Notebook notebook = mapToNotebook(notebookMap, clothoObject);
@@ -1428,7 +1423,7 @@ public class ClothoAdapter {
      * @param clothoObject Instance of Clotho being used
      * @return instance of object.
      */
-    public static Order getOrder(String id, Clotho clothoObject)
+    public static Order           getOrder(String id, Clotho clothoObject)
     {
         Map orderMap = (Map) clothoObject.get(id);
         Order order = mapToOrder(orderMap, clothoObject);
@@ -1440,7 +1435,7 @@ public class ClothoAdapter {
      * @param clothoObject Instance of Clotho being used
      * @return instance of object.
      */
-    public static Person getPerson(String id, Clotho clothoObject)
+    public static Person          getPerson(String id, Clotho clothoObject)
     {
         Map personMap = (Map) clothoObject.get(id);
         Person person = mapToPerson(personMap, clothoObject);
@@ -1452,7 +1447,7 @@ public class ClothoAdapter {
      * @param clothoObject Instance of Clotho being used
      * @return instance of object.
      */
-    public static Product getProduct(String id, Clotho clothoObject)
+    public static Product         getProduct(String id, Clotho clothoObject)
     {
         Map productMap = (Map) clothoObject.get(id);
         Product product = mapToProduct(productMap, clothoObject);
@@ -1464,7 +1459,7 @@ public class ClothoAdapter {
      * @param clothoObject Instance of Clotho being used
      * @return instance of object.
      */
-    public static Project getProject(String id, Clotho clothoObject)
+    public static Project         getProject(String id, Clotho clothoObject)
     {
         Map projectMap = (Map) clothoObject.get(id);
         Project project = mapToProject(projectMap, clothoObject);
@@ -1476,7 +1471,7 @@ public class ClothoAdapter {
      * @param clothoObject Instance of Clotho being used
      * @return instance of object.
      */
-    public static Protocol getProtocol(String id, Clotho clothoObject)
+    public static Protocol        getProtocol(String id, Clotho clothoObject)
     {
         Map protocolMap = (Map) clothoObject.get(id);
         Protocol protocol = mapToProtocol(protocolMap, clothoObject);
@@ -1488,7 +1483,7 @@ public class ClothoAdapter {
      * @param clothoObject Instance of Clotho being used
      * @return instance of object.
      */
-    public static Publication getPublication(String id, Clotho clothoObject)
+    public static Publication     getPublication(String id, Clotho clothoObject)
     {
         Map publicationMap = (Map) clothoObject.get(id);
         Publication publication = mapToPublication(publicationMap, clothoObject);
@@ -1500,7 +1495,7 @@ public class ClothoAdapter {
      * @param clothoObject Instance of Clotho being used
      * @return instance of object.
      */
-    public static Sample getSample(String id, Clotho clothoObject)
+    public static Sample          getSample(String id, Clotho clothoObject)
     {
         Map sampleMap = (Map) clothoObject.get(id);
         Sample sample = mapToSample(sampleMap, clothoObject);
@@ -1513,12 +1508,24 @@ public class ClothoAdapter {
      * @param clothoObject Instance of Clotho being used
      * @return instance of object.
      */
-    public static Status getStatus(String id, Clotho clothoObject)
+    public static Status          getStatus(String id, Clotho clothoObject)
     {
         Map statusMap = (Map) clothoObject.get(id);
         Status status = mapToStatus(statusMap, clothoObject);
         return status;
     }  
+    /**
+     * This gets a Vendor object from Clotho if it receives a valid ID, will give default values to properties that were not found.
+     * @param id Clotho ID
+     * @param clothoObject Instance of Clotho being used
+     * @return instance of object.
+     */
+    public static Vendor          getVendor(String id, Clotho clothoObject)
+    {
+        Map companyMap = (Map) clothoObject.get(id);
+        Vendor company = mapToVendor(companyMap, clothoObject);
+        return company;
+    }
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Query Methods">
@@ -1889,12 +1896,11 @@ public class ClothoAdapter {
     private static Entry         mapToEntry(Map map, Clotho clothoObject)
     {
        
-        Notebook notebook = null;
-        if (map.containsKey("notebook")){
+        String notebook = "";
+        if (map.containsKey("notebookId")){
             //The map would contain the ID of the notebook being pointed to so I need to call getNotebook to build its corresponding object
-            String notebookId = (String) map.get("notebook");
+            notebook = (String) map.get("notebookId");
         
-        notebook = getNotebook(notebookId, clothoObject);
         }
         DateFormat df = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy"); // This is to parse dates
         Date dateCreated = null; //
@@ -1907,7 +1913,7 @@ public class ClothoAdapter {
             } catch (ParseException e) {
             }
         }
-        //same process but we onlt need one date formatter.
+        //same process but we only need one date formatter.
         Date lastModified = null;
         if (map.containsKey("lastModified")){
             String lastModifiedText = (String) map.get("lastModified");
@@ -1934,6 +1940,10 @@ public class ClothoAdapter {
        
         entry.setLastModified(lastModified);
         entry.setId(id);
+        entry.setNotebookId(notebook);
+        entry.setText(text);
+        entry.setTitle(title);
+        entry.setDateCreated(dateCreated);
         
         return entry;
       
@@ -1990,27 +2000,26 @@ public class ClothoAdapter {
         }
         
         
-        Person leadPI = new Person();
+        String leadPI = "";
         if (map.containsKey("leadPI")) {
-           String leadPIid = (String) map.get("leadPI");
+           leadPI = (String) map.get("leadPI");
         
-           leadPI = getPerson(leadPIid, clothoObject);
         }
         
         
         
-        List<Person> coPIs = new ArrayList<>() ;
+        List<String> coPIs = new ArrayList<>() ;
         if (map.containsKey("coPIs")){
             JSONArray coPIids = (JSONArray) map.get("coPIs");
             //iterates through coPI ids and adds the getPerson result to my current coPIs var. 
             for (int i = 0; i < coPIids.size(); i++){
-                coPIs.add(getPerson(coPIids.getString(i) , clothoObject));
+                coPIs.add(coPIids.getString(i));
             }
         }
         
         String programManager = "";
-        if (map.containsKey("programManager")) {
-            programManager = (String) map.get("programManager");
+        if (map.containsKey("programManagerId")) {
+            programManager = (String) map.get("programManagerId");
         }
         //see above for explanation
         DateFormat df = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy"); 
@@ -2043,11 +2052,11 @@ public class ClothoAdapter {
         if (map.containsKey("amountSpent")) {
             amountSpent = (double) map.get("amountSpent");
         }
-        List<Project> projects = new ArrayList<>();
+        List<String> projects = new ArrayList<>();
         if (map.containsKey("projects")){
             JSONArray projectIds = (JSONArray) map.get("projects");
             for (int i = 0; i < projectIds.size(); i++){
-                projects.add(getProject(projectIds.getString(i), clothoObject));
+                projects.add(projectIds.getString(i));
             }
         }
         String id = "";
@@ -2063,7 +2072,7 @@ public class ClothoAdapter {
         grant.setName(name);
         grant.setLeadPI(leadPI);
         grant.setCoPIs(coPIs);
-        grant.setProgramManager(programManager);
+        grant.setProgramManagerId(programManager);
         grant.setStartDate(startDate);
         grant.setEndDate(endDate);
         grant.setBudget(budget);
@@ -2140,21 +2149,21 @@ public class ClothoAdapter {
         //List<Sample> samples
         //List<Instrument> instruments
         
-        List<Sample> samples= new ArrayList<>();
+        List<String> samples= new ArrayList<>();
         if (map.containsKey("samples"))
         {
             JSONArray sampleIds = (JSONArray) map.get("samples");
             for (int i = 0; i < sampleIds.size(); i++){
-                samples.add(getSample(sampleIds.getString(i) , clothoObject));
+                samples.add(sampleIds.getString(i));
             }
             
         }
-        List<Instrument> instruments = new ArrayList<>();
+        List<String> instruments = new ArrayList<>();
         if (map.containsKey("instruments"))
         {
             JSONArray instrumentIds = (JSONArray) map.get("instruments");
             for (int i = 0; i < instrumentIds.size(); i++){
-                instruments.add(getInstrument(instrumentIds.getString(i) , clothoObject));
+                instruments.add(instrumentIds.getString(i));
             }
             
         }
