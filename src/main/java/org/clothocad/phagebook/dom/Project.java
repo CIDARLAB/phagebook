@@ -8,6 +8,8 @@ package org.clothocad.phagebook.dom;
 import org.clothocad.model.Person;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.lang.String;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
@@ -88,7 +90,7 @@ public class Project {
        this.members = new ArrayList<>();
        //Create new lab notebook for creator?
        
-       System.out.println("created a new project??");
+       System.out.println("In Project class, created a new project.");
        Notebook creatorNotebook = new Notebook(creator, this, dateCreated);
        this.affiliatedLabs.add(lab);
        this.members.add(creator);            
@@ -185,6 +187,26 @@ public class Project {
    
    public void deleteStatus(Status toDelete){
        updates.remove(toDelete);
+   }
+   /**
+   * This converts the project requested to a HashMap.
+   * 
+   * @param       none
+   * @return      HashMap of the object
+   */
+   public HashMap getHashMap(){
+
+    HashMap<String, Object> projectHM  = new HashMap<String, Object>();
+
+    projectHM.put("creator", this.creator);
+    projectHM.put("name", this.name);
+    projectHM.put("lab", this.affiliatedLabs);
+    projectHM.put("lead",this.lead);
+    projectHM.put("projectBudget",this.budget);
+    projectHM.put("projectGrant", this.grant);
+    projectHM.put("description", this.description);
+    
+    return projectHM;
    }
    /*
    ** To string method for the project
