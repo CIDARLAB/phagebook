@@ -228,4 +228,25 @@ public class Project {
        return result;
       
     }
+   
+   public String fullProjectDescription(){
+//     Person creator, String name, Organization lab, 
+//     Person lead, Double projectBudget, Grant projectGrant, String description
+       String result = "Project";
+       
+       if(!this.name.equals("")){
+        result += " name is " + this.name +"\n";
+       }
+       String creatorFirstName = creator.getFirstName();
+       String creatorLastName = creator.getLastName();
+       result += "Creator is "+ creatorFirstName + " " + creatorLastName + "\n";
+       result += "Was created on "+ this.dateCreated + "\n";
+       //result += "First lab is "+ this.affiliatedLabs.get(0) + "\n";
+       result += "Lead is "+ this.lead.getFirstName() +" " + this.lead.getLastName() + "\n";
+       result += "Budget is "+ this.budget + "\n";
+       result += "Grant  is "+ this.grant.getName() + "\n";
+       result += "Description is "+ this.description + "\n";
+
+       return result;
+   }
 }
