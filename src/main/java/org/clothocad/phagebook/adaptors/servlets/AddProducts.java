@@ -21,7 +21,7 @@ import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.controller.OrderController;
-import org.clothocad.phagebook.dom.Company;
+import org.clothocad.phagebook.dom.Vendor;
 import org.clothocad.phagebook.dom.Order;
 import org.clothocad.phagebook.dom.Product;
 import org.json.JSONArray;
@@ -60,8 +60,8 @@ public class AddProducts extends HttpServlet {
         
         Map companyMap = new HashMap();
         companyMap.put("name",companyName);
-        //System.out.println("Company Name :: " + companyName);
-        if (!ClothoAdapter.queryCompany(companyMap,clothoObject).isEmpty()){
+        //System.out.println("Vendor Name :: " + companyName);
+        if (!ClothoAdapter.queryVendor(companyMap,clothoObject).isEmpty()){
            writer.println(companyName);
         }
 //        else{

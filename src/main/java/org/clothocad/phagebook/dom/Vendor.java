@@ -13,7 +13,7 @@ import lombok.Setter;
  *
  * @author innaturshudzhyan
  */
-public class Company extends Organization {
+public class Vendor extends Organization {
     
     
     @Getter @Setter private String contact;
@@ -22,12 +22,12 @@ public class Company extends Organization {
      *
      * @param name
      */
-    public Company(String name)
+    public Vendor(String name)
     {
         super(name);
     }
     
-    public Company()
+    public Vendor()
     {
         super();
         this.contact = "Not Set";

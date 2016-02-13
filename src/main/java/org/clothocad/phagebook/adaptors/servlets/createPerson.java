@@ -9,6 +9,10 @@ package org.clothocad.phagebook.adaptors.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -100,14 +104,34 @@ public class createPerson extends HttpServlet {
         byte[] SaltedHashedEmail = salty.hash(emailId.toCharArray(), salt.getBytes("UTF-8"));
 
         createdPerson.setSaltedEmailHash(SaltedHashedEmail);
-        clothoObject.logout();
-        ClothoAdapter.createPerson(createdPerson, clothoObject);
+        boolean isUnique = false;
+        Map clothoQuery = new HashMap();
+        clothoQuery.put("emailId", createdPerson.getEmailId());
+        List<Person> people = ClothoAdapter.queryPerson(clothoQuery, clothoObject);
         
-        EmailHandler emailer = EmailHandler.getEmailHandler();
-        String link = Args.phagebookBaseURL + "/html/verifyEmail.html?emailId=" +createdPerson.getEmailId() + "&salt=" + createdPerson.getSalt() ;
-        emailer.sendEmailVerification(createdPerson, link);
-        
-        
+        if (people.isEmpty()){
+            isUnique = true;
+        }
+           
+      
+        if (isUnique){
+            clothoObject.logout();
+            ClothoAdapter.createPerson(createdPerson, clothoObject);
+
+            EmailHandler emailer = EmailHandler.getEmailHandler();
+            String link = Args.phagebookBaseURL + "/html/verifyEmail.html?emailId=" +createdPerson.getEmailId() + "&salt=" + createdPerson.getSalt() ;
+            emailer.sendEmailVerification(createdPerson, link);
+
+        } else {
+            System.out.println("User is not unique in Clotho");
+            response.setStatus(HttpServletResponse.SC_CONFLICT);
+            response.setContentType("text/html;charset=UTF-8");
+                PrintWriter out = response.getWriter();
+                
+                out.print("Person Already Exists");
+                out.flush();
+                out.close();
+        }
         
         
         

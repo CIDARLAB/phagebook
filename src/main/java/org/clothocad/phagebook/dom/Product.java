@@ -16,7 +16,7 @@ import lombok.Setter;
 public class Product extends Good{
     
     @Getter @Setter private String   productURL;
-    @Getter @Setter private Company  company;
+    @Getter @Setter private Vendor  company;
     @Getter @Setter private GoodType goodType;
     @Getter @Setter private double   cost;
     @Getter @Setter private int      quantity;
@@ -25,7 +25,7 @@ public class Product extends Good{
     public Product(){
         super();
         this.productURL = "Not Set";
-        this.company    = new Company();
+        this.company    = new Vendor();
         this.goodType   = GoodType.INSTRUMENT;
         this.cost       = 0.0d;
         this.quantity   = 0;
@@ -36,13 +36,13 @@ public class Product extends Good{
      * @param company
      * @param cost
      */
-    public Product(String name, Company company,double cost){
+    public Product(String name, Vendor company,double cost){
         super(name,"");
         this.company = company;
         this.cost = cost;
     }
     
-    public Product(String name, Company company,GoodType goodType, double cost){
+    public Product(String name, Vendor company,GoodType goodType, double cost){
         super(name,"");
         this.company = company;
         this.goodType = goodType;

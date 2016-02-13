@@ -11,7 +11,7 @@ import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
-import org.clothocad.phagebook.dom.Company;
+import org.clothocad.phagebook.dom.Vendor;
 import org.clothocad.phagebook.dom.GoodType;
 import org.clothocad.phagebook.dom.Product;
 import org.junit.After;
@@ -56,7 +56,7 @@ public class ClothoProductCreator {
      public void anotherTest(){
         ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
         Clotho clothoObject = new Clotho(conn);
-       
+   
        Map createUserMap = new HashMap();
        String username = "test"+ System.currentTimeMillis() ;
        
@@ -75,19 +75,19 @@ public class ClothoProductCreator {
         
        
         //COMPANIES
-        Company amazon = new Company("Amazon");
-        Company apple = new Company("Apple");
-        Company nike = new Company("Nike");
+        Vendor amazon = new Vendor("Amazon");
+        Vendor apple = new Vendor("Apple");
+        Vendor nike = new Vendor("Nike");
         
         //CLOTHO CREATION
         
-        String companyId = (String) ClothoAdapter.createCompany(amazon, clothoObject);
+        String companyId = (String) ClothoAdapter.createVendor(amazon, clothoObject);
         amazon.setId(companyId);
         
-        String companyId2 = (String) ClothoAdapter.createCompany(apple, clothoObject);
+        String companyId2 = (String) ClothoAdapter.createVendor(apple, clothoObject);
         apple.setId(companyId2);
         
-        String companyId3 = (String) ClothoAdapter.createCompany(nike, clothoObject);
+        String companyId3 = (String) ClothoAdapter.createVendor(nike, clothoObject);
         nike.setId(companyId3);
         
         

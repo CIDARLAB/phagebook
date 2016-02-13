@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
-import org.clothocad.phagebook.dom.Company;
+import org.clothocad.phagebook.dom.Vendor;
 import org.clothocad.phagebook.dom.GoodType;
 import org.clothocad.phagebook.dom.Order;
 import org.clothocad.phagebook.dom.OrderColumns;
@@ -55,13 +55,13 @@ public class OrderController {
                 price = (String) productList.get(5);
 
             }
-            Company company; 
+            Vendor company; 
             Map companyQuery = new HashMap();
             companyQuery.put("name",companyName);
-            List<Company> companyList = ClothoAdapter.queryCompany(companyQuery, clothoObject);
+            List<Vendor> companyList = ClothoAdapter.queryVendor(companyQuery, clothoObject);
             if(companyList.isEmpty()){
-                company = new Company(companyName);
-                ClothoAdapter.createCompany(company, clothoObject);
+                company = new Vendor(companyName);
+                ClothoAdapter.createVendor(company, clothoObject);
             }
             else{
                company = companyList.get(0);
@@ -77,8 +77,8 @@ public class OrderController {
         return products;
     }
 
-    public static List<Company> getCompanies(JSONArray list,Clotho clothoObject) {
-        List<Company> companies = new ArrayList<Company>();
+    public static List<Vendor> getCompanies(JSONArray list,Clotho clothoObject) {
+        List<Vendor> companies = new ArrayList<Vendor>();
         for (int i = 0; i < (list.length()); i++) {
 
             JSONArray companyList = new JSONArray();
@@ -101,14 +101,14 @@ public class OrderController {
                 
             }
             
-                Company company = new Company(companyName);
+                Vendor company = new Vendor(companyName);
 
                 Map companyQuery = new HashMap();
                 companyQuery.put("name",companyName);
-                List<Company> companyArray = ClothoAdapter.queryCompany(companyQuery, clothoObject);
+                List<Vendor> companyArray = ClothoAdapter.queryVendor(companyQuery, clothoObject);
                 if(companyArray.isEmpty()){
-                    company = new Company(companyName);
-                    ClothoAdapter.createCompany(company, clothoObject);
+                    company = new Vendor(companyName);
+                    ClothoAdapter.createVendor(company, clothoObject);
                 }
                 else{
                    company = companyArray.get(0);
@@ -158,7 +158,7 @@ public class OrderController {
         for (String line : csvLines) {//for each line (of DataType String) in csvLines (a list of Strings)
             String[] pieces = line.split(",");
 
-            Company company1 = new Company(pieces[3]);
+            Vendor company1 = new Vendor(pieces[3]);
             Product product = new Product(pieces[0], company1, Double.parseDouble(pieces[5]));
 
             product.setDescription(pieces[1]);
@@ -170,7 +170,7 @@ public class OrderController {
         return products;
     }
 
-    public static List<Company> getCompanies(String filename) {
+    public static List<Vendor> getCompanies(String filename) {
 
         BufferedReader br = null;
         List<String> csvLines = new ArrayList<String>();
@@ -197,12 +197,12 @@ public class OrderController {
         return getCompanies(csvLines);
     }
 
-    public static List<Company> getCompanies(List<String> csvLines) {
-        List<Company> companies = new ArrayList<Company>();
+    public static List<Vendor> getCompanies(List<String> csvLines) {
+        List<Vendor> companies = new ArrayList<Vendor>();
         for (String line : csvLines) {//for each line (of DataType String) in csvLines (a list of Strings)
             String[] pieces = line.split(",");
 
-            Company company = new Company(pieces[0]);
+            Vendor company = new Vendor(pieces[0]);
 
             company.setDescription(pieces[1]);
             company.setPhone(pieces[2]);

@@ -88,7 +88,7 @@ public class queryProductByName extends HttpServlet {
             
             List<Product> queryProductResults = new LinkedList<>();
             queryProductResults = ClothoAdapter.queryProduct(query, clothoObject);//NOT USING THIS BECAUSE WE WANT A JSON ARRAY BACK
-            //To get Company Name...
+            //To get Vendor Name...
             JSONArray results = new JSONArray();
             for (Product product : queryProductResults){
                 JSONObject productAsJson = new JSONObject();

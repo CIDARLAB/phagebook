@@ -67,7 +67,7 @@
                 },
                 error: function(){
                     //Nothing found or bad query
-                    alert("It's me");
+                    alert("No Products found");
                 }
             });
         });
@@ -151,7 +151,7 @@
                     appendToCookie("Order", OrderIds, 1);
                     window.location.href = "./html/ordering.html";
                 } else {
-                    alert("Select Something Dang");
+                    alert("Nothing Selected");
                 }
                 //should not need to delete LoadedOrder cookie
              
