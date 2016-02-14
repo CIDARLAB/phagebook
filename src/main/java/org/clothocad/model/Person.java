@@ -44,7 +44,7 @@ public class Person {
     @Getter @Setter private List<String>                projects;
     @Getter @Setter private List<String>                publications;
     @Getter @Setter private Map<String,Set<PersonRole>> roles;
-    @Getter @Setter private List<Order>                 orders;
+    @Getter @Setter private List<String>                 orders;
     
    
    

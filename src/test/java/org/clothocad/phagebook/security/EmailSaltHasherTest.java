@@ -121,9 +121,9 @@ public class EmailSaltHasherTest {
        //you are logged out now
        
        
-       List <Person> colls = new ArrayList<>();
-       colls.add(P2);
-       colls.add(P3);
+       List <String> colls = new ArrayList<>();
+       colls.add(P2.getId());
+       colls.add(P3.getId());
        P1.setColleagues(colls);
        P1.setFirstName("Anna");
        P1.setLastName("Goncharova");

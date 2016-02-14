@@ -37,6 +37,7 @@ public class Order {
     @Getter @Setter private String approvedById;
     @Getter @Setter private String receivedById;
     @Getter @Setter private List<String> relatedProjects;
+    @Getter @Setter private OrderStatus status;
     
     
 //    public Map<Product, Integer> getProducts(){

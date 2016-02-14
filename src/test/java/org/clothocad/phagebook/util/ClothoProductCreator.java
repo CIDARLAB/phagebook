@@ -92,57 +92,57 @@ public class ClothoProductCreator {
         
         
         //PRODUCT: TELESCOPE
-        Product telescope = new Product("Telescope", amazon, 1000);
+        Product telescope = new Product("Telescope", amazon.getId(), 1000);
         //PROPERTIES
         telescope.setDescription("See the stars");
         telescope.setGoodType(GoodType.INSTRUMENT);
-        telescope.setQuantity(23);
+        telescope.setInventory(23);
         telescope.setProductURL("www.google.com");
         //
         
         //PRODUCT: MICROSCOPE
-        Product microscope = new Product("Microscope",amazon,4000);
+        Product microscope = new Product("Microscope",amazon.getId(),4000);
         //PROPERTIES
         microscope.setDescription("Magnifies stuff");
-        microscope.setQuantity(65);
+        microscope.setInventory(65);
         microscope.setGoodType(GoodType.INSTRUMENT);
         microscope.setProductURL("www.example.com");
         //
         //
         
         //PRODUCT: MICROSCOPEN
-        Product microscopen = new Product("Microscope",nike,3000);
+        Product microscopen = new Product("Microscope",nike.getId(),3000);
         //PROPERTIES
         microscopen.setDescription("Magnifies stuff but by Nike");
-        microscopen.setQuantity(23);
+        microscopen.setInventory(23);
         microscopen.setGoodType(GoodType.INSTRUMENT);
         microscopen.setProductURL("www.nike.com");
         //
         
         //PRODUCT: TELESCOPE2N
-        Product telescope2n = new Product("Telescope2", nike, 100);
+        Product telescope2n = new Product("Telescope2", nike.getId(), 100);
         //PROPERTIES
         telescope2n.setDescription("See the stars by Nike");
         telescope2n.setGoodType(GoodType.INSTRUMENT);
-        telescope2n.setQuantity(12);
+        telescope2n.setInventory(12);
         telescope2n.setProductURL("www.nike.com");
         //
         //
         //PRODUCT: MICROSCOPE2 
-        Product microscope2 = new Product("Microscope2",apple,2000);
+        Product microscope2 = new Product("Microscope2",apple.getId(),2000);
         //PROPERTIES
         microscope2.setDescription("Magnifies stuff BETTER");
-        microscope2.setQuantity(40);
+        microscope2.setInventory(40);
         microscope2.setGoodType(GoodType.INSTRUMENT);
         microscope2.setProductURL("www.example2.com");
         //
         
         //PRODUCT: TELESCOPE2
-        Product telescope2 = new Product("Telescope2", apple, 1000);
+        Product telescope2 = new Product("Telescope2", apple.getId(), 1000);
         //PROPERTIES
         telescope2.setDescription("See the stars");
         telescope2.setGoodType(GoodType.INSTRUMENT);
-        telescope2.setQuantity(23);
+        telescope2.setInventory(23);
         telescope2.setProductURL("www.google.com");
         //
                

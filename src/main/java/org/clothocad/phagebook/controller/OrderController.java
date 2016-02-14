@@ -67,7 +67,7 @@ public class OrderController {
                company = companyList.get(0);
             }
                 
-            Product product = new Product(productName, company, Double.valueOf(price));
+            Product product = new Product(productName, company.getId(), Double.valueOf(price));
 
             product.setProductURL(url);
             product.setGoodType(GoodType.valueOf(type));
@@ -159,7 +159,7 @@ public class OrderController {
             String[] pieces = line.split(",");
 
             Vendor company1 = new Vendor(pieces[3]);
-            Product product = new Product(pieces[0], company1, Double.parseDouble(pieces[5]));
+            Product product = new Product(pieces[0], company1.getId(), Double.parseDouble(pieces[5]));
 
             product.setDescription(pieces[1]);
             product.setProductURL(pieces[2]);

@@ -23,7 +23,7 @@ public class Product extends Good{
     //Look into a static member of this class that each instance can access..
     //best way...
     
-    @Getter @Setter private static Integer  inventory;
+    @Getter @Setter private Integer  inventory;
     @Getter @Setter private Double   unitPrice;
 
     
