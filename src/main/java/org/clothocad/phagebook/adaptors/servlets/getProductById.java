@@ -22,6 +22,7 @@ import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Product;
+import org.clothocad.phagebook.dom.Vendor;
 import org.json.JSONObject;
 
 /**
@@ -98,12 +99,13 @@ public class getProductById extends HttpServlet {
                     Product temp = ClothoAdapter.getProduct(productsAsStrings.get(i), clothoObject);
                     productAtIndex.put("clothoID", temp.getId());
                     productAtIndex.put("name", temp.getName());
-                    productAtIndex.put("company", temp.getCompany().getName());
+                    Vendor comp = ClothoAdapter.getVendor(temp.getCompanyId(), clothoObject);
+                    productAtIndex.put("company", comp.getName());
                     productAtIndex.put("cost", temp.getCost());
                     productAtIndex.put("description", temp.getDescription());
                     productAtIndex.put("goodType", temp.getGoodType());
                     productAtIndex.put("url", temp.getProductURL());
-                    productAtIndex.put("quantity", temp.getQuantity());
+                    productAtIndex.put("quantity", temp.getInventory());
                     
                     product.put("product"+i, productAtIndex);
                     
