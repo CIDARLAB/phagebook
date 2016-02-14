@@ -8,6 +8,7 @@ package org.clothocad.phagebook.adaptors.servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -75,36 +76,45 @@ public class loginUser extends HttpServlet {
             loginMap.put("username", email);
             loginMap.put("credentials", password);
             
-            Map id = (Map) clothoObject.login(loginMap);
+            //should have been successful its null if not successful.
+            Map logInResponse = (Map) clothoObject.login(loginMap);
+            
+            System.out.println(logInResponse);
             
             Map clothoQuery = new HashMap();
             clothoQuery.put("emailId", email);
-            Person loggedInPerson = ClothoAdapter.queryPerson(clothoQuery, clothoObject).get(0);
-            System.out.println(loggedInPerson.isActivated());
-            
-            System.out.println("GOT HERE IN LOGIN PERSON");
-            
-            
-            if (loggedInPerson.isActivated() )
-            {
-                System.out.println("I'm HERE");
-                //return success, this means its a valid request
-                //response.setStatus(HttpServletResponse.SC_OK);
-                System.out.print("Id is " + loggedInPerson.getId());
-                String idVal = (String) loggedInPerson.getId();
+            List<Person> people = ClothoAdapter.queryPerson(clothoQuery, clothoObject);
+            if (logInResponse.isEmpty()){
+                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                 response.setContentType("text/plain");
                 PrintWriter out = response.getWriter();
-                out.print(idVal);
+                out.print("No user found with those credenteials");
                 out.flush();
                 out.close();
-            }
-            else
+            } else if (!people.isEmpty())
             {
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                Person person = people.get(0);
+                //return success, this means its a valid request
+                //response.setStatus(HttpServletResponse.SC_OK);
+                if (person.isActivated()){
+                    System.out.print("Id is " + person.getId());
+                    String idVal = (String) person.getId();
+                    response.setContentType("text/plain");
+                    PrintWriter out = response.getWriter();
+                    out.print(idVal);
+                    out.flush();
+                    out.close();
+                } else {
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 PrintWriter out = response.getWriter();
                 out.print("false");
                 out.flush();
                 out.close();
+                }
+           
+           
+            
+           
             }
         }
     }

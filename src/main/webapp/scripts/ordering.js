@@ -32,7 +32,7 @@ function orderingCtrl($scope) {
             },
             error: function () {
                 //Nothing found or bad query
-                alert("NOPE");
+                alert("Nothing was found");
             }
         });
     }

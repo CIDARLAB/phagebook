@@ -7,13 +7,13 @@
 
     <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
-
+    <script src="scripts/cookieHandler.js"></script>
     <link rel="stylesheet" href="styles/cssBootstrap/bootstrap.css"/>
     <!--<link rel="stylesheet" href="styles/clothoNavBar.css">-->
     <link rel="stylesheet" href="styles/phagebookMainStyle.css"/>
     <script src="scripts/clotho/clotho3API.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
-
+ 
 </head>
 
 <body>
@@ -223,8 +223,9 @@ SCRIPTS
 
                         window.location.href = './html/validateEmail.html';
                     },
-                    error: function () {
-                        alert("some sort of error occurred");
+                    error: function (response) {
+                        //THIS CAN BE DONE BETTER ONCE WE KNOW WHAT WE ARE DOING.
+                        alert("\n" +  response.statusText + "!\n" + response.responseText);
                     }
                 });
         return false;

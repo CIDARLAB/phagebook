@@ -30,6 +30,8 @@ public class Order {
     @Getter @Setter private Date dateCreated;
     @Getter @Setter private Person createdBy; 
     @Getter @Setter private Map<Product, Integer> products;
+    @Getter @Setter private OrderStatus status;
+    
     
 //    public Map<Product, Integer> getProducts(){
 //        return this.products;
@@ -56,6 +58,6 @@ public class Order {
         this.dateCreated   = new Date();
         this.createdBy   = new Person();
         this.products    = new HashMap<>();
-        
+    
     }
 }

@@ -44,6 +44,10 @@
         <servlet-name>getPersonById</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.getPersonById</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>createProduct</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.createProduct</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>inputProduct</servlet-name>
         <url-pattern>/inputProduct</url-pattern>
@@ -68,20 +72,14 @@
         <servlet-name>newOrder</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.newOrder</servlet-class>
     </servlet>
-    
-    
-    
-   <servlet>
+    <servlet>
         <servlet-name>SelectColumns</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.SelectColumns</servlet-class>
     </servlet>
-   <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>SelectColumns</servlet-name>
         <url-pattern>/SelectColumns</url-pattern>
     </servlet-mapping>
-
-    
-    
     <servlet-mapping>
         <servlet-name>newOrder</servlet-name>
         <url-pattern>/newOrder</url-pattern>
@@ -141,5 +139,9 @@
     <servlet-mapping>
         <servlet-name>getPersonById</servlet-name>
         <url-pattern>/getPersonById</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>createProduct</servlet-name>
+        <url-pattern>/createProduct</url-pattern>
     </servlet-mapping>
 </web-app>

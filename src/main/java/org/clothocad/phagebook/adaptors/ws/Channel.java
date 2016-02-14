@@ -19,12 +19,12 @@ send protocol,
 add to notebook entry?
     */
     CREATE_STATUS,
-    CREATE_ORDERING_STATUS,
-    CREATE_PROJECT_STATUS
+    CHANGE_ORDERING_STATUS,
+    CHANGE_PROJECT_STATUS
 //    
 //    ADD_TO_ORDER,
 //    CREATE_PROJECT,
-//    ADD_FRIEND,
+//    ADD_FRIEND,   
 //    ADD_TEAM_MEMBER,
 //    LOGIN,
 //    SEND_RESULT,

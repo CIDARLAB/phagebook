@@ -19,6 +19,8 @@ import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Institution;
 import org.clothocad.model.Person;
 import org.clothocad.model.Person.PersonRole;
+import org.clothocad.phagebook.dom.Order;
+import org.clothocad.phagebook.dom.OrderStatus;
 import org.clothocad.phagebook.dom.Project;
 import org.clothocad.phagebook.dom.Publication;
 import org.clothocad.phagebook.dom.Status;
@@ -90,18 +92,60 @@ public class PhagebookSocket
                     loginResult = (Map)clothoObject.login(loginMap);
                     
                     Person person = ClothoAdapter.getPerson(loginResult.get("id").toString(), clothoObject);
-                    //talk to Johan about this, login should return phagebook person
+                  
                     person.getStatuses().add(new Status(createStatusMap.get("status").toString(),person));
                     ClothoAdapter.setPerson(person, clothoObject);
-                    
+   
                     result.put("data", "Status created successfully.");
-                   
-                }
-                    //break the map (the value of the key "data") from messageObject into user password and status
-                    //login with map, update status, return a successful message
-                    //cello API  - create a similar thing - ramal to html conversion 
 
                     break;
+                }
+                case CHANGE_ORDERING_STATUS:
+                {
+                    Map orderStatusMap = new HashMap();
+                    orderStatusMap = (Map)messageObject.get("data");
+                    
+                    Map loginMap = new HashMap();
+                    loginMap.put("username",orderStatusMap.get("username"));
+                    loginMap.put("credentials",orderStatusMap.get("password"));
+                    
+                    Map loginResult = new HashMap();
+                    loginResult = (Map)clothoObject.login(loginMap);
+                    
+                    Order order = ClothoAdapter.getOrder(loginResult.get("id").toString(), clothoObject);
+                    
+                    order.setStatus(OrderStatus.valueOf(orderStatusMap.get("status").toString()));
+                    
+                    ClothoAdapter.setOrder(order, clothoObject);
+
+                    result.put("data", "Status created successfully.");
+
+                    break;
+                }
+                 case CHANGE_PROJECT_STATUS:
+                {
+                    Map projectStatusMap = new HashMap();
+                    projectStatusMap = (Map)messageObject.get("data");
+                    
+                    Map loginMap = new HashMap();
+                    loginMap.put("username",projectStatusMap.get("username"));
+                    loginMap.put("credentials",projectStatusMap.get("password"));
+                    
+                    Map loginResult = new HashMap();
+                    loginResult = (Map)clothoObject.login(loginMap);
+                    
+                    Project project = ClothoAdapter.getProject(loginResult.get("id").toString(), clothoObject);
+                    
+                    Person person = ClothoAdapter.getPerson(loginResult.get("id").toString(), clothoObject);
+                    
+                    project.getUpdates().add(new Status(projectStatusMap.get("status").toString(),person));
+                    
+                    ClothoAdapter.setProject(project, clothoObject);
+
+                    result.put("data", "Status created successfully.");
+
+                    break;
+                }
                 default:
                     result.put("data", "Error...");
                     break;
