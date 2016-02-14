@@ -19,6 +19,7 @@ import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.model.Person;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
+import org.json.JSONObject;
 
 /**
  *
@@ -75,46 +76,76 @@ public class loginUser extends HttpServlet {
             Map loginMap = new HashMap();
             loginMap.put("username", email);
             loginMap.put("credentials", password);
-            
+            clothoObject.logout();
             //should have been successful its null if not successful.
-            Map logInResponse = (Map) clothoObject.login(loginMap);
+            Object NULL = null;
             
-            System.out.println(logInResponse);
+            boolean isLoggedIn = false;
+            
+            if(clothoObject.login(loginMap).equals(NULL)){
+                System.out.println("Null OBJECT!!");
+                isLoggedIn = false;
+            }
+            else{
+                System.out.println("Reached here..");
+                isLoggedIn = true;
+            }
+           
+            System.out.println("abcd");
+            
             
             Map clothoQuery = new HashMap();
             clothoQuery.put("emailId", email);
-            List<Person> people = ClothoAdapter.queryPerson(clothoQuery, clothoObject);
-            if (logInResponse.isEmpty()){
-                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                response.setContentType("text/plain");
-                PrintWriter out = response.getWriter();
-                out.print("No user found with those credenteials");
-                out.flush();
-                out.close();
-            } else if (!people.isEmpty())
+            Person loggedInPerson = null;
+            if (isLoggedIn){
+                System.out.println("something");
+                loggedInPerson = ClothoAdapter.queryPerson(clothoQuery, clothoObject).get(0);
+            }
+            
+            
+            if ( isLoggedIn && !loggedInPerson.equals(NULL))
             {
-                Person person = people.get(0);
-                //return success, this means its a valid request
-                //response.setStatus(HttpServletResponse.SC_OK);
-                if (person.isActivated()){
-                    System.out.print("Id is " + person.getId());
-                    String idVal = (String) person.getId();
-                    response.setContentType("text/plain");
+                if (loggedInPerson.isActivated())
+                {
+
+                    //return success, this means its a valid request
+                    //response.setStatus(HttpServletResponse.SC_OK);
+
+                    String idVal = (String) loggedInPerson.getId();
+                    JSONObject responseJSON = new JSONObject();
+                    responseJSON.put("id", idVal);
+                    responseJSON.put("activated", "true");
+                    response.setContentType("application/json");
                     PrintWriter out = response.getWriter();
-                    out.print(idVal);
+                    out.print(responseJSON.toString());
                     out.flush();
                     out.close();
-                } else {
-                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                }
+                else
+                {
+                    //person is not activated in need to go to the email verification page
+                    String idVal = (String) loggedInPerson.getId();
+                    JSONObject responseJSON = new JSONObject();
+                    responseJSON.put("id", idVal);
+                    responseJSON.put("activated", "false");
+                    response.setContentType("application/json");
+                    PrintWriter out = response.getWriter();
+                    out.print(responseJSON.toString());
+                    out.flush();
+                    out.close();
+                    
+                }
+            }else {
+                //user did not make clotho return a login response...
+                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                response.setContentType("application/json");
                 PrintWriter out = response.getWriter();
-                out.print("false");
+                JSONObject responseJSON = new JSONObject();
+                responseJSON.put("message", "No user found with those credenteials");
+                out.print(responseJSON.toString());
                 out.flush();
                 out.close();
-                }
-           
-           
             
-           
             }
         }
     }

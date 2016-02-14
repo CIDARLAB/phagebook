@@ -178,14 +178,24 @@ SCRIPTS
                     success: function (response) {
                         //alert(response);
                         //alert("Got Some Response" + response);
-                        sessionStorage.setItem("response", response);
+                        
+                        sessionStorage.setItem("response", response["id"]); //need to deprecate soon
+                        setCookie("loggedInUserId", response["id"], 1);     //use cookies instead..
                         sessionStorage.setItem("username", document.getElementById("returnEmail").value);
-                        sessionStorage.setItem("password", document.getElementById("password").value);
-
-                        window.location.href = './html/profile.html?user=' + response;
+                        setCookie("username", document.getElementById("returnEmail").value, 1 );
+                        sessionStorage.setItem("password", document.getElementById("returnPassword").value);
+                        setCookie("password", document.getElementById("returnPassword").value, 1);
+                        if (response["activated"] == "false")
+                        {
+                            window.location.href = './html/validateEmail.html?id=' + getCookie("username");
+                        }
+                        else 
+                        {
+                            window.location.href = './html/profile.html?user=' + response["id"];
+                        }
                     },
-                    error: function () {
-                        alert("some sort of error occurred");
+                    error: function (response) {
+                        alert( response.responseJSON["message"]);
                     }
                 });
             }
