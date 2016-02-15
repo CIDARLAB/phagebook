@@ -92,28 +92,33 @@ public class getPersonById extends HttpServlet {
         
         JSONObject statusList = new JSONObject();
         if (retrieve.getStatuses() != null){
-            for (Status status:retrieve.getStatuses()){
-                statusList.put("text", status.getText());
-                statusList.put("date", status.getCreated().toString());
+            for (String status:retrieve.getStatuses()){
+                Status stat = ClothoAdapter.getStatus(status, clothoObject);
+                
+                statusList.put("text", stat.getText());
+                statusList.put("date", stat.getCreated().toString());
             }
         }
                 
         JSONObject publicationList = new JSONObject();
         if (retrieve.getPublications() != null){
-            for (Publication publication:retrieve.getPublications()){
-                publicationList.put("id", publication.getId());
+            
+            for (String publication:retrieve.getPublications()){
+                Publication pub = ClothoAdapter.getPublication(publication, clothoObject);
+                publicationList.put("id", pub.getId());
             }
         }
         
         JSONObject labList = new JSONObject();
         if (retrieve.getLabs() != null){
-            for (Institution lab:retrieve.getLabs()){
-                labList.put("name", lab.getName());
+            for (String lab:retrieve.getLabs()){
+                Institution inst = ClothoAdapter.getInstitution(lab, clothoObject);
+                labList.put("name", inst.getName());
                 Set<PersonRole> rolesAtInstitution = retrieve.getRole(lab);
                 JSONObject positions = new JSONObject();
                 Iterator <PersonRole> it = rolesAtInstitution.iterator();
                 while(it.hasNext()){
-                    positions.put(lab.getName(), it.next());
+                    positions.put(inst.getName(), it.next());
                 }
                 labList.put("roles", positions);
             }

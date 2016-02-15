@@ -142,8 +142,8 @@ public class createProduct extends HttpServlet {
             Product prod = new Product();
             prod.setName(name);
             prod.setCost(cost);
-            prod.setQuantity(quantity);
-            prod.setCompany(comp);
+            prod.setInventory(quantity);
+            prod.setCompanyId(comp.getId());
             prod.setDescription( (description != null) ? description : "Not Set");
             prod.setProductURL( (productUrl != null) ? productUrl: "Not Set");
             prod.setGoodType( GoodType.valueOf( (goodType != null) ? goodType : "INSTRUMENT"));

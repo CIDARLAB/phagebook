@@ -16,19 +16,25 @@ import lombok.Setter;
 public class Product extends Good{
     
     @Getter @Setter private String   productURL;
-    @Getter @Setter private Vendor  company;
+    @Getter @Setter private String   companyId;
+    
     @Getter @Setter private GoodType goodType;
-    @Getter @Setter private double   cost;
-    @Getter @Setter private int      quantity;
+    @Getter @Setter private Double   cost;
+    //Look into a static member of this class that each instance can access..
+    //best way...
+    
+    @Getter @Setter private Integer  inventory;
+    @Getter @Setter private Double   unitPrice;
 
     
     public Product(){
         super();
         this.productURL = "Not Set";
-        this.company    = new Vendor();
+        this.companyId  = "Not Set";
         this.goodType   = GoodType.INSTRUMENT;
         this.cost       = 0.0d;
-        this.quantity   = 0;
+        this.inventory  = 0;
+        this.unitPrice  = 0.0d;
     }
     /**
      *
@@ -36,15 +42,15 @@ public class Product extends Good{
      * @param company
      * @param cost
      */
-    public Product(String name, Vendor company,double cost){
+    public Product(String name, String company,double cost){
         super(name,"");
-        this.company = company;
+        this.companyId = company;
         this.cost = cost;
     }
     
-    public Product(String name, Vendor company,GoodType goodType, double cost){
+    public Product(String name, String company,GoodType goodType, double cost){
         super(name,"");
-        this.company = company;
+        this.companyId = company;
         this.goodType = goodType;
         this.cost = cost;
    
@@ -71,10 +77,10 @@ public class Product extends Good{
     public int hashCode() {
         int hash = 3;
         hash = 97 * hash + Objects.hashCode(this.productURL);
-        hash = 97 * hash + Objects.hashCode(this.company);
+        hash = 97 * hash + Objects.hashCode(this.companyId);
         hash = 97 * hash + Objects.hashCode(this.goodType);
         hash = 97 * hash + (int) (Double.doubleToLongBits(this.cost) ^ (Double.doubleToLongBits(this.cost) >>> 32));
-        hash = 97 * hash + this.quantity;
+        hash = 97 * hash + this.inventory;
         return hash;
     }
     

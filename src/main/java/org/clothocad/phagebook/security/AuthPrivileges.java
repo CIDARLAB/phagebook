@@ -51,8 +51,8 @@ public class AuthPrivileges {
     Institution boston = new Institution("BU");
     Institution cidar = new Institution("CIDAR");
     
-    Project pb = new Project(prash, "Phagebook", "Phagebook is awesome.");
-    Project cl = new Project(prash, "Cello", "Cello is awesome.");
+    Project pb = new Project(prash.getId(), "Phagebook", "Phagebook is awesome.");
+    Project cl = new Project(prash.getId(), "Cello", "Cello is awesome.");
     
     doug.addInstitution(boston);
     prash.addInstitution(boston);

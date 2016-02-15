@@ -113,11 +113,15 @@ public class verifyEmail extends HttpServlet {
        
             
             if (isValidated){
+                
+                
                 System.out.println("User "  + queryPersons.get(0).getEmailId() + " has been validated");
-                queryPersons.get(0).setActivated(true);
+                Person pers = queryPersons.get(0);
+                pers.setActivated(true);
+                
                 clothoObject.logout();
-                ClothoAdapter.setPerson(queryPersons.get(0), clothoObject);  
-                System.out.println("HERE AT VERIFY EMAIL: "+ClothoAdapter.getPerson(queryPersons.get(0).getId(), clothoObject).isActivated());
+                ClothoAdapter.setPerson(pers, clothoObject);  
+                System.out.println("HERE AT VERIFY EMAIL: "+ ClothoAdapter.getPerson(pers.getId(), clothoObject).isActivated());
                 
                 
             } else if (!isValidated){

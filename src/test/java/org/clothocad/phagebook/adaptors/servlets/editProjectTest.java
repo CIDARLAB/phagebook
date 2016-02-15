@@ -265,9 +265,11 @@ public class editProjectTest {
           helperMsg(project.getGrant().getName(),value);
           project.setGrant(new Grant(value));
         }
- 
         
-      }    
+        
+      }
+      String foo = ClothoAdapter.setProject(project, clothoObject);
+      System.out.println(foo);
     
     }
     

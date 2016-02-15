@@ -70,7 +70,8 @@ function orderingCtrl($scope) {
 function createOrder() {
     if (getCookie("Order") !== "") {
         var ids = getCookie("Order").split(',');
-       
+        var userId = getCookie("loggedInUserId");
+        /*TODO NOW WE CAN KNOW WHO's LOGGED IN SO WE CAN WORK WITH THAT*/
         var name = $("#orderNameBox").val();
         var description = $("#orderDescriptionBox").val();
         var idQuantityCombinations = {};
@@ -166,6 +167,7 @@ function totalNumberOfBoxesWithName(name) {
     return productNumber;
 }
 
+<<<<<<< HEAD
 // **** change name to cookie_manager.js *****
 
 // saves a new key value pair to cookie object on the page 
@@ -218,3 +220,5 @@ function getParameterByName(name)
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
+=======
+>>>>>>> d677b10ca713c446c8ed28470f05cc2f389f9bb4

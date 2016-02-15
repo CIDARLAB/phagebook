@@ -16,16 +16,16 @@ import lombok.Setter;
  * @author KatieLewis
  */
 public class Protocol {
-    @Getter @Setter Person           creator;
+    @Getter @Setter String           creatorId;
     @Getter @Setter String           protocolName;
-    @Getter @Setter List<Instrument> equipment;
-    @Getter @Setter List<Sample>     samples;
+    @Getter @Setter List<String>     equipment;
+    @Getter @Setter List<String>     samples;
     @Getter @Setter private String   id;
     
     
     public Protocol () 
     {
-        this.creator       = new Person();
+        this.creatorId       = "Not Set";
         this.protocolName  = "Not Set";
         this.equipment     = new ArrayList<>();
         this.samples       = new ArrayList<>();
