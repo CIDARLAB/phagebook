@@ -125,10 +125,12 @@ public class editProjectTest {
         Organization cidar = new Organization("CIDAR");
         Double projectBudget = 0.0;
         Grant grant = new Grant("NSF");
+        String grantID = ClothoAdapter.createGrant(grant,clothoObject);
+        grant.setId(grantID);
         String des = "This is a super cool Project!";
         
-        Project project = new Project(person1, projectName, cidar, person2, projectBudget,
-            grant, des);
+        Project project = new Project(person1ID, projectName, cidar, person2ID, projectBudget,
+            grantID, des);
         
         String projectID = ClothoAdapter.createProject(project, clothoObject);   
         
@@ -173,7 +175,7 @@ public class editProjectTest {
       Project oldProject = ClothoAdapter.getProject(projectID, clothoObject);
       System.out.println("\n*******");
       System.out.println("OLD PROJECT IS: ");
-      System.out.println(oldProject.fullProjectDescription());
+      //System.out.println(oldProject.fullProjectDescription());
       System.out.println("\n*******");
 
 
@@ -187,7 +189,7 @@ public class editProjectTest {
       Project editedProject = ClothoAdapter.getProject(projectID, clothoObject);
       System.out.println("*******");
       System.out.println("EDITED PROJECT IS: ");
-      System.out.println(editedProject.fullProjectDescription());
+      //System.out.println(editedProject.fullProjectDescription());
       System.out.println("\n*******");
 
 //      Project testProject = new Project();
@@ -238,14 +240,14 @@ public class editProjectTest {
         if(key.equals("description")){
           helperMsg(project.getDescription(), value);
           project.setDescription(value);
-        
         }
         if(key.equals("name")){
           helperMsg(project.getName(), value);
           project.setName(value);
         }
         if(key.equals("lead")){
-          helperMsg(project.getLead().getFirstName(), value);
+          
+          helperMsg(project.getLeadId(), value);
           System.out.println("Can't edit lead yet, sorry!");
         }
         if(key.equals("projectBudget")){
@@ -262,20 +264,35 @@ public class editProjectTest {
         if(key.equals("projectGrant")){
           // add association support for these big classes -- want to be able
           // to link to the grant
-          helperMsg(project.getGrant().getName(),value);
-          project.setGrant(new Grant(value));
+          Grant newGrant = new Grant(value);
+          String newGrantId = ClothoAdapter.createGrant(newGrant, clothoObject);
+          //newGrant.setId(newGrantId);
+          helperMsg(project.getGrantId(),value);
+          project.setGrantId(newGrantId);
         }
         
         
       }
       String foo = ClothoAdapter.setProject(project, clothoObject);
       System.out.println(foo);
+      // TODO: keep track of old changes + new changes
     
     }
     
     public void helperMsg(String oldVal, String newVal){
       System.out.println("\nOld Value is: " + oldVal + "\nNew Value is: " + newVal);
 
+    }
+    
+    /*
+    ** Looks at changes in the project and sends out emails to people in the object.
+    ** @params: Project
+    ** 
+    */
+    private void sendEmails(Project project){
+      
+      
+      
     }
   
 }
