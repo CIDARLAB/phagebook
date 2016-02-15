@@ -27,14 +27,14 @@ public class sendEmails {
 
   
   // fuck it lets make these public for now
-  final static String SENDER_DOMAIN_NAME = "phagebook.email@gmail.com";
-  final static String password = "Phagebook";
+  final String SENDER_DOMAIN_NAME = "phagebook.email@gmail.com";
+  final String password = "Phagebook";
   
  /**
  * Access this function first if you are sending a message. 
  * 
  */
-  public static void sendMessagesTo(Map people, String text){
+  public void sendMessagesTo(Map people, String text){
    logIn(people, text);
   }
   
@@ -44,7 +44,7 @@ public class sendEmails {
  * people in the input map of people.
  * 
  */
-  private static void logIn(Map people, String text){
+  private void logIn(Map people, String text){
     
     Properties props = new Properties();
     props.put("mail.smtp.host", "smtp.gmail.com");
@@ -67,8 +67,8 @@ public class sendEmails {
       while (entries.hasNext()) {
         // reset the value if it is diff from the one in the project object
         Map.Entry entry = (Map.Entry) entries.next();
-        String person = (String)entry.getKey();
-        String email = (String)entry.getValue();
+        String email = (String)entry.getKey();
+        String person = (String)entry.getValue();
         System.out.println("Person = " + person + ", Email = " + email);
       
         Message message = createMessage(SENDER_DOMAIN_NAME, person, email, session, text);
@@ -83,7 +83,7 @@ public class sendEmails {
     }  
   }
 
-  public static Message createMessage(String senderDomain, String pers, String email,
+  public Message createMessage(String senderDomain, String pers, String email,
           Session session, String text) throws MessagingException{
     Message message = new MimeMessage(session);
     try{
@@ -99,13 +99,16 @@ public class sendEmails {
   }
   
   
-  public static void main(String[] args) {
-    
-    HashMap test = new HashMap();
-    test.put("Anna", "agonchar@bu.edu");
-    sendMessagesTo(test, " These changes were minor");
-
-  }
+//  public static void main(String[] args) {
+//    
+//    HashMap test = new HashMap();
+//    test.put("agonchar@bu.edu", "Anna Goncharova");
+//    test.put("anna@goncharova.com", "Anna");
+//    test.put("prash@bu.edu", "Prashant");
+//
+//    sendMessagesTo(test, " These changes were minor.");
+//
+//  }
 }
 
 

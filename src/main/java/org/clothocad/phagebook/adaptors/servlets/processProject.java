@@ -187,8 +187,13 @@ public class processProject extends HttpServlet {
 
       System.out.println("(187) creator id is " + creatorID);
 
-      // create the Grant object
+      // create the Grant object 
+      
+      // TODO: check whether grant exists.
       Grant grantObject = new Grant(name);
+      String grantID = ClothoAdapter.createGrant(grantObject, clothoObject);
+      grantObject.setId(grantID);
+      
 
       // need to add support for creating and adding a number of labs/organizations
       // format of passed in lab? 
@@ -210,11 +215,13 @@ public class processProject extends HttpServlet {
       leadPerson.setFirstName(leadStringFirstName);
       leadPerson.setLastName(leadStringLastName);
       System.out.println("(232) Lead " + leadPerson);
-      //String leadPersonID = ClothoAdapter.createPerson(leadPerson, clothoObject);
-
+      
+      // TODO: Check whether lead exists in the DB.
+      String leadPersonID = ClothoAdapter.createPerson(leadPerson, clothoObject);
+      leadPerson.setId(leadPersonID);
       System.out.println("(235) About to create the project");
-      Project project = new Project(creator, name, lab, leadPerson, projectBudget,
-            grantObject, description);
+      Project project = new Project(creatorID, name, lab, leadPersonID, projectBudget,
+            grantID, description);
 
       String projectID = ClothoAdapter.createProject(project, clothoObject);   
 
