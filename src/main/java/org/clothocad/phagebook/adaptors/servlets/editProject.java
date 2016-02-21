@@ -7,6 +7,7 @@ package org.clothocad.phagebook.adaptors.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +24,7 @@ import org.clothocad.phagebook.dom.Project;
  * @author anna_g
  */
 public class editProject extends HttpServlet {
+  private static Logger logger = Logger.getLogger(editProject.class.getName());
 
   /**
    * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
