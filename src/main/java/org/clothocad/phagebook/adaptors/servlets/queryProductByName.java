@@ -96,10 +96,10 @@ public class queryProductByName extends HttpServlet {
                 productAsJson.put("cost", product.getCost());
                 productAsJson.put("productURL", (product.getProductURL() != null) ? product.getProductURL() : "");
                 productAsJson.put("goodType", product.getGoodType());
-                productAsJson.put("quantity", product.getQuantity());
+                productAsJson.put("inventory", product.getInventory());
                 productAsJson.put("name", product.getName());
                 productAsJson.put("description", product.getDescription());
-                productAsJson.put("company", product.getCompany().getName());
+                productAsJson.put("vendor", ClothoAdapter.getVendor(product.getCompanyId(), clothoObject));
                 
                 results.add(productAsJson);
             }

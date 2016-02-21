@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import net.sf.json.JSONArray;
 import org.clothoapi.clotho3javaapi.Clotho;
+import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.phagebook.dom.Vendor;
 import org.clothocad.phagebook.dom.Container;
 import org.clothocad.phagebook.dom.Entry;
@@ -32,6 +33,7 @@ import org.clothocad.phagebook.dom.Order;
 import org.clothocad.phagebook.dom.Organization;
 import org.clothocad.model.Person;
 import org.clothocad.model.Person.PersonRole;
+import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.CartItem;
 import org.clothocad.phagebook.dom.OrderStatus;
 import org.clothocad.phagebook.dom.Product;
@@ -46,6 +48,13 @@ import org.json.JSONObject;
  * @author Johan Ospina
  */
 public class ClothoAdapter {
+    // <editor-fold defaultstate="collapsed" desc="Members">
+    public static ClothoConnection conn;
+    public static Clotho clothoObject;
+    private static String username;
+    private static String password;
+    
+    // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Create Methods">
      
     
@@ -3153,6 +3162,39 @@ public class ClothoAdapter {
         grantMap.put("remove", remove);
         
         Map grantResult = (Map)(clothoObject.grant(grantMap));
+    }
+    
+    public static void clothoCreate(String username, String password)
+    {       
+       Map createUserMap = new HashMap();  
+       createUserMap.put("username", username);
+       createUserMap.put("password", password);
+       
+       ClothoAdapter.clothoObject.createUser(createUserMap);
+    }
+    
+    public static void clothoLogin(String username, String password)
+    {
+       Map loginMap = new HashMap();
+       loginMap.put("username", username);
+       loginMap.put("credentials", password);  
+       
+       ClothoAdapter.clothoObject.login(loginMap);
+       
+    }
+    
+    public static void setUpRandomUser(){
+       ClothoAdapter.conn = new ClothoConnection(Args.clothoLocation);
+       ClothoAdapter.clothoObject = new Clotho(conn);
+       
+       ClothoAdapter.username = randomUsername();
+       ClothoAdapter.password = "password";
+       clothoCreate(ClothoAdapter.username, ClothoAdapter.password);
+       clothoLogin(ClothoAdapter.username, ClothoAdapter.password);
+    }
+    
+    public static String randomUsername(){
+        return "test"+ System.currentTimeMillis();
     }
     //  </editor-fold>
 

@@ -241,6 +241,11 @@ public class OrderController {
             Map.Entry pair = (Map.Entry)it.next();
             orderString = "";
             Product product = (Product) pair.getKey();
+            Clotho clothoObject = ClothoAdapter.clothoObject;
+            ClothoAdapter.setUpRandomUser();
+            
+            Vendor company = ClothoAdapter.getVendor(product.getCompanyId(), clothoObject);
+            ClothoAdapter.clothoObject.logout();
             for (OrderColumns clist1 : ColumnList) {
                 switch (clist1) {
                     case SERIAL_NUMBER:
@@ -260,19 +265,19 @@ public class OrderController {
                         orderString = orderString + pair.getValue() + ",";
                         break;
                     case COMPANY_NAME:
-                        orderString = orderString + product.getCompany().getName() + ",";
+                        orderString = orderString + company.getName() + ",";
                         break;
                     case COMPANY_URL:
-                        orderString = orderString + product.getCompany().getUrl() + ",";
+                        orderString = orderString + company.getUrl() + ",";
                         break;
                     case COMPANY_DESCRIPTION:
-                        orderString = orderString + product.getCompany().getDescription() + ",";
+                        orderString = orderString + company.getDescription() + ",";
                         break;
                     case COMPANY_CONTACT:
-                        orderString = orderString + product.getCompany().getContact() + ",";
+                        orderString = orderString + company.getContact() + ",";
                         break;
                     case COMPANY_PHONE:
-                        orderString = orderString + product.getCompany().getPhone() + ",";
+                        orderString = orderString + company.getPhone() + ",";
                         break;
                     case UNIT_PRICE:
                         orderString = orderString + product.getCost() + ",";
