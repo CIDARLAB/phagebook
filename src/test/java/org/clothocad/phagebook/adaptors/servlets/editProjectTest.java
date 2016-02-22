@@ -5,13 +5,16 @@
  */
 package org.clothocad.phagebook.adaptors.servlets;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 import static junit.framework.Assert.assertEquals;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
@@ -138,10 +141,12 @@ public class editProjectTest {
         grant.setId(grantID);
         String des = "This is a super cool Project!";
         
-
         Project project = new Project(person1ID, projectName, cidar, person2ID, projectBudget,
             grantID, des);
-        
+        System.out.println("Project ID is!!");
+        System.out.println(project.getId());
+        // hacky -- set random ID so that the project got created in clotho
+        project.setId("random");
         String projectID = ClothoAdapter.createProject(project, clothoObject);   
         
         System.out.println("Project has been made.");
@@ -248,9 +253,10 @@ public class editProjectTest {
     }
     
     private void editProject(String request, HashMap params){
-      // TODO: Add methods for people checking (do we want to link people with 
-      // projects or...?
-      
+      FileHandler fh;  
+
+      try {  
+       
       // for testing purposes request is the Project ID
       // params is the hashmap of new values
       
@@ -260,6 +266,12 @@ public class editProjectTest {
       Project project = ClothoAdapter.getProject(request, clothoObject);
       System.out.println("In editProject test project is: ");
       System.out.println(project);
+      // This block configure the logger with handler and formatter  
+      fh = new FileHandler("C:/temp/test/MyLogFile.log");  
+      logger.addHandler(fh);
+      SimpleFormatter formatter = new SimpleFormatter();  
+      fh.setFormatter(formatter);  
+
       // HashMap <String, Object> projectHM = project.getHashMap();
       logger.log(Level.INFO, "Processing request for editing the project");
 
@@ -337,7 +349,11 @@ public class editProjectTest {
       String foo = ClothoAdapter.setProject(project, clothoObject);
       System.out.println(foo);
       // TODO: keep track of old changes + new changes
-    
+      } catch (SecurityException e) {  
+          e.printStackTrace();  
+      } catch (IOException e) {  
+          e.printStackTrace();  
+      }  
     }
     
     public void helperMsg(String oldVal, String newVal){
