@@ -90,9 +90,9 @@ public class PhagebookSocket
                     
                     Map loginResult = new HashMap();
                     loginResult = (Map)clothoObject.login(loginMap);
-                    
+                    System.out.println("LOGIN RESULT "  + loginResult.toString());
                     Person person = ClothoAdapter.getPerson(loginResult.get("id").toString(), clothoObject);
-                  
+                    
                     person.getStatuses().add(new Status(createStatusMap.get("status").toString(),person));
                     ClothoAdapter.setPerson(person, clothoObject);
    
@@ -145,6 +145,7 @@ public class PhagebookSocket
                     result.put("data", "Status created successfully.");
 
                     break;
+                    //sit with Johan, make sure these functions work
                 }
                 default:
                     result.put("data", "Error...");
