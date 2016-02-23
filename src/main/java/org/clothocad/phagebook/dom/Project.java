@@ -47,58 +47,7 @@ public class Project {
        this.grantId        = "Not Set";
        this.description    = "Not Set";
        this.id             = "Not Set";
-   }
-   
-   public Project(String creator, String name, Organization lab, String description){
-       System.out.println("start of constructor");
-       this.dateCreated = new Date();
-       this.creatorId = creator;
-       this.name = name;
-       this.description = description;
-       this.updates = new ArrayList<>();
-       this.notebooks = new ArrayList<>();
-       this.affiliatedLabs = new ArrayList<>();
-       this.members = new ArrayList<>();
-       //System.out.println("created a new project?? 1");
-       
-   }
-      public Project(String creator, String name, String description){
-       this.dateCreated = new Date();
-       this.creatorId = creator;
-       this.name = name;
-       this.description = description;
-       this.updates = new ArrayList<>();
-       this.notebooks = new ArrayList<>();
-       this.affiliatedLabs = new ArrayList<>();
-       this.members = new ArrayList<>();
-
-   }
-   
-   
-   public Project(String creator, String name, Organization lab, 
-        String lead, Double projectBudget, String projectGrant, String description){
-       this.creatorId = creator;
-       this.dateCreated = new Date();
-       this.name = name;
-       this.budget = projectBudget;
-       this.description = description;
-       this.updates = new ArrayList<>();
-       this.grantId = projectGrant;
-       this.leadId = lead;
-       this.notebooks = new ArrayList<>();
-       this.affiliatedLabs = new ArrayList<>();
-       this.members = new ArrayList<>();
-       //Create new lab notebook for creator?
-       
-
-       System.out.println("created a new project??");
-       Notebook creatorNotebook = new Notebook(creator, this.getId(), dateCreated);
-       this.affiliatedLabs.add(lab.getId());
-       this.members.add(creator);            
-        //Create new lab notebook for creator?
-       notebooks.add(creatorNotebook.getId());
-   }
-      
+   }   
    
    private void addMember(Person newMember){
        boolean exists = false;

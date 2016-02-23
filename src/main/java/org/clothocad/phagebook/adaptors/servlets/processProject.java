@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
@@ -201,10 +203,9 @@ public class processProject extends HttpServlet {
       // for now assume there is only one organization/lab
       // TODO: add options for a bunch of labs
       Organization lab = new Organization(labs);
+      List<String> labsList = new ArrayList<String>();
+      labsList.add(lab.getName());
 
-      // create a lead object using the name from the form
-      // set the lead's name to name from the form
-      
       // TODO: Add form checking for lead and 
       // ajax support for getting lead names and displaying the
       // options.
@@ -220,8 +221,17 @@ public class processProject extends HttpServlet {
       String leadPersonID = ClothoAdapter.createPerson(leadPerson, clothoObject);
       leadPerson.setId(leadPersonID);
       System.out.println("(235) About to create the project");
-      Project project = new Project(creatorID, name, lab, leadPersonID, projectBudget,
-            grantID, description);
+      //Project project = new Project(, , lab, , projectBudget,
+       //     , );
+      
+        Project project = new Project();
+        project.setName(name);
+        project.setBudget(projectBudget);
+        project.setLeadId(leadPersonID);
+        project.setCreatorId(creatorID);
+        project.setGrantId(grantID);
+        project.setAffiliatedLabs(labsList);
+        project.setDescription(description);
 
       String projectID = ClothoAdapter.createProject(project, clothoObject);   
 

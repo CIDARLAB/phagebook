@@ -1100,7 +1100,8 @@ public class ClothoAdapter {
         project.setId(id);
         makePublic(id, clothoObject);
         
-        
+        System.out.println("In CREate Project clotho id is");
+        System.out.println(id);
         return id;
     }
      /**

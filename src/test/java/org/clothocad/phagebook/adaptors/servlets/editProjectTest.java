@@ -141,14 +141,23 @@ public class editProjectTest {
         grant.setId(grantID);
         String des = "This is a super cool Project!";
         
-        Project project = new Project(person1ID, projectName, cidar, person2ID, projectBudget,
-            grantID, des);
+        // Project should be created like this from now on:
+        Project project = new Project();
+        project.setName(projectName);
+        project.setBudget(projectBudget);
+        project.setLeadId(person3ID);
+        project.setCreatorId(person1ID);
+        project.setGrantId(grantID);
+        project.setDescription(des);
+        
         System.out.println("Project ID is!!");
         System.out.println(project.getId());
         // hacky -- set random ID so that the project got created in clotho
-        project.setId("random");
-        String projectID = ClothoAdapter.createProject(project, clothoObject);   
+        //project.setId("random");
+        String projectID = ClothoAdapter.createProject(project, clothoObject);
+        // does not create a project ?
         
+        project.setId(projectID);
         System.out.println("Project has been made.");
         System.out.println(project);
         System.out.println(projectID);
@@ -267,11 +276,10 @@ public class editProjectTest {
       System.out.println("In editProject test project is: ");
       System.out.println(project);
       // This block configure the logger with handler and formatter  
-      fh = new FileHandler("C:/temp/test/MyLogFile.log");  
+      fh = new FileHandler("/Users/anna_g/Projects/logs/test.log");  
       logger.addHandler(fh);
       SimpleFormatter formatter = new SimpleFormatter();  
       fh.setFormatter(formatter);  
-
       // HashMap <String, Object> projectHM = project.getHashMap();
       logger.log(Level.INFO, "Processing request for editing the project");
 
