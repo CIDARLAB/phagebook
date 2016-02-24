@@ -26,6 +26,7 @@ import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.controller.OrderController;
+import org.clothocad.phagebook.dom.CartItem;
 import org.clothocad.phagebook.dom.Order;
 import org.clothocad.phagebook.dom.Product;
 import org.json.JSONArray;
@@ -70,12 +71,12 @@ public class newOrder extends HttpServlet {
         clothoObject.login(loginMap);
         ///
         
-        Map<Product, Integer> products = new HashMap<>() ;
+        Map<String, Integer> products = new HashMap<>() ;
         Iterator<String> it = orderIdsObject.keys();
         while (it.hasNext()) 
         {
             String key = it.next();
-            Product productOrder = ClothoAdapter.getProduct(key, clothoObject);
+            CartItem productOrder = ClothoAdapter.getCartItem(key, clothoObject);
             System.out.println(key.toString());
             try 
             { 
@@ -83,7 +84,7 @@ public class newOrder extends HttpServlet {
                 int quantity = Integer.parseInt((String) orderIdsObject.get(key));
                 
                 System.out.println(quantity);
-                products.put(productOrder, quantity);
+                products.put(productOrder.getId(), quantity);
                 
             } catch (JSONException e)
             {

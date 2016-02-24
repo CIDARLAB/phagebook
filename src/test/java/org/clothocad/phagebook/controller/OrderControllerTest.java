@@ -9,7 +9,7 @@ import java.util.List;
 import static org.clothocad.phagebook.controller.Args.getResourcesFilepath;
 import static org.clothocad.phagebook.controller.OrderController.getCompanies;
 import static org.clothocad.phagebook.controller.OrderController.getProducts;
-import org.clothocad.phagebook.dom.Company;
+import org.clothocad.phagebook.dom.Vendor;
 import org.clothocad.phagebook.dom.Order;
 import org.clothocad.phagebook.dom.Product;
 import org.junit.After;
@@ -54,7 +54,7 @@ public class OrderControllerTest {
     
     //@Test
     public void testGetCompanies(){
-        List<Company> companies = getCompanies(getResourcesFilepath()+"orderingTemplates/companyTemplate.csv");
+        List<Vendor> companies = getCompanies(getResourcesFilepath()+"orderingTemplates/companyTemplate.csv");
         assertEquals(1,companies.size());
         assertEquals("Amazon",companies.get(0).getName());
     }
@@ -94,8 +94,8 @@ public class OrderControllerTest {
     public void testGetCompanies_String() {
         System.out.println("getCompanies");
         String filename = "";
-        List<Company> expResult = null;
-        List<Company> result = OrderController.getCompanies(filename);
+        List<Vendor> expResult = null;
+        List<Vendor> result = OrderController.getCompanies(filename);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -108,8 +108,8 @@ public class OrderControllerTest {
     public void testGetCompanies_List() {
         System.out.println("getCompanies");
         List<String> csvLines = null;
-        List<Company> expResult = null;
-        List<Company> result = OrderController.getCompanies(csvLines);
+        List<Vendor> expResult = null;
+        List<Vendor> result = OrderController.getCompanies(csvLines);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

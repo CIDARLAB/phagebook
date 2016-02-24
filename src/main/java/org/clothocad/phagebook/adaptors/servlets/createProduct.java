@@ -17,7 +17,7 @@ import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
-import org.clothocad.phagebook.dom.Company;
+import org.clothocad.phagebook.dom.Vendor;
 import org.clothocad.phagebook.dom.GoodType;
 import org.clothocad.phagebook.dom.Product;
 import org.json.JSONObject;
@@ -90,7 +90,7 @@ public class createProduct extends HttpServlet {
        
        clothoObject.login(loginMap);
         String productUrl = request.getParameter("productUrl") ;
-        String companyId = request.getParameter("company");  
+        String companyName = request.getParameter("company");  
         String goodType = request.getParameter("goodType");
         double cost;  
         int quantity;
@@ -111,17 +111,26 @@ public class createProduct extends HttpServlet {
                 
         String name = request.getParameter("name");
         String description = request.getParameter("description");
-        Company comp = new Company();
+        Vendor comp = new Vendor();
         boolean isValidRequest = false;
-        if((!name.isEmpty() && (cost != 0) && (quantity != 0) && !companyId.isEmpty())){
+        if((!name.isEmpty() && (cost != 0) && (quantity != 0) && !companyName.isEmpty())){
+            Map queryMap   = new HashMap();
+            queryMap.put("name", companyName);
+            
             isValidRequest = true;
-            comp = ClothoAdapter.getCompany(companyId, clothoObject);
+            
+            //company names are unique
+            //first one should be 0
+            
+            comp = ClothoAdapter.queryVendor(queryMap, clothoObject).get(0);
             if (comp.getName().equals("Not Set")){
                 isValidRequest = false;
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                response.setContentType("text/plain");
+                response.setContentType("application/json");
                 PrintWriter out = response.getWriter();
-                out.print("No Company with that ID exists");
+                JSONObject responseJSON = new JSONObject();
+                responseJSON.put("message", "No Company with that ID exists");
+                out.print(responseJSON.toString());
                 out.flush();
                 out.close();
                 clothoObject.logout();
@@ -133,8 +142,8 @@ public class createProduct extends HttpServlet {
             Product prod = new Product();
             prod.setName(name);
             prod.setCost(cost);
-            prod.setQuantity(quantity);
-            prod.setCompany(comp);
+            prod.setInventory(quantity);
+            prod.setCompanyId(comp.getId());
             prod.setDescription( (description != null) ? description : "Not Set");
             prod.setProductURL( (productUrl != null) ? productUrl: "Not Set");
             prod.setGoodType( GoodType.valueOf( (goodType != null) ? goodType : "INSTRUMENT"));

@@ -18,7 +18,7 @@ import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
-import org.clothocad.phagebook.dom.Company;
+import org.clothocad.phagebook.dom.Vendor;
 import org.clothocad.phagebook.dom.Product;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -81,10 +81,10 @@ public class queryProductByCompanyTest {
         Map query = new HashMap();
         query.put("name", "Amazon");
             
-        List<Company> queryCompanyResults = ClothoAdapter.queryCompany(query, clothoObject);
-        //To get Company Name and ID to query for products with that company...
+        List<Vendor> queryCompanyResults = ClothoAdapter.queryVendor(query, clothoObject);
+        //To get Vendor Name and ID to query for products with that company...
         List<String> companyIDs = new LinkedList<>();
-        for (Company company : queryCompanyResults ){
+        for (Vendor company : queryCompanyResults ){
             companyIDs.add(company.getId());
         }
         System.out.println(companyIDs.toString());
@@ -101,10 +101,10 @@ public class queryProductByCompanyTest {
                 productAsJson.put("cost", product.getCost());
                 productAsJson.put("productURL", (product.getProductURL() != null) ? product.getProductURL() : "");
                 productAsJson.put("goodType", (product.getGoodType() != null) ? product.getGoodType() : "");
-                productAsJson.put("quantity", product.getQuantity());
+                productAsJson.put("inventory", product.getInventory());
                 productAsJson.put("name", product.getName());
                 productAsJson.put("description", product.getDescription());
-                productAsJson.put("company", product.getCompany().getName());
+                productAsJson.put("vendor", ClothoAdapter.getVendor(product.getCompanyId(), clothoObject));
 
                 results.add(productAsJson);
             }

@@ -48,6 +48,18 @@
         <servlet-name>createProduct</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.createProduct</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>createVendor</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.createVendor</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>queryPossibleProductByCompany</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.queryPossibleProductByCompany</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>queryPossibleProductByName</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.queryPossibleProductByName</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>inputProduct</servlet-name>
         <url-pattern>/inputProduct</url-pattern>
@@ -143,5 +155,17 @@
     <servlet-mapping>
         <servlet-name>createProduct</servlet-name>
         <url-pattern>/createProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>createVendor</servlet-name>
+        <url-pattern>/createVendor</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>queryPossibleProductByCompany</servlet-name>
+        <url-pattern>/queryPossibleProductByCompany</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>queryPossibleProductByName</servlet-name>
+        <url-pattern>/queryPossibleProductByName</url-pattern>
     </servlet-mapping>
 </web-app>

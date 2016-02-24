@@ -19,6 +19,7 @@ import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.model.Person;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
+import org.clothocad.phagebook.dom.Grant;
 import org.clothocad.phagebook.dom.Project;
 import org.json.JSONObject;
 /**
@@ -45,7 +46,8 @@ public class getProject extends HttpServlet {
         projectObject.put("projectName", proj.getName());
         projectObject.put("notebooks", proj.getNotebooks());
         projectObject.put("updates", proj.getUpdates());
-        projectObject.put("grant", proj.getGrant());
+        Grant gran = ClothoAdapter.getGrant(proj.getGrantId(), clothoObject);
+        projectObject.put("grant", gran.getId());
 
         if(proj.getDateCreated() != null){
             String delims = "[ ]+";
@@ -56,13 +58,15 @@ public class getProject extends HttpServlet {
         
         if(proj.getMembers() != null){
         }
-        if(proj.getCreator() != null){
-            Person creator = proj.getCreator();
+        if(proj.getCreatorId() != null){
+            
+            Person creator = ClothoAdapter.getPerson(proj.getCreatorId(), clothoObject);
             projectObject.put("creator", creator.getFirstName()+" " +creator.getLastName());
         }
         projectObject.put("members", proj.getMembers());
-        if(proj.getLead() != null){
-            Person lead = proj.getLead();
+        
+        if(proj.getLeadId() != null){
+            Person lead = ClothoAdapter.getPerson(proj.getLeadId(), clothoObject);
             if(lead.getFirstName() != null && lead.getLastName() != null){
                 projectObject.put("lead", lead.getFirstName()+lead.getLastName());
             }
