@@ -5,17 +5,26 @@
  */
 package org.clothocad.phagebook.dom;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  *
  * @author KatieLewis
  */
 public class Institution extends Organization {
    
+    @Getter @Setter InstitutionType type;
+    
     public Institution(String name){
        super(name);
     }
     
     public Institution(){
         super();
+        this.type = InstitutionType.University;
+    }
+    public static enum InstitutionType {
+        University, Corporation, Independent
     }
 }

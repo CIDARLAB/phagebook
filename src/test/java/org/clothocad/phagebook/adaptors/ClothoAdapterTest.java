@@ -28,6 +28,7 @@ import org.clothocad.phagebook.dom.Grant;
 import org.clothocad.phagebook.dom.Institution;
 import org.clothocad.phagebook.dom.Instrument;
 import org.clothocad.phagebook.dom.Inventory;
+import org.clothocad.phagebook.dom.Lab;
 import org.clothocad.phagebook.dom.Notebook;
 import org.clothocad.phagebook.dom.Order;
 import org.clothocad.phagebook.dom.Organization;
@@ -344,6 +345,30 @@ public class ClothoAdapterTest {
         
     }
     @Test
+    public void testCreateLab(){
+        System.out.println("-----CREATE LAB TEST-----");
+      
+        Lab testLab = new Lab();
+        String idI = "";
+        testLab.setId(idI);
+        
+        String idI2 = ClothoAdapter.createInstiution(testLab, clothoObject);
+        assertEquals(idI2, testLab.getId());
+        if(idI.equals(testLab.getId())){
+            fail();
+        }
+        
+        testLab.setName("Lab creation test");
+        
+        String idI3 = ClothoAdapter.createInstiution(testLab, clothoObject);
+        assertEquals(idI3, testLab.getId());
+        if (idI.equals(testLab.getId())){
+            fail();
+        }
+      
+        System.out.println("----------");
+    }
+    @Test
     public void testCreateNotebook(){
         System.out.println("-----CREATE NOTEBOOK TEST-----");
        
@@ -595,7 +620,6 @@ public class ClothoAdapterTest {
         }
         System.out.println("----------");
     }
-   
     //make and receive back exactly what you made
     @Test
     public void testGetVendor()
@@ -827,6 +851,8 @@ public class ClothoAdapterTest {
         institution1.setDescription(description);
         institution1.setPhone(phone);
         institution1.setUrl(url);
+        institution1.setType(Institution.InstitutionType.Corporation);
+        
         
         String insitutionId = ClothoAdapter.createInstiution(institution1, clothoObject);
         if(institution1.getId().equals("Not Set")){
@@ -840,6 +866,8 @@ public class ClothoAdapterTest {
         assertEquals(institution1.getPhone(), institution2.getPhone());
         assertEquals(institution1.getUrl(), institution2.getUrl());
         assertEquals(institution1.getId(), institution2.getId());
+        assertEquals(institution1.getType().toString(), institution2.getType().toString());
+        
                 
         System.out.println("----------");
         
@@ -885,6 +913,41 @@ public class ClothoAdapterTest {
         }
         
         System.out.println("----------");
+    }
+    @Test
+    public void testGetLab(){
+        System.out.println("-----GET LAB TEST-----");
+        //INSTITUTION FIELDS
+            String name        = "Clotho Test Name";
+            String description = "Clotho Test Description";
+            String phone       = "Clotho Test Phone";
+            String url         = "Clotho Test Url";
+        //
+        Lab lab1 = new Lab();
+        lab1.setName(name);
+        lab1.setDescription(description);
+        lab1.setPhone(phone);
+        lab1.setUrl(url);
+        lab1.setType(Institution.InstitutionType.Corporation);
+        
+        
+        String labId = ClothoAdapter.createInstiution(lab1, clothoObject);
+        if(lab1.getId().equals("Not Set")){
+            fail();
+        }
+        
+        Lab lab2 = ClothoAdapter.getLab(labId, clothoObject);
+        
+        assertEquals(lab1.getName(), lab2.getName());
+        assertEquals(lab1.getDescription(), lab2.getDescription());
+        assertEquals(lab1.getPhone(), lab2.getPhone());
+        assertEquals(lab1.getUrl(), lab2.getUrl());
+        assertEquals(lab1.getId(), lab2.getId());
+        assertEquals(lab1.getType().toString(), lab2.getType().toString());
+        
+                
+        System.out.println("----------");
+        
     }
     @Test
     public void testGetNotebook(){
@@ -1135,7 +1198,7 @@ public class ClothoAdapterTest {
         person1.setProjects(projects);
         person1.setPublications(publications);
         person1.setRoles(roles);
-        person1.setOrders(orders);
+        person1.setCreatedOrders(orders);
         
         
         String personId = ClothoAdapter.createPerson(person1, clothoObject);
@@ -1183,9 +1246,9 @@ public class ClothoAdapterTest {
         if (!person1.getRoles().equals(person2.getRoles())){
             fail("Person Roles are not equal");
         }
-        assertEquals(person1.getOrders().size(), person2.getOrders().size());
-        for (int i = 0; i < person1.getOrders().size(); i++){
-            assertEquals(person1.getOrders().get(i), person2.getOrders().get(i));
+        assertEquals(person1.getCreatedOrders().size(), person2.getCreatedOrders().size());
+        for (int i = 0; i < person1.getCreatedOrders().size(); i++){
+            assertEquals(person1.getCreatedOrders().get(i), person2.getCreatedOrders().get(i));
         }
         System.out.println("----------");
     }
