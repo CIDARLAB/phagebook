@@ -1,0 +1,22 @@
+body {
+    font-family: "Open Sans";
+    font-style: normal;
+    color: white;
+}
+
+
+.navbar {
+    -webkit-box-shadow: 0 8px 6px -6px #999;
+    -moz-box-shadow: 0 8px 6px -6px #999;
+    box-shadow: 0 8px 6px -6px #999;
+    background-color: #1E714A;
+    height: 90px;
+    float: none;
+}
+
+.navbar-brand {
+    vertical-align: middle;
+    text-align: center;
+    margin-left: 50px !important;
+    margin-top: 18px;
+}

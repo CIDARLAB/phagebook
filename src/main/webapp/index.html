@@ -1,16 +1,62 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+
 <html>
+    
     <head>
-        <title>TODO supply a title</title>
+        <title>Phagebook</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles/cssBootstrap/bootstrap.css"/>
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans">
+        <link rel="stylesheet" href="styles/main.css"/>
+        <script src="scripts/clotho/clotho3API.js"></script>
     </head>
+    
     <body>
-        <div>TODO write content</div>
+        <nav class="navbar navbar-static-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class= "navbar-brand" href="." title="Go to Phagebook Home">
+                        <img alt="Phagebook Logo" src="styles/img/icons/phagebook-logo-white.svg"> 
+                    </a>
+                </div>
+                <form class="form-inline">
+                    <table cellspacing="0" role="presentation">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <label for="email-address">EMAIL ADDRESS</label>
+                                </td>
+                                <td colspan="2">
+                                    <label for="password">PASSWORD</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="form-group">
+                                    <input type="text" class="form-control" id="email-address">
+                                </td>
+                                <td class="form-group">
+                                    <input type="email" class="form-control" id="password">
+                                </td>
+                                <td>
+                                    <button type="submit" class="btn btn-default">Log In</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="checkbox">
+                                    <label>
+                                        <input type="checkbox"> Remember Me
+                                    </label>
+                                </td>
+                                <td>
+                                    <a href="#">Forgot your password?</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>    
+            </div>
+        </nav>
     </body>
+    
 </html>
