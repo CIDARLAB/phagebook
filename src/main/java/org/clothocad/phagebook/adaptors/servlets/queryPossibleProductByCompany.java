@@ -17,19 +17,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-import net.sf.json.JSONSerializer;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Product;
-
+import org.clothocad.phagebook.dom.Vendor;
 
 /**
  *
  * @author Herb
  */
-public class queryProductByName extends HttpServlet {
+public class queryPossibleProductByCompany extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,8 +41,7 @@ public class queryProductByName extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-       
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -55,15 +53,14 @@ public class queryProductByName extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
+     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
-        String productName = ""; 
-        productName = request.getParameter("Name");
+        String companyName = ""; 
+        companyName = request.getParameter("Name");
         boolean isValidRequest = false;
-        if (productName != "" && productName != null){
+        if (companyName != "" && companyName != null){
             isValidRequest = true;
         }
         
@@ -80,30 +77,43 @@ public class queryProductByName extends HttpServlet {
             loginMap.put("credentials", "phagebook");
             clothoObject.login(loginMap);
 
-            //Query for the products
+            //Query for the company
             
             Map query = new HashMap();
-            query.put("schema", Product.class.getCanonicalName());
-            query.put("name", productName);
             
-            List<Product> queryProductResults = new LinkedList<>();
-            queryProductResults = ClothoAdapter.queryProduct(query, clothoObject);//NOT USING THIS BECAUSE WE WANT A JSON ARRAY BACK
-            //To get Vendor Name...
-            JSONArray results = new JSONArray();
-            for (Product product : queryProductResults){
-                JSONObject productAsJson = new JSONObject();
-                productAsJson.put("clothoID", product.getId());
-                productAsJson.put("cost", product.getCost());
-                productAsJson.put("productURL", (product.getProductURL() != null) ? product.getProductURL() : "");
-                productAsJson.put("goodType", product.getGoodType());
-                productAsJson.put("inventory", product.getInventory());
-                productAsJson.put("name", product.getName());
-                productAsJson.put("description", product.getDescription());
-                productAsJson.put("vendor", ClothoAdapter.getVendor(product.getCompanyId(), clothoObject));
-                
-                results.add(productAsJson);
+            query.put("name", companyName);
+            
+            List<Vendor> queryCompanyResults = new LinkedList<>();
+            queryCompanyResults = ClothoAdapter.queryVendor(query, clothoObject);
+            //To get Vendor Name and ID to query for products with that company...
+            List<String> companyIDs = new LinkedList<>();
+            for (Vendor company : queryCompanyResults ){
+                companyIDs.add(company.getId());
             }
             
+            
+            
+            JSONArray results = new JSONArray();
+            for (String companyID : companyIDs)
+            {
+                Map queryForClotho = new HashMap();
+                queryForClotho.put("company", companyID);
+                List<Product> queryProductResults = ClothoAdapter.queryProduct(queryForClotho, clothoObject);
+            
+                for (Product product : queryProductResults){
+                    JSONObject productAsJson = new JSONObject();
+                    productAsJson.put("cost", product.getCost());
+                    productAsJson.put("clothoID", product.getId());
+                    productAsJson.put("productURL", (product.getProductURL() != null) ? product.getProductURL() : "");
+                    productAsJson.put("goodType", (product.getGoodType() != null) ? product.getGoodType() : "");
+                    productAsJson.put("inventory", product.getInventory());
+                    productAsJson.put("name", product.getName());
+                    productAsJson.put("description", product.getDescription());
+                    productAsJson.put("vendor", ClothoAdapter.getVendor(product.getCompanyId(),clothoObject).getName());
+
+                    results.add(productAsJson);
+                }
+            }
             
             
             if (!results.isEmpty()){

@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import net.sf.json.JSONArray;
 import org.clothoapi.clotho3javaapi.Clotho;
+import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.phagebook.dom.Vendor;
 import org.clothocad.phagebook.dom.Container;
 import org.clothocad.phagebook.dom.Entry;
@@ -32,7 +33,9 @@ import org.clothocad.phagebook.dom.Order;
 import org.clothocad.phagebook.dom.Organization;
 import org.clothocad.model.Person;
 import org.clothocad.model.Person.PersonRole;
+import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.CartItem;
+import org.clothocad.phagebook.dom.Lab;
 import org.clothocad.phagebook.dom.OrderStatus;
 import org.clothocad.phagebook.dom.Product;
 import org.clothocad.phagebook.dom.Project;
@@ -46,6 +49,13 @@ import org.json.JSONObject;
  * @author Johan Ospina
  */
 public class ClothoAdapter {
+    // <editor-fold defaultstate="collapsed" desc="Members">
+    public static ClothoConnection conn;
+    public static Clotho clothoObject;
+    private static String username;
+    private static String password;
+    
+    // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Create Methods">
      
     
@@ -395,6 +405,9 @@ public class ClothoAdapter {
                 map.put("id", institution.getId());
             }
         }
+        if (institution.getType() != null){
+            map.put("type", institution.getType().toString());
+        }
         
         String id = (String) clothoObject.set(map);
         institution.setId(id);
@@ -489,6 +502,58 @@ public class ClothoAdapter {
         inventory.setId(id);
         
         return id;
+    }
+    /**
+     * This method is to create a Lab object in Clotho but It can also be used a SET method if the object that 
+     * gets passed in has a valid Clotho ID
+     * @param lab object to create
+     * @param clothoObject Instance of Clotho being used
+     * @return ID value of the object in the Clotho Database
+     */
+    public static String createLab(Lab lab, Clotho clothoObject)
+    {
+        Map map = new HashMap();
+
+        map.put("schema", Lab.class.getCanonicalName());
+        
+        if ( lab.getName() != null){
+              
+            if (!lab.getName().isEmpty() && !lab.getName().equals("Not Set")){
+                map.put("name", lab.getName());
+            }
+        
+        }
+        if (lab.getDescription() != null){
+            if (!lab.getDescription().isEmpty() && !lab.getDescription().equals("Not Set")) {
+            map.put("description", lab.getDescription());
+            }
+        }
+        
+        if (lab.getPhone() != null){
+            if (!lab.getPhone().isEmpty() && !lab.getPhone().equals("Not Set")){
+                map.put("phone", lab.getPhone());
+            }
+        }
+        
+        if (lab.getUrl() != null) {
+            if (!lab.getUrl().isEmpty() && !lab.getUrl().equals("Not Set"))
+            map.put("url", lab.getUrl());
+        }
+        
+        if (lab.getId() != null){
+            if (!lab.getId().isEmpty() && !lab.getId().equals("Not Set")){
+                map.put("id", lab.getId());
+            }
+        }
+        if (lab.getType() != null){
+            map.put("type", lab.getType().toString());
+        }
+        
+        String id = (String) clothoObject.set(map);
+        lab.setId(id);
+        makePublic(id, clothoObject);
+        return id;
+        
     }
     /**
      * This method is to create a Notebook object in Clotho but It can also be used a SET method if the object that 
@@ -815,12 +880,12 @@ public class ClothoAdapter {
             }
         }
         
-        if (person.getOrders() != null)
+        if (person.getCreatedOrders() != null)
         {
-            if (!person.getOrders().isEmpty())
+            if (!person.getCreatedOrders().isEmpty())
             {
                 JSONArray orders = new JSONArray();
-                for (String order : person.getOrders())
+                for (String order : person.getCreatedOrders())
                 {
                     if (order!= null)
                     {
@@ -1412,6 +1477,18 @@ public class ClothoAdapter {
         return inventory;
     }
     /**
+     * This gets an Institution object from Clotho if it receives a valid ID, will give default values to properties that were not found.
+     * @param id Clotho ID
+     * @param clothoObject Instance of Clotho being used
+     * @return instance of object.
+     */
+    public static Lab     getLab(String id, Clotho clothoObject)
+    {
+        Map labMap = (Map) clothoObject.get(id);
+        Lab lab = mapToLab(labMap, clothoObject);
+        return lab;
+    }
+    /**
      * This gets a Notebook object from Clotho if it receives a valid ID, will give default values to properties that were not found.
      * @param id Clotho ID
      * @param clothoObject Instance of Clotho being used
@@ -1436,7 +1513,8 @@ public class ClothoAdapter {
         return order;
     }
     /**
-     * This gets a Person object from Clotho if it receives a valid ID, will give default values to properties that were not found.
+     * This gets a Person object from Clotho if it receives a valid ID, will give default values to properties that were not found. Ergo, if 
+     * it doesn't exist check for an email ID of "". (e.g) emailId.isEmpty();
      * @param id Clotho ID
      * @param clothoObject Instance of Clotho being used
      * @return instance of object.
@@ -2112,10 +2190,16 @@ public class ClothoAdapter {
         String url = "";
         if (map.containsKey("url")) {url = (String) map.get("url");}
         
+        Institution.InstitutionType type = Institution.InstitutionType.Independent;
+        if (map.containsKey("type")) { type = Institution.InstitutionType.valueOf((String) map.get("type")); }
+        
+        
         Institution institution = new Institution(name);
         institution.setPhone(phone);
         institution.setUrl(url);
         institution.setDescription(description);
+        institution.setType(type);
+        
         String id = "";
         if (map.containsKey("id")){
              id = (String) map.get("id");
@@ -2185,6 +2269,45 @@ public class ClothoAdapter {
         inventory.setId(id);
         return inventory;
         
+        
+    }
+    private static Lab           mapToLab(Map map, Clotho clothoObject){
+        
+        String name = "";
+        if (map.containsKey("name")){   
+            name =  (String) map.get("name");
+        }
+        String description = ""; 
+        if (map.containsKey("description")) { description = (String) map.get("description"); }
+        
+        
+        String phone = "";
+        if (map.containsKey("phone")) { phone = (String) map.get("phone"); }
+        
+        
+        String url = "";
+        if (map.containsKey("url")) {url = (String) map.get("url");}
+        
+        Institution.InstitutionType type = Institution.InstitutionType.Independent;
+        if (map.containsKey("type")) { type = Institution.InstitutionType.valueOf((String) map.get("type")); }
+        
+        
+        Lab lab = new Lab(name);
+        lab.setPhone(phone);
+        lab.setUrl(url);
+        lab.setDescription(description);
+        lab.setType(type);
+        
+        String id = "";
+        if (map.containsKey("id")){
+             id = (String) map.get("id");
+        }
+        lab.setId(id);
+        
+        
+        
+        
+        return lab;
         
     }
     private static Notebook      mapToNotebook(Map map, Clotho clothoObject)
@@ -2455,7 +2578,7 @@ public class ClothoAdapter {
         person.setNotebooks(notebooks);
         person.setLabs(labs);
         person.setColleagues(colleagues);
-        person.setOrders(orders);
+        person.setCreatedOrders(orders);
         person.setPublications(publications);
         
         
@@ -3036,12 +3159,12 @@ public class ClothoAdapter {
             }
         }
         
-        if (person.getOrders() != null)
+        if (person.getCreatedOrders() != null)
         {
-            if (!person.getOrders().isEmpty())
+            if (!person.getCreatedOrders().isEmpty())
             {
                 JSONArray orders = new JSONArray();
-                for (String order : person.getOrders())
+                for (String order : person.getCreatedOrders())
                 {
                     if (order != null)
                     {
@@ -3154,6 +3277,39 @@ public class ClothoAdapter {
         grantMap.put("remove", remove);
         
         Map grantResult = (Map)(clothoObject.grant(grantMap));
+    }
+    
+    public static void clothoCreate(String username, String password)
+    {       
+       Map createUserMap = new HashMap();  
+       createUserMap.put("username", username);
+       createUserMap.put("password", password);
+       
+       ClothoAdapter.clothoObject.createUser(createUserMap);
+    }
+    
+    public static void clothoLogin(String username, String password)
+    {
+       Map loginMap = new HashMap();
+       loginMap.put("username", username);
+       loginMap.put("credentials", password);  
+       
+       ClothoAdapter.clothoObject.login(loginMap);
+       
+    }
+    
+    public static void setUpRandomUser(){
+       ClothoAdapter.conn = new ClothoConnection(Args.clothoLocation);
+       ClothoAdapter.clothoObject = new Clotho(conn);
+       
+       ClothoAdapter.username = randomUsername();
+       ClothoAdapter.password = "password";
+       clothoCreate(ClothoAdapter.username, ClothoAdapter.password);
+       clothoLogin(ClothoAdapter.username, ClothoAdapter.password);
+    }
+    
+    public static String randomUsername(){
+        return "test"+ System.currentTimeMillis();
     }
     //  </editor-fold>
 

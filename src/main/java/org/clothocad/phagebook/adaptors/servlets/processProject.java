@@ -216,6 +216,7 @@ public class processProject extends HttpServlet {
       leadPerson.setFirstName(leadStringFirstName);
       leadPerson.setLastName(leadStringLastName);
       System.out.println("(232) Lead " + leadPerson);
+
       
       // TODO: Check whether lead exists in the DB.
       String leadPersonID = ClothoAdapter.createPerson(leadPerson, clothoObject);

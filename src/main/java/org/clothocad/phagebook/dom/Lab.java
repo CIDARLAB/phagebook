@@ -7,12 +7,15 @@ package org.clothocad.phagebook.dom;
 
 /**
  *
- * @author innaturshudzhyan
+ * @author Herb
  */
-public enum OrderStatus {
-    INPROGRESS,
-    APPROVED,
-    SUBMITTED,
-    DENIED,
-    RECEIVED
+public class Lab extends Institution {
+    
+    public Lab(String name){
+       super(name);
+    }
+    
+    public Lab(){
+        super();
+    }
 }

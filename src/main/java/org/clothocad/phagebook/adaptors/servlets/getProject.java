@@ -64,9 +64,15 @@ public class getProject extends HttpServlet {
             projectObject.put("creator", creator.getFirstName()+" " +creator.getLastName());
         }
         projectObject.put("members", proj.getMembers());
+<<<<<<< HEAD
         if(proj.getLeadId() != null){
             String leadId = proj.getLeadId();
             Person lead = ClothoAdapter.getPerson(leadId, clothoObject);
+=======
+        
+        if(proj.getLeadId() != null){
+            Person lead = ClothoAdapter.getPerson(proj.getLeadId(), clothoObject);
+>>>>>>> 7706ad6eaa761e0168212ca012e8ddef8eb15530
             if(lead.getFirstName() != null && lead.getLastName() != null){
                 projectObject.put("lead", lead.getFirstName()+lead.getLastName());
             }
