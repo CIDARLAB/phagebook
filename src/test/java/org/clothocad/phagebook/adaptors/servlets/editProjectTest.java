@@ -16,10 +16,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 import static junit.framework.Assert.assertEquals;
+import lombok.Getter;
+import lombok.Setter;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.model.Person;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
+import org.clothocad.phagebook.adaptors.sendEmails;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Grant;
 import org.clothocad.phagebook.dom.Organization;
@@ -101,7 +104,7 @@ public class editProjectTest {
         person2.setFirstName("Person");
         person2.setLastName("Member");
         person2.setId(idP2);
-        person2.setEmailId("Member" + time + "@gmail.com");
+        person2.setEmailId("anna@goncharova.com");
         person2.setPassword("person2");
         
         String person2ID = ClothoAdapter.createPerson(person2, clothoObject);
@@ -114,7 +117,7 @@ public class editProjectTest {
         person3.setFirstName("Person");
         person3.setLastName("Lead");
         person3.setId(idP3);
-        person3.setEmailId("Lead" + time + "@gmail.com");
+        person3.setEmailId("agonchar@bu.edu");
         person3.setPassword("person3");
         
         String person3ID = ClothoAdapter.createPerson(person3, clothoObject);
@@ -139,6 +142,8 @@ public class editProjectTest {
         grant.setId(grantID);
         String des = "This is a super cool Project!";
         
+        List<String> members = new ArrayList <String>();
+        members.add(person3ID);
         // Project should be created like this from now on:
         Project project = new Project();
         project.setName(projectName);
@@ -147,6 +152,7 @@ public class editProjectTest {
         project.setCreatorId(person1ID);
         project.setGrantId(grantID);
         project.setDescription(des);
+        project.setMembers(members);
         
         System.out.println("Project ID is!!");
         System.out.println(project.getId());
@@ -260,7 +266,6 @@ public class editProjectTest {
     }
     
     private void editProject(String request, HashMap params){
-      FileHandler fh;  
        
       // for testing purposes request is the Project ID
       // params is the hashmap of new values
@@ -303,9 +308,6 @@ public class editProjectTest {
           project.setName(value);
         }
         if(key.equals("leadId")){
-//          keyValue[2]= "leadId";
-//          keyValue[3]= project.getLeadId();
-//          logger.log(Level.INFO, "Old value, {0}: {1}, is changed to new value, {2}: {3}.",keyValue);
           helperMsg(project.getLeadId(), value);
           System.out.println("Can't edit lead yet, sorry!");
         }
@@ -315,13 +317,6 @@ public class editProjectTest {
           helperMsg(Double.toString(project.getBudget()), value);
           project.setBudget(Double.parseDouble(value));
         }
-//        if(key.equals("lab")){
-//          helperMsg(project.getAffiliatedLabs().get(0).toString(),value);
-//          Organization newLab = new Organization(value);
-//          List<Organization> newLabList = null;
-//          newLabList.add(newLab);
-//          project.setAffiliatedLabs(newLabList);
-//        }
         if(key.equals("projectGrant")){
           String oldGrantId = project.getGrantId();
           Grant newGrant = new Grant(value);
@@ -335,27 +330,48 @@ public class editProjectTest {
           helperMsg(project.getGrantId(),value);
           project.setGrantId(newGrantId);
         }
-        
-        
       }
       String foo = ClothoAdapter.setProject(project, clothoObject);
       System.out.println(foo);
-      
+      sendEmails(request);
     }
     
     public void helperMsg(String oldVal, String newVal){
       System.out.println("\nOld Value is: " + oldVal + "\nNew Value is: " + newVal);
 
     }
-    
     /*
     ** Looks at changes in the project and sends out emails to people in the object.
-    ** @params: Project
+    ** @params: Project Id String
     ** 
     */
-    private void sendEmails(Project project){
+    private void sendEmails(String projectId){
+      Project project = ClothoAdapter.getProject(projectId, clothoObject);
+
+      // get emails of the people attached to this project
+       
+      List<String> members = project.getMembers();
       
-      
+      Person creator = ClothoAdapter.getPerson(project.getCreatorId(), clothoObject);
+      Person lead = ClothoAdapter.getPerson(project.getLeadId(), clothoObject);
+      Map people = new HashMap();
+      people.put(creator.getEmailId(), creator.getFirstName() + ' ' + creator.getLastName());
+      people.put(creator.getEmailId(), lead.getFirstName() + ' ' + lead.getLastName());
+
+      for(int i = 0; i<members.size(); i++){
+        String personId = members.get(i);
+        System.out.println(personId);
+        Person member = ClothoAdapter.getPerson(personId, clothoObject);
+        String memberEmail = member.getEmailId();
+        String memberName = member.getFirstName() + ' ' + member.getLastName();
+        people.put(memberEmail, memberName);
+        
+      }
+      sendEmails.sendMessagesTo(people, "Changes!!");
+
+
+
+
       
     }
   

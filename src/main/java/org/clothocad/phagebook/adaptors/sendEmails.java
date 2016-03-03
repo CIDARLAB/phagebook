@@ -27,14 +27,14 @@ public class sendEmails {
 
   
   // fuck it lets make these public for now
-  final String SENDER_DOMAIN_NAME = "phagebook.email@gmail.com";
-  final String password = "Phagebook";
+  final static String SENDER_DOMAIN_NAME = "phagebook.email@gmail.com";
+  final static String password = "Phagebook";
   
  /**
  * Access this function first if you are sending a message. 
  * 
  */
-  public void sendMessagesTo(Map people, String text){
+  public static void sendMessagesTo(Map people, String text){
    logIn(people, text);
   }
   
@@ -44,7 +44,7 @@ public class sendEmails {
  * people in the input map of people.
  * 
  */
-  private void logIn(Map people, String text){
+  private static void logIn(Map people, String text){
     
     Properties props = new Properties();
     props.put("mail.smtp.host", "smtp.gmail.com");
@@ -83,10 +83,11 @@ public class sendEmails {
     }  
   }
 
-  public Message createMessage(String senderDomain, String pers, String email,
+  public static Message createMessage(String senderDomain, String pers, String email,
           Session session, String text) throws MessagingException{
     Message message = new MimeMessage(session);
     try{
+      System.out.println("About to send an email to " + email);
       message.setFrom(new InternetAddress(senderDomain));
       message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
       message.setSubject("Changes made to a project.");
