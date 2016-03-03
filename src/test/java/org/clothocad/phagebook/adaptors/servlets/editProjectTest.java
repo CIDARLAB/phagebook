@@ -36,8 +36,6 @@ import org.junit.Test;
  * @author anna_g
  */
 public class editProjectTest {
-    private static Logger logger = Logger.getLogger(editProjectTest.class.getName());
-
   
     public Clotho clothoObject;
     public ClothoConnection conn;
@@ -263,8 +261,6 @@ public class editProjectTest {
     
     private void editProject(String request, HashMap params){
       FileHandler fh;  
-
-      try {  
        
       // for testing purposes request is the Project ID
       // params is the hashmap of new values
@@ -275,13 +271,6 @@ public class editProjectTest {
       Project project = ClothoAdapter.getProject(request, clothoObject);
       System.out.println("In editProject test project is: ");
       System.out.println(project);
-      // This block configure the logger with handler and formatter  
-      fh = new FileHandler("/Users/anna_g/Projects/logs/test.log");  
-      logger.addHandler(fh);
-      SimpleFormatter formatter = new SimpleFormatter();  
-      fh.setFormatter(formatter);  
-      // HashMap <String, Object> projectHM = project.getHashMap();
-      logger.log(Level.INFO, "Processing request for editing the project");
 
       Iterator entries = params.entrySet().iterator();
       while (entries.hasNext()) {
@@ -298,21 +287,18 @@ public class editProjectTest {
         keyValue[0] = key; // type of new value (like "description")
         keyValue[1] = value; // the actual new value (like "This is a new desciption")
         if(key.equals("editorId")){
-          logger.log(Level.INFO, "Person Id {1} is editing the project", keyValue);
           Person editor = ClothoAdapter.getPerson(value, clothoObject);
           System.out.println();
         }
         if(key.equals("description")){
           keyValue[2]= "description";
           keyValue[3]= project.getDescription();
-          logger.log(Level.INFO, "Old value, {0}: {1}, is changed to new value, {2}: {3}.",keyValue);
           helperMsg(project.getDescription(), value);
           project.setDescription(value);
         }
         if(key.equals("name")){
           keyValue[2]= "name";
           keyValue[3]= project.getName();
-          logger.log(Level.INFO, "Old value, {0}: {1}, is changed to new value, {2}: {3}.",keyValue);
           helperMsg(project.getName(), value);
           project.setName(value);
         }
@@ -326,7 +312,6 @@ public class editProjectTest {
         if(key.equals("projectBudget")){
           keyValue[2]= "projectBudget";
           keyValue[3]= project.getBudget().toString();
-          logger.log(Level.INFO, "Old value, {0}: {1}, is changed to new value, {2}: {3}.",keyValue);
           helperMsg(Double.toString(project.getBudget()), value);
           project.setBudget(Double.parseDouble(value));
         }
@@ -344,7 +329,6 @@ public class editProjectTest {
           
           keyValue[2]= "projectGrant";
           keyValue[3]= oldGrantId;
-          logger.log(Level.INFO, "Old value, {0}: {1}, is changed to new value, {2}: {3}.",keyValue);
           helperMsg(Double.toString(project.getBudget()), value);
 
           //newGrant.setId(newGrantId);
@@ -356,12 +340,7 @@ public class editProjectTest {
       }
       String foo = ClothoAdapter.setProject(project, clothoObject);
       System.out.println(foo);
-      // TODO: keep track of old changes + new changes
-      } catch (SecurityException e) {  
-          e.printStackTrace();  
-      } catch (IOException e) {  
-          e.printStackTrace();  
-      }  
+      
     }
     
     public void helperMsg(String oldVal, String newVal){
