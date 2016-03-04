@@ -2477,11 +2477,15 @@ public class ClothoAdapter {
        
         person.setActivated( map.containsKey("activated") ? (boolean) map.get("activated") : false);
         System.out.println("IN MAP TO PERSON: "+ map.toString());
+        System.out.println(statuses.toString());
         person.setActivationString( map.containsKey("activationString") ? (String) map.get("activationString") : "Not Set");
-    
+        
+        System.out.println("before setSalt");
         
         person.setSalt(map.containsKey("salt") ? (String) map.get("salt") : "");
        
+        System.out.println("after setSalt");
+        
         if (map.containsKey("saltedEmailHash")){
             JSONArray byteArrayAsJSONArray = (JSONArray) map.get("saltedEmailHash");
     
@@ -2517,6 +2521,8 @@ public class ClothoAdapter {
                 }
             }
         }
+        
+        System.out.println("got out of person method");
         return person;
     }
     private static Product       mapToProduct(Map map, Clotho clothoObject)
@@ -3102,7 +3108,9 @@ public class ClothoAdapter {
                 map.put("id", person.getId());
             }
         }
-        String username = person.getEmailId()  ;
+        String id = "Not Set";
+        id = (String) clothoObject.set(map);
+        /*String username = person.getEmailId()  ;
         String password = person.getPassword();
         
         Map loginUserMap = new HashMap();
@@ -3111,16 +3119,16 @@ public class ClothoAdapter {
         
         Map loginResult = (Map)(clothoObject.login(loginUserMap));
         
-        String id = "Not Set";
+        
         if (!loginResult.isEmpty()){
             id = (String) clothoObject.set(map);
         }else {
             System.out.println("NO USER FOUND OR INVALID CREDENTIALS IN PERSON OBJECT");
         }
-        
+        */ 
         person.setId(id);
         makePublic(id, clothoObject);
-        clothoObject.logout();
+        //clothoObject.logout();
         return id;
     
     }

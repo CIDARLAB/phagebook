@@ -68,14 +68,8 @@ public class Order {
         this.receivedById  = "Not Set";
         this.approvedById  = "Not Set";
         this.products    = new HashMap<>();
-<<<<<<< HEAD
-    
-=======
         this.budget      = 0.0d;
        this.maxOrderSize = 1;
         
-        
-        
->>>>>>> ddd1e01c5467d544a90d98cfd415f36755bc619f
     }
 }

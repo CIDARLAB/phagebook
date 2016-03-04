@@ -117,9 +117,16 @@ public class verifyEmail extends HttpServlet {
                 
                 System.out.println("User "  + queryPersons.get(0).getEmailId() + " has been validated");
                 Person pers = queryPersons.get(0);
+                
                 pers.setActivated(true);
                 
                 clothoObject.logout();
+                Map creds = new HashMap();
+                creds.put("username", pers.getEmailId());
+                creds.put("credentials", pers.getPassword());
+                clothoObject.login(creds);
+                
+               
                 ClothoAdapter.setPerson(pers, clothoObject);  
                 System.out.println("HERE AT VERIFY EMAIL: "+ ClothoAdapter.getPerson(pers.getId(), clothoObject).isActivated());
                 

@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -92,8 +93,10 @@ public class PhagebookSocket
                     loginResult = (Map)clothoObject.login(loginMap);
                     System.out.println("LOGIN RESULT "  + loginResult.toString());
                     Person person = ClothoAdapter.getPerson(loginResult.get("id").toString(), clothoObject);
+                    Status stat = new Status(createStatusMap.get("status").toString(), person);
+                    ClothoAdapter.createStatus(stat, clothoObject);
+                    person.getStatuses().add(stat.getId());
                     
-                    person.getStatuses().add(new Status(createStatusMap.get("status").toString(),person));
                     ClothoAdapter.setPerson(person, clothoObject);
    
                     result.put("data", "Status created successfully.");
@@ -122,7 +125,7 @@ public class PhagebookSocket
 
                     break;
                 }
-                 case CHANGE_PROJECT_STATUS:
+                case CREATE_PROJECT_STATUS:
                 {
                     Map projectStatusMap = new HashMap();
                     projectStatusMap = (Map)messageObject.get("data");
@@ -138,14 +141,140 @@ public class PhagebookSocket
                     
                     Person person = ClothoAdapter.getPerson(loginResult.get("id").toString(), clothoObject);
                     
-                    project.getUpdates().add(new Status(projectStatusMap.get("status").toString(),person));
+                    Status stat = new Status(projectStatusMap.get("status").toString(),person);
+                    
+                    ClothoAdapter.createStatus(stat, clothoObject);
+                    
+                    project.getUpdates().add(stat.getId());
                     
                     ClothoAdapter.setProject(project, clothoObject);
 
                     result.put("data", "Status created successfully.");
 
                     break;
-                    //sit with Johan, make sure these functions work
+                 
+                }
+                case GET_PROJECTS:
+                {
+                    Map getProjectsMap = new HashMap();
+                    getProjectsMap = (Map)messageObject.get("data");
+                    
+                    Map loginMap = new HashMap();
+                    loginMap.put("username",getProjectsMap.get("username"));
+                    loginMap.put("credentials",getProjectsMap.get("password"));
+                    
+                    Map loginResult = new HashMap();
+                    loginResult = (Map)clothoObject.login(loginMap);
+                    
+                    Map projectsMap = new HashMap();
+                    List<String> projectids = ClothoAdapter.getPerson(loginResult.get("id").toString(), clothoObject).getProjects();
+                    int numberOfProjects = projectids.size();
+                    
+                    for (int i = 0; i < numberOfProjects; i++)
+                    {
+                        Project project = ClothoAdapter.getProject(projectids.get(i), clothoObject);
+                   
+                        projectsMap.put("projectId",project.getId());
+                        projectsMap.put("projectName",project.getName());
+                    }
+                    
+                    result.put("data", projectsMap);
+                    
+                    break;
+                }
+                case GET_ORDERS:
+                {
+                    Map getOrdersMap = new HashMap();
+                    getOrdersMap = (Map)messageObject.get("data");
+                    
+                    Map loginMap = new HashMap();
+                    loginMap.put("username",getOrdersMap.get("username"));
+                    loginMap.put("credentials",getOrdersMap.get("password"));
+                    
+                    Map loginResult = new HashMap();
+                    loginResult = (Map)clothoObject.login(loginMap);
+                    
+                    Map ordersMap = new HashMap();
+                    List<String> orderids = ClothoAdapter.getPerson(loginResult.get("id").toString(), clothoObject).getOrders();
+                    int numberOfOrders = orderids.size();
+                    
+                    for (int i = 0; i < numberOfOrders; i++)
+                    {
+                        Order order = ClothoAdapter.getOrder(orderids.get(i), clothoObject);
+                   
+                        ordersMap.put("projectId",order.getId());
+                        ordersMap.put("projectName",order.getName());
+                    }
+                    
+                    result.put("data", ordersMap);
+                    
+                    break;
+                }
+                case GET_PROJECT:
+                {
+                    Map getProjectMap = new HashMap();
+                    getProjectMap = (Map)messageObject.get("data");
+                    
+                    Map loginMap = new HashMap();
+                    loginMap.put("username",getProjectMap.get("username"));
+                    loginMap.put("credentials",getProjectMap.get("password"));
+                    
+                    Map loginResult = new HashMap();
+                    loginResult = (Map)clothoObject.login(loginMap);
+                    
+                    Project project = ClothoAdapter.getProject(getProjectMap.get("id").toString(), clothoObject);
+                    
+                    JSONObject JSONProject = new JSONObject();
+                    
+                    JSONProject.put("creatorId",project.getCreatorId());
+                    JSONProject.put("leadId",project.getLeadId());
+                    JSONProject.put("members",project.getMembers());
+                    JSONProject.put("notebooks",project.getNotebooks());
+                    JSONProject.put("affiliatedLabs",project.getAffiliatedLabs());
+                    JSONProject.put("name",project.getName());
+                    JSONProject.put("dateCreated",project.getDateCreated());
+                    JSONProject.put("updates",project.getUpdates());
+                    JSONProject.put("budget",project.getBudget());
+                    JSONProject.put("grantId",project.getGrantId());
+                    JSONProject.put("description",project.getDescription());
+                    JSONProject.put("id",project.getId());
+                    
+                    result.put("data", JSONProject);
+                    
+                    break;
+                }
+                case GET_ORDER:
+                {
+                    Map getOrderMap = new HashMap();
+                    getOrderMap = (Map)messageObject.get("data");
+                    
+                    Map loginMap = new HashMap();
+                    loginMap.put("username",getOrderMap.get("username"));
+                    loginMap.put("credentials",getOrderMap.get("password"));
+                    
+                    Map loginResult = new HashMap();
+                    loginResult = (Map)clothoObject.login(loginMap);
+                    
+                    Order order = ClothoAdapter.getOrder(getOrderMap.get("id").toString(), clothoObject);
+                    
+                    JSONObject JSONOrder = new JSONObject();
+                    
+                    JSONOrder.put("id",order.getId());
+                    JSONOrder.put("name",order.getName());
+                    JSONOrder.put("description",order.getDescription());
+                    JSONOrder.put("dateCreated",order.getDateCreated());
+                    JSONOrder.put("createdById",order.getCreatedById());
+                    JSONOrder.put("products",order.getProducts());
+                    JSONOrder.put("budget",order.getBudget());
+                    JSONOrder.put("maxOrderSize",order.getMaxOrderSize());
+                    JSONOrder.put("approvedById",order.getApprovedById());
+                    JSONOrder.put("receivedById",order.getReceivedById());
+                    JSONOrder.put("relatedProjects",order.getRelatedProjects());
+                    JSONOrder.put("status",order.getStatus());
+                    
+                    result.put("data", JSONOrder);
+                    
+                    break;
                 }
                 default:
                     result.put("data", "Error...");
@@ -155,6 +284,15 @@ public class PhagebookSocket
         }
         return result;
     }
+    /*
+    //have GET_PROJECTS, GET_ORDERS -> return a map(key - projectId and value - projectName)
+    //      send username and password
+    //get_Project and Get_Order
+    //      send username, password and projectId, orderId, get the project object in JSON format,
+    //                                                              order object in JSON format
+    
+    
+    */
 
     private boolean isValidMessage(JSONObject messageObject) {
         boolean isValid = true;
