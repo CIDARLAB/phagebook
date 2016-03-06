@@ -53,12 +53,12 @@ public class CreatePersonInClotho {
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
             Person doug1 = new Person();
-            String  emailId = "sample@clothoLab.com";
+            String  emailId = "phagebook"; // it is also the name in clotho but doens't have a name property
             doug1.setEmailId(emailId);
             doug1.setActivated(true);
-            doug1.setFirstName("Doug");
-            doug1.setLastName("One");
-            doug1.setPassword("Clotho");
+            doug1.setFirstName("Phagebook");
+            doug1.setLastName("Backend");
+            doug1.setPassword("backend");
             EmailSaltHasher salty = EmailSaltHasher.getEmailSaltHasher();
             String salt = EmailSaltHasher.csRandomAlphaNumericString();
             doug1.setSalt(salt);
