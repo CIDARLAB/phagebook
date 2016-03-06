@@ -53,7 +53,7 @@ public class ClothoProductCreator {
     // @Test
     // public void hello() {}
      @Test
-     public void anotherTest(){
+     public void createProducts(){
         ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
         Clotho clothoObject = new Clotho(conn);
    
@@ -78,6 +78,7 @@ public class ClothoProductCreator {
         Vendor amazon = new Vendor("Amazon");
         Vendor apple = new Vendor("Apple");
         Vendor nike = new Vendor("Nike");
+        Vendor synBioSupply = new Vendor("Syn Bio Supply");
         
         //CLOTHO CREATION
         
@@ -89,6 +90,8 @@ public class ClothoProductCreator {
         
         String companyId3 = (String) ClothoAdapter.createVendor(nike, clothoObject);
         nike.setId(companyId3);
+        
+        ClothoAdapter.createVendor(synBioSupply, clothoObject);
         
         
         //PRODUCT: TELESCOPE
@@ -145,8 +148,21 @@ public class ClothoProductCreator {
         telescope2.setInventory(23);
         telescope2.setProductURL("www.google.com");
         //
-               
         
+        
+        //PRODUCT: TELEMETRIC DEVICE
+        Product telemen = new Product();
+        telemen.setName("Telemetric Device");
+        telemen.setCompanyId(synBioSupply.getId());
+        telemen.setInventory(10);
+        telemen.setCost(34.50);
+        telemen.setProductURL("www.DougsBioSupply.com");
+        telemen.setGoodType(GoodType.INSTRUMENT);
+        
+        
+        
+               
+                                        ClothoAdapter.createProduct(telemen     , clothoObject);
         String telescopeID   = (String) ClothoAdapter.createProduct(telescope   , clothoObject);
         String microscopeID  = (String) ClothoAdapter.createProduct(microscope  , clothoObject);
         String microscopenID = (String) ClothoAdapter.createProduct(microscopen , clothoObject);   

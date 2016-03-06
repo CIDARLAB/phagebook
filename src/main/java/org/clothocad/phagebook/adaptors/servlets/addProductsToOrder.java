@@ -7,6 +7,8 @@ package org.clothocad.phagebook.adaptors.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,9 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
-import org.clothocad.model.Person;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
+import org.clothocad.phagebook.dom.CartItem;
 import org.clothocad.phagebook.dom.Order;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -27,7 +29,7 @@ import org.json.JSONObject;
  *
  * @author Herb
  */
-public class listOpenOrdersOfPerson extends HttpServlet {
+public class addProductsToOrder extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,6 +43,7 @@ public class listOpenOrdersOfPerson extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
        
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -70,20 +73,39 @@ public class listOpenOrdersOfPerson extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        //I AM ASSUMING THAT 
-        /* ID is passed in of person
-       
-        */
+        /*Add products to an order...
+         *ASSUMPTION 1: I receive a JSONArray with key value pairs <String, int> product id, and quantity
+         *ASSUMPTION 2: Along with each object I get a "discount" : double key...
+         * I take care of everything here 
+         *ASSUMPTION 3: I GET THE LOGGED IN PERSONS'S ID (if I need it) from the cookie
+         *ASSUMPTION 4: I GET THE ORDER ID PASSED IN.
+        */ 
+        Object pCartItems = request.getParameter("CartItems");
+        String cartItems = pCartItems != null ? (String) pCartItems : "";
         
-        Object pUser = request.getParameter("user");
-        String user = pUser != null ? (String) pUser: "";
+        
+        
+        Object pUser = request.getParameter("loggedInUserId");
+        String user = pUser != null ? (String) pUser : "";
+        
+        Object pOrderId = request.getParameter("orderId");
+        String orderId = pOrderId != null ? (String) pOrderId : "";
+        
         boolean isValid = false;
         
-        if (!user.equals("")){
+        if (!cartItems.equals("") && !user.equals("") && !orderId.equals("") ){
             isValid = true;
         }
         
+        //should now have something like this parsed.
+        /*
+          [{"productId": "<ID>" , "quantity": "5", "discount": "100" }, {"productId": "<ID> ,.. etc"}];  
+        
+        
+        */
         if (isValid){
+            //NEED TO LOG INTO CLOTHO... better way TBA
+
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
             Map createUserMap = new HashMap();
@@ -95,64 +117,61 @@ public class listOpenOrdersOfPerson extends HttpServlet {
             loginMap.put("username", username);
             loginMap.put("credentials", "password");     
             clothoObject.login(loginMap);
+            //
             
-            // able to query now. 
+            //STEP 1, get the order we want to modify...
+            //assuming valid order ID.
+            Order editableOrder = ClothoAdapter.getOrder(orderId, clothoObject);
+            //now we have the order object.
+            JSONArray cartItemsJSONArray = new JSONArray(cartItems);
+            //we have our JSONArray of products to add with discounts
+            Map<String, Integer> items = editableOrder.getProducts(); //initialize, we want to add not replace
+            Date date = new Date();
+            for (int i = 0; i < cartItemsJSONArray.length(); i++){
+                //process the information that we have
+                
+                Map<String, Double>  productItemMap = new HashMap<>();
+                JSONObject obj = (JSONObject) cartItemsJSONArray.get(i);
+                
+                productItemMap.put( obj.getString("productId") , obj.getDouble("discount"));
+                
+                CartItem item = new CartItem();
+                item.setDateCreated(date);
+                item.setProductWithDiscount(productItemMap);
+                
+                ClothoAdapter.createCartItem(item, clothoObject);
+                
+                items.put(item.getId(), obj.getInt("quantity"));
+                
+            }
+            //now have a CART ITEM ArrayList... all with ID's 
             
-            Person prashant = ClothoAdapter.getPerson(user, clothoObject);
-            boolean exists = true;
-            if (prashant.getId().equals("")){
-                System.out.println("Person does not exist in list open orders of person");
-                exists = false;
-            } 
             
-            if (exists){
-                List<String> createdOrders = prashant.getCreatedOrders();
-                JSONArray createdOrdersJSON = new JSONArray();
-                for (String created : createdOrders ){
-                    Order temp = ClothoAdapter.getOrder(created, clothoObject);
-                    JSONObject tempAsJSON = new JSONObject();
-                    tempAsJSON.put("approvedById", (ClothoAdapter.getPerson(temp.getApprovedById(), clothoObject)).getEmailId());
-                    tempAsJSON.put("budget", temp.getBudget());
-                    tempAsJSON.put("status", temp.getStatus());
-                    tempAsJSON.put("createdById", (ClothoAdapter.getPerson(temp.getCreatedById(), clothoObject)).getEmailId());
-                    tempAsJSON.put("created", temp.getDateCreated());
-                    //TODO ADD PRODUCTS INSIDE AN ORDER and put them in JSON to be displayed. 
-                    JSONObject products = new JSONObject();
-        
-                    for (Map.Entry pair : temp.getProducts().entrySet()) {
-                        if (((String) pair.getKey()) != null) {
-                            if (!((String) pair.getKey()).equals("Not Set") && !((String) pair.getKey()).isEmpty()) {
-                                products.put(((String) pair.getKey()), pair.getValue());
-                            }
-                        }
-                    }
-                }
+            editableOrder.setProducts(items);
+            
+            ClothoAdapter.setOrder(editableOrder, clothoObject);
+            
+            response.setContentType("application/json");
+            response.setStatus(HttpServletResponse.SC_ACCEPTED);
+            JSONObject responseJSON = new JSONObject();
+            responseJSON.put("message", "successfully modified order object");
+            PrintWriter out = response.getWriter();
+            out.print(responseJSON);
+            out.flush();
             
 
-           
-                
-                prashant.getSubmittedOrders();
-                
-            } else {
-                response.setContentType("application/json");
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                JSONObject responseJSON = new JSONObject();
-                responseJSON.put("message", "id provided does not exist");
-                PrintWriter out = response.getWriter();
-                out.print(responseJSON);
-                out.flush();
-            }
-            
-            
         } else {
             response.setContentType("application/json");
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             JSONObject responseJSON = new JSONObject();
-            responseJSON.put("message", "missing an id to query with");
+            responseJSON.put("message", "missing parameters for servlet call");
             PrintWriter out = response.getWriter();
             out.print(responseJSON);
             out.flush();
         }
+        
+        
+        
     }
 
     /**

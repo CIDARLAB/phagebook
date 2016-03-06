@@ -36,18 +36,91 @@ public class newOrder extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         
-        System.out.println("IN THE SERVLET");
+       
         //request.getParameter RETURNS NULL IF IT DOESN'T EXIST!!!
-        String orderName = request.getParameter("name") != null ? request.getParameter("name") : "" ;
-          
-        String description = request.getParameter("description") != null ? request.getParameter("description"): "";
-        String createdBy = request.getParameter("createdBy") != null ? request.getParameter("createdBy") : "";
+        Object pOrderName = request.getParameter("name");
+        String orderName  = pOrderName != null ? (String) pOrderName : "" ;
+        
+        Object pCreatedBy = request.getParameter("createdBy");
+        String createdBy  = pCreatedBy != null ? (String) pCreatedBy : "";
+        
+        Object pLabId     = request.getParameter("labId");
+        String labId      =  pLabId != null ? (String) pLabId: "" ;
+        
+        Object pAssociatedProject  = request.getParameter("associatedProjectId");
+        String associatedProjectId = pAssociatedProject != null ? (String) pAssociatedProject: "";
+        
+        Object pBudget  =   request.getParameter("budget");
+        String budget   =   pBudget != null ?  (String) pBudget : "";
+        
+        Object pOrderLimit  = request.getParameter("orderLimit");
+        String orderLimit   = pOrderLimit != null ? (String) pOrderLimit : "";
         
         
         
         
         Date date = new Date();
         
+        boolean isValid = false;
+        //All parameters needed to create a new order as per the wire frame. 
+        
+        
+        
+        
+        if (!orderName.equals("") && !createdBy.equals("") && !labId.equals("")
+                && !associatedProjectId.equals("") && !budget.equals("")
+                && !orderLimit.equals(""))
+        {
+            isValid = true;
+        }
+        
+        
+        if (isValid){
+            //login
+            ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+            Clotho clothoObject = new Clotho(conn);
+            Map createUserMap = new HashMap();
+            String password = "password";
+            String username = "phagebook";
+            /*
+            
+                DIRECT ASSUMPTION THAT USER: phagebook exists and their 
+                                   PASSWORD: backend
+            
+            
+            */
+            
+            
+            Map loginMap = new HashMap();
+            loginMap.put("username"   , username);
+            loginMap.put("credentials", password);
+
+            clothoObject.login(loginMap);
+            
+            
+            
+            
+        }
+        else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            PrintWriter writer = response.getWriter();
+            response.setContentType("application/JSON");
+            JSONObject responseJSON = new JSONObject();
+            responseJSON.put("message", "Missing Required Parameters.");
+            writer.println(responseJSON.toString());
+            writer.flush();
+            writer.close();
+        }
+     
+        
+        
+        
+        
+        
+        
+        
+        
+        /*
         
         String orderIds = request.getParameter("orderIds") != null ? request.getParameter("orderIds") : "";
        
@@ -148,6 +221,8 @@ public class newOrder extends HttpServlet {
             
             
         }
+                
+                */
 
     }
 }

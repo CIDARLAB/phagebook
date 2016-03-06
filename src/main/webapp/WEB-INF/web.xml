@@ -64,6 +64,14 @@
         <servlet-name>listOpenOrdersOfPerson</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.listOpenOrdersOfPerson</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>autoComplete</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.autoComplete</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>addProductsToOrder</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.addProductsToOrder</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>inputProduct</servlet-name>
         <url-pattern>/inputProduct</url-pattern>
@@ -175,5 +183,13 @@
     <servlet-mapping>
         <servlet-name>listOpenOrdersOfPerson</servlet-name>
         <url-pattern>/listOpenOrdersOfPerson</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>autoComplete</servlet-name>
+        <url-pattern>/autoComplete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addProductsToOrder</servlet-name>
+        <url-pattern>/addProductsToOrder</url-pattern>
     </servlet-mapping>
 </web-app>

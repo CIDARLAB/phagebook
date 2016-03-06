@@ -897,6 +897,23 @@ public class ClothoAdapter {
                 map.put("orders", orders);
             }
         }
+        if (person.getSubmittedOrders()!= null)
+        {
+            if (!person.getSubmittedOrders().isEmpty())
+            {
+                JSONArray orders = new JSONArray();
+                for (String order : person.getSubmittedOrders())
+                {
+                    if (order!= null)
+                    {
+                        if (!order.equals("Not Set") && !order.isEmpty()){
+                            orders.add(order);
+                        }
+                    }
+                }
+                map.put("submittedOrders", orders);
+            }
+        }
         if(person.getPublications() != null)
         {
             if (!person.getPublications().isEmpty())
@@ -2544,6 +2561,15 @@ public class ClothoAdapter {
                 orders.add(orderIds.getString(i));
             }
         }
+        
+        List<String> submittedOrders = new ArrayList<>();
+        if (map.containsKey("submittedOrders")){
+            JSONArray orderIds = (JSONArray) map.get("submittedOrders");
+            
+            for (int i = 0; i < orderIds.size(); i++){
+                submittedOrders.add(orderIds.getString(i));
+            }
+        }
        
         List<String> publications = new ArrayList<>() ;
         if ( map.containsKey("publications")){
@@ -2579,6 +2605,8 @@ public class ClothoAdapter {
         person.setColleagues(colleagues);
         person.setCreatedOrders(orders);
         person.setPublications(publications);
+        person.setSubmittedOrders(submittedOrders);
+        
         
         
                 

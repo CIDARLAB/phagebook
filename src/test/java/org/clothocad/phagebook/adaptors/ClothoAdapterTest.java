@@ -1180,6 +1180,17 @@ public class ClothoAdapterTest {
                 orders.add(O1.getId());
                 orders.add(O2.getId());
                 orders.add(O3.getId());
+            List<String> submittedOrders = new ArrayList<>();
+                Order O4 = new Order();
+                Order O5 = new Order();
+                Order O6 = new Order();
+                    ClothoAdapter.createOrder(O4, clothoObject);
+                    ClothoAdapter.createOrder(O5, clothoObject);
+                    ClothoAdapter.createOrder(O6, clothoObject);
+                submittedOrders.add(O4.getId());
+                submittedOrders.add(O5.getId());
+                submittedOrders.add(O6.getId());
+                
                 
         //
         Person person1 = new Person();
@@ -1199,6 +1210,8 @@ public class ClothoAdapterTest {
         person1.setPublications(publications);
         person1.setRoles(roles);
         person1.setCreatedOrders(orders);
+        person1.setSubmittedOrders(submittedOrders);
+        
         
         
         String personId = ClothoAdapter.createPerson(person1, clothoObject);
@@ -1249,6 +1262,10 @@ public class ClothoAdapterTest {
         assertEquals(person1.getCreatedOrders().size(), person2.getCreatedOrders().size());
         for (int i = 0; i < person1.getCreatedOrders().size(); i++){
             assertEquals(person1.getCreatedOrders().get(i), person2.getCreatedOrders().get(i));
+        }
+        assertEquals(person1.getSubmittedOrders().size(), person2.getSubmittedOrders().size());
+        for (int i = 0; i < person1.getSubmittedOrders().size(); i++){
+            assertEquals(person1.getSubmittedOrders().get(i), person2.getSubmittedOrders().get(i));
         }
         System.out.println("----------");
     }
