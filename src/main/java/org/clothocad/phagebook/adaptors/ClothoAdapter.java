@@ -650,27 +650,28 @@ public class ClothoAdapter {
         
         if (order.getProducts() != null) //CART ITEM AND INT PAIRS
         {
-            
-            JSONObject products = new JSONObject();
-        
-            for (Map.Entry pair : order.getProducts().entrySet()) {
-                if (((String) pair.getKey()) != null){
-                    if (!((String)pair.getKey()).equals("Not Set") && !((String)pair.getKey()).isEmpty() ){
-                        products.put(((String)pair.getKey()), pair.getValue());
+            if (!order.getProducts().isEmpty()){
+                JSONObject products = new JSONObject();
+
+                for (Map.Entry pair : order.getProducts().entrySet()) {
+                    if (((String) pair.getKey()) != null){
+                        if (!((String)pair.getKey()).equals("Not Set") && !((String)pair.getKey()).isEmpty() ){
+                            products.put(((String)pair.getKey()), pair.getValue());
+                        }
                     }
                 }
-            }
 
-            map.put("products" , products);
+                map.put("products" , products);
+            }
         } 
         
         if (order.getBudget() != null){
-            map.put("budget", order.getBudget());
+            map.put("budget", order.getBudget().toString());
         }
         
         if (order.getMaxOrderSize() != null )
         {
-            map.put("maxOrderSize", order.getMaxOrderSize());
+            map.put("maxOrderSize", order.getMaxOrderSize().toString());
         }
         
         if (order.getApprovedById() != null)
@@ -684,30 +685,32 @@ public class ClothoAdapter {
         {
             if (!order.getReceivedById().equals("Not Set") && !order.getReceivedById().isEmpty())
             {
-                map.put("receivedById", map);
+                map.put("receivedById", order.getReceivedById());
             }
         }
         
         if (order.getStatus() != null)
         {
-                map.put("status", order.getStatus());
+                map.put("status", order.getStatus().toString());
         }
         if (order.getId() != null){
             if (!order.getId().isEmpty() && !order.getId().equals("Not Set")){
                 map.put("id", order.getId());
             }
         }
-        List <String> relatedProjects = order.getRelatedProjects();
-        if (relatedProjects != null){
-            if (!relatedProjects.isEmpty())
+        String relatedProject = order.getRelatedProjectId();
+        if (relatedProject != null){
+            if (!relatedProject.isEmpty())
             {
-                JSONArray projects = new JSONArray();
-                for (String projectId : relatedProjects)
-                {
-                    projects.add(projectId);
-                }
-                
-                map.put("relatedProjects", projects);
+                map.put("relatedProject", relatedProject);
+            }
+        }
+        
+        String affiliatedLab = order.getAffiliatedLabId();
+        if (affiliatedLab != null){
+            if (!affiliatedLab.isEmpty())
+            {
+                map.put("affiliatedLabId", affiliatedLab);
             }
         }
         
@@ -2462,19 +2465,23 @@ public class ClothoAdapter {
             approvedById = (String) map.get("approvedById");
         }
         
+        String affiliatedLabId = "";
+        
+        if (map.containsKey("affiliatedLabId")){
+            affiliatedLabId = (String) map.get("affiliatedLabId");
+        }
+    
+        
         String receivedById = "";
         if (map.containsKey("receivedById"))
         {
             receivedById = (String) map.get("receivedById");
         }
         
-        List<String> relatedProjects = new ArrayList<>() ;
-        if ( map.containsKey("relatedProjects")){
-            JSONArray projectIds = (JSONArray) map.get("relatedProjects");
-            
-            for (int i = 0; i < projectIds.size(); i++){
-                relatedProjects.add(projectIds.getString(i));
-            }
+        String relatedProject = "";
+        if ( map.containsKey("relatedProject")){
+            String projectId = (String) map.get("relatedProject");
+            relatedProject=  projectId;
         }
         
         OrderStatus orderStat = OrderStatus.DENIED;
@@ -2495,7 +2502,9 @@ public class ClothoAdapter {
         order.setMaxOrderSize(maxOrderSize);
         order.setApprovedById(approvedById);
         order.setReceivedById(receivedById);
-        order.setRelatedProjects(relatedProjects);
+        order.setAffiliatedLabId(affiliatedLabId);
+        
+        order.setRelatedProjectId(relatedProject);
         order.setStatus(orderStat);
         
         

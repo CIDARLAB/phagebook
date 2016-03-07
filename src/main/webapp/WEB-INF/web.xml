@@ -62,7 +62,7 @@
     </servlet>
     <servlet>
         <servlet-name>listOpenOrdersOfPerson</servlet-name>
-        <servlet-class>org.clothocad.phagebook.adaptors.servlets.listOpenOrdersOfPerson</servlet-class>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.listCreatedOrdersOfPerson</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>autoComplete</servlet-name>

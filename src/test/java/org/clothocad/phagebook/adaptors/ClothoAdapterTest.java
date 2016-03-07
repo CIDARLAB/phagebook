@@ -995,25 +995,29 @@ public class ClothoAdapterTest {
     @Test
     public void testGetOrder(){
         System.out.println("-----GET ORDER TEST-----");
+        //TODO: ADD TESTS FOR MORE PROPERTIES OF ORDER
+        
         //Order Fields
             String name = "Clotho Test Name";
             String description = "Clotho Test Description";
             Date dateCreated = new Date(787899600000L);
+            Double budget = 100.0d;
+            Integer maxOrderSize = 25;
+            
             Person createdBy = new Person();
+            Person receivedBy = new Person();
                 clothoObject.logout();
                 ClothoAdapter.createPerson(createdBy, clothoObject);
+                ClothoAdapter.createPerson(receivedBy, clothoObject);
+                
                 clothoLogin(this.username, this.password);
-            Map<String, Integer> cartItems = new HashMap<>();
+                Map<String, Integer> cartItems = new HashMap<>();
                 CartItem C1 = new CartItem();
                 CartItem C2 = new CartItem();
-                //CART ITEM PROPERTIES
-         
+                    //CART ITEM PROPERTIES
                     Product P1 = new Product();
                     Product P2 = new Product();
                     
-                   
-                    
-                
                     ClothoAdapter.createProduct(P1, clothoObject);
                     ClothoAdapter.createProduct(P2, clothoObject);
                     Map<String, Double> productsWithDiscount1 = new HashMap();
@@ -1024,11 +1028,22 @@ public class ClothoAdapterTest {
                     C2.setProductWithDiscount(productsWithDiscount2);
                     ClothoAdapter.createCartItem(C1, clothoObject);
                     ClothoAdapter.createCartItem(C2, clothoObject);
-                //
-                cartItems.put(C1.getId(), 10);
-                cartItems.put(C2.getId(), 20);
+                    //
+                    cartItems.put(C1.getId(), 10);
+                    cartItems.put(C2.getId(), 20);
                 
                 //
+                Lab affiliatedLab = new Lab();
+                ClothoAdapter.createLab(affiliatedLab, clothoObject);
+                
+                Project proj = new Project();
+                ClothoAdapter.createProject(proj, clothoObject);
+                
+                
+                
+                
+                
+                
         //
         Order order1 = new Order();
         order1.setName(name);
@@ -1036,6 +1051,16 @@ public class ClothoAdapterTest {
         order1.setDateCreated(dateCreated);
         order1.setCreatedById(createdBy.getId());
         order1.setProducts(cartItems);
+        
+        order1.setBudget(budget);
+        order1.setMaxOrderSize(maxOrderSize);
+        order1.setAffiliatedLabId(affiliatedLab.getId());
+        order1.setReceivedById(description);
+        order1.setRelatedProjectId(proj.getId());
+        
+        
+        
+       
         
         String orderId = ClothoAdapter.createOrder(order1, clothoObject);
         if(order1.getId().equals("Not Set")){
@@ -1048,8 +1073,13 @@ public class ClothoAdapterTest {
         assertEquals(order1.getDescription(), order2.getDescription());
         assertEquals(order1.getDateCreated().toString(), order2.getDateCreated().toString());
         assertEquals(order1.getCreatedById(), order2.getCreatedById());
+        assertEquals(order1.getBudget(), order2.getBudget());
+        assertEquals(order1.getMaxOrderSize(), order2.getMaxOrderSize());
+        assertEquals(order1.getAffiliatedLabId(), order2.getAffiliatedLabId());
+        assertEquals(order1.getReceivedById(), order2.getReceivedById());
+        assertEquals(order1.getRelatedProjectId(), order2.getRelatedProjectId());    
         
-
+       
         Map <String, Integer> idQuantityMap1 = new HashMap<>();
         
         for (Map.Entry pair : order1.getProducts().entrySet()) {

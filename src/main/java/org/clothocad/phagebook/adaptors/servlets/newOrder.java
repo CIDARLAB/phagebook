@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -41,20 +42,25 @@ public class newOrder extends HttpServlet {
         Object pOrderName = request.getParameter("name");
         String orderName  = pOrderName != null ? (String) pOrderName : "" ;
         
+        //WEBSITE WILL SEND THE ID
         Object pCreatedBy = request.getParameter("createdBy");
         String createdBy  = pCreatedBy != null ? (String) pCreatedBy : "";
         
+        //WEBSITE WILL SEND THIS
         Object pLabId     = request.getParameter("labId");
         String labId      =  pLabId != null ? (String) pLabId: "" ;
         
         Object pAssociatedProject  = request.getParameter("associatedProjectId");
         String associatedProjectId = pAssociatedProject != null ? (String) pAssociatedProject: "";
         
-        Object pBudget  =   request.getParameter("budget");
-        String budget   =   pBudget != null ?  (String) pBudget : "";
+        Object pBudget   =    request.getParameter("budget");
+        String strBudget =    pBudget != null ?  (String) pBudget : "";
+        Double budget   =     Double.parseDouble(strBudget);
+        
         
         Object pOrderLimit  = request.getParameter("orderLimit");
-        String orderLimit   = pOrderLimit != null ? (String) pOrderLimit : "";
+        String strOrderLimit = pOrderLimit != null ? (String) pOrderLimit : "";
+        Integer orderLimit   =  Integer.parseInt(strOrderLimit);
         
         
         
@@ -68,8 +74,8 @@ public class newOrder extends HttpServlet {
         
         
         if (!orderName.equals("") && !createdBy.equals("") && !labId.equals("")
-                && !associatedProjectId.equals("") && !budget.equals("")
-                && !orderLimit.equals(""))
+                && !associatedProjectId.equals("") && !strBudget.equals("")
+                && !strOrderLimit.equals(""))
         {
             isValid = true;
         }
@@ -80,24 +86,49 @@ public class newOrder extends HttpServlet {
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
             Map createUserMap = new HashMap();
-            String password = "password";
             String username = "phagebook";
+            String password = "backend";
             /*
             
                 DIRECT ASSUMPTION THAT USER: phagebook exists and their 
                                    PASSWORD: backend
-            
-            
             */
-            
-            
             Map loginMap = new HashMap();
             loginMap.put("username"   , username);
             loginMap.put("credentials", password);
-
             clothoObject.login(loginMap);
+       
+            
+            Order order = new Order();
+            order.setName(orderName);
+            order.setCreatedById(createdBy);
+            order.setDateCreated(date);
+            order.setBudget(budget);
+            order.setMaxOrderSize(orderLimit);
+            order.setAffiliatedLabId(labId);
+            order.setRelatedProjectId(associatedProjectId);
+            order.setStatus(OrderStatus.INPROGRESS);
+            
+            ClothoAdapter.createOrder(order, clothoObject); // CREATED THE ORDER
+                                                            // BUT I NOW NEED TO LINK IT TO THE USER
+            Person creator = ClothoAdapter.getPerson(order.getCreatedById(), clothoObject);
+            List<String> createdOrders = creator.getCreatedOrders();
+            createdOrders.add(order.getId());
+            
+            clothoObject.logout();
+            
+            ClothoAdapter.setPerson(creator, clothoObject); // LINK CREATED
             
             
+            response.setStatus(HttpServletResponse.SC_CREATED);
+            PrintWriter writer = response.getWriter();
+            response.setContentType("application/JSON");
+            JSONObject responseJSON = new JSONObject();
+            responseJSON.put("message", "order created");
+            responseJSON.put("orderId", order.getId());
+            writer.println(responseJSON);
+            writer.flush();
+            writer.close();
             
             
         }
