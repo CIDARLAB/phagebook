@@ -104,7 +104,7 @@ public class verifyEmail extends HttpServlet {
            
            
           
-            queryPersons = ClothoAdapter.queryPerson(query, clothoObject);
+            queryPersons = ClothoAdapter.queryPerson(query, clothoObject, ClothoAdapter.QueryMode.EXACT);
             
             byte[] recreatedHash = salty.hash(emailId.toCharArray(), salt.getBytes("UTF-8"));
            

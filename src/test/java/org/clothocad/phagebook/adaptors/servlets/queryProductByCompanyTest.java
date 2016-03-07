@@ -81,7 +81,7 @@ public class queryProductByCompanyTest {
         Map query = new HashMap();
         query.put("name", "Amazon");
             
-        List<Vendor> queryCompanyResults = ClothoAdapter.queryVendor(query, clothoObject);
+        List<Vendor> queryCompanyResults = ClothoAdapter.queryVendor(query, clothoObject, ClothoAdapter.QueryMode.EXACT);
         //To get Vendor Name and ID to query for products with that company...
         List<String> companyIDs = new LinkedList<>();
         for (Vendor company : queryCompanyResults ){
@@ -94,7 +94,7 @@ public class queryProductByCompanyTest {
         {
             Map queryForClotho = new HashMap();
             queryForClotho.put("company", companyID);
-            List<Product> queryProductResults = ClothoAdapter.queryProduct(queryForClotho, clothoObject);
+            List<Product> queryProductResults = ClothoAdapter.queryProduct(queryForClotho, clothoObject, ClothoAdapter.QueryMode.EXACT);
 
             for (Product product : queryProductResults){
                 JSONObject productAsJson = new JSONObject();

@@ -1612,59 +1612,178 @@ public class ClothoAdapter {
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Query Methods">
-    public static List<CartItem>      queryCartItem(Map query, Clotho clothoObject)
+    /**
+     * 
+     *  
+     * @param query         All possible query parameters (any property we want look at examples) you must populate this
+     * @param clothoObject  must be logged in.
+     * @param mode          Exact or Starts With... must pass in a valid query map object.
+     * @return 
+     */
+    public static List<CartItem>      queryCartItem(Map query, Clotho clothoObject, QueryMode mode)
     {
-        query.put("schema", CartItem.class.getCanonicalName());
-        List<CartItem> cartItems = new ArrayList<>();
-        JSONArray queryResults = (JSONArray) clothoObject.query(query);
         
-        for (Object queryResult : queryResults)
-        {
-            cartItems.add(mapToCartItem( (Map) queryResult, clothoObject));
+        List<CartItem> cartItems = new ArrayList<>();
+        JSONArray queryResults;
+        
+        switch (mode){
+            case STARTSWITH:
+                //EXAMPLE 
+                //map.put("query", "Tel"); // the value for which we are querying.
+                // map.put("key", "name"); // the key of the object we are querying
+                queryResults = (JSONArray) clothoObject.startsWith(query); 
+                
+                for (Object queryResult : queryResults){
+                    if ( ((Map) queryResult).containsKey("schema")){
+                        String schema = (String) ((Map) queryResult).get("schema");
+                        if ( schema.equals(CartItem.class.getCanonicalName())){
+                            cartItems.add(mapToCartItem( (Map) queryResult, clothoObject));
+                        }
+                    }
+                }
+                
+                
+                break;
+            case EXACT:
+                query.put("schema", CartItem.class.getCanonicalName());
+                queryResults = (JSONArray) clothoObject.query(query);
+        
+                for (Object queryResult : queryResults)
+                {
+                    cartItems.add(mapToCartItem( (Map) queryResult, clothoObject));
+                }
+                
+                break;
+            default: 
+                break;
         }
+        
+       
         return cartItems;
         
     }  
-    public static List<Container>     queryContainer(Map query , Clotho clothoObject)
+    public static List<Container>     queryContainer(Map query , Clotho clothoObject, QueryMode mode)
     {
-        query.put("schema", Container.class.getCanonicalName());
         List<Container> containers = new ArrayList<>();
+        JSONArray queryResults;
         
-        JSONArray queryResults = (JSONArray) clothoObject.query(query);
+        switch (mode){
+            case STARTSWITH:
+                //EXAMPLE 
+                //map.put("query", "Tel"); // the value for which we are querying.
+                // map.put("key", "name"); // the key of the object we are querying
+                queryResults = (JSONArray) clothoObject.startsWith(query); 
+                
+                for (Object queryResult : queryResults){
+                    if ( ((Map) queryResult).containsKey("schema")){
+                        String schema = (String) ((Map) queryResult).get("schema");
+                        if ( schema.equals(Container.class.getCanonicalName())){
+                            containers.add(mapToContainer( (Map) queryResult, clothoObject));
+                        }
+                    }
+                }
+                
+                
+                break;
+            case EXACT:
+                query.put("schema", Container.class.getCanonicalName());
+                queryResults = (JSONArray) clothoObject.query(query);
         
-        for (Object queryResult : queryResults) {
-            containers.add(mapToContainer((Map) queryResult, clothoObject));
+                for (Object queryResult : queryResults)
+                {
+                    containers.add(mapToContainer( (Map) queryResult, clothoObject));
+                }
+                
+                break;
+            default: 
+                break;
         }
+        
         
         
         return containers;
         
     }
-    public static List<Entry>         queryEntry(Map query , Clotho clothoObject)
+    public static List<Entry>         queryEntry(Map query , Clotho clothoObject, QueryMode mode)
     {
-        query.put("schema", Entry.class.getCanonicalName());
         List<Entry> entries = new ArrayList<>();
+        JSONArray queryResults;
         
-        JSONArray queryResults = (JSONArray) clothoObject.query(query);
+        switch (mode){
+            case STARTSWITH:
+                //EXAMPLE 
+                //map.put("query", "Tel"); // the value for which we are querying.
+                // map.put("key", "name"); // the key of the object we are querying
+                queryResults = (JSONArray) clothoObject.startsWith(query); 
+                
+                for (Object queryResult : queryResults){
+                    if ( ((Map) queryResult).containsKey("schema")){
+                        String schema = (String) ((Map) queryResult).get("schema");
+                        if ( schema.equals(Entry.class.getCanonicalName())){
+                            entries.add(mapToEntry( (Map) queryResult, clothoObject));
+                        }
+                    }
+                }
+                
+                
+                break;
+            case EXACT:
+                query.put("schema", Entry.class.getCanonicalName());
+                queryResults = (JSONArray) clothoObject.query(query);
         
-        for (Object queryResult : queryResults) {
-            entries.add(mapToEntry((Map) queryResult, clothoObject));
+                for (Object queryResult : queryResults)
+                {
+                    entries.add(mapToEntry( (Map) queryResult, clothoObject));
+                }
+                
+                break;
+            default: 
+                break;
         }
+        
+        
+        
         
         
         
         return entries;
       
     }
-    public static List<FundingAgency> queryFundingAgency(Map query , Clotho clothoObject)
+    public static List<FundingAgency> queryFundingAgency(Map query , Clotho clothoObject, QueryMode mode)
     {
-        query.put("schema", FundingAgency.class.getCanonicalName());
         List<FundingAgency> fundingAgencies = new ArrayList<>();
+        JSONArray queryResults;
         
-        JSONArray queryResults = (JSONArray) clothoObject.query(query);
+        switch (mode){
+            case STARTSWITH:
+                //EXAMPLE 
+                //map.put("query", "Tel"); // the value for which we are querying.
+                // map.put("key", "name"); // the key of the object we are querying
+                queryResults = (JSONArray) clothoObject.startsWith(query); 
+                
+                for (Object queryResult : queryResults){
+                    if ( ((Map) queryResult).containsKey("schema")){
+                        String schema = (String) ((Map) queryResult).get("schema");
+                        if ( schema.equals(FundingAgency.class.getCanonicalName())){
+                            fundingAgencies.add(mapToFundingAgency( (Map) queryResult, clothoObject));
+                        }
+                    }
+                }
+                
+                
+                break;
+            case EXACT:
+                query.put("schema", FundingAgency.class.getCanonicalName());
+                queryResults = (JSONArray) clothoObject.query(query);
         
-        for (Object queryResult : queryResults) {
-            fundingAgencies.add(mapToFundingAgency((Map) queryResult, clothoObject));
+                for (Object queryResult : queryResults)
+                {
+                    fundingAgencies.add(mapToFundingAgency( (Map) queryResult, clothoObject));
+                }
+                
+                break;
+            default: 
+                break;
         }
         
         
@@ -1673,15 +1792,41 @@ public class ClothoAdapter {
        
     }
     //good is abstract, can't be gotten
-    public static List<Grant>         queryGrant(Map query , Clotho clothoObject)
+    public static List<Grant>         queryGrant(Map query , Clotho clothoObject, QueryMode mode)
     {
-        query.put("schema", Grant.class.getCanonicalName());
         List<Grant> grants = new ArrayList<>();
+        JSONArray queryResults;
         
-        JSONArray queryResults = (JSONArray) clothoObject.query(query);
+        switch (mode){
+            case STARTSWITH:
+                //EXAMPLE 
+                //map.put("query", "Tel"); // the value for which we are querying.
+                // map.put("key", "name"); // the key of the object we are querying
+                queryResults = (JSONArray) clothoObject.startsWith(query); 
+                
+                for (Object queryResult : queryResults){
+                    if ( ((Map) queryResult).containsKey("schema")){
+                        String schema = (String) ((Map) queryResult).get("schema");
+                        if ( schema.equals(Grant.class.getCanonicalName())){
+                            grants.add(mapToGrant( (Map) queryResult, clothoObject));
+                        }
+                    }
+                }
+                
+                
+                break;
+            case EXACT:
+                query.put("schema", Grant.class.getCanonicalName());
+                queryResults = (JSONArray) clothoObject.query(query);
         
-        for (Object queryResult : queryResults) {
-            grants.add(mapToGrant((Map) queryResult, clothoObject));
+                for (Object queryResult : queryResults)
+                {
+                    grants.add(mapToGrant( (Map) queryResult, clothoObject));
+                }
+                
+                break;
+            default: 
+                break;
         }
         
         
@@ -1689,31 +1834,83 @@ public class ClothoAdapter {
         return grants;
 
     }
-    public static List<Institution>   queryInstitution(Map query , Clotho clothoObject)
+    public static List<Institution>   queryInstitution(Map query , Clotho clothoObject, QueryMode mode)
     {
-        query.put("schema", Institution.class.getCanonicalName());
         List<Institution> institutions = new ArrayList<>();
+        JSONArray queryResults;
         
-        JSONArray queryResults = (JSONArray) clothoObject.query(query);
+        switch (mode){
+            case STARTSWITH:
+                //EXAMPLE 
+                //map.put("query", "Tel"); // the value for which we are querying.
+                // map.put("key", "name"); // the key of the object we are querying
+                queryResults = (JSONArray) clothoObject.startsWith(query); 
+                
+                for (Object queryResult : queryResults){
+                    if ( ((Map) queryResult).containsKey("schema")){
+                        String schema = (String) ((Map) queryResult).get("schema");
+                        if ( schema.equals(Institution.class.getCanonicalName())){
+                            institutions.add(mapToInstitution( (Map) queryResult, clothoObject));
+                        }
+                    }
+                }
+                
+                
+                break;
+            case EXACT:
+                query.put("schema", Institution.class.getCanonicalName());
+                queryResults = (JSONArray) clothoObject.query(query);
         
-        for (Object queryResult : queryResults) {
-            institutions.add(mapToInstitution((Map) queryResult, clothoObject));
+                for (Object queryResult : queryResults)
+                {
+                    institutions.add(mapToInstitution( (Map) queryResult, clothoObject));
+                }
+                
+                break;
+            default: 
+                break;
         }
         
         
         
         return institutions;
     }
-    public static List<Instrument>    queryInstrument(Map query , Clotho clothoObject)
+    public static List<Instrument>    queryInstrument(Map query , Clotho clothoObject, QueryMode mode)
     {
         
-        query.put("schema", Instrument.class.getCanonicalName());
         List<Instrument> instruments = new ArrayList<>();
+        JSONArray queryResults;
         
-        JSONArray queryResults = (JSONArray) clothoObject.query(query);
+        switch (mode){
+            case STARTSWITH:
+                //EXAMPLE 
+                //map.put("query", "Tel"); // the value for which we are querying.
+                // map.put("key", "name"); // the key of the object we are querying
+                queryResults = (JSONArray) clothoObject.startsWith(query); 
+                
+                for (Object queryResult : queryResults){
+                    if ( ((Map) queryResult).containsKey("schema")){
+                        String schema = (String) ((Map) queryResult).get("schema");
+                        if ( schema.equals(Instrument.class.getCanonicalName())){
+                            instruments.add(mapToInstrument( (Map) queryResult, clothoObject));
+                        }
+                    }
+                }
+                
+                
+                break;
+            case EXACT:
+                query.put("schema", Instrument.class.getCanonicalName());
+                queryResults = (JSONArray) clothoObject.query(query);
         
-        for (Object queryResult : queryResults) {
-            instruments.add(mapToInstrument((Map) queryResult, clothoObject));
+                for (Object queryResult : queryResults)
+                {
+                    instruments.add(mapToInstrument( (Map) queryResult, clothoObject));
+                }
+                
+                break;
+            default: 
+                break;
         }
         
         
@@ -1721,50 +1918,125 @@ public class ClothoAdapter {
         return instruments;
         
     }
-    public static List<Notebook>      queryNotebook(Map query , Clotho clothoObject)
+    public static List<Notebook>      queryNotebook(Map query , Clotho clothoObject, QueryMode mode)
     {
-        query.put("schema", Notebook.class.getCanonicalName());
         List<Notebook> notebooks = new ArrayList<>();
+        JSONArray queryResults;
         
-        JSONArray queryResults = (JSONArray) clothoObject.query(query);
+        switch (mode){
+            case STARTSWITH:
+                //EXAMPLE 
+                //map.put("query", "Tel"); // the value for which we are querying.
+                // map.put("key", "name"); // the key of the object we are querying
+                queryResults = (JSONArray) clothoObject.startsWith(query); 
+                
+                for (Object queryResult : queryResults){
+                    if ( ((Map) queryResult).containsKey("schema")){
+                        String schema = (String) ((Map) queryResult).get("schema");
+                        if ( schema.equals(Notebook.class.getCanonicalName())){
+                            notebooks.add(mapToNotebook( (Map) queryResult, clothoObject));
+                        }
+                    }
+                }
+                
+                
+                break;
+            case EXACT:
+                query.put("schema", Notebook.class.getCanonicalName());
+                queryResults = (JSONArray) clothoObject.query(query);
         
-        for (Object queryResult : queryResults) {
-            notebooks.add(mapToNotebook((Map) queryResult, clothoObject));
+                for (Object queryResult : queryResults)
+                {
+                    notebooks.add(mapToNotebook( (Map) queryResult, clothoObject));
+                }
+                
+                break;
+            default: 
+                break;
         }
-        
         
         
         
         return notebooks;
     }
-    public static List<Order>         queryOrder(Map query , Clotho clothoObject)
+    public static List<Order>         queryOrder(Map query , Clotho clothoObject, QueryMode mode)
     {
-        query.put("schema", Order.class.getCanonicalName());
         List<Order> orders = new ArrayList<>();
+        JSONArray queryResults;
         
-        JSONArray queryResults = (JSONArray) clothoObject.query(query);
+        switch (mode){
+            case STARTSWITH:
+                //EXAMPLE 
+                //map.put("query", "Tel"); // the value for which we are querying.
+                // map.put("key", "name"); // the key of the object we are querying
+                queryResults = (JSONArray) clothoObject.startsWith(query); 
+                
+                for (Object queryResult : queryResults){
+                    if ( ((Map) queryResult).containsKey("schema")){
+                        String schema = (String) ((Map) queryResult).get("schema");
+                        if ( schema.equals(Order.class.getCanonicalName())){
+                            orders.add(mapToOrder( (Map) queryResult, clothoObject));
+                        }
+                    }
+                }
+                
+                
+                break;
+            case EXACT:
+                query.put("schema", Order.class.getCanonicalName());
+                queryResults = (JSONArray) clothoObject.query(query);
         
-        for (Object queryResult : queryResults) {
-            orders.add(mapToOrder((Map) queryResult, clothoObject));
+                for (Object queryResult : queryResults)
+                {
+                    orders.add(mapToOrder( (Map) queryResult, clothoObject));
+                }
+                
+                break;
+            default: 
+                break;
         }
+        
         
         
         
         return orders;
     } 
-    public static List<Person>        queryPerson(Map query , Clotho clothoObject)
+    public static List<Person>        queryPerson(Map query , Clotho clothoObject, QueryMode mode)
     {
         
-        //query.put("schema", Person.class.getCanonicalName());
-        //TODO CHANGE THIS IN THE FUTURE
-        query.put("schema", Person.class.getCanonicalName());
-        
         List<Person> people = new ArrayList<>();
+        JSONArray queryResults;
         
-        JSONArray queryResults = (JSONArray) clothoObject.query(query);
+        switch (mode){
+            case STARTSWITH:
+                //EXAMPLE 
+                //map.put("query", "Tel"); // the value for which we are querying.
+                // map.put("key", "name"); // the key of the object we are querying
+                queryResults = (JSONArray) clothoObject.startsWith(query); 
+                
+                for (Object queryResult : queryResults){
+                    if ( ((Map) queryResult).containsKey("schema")){
+                        String schema = (String) ((Map) queryResult).get("schema");
+                        if ( schema.equals(Person.class.getCanonicalName())){
+                            people.add(mapToPerson( (Map) queryResult, clothoObject));
+                        }
+                    }
+                }
+                
+                
+                break;
+            case EXACT:
+                query.put("schema", Person.class.getCanonicalName());
+                queryResults = (JSONArray) clothoObject.query(query);
         
-        for (Object queryResult : queryResults) {
-            people.add(mapToPerson((Map) queryResult, clothoObject));
+                for (Object queryResult : queryResults)
+                {
+                    people.add(mapToPerson( (Map) queryResult, clothoObject));
+                }
+                
+                break;
+            default: 
+                break;
         }
         
         
@@ -1772,47 +2044,127 @@ public class ClothoAdapter {
         
         return people;
     }
-    public static List<Product>       queryProduct(Map query , Clotho clothoObject)
+    public static List<Product>       queryProduct(Map query , Clotho clothoObject, QueryMode mode)
     {
-        query.put("schema", Product.class.getCanonicalName());
         List<Product> products = new ArrayList<>();
+        JSONArray queryResults;
         
-        JSONArray queryResults = (JSONArray) clothoObject.query(query);
+        switch (mode){
+            case STARTSWITH:
+                //EXAMPLE 
+                //map.put("query", "Tel"); // the value for which we are querying.
+                // map.put("key", "name"); // the key of the object we are querying
+                queryResults = (JSONArray) clothoObject.startsWith(query); 
+                
+                for (Object queryResult : queryResults){
+                    if ( ((Map) queryResult).containsKey("schema")){
+                        String schema = (String) ((Map) queryResult).get("schema");
+                        if ( schema.equals(Product.class.getCanonicalName())){
+                            products.add(mapToProduct( (Map) queryResult, clothoObject));
+                        }
+                    }
+                }
+                
+                
+                break;
+            case EXACT:
+                query.put("schema", Product.class.getCanonicalName());
+                queryResults = (JSONArray) clothoObject.query(query);
         
-        for (Object queryResult : queryResults) {
-            products.add(mapToProduct((Map) queryResult, clothoObject));
+                for (Object queryResult : queryResults)
+                {
+                    products.add(mapToProduct( (Map) queryResult, clothoObject));
+                }
+                
+                break;
+            default: 
+                break;
         }
+        
         
         
         
         return products;
         
     }
-    public static List<Project>       queryProject(Map query , Clotho clothoObject)
+    public static List<Project>       queryProject(Map query , Clotho clothoObject, QueryMode mode)
     {
-        query.put("schema", Project.class.getCanonicalName());
         List<Project> projects = new ArrayList<>();
+        JSONArray queryResults;
         
-        JSONArray queryResults = (JSONArray) clothoObject.query(query);
+        switch (mode){
+            case STARTSWITH:
+                //EXAMPLE 
+                //map.put("query", "Tel"); // the value for which we are querying.
+                // map.put("key", "name"); // the key of the object we are querying
+                queryResults = (JSONArray) clothoObject.startsWith(query); 
+                
+                for (Object queryResult : queryResults){
+                    if ( ((Map) queryResult).containsKey("schema")){
+                        String schema = (String) ((Map) queryResult).get("schema");
+                        if ( schema.equals(Project.class.getCanonicalName())){
+                            projects.add(mapToProject( (Map) queryResult, clothoObject));
+                        }
+                    }
+                }
+                
+                
+                break;
+            case EXACT:
+                query.put("schema", Project.class.getCanonicalName());
+                queryResults = (JSONArray) clothoObject.query(query);
         
-        for (Object queryResult : queryResults) {
-            projects.add(mapToProject((Map) queryResult, clothoObject));
+                for (Object queryResult : queryResults)
+                {
+                    projects.add(mapToProject( (Map) queryResult, clothoObject));
+                }
+                
+                break;
+            default: 
+                break;
         }
+        
         
         
         
         return projects;
            
     }
-    public static List<Protocol>      queryProtocol(Map query , Clotho clothoObject)
+    public static List<Protocol>      queryProtocol(Map query , Clotho clothoObject, QueryMode mode)
     {
-        query.put("schema", Protocol.class.getCanonicalName());
         List<Protocol> protocols = new ArrayList<>();
+        JSONArray queryResults;
         
-        JSONArray queryResults = (JSONArray) clothoObject.query(query);
+        switch (mode){
+            case STARTSWITH:
+                //EXAMPLE 
+                //map.put("query", "Tel"); // the value for which we are querying.
+                // map.put("key", "name"); // the key of the object we are querying
+                queryResults = (JSONArray) clothoObject.startsWith(query); 
+                
+                for (Object queryResult : queryResults){
+                    if ( ((Map) queryResult).containsKey("schema")){
+                        String schema = (String) ((Map) queryResult).get("schema");
+                        if ( schema.equals(Protocol.class.getCanonicalName())){
+                            protocols.add(mapToProtocol( (Map) queryResult, clothoObject));
+                        }
+                    }
+                }
+                
+                
+                break;
+            case EXACT:
+                query.put("schema", Protocol.class.getCanonicalName());
+                queryResults = (JSONArray) clothoObject.query(query);
         
-        for (Object queryResult : queryResults) {
-            protocols.add(mapToProtocol((Map) queryResult, clothoObject));
+                for (Object queryResult : queryResults)
+                {
+                    protocols.add(mapToProtocol( (Map) queryResult, clothoObject));
+                }
+                
+                break;
+            default: 
+                break;
         }
         
         
@@ -1820,67 +2172,165 @@ public class ClothoAdapter {
         
         return protocols;
     }
-    public static List<Publication>   queryPublication(Map query , Clotho clothoObject)
+    public static List<Publication>   queryPublication(Map query , Clotho clothoObject, QueryMode mode)
     {
-        query.put("schema", Publication.class.getCanonicalName());
         List<Publication> publications = new ArrayList<>();
+        JSONArray queryResults;
         
-        JSONArray queryResults = (JSONArray) clothoObject.query(query);
+        switch (mode){
+            case STARTSWITH:
+                //EXAMPLE 
+                //map.put("query", "Tel"); // the value for which we are querying.
+                // map.put("key", "name"); // the key of the object we are querying
+                queryResults = (JSONArray) clothoObject.startsWith(query); 
+                
+                for (Object queryResult : queryResults){
+                    if ( ((Map) queryResult).containsKey("schema")){
+                        String schema = (String) ((Map) queryResult).get("schema");
+                        if ( schema.equals(Publication.class.getCanonicalName())){
+                            publications.add(mapToPublication( (Map) queryResult, clothoObject));
+                        }
+                    }
+                }
+                
+                
+                break;
+            case EXACT:
+                query.put("schema", Publication.class.getCanonicalName());
+                queryResults = (JSONArray) clothoObject.query(query);
         
-        for (Object queryResult : queryResults) {
-            publications.add(mapToPublication((Map) queryResult, clothoObject));
+                for (Object queryResult : queryResults)
+                {
+                    publications.add(mapToPublication( (Map) queryResult, clothoObject));
+                }
+                
+                break;
+            default: 
+                break;
         }
+        
         
         
         
         return publications;
     } 
-    public static List<Sample>        querySample(Map query , Clotho clothoObject)
+    public static List<Sample>        querySample(Map query , Clotho clothoObject, QueryMode mode)
     {
-        query.put("schema", Sample.class.getCanonicalName());
         List<Sample> samples = new ArrayList<>();
+        JSONArray queryResults;
         
-        JSONArray queryResults = (JSONArray) clothoObject.query(query);
+        switch (mode){
+            case STARTSWITH:
+                //EXAMPLE 
+                //map.put("query", "Tel"); // the value for which we are querying.
+                // map.put("key", "name"); // the key of the object we are querying
+                queryResults = (JSONArray) clothoObject.startsWith(query); 
+                
+                for (Object queryResult : queryResults){
+                    if ( ((Map) queryResult).containsKey("schema")){
+                        String schema = (String) ((Map) queryResult).get("schema");
+                        if ( schema.equals(Sample.class.getCanonicalName())){
+                            samples.add(mapToSample( (Map) queryResult, clothoObject));
+                        }
+                    }
+                }
+                
+                
+                break;
+            case EXACT:
+                query.put("schema", Sample.class.getCanonicalName());
+                queryResults = (JSONArray) clothoObject.query(query);
         
-        for (Object queryResult : queryResults) {
-            samples.add(mapToSample((Map) queryResult, clothoObject));
+                for (Object queryResult : queryResults)
+                {
+                    samples.add(mapToSample( (Map) queryResult, clothoObject));
+                }
+                
+                break;
+            default: 
+                break;
         }
-        
-        
-        
         
         return samples;
         
     }
-    public static List<Status>        queryStatus(Map query , Clotho clothoObject)
+    public static List<Status>        queryStatus(Map query , Clotho clothoObject, QueryMode mode)
     {
-        query.put("schema", Product.class.getCanonicalName());
         List<Status> statuses = new ArrayList<>();
+        JSONArray queryResults;
         
-        JSONArray queryResults = (JSONArray) clothoObject.query(query);
+        switch (mode){
+            case STARTSWITH:
+                //EXAMPLE 
+                //map.put("query", "Tel"); // the value for which we are querying.
+                // map.put("key", "name"); // the key of the object we are querying
+                queryResults = (JSONArray) clothoObject.startsWith(query); 
+                
+                for (Object queryResult : queryResults){
+                    if ( ((Map) queryResult).containsKey("schema")){
+                        String schema = (String) ((Map) queryResult).get("schema");
+                        if ( schema.equals(Status.class.getCanonicalName())){
+                            statuses.add(mapToStatus( (Map) queryResult, clothoObject));
+                        }
+                    }
+                }
+                
+                
+                break;
+            case EXACT:
+                query.put("schema", Status.class.getCanonicalName());
+                queryResults = (JSONArray) clothoObject.query(query);
         
-        for (Object queryResult : queryResults) {
-            statuses.add(mapToStatus((Map) queryResult, clothoObject));
+                for (Object queryResult : queryResults)
+                {
+                    statuses.add(mapToStatus( (Map) queryResult, clothoObject));
+                }
+                
+                break;
+            default: 
+                break;
         }
-        
-        
         
         return statuses;
     }  
-    public static List<Vendor>        queryVendor(Map query , Clotho clothoObject)
+    public static List<Vendor>        queryVendor(Map query , Clotho clothoObject, QueryMode mode)
     {
-        //queries return a JSON array of maps
-        query.put("schema", Vendor.class.getCanonicalName());
-        List<Vendor> companies = new ArrayList<>();
+        List<Vendor> vendors = new ArrayList<>();
+        JSONArray queryResults;
         
-        JSONArray queryResults = (JSONArray) clothoObject.query(query);
+        switch (mode){
+            case STARTSWITH:
+                //EXAMPLE 
+                //map.put("query", "Tel"); // the value for which we are querying.
+                // map.put("key", "name"); // the key of the object we are querying
+                queryResults = (JSONArray) clothoObject.startsWith(query); 
+                
+                for (Object queryResult : queryResults){
+                    if ( ((Map) queryResult).containsKey("schema")){
+                        String schema = (String) ((Map) queryResult).get("schema");
+                        if ( schema.equals(Vendor.class.getCanonicalName())){
+                            vendors.add(mapToVendor( (Map) queryResult, clothoObject));
+                        }
+                    }
+                }
+                
+                
+                break;
+            case EXACT:
+                query.put("schema", Vendor.class.getCanonicalName());
+                queryResults = (JSONArray) clothoObject.query(query);
         
-        for (Object queryResult : queryResults) {
-            companies.add(mapToVendor((Map) queryResult, clothoObject));
+                for (Object queryResult : queryResults)
+                {
+                    vendors.add(mapToVendor( (Map) queryResult, clothoObject));
+                }
+                
+                break;
+            default: 
+                break;
         }
         
-        return companies;
-        
+        return vendors;
         
     }
     // </editor-fold>
@@ -3312,7 +3762,5 @@ public class ClothoAdapter {
     }
     //  </editor-fold>
 
-    public static enum QueryMode{
-        EXACT, STARTSWITH
-    }
+    public static enum QueryMode { STARTSWITH, EXACT }
 }

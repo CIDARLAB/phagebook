@@ -122,7 +122,7 @@ public class createProduct extends HttpServlet {
             //company names are unique
             //first one should be 0
             
-            comp = ClothoAdapter.queryVendor(queryMap, clothoObject).get(0);
+            comp = ClothoAdapter.queryVendor(queryMap, clothoObject, ClothoAdapter.QueryMode.EXACT).get(0);
             if (comp.getName().equals("Not Set")){
                 isValidRequest = false;
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);

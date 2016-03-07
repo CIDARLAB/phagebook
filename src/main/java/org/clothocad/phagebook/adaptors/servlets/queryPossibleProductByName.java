@@ -82,8 +82,7 @@ public class queryPossibleProductByName extends HttpServlet {
             query.put("schema", Product.class.getCanonicalName());
             query.put("name", productName);
             
-            List<Product> queryProductResults = new LinkedList<>();
-            queryProductResults = ClothoAdapter.queryProduct(query, clothoObject);//NOT USING THIS BECAUSE WE WANT A JSON ARRAY BACK
+            List<Product> queryProductResults = ClothoAdapter.queryProduct(query, clothoObject, ClothoAdapter.QueryMode.STARTSWITH);//NOT USING THIS BECAUSE WE WANT A JSON ARRAY BACK
             //To get Vendor Name...
             JSONArray results = new JSONArray();
             for (Product product : queryProductResults){
