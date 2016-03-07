@@ -3312,5 +3312,7 @@ public class ClothoAdapter {
     }
     //  </editor-fold>
 
-    
+    public static enum QueryMode{
+        EXACT, STARTSWITH
+    }
 }
