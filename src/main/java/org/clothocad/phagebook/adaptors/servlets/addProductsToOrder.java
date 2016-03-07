@@ -108,14 +108,11 @@ public class addProductsToOrder extends HttpServlet {
 
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
-            Map createUserMap = new HashMap();
-            String username = "test"+ System.currentTimeMillis() ;
-            createUserMap.put("username", username);
-            createUserMap.put("password", "password");
-            clothoObject.createUser(createUserMap);
+            String username = "phagebook";
+            String password = "backend";
             Map loginMap = new HashMap();
             loginMap.put("username", username);
-            loginMap.put("credentials", "password");     
+            loginMap.put("credentials", password);     
             clothoObject.login(loginMap);
             //
             

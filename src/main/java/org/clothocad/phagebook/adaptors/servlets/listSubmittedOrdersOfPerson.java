@@ -7,10 +7,21 @@ package org.clothocad.phagebook.adaptors.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.clothoapi.clotho3javaapi.Clotho;
+import org.clothoapi.clotho3javaapi.ClothoConnection;
+import org.clothocad.model.Person;
+import org.clothocad.phagebook.adaptors.ClothoAdapter;
+import org.clothocad.phagebook.controller.Args;
+import org.clothocad.phagebook.dom.Order;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  *
@@ -30,18 +41,7 @@ public class listSubmittedOrdersOfPerson extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet listSubmittedOrdersOfPerson</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet listSubmittedOrdersOfPerson at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -57,6 +57,80 @@ public class listSubmittedOrdersOfPerson extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
+        
+        Object pUser = request.getParameter("user");
+        String user = pUser != null ? (String) pUser: "";
+        boolean isValid = false;
+        
+        if (!user.equals("")){
+            isValid = true;
+        }
+        
+        if (isValid){
+            ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+            Clotho clothoObject = new Clotho(conn);
+            String username = "phagebook";
+            String password = "backend";
+            Map loginMap = new HashMap();
+            loginMap.put("username", username);
+            loginMap.put("credentials", password);     
+            clothoObject.login(loginMap);
+            // able to query now. 
+            
+            Person prashant = ClothoAdapter.getPerson(user, clothoObject);
+            boolean exists = true;
+            if (prashant.getId().equals("")){
+                System.out.println("Person does not exist in list open orders of person");
+                exists = false;
+            } 
+            if (exists){
+                List<String> submittedOrders = prashant.getSubmittedOrders();
+                JSONArray createdOrdersJSON = new JSONArray();
+                for (String created : submittedOrders ){
+                    Order temp = ClothoAdapter.getOrder(created, clothoObject);
+                    JSONObject tempAsJSON = new JSONObject();
+                    tempAsJSON.put("name", temp.getName());
+                    tempAsJSON.put("description", temp.getDescription());
+                    tempAsJSON.put("dateCreated", temp.getDateCreated().toString());
+                    tempAsJSON.put("createdById", (ClothoAdapter.getPerson(temp.getCreatedById(), clothoObject)).getEmailId());
+                    tempAsJSON.put("products", temp.getProducts());
+                    tempAsJSON.put("budget", temp.getBudget());
+                    tempAsJSON.put("approvedById", (ClothoAdapter.getPerson(temp.getApprovedById(), clothoObject)).getEmailId());
+                    tempAsJSON.put("receivedById", (ClothoAdapter.getPerson(temp.getReceivedById(), clothoObject)).getEmailId());
+                    tempAsJSON.put("relatedProjectId", temp.getRelatedProjectId());
+                    tempAsJSON.put("status", temp.getStatus());
+                    tempAsJSON.put("affiliatedLabId", (ClothoAdapter.getLab(temp.getAffiliatedLabId(), clothoObject)));
+                    createdOrdersJSON.put(tempAsJSON); // put it in there...
+                }
+                
+                response.setContentType("application/json");
+                response.setStatus(HttpServletResponse.SC_OK);
+                PrintWriter out = response.getWriter();
+                out.print(createdOrdersJSON);
+                out.flush();
+                
+                
+            } else {
+                response.setContentType("application/json");
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                JSONObject responseJSON = new JSONObject();
+                responseJSON.put("message", "id provided does not exist");
+                PrintWriter out = response.getWriter();
+                out.print(responseJSON);
+                out.flush();
+            }
+            
+            
+        } else {
+            response.setContentType("application/json");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            JSONObject responseJSON = new JSONObject();
+            responseJSON.put("message", "missing an id to query with");
+            PrintWriter out = response.getWriter();
+            out.print(responseJSON);
+            out.flush();
+        }
     }
 
     /**

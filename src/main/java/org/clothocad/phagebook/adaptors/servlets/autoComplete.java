@@ -73,18 +73,15 @@ public class autoComplete extends HttpServlet {
             //TODO: we need to have an authentication token at some point
 
             Map createUserMap = new HashMap();
-            String username = "test"+ System.currentTimeMillis() ;
-
-
+            String username = "phagebook";
+            String password = "backend";
+            
             createUserMap.put("username", username);
-            createUserMap.put("password", "password");
-
-
-            clothoObject.createUser(createUserMap);
-
+            createUserMap.put("password", password);
+            
             Map loginMap = new HashMap();
             loginMap.put("username", username);
-            loginMap.put("credentials", "password");  
+            loginMap.put("credentials", password);  
 
             clothoObject.login(loginMap);
 

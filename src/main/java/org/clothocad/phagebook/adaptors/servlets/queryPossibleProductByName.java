@@ -7,6 +7,7 @@ package org.clothocad.phagebook.adaptors.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -56,10 +57,14 @@ public class queryPossibleProductByName extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         
-        String productName = ""; 
-        productName = request.getParameter("Name");
+        Object pProductName = request.getParameter("name");
+        String productName = pProductName != null ? (String) pProductName : "";
+        
+        Object pSearchType = request.getParameter("searchType");
+        String searchType = pSearchType != null ? (String) pProductName: "";
+        
         boolean isValidRequest = false;
-        if (productName != "" && productName != null){
+        if (!productName.equals("") && !productName.equals("")){
             isValidRequest = true;
         }
         
@@ -67,13 +72,9 @@ public class queryPossibleProductByName extends HttpServlet {
             //create a clothoUser and Login to Query
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
-            Map createUserMap = new HashMap();
-            createUserMap.put("username", "ClothoBackend");
-            createUserMap.put("password", "phagebook");
-            clothoObject.createUser(createUserMap);
             Map loginMap = new HashMap();
-            loginMap.put("username", "ClothoBackend");
-            loginMap.put("credentials", "phagebook");
+            loginMap.put("username", "phagebook");
+            loginMap.put("credentials", "backend");
             clothoObject.login(loginMap);
 
             //Query for the products
@@ -82,8 +83,7 @@ public class queryPossibleProductByName extends HttpServlet {
             query.put("schema", Product.class.getCanonicalName());
             query.put("name", productName);
             
-            List<Product> queryProductResults = new LinkedList<>();
-            queryProductResults = ClothoAdapter.queryProduct(query, clothoObject);//NOT USING THIS BECAUSE WE WANT A JSON ARRAY BACK
+            List<Product> queryProductResults = ClothoAdapter.queryProduct(query, clothoObject, ClothoAdapter.QueryMode.valueOf(searchType));
             //To get Vendor Name...
             JSONArray results = new JSONArray();
             for (Product product : queryProductResults){

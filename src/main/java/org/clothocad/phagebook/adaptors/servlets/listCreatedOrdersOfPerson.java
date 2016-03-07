@@ -109,7 +109,6 @@ public class listCreatedOrdersOfPerson extends HttpServlet {
                 
                 response.setContentType("application/json");
                 response.setStatus(HttpServletResponse.SC_OK);
-                
                 PrintWriter out = response.getWriter();
                 out.print(createdOrdersJSON);
                 out.flush();

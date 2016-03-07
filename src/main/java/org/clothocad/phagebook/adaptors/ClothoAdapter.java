@@ -1632,7 +1632,8 @@ public class ClothoAdapter {
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Query Methods">
-    public static List<CartItem>      queryCartItem(Map query, Clotho clothoObject)
+    
+    public static List<CartItem>      queryCartItem(Map query, Clotho clothoObject, QueryMode mode)
     {
         query.put("schema", CartItem.class.getCanonicalName());
         List<CartItem> cartItems = new ArrayList<>();
@@ -1645,7 +1646,7 @@ public class ClothoAdapter {
         return cartItems;
         
     }  
-    public static List<Container>     queryContainer(Map query , Clotho clothoObject)
+    public static List<Container>     queryContainer(Map query , Clotho clothoObject, QueryMode mode)
     {
         query.put("schema", Container.class.getCanonicalName());
         List<Container> containers = new ArrayList<>();
@@ -1660,7 +1661,7 @@ public class ClothoAdapter {
         return containers;
         
     }
-    public static List<Entry>         queryEntry(Map query , Clotho clothoObject)
+    public static List<Entry>         queryEntry(Map query , Clotho clothoObject, QueryMode mode)
     {
         query.put("schema", Entry.class.getCanonicalName());
         List<Entry> entries = new ArrayList<>();
@@ -1676,7 +1677,7 @@ public class ClothoAdapter {
         return entries;
       
     }
-    public static List<FundingAgency> queryFundingAgency(Map query , Clotho clothoObject)
+    public static List<FundingAgency> queryFundingAgency(Map query , Clotho clothoObject, QueryMode mode)
     {
         query.put("schema", FundingAgency.class.getCanonicalName());
         List<FundingAgency> fundingAgencies = new ArrayList<>();
@@ -1693,7 +1694,7 @@ public class ClothoAdapter {
        
     }
     //good is abstract, can't be gotten
-    public static List<Grant>         queryGrant(Map query , Clotho clothoObject)
+    public static List<Grant>         queryGrant(Map query , Clotho clothoObject, QueryMode mode)
     {
         query.put("schema", Grant.class.getCanonicalName());
         List<Grant> grants = new ArrayList<>();
@@ -1709,7 +1710,7 @@ public class ClothoAdapter {
         return grants;
 
     }
-    public static List<Institution>   queryInstitution(Map query , Clotho clothoObject)
+    public static List<Institution>   queryInstitution(Map query , Clotho clothoObject, QueryMode mode)
     {
         query.put("schema", Institution.class.getCanonicalName());
         List<Institution> institutions = new ArrayList<>();
@@ -1724,7 +1725,7 @@ public class ClothoAdapter {
         
         return institutions;
     }
-    public static List<Instrument>    queryInstrument(Map query , Clotho clothoObject)
+    public static List<Instrument>    queryInstrument(Map query , Clotho clothoObject, QueryMode mode)
     {
         
         query.put("schema", Instrument.class.getCanonicalName());
@@ -1741,7 +1742,7 @@ public class ClothoAdapter {
         return instruments;
         
     }
-    public static List<Notebook>      queryNotebook(Map query , Clotho clothoObject)
+    public static List<Notebook>      queryNotebook(Map query , Clotho clothoObject, QueryMode mode)
     {
         query.put("schema", Notebook.class.getCanonicalName());
         List<Notebook> notebooks = new ArrayList<>();
@@ -1757,7 +1758,7 @@ public class ClothoAdapter {
         
         return notebooks;
     }
-    public static List<Order>         queryOrder(Map query , Clotho clothoObject)
+    public static List<Order>         queryOrder(Map query , Clotho clothoObject, QueryMode mode)
     {
         query.put("schema", Order.class.getCanonicalName());
         List<Order> orders = new ArrayList<>();
@@ -1772,7 +1773,7 @@ public class ClothoAdapter {
         
         return orders;
     } 
-    public static List<Person>        queryPerson(Map query , Clotho clothoObject)
+    public static List<Person>        queryPerson(Map query , Clotho clothoObject, QueryMode mode)
     {
         
         //query.put("schema", Person.class.getCanonicalName());
@@ -1792,7 +1793,7 @@ public class ClothoAdapter {
         
         return people;
     }
-    public static List<Product>       queryProduct(Map query , Clotho clothoObject)
+    public static List<Product>       queryProduct(Map query , Clotho clothoObject, QueryMode mode)
     {
         query.put("schema", Product.class.getCanonicalName());
         List<Product> products = new ArrayList<>();
@@ -1808,7 +1809,7 @@ public class ClothoAdapter {
         return products;
         
     }
-    public static List<Project>       queryProject(Map query , Clotho clothoObject)
+    public static List<Project>       queryProject(Map query , Clotho clothoObject, QueryMode mode)
     {
         query.put("schema", Project.class.getCanonicalName());
         List<Project> projects = new ArrayList<>();
@@ -1824,7 +1825,7 @@ public class ClothoAdapter {
         return projects;
            
     }
-    public static List<Protocol>      queryProtocol(Map query , Clotho clothoObject)
+    public static List<Protocol>      queryProtocol(Map query , Clotho clothoObject, QueryMode mode)
     {
         query.put("schema", Protocol.class.getCanonicalName());
         List<Protocol> protocols = new ArrayList<>();
@@ -1840,7 +1841,7 @@ public class ClothoAdapter {
         
         return protocols;
     }
-    public static List<Publication>   queryPublication(Map query , Clotho clothoObject)
+    public static List<Publication>   queryPublication(Map query , Clotho clothoObject, QueryMode mode)
     {
         query.put("schema", Publication.class.getCanonicalName());
         List<Publication> publications = new ArrayList<>();
@@ -1855,7 +1856,7 @@ public class ClothoAdapter {
         
         return publications;
     } 
-    public static List<Sample>        querySample(Map query , Clotho clothoObject)
+    public static List<Sample>        querySample(Map query , Clotho clothoObject, QueryMode mode)
     {
         query.put("schema", Sample.class.getCanonicalName());
         List<Sample> samples = new ArrayList<>();
@@ -1872,7 +1873,7 @@ public class ClothoAdapter {
         return samples;
         
     }
-    public static List<Status>        queryStatus(Map query , Clotho clothoObject)
+    public static List<Status>        queryStatus(Map query , Clotho clothoObject, QueryMode mode)
     {
         query.put("schema", Product.class.getCanonicalName());
         List<Status> statuses = new ArrayList<>();
@@ -1887,7 +1888,7 @@ public class ClothoAdapter {
         
         return statuses;
     }  
-    public static List<Vendor>        queryVendor(Map query , Clotho clothoObject)
+    public static List<Vendor>        queryVendor(Map query , Clotho clothoObject, QueryMode mode)
     {
         //queries return a JSON array of maps
         query.put("schema", Vendor.class.getCanonicalName());
@@ -3349,5 +3350,6 @@ public class ClothoAdapter {
     }
     //  </editor-fold>
 
-    
+    public static enum QueryMode { STARTSWITH, EXACT }
 }
+
