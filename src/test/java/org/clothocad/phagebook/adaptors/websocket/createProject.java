@@ -41,13 +41,17 @@ public class createProject {
         
         Person person2 = new Person();
         person2 = ClothoAdapter.getPerson(id,clothoObject);
-        
-        Project project = new Project(person2.getId(), "Phagebook", "Currently, synthetic biology lacks a systematic "
+        String description = "Currently, synthetic biology lacks a systematic " 
                 + "design-build-test workflow for creating genetic circuits. Researchers often waste time and "
                 + "resources on traditional trial-and-error approaches in designing and assembling large devices. "
                 + "My research works towards overcoming this roadblock by creating a standardized experimental-computational "
                 + "workflow that is clearly defined and applicable to a wide variety of researchers and projects. This workflow integrates software tools to "
-                + "reduce human error and to structure the way designs are chosen, assembled, and tested.");
+                + "reduce human error and to structure the way designs are chosen, assembled, and tested.";
+        String projectName = "Phagebook";
+        Project project = new Project();
+        project.setCreatorId(person2.getId());
+        project.setDescription(description);
+        
         ClothoAdapter.createProject(project, clothoObject);
     }
     

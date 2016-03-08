@@ -28,7 +28,7 @@ public class AuthPrivileges {
     // create all of the objects we will be initially testing
     Person doug = new Person();
     doug.setFirstName("Doug");
-    doug.setEmailId("abcd@gmail.com");
+    doug.setEmailId("dougd@bu.edu");
     doug.setPassword("123456");
 
     
@@ -51,8 +51,8 @@ public class AuthPrivileges {
     Institution boston = new Institution("BU");
     Institution cidar = new Institution("CIDAR");
     
-    Project pb = new Project(prash.getId(), "Phagebook", "Phagebook is awesome.");
-    Project cl = new Project(prash.getId(), "Cello", "Cello is awesome.");
+    Project pb = new Project();
+    Project cl = new Project();
     
     doug.addInstitution(boston);
     prash.addInstitution(boston);
