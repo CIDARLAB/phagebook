@@ -68,13 +68,10 @@ public class queryProductByCompany extends HttpServlet {
             //create a clothoUser and Login to Query
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
-            Map createUserMap = new HashMap();
-            createUserMap.put("username", "ClothoBackend");
-            createUserMap.put("password", "phagebook");
-            clothoObject.createUser(createUserMap);
+            
             Map loginMap = new HashMap();
-            loginMap.put("username", "ClothoBackend");
-            loginMap.put("credentials", "phagebook");
+            loginMap.put("username", "phagebook");
+            loginMap.put("credentials", "backend");
             clothoObject.login(loginMap);
 
             //Query for the company
@@ -84,7 +81,7 @@ public class queryProductByCompany extends HttpServlet {
             query.put("name", companyName);
             
             List<Vendor> queryCompanyResults = new LinkedList<>();
-            queryCompanyResults = ClothoAdapter.queryVendor(query, clothoObject);
+            queryCompanyResults = ClothoAdapter.queryVendor(query, clothoObject, ClothoAdapter.QueryMode.EXACT);
             //To get Vendor Name and ID to query for products with that company...
             List<String> companyIDs = new LinkedList<>();
             for (Vendor company : queryCompanyResults ){
@@ -98,7 +95,7 @@ public class queryProductByCompany extends HttpServlet {
             {
                 Map queryForClotho = new HashMap();
                 queryForClotho.put("company", companyID);
-                List<Product> queryProductResults = ClothoAdapter.queryProduct(queryForClotho, clothoObject);
+                List<Product> queryProductResults = ClothoAdapter.queryProduct(queryForClotho, clothoObject, ClothoAdapter.QueryMode.EXACT);
             
                 for (Product product : queryProductResults){
                     JSONObject productAsJson = new JSONObject();

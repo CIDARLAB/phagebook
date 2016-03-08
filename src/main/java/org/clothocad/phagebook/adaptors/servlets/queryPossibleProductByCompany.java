@@ -83,8 +83,7 @@ public class queryPossibleProductByCompany extends HttpServlet {
             
             query.put("name", companyName);
             
-            List<Vendor> queryCompanyResults = new LinkedList<>();
-            queryCompanyResults = ClothoAdapter.queryVendor(query, clothoObject);
+            List<Vendor> queryCompanyResults = ClothoAdapter.queryVendor(query, clothoObject, ClothoAdapter.QueryMode.EXACT);
             //To get Vendor Name and ID to query for products with that company...
             List<String> companyIDs = new LinkedList<>();
             for (Vendor company : queryCompanyResults ){
@@ -98,7 +97,7 @@ public class queryPossibleProductByCompany extends HttpServlet {
             {
                 Map queryForClotho = new HashMap();
                 queryForClotho.put("company", companyID);
-                List<Product> queryProductResults = ClothoAdapter.queryProduct(queryForClotho, clothoObject);
+                List<Product> queryProductResults = ClothoAdapter.queryProduct(queryForClotho, clothoObject, ClothoAdapter.QueryMode.STARTSWITH);
             
                 for (Product product : queryProductResults){
                     JSONObject productAsJson = new JSONObject();
