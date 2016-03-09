@@ -1227,7 +1227,13 @@ public class ClothoAdapterTest {
                 submittedOrders.add(O4.getId());
                 submittedOrders.add(O5.getId());
                 submittedOrders.add(O6.getId());
-                
+            List<String> approvedOrders = new ArrayList<>();
+                Order O7 = new Order();
+                Order O8 = new Order();
+                    ClothoAdapter.createOrder(O7, clothoObject);
+                    ClothoAdapter.createOrder(O8, clothoObject);
+                approvedOrders.add(O7.getId());
+                approvedOrders.add(O8.getId());
                 
         //
         Person person1 = new Person();
@@ -1248,6 +1254,8 @@ public class ClothoAdapterTest {
         person1.setRoles(roles);
         person1.setCreatedOrders(orders);
         person1.setSubmittedOrders(submittedOrders);
+        person1.setApprovedOrders(approvedOrders);
+        
         
         
         
@@ -1303,6 +1311,10 @@ public class ClothoAdapterTest {
         assertEquals(person1.getSubmittedOrders().size(), person2.getSubmittedOrders().size());
         for (int i = 0; i < person1.getSubmittedOrders().size(); i++){
             assertEquals(person1.getSubmittedOrders().get(i), person2.getSubmittedOrders().get(i));
+        }
+        assertEquals(person1.getApprovedOrders().size(), person2.getApprovedOrders().size());
+        for (int i = 0; i < person1.getApprovedOrders().size(); i++){
+            assertEquals(person1.getApprovedOrders().get(i), person2.getApprovedOrders().get(i));
         }
         System.out.println("----------");
     }

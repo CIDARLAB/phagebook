@@ -7,10 +7,21 @@ package org.clothocad.phagebook.adaptors.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.clothoapi.clotho3javaapi.Clotho;
+import org.clothoapi.clotho3javaapi.ClothoConnection;
+import org.clothocad.model.Person;
+import org.clothocad.phagebook.adaptors.ClothoAdapter;
+import org.clothocad.phagebook.controller.Args;
+import org.clothocad.phagebook.dom.Order;
+import org.clothocad.phagebook.dom.OrderStatus;
+import org.json.JSONObject;
 
 /**
  *
@@ -29,19 +40,7 @@ public class approveOrder extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet approveOrder</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet approveOrder at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -71,6 +70,84 @@ public class approveOrder extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        Object pOrderId = request.getParameter("orderId");
+        String orderId = pOrderId != null ? (String) pOrderId : "";
+        
+        Object pUserId = request.getParameter("orderId");
+        String userId = pUserId != null ? (String) pUserId : "";
+        
+        boolean isValid = false;
+        if (!orderId.equals("") && !userId.equals("")){
+            isValid = true;
+        }
+        
+        if (isValid){
+            //login
+            ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+            Clotho clothoObject = new Clotho(conn);
+         
+            String username = "phagebook";
+            String password = "backend";
+            /*
+            
+                DIRECT ASSUMPTION THAT USER: phagebook exists and their 
+                                   PASSWORD: backend
+            */
+            Map loginMap = new HashMap();
+            loginMap.put("username"   , username);
+            loginMap.put("credentials", password);
+            clothoObject.login(loginMap);
+            
+            Order orderToApprove = ClothoAdapter.getOrder(userId, clothoObject);
+            List<String> receivedByList = orderToApprove.getReceivedByIds();
+            String finalApprover = "";
+            String fAEmailId = "";
+            for (String id : receivedByList){
+                if (id.equals(userId)){
+                    finalApprover = id;
+                    Person approver = ClothoAdapter.getPerson(id, clothoObject);
+                    clothoObject.logout();
+                    Map login2 = new HashMap();
+                    fAEmailId = approver.getEmailId();
+                    login2.put("username", fAEmailId);
+                    login2.put("credentials", approver.getPassword());
+                    clothoObject.login(login2);
+                    List<String> approvedOrder = approver.getApprovedOrders();
+                    List<String> submittedOrders = approver.getSubmittedOrders(); // need to add to approved and remove from submitted..
+                    approvedOrder.add(orderToApprove.getId());
+                    submittedOrders.remove(orderToApprove.getId());
+                    orderToApprove.setStatus(OrderStatus.APPROVED);
+                    ClothoAdapter.setOrder(orderToApprove, clothoObject);
+                    ClothoAdapter.setPerson(approver, clothoObject);
+                    
+                    
+                }
+                
+            }
+            
+            response.setContentType("application/json");
+            response.setStatus(HttpServletResponse.SC_OK);
+            JSONObject responseJSON = new JSONObject();
+            responseJSON.put("message", "Order has been approved!");
+            responseJSON.put("approvedBy", finalApprover);
+            responseJSON.put("approvedByEmail", fAEmailId);
+            PrintWriter out = response.getWriter();
+            out.print(responseJSON);
+            out.flush();
+            
+            
+        }
+        else 
+        {
+            response.setContentType("application/json");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            JSONObject responseJSON = new JSONObject();
+            responseJSON.put("message", "missing parameters for servlet call");
+            PrintWriter out = response.getWriter();
+            out.print(responseJSON);
+            out.flush();
+        }
+        
     }
 
     /**

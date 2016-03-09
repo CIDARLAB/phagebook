@@ -940,6 +940,26 @@ public class ClothoAdapter {
                 map.put("submittedOrders", orders);
             }
         }
+        
+        if (person.getApprovedOrders()!= null)
+        {
+            if (!person.getApprovedOrders().isEmpty())
+            {
+                JSONArray orders = new JSONArray();
+                for (String order : person.getApprovedOrders())
+                {
+                    if (order!= null)
+                    {
+                        if (!order.equals("Not Set") && !order.isEmpty()){
+                            orders.add(order);
+                        }
+                    }
+                }
+                map.put("approvedOrders", orders);
+            }
+        }
+        
+        
         if(person.getPublications() != null)
         {
             if (!person.getPublications().isEmpty())
@@ -3066,6 +3086,15 @@ public class ClothoAdapter {
                 submittedOrders.add(orderIds.getString(i));
             }
         }
+        
+        List<String> approvedOrders = new ArrayList<>();
+        if (map.containsKey("approvedOrders")){
+            JSONArray orderIds = (JSONArray) map.get("approvedOrders");
+            
+            for (int i = 0; i < orderIds.size(); i++){
+                approvedOrders.add(orderIds.getString(i));
+            }
+        }
        
         List<String> publications = new ArrayList<>() ;
         if ( map.containsKey("publications")){
@@ -3102,6 +3131,7 @@ public class ClothoAdapter {
         person.setCreatedOrders(orders);
         person.setPublications(publications);
         person.setSubmittedOrders(submittedOrders);
+        person.setApprovedOrders(approvedOrders);
         
         
         
@@ -3568,7 +3598,7 @@ public class ClothoAdapter {
     }
     public static String setPerson(Person person, Clotho clothoObject){
         /*add logic */ 
-        Map map = new HashMap();
+         Map map = new HashMap();
         map.put("schema", Person.class.getCanonicalName());
 
 
@@ -3581,7 +3611,7 @@ public class ClothoAdapter {
         if (person.getSaltedEmailHash() != null) 
         {
             map.put("saltedEmailHash", Arrays.toString(person.getSaltedEmailHash()) );
-
+           
         }
         
         if (person.getProjects() != null)
@@ -3589,10 +3619,10 @@ public class ClothoAdapter {
             if (!person.getProjects().isEmpty())
             {
                 JSONArray projects = new JSONArray();
-                for (String projectId : person.getProjects()){
-                    if (projectId != null){
-                        if (!projectId.equals("Not Set") && !projectId.isEmpty()){
-                            projects.add(projectId);
+                for (String project : person.getProjects()){
+                    if (project != null){
+                        if (!project.equals("Not Set") && !project.isEmpty()){
+                            projects.add(project);
                         }
                     }
                 }
@@ -3689,7 +3719,7 @@ public class ClothoAdapter {
                 JSONArray orders = new JSONArray();
                 for (String order : person.getCreatedOrders())
                 {
-                    if (order != null)
+                    if (order!= null)
                     {
                         if (!order.equals("Not Set") && !order.isEmpty()){
                             orders.add(order);
@@ -3699,6 +3729,43 @@ public class ClothoAdapter {
                 map.put("orders", orders);
             }
         }
+        if (person.getSubmittedOrders()!= null)
+        {
+            if (!person.getSubmittedOrders().isEmpty())
+            {
+                JSONArray orders = new JSONArray();
+                for (String order : person.getSubmittedOrders())
+                {
+                    if (order!= null)
+                    {
+                        if (!order.equals("Not Set") && !order.isEmpty()){
+                            orders.add(order);
+                        }
+                    }
+                }
+                map.put("submittedOrders", orders);
+            }
+        }
+        
+        if (person.getApprovedOrders()!= null)
+        {
+            if (!person.getApprovedOrders().isEmpty())
+            {
+                JSONArray orders = new JSONArray();
+                for (String order : person.getApprovedOrders())
+                {
+                    if (order!= null)
+                    {
+                        if (!order.equals("Not Set") && !order.isEmpty()){
+                            orders.add(order);
+                        }
+                    }
+                }
+                map.put("approvedOrders", orders);
+            }
+        }
+        
+        
         if(person.getPublications() != null)
         {
             if (!person.getPublications().isEmpty())
@@ -3734,18 +3801,25 @@ public class ClothoAdapter {
         map.put("activated", person.isActivated());
         map.put("activationString", person.getActivationString());
         
-       
-        if (person.getId() != null){
-            if (!person.getId().equals("Not Set") && !person.getId().isEmpty()){
-                map.put("id", person.getId());
-            }
-        }
         String username = person.getEmailId()  ;
         String password = person.getPassword();
         
         Map loginUserMap = new HashMap();
         loginUserMap.put("username", username);
         loginUserMap.put("credentials", password);
+        
+        
+        clothoObject.login(loginUserMap);
+        
+        if (person.getId() != null){
+            if (!person.getId().equals("Not Set") && !person.getId().isEmpty()){
+                map.put("id", person.getId());
+            }
+        }
+       
+        
+        
+        
         
         Map loginResult = (Map)(clothoObject.login(loginUserMap));
         
