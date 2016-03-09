@@ -160,7 +160,7 @@
                 <fieldset>
                     <h3>Sign Up</h3>
                     <p>Start connecting with other researchers -- it's free.</p>
-                    <form action="test.html" method="get">
+                    <form action="createPerson" method="POST">
                         <div class="form-group" id="register-form2">
                             <div class="row">
                                 <span class="col-sm-6">
@@ -194,7 +194,7 @@
                             <div class="col-sm-12">
                                 <p style='font-size:10px'>By clicking Create Profile you agree to our Terms and that you have read out Data Policy, including our Cookie Use</p>
                             </div>
-                            <button type="submit" class="btn btn-lg">Create Profile</button>
+                            <button type="submit" onclick="return checkPasswordMatch();" class="btn btn-lg">Create Profile</button>
                             
                         </div>
                     </form>

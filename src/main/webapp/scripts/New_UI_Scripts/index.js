@@ -7,7 +7,13 @@ function checkPasswordMatch() {
     var confirmPassword = $("#reenterPassword").val();
 
     if (password !== confirmPassword)
+    {
        console.log("Passwords do not match");
+       return false;
+    }
     else
+    {
        console.log("Passwords match");
+       return true;
+    }
 }
