@@ -27,7 +27,7 @@ import org.json.JSONObject;
  *
  * @author Herb
  */
-public class listSubmittedOrdersOfPerson extends HttpServlet {
+public class listApprovedOrdersOfPerson extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,7 +40,6 @@ public class listSubmittedOrdersOfPerson extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         
     }
 
@@ -57,7 +56,10 @@ public class listSubmittedOrdersOfPerson extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
+         //I AM ASSUMING THAT 
+        /* ID is passed in of person
+       
+        */
         
         Object pUser = request.getParameter("user");
         String user = pUser != null ? (String) pUser: "";
@@ -81,14 +83,14 @@ public class listSubmittedOrdersOfPerson extends HttpServlet {
             Person prashant = ClothoAdapter.getPerson(user, clothoObject);
             boolean exists = true;
             if (prashant.getId().equals("")){
-                System.out.println("Person does not exist in list submitted orders of person");
+                System.out.println("Person does not exist in list open orders of person");
                 exists = false;
             } 
             if (exists){
-                List<String> submittedOrders = prashant.getSubmittedOrders();
-                JSONArray createdOrdersJSON = new JSONArray();
-                for (String created : submittedOrders ){
-                    Order temp = ClothoAdapter.getOrder(created, clothoObject);
+                List<String> approvedOrders = prashant.getApprovedOrders();
+                JSONArray approvedOrdersJSON = new JSONArray();
+                for (String approved : approvedOrders ){
+                    Order temp = ClothoAdapter.getOrder(approved, clothoObject);
                     JSONObject tempAsJSON = new JSONObject();
                     tempAsJSON.put("name", temp.getName());
                     tempAsJSON.put("description", temp.getDescription());
@@ -108,13 +110,13 @@ public class listSubmittedOrdersOfPerson extends HttpServlet {
                     tempAsJSON.put("relatedProjectId", temp.getRelatedProjectId());
                     tempAsJSON.put("status", temp.getStatus());
                     tempAsJSON.put("affiliatedLabId", (ClothoAdapter.getLab(temp.getAffiliatedLabId(), clothoObject)));
-                    createdOrdersJSON.put(tempAsJSON); // put it in there...
+                    approvedOrdersJSON.put(tempAsJSON); // put it in there...
                 }
                 
                 response.setContentType("application/json");
                 response.setStatus(HttpServletResponse.SC_OK);
                 PrintWriter out = response.getWriter();
-                out.print(createdOrdersJSON);
+                out.print(approvedOrdersJSON);
                 out.flush();
                 
                 
@@ -152,6 +154,7 @@ public class listSubmittedOrdersOfPerson extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
     }
 
     /**
