@@ -60,34 +60,48 @@ public class queryProductByName extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         
-        String productName = ""; 
-        productName = request.getParameter("Name");
+        Object pProductName = request.getParameter("name");
+        String productName = pProductName != null ? (String) pProductName : "";
+        
+        Object pSearchType = request.getParameter("searchType");
+        String searchType = pSearchType != null ? (String) pProductName: "";
+        
         boolean isValidRequest = false;
-        if (productName != "" && productName != null){
+        if (!productName.equals("") && !productName.equals("")){
             isValidRequest = true;
         }
         
         if (isValidRequest){
-            //create a clothoUser and Login to Query
+         
+             //create a clothoUser and Login to Query
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
-            Map createUserMap = new HashMap();
-            createUserMap.put("username", "ClothoBackend");
-            createUserMap.put("password", "phagebook");
-            clothoObject.createUser(createUserMap);
+            ClothoAdapter.QueryMode Qmode = ClothoAdapter.QueryMode.valueOf(searchType);
             Map loginMap = new HashMap();
-            loginMap.put("username", "ClothoBackend");
-            loginMap.put("credentials", "phagebook");
+            loginMap.put("username", "phagebook");
+            loginMap.put("credentials", "backend");
             clothoObject.login(loginMap);
 
             //Query for the products
             
-            Map query = new HashMap();
-            query.put("schema", Product.class.getCanonicalName());
-            query.put("name", productName);
+             Map query = new HashMap();
             
-            List<Product> queryProductResults = new LinkedList<>();
-            queryProductResults = ClothoAdapter.queryProduct(query, clothoObject);//NOT USING THIS BECAUSE WE WANT A JSON ARRAY BACK
+            switch (Qmode){
+                case EXACT:
+                    query.put("name", productName);
+                    break;
+                case STARTSWITH:
+                     query.put("query", productName); // the value for which we are querying.
+                     query.put("key", "name"); // the key of the object we are querying
+       
+                    break;
+                default:
+                    break;
+                    
+            }
+            
+            List<Product> queryProductResults = ClothoAdapter.queryProduct(query, clothoObject, ClothoAdapter.QueryMode.valueOf(searchType));
+
             //To get Vendor Name...
             JSONArray results = new JSONArray();
             for (Product product : queryProductResults){

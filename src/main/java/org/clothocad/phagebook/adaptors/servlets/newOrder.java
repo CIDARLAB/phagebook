@@ -85,7 +85,7 @@ public class newOrder extends HttpServlet {
             //login
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
-            Map createUserMap = new HashMap();
+           
             String username = "phagebook";
             String password = "backend";
             /*

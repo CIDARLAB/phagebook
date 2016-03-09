@@ -1006,10 +1006,14 @@ public class ClothoAdapterTest {
             
             Person createdBy = new Person();
             Person receivedBy = new Person();
+            Person receivedBy2 = new Person();
                 clothoObject.logout();
                 ClothoAdapter.createPerson(createdBy, clothoObject);
                 ClothoAdapter.createPerson(receivedBy, clothoObject);
-                
+                ClothoAdapter.createPerson(receivedBy2, clothoObject);
+                List<String> receivedByIds = new ArrayList<>();
+                receivedByIds.add(receivedBy.getId());
+                receivedByIds.add(receivedBy2.getId());
                 clothoLogin(this.username, this.password);
                 Map<String, Integer> cartItems = new HashMap<>();
                 CartItem C1 = new CartItem();
@@ -1055,7 +1059,7 @@ public class ClothoAdapterTest {
         order1.setBudget(budget);
         order1.setMaxOrderSize(maxOrderSize);
         order1.setAffiliatedLabId(affiliatedLab.getId());
-        order1.setReceivedById(description);
+        order1.setReceivedByIds(receivedByIds);
         order1.setRelatedProjectId(proj.getId());
         
         
@@ -1076,7 +1080,10 @@ public class ClothoAdapterTest {
         assertEquals(order1.getBudget(), order2.getBudget());
         assertEquals(order1.getMaxOrderSize(), order2.getMaxOrderSize());
         assertEquals(order1.getAffiliatedLabId(), order2.getAffiliatedLabId());
-        assertEquals(order1.getReceivedById(), order2.getReceivedById());
+        assertEquals(order1.getReceivedByIds().size(), order2.getReceivedByIds().size());
+        for (int i = 0; i < order1.getReceivedByIds().size(); i++){
+            assertEquals(order1.getReceivedByIds().get(i), order2.getReceivedByIds().get(i));
+        }
         assertEquals(order1.getRelatedProjectId(), order2.getRelatedProjectId());    
         
        

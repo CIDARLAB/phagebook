@@ -91,7 +91,7 @@ public class ClothoProductCreator {
         String companyId3 = (String) ClothoAdapter.createVendor(nike, clothoObject);
         nike.setId(companyId3);
         
-        ClothoAdapter.createVendor(synBioSupply, clothoObject);
+        String companyId4 = (String) ClothoAdapter.createVendor(synBioSupply, clothoObject);
         
         
         //PRODUCT: TELESCOPE

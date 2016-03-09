@@ -107,7 +107,7 @@ public class createPerson extends HttpServlet {
         boolean isUnique = false;
         Map clothoQuery = new HashMap();
         clothoQuery.put("emailId", createdPerson.getEmailId());
-        List<Person> people = ClothoAdapter.queryPerson(clothoQuery, clothoObject);
+        List<Person> people = ClothoAdapter.queryPerson(clothoQuery, clothoObject, ClothoAdapter.QueryMode.EXACT);
         
         if (people.isEmpty()){
             isUnique = true;

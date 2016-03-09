@@ -100,7 +100,14 @@ public class listCreatedOrdersOfPerson extends HttpServlet {
                     tempAsJSON.put("products", temp.getProducts());
                     tempAsJSON.put("budget", temp.getBudget());
                     tempAsJSON.put("approvedById", (ClothoAdapter.getPerson(temp.getApprovedById(), clothoObject)).getEmailId());
-                    tempAsJSON.put("receivedById", (ClothoAdapter.getPerson(temp.getReceivedById(), clothoObject)).getEmailId());
+                    JSONArray receivedByIds = new JSONArray();
+                    List<String> receivedBys = temp.getReceivedByIds();
+                    for (int i = 0; i< receivedBys.size() ; i++){
+                        JSONObject receivedByJSON = new JSONObject();
+                        receivedByJSON.put("user "+ i , (ClothoAdapter.getPerson(receivedBys.get(i), clothoObject)).getEmailId());
+                        receivedByIds.put(receivedByJSON);
+                    }
+                    tempAsJSON.put("receivedByIds", receivedByIds);
                     tempAsJSON.put("relatedProjectId", temp.getRelatedProjectId());
                     tempAsJSON.put("status", temp.getStatus());
                     tempAsJSON.put("affiliatedLabId", (ClothoAdapter.getLab(temp.getAffiliatedLabId(), clothoObject)));

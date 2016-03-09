@@ -97,7 +97,7 @@ public class listSubmittedOrdersOfPerson extends HttpServlet {
                     tempAsJSON.put("products", temp.getProducts());
                     tempAsJSON.put("budget", temp.getBudget());
                     tempAsJSON.put("approvedById", (ClothoAdapter.getPerson(temp.getApprovedById(), clothoObject)).getEmailId());
-                    tempAsJSON.put("receivedById", (ClothoAdapter.getPerson(temp.getReceivedById(), clothoObject)).getEmailId());
+                    //tempAsJSON.put("receivedById", (ClothoAdapter.getPerson(temp.getReceivedById(), clothoObject)).getEmailId());
                     tempAsJSON.put("relatedProjectId", temp.getRelatedProjectId());
                     tempAsJSON.put("status", temp.getStatus());
                     tempAsJSON.put("affiliatedLabId", (ClothoAdapter.getLab(temp.getAffiliatedLabId(), clothoObject)));

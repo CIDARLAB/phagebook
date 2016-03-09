@@ -76,15 +76,26 @@ public class newOrderTest {
             Person loggedInPerson = new Person();
             clothoObject.logout();
             ClothoAdapter.createPerson(loggedInPerson, clothoObject);
+            Person PI1 = new Person();
+            Person PI2 = new Person();
+            ClothoAdapter.createPerson(PI1, clothoObject);
+            ClothoAdapter.createPerson(PI2, clothoObject);
             String createdBy = loggedInPerson.getId();
             clothoObject.login(loginMap);
             Date date = new Date();
             Double budget = 100.0d;
             Integer orderLimit = 30; 
             
-            Lab affiliatedLab = new Lab();
-            ClothoAdapter.createLab(affiliatedLab, clothoObject);
-            String labId = affiliatedLab.getId();
+            
+            
+            Lab testLab = new Lab();
+            List<String> leadPisOfLab = testLab.getLeadPIs(); 
+            leadPisOfLab.add(PI1.getId());
+            leadPisOfLab.add(PI2.getId());
+            testLab.setLeadPIs(leadPisOfLab);
+            
+            ClothoAdapter.createLab(testLab, clothoObject);
+            String labId = testLab.getId();
             
             Project affiliatedProject = new Project();
             ClothoAdapter.createProject(affiliatedProject, clothoObject);

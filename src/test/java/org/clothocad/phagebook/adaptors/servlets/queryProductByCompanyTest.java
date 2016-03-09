@@ -65,51 +65,75 @@ public class queryProductByCompanyTest {
      * Test of doGet method, of class queryProductByCompany.
      */
     @Test
-    public void testDoGet() throws Exception {
-        //
-        ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
-        Clotho clothoObject = new Clotho(conn);
-        Map createUserMap = new HashMap();
-        createUserMap.put("username", "ClothoBackend");
-        createUserMap.put("password", "phagebook");
-        clothoObject.createUser(createUserMap);
-        Map loginMap = new HashMap();
-        loginMap.put("username", "ClothoBackend");
-        loginMap.put("credentials", "phagebook");
-        clothoObject.login(loginMap);
-        //
-        Map query = new HashMap();
-        query.put("name", "Amazon");
+    public void testDoSearch() throws Exception {
+       
+        String companyName = "App";
+        String searchType = "STARTSWITH";
+        //create a clothoUser and Login to Query
+            ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+            Clotho clothoObject = new Clotho(conn);
+            ClothoAdapter.QueryMode Qmode = ClothoAdapter.QueryMode.valueOf(searchType);
             
-        List<Vendor> queryCompanyResults = ClothoAdapter.queryVendor(query, clothoObject);
-        //To get Vendor Name and ID to query for products with that company...
-        List<String> companyIDs = new LinkedList<>();
-        for (Vendor company : queryCompanyResults ){
-            companyIDs.add(company.getId());
-        }
-        System.out.println(companyIDs.toString());
-
-        JSONArray results = new JSONArray();
-        for (String companyID : companyIDs)
-        {
-            Map queryForClotho = new HashMap();
-            queryForClotho.put("company", companyID);
-            List<Product> queryProductResults = ClothoAdapter.queryProduct(queryForClotho, clothoObject);
-
-            for (Product product : queryProductResults){
-                JSONObject productAsJson = new JSONObject();
-                productAsJson.put("cost", product.getCost());
-                productAsJson.put("productURL", (product.getProductURL() != null) ? product.getProductURL() : "");
-                productAsJson.put("goodType", (product.getGoodType() != null) ? product.getGoodType() : "");
-                productAsJson.put("inventory", product.getInventory());
-                productAsJson.put("name", product.getName());
-                productAsJson.put("description", product.getDescription());
-                productAsJson.put("vendor", ClothoAdapter.getVendor(product.getCompanyId(), clothoObject));
-
-                results.add(productAsJson);
+            Map loginMap = new HashMap();
+            
+            loginMap.put("username",    "phagebook");
+            loginMap.put("credentials", "backend");
+            clothoObject.login(loginMap);
+            //Query for the company
+            
+            Map query = new HashMap();
+            
+            switch (Qmode){
+                case EXACT:
+                    query.put("name", companyName);
+                    break;
+                case STARTSWITH:
+                     query.put("query", companyName); // the value for which we are querying.
+                     query.put("key", "name"); // the key of the object we are querying
+       
+                    break;
+                default:
+                    break;
+                    
             }
-        }
+            
+            
+            List<Vendor> queryCompanyResults = ClothoAdapter.queryVendor(query, clothoObject, ClothoAdapter.QueryMode.valueOf(searchType));
+            
+            
+            //To get Vendor Name and ID to query for products with that company...
+            
+            List<String> companyIDs = new LinkedList<>();
+            for (Vendor company : queryCompanyResults ){
+                companyIDs.add(company.getId());
+            }
+            
+            
+            
+            JSONArray results = new JSONArray();
+            for (String companyID : companyIDs)
+            {
+                Map queryForClotho = new HashMap();
+                queryForClotho.put("company", companyID);
+                List<Product> queryProductResults = ClothoAdapter.queryProduct(queryForClotho, clothoObject, ClothoAdapter.QueryMode.EXACT);
+            
+                for (Product product : queryProductResults){
+                    JSONObject productAsJson = new JSONObject();
+                    productAsJson.put("cost", product.getCost());
+                    productAsJson.put("clothoID", product.getId());
+                    productAsJson.put("productURL", (product.getProductURL() != null) ? product.getProductURL() : "");
+                    productAsJson.put("goodType", (product.getGoodType() != null) ? product.getGoodType() : "");
+                    productAsJson.put("inventory", product.getInventory());
+                    productAsJson.put("name", product.getName());
+                    productAsJson.put("description", product.getDescription());
+                    productAsJson.put("vendor", ClothoAdapter.getVendor(product.getCompanyId(),clothoObject).getName());
 
+                    results.add(productAsJson);
+                }
+            }
+            
+            
+              
 
        
         

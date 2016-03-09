@@ -35,7 +35,7 @@ public class Order {
     @Getter @Setter private Double               budget;
     @Getter @Setter private Integer              maxOrderSize;
     @Getter @Setter private String               approvedById;
-    @Getter @Setter private String               receivedById;
+    @Getter @Setter private List<String>         receivedByIds;
     @Getter @Setter private String               relatedProjectId;
     @Getter @Setter private OrderStatus          status;
     @Getter @Setter private String               affiliatedLabId;
@@ -69,7 +69,7 @@ public class Order {
         this.budget      = 0.0d;
         this.maxOrderSize = 1;
         this.approvedById  = "Not Set";
-        this.receivedById  = "Not Set";
+        this.receivedByIds  = new ArrayList<>();
         this.relatedProjectId = "Not Set";
         this.status = OrderStatus.INPROGRESS;
         this.affiliatedLabId = "Not Set";

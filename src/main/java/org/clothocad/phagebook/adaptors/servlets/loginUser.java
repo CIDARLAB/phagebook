@@ -98,8 +98,8 @@ public class loginUser extends HttpServlet {
             clothoQuery.put("emailId", email);
             Person loggedInPerson = null;
             if (isLoggedIn){
-                System.out.println("something");
-                loggedInPerson = ClothoAdapter.queryPerson(clothoQuery, clothoObject).get(0);
+                System.out.println("is logged in");
+                loggedInPerson = ClothoAdapter.queryPerson(clothoQuery, clothoObject, ClothoAdapter.QueryMode.EXACT).get(0);
             }
             
             
