@@ -12,6 +12,9 @@
         <link rel="stylesheet" href="styles/main.css"/>
         <link rel="icon" href="">
         <script src="scripts/clotho/clotho3API.js"></script>
+        <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+        
+        <script src="scripts/New_UI_Scripts/index.js"></script>
         
         <style>
             .navbar {
@@ -157,24 +160,25 @@
                 <fieldset>
                     <h3>Sign Up</h3>
                     <p>Start connecting with other researchers -- it's free.</p>
-                    <form>
+                    <form action="createPerson" method="POST">
                         <div class="form-group" id="register-form2">
                             <div class="row">
                                 <span class="col-sm-6">
-                                    <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" required>
+                                    
+                                    <input type="text" class="form-control" name="firstName" id="inputFirstName" placeholder="First Name" required>
                                 </span>
                                 <span class="col-sm-6">
-                                    <input type="text" class="form-control" id="inputLastName" placeholder="Last Name" required>
+                                    <input type="text" class="form-control" name="lastName" id="inputLastName" placeholder="Last Name" required>
                                 </span>
                             </div>
                             <div class="col-sm-11">
-                                <input type="text" class="form-control" id="emailAddress" placeholder="Email Address" required>
+                                <input type="text" class="form-control" name="emailId" id="emailAddress" placeholder="Email Address" required>
                             </div>
                             <div class="col-sm-11">
-                                <input type="text" class="form-control" id="password" placeholder="Password" required>
+                                <input type="password" class="form-control"  name="password" id="password" placeholder="Password" required>
                             </div>
                             <div class="col-sm-11">
-                                <input type="text" class="form-control" id="reenterPassword" placeholder="Re-enter Password" required>
+                                <input type="password" class="form-control" id="reenterPassword" placeholder="Re-enter Password" onChange="checkPasswordMatch()" required>
                             </div>
                             <div class="col-sm-11">
                                 <input type="text" class="form-control" id="labName" placeholder="Lab Name" required>
@@ -190,7 +194,8 @@
                             <div class="col-sm-12">
                                 <p style='font-size:10px'>By clicking Create Profile you agree to our Terms and that you have read out Data Policy, including our Cookie Use</p>
                             </div>
-                            <button type="submit" class="btn btn-lg">Create Profile</button>
+                            <button type="submit" onclick="return checkPasswordMatch();" class="btn btn-lg">Create Profile</button>
+                            
                         </div>
                     </form>
                 </fieldset>
