@@ -4,18 +4,17 @@
     
     <head>
         
-        <title>Phagebook</title>
+        <title>Validate Email</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="styles/cssBootstrap/bootstrap.css"/>
+        <link rel="stylesheet" href="../styles/cssBootstrap/bootstrap.css"/>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="styles/main.css"/>
+        <link rel="stylesheet" href="../styles/main.css"/>
         <link rel="icon" href="">
         
-        <script src="scripts/clotho/clotho3API.js"></script>
-        <script src="scripts/new-ui-scripts/index.js"></script>
+        <script src="../scripts/clotho/clotho3API.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-        <script src="/bootstrap/js/bootstrap.min.js"></script>
+        <script src="../bootstrap/js/bootstrap.min.js"></script>
         
         <style>
             
@@ -51,7 +50,7 @@
             }
             
             #wrapper {
-                margin-top: 75px;
+                margin-top: 125px;
             }
             
             .btn-lg {
@@ -90,34 +89,13 @@
                 font-size: 11px;
             }
             
-            .col-sm-12 {
-                margin-bottom: 10px;
+            h3 {
+                font-weight: 400;
             }
             
-            .col-md-6 {
-                margin-top: 80px;
-            }
-            
-            .col-md-5 {
-                margin-top: 50px;
-            }
-            
-            .row {
-                margin-bottom: 10px;
-                margin-left: 2px;
-            }
-            
-            fieldset {
-                margin-top: 30px;
-                display: block;
-                border: solid 1px #666666;
-                border-color: #CCCCCC;
-                padding: 0px 40px 40px 40px;
-                background-color: #FDFDFD;
-            }
-            
-            #createProfile {
-                float: right;
+            p {
+                font-size: 16px;
+                font-weight: 400;
             }
             
             #footer-content {
@@ -128,14 +106,14 @@
         
     </head>
     
-    <body>  
+    <body>
         
         <div id="wrapper">
             <div class="navbar navbar-default navbar-fixed-top">
                 <div class="container">
                     <div class="navbar-header">
                         <a class= "navbar-brand" href="." title="Go to Phagebook Home">
-                            <img alt="Phagebook Logo" src="styles/img/icons/phagebook-logo-white.svg"> 
+                            <img alt="Phagebook Logo" src="../styles/img/icons/phagebook-logo-white.svg"> 
                         </a>
                         <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                             <span class="sr-only">Toggle navigation</span>
@@ -163,72 +141,28 @@
                     </div>
                 </div>
             </div>
-
-            <div class="container">
-                <div class="col-md-6">
-                    <img src="styles/img/icons/login-page-img.png" alt="Phagebook Login Image">
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-5">
-                    <fieldset>
-                        <div><br/></div>
-                        <h3>Sign Up</h3>
-                        <p>Start connecting with other researchers -- it's free.</p>
-                        <form action="createPerson" method="POST">
-                            <div class="form-group" id="register-form">
-                                <div class="row">
-                                    <div class="col-sm-6">  
-                                        <input type="text" class="form-control" name="firstName" id="inputFirstName" placeholder="First Name" required>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <input type="text" class="form-control" name="lastName" id="inputLastName" placeholder="Last Name" required>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <input type="text" class="form-control" name="emailId" id="emailAddress" placeholder="Email Address" required>
-                                </div>
-                                <div class="col-sm-12">
-                                    <input type="password" class="form-control"  name="password" id="password" placeholder="Password" required>
-                                </div>
-                                <div class="col-sm-12">
-                                    <input type="password" class="form-control" id="reenterPassword" placeholder="Re-enter Password" onChange="checkPasswordMatch()" required>
-                                </div>
-                                <div class="col-sm-12">
-                                    <input type="text" class="form-control" id="labName" placeholder="Lab Name" required>
-                                </div>
-                                <div class="col-sm-12">
-                                    <select class="form-control" id="institution">
-                                        <option>Institution...</option>
-                                        <option>CIDAR Lab</option>
-                                        <option>Collins Lab</option>
-                                        <option>Khalil Laboratory</option>
-                                    </select>
-                                </div>
-                                <div class="col-sm-12">
-                                    <p style='font-size:10px'>By clicking Create Profile you agree to our Terms and that you have read out Data Policy, including our Cookie Use</p>
-                                </div>
-                                <button id="createProfile" type="submit" onclick="return checkPasswordMatch();" class="btn btn-lg">Create Profile</button> 
-                            </div>
-                        </form>
-                    </fieldset>
-                </div>
-            </div>
         </div>
-    
+        
+        <div class="container" id="content">
+            <h3>Please check your email to verify your Phagebook account.</h3>
+            <p>If you did not receive a verification email, click the button below to resend it.</p>
+            <br/><button id="resendVerification" type="submit" class="btn btn-lg">Resend Verification</button>
+        </div>
+        
         <footer>
             <div class="modal-footer">
                 <div id="footer-content">
                     Created by <a href="http://www.cidarlab.org" target="_blank">CIDAR at Boston University</a> |
                     Built by <a href="mailto:phagebookdevelopment@googlegroups.com">The Phagebook Team</a> |  
-                    <img alt="Clotho Logo" src="styles/img/logos/clotho-logo.png" style="height:25px">   
-                    <img alt="CIDAR Logo" src="styles/img/logos/cidar-lab-logo.png" style="height:25px">   
+                    <img alt="Clotho Logo" src="../styles/img/logos/clotho-logo.png" style="height:25px">   
+                    <img alt="CIDAR Logo" src="../styles/img/logos/cidar-lab-logo.png" style="height:25px">   
                     <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
-                        <img alt="Creative Commons License" src="styles/img/logos/creative-commons-logo.png" style="height:25px"/>
+                        <img alt="Creative Commons License" src="../styles/img/logos/creative-commons-logo.png" style="height:25px"/>
                     </a>
                 </div>
             </div>
         </footer>
-        
+            
     </body>
     
 </html>
