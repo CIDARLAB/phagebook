@@ -22,6 +22,12 @@ $(document).ready(function() {
                 });
                 
         });
+        
+        
+        $("#returnIndex").click(function() {
+            window.location.href = "./";
+        }
+    );
  });
  
  
