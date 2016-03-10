@@ -124,8 +124,10 @@ public class createPerson extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_OK);
             response.setContentType("application/JSON");
                 PrintWriter out = response.getWriter();
+                
                 JSONObject obj = new JSONObject();
-                obj.put("id", createdPerson.getEmailId());
+                obj.put("clothoId", createdPerson.getId());
+                obj.put("emailId", createdPerson.getEmailId());
                 out.print(obj);
                 out.flush();
                 out.close();

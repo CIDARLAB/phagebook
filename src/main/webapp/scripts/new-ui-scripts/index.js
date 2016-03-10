@@ -2,24 +2,33 @@ $(document).ready(function() {
     $('#createProfile').click( function () {
         
         var isValid = 1;
+        var firstName = document.getElementById("inputFirstName").value;
+        var lastName = document.getElementById("inputLastName").value;
+        var emailId  = document.getElementById("emailAddress").value;
+        var password = document.getElementById("password").value;
         
-        if (isValid){
+        if ( (firstName === "") || (lastName === "") || (emailId === "") || (password === "") )
+        {
+            alert("sssl");
+            isValid = 0;
+        }
+        if (isValid && checkPasswordMatch()){
          $.ajax({
                     url: "createPerson",
                     type: "POST",
                     async: false,
                     data: {
                         //"id": loginResult.id,
-                        "firstName": document.getElementById("inputFirstName").value,
-                        "lastName": document.getElementById("inputLastName").value,
-                        "emailId":  document.getElementById("emailAddress").value,
-                        "password": document.getElementById("password").value
+                        "firstName": firstName,
+                        "lastName": lastName,
+                        "emailId": emailId,
+                        "password": password
                     },
                     success: function (response) {
                         
-                        
-
-                        window.location.href = './html/validateEmail.html';
+                         var responseJSON = JSON.parse(response);
+                         setCookie("emailId" , responseJSON.emailId, 1);
+                         setCookie("clothoId", responseJSON.clothoId, 1);
                     },
                     error: function (response) {
                         //THIS CAN BE DONE BETTER ONCE WE KNOW WHAT WE ARE DOING.
@@ -45,3 +54,7 @@ function checkPasswordMatch() {
        return true;
     }
 }
+
+function isEmpty( el ){
+      return !$.trim(el.html());
+  }
