@@ -142,9 +142,9 @@ public class loginUser extends HttpServlet {
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                 response.setContentType("application/json");
                 PrintWriter out = response.getWriter();
-                JSONObject responseJSON = new JSONObject();
-                responseJSON.put("message", "No user found with those credenteials");
-                out.print(responseJSON);
+                JSONObject obj = new JSONObject();
+                obj.put("message", "No user found with those credenteials");
+                out.print(obj);
                 out.flush();
                 out.close();
             

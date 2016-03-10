@@ -47,6 +47,8 @@ $(document).ready(function() {
         {
             isValid = 0;
         }
+        
+        
         if (isValid)
         {
             $.ajax({
@@ -54,39 +56,40 @@ $(document).ready(function() {
                     type: "POST",
                     async: false,
                     data: {
-                        "email": document.getElementById("loginEmailAddress").value,
-                        "password": document.getElementById("loginPassword").value
+                           "email":   document.getElementById("loginEmailAddress").value,
+                        "password":   document.getElementById("loginPassword").value
                     },
                     success: function (response) {
                         //alert(response);
                         //alert("Got Some Response" + response);
-                        var responseJSON = JSON.parse(response);
                        
-                        setCookie("loggedInUserId", response["id"], 1);     //use cookies instead..
-                        
-                        setCookie("username", document.getElementById("returnEmail").value, 1 );
                        
-                        setCookie("password", document.getElementById("returnPassword").value, 1);
+                        setCookie("clothoId", response.clothoId, 1);     //use cookies instead..
                         
-                        if (responseJSON.activated  === "false")
+                        setCookie("emailId", document.getElementById("loginEmailAddress").value, 1 );
+                       
+                        
+                        if (response.activated  === "false")
                         {
-                            setCookie("clothoId", responseJSON.clothoId , 1);
-                            setCookie("emailId",  responseJSON.emailId  , 1);
+                            setCookie("clothoId", response.clothoId , 1);
+                            setCookie("emailId",  response.emailId  , 1);
                             
-                            window.location.href = './html/validateEmail.html?id=' + responseJSON.clothoId ;
+                            window.location.href = './html/validateEmail.html?id=' + response.clothoId ;
                         }
                         else 
                         {
-                            window.location.href = './html/profile.html?user=' + responseJSON.clothoId;
+                            window.location.href = './html/profile.html?user=' + response.clothoId;
                         }
                     },
                     error: function (response) {
-                        var responseJSON = JSON.parse(response);
-                        alert( responseJSON.message);
+                        var responseText = JSON.parse(response.responseText);
+                        alert( responseText.message);
                     }
                 });
         }
     });
+    
+    
 });
 
 function checkPasswordMatch() {
