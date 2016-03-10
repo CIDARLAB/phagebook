@@ -74,7 +74,7 @@ $(document).ready(function() {
                             setCookie("clothoId", response.clothoId , 1);
                             setCookie("emailId",  response.emailId  , 1);
                             
-                            window.location.href = './html/validateEmail.html?id=' + response.clothoId ;
+                            window.location.href = './html/email-verification.html';
                         }
                         else 
                         {
