@@ -53,49 +53,33 @@ public class Project {
        this.creatorId = creator;
        this.name = name;
        this.description = description;
-<<<<<<< HEAD
-       this.updates = new ArrayList<>();
+
        this.notebooks = new ArrayList<>();
        this.affiliatedLabs = new ArrayList<>();
        this.members = new ArrayList<>();
-       //System.out.println("created a new project?? 1");
-=======
-       this.notebooks = new ArrayList<Notebook>();
-       this.affiliatedLabs = new ArrayList<Organization>();
-       this.members = new ArrayList<Person>();
-       this.updates = new ArrayList<Status>();
-       this.affiliatedLabs.add(lab);
->>>>>>> serverside
+       this.updates = new ArrayList<>();
+       this.affiliatedLabs.add(lab.getId());
        
        System.out.println("end of constructor");
     
    }
-<<<<<<< Updated upstream
-      public Project(String creator, String name, String description){
-=======
+
    
    public Project(Person creator, String name, String description){
->>>>>>> Stashed changes
+
        this.dateCreated = new Date();
-       this.creatorId = creator;
+       this.creatorId = creator.getId();
        this.name = name;
        this.description = description;
-<<<<<<< HEAD
-       this.updates = new ArrayList<>();
+
        this.notebooks = new ArrayList<>();
        this.affiliatedLabs = new ArrayList<>();
        this.members = new ArrayList<>();
 
-=======
-       this.notebooks = new ArrayList<Notebook>();
-       this.affiliatedLabs = new ArrayList<Organization>();
-       this.members = new ArrayList<Person>();
-
-       this.updates = new ArrayList<Status>();
+       this.updates = new ArrayList<>();
 
 
-      
->>>>>>> serverside
+ 
    }
    
    

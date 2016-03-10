@@ -204,7 +204,7 @@ public class processProject extends HttpServlet {
       
       System.out.println("about to create the project");
 
-      Project project = new Project(creator.getId(), name, description);            
+      Project project = new Project(creator, name, description);            
       projectID = ClothoAdapter.createProject(project, clothoObject); 
       
       clothoObject.logout();

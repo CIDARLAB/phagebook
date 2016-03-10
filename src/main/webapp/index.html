@@ -118,10 +118,6 @@
             #createProfile {
                 float: right;
             }
-
-            #footer-content {
-                margin-top: 5px;
-            }           
         </style>
 
     </head>
@@ -191,14 +187,19 @@
                                     <input type="password" class="form-control" id="reenterPassword" placeholder="Re-enter Password" onChange="checkPasswordMatch()" required>
                                 </div>
                                 <div class="col-sm-12">
-                                    <input type="text" class="form-control" id="labName" placeholder="Lab Name" required>
-                                </div>
-                                <div class="col-sm-12">
                                     <select class="form-control" id="institution">
                                         <option>Institution...</option>
+                                        <option>Boston University</option>
+                                        <option>Harvard University</option>
+                                        <option>MIT</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-12">
+                                    <select class="form-control" id="lab-name">
+                                        <option>Lab Name...</option>
                                         <option>CIDAR Lab</option>
-                                        <option>Collins Lab</option>
-                                        <option>Khalil Laboratory</option>
+                                        <option>Khalil Lab</option>
+                                        <option>Wong Lab</option>
                                     </select>
                                 </div>
                                 <div class="col-sm-12">
@@ -213,17 +214,6 @@
         </div>
 
         <footer>
-            <div class="modal-footer">
-                <div id="footer-content">
-                    Created by <a href="http://www.cidarlab.org" target="_blank">CIDAR at Boston University</a> |
-                    Built by <a href="mailto:phagebookdevelopment@googlegroups.com">The Phagebook Team</a> |  
-                    <img alt="Clotho Logo" src="styles/img/logos/clotho-logo.png" style="height:25px">   
-                    <img alt="CIDAR Logo" src="styles/img/logos/cidar-lab-logo.png" style="height:25px">   
-                    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
-                        <img alt="Creative Commons License" src="styles/img/logos/creative-commons-logo.png" style="height:25px"/>
-                    </a>
-                </div>
-            </div>
         </footer>
 
     </body>
