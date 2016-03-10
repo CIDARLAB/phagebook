@@ -66,17 +66,11 @@ public class resendVerification extends HttpServlet {
         if (isValid){
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
-            Map createUserMap = new HashMap();
-            createUserMap.put("username", "ClothoBackend");
-            createUserMap.put("password", "phagebook");
-
-
-            clothoObject.createUser(createUserMap);
+            
 
             Map loginMap = new HashMap();
-            loginMap.put("username", "ClothoBackend");
-            loginMap.put("credentials", "phagebook");
-
+            loginMap.put("username", "phagebook");
+            loginMap.put("credentials", "backend");
 
             clothoObject.login(loginMap);
             

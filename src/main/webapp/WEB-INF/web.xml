@@ -134,7 +134,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>resendVerification</servlet-name>
-        <url-pattern>/resendVerification</url-pattern>
+        <url-pattern>/html/resendVerification</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>loginUser</servlet-name>
