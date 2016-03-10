@@ -64,6 +64,10 @@
         <servlet-name>listOpenOrdersOfPerson</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.listOpenOrdersOfPerson</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>loadPhagebookInstitutions</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.loadPhagebookInstitutions</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>inputProduct</servlet-name>
         <url-pattern>/inputProduct</url-pattern>
@@ -175,5 +179,9 @@
     <servlet-mapping>
         <servlet-name>listOpenOrdersOfPerson</servlet-name>
         <url-pattern>/listOpenOrdersOfPerson</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>loadPhagebookInstitutions</servlet-name>
+        <url-pattern>/loadPhagebookInstitutions</url-pattern>
     </servlet-mapping>
 </web-app>
