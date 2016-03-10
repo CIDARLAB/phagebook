@@ -3,7 +3,7 @@ $(document).ready(function() {
        $("#resendVerification").click( function() {
         
         $.ajax({
-                    url: "resendVerification",
+                    url: "../resendVerification",
                     type: "GET",
                     async: false,
                     data: {
@@ -25,7 +25,7 @@ $(document).ready(function() {
         
         
         $("#returnIndex").click(function() {
-            window.location.href = "./";
+            window.location.href = "../";
         }
     );
  });

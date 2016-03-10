@@ -29,11 +29,12 @@ $(document).ready(function() {
                         var responseJSON = JSON.parse(response);
                         setCookie("emailId" , responseJSON.emailId, 1);
                         setCookie("clothoId", responseJSON.clothoId, 1);
-                        window.location.href = './html/validateEmail.html';
+                        window.location.href = '../html/email-verification.html';
                     },
                     error: function (response) {
                         //THIS CAN BE DONE BETTER ONCE WE KNOW WHAT WE ARE DOING.
                         alert("\n" +  response.statusText + "!\n" + response.responseText);
+                        window.location.href = '../';
                     }
                 });
         }
@@ -74,11 +75,11 @@ $(document).ready(function() {
                             setCookie("clothoId", response.clothoId , 1);
                             setCookie("emailId",  response.emailId  , 1);
                             
-                            window.location.href = './html/email-verification.html';
+                            window.location.href = '../html/email-verification.html';
                         }
                         else 
                         {
-                            window.location.href = './html/profile.html?user=' + response.clothoId;
+                            window.location.href = '../html/profile.html?user=' + response.clothoId;
                         }
                     },
                     error: function (response) {
