@@ -9,7 +9,7 @@ $(document).ready(function() {
         
         if ( (firstName === "") || (lastName === "") || (emailId === "") || (password === "") )
         {
-            alert("sssl");
+            alert("Fields cannot be blank!");
             isValid = 0;
         }
         if (isValid && checkPasswordMatch()){
@@ -26,9 +26,10 @@ $(document).ready(function() {
                     },
                     success: function (response) {
                         
-                         var responseJSON = JSON.parse(response);
-                         setCookie("emailId" , responseJSON.emailId, 1);
-                         setCookie("clothoId", responseJSON.clothoId, 1);
+                        var responseJSON = JSON.parse(response);
+                        setCookie("emailId" , responseJSON.emailId, 1);
+                        setCookie("clothoId", responseJSON.clothoId, 1);
+                        window.location.href = './html/validateEmail.html';
                     },
                     error: function (response) {
                         //THIS CAN BE DONE BETTER ONCE WE KNOW WHAT WE ARE DOING.
@@ -36,7 +37,59 @@ $(document).ready(function() {
                     }
                 });
         }
-    })
+    });
+    
+    $('#login').click( function () {
+        var isValid  = 1;
+        var loginId  = document.getElementById("loginEmailAddress").value;
+        var password = document.getElementById("loginPassword").value;
+        if ((loginId === "") || (password === ""))
+        {
+            isValid = 0;
+        }
+        
+        
+        if (isValid)
+        {
+            $.ajax({
+                    url: "loginUser",
+                    type: "POST",
+                    async: false,
+                    data: {
+                           "email":   document.getElementById("loginEmailAddress").value,
+                        "password":   document.getElementById("loginPassword").value
+                    },
+                    success: function (response) {
+                        //alert(response);
+                        //alert("Got Some Response" + response);
+                       
+                       
+                        setCookie("clothoId", response.clothoId, 1);     //use cookies instead..
+                        
+                        setCookie("emailId", document.getElementById("loginEmailAddress").value, 1 );
+                       
+                        
+                        if (response.activated  === "false")
+                        {
+                            setCookie("clothoId", response.clothoId , 1);
+                            setCookie("emailId",  response.emailId  , 1);
+                            
+                            window.location.href = './html/validateEmail.html?id=' + response.clothoId ;
+                        }
+                        else 
+                        {
+                            window.location.href = './html/profile.html?user=' + response.clothoId;
+                        }
+                    },
+                    error: function (response) {
+                        var responseText = JSON.parse(response.responseText);
+                        alert( responseText.message);
+                    }
+                });
+        }
+    });
+    
+    
 });
 
 function checkPasswordMatch() {
