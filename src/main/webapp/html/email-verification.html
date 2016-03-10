@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 
 <html>
-    
+
     <head>
-        
+
         <title>Validate Email</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,14 +11,14 @@
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="../styles/main.css"/>
         <link rel="icon" href="">
-        
+
         <script src="../scripts/clotho/clotho3API.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
        
         <script src="../bootstrap/js/bootstrap.min.js"></script>
-        
+
         <style>
-            
+
             .navbar {
                 -webkit-box-shadow: 0 8px 6px -6px #999;
                 -moz-box-shadow: 0 8px 6px -6px #999;
@@ -28,32 +28,32 @@
                 height: 90px;
                 float: none;
             }
-                
+
             .navbar-brand {
                 float: left;
                 margin-top: 18px;
             }
-            
+
             .control-label {
                 color: white;
                 font-size: 11px;
                 font-weight: 300;
             }
-            
+
             .navbar-right {
                 margin-right: 30px;
             }
-           
+
             .btn-default {
                 font-size: 12px;
                 border-radius: 24px;
                 padding: 8px 18px 8px 18px;
             }
-            
+
             #wrapper {
                 margin-top: 125px;
             }
-            
+
             .btn-lg {
                 font-size: 14px;
                 background: #1E714A;
@@ -61,12 +61,12 @@
                 border-radius: 24px;
                 padding: 8px 25px 8px 25px;
             }
-            
+
             .btn-lg:hover {
                 background: #31A16F;
                 color: #FFFFFF;
             }
-           
+
             #alt-link:link {
                 text-decoration: none;
                 color: white;
@@ -74,7 +74,7 @@
                 font-weight: 300;
                 font-size: 11px;
             }
-            
+
             #alt-link:visited {
                 text-decoration: none;
                 color: white;
@@ -82,33 +82,33 @@
                 font-weight: 300;
                 font-size: 11px;
             }
-            
+
             #alt-link:hover {
                 text-decoration: underline;
                 font-family: "Open Sans", sans-serif;
                 font-weight: 300;
                 font-size: 11px;
             }
-            
+
             h3 {
                 font-weight: 400;
             }
-            
+
             p {
                 font-size: 16px;
                 font-weight: 400;
             }
-            
+
             #footer-content {
                 margin-top: 5px;
             }
-            
+
         </style>
-        
+
     </head>
-    
+
     <body>
-        
+
         <div id="wrapper">
             <div class="navbar navbar-default navbar-fixed-top">
                 <div class="container">
@@ -123,7 +123,7 @@
                             <span class="icon-bar"></span>
                         </button>
                     </div>
-                    <div class ="collapse navbar-collapse">
+                   <!-- <div class ="collapse navbar-collapse">
                         <form class="navbar-form navbar-right" id="header-form" role="form" style="width:445px">
                             <div class="form-group">
                                 <label for="loginEmailAddress" class="control-label">EMAIL ADDRESS</label>
@@ -139,20 +139,20 @@
                             </div>
                             <button id="resendVerification" type="submit" class="btn btn-default">Log In</button>
                         </form>
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </div>
-        
+
         <div class="container" id="content">
             <h3>Please check your email to verify your Phagebook account.</h3>
             <p>If you did not receive a verification email, click the button below to resend it.</p>
             <br/><button id="resendVerification" type="submit" class="btn btn-lg">Resend Verification</button>
         </div>
-        
+
         <footer>
-            <div class="modal-footer">
-                <div id="footer-content">
+            <div class="modal-footer" style="text-align: left; font-size: 12px">
+                <div style="margin-top: 5px">
                     Created by <a href="http://www.cidarlab.org" target="_blank">CIDAR at Boston University</a> |
                     Built by <a href="mailto:phagebookdevelopment@googlegroups.com">The Phagebook Team</a> |  
                     <img alt="Clotho Logo" src="../styles/img/logos/clotho-logo.png" style="height:25px">   
@@ -163,7 +163,7 @@
                 </div>
             </div>
         </footer>
-            
+
     </body>
-    
+
 </html>
