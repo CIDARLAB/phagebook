@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 
 <html>
-    
+
     <head>
-        
+
         <title>Phagebook</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,8 +11,9 @@
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="styles/main.css"/>
         <link rel="icon" href="">
-        
+
         <script src="scripts/clotho/clotho3API.js"></script>
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
         <script src="../scripts/new-ui-scripts/cookieHandler.js"></script>
             
@@ -21,7 +22,7 @@
         
         
         <script src="/bootstrap/js/bootstrap.min.js"></script>
-        
+
         <style>            
             .navbar {
                 -webkit-box-shadow: 0 8px 6px -6px #999;
@@ -32,32 +33,32 @@
                 height: 90px;
                 float: none;
             }
-                
+
             .navbar-brand {
                 float: left;
                 margin-top: 18px;
             }
-            
+
             .control-label {
                 color: white;
                 font-size: 11px;
                 font-weight: 300;
             }
-            
+
             .navbar-right {
                 margin-right: 30px;
             }
-           
+
             .btn-default {
                 font-size: 12px;
                 border-radius: 24px;
                 padding: 8px 18px 8px 18px;
             }
-            
+
             #wrapper {
                 margin-top: 75px;
             }
-            
+
             .btn-lg {
                 font-size: 14px;
                 background: #1E714A;
@@ -65,12 +66,12 @@
                 border-radius: 24px;
                 padding: 8px 25px 8px 25px;
             }
-            
+
             .btn-lg:hover {
                 background: #31A16F;
                 color: #FFFFFF;
             }
-           
+
             #alt-link:link {
                 text-decoration: none;
                 color: white;
@@ -78,7 +79,7 @@
                 font-weight: 300;
                 font-size: 11px;
             }
-            
+
             #alt-link:visited {
                 text-decoration: none;
                 color: white;
@@ -86,31 +87,31 @@
                 font-weight: 300;
                 font-size: 11px;
             }
-            
+
             #alt-link:hover {
                 text-decoration: underline;
                 font-family: "Open Sans", sans-serif;
                 font-weight: 300;
                 font-size: 11px;
             }
-            
+
             .col-sm-12 {
                 margin-bottom: 10px;
             }
-            
+
             .col-md-6 {
                 margin-top: 80px;
             }
-            
+
             .col-md-5 {
                 margin-top: 50px;
             }
-            
+
             .row {
                 margin-bottom: 10px;
                 margin-left: 2px;
             }
-            
+
             fieldset {
                 margin-top: 30px;
                 display: block;
@@ -119,20 +120,16 @@
                 padding: 0px 40px 40px 40px;
                 background-color: #FDFDFD;
             }
-            
+
             #createProfile {
                 float: right;
-            }
-            
-            #footer-content {
-                margin-top: 5px;
-            }           
+            }         
         </style>
-        
+
     </head>
-    
+
     <body>  
-        
+
         <div id="wrapper">
             <div class="navbar navbar-default navbar-fixed-top">
                 <div class="container">
@@ -177,16 +174,15 @@
                         <div><br/></div>
                         <h3>Sign Up</h3>
                         <p>Start connecting with other researchers -- it's free.</p>
-                        <div id="sign-up-form">
+                        <form action="createPerson" method="POST">
                             <div class="form-group" id="register-form">
-                                <div class="row">
-                                    <div class="col-sm-6">  
-                                        <input type="text" class="form-control" name="firstName" id="inputFirstName" placeholder="First Name" required>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <input type="text" class="form-control" name="lastName" id="inputLastName" placeholder="Last Name" required>
-                                    </div>
+                                <div class="col-sm-6">  
+                                    <input type="text" class="form-control" name="firstName" id="inputFirstName" placeholder="First Name" required>
                                 </div>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" name="lastName" id="inputLastName" placeholder="Last Name" required>
+                                </div>
+                                <div class="col-sm-12"></div>
                                 <div class="col-sm-12">
                                     <input type="text" class="form-control" name="emailId" id="emailAddress" placeholder="Email Address" required>
                                 </div>
@@ -197,14 +193,19 @@
                                     <input type="password" class="form-control" id="reenterPassword" placeholder="Re-enter Password" onChange="checkPasswordMatch()" required>
                                 </div>
                                 <div class="col-sm-12">
-                                    <input type="text" class="form-control" id="labName" placeholder="Lab Name" required>
-                                </div>
-                                <div class="col-sm-12">
                                     <select class="form-control" id="institution">
                                         <option>Institution...</option>
+                                        <option>Boston University</option>
+                                        <option>Harvard University</option>
+                                        <option>MIT</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-12">
+                                    <select class="form-control" id="lab-name">
+                                        <option>Lab Name...</option>
                                         <option>CIDAR Lab</option>
-                                        <option>Collins Lab</option>
-                                        <option>Khalil Laboratory</option>
+                                        <option>Khalil Lab</option>
+                                        <option>Wong Lab</option>
                                     </select>
                                 </div>
                                 <div class="col-sm-12">
@@ -212,26 +213,15 @@
                                 </div>
                                 <button id="createProfile" type="submit" onclick="return checkPasswordMatch();" class="btn btn-lg">Create Profile</button> 
                             </div>
-                        </div>
+                        </form>
                     </fieldset>
                 </div>
             </div>
         </div>
-    
+
         <footer>
-            <div class="modal-footer">
-                <div id="footer-content">
-                    Created by <a href="http://www.cidarlab.org" target="_blank">CIDAR at Boston University</a> |
-                    Built by <a href="mailto:phagebookdevelopment@googlegroups.com">The Phagebook Team</a> |  
-                    <img alt="Clotho Logo" src="styles/img/logos/clotho-logo.png" style="height:25px">   
-                    <img alt="CIDAR Logo" src="styles/img/logos/cidar-lab-logo.png" style="height:25px">   
-                    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
-                        <img alt="Creative Commons License" src="styles/img/logos/creative-commons-logo.png" style="height:25px"/>
-                    </a>
-                </div>
-            </div>
         </footer>
-        
+
     </body>
-    
+
 </html>
