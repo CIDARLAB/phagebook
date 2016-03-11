@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $('#login').click( function () {
+    $("#login").click( function () {
         var isValid  = 1;
         var loginId  = document.getElementById("loginEmailAddress").value;
         var password = document.getElementById("loginPassword").value;
@@ -71,7 +71,8 @@ function verifyEmail(){
                 },
                 
                 error: function(){
-                    alert("email has not been validated, there was an error. play a sad sound :(")
+                    alert("email has not been validated, there was an error. play a sad sound :(" );
+                    
                 }
             });
                 
