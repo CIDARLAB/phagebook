@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+
+        <title>Resend Email Verification</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../styles/cssBootstrap/bootstrap.css"/>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="../styles/main.css"/>
+        <link rel="icon" href="">
+
+        <script src="../scripts/clotho/clotho3API.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <script src="../scripts/new-ui-scripts/cookieHandler.js"></script>
+        <script src="../scripts/new-ui-scripts/resendEmailVerification.js"></script>
+        <script src="../bootstrap/js/bootstrap.min.js"></script>
+
+        <style>
+
+            .navbar {
+                -webkit-box-shadow: 0 8px 6px -6px #999;
+                -moz-box-shadow: 0 8px 6px -6px #999;
+                box-shadow: 0 8px 6px -6px #999;
+                background-color: #1E714A;
+                border-bottom: none;
+                height: 90px;
+                float: none;
+            }
+
+            .navbar-brand {
+                float: left;
+                margin-top: 18px;
+            }
+
+            .control-label {
+                color: white;
+                font-size: 11px;
+                font-weight: 300;
+            }
+
+            .navbar-right {
+                margin-right: 30px;
+            }
+
+            .btn-default {
+                font-size: 12px;
+                border-radius: 24px;
+                padding: 8px 18px 8px 18px;
+            }
+
+            #wrapper {
+                margin-top: 125px;
+            }
+
+            .btn-lg {
+                font-size: 14px;
+                background: #1E714A;
+                color: #FFFFFF;
+                border-radius: 24px;
+                padding: 8px 25px 8px 25px;
+            }
+
+            .btn-lg:hover {
+                background: #31A16F;
+                color: #FFFFFF;
+            }
+
+            #alt-link:link {
+                text-decoration: none;
+                color: white;
+                font-family: "Open Sans", sans-serif;
+                font-weight: 300;
+                font-size: 11px;
+            }
+
+            #alt-link:visited {
+                text-decoration: none;
+                color: white;
+                font-family: "Open Sans", sans-serif;
+                font-weight: 300;
+                font-size: 11px;
+            }
+
+            #alt-link:hover {
+                text-decoration: underline;
+                font-family: "Open Sans", sans-serif;
+                font-weight: 300;
+                font-size: 11px;
+            }
+
+            h3 {
+                font-weight: 400;
+            }
+
+            p {
+                font-size: 16px;
+                font-weight: 400;
+            }
+
+            #footer-content {
+                margin-top: 5px;
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+
+        <div id="wrapper">
+            <div class="navbar navbar-default navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a class= "navbar-brand" href="../index.html" title="Go to Phagebook Home">
+                            <img alt="Phagebook Logo" src="../styles/img/icons/phagebook-logo-white.svg"> 
+                        </a>
+                        <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container" id="content">
+            <h3>Please check your email to verify your Phagebook account.</h3>
+            <p>If you did not receive a verification email, click the button below to resend it.</p>
+            <br/><button id="resendVerification" type="submit" class="btn btn-lg">Resend Verification</button>
+        </div>
+
+        <footer>
+            <div class="modal-footer" style="text-align: left; font-size: 12px">
+                <div style="margin-top: 5px">
+                    Created by <a href="http://www.cidarlab.org" target="_blank">CIDAR at Boston University</a> |
+                    Built by <a href="mailto:phagebookdevelopment@googlegroups.com">The Phagebook Team</a> |  
+                    <img alt="Clotho Logo" src="../styles/img/logos/clotho-logo.png" style="height:25px">   
+                    <img alt="CIDAR Logo" src="../styles/img/logos/cidar-lab-logo.png" style="height:25px">   
+                    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+                        <img alt="Creative Commons License" src="../styles/img/logos/creative-commons-logo.png" style="height:25px"/>
+                    </a>
+                </div>
+            </div>
+        </footer>
+
+    </body>
+
+</html>

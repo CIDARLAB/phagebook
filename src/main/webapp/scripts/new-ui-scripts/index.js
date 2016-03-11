@@ -29,7 +29,7 @@ $(document).ready(function() {
                         var responseJSON = JSON.parse(response);
                         setCookie("emailId" , responseJSON.emailId, 1);
                         setCookie("clothoId", responseJSON.clothoId, 1);
-                        window.location.href = '../html/email-verification.html';
+                        window.location.href = '../html/resendEmailVerification.html';
                     },
                     error: function (response) {
                         //THIS CAN BE DONE BETTER ONCE WE KNOW WHAT WE ARE DOING.
@@ -75,7 +75,7 @@ $(document).ready(function() {
                             setCookie("clothoId", response.clothoId , 1);
                             setCookie("emailId",  response.emailId  , 1);
                             
-                            window.location.href = '../html/email-verification.html';
+                            window.location.href = '../html/resendEmailVerification.html';
                         }
                         else 
                         {
@@ -84,7 +84,7 @@ $(document).ready(function() {
                     },
                     error: function (response) {
                         var responseText = JSON.parse(response.responseText);
-                        alert( responseText.message);
+                        alert(responseText.message);
                     }
                 });
         }
