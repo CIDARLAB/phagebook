@@ -20,7 +20,7 @@ a:hover {
     color: #000;
     font-weight: 400;
     font-size: 14px;
-    background-color: transparent;
+    background-color: transparent !important;
 }
 
 #sidebar {
@@ -35,10 +35,16 @@ a:hover {
 
 ul li {
     padding-left: 40px;
+    margin-left: -15px;
+    background: none;
+    width: 300px;
 }
 
-ul li:hover {
-    background-color: transparent;
+ul li.active {
+    background-color: #E0E0E0;
+    border-right-style: inset;
+    border-right-width: 5px;
+    border-right-color: #89C176;
 }
 
 ul li img {
