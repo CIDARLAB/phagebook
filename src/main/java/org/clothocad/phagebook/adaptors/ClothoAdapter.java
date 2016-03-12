@@ -376,6 +376,21 @@ public class ClothoAdapter {
 
         map.put("schema", Institution.class.getCanonicalName());
         
+        if (institution.getLabs()!= null)
+        {
+            if (!institution.getLabs().isEmpty()){
+                JSONArray labs = new JSONArray();
+                for (String lab : institution.getLabs()){
+                    if (lab != null){
+                        if (!lab.equals("Not Set") && !lab.isEmpty()){
+                            labs.add(lab);
+                        }
+                    }
+                }
+                map.put("labs", labs);
+            }
+        }
+        
         if ( institution.getName() != null){
               
             if (!institution.getName().isEmpty() && !institution.getName().equals("Not Set")){
@@ -1983,6 +1998,47 @@ public class ClothoAdapter {
         return instruments;
         
     }
+    
+    public static List<Lab> queryLab(Map query, Clotho clothoObject, QueryMode mode){
+        List<Lab> labs = new ArrayList<>();
+        JSONArray queryResults;
+        
+        switch (mode){
+            case STARTSWITH:
+                //EXAMPLE 
+                //map.put("query", "Tel"); // the value for which we are querying.
+                // map.put("key", "name"); // the key of the object we are querying
+                queryResults = (JSONArray) clothoObject.startsWith(query); 
+                
+                for (Object queryResult : queryResults){
+                    if ( ((Map) queryResult).containsKey("schema")){
+                        String schema = (String) ((Map) queryResult).get("schema");
+                        if ( schema.equals(Lab.class.getCanonicalName())){
+                            labs.add(mapToLab( (Map) queryResult, clothoObject));
+                        }
+                    }
+                }
+                
+                
+                break;
+            case EXACT:
+                query.put("schema", Lab.class.getCanonicalName());
+                queryResults = (JSONArray) clothoObject.query(query);
+        
+                for (Object queryResult : queryResults)
+                {
+                    labs.add(mapToLab( (Map) queryResult, clothoObject));
+                }
+                
+                break;
+            default: 
+                break;
+        }
+        
+        
+        return labs;
+    }
+    
     public static List<Notebook>      queryNotebook(Map query , Clotho clothoObject, QueryMode mode)
     {
         List<Notebook> notebooks = new ArrayList<>();
@@ -2707,12 +2763,20 @@ public class ClothoAdapter {
         Institution.InstitutionType type = Institution.InstitutionType.Independent;
         if (map.containsKey("type")) { type = Institution.InstitutionType.valueOf((String) map.get("type")); }
         
+        List<String> labs = new ArrayList<>();
+        if (map.containsKey("labs")){
+            JSONArray labsJSON = (JSONArray) map.get("labs");
+            for (int i = 0; i < labsJSON.size(); i++){
+                labs.add(labsJSON.getString(i));
+            }
+        }
         
         Institution institution = new Institution(name);
         institution.setPhone(phone);
         institution.setUrl(url);
         institution.setDescription(description);
         institution.setType(type);
+        institution.setLabs(labs);
         
         String id = "";
         if (map.containsKey("id")){
