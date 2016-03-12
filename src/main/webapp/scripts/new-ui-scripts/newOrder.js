@@ -9,7 +9,8 @@ $(document).ready(function() {
         },
         success: function (response) {
                 
-                sessionStorage.setItem("institutions", JSON.stringify(response));
+            // POSSIBLE WAY TO GET THE RESPONSE AGAIN?  
+            //sessionStorage.setItem("institutions", JSON.stringify(response));
                 var select = document.getElementById('lab-name');
                 var length = response.institutions.length;
                 var count = 0;
@@ -31,13 +32,28 @@ $(document).ready(function() {
     
     $("#createOrder").click( function () {
         
-        var name;
-        var createdBy;
-        var labId;
-        var associatedProjectId;
-        var budget;
-        var orderLimit;
-        $.ajax({
+        var name = document.getElementById('orderNickname').value;
+        var createdBy = getCookie("clothoId");
+        var labId = document.getElementById('lab-name').value;
+        var associatedProjectId = document.getElementById('associatedProject').value;
+        var budget = document.getElementById('orderBudget').value;
+        var orderLimit = document.getElementById('orderLimit').value;
+        
+        alert(name);
+        alert(createdBy);
+        alert(labId);
+        alert(associatedProjectId);
+        alert(budget);
+        alert(orderLimit);
+        doAjaxCallToCreateOrder(name, createdBy, labId, associatedProjectId, budget, orderLimit);
+        
+        
+   
+    });
+    
+});
+function doAjaxCallToCreateOrder(name, createdBy, labId, associatedProjectId, budget, orderLimit){
+    $.ajax({
                     url: "../newOrder",
                     type: "POST",
                     async: false,
@@ -58,11 +74,7 @@ $(document).ready(function() {
                         
                     }
                 });
-   
-    });
-    
-});
-
+}
 function loadSelectElementOptions(){
     var min = 12,
     max = 100,
