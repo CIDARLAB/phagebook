@@ -11,6 +11,7 @@
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="../styles/main.css"/>
         <link rel="stylesheet" href="../styles/sidebar.css"/>
+        <link rel="stylesheet" href="../styles/profileContent.css"/>
         <link rel="icon" href="">
 
         <script src="../scripts/clotho/clotho3API.js"></script>
@@ -20,14 +21,49 @@
         <script src="../scripts/jsBootstrap/js/bootstrap.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
         <script src="../scripts/new-ui-scripts/angular.ng-modules.js"></script>
-
+        
     <body>
         
         <div ng-module="profileApp">
             <div ng-controller="profileCtrl">
+                <header></header>
                 <sidebar></sidebar>
                 <div class="container-fluid" id="profile">
+                    <div class="row" >
+                        <div class="panel panel-default">
+                        <div class="panel-body" id="profile-overview">
+                            <img alt="densmore-circle-pro-pic" src="../styles/img/mis/densmore-circle-pro-pic.png" id="profile-picture">
+                            <button id="edit-profile" type="button" class="btn btn-default">
+                                <img alt="Edit Profile" src="../styles/img/icons/white-pencil.png" style="height:20px">
+                            </button>
+                            <table class="table" id="profile-header">
+                                <tr id="profile-name">
+                                    <td><h3>Douglas Densmore</h3></td>
+                                </tr>
+                                <tr id="profile-description">
+                                    <td><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut hendrerit erat. Quisque vehicula risus nec molestie ultrices.</p></td>
+                                </tr>
+                            </table>
+                            <div style = "clear:both"></div>
+                            <table class="table" id="profile-info">
+                                <tr>
+                                    <td><p style="color: #1E714A;">Institution</p></td>
+                                    <td id="profile-institution"><p>Boston University</p></td>
+                                </tr>
+                                <tr>
+                                    <td><p style="color: #1E714A;">Department</p></td>
+                                    <td id="profile-dept"><p>Electrical & Computer Engineering</p></td>
+                                </tr>
+                                <tr>
+                                    <td><p style="color: #1E714A;">Title</p></td>
+                                    <td id="profile-title"><p>Associate Professor</p></td>
+                                </tr>
+                            </table>
+                        </div>
+                        </div>
+                    </div>
                 </div>
+                <content></content>
                 <br> <br>
                 <footer></footer>
             </div>
