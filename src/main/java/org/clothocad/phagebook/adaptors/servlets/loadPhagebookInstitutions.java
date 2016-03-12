@@ -96,7 +96,7 @@ public class loadPhagebookInstitutions extends HttpServlet {
             institution.put("institutionId", institute.getId());
             institution.put("institutionName", institute.getName());
             institution.put("labs", labs);
-            institutionsInClotho.put(institutions);
+            institutionsInClotho.put(institution);
             
         }
         
