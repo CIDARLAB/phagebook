@@ -4,6 +4,7 @@ a:link {
     color: #000;
     font-weight: 400;
     font-size: 14px;
+    background-color: transparent !important;
 }
 
 a:visited {
@@ -12,10 +13,11 @@ a:visited {
     color: #000;
     font-weight: 400;
     font-size: 14px;
+    background-color: transparent !important;
 }
             
 a:hover {
-    text-decoration: none;
+    text-decoration: none !important;
     font-family: "Open Sans", sans-serif;
     color: #000;
     font-weight: 400;
@@ -24,20 +26,20 @@ a:hover {
 }
 
 #sidebar {
-    position: absolute;
+    position: fixed;
     float: left;
+    margin-top: 70px;
     margin-left: -15px;
     overflow: hidden;
-    width: 300px;
+    width: 250px;
     height: 100%;
     background-color: #FFFFFF;
 }
 
 ul li {
     padding-left: 40px;
-    margin-left: -15px;
     background: none;
-    width: 300px;
+    width: 250px;
 }
 
 ul li.active {
