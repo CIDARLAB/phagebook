@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 
 <html>
-    
+
     <head>
-        
+
         <title>Phagebook</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,43 +11,51 @@
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="styles/main.css"/>
         <link rel="icon" href="">
+
         <script src="scripts/clotho/clotho3API.js"></script>
-        
-        <style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <script src="scripts/new-ui-scripts/index.js"></script>
+        <script src="scripts/new-ui-scripts/cookieHandler.js"></script>
+        <script src="scripts/jsBootstrap/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
+        <script src="../scripts/new-ui-scripts/angular.ng-modules.js"></script>
+
+        <style>            
             .navbar {
                 -webkit-box-shadow: 0 8px 6px -6px #999;
                 -moz-box-shadow: 0 8px 6px -6px #999;
                 box-shadow: 0 8px 6px -6px #999;
                 background-color: #1E714A;
+                border-bottom: none;
                 height: 90px;
                 float: none;
             }
 
             .navbar-brand {
                 float: left;
-                padding-left: 500px;
                 margin-top: 18px;
             }
-            
-            #login-table {
-                display: inline;
-                float: right;
-                margin-top: 10px;
-                padding-right: 500px;
-                border-collapse: collapse;
-            }
-            
-            td {
+
+            .control-label {
+                color: white;
+                font-size: 11px;
                 font-weight: 300;
-                font-size: 10px;
             }
-           
+
+            .navbar-right {
+                margin-right: 30px;
+            }
+
             .btn-default {
                 font-size: 12px;
                 border-radius: 24px;
                 padding: 8px 18px 8px 18px;
             }
-            
+
+            #wrapper {
+                margin-top: 75px;
+            }
+
             .btn-lg {
                 font-size: 14px;
                 background: #1E714A;
@@ -55,147 +63,175 @@
                 border-radius: 24px;
                 padding: 8px 25px 8px 25px;
             }
-            
+
             .btn-lg:hover {
                 background: #31A16F;
                 color: #FFFFFF;
             }
-           
+
             #alt-link:link {
+                text-decoration: none;
                 color: white;
+                font-family: "Open Sans", sans-serif;
+                font-weight: 300;
+                font-size: 11px;
             }
-            
+
+            #alt-link:visited {
+                text-decoration: none;
+                color: white;
+                font-family: "Open Sans", sans-serif;
+                font-weight: 300;
+                font-size: 11px;
+            }
+
             #alt-link:hover {
                 text-decoration: underline;
+                font-family: "Open Sans", sans-serif;
+                font-weight: 300;
+                font-size: 11px;
             }
-            
-            #register-form1 {
-                margin-left: 15px;
-            }
-            
-            .col-sm-11 {
+
+            .col-sm-12 {
                 margin-bottom: 10px;
             }
-            
+
             .col-md-6 {
                 margin-top: 80px;
             }
-            
+
             .col-md-5 {
                 margin-top: 50px;
             }
-            
+
             .row {
                 margin-bottom: 10px;
                 margin-left: 2px;
             }
-            
+
             fieldset {
+                margin-top: 25px;
                 display: block;
                 border: solid 1px #666666;
                 border-color: #CCCCCC;
-                padding: 15px 40px 15px 40px;
+                padding: 0px 40px 40px 40px;
                 background-color: #FDFDFD;
             }
-        </style>
-        
-    </head>
-    
-    <body>
-        
-        <nav class="navbar navbar-static-top">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class= "navbar-brand" href="." title="Go to Phagebook Home">
-                        <img alt="Phagebook Logo" src="styles/img/icons/phagebook-logo-white.svg"> 
-                    </a>
-                </div>
-                <form class="form-inline">
-                    <table id="login-table">
-                        <tr>
-                            <td>
-                                <label for="loginEmailAddress" style="color:white">EMAIL ADDRESS</label>
-                            </td>
-                            <td>
-                                <label for="loginPassword" style="color:white">PASSWORD</label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="text" class="form-control" id="loginEmailAddress">
-                            </td>
-                            <td>
-                                <input type="email" class="form-control" id="loginPassword">
-                            </td>
-                            <td>
-                               <button type="submit" class="btn btn-default">Log In</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="checkbox">
-                                <label style="color:white">
-                                    <input type="checkbox"> Remember Me
-                                </label>
-                            </td>
-                            <td>
-                                <a href="#" id="alt-link">Forgot your password?</a>
-                            </td>
-                        </tr>
-                    </table>
-                </form>    
-            </div>
-        </nav>
-        
-        <div class="container">
-            <div class="col-md-6">
-                <img src="styles/img/icons/login-page-img.png" alt="Phagebook Login Image">
-            </div>
-            
-            <div class="col-md-1"></div>
 
-            <div class="col-md-5">
-                <fieldset>
-                    <h3>Sign Up</h3>
-                    <p>Start connecting with other researchers -- it's free.</p>
-                    <form>
-                        <div class="form-group" id="register-form2">
-                            <div class="row">
-                                <span class="col-sm-6">
-                                    <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" required>
-                                </span>
-                                <span class="col-sm-6">
-                                    <input type="text" class="form-control" id="inputLastName" placeholder="Last Name" required>
-                                </span>
+            #createProfile {
+                float: right;
+            }
+        </style>
+
+    </head>
+
+    <body>  
+
+        <div ng-module="indexApp">
+            <div ng-controller="indexCtrl">
+                <div id="wrapper">
+                    <div class="navbar navbar-default navbar-fixed-top">
+                        <div class="container">
+                            <div class="navbar-header">
+                                <a class= "navbar-brand" href="." title="Go to Phagebook Home">
+                                    <img alt="Phagebook Logo" src="styles/img/icons/phagebook-logo-white.svg"> 
+                                </a>
+                                <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
                             </div>
-                            <div class="col-sm-11">
-                                <input type="text" class="form-control" id="emailAddress" placeholder="Email Address" required>
+                            <div class ="collapse navbar-collapse">
+                                <div class="navbar-form navbar-right" id="header-form" role="form" style="width:445px">
+                                    <div class="form-group">
+                                        <label for="loginEmailAddress" class="control-label">EMAIL ADDRESS</label>
+                                        <br/><input type="email" class="form-control input-sm" id="loginEmailAddress">
+                                        <br/><label class="control-label" style="color:white">
+                                            <input type="checkbox"> Remember Me
+                                        </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="loginPassword" class="control-label">PASSWORD</label>
+                                        <br/><input type="password" class="form-control input-sm" id="loginPassword">
+                                        <br/><a href="#" id="alt-link">Forgot your password?</a>
+                                    </div>                              
+                                    <button id="login" type="submit" class="btn btn-default">Log In</button>
+                                </div>
                             </div>
-                            <div class="col-sm-11">
-                                <input type="text" class="form-control" id="password" placeholder="Password" required>
-                            </div>
-                            <div class="col-sm-11">
-                                <input type="text" class="form-control" id="reenterPassword" placeholder="Re-enter Password" required>
-                            </div>
-                            <div class="col-sm-11">
-                                <input type="text" class="form-control" id="labName" placeholder="Lab Name" required>
-                            </div>
-                            <div class="col-sm-11">
-                                <select class="form-control" id="institution">
-                                    <option>Institution...</option>
-                                    <option>CIDAR Lab</option>
-                                    <option>Collins Lab</option>
-                                    <option>Khalil Laboratory</option>
-                                </select>
-                            </div>
-                            <div class="col-sm-12">
-                                <p style='font-size:10px'>By clicking Create Profile you agree to our Terms and that you have read out Data Policy, including our Cookie Use</p>
-                            </div>
-                            <button type="submit" class="btn btn-lg">Create Profile</button>
+
+                    <div class="container">
+                        <div class="col-md-6">
+                            <img src="styles/img/icons/login-page-img.png" alt="Phagebook Login Image">
                         </div>
-                    </form>
-                </fieldset>
+                        <div class="col-md-1"></div>
+                        <div class="col-md-5">
+                            <fieldset>
+                                <div><br/></div>
+                                <h3>Sign Up</h3>
+                                <p>Start connecting with other researchers -- it's free.</p>
+                                <div>
+                                    <div class="form-group" id="register-form">
+                                        <div class="col-sm-6">  
+                                            <input type="text" class="form-control" name="firstName" id="inputFirstName" placeholder="First Name">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control" name="lastName" id="inputLastName" placeholder="Last Name">
+                                        </div>
+                                        <div class="col-sm-12"></div>
+                                        <div class="col-sm-12">
+                                            <input type="text" class="form-control" name="emailId" id="emailAddress" placeholder="Email Address">
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <input type="password" class="form-control"  name="password" id="password" placeholder="Password">
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <input type="password" class="form-control" id="reenterPassword" placeholder="Re-enter Password" onChange="checkPasswordMatch()">
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <select class="form-control" id="institution">
+                                                <option>Institution...</option>
+                                                <option>Boston University</option>
+                                                <option>Harvard University</option>
+                                                <option>MIT</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <select class="form-control" id="lab-name">
+                                                <option>Lab Name...</option>
+                                                <option>CIDAR Lab</option>
+                                                <option>Khalil Lab</option>
+                                                <option>Wong Lab</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <p style='font-size:10px'>By clicking Create Profile you agree to our Terms and that you have read out Data Policy, including our Cookie Use</p>
+                                        </div>
+                                        <button id="createProfile" type="submit" onclick="return checkPasswordMatch();" class="btn btn-lg">Create Profile</button> 
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <br> <br>
+                <footer></footer>
+                
             </div>
         </div>
+            
+        <!-- SCRIPTS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
+        <script src="../scripts/new-ui-scripts/angular.ng-modules.js"></script>
+        <script src="../scripts/new-ui-scripts/indexFooterDirective.js"></script>
+        <script src="../scripts/new-ui-scripts/indexController.js"></script>
+        <script src="../scripts/new-ui-scripts/indexApp.js"></script>
+        
     </body>
-    
+
 </html>

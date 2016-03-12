@@ -119,21 +119,31 @@ public class createPerson extends HttpServlet {
             ClothoAdapter.createPerson(createdPerson, clothoObject);
 
             EmailHandler emailer = EmailHandler.getEmailHandler();
-            String link = Args.phagebookBaseURL + "/html/verifyEmail.html?emailId=" +createdPerson.getEmailId() + "&salt=" + createdPerson.getSalt() ;
+            String link = Args.phagebookBaseURL + "/html/validateEmail.html?emailId=" +createdPerson.getEmailId() + "&salt=" + createdPerson.getSalt() ;
             emailer.sendEmailVerification(createdPerson, link);
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.setContentType("application/JSON");
+                PrintWriter out = response.getWriter();
+                
+                JSONObject obj = new JSONObject();
+                obj.put("clothoId", createdPerson.getId());
+                obj.put("emailId", createdPerson.getEmailId());
+                out.print(obj);
+                out.flush();
+                out.close();
+            
 
         } else {
             System.out.println("User is not unique in Clotho");
             response.setStatus(HttpServletResponse.SC_CONFLICT);
-            response.setContentType("text/html;charset=UTF-8");
+            response.setContentType("application/JSON");
                 PrintWriter out = response.getWriter();
-                
-                out.print("Person Already Exists");
+                JSONObject obj = new JSONObject();
+                obj.put("message", "Person Already Exists");
+                out.print(obj);
                 out.flush();
                 out.close();
         }
-        
-        
         
         processRequest(request, response);
         
