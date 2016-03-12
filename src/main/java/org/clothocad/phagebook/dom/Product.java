@@ -56,6 +56,24 @@ public class Product extends Good{
    
         
     }
+    public int decreaseInventory(){
+        this.inventory--;
+        return this.inventory;
+    }
+    
+    public int decreaseInventory(int n){
+        this.inventory = this.inventory - n;
+        return this.inventory;
+    }
+    
+    public int increaseInventory(){
+        this.inventory++;
+        return this.inventory;
+    }
+    public int increaseInventory(int n){
+        this.inventory = this.inventory + n;
+        return this.inventory;
+    }
 //    @Override
 //    public boolean equals(Object other){
 //    if (other == null) return false;

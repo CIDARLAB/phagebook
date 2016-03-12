@@ -6,6 +6,7 @@ package org.clothocad.phagebook.adaptors.servlets;
  * and open the template in the editor.
  */
 
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -61,7 +62,7 @@ public class AddProducts extends HttpServlet {
         Map companyMap = new HashMap();
         companyMap.put("name",companyName);
         //System.out.println("Vendor Name :: " + companyName);
-        if (!ClothoAdapter.queryVendor(companyMap,clothoObject).isEmpty()){
+        if (!ClothoAdapter.queryVendor(companyMap,clothoObject, ClothoAdapter.QueryMode.EXACT).isEmpty()){
            writer.println(companyName);
         }
 //        else{

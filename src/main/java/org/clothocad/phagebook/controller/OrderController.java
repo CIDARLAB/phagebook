@@ -58,7 +58,7 @@ public class OrderController {
             Vendor company; 
             Map companyQuery = new HashMap();
             companyQuery.put("name",companyName);
-            List<Vendor> companyList = ClothoAdapter.queryVendor(companyQuery, clothoObject);
+            List<Vendor> companyList = ClothoAdapter.queryVendor(companyQuery, clothoObject, ClothoAdapter.QueryMode.EXACT);
             if(companyList.isEmpty()){
                 company = new Vendor(companyName);
                 ClothoAdapter.createVendor(company, clothoObject);
@@ -105,7 +105,7 @@ public class OrderController {
 
                 Map companyQuery = new HashMap();
                 companyQuery.put("name",companyName);
-                List<Vendor> companyArray = ClothoAdapter.queryVendor(companyQuery, clothoObject);
+                List<Vendor> companyArray = ClothoAdapter.queryVendor(companyQuery, clothoObject, ClothoAdapter.QueryMode.EXACT);
                 if(companyArray.isEmpty()){
                     company = new Vendor(companyName);
                     ClothoAdapter.createVendor(company, clothoObject);

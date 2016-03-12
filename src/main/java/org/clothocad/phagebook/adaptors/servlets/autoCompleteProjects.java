@@ -8,26 +8,26 @@ package org.clothocad.phagebook.adaptors.servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
+
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
-import org.clothocad.phagebook.dom.Product;
+import org.clothocad.phagebook.dom.Project;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  *
  * @author Herb
  */
-public class queryPossibleProductByName extends HttpServlet {
+public class autoCompleteProjects extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,7 +40,7 @@ public class queryPossibleProductByName extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -52,72 +52,71 @@ public class queryPossibleProductByName extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        //I WILL RETURN THE MAP AS A JSON OBJECT.. it is client side's issue to parse all data for what they need!
+        //they could check over there if the schema matches what they are querying for and so i can do this generically!
+        //user should be logged in so I will log in as that user.
         
-        String productName = ""; 
-        productName = request.getParameter("Name");
-        boolean isValidRequest = false;
-        if (productName != "" && productName != null){
-            isValidRequest = true;
-        }
-        
-        if (isValidRequest){
-            //create a clothoUser and Login to Query
+  
+       String name  = request.getParameter("name") != null ? request.getParameter("name") : "";
+       boolean isValid = false;
+        System.out.println("Name is: " + name);
+       if (!name.equals("")){
+           isValid = true;
+       }
+       
+       if (isValid){
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
-            Map createUserMap = new HashMap();
-            createUserMap.put("username", "ClothoBackend");
-            createUserMap.put("password", "phagebook");
-            clothoObject.createUser(createUserMap);
-            Map loginMap = new HashMap();
-            loginMap.put("username", "ClothoBackend");
-            loginMap.put("credentials", "phagebook");
-            clothoObject.login(loginMap);
+            //TODO: we need to have an authentication token at some point
 
-            //Query for the products
+            Map createUserMap = new HashMap();
+            String username = "phagebook";
+            String password = "backend";
             
+            createUserMap.put("username", username);
+            createUserMap.put("password", password);
+            
+            Map loginMap = new HashMap();
+            loginMap.put("username", username);
+            loginMap.put("credentials", password);  
+
+            clothoObject.login(loginMap);
             Map query = new HashMap();
-            query.put("schema", Product.class.getCanonicalName());
-            query.put("name", productName);
             
-            List<Product> queryProductResults = new LinkedList<>();
-            queryProductResults = ClothoAdapter.queryProduct(query, clothoObject);//NOT USING THIS BECAUSE WE WANT A JSON ARRAY BACK
-            //To get Vendor Name...
-            JSONArray results = new JSONArray();
-            for (Product product : queryProductResults){
-                JSONObject productAsJson = new JSONObject();
-                productAsJson.put("clothoID", product.getId());
-                productAsJson.put("cost", product.getCost());
-                productAsJson.put("productURL", (product.getProductURL() != null) ? product.getProductURL() : "");
-                productAsJson.put("goodType", product.getGoodType());
-                productAsJson.put("inventory", product.getInventory());
-                productAsJson.put("name", product.getName());
-                productAsJson.put("description", product.getDescription());
-                productAsJson.put("vendor", ClothoAdapter.getVendor(product.getCompanyId(), clothoObject));
-                
-                results.add(productAsJson);
+            query.put("query", name); // the value for which we are querying.
+            query.put("key", "name"); // the key of the object we are querying
+            
+            List<Project> projects = ClothoAdapter.queryProject(query, clothoObject, ClothoAdapter.QueryMode.STARTSWITH);
+            JSONArray responseArray = new JSONArray();
+            for (Project proj : projects){
+                JSONObject obj = new JSONObject();
+                obj.put("id", proj.getId());
+                obj.put("name", proj.getName());
+                responseArray.put(obj);
             }
             
+            response.setStatus(HttpServletResponse.SC_ACCEPTED);
+            response.setContentType("application/json");
+            PrintWriter out = response.getWriter();
+            out.print(responseArray);
+            out.flush();
+            out.close();
             
-            
-            if (!results.isEmpty()){
-                
-                
-                response.setContentType("application/json");
-                response.setStatus(HttpServletResponse.SC_OK);
-                PrintWriter out = response.getWriter();
-                out.print(results.toString());
-                out.flush();
-            } else {
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            }
-            
-        } else {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        }
-        
+            clothoObject.logout();
+           
+       }
+       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+       response.setContentType("application/json");
+       JSONObject reply = new JSONObject();
+       reply.put("message", "Auto Complete requires a query parameter");
+       PrintWriter out = response.getWriter();
+       out.print(reply);
+       out.flush();
+       out.close();
     }
 
     /**

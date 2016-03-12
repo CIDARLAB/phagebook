@@ -8,26 +8,24 @@ package org.clothocad.phagebook.adaptors.servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import net.sf.json.JSONArray;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
-import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
-import org.clothocad.phagebook.dom.Institution;
-import org.clothocad.phagebook.dom.Lab;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
  *
  * @author Herb
+ * WILL AUTOCOMPLETE AND RETURN A JSON OBJECT WITH EVERY PROPERTY OF THE OBJECTS THAT IT GOT...
+ * 
  */
-public class loadPhagebookInstitutions extends HttpServlet {
+public class autoComplete extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -57,61 +55,58 @@ public class loadPhagebookInstitutions extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         
-        //always valid 
-        //login
-        ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
-        Clotho clothoObject = new Clotho(conn);
+        //I WILL RETURN THE MAP AS A JSON OBJECT.. it is client side's issue to parse all data for what they need!
+        //they could check over there if the schema matches what they are querying for and so i can do this generically!
+        //user should be logged in so I will log in as that user.
+        
+  
+       String query  = request.getParameter("query") != null ? request.getParameter("query") : "";
+       boolean isValid = false;
+        System.out.println("Query is: " + query);
+       if (!query.equals("")){
+           isValid = true;
+       }
+       
+       if (isValid){
+            ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+            Clotho clothoObject = new Clotho(conn);
+            //TODO: we need to have an authentication token at some point
 
-        String username = "phagebook";
-        String password = "backend";
-        /*
-
-            DIRECT ASSUMPTION THAT USER: phagebook exists and their 
-                               PASSWORD: backend
-        */
-        Map loginMap = new HashMap();
-        loginMap.put("username"   , username);
-        loginMap.put("credentials", password);
-        clothoObject.login(loginMap);
-        
-        Map query = new HashMap(); // blank map to get all objects of that class
-        
-        List<Institution> institutions = ClothoAdapter.queryInstitution(query, clothoObject, ClothoAdapter.QueryMode.EXACT);
-        
-        JSONArray institutionsInClotho = new JSONArray();
-        int countInstits = 0;
-        int countLabs=0;
-        for (Institution institute : institutions){
-            countInstits++;
-            JSONArray labs = new JSONArray();
-            for (String labId : institute.getLabs()){
-                countLabs++;
-                Lab lab = ClothoAdapter.getLab(labId, clothoObject);
-                JSONObject obj = new JSONObject();
-                obj.put("labName", lab.getName());
-                obj.put("labId", lab.getId());
-                labs.put(obj);
-            }
-            JSONObject institution = new JSONObject();
-            institution.put("institutionId", institute.getId());
-            institution.put("institutionName", institute.getName());
-            institution.put("labs", labs);
-            institutionsInClotho.put(institution);
+            Map createUserMap = new HashMap();
+            String username = "phagebook";
+            String password = "backend";
             
-        }
-        
-        
-        
-        response.setStatus(HttpServletResponse.SC_OK);
-        response.setContentType("application/json");
-        PrintWriter out = response.getWriter();
-        JSONObject obj = new JSONObject();
-        obj.put("message", "found " + countLabs + " labs and " + countInstits +" institutions" );
-        obj.put("institutions", institutionsInClotho);
-        out.print(obj);
-        out.flush();
-        out.close();
-        
+            createUserMap.put("username", username);
+            createUserMap.put("password", password);
+            
+            Map loginMap = new HashMap();
+            loginMap.put("username", username);
+            loginMap.put("credentials", password);  
+
+            clothoObject.login(loginMap);
+
+       
+            JSONArray replies = (JSONArray) clothoObject.autocomplete(query);
+       
+            response.setStatus(HttpServletResponse.SC_ACCEPTED);
+            response.setContentType("application/json");
+            PrintWriter out = response.getWriter();
+            out.print(replies);
+            out.flush();
+            out.close();
+            
+            clothoObject.logout();
+           
+       }
+       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+       response.setContentType("application/json");
+       JSONObject reply = new JSONObject();
+       reply.put("message", "Auto Complete requires a query parameter");
+       PrintWriter out = response.getWriter();
+       out.print(reply);
+       out.flush();
+       out.close();
+           
     }
 
     /**
@@ -136,6 +131,9 @@ public class loadPhagebookInstitutions extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
+    // </editor-fold>
+    
+    
 
 }
