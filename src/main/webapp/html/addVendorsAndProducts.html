@@ -9,6 +9,10 @@ and open the template in the editor.
         <title>Add Vendors and Products</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <!-- <script src="../scripts/new-ui-scripts/copyOfJqueryMinimized.js"></script> -->
+        <script src="../scripts/new-ui-scripts/addVendorsAndProducts.js"></script>
+        <script src="../scripts/new-ui-scripts/cookieHandler.js"></script>
     </head>
     <body>
         Vendor Name:   <input id="vendorName" type="text" placeholder="Vendor Name">
@@ -16,6 +20,8 @@ and open the template in the editor.
         Vendor Website:<input id="vendorWebsite" type="text" placeholder="Vendor Website">
         <br>
         Vendor Email: <input id="vendorEmail" type="text" placeholder="Vendor Email">
+        <br>
+        Vendor Contact: <input id="vendorContact" type="text" placeholder="Vendor Email">
         <br>
         Vendor Phone   <input id="vendorPhone" type="text" placeholder="Vendor Phone">
         <br>
@@ -27,7 +33,7 @@ and open the template in the editor.
         Company Name Search:  <input id="companyName" type="text" placeholder="Company Name">
         Companies: <select class="form-control" id="companyResults"></select>
         <button id="lookupCompanies" type="submit">Look up Companies</button>
-        
+        <br>
         Product Name:   <input id="productName" type="text" placeholder="Product Name">
         <br>
         Product Price: <input id="productPrice" type="text" placeholder="Product Price">
@@ -36,7 +42,15 @@ and open the template in the editor.
         <br>
         Product Promotion   <input id="productPromotion" type="text" placeholder="Product Promotion">
         <br>
+        Product Type:  <select id="productType">
+            <option>INSTRUMENT</option>
+            <option>SAMPLE</option>
+                        </select>
+        <br>
         Product Description <textArea id="productDescription" placeholder="Product Description"></textarea>
+        <br>
+
+        Product Quantity (Total):  <input id="productQuantity" type="text" placeholder="Product Quanity">
         <br>
 
 
