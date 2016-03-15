@@ -57,10 +57,17 @@ public class queryProductByCompany extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        String companyName = ""; 
-        companyName = request.getParameter("Name");
+        
+        Object pCompanyName = request.getParameter("name");
+        String companyName = pCompanyName != null ? (String) pCompanyName : "";
+        
+        Object pSearchType = request.getParameter("searchType");
+        String searchType = pSearchType != null ? (String) pSearchType: "";
+        
+        
         boolean isValidRequest = false;
-        if (companyName != "" && companyName != null){
+        if (!companyName.equals("") && !searchType.equals("")){
+            
             isValidRequest = true;
         }
         
@@ -68,21 +75,37 @@ public class queryProductByCompany extends HttpServlet {
             //create a clothoUser and Login to Query
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
+            ClothoAdapter.QueryMode Qmode = ClothoAdapter.QueryMode.valueOf(searchType);
             
             Map loginMap = new HashMap();
-            loginMap.put("username", "phagebook");
+            
+            loginMap.put("username",    "phagebook");
             loginMap.put("credentials", "backend");
             clothoObject.login(loginMap);
-
             //Query for the company
             
             Map query = new HashMap();
             
-            query.put("name", companyName);
+            switch (Qmode){
+                case EXACT:
+                    query.put("name", companyName);
+                    break;
+                case STARTSWITH:
+                     query.put("query", companyName); // the value for which we are querying.
+                     query.put("key", "name"); // the key of the object we are querying
+       
+                    break;
+                default:
+                    break;
+                    
+            }
             
-            List<Vendor> queryCompanyResults = new LinkedList<>();
-            queryCompanyResults = ClothoAdapter.queryVendor(query, clothoObject, ClothoAdapter.QueryMode.EXACT);
+            
+            List<Vendor> queryCompanyResults = ClothoAdapter.queryVendor(query, clothoObject, ClothoAdapter.QueryMode.valueOf(searchType));
+            
+            
             //To get Vendor Name and ID to query for products with that company...
+            
             List<String> companyIDs = new LinkedList<>();
             for (Vendor company : queryCompanyResults ){
                 companyIDs.add(company.getId());
@@ -111,6 +134,7 @@ public class queryProductByCompany extends HttpServlet {
                     results.add(productAsJson);
                 }
             }
+            
             
             
             if (!results.isEmpty()){

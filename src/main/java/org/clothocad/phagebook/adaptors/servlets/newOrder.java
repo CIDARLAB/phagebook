@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -36,18 +37,121 @@ public class newOrder extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         
-        System.out.println("IN THE SERVLET");
+       
         //request.getParameter RETURNS NULL IF IT DOESN'T EXIST!!!
-        String orderName = request.getParameter("name") != null ? request.getParameter("name") : "" ;
-          
-        String description = request.getParameter("description") != null ? request.getParameter("description"): "";
-        String createdBy = request.getParameter("createdBy") != null ? request.getParameter("createdBy") : "";
+        Object pOrderName = request.getParameter("name");
+        String orderName  = pOrderName != null ? (String) pOrderName : "" ;
+        
+        //WEBSITE WILL SEND THE ID
+        Object pCreatedBy = request.getParameter("createdBy");
+        String createdBy  = pCreatedBy != null ? (String) pCreatedBy : "";
+        
+        //WEBSITE WILL SEND THIS
+        Object pLabId     = request.getParameter("labId");
+        String labId      =  pLabId != null ? (String) pLabId: "" ;
+        
+        Object pAssociatedProject  = request.getParameter("associatedProjectId");
+        String associatedProjectId = pAssociatedProject != null ? (String) pAssociatedProject: "";
+        
+        Object pBudget   =    request.getParameter("budget");
+        String strBudget =    pBudget != null ?  (String) pBudget : "";
+        Double budget   =     Double.parseDouble(strBudget);
+        
+        
+        Object pOrderLimit  = request.getParameter("orderLimit");
+        String strOrderLimit = pOrderLimit != null ? (String) pOrderLimit : "";
+        Integer orderLimit   =  Integer.parseInt(strOrderLimit);
         
         
         
         
         Date date = new Date();
         
+        boolean isValid = false;
+        //All parameters needed to create a new order as per the wire frame. 
+        
+        
+        
+        
+        if (!orderName.equals("") && !createdBy.equals("") && !labId.equals("")
+                && !associatedProjectId.equals("") && !strBudget.equals("")
+                && !strOrderLimit.equals(""))
+        {
+            isValid = true;
+        }
+        
+        
+        if (isValid){
+            //login
+            ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+            Clotho clothoObject = new Clotho(conn);
+            
+            String username = "phagebook";
+            String password = "backend";
+            /*
+            
+                DIRECT ASSUMPTION THAT USER: phagebook exists and their 
+                                   PASSWORD: backend
+            */
+            Map loginMap = new HashMap();
+            loginMap.put("username"   , username);
+            loginMap.put("credentials", password);
+            clothoObject.login(loginMap);
+       
+            
+            Order order = new Order();
+            order.setName(orderName);
+            order.setCreatedById(createdBy);
+            order.setDateCreated(date);
+            order.setBudget(budget);
+            order.setMaxOrderSize(orderLimit);
+            order.setAffiliatedLabId(labId);
+            order.setRelatedProjectId(associatedProjectId);
+            order.setStatus(OrderStatus.INPROGRESS);
+            
+            ClothoAdapter.createOrder(order, clothoObject); // CREATED THE ORDER
+                                                            // BUT I NOW NEED TO LINK IT TO THE USER
+            Person creator = ClothoAdapter.getPerson(order.getCreatedById(), clothoObject);
+            List<String> createdOrders = creator.getCreatedOrders();
+            createdOrders.add(order.getId());
+            System.out.println("I am still on this part");
+            clothoObject.logout();
+            
+            ClothoAdapter.setPerson(creator, clothoObject); // LINK CREATED
+            
+            
+            response.setStatus(HttpServletResponse.SC_CREATED);
+            PrintWriter writer = response.getWriter();
+            response.setContentType("application/JSON");
+            JSONObject responseJSON = new JSONObject();
+            responseJSON.put("message", "order created");
+            responseJSON.put("orderId", order.getId());
+            writer.println(responseJSON);
+            writer.flush();
+            writer.close();
+            
+            
+        }
+        else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            PrintWriter writer = response.getWriter();
+            response.setContentType("application/JSON");
+            JSONObject responseJSON = new JSONObject();
+            responseJSON.put("message", "Missing Required Parameters.");
+            writer.println(responseJSON.toString());
+            writer.flush();
+            writer.close();
+        }
+     
+        
+        
+        
+        
+        
+        
+        
+        
+        /*
         
         String orderIds = request.getParameter("orderIds") != null ? request.getParameter("orderIds") : "";
        
@@ -148,6 +252,8 @@ public class newOrder extends HttpServlet {
             
             
         }
+                
+                */
 
     }
 }

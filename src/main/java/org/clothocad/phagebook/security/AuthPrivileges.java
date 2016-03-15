@@ -53,7 +53,6 @@ public class AuthPrivileges {
     
     Project pb = new Project();
     Project cl = new Project();
-    
     doug.addInstitution(boston);
     prash.addInstitution(boston);
     anna.addInstitution(boston);

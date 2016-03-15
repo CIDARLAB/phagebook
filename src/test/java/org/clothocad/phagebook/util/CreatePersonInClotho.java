@@ -47,6 +47,7 @@ public class CreatePersonInClotho {
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
+
        @Test
        public void createPersonInClotho() throws UnsupportedEncodingException 
        {
@@ -65,14 +66,14 @@ public class CreatePersonInClotho {
         
             byte[] SaltedHashedEmail = salty.hash(doug1.getEmailId().toCharArray(), salt.getBytes("UTF-8"));
 
-            doug1.setSaltedEmailHash(SaltedHashedEmail);
-            ClothoAdapter.createPerson(doug1, clothoObject);
-            
-            
-           
+         doug1.setSaltedEmailHash(SaltedHashedEmail);
+         ClothoAdapter.createPerson(doug1, clothoObject);
 
-           
-           
-       
-       }
+
+
+
+
+
+
+    }
 }

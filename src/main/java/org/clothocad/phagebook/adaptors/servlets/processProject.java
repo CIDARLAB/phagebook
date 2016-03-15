@@ -224,6 +224,7 @@ public class processProject extends HttpServlet {
       System.out.println("(235) About to create the project");
       //Project project = new Project(, , lab, , projectBudget,
        //     , );
+
       
         Project project = new Project();
         project.setName(name);

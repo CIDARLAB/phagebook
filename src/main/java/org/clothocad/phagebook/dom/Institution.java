@@ -5,6 +5,8 @@
  */
 package org.clothocad.phagebook.dom;
 
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,6 +17,7 @@ import lombok.Setter;
 public class Institution extends Organization {
    
     @Getter @Setter InstitutionType type;
+    @Getter @Setter List<String>    labs;
     
     public Institution(String name){
        super(name);
@@ -23,6 +26,7 @@ public class Institution extends Organization {
     public Institution(){
         super();
         this.type = InstitutionType.University;
+        this.labs = new ArrayList<>();
     }
     public static enum InstitutionType {
         University, Corporation, Independent

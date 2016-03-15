@@ -7,6 +7,10 @@ package org.clothocad.phagebook.adaptors.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,6 +21,7 @@ import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.model.Person;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
+import org.clothocad.phagebook.dom.Grant;
 import org.clothocad.phagebook.dom.Project;
 
 /**
@@ -39,38 +44,13 @@ public class editProject extends HttpServlet {
           throws ServletException, IOException {
     response.setContentType("text/html;charset=UTF-8");
     try (PrintWriter out = response.getWriter()) {
-      /* TODO output your page here. You may use following sample code. */
-      out.println("<!DOCTYPE html>");
-      out.println("<html>");
-      out.println("<head>");
-      out.println("<title>Servlet editProject</title>");      
-      out.println("</head>");
-      out.println("<body>");
-      out.println("<h1>Servlet editProject at " + request.getContextPath() + "</h1>");
-      out.println("</body>");
-      out.println("</html>");
-    }
-  }
-  
-   /**
-   * Checks if the project is valid and is associated with the logged in
-   * person
-   *
-   * @param request servlet request
-   * @param response servlet response
-   * @throws ServletException if a servlet-specific error occurs
-   * @throws IOException if an I/O error occurs
-   */
-  protected Boolean checkID(HttpServletRequest request, HttpServletResponse response)
-          throws ServletException, IOException {
-    response.setContentType("text/html;charset=UTF-8");
-    try (PrintWriter out = response.getWriter()) {
       
       ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
       Clotho clothoObject = new Clotho(conn);
       
       System.out.println(request);
       
+      // these will be in a cookie?
       String userID = request.getParameter("userID");
       String projectID = request.getParameter("projectID");
       
@@ -80,58 +60,109 @@ public class editProject extends HttpServlet {
       System.out.println(editor);
       System.out.println(project);
       
-//      /* TODO output your page here. You may use following sample code. */
-//      out.println("<!DOCTYPE html>");
-//      out.println("<html>");
-//      out.println("<head>");
-//      out.println("<title>Servlet editProject</title>");      
-//      out.println("</head>");
-//      out.println("<body>");
-//      out.println("<h1>Servlet editProject at " + request.getContextPath() + "</h1>");
-//      out.println("</body>");
-//      out.println("</html>");
+      // get all of the parameters in the request
+      Enumeration e = request.getParameterNames();
+      
+      // loop through the enumeration to get values from the request and add to
+      // the hashmap
+      HashMap reqHashMap = new HashMap();
+      while(e.hasMoreElements()){
+        String key = (String) e.nextElement();
+        String value = request.getParameter(key);
+        reqHashMap.put(key, value);
+      }
+      editProject(project, reqHashMap, clothoObject);
     }
-    
-    return false;
   }
-
-  // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-  /**
-   * Handles the HTTP <code>GET</code> method.
+  
+   /**
+   * This loops through the values passed in the request that was converted
+   * to a hashmap to change the project.
    *
-   * @param request servlet request
-   * @param response servlet response
-   * @throws ServletException if a servlet-specific error occurs
-   * @throws IOException if an I/O error occurs
+   * @param projectId Project Id
+   * @param params the request values that were converted from httpObject to Hashmap
+   * @param clothoObject to log in to clotho
    */
+  private void editProject(Project project, HashMap params, Clotho clothoObject){
+       
+      // for testing purposes request is the Project ID
+      // params is the hashmap of new values
+      
+      System.out.println("In editProject test project is: ");
+      System.out.println(project);
+
+      Iterator entries = params.entrySet().iterator();
+      while (entries.hasNext()) {
+        // reset the value if it is diff from the one in the project object
+        Map.Entry entry = (Map.Entry) entries.next();
+        String key = (String)entry.getKey();
+        String value = (String)entry.getValue();
+        System.out.println("Key = " + key + ", Value = " + value);
+        
+        String[] keyValue = new String[4]; 
+        keyValue[0] = key; // type of new value (like "description")
+        keyValue[1] = value; // the actual new value (like "This is a new desciption")
+        if(key.equals("editorId")){
+          Person editor = ClothoAdapter.getPerson(value, clothoObject);
+          System.out.println();
+        }
+        if(key.equals("description")){
+          keyValue[2]= "description";
+          keyValue[3]= project.getDescription();
+          //helperMsg(project.getDescription(), value);
+          project.setDescription(value);
+        }
+        if(key.equals("name")){
+          keyValue[2]= "name";
+          keyValue[3]= project.getName();
+          //helperMsg(project.getName(), value);
+          project.setName(value);
+        }
+        if(key.equals("leadId")){
+          //helperMsg(project.getLeadId(), value);
+          System.out.println("Can't edit lead yet, sorry!");
+        }
+        if(key.equals("projectBudget")){
+          keyValue[2]= "projectBudget";
+          keyValue[3]= project.getBudget().toString();
+          //helperMsg(Double.toString(project.getBudget()), value);
+          project.setBudget(Double.parseDouble(value));
+        }
+        if(key.equals("projectGrant")){
+          String oldGrantId = project.getGrantId();
+          Grant newGrant = new Grant(value);
+          String newGrantId = ClothoAdapter.createGrant(newGrant, clothoObject);
+          
+          keyValue[2]= "projectGrant";
+          keyValue[3]= oldGrantId;
+
+          project.setGrantId(newGrantId);
+        }
+      }
+      String foo = ClothoAdapter.setProject(project, clothoObject);
+      System.out.println(foo);
+      //sendEmails(request);
+    }
+  
+    public void helperMsg(String oldVal, String newVal){
+      System.out.println("\nOld Value is: " + oldVal + "\nNew Value is: " + newVal);
+    }
+
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    checkID(request, response);
   }
 
-  /**
-   * Handles the HTTP <code>POST</code> method.
-   *
-   * @param request servlet request
-   * @param response servlet response
-   * @throws ServletException if a servlet-specific error occurs
-   * @throws IOException if an I/O error occurs
-   */
+
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
      
   }
 
-  /**
-   * Returns a short description of the servlet.
-   *
-   * @return a String containing servlet description
-   */
   @Override
   public String getServletInfo() {
-    return "Short description";
+    return "This servlet edits projects.";
   }// </editor-fold>
 
 }

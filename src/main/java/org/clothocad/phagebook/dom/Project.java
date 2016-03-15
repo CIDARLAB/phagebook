@@ -48,6 +48,7 @@ public class Project {
        this.description    = "Not Set";
        this.id             = "Not Set";
    }   
+
    
    private void addMember(Person newMember){
        boolean exists = false;
