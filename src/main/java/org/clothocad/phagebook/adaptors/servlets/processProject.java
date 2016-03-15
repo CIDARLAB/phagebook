@@ -221,10 +221,7 @@ public class processProject extends HttpServlet {
       // TODO: Check whether lead exists in the DB.
       String leadPersonID = ClothoAdapter.createPerson(leadPerson, clothoObject);
       leadPerson.setId(leadPersonID);
-      System.out.println("(235) About to create the project");
-      //Project project = new Project(, , lab, , projectBudget,
-       //     , );
-
+      System.out.println("(224) About to create the project");
       
         Project project = new Project();
         project.setName(name);

@@ -57,8 +57,8 @@ public class editProjectTest {
     
     @Before
     public void setUp() {
-      
-      clothoLogin("username", "password");
+      ClothoAdapter.clothoCreate("username", "password");
+      ClothoAdapter.clothoLogin("username", "password");
             
         System.out.println("Making people.");
         
