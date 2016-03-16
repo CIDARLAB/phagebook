@@ -5,26 +5,17 @@
  */
 package org.clothocad.phagebook.adaptors.servlets;
 
-import java.io.IOException;
+import org.clothocad.phagebook.adaptors.servlets.editProject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
-import static junit.framework.Assert.assertEquals;
-import lombok.Getter;
-import lombok.Setter;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.model.Person;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
-import static org.clothocad.phagebook.adaptors.ClothoAdapter.clothoLogin;
 import static org.clothocad.phagebook.adaptors.ClothoAdapter.clothoObject;
-import static org.clothocad.phagebook.adaptors.ClothoAdapter.conn;
 import org.clothocad.phagebook.adaptors.sendEmails;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Grant;
@@ -32,7 +23,7 @@ import org.clothocad.phagebook.dom.Organization;
 import org.clothocad.phagebook.dom.Project;
 import org.junit.After;
 import org.junit.AfterClass;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -42,23 +33,28 @@ import org.junit.Test;
  * @author anna_g
  */
 public class editProjectTest {
+    static Project project = new Project();
+
   
     @BeforeClass
     public static void setUpClass() {
-      
+            
+        ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+        Clotho clothoObject = new Clotho(conn);
+        //TODO: we need to have an authentication token at some point
+        String name = "L";
+        Map createUserMap = new HashMap();
+        String username = "phagebook";
+        String password = "backend";
 
-    }
-    
-    
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-      ClothoAdapter.clothoCreate("username", "password");
-      ClothoAdapter.clothoLogin("username", "password");
+        createUserMap.put("username", username);
+        createUserMap.put("password", password);
+
+        Map loginMap = new HashMap();
+        loginMap.put("username", username);
+        loginMap.put("credentials", password);  
+
+        clothoObject.login(loginMap);
             
         System.out.println("Making people.");
         
@@ -110,7 +106,7 @@ public class editProjectTest {
         System.out.println("Making a project.");
         // Have to be logged in to Clotho as the Creator to create the 
         // project.
-        clothoLogin(creatorEmail, creatorPassword);
+        //clothoObject.login(loginMap);
         System.out.println("Person Id is: ");
 
         System.out.println(person1ID);
@@ -126,7 +122,6 @@ public class editProjectTest {
         List<String> members = new ArrayList <String>();
         members.add(person3ID);
         // Project should be created like this from now on:
-        Project project = new Project();
         project.setName(projectName);
         project.setBudget(projectBudget);
         project.setLeadId(person3ID);
@@ -138,7 +133,7 @@ public class editProjectTest {
         System.out.println("Project ID is!!");
         System.out.println(project.getId());
         // hacky -- set random ID so that the project got created in clotho
-        //project.setId("random");
+        project.setId("random");
         String projectID = ClothoAdapter.createProject(project, clothoObject);
         // does not create a project ?
         
@@ -147,12 +142,66 @@ public class editProjectTest {
         System.out.println(project);
         System.out.println(projectID);
         System.out.println("----------");
+
+    }
+    
+    
+    @AfterClass
+    public static void tearDownClass() {
+    }
+    
+    @Before
+    public void setUp() {
+
     }
     
     @After
     public void tearDown() {
-        clothoObject.logout();
-        conn.closeConnection();
+    }
+    
+    /*
+    ** Checks if changes passed in were null. If they were null old values 
+    ** should not change.
+    */
+    @Test
+    public void testIfNull()
+    {
+      System.out.println("Test # 1");
+      String oldName = project.getName();
+      Double oldBudget = project.getBudget();
+      String oldDesc = project.getDescription();
+      String prID = project.getId();
+      System.out.println("Name of project is:");
+      System.out.println(oldName);
+      System.out.println("ID of project is:");
+      System.out.println(prID);
+      //editProject(Project project, HashMap params, Clotho clothoObject)
+      HashMap params = new HashMap();
+      params.put("name", "");
+      params.put("budget", "");
+      params.put("description", "");
+      
+      editProject.editProjectFunction(project, params, clothoObject);
+      
+      Project project1 = ClothoAdapter.getProject(prID, clothoObject);
+      String newName = project.getName();
+      Double newBudget = project.getBudget();
+      String newDesc = project.getDescription();
+      assertEquals(newBudget,oldBudget);
+      assertEquals(newDesc,oldDesc);
+
+
+      
+      
+    }
+    
+    /*
+    ** Checks if status was updated.
+    */
+    @Test
+    public void testProjectAddStatus()
+    {
+    
     }
     
     @Test
@@ -232,10 +281,6 @@ public class editProjectTest {
         
       }
       sendEmails.sendMessagesTo(people, "Changes!!");
-
-
-
-
       
     }
   

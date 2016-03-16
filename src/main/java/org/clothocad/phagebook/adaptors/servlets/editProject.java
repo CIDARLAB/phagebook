@@ -57,8 +57,8 @@ public class editProject extends HttpServlet {
       Person editor = ClothoAdapter.getPerson(userID, clothoObject);
       Project project = ClothoAdapter.getProject(projectID, clothoObject);
 
-      System.out.println(editor);
-      System.out.println(project);
+      System.out.println(editor.getEmailId());
+      System.out.println(project.getName());
       
       // get all of the parameters in the request
       Enumeration e = request.getParameterNames();
@@ -71,7 +71,7 @@ public class editProject extends HttpServlet {
         String value = request.getParameter(key);
         reqHashMap.put(key, value);
       }
-      editProject(project, reqHashMap, clothoObject);
+      editProjectFunction(project, reqHashMap, clothoObject);
     }
   }
   
@@ -83,14 +83,10 @@ public class editProject extends HttpServlet {
    * @param params the request values that were converted from httpObject to Hashmap
    * @param clothoObject to log in to clotho
    */
-  private void editProject(Project project, HashMap params, Clotho clothoObject){
+  static void editProjectFunction(Project project, HashMap params, Clotho clothoObject){
        
-      // for testing purposes request is the Project ID
       // params is the hashmap of new values
       
-      System.out.println("In editProject test project is: ");
-      System.out.println(project);
-
       Iterator entries = params.entrySet().iterator();
       while (entries.hasNext()) {
         // reset the value if it is diff from the one in the project object
@@ -110,23 +106,31 @@ public class editProject extends HttpServlet {
           keyValue[2]= "description";
           keyValue[3]= project.getDescription();
           //helperMsg(project.getDescription(), value);
-          project.setDescription(value);
+          if(value != ""){
+            project.setDescription(value);
+          }
+          
         }
         if(key.equals("name")){
           keyValue[2]= "name";
           keyValue[3]= project.getName();
           //helperMsg(project.getName(), value);
-          project.setName(value);
+          if(value != ""){
+            project.setName(value);
+          }
+          
         }
         if(key.equals("leadId")){
           //helperMsg(project.getLeadId(), value);
           System.out.println("Can't edit lead yet, sorry!");
         }
-        if(key.equals("projectBudget")){
-          keyValue[2]= "projectBudget";
+        if(key.equals("budget")){
+          keyValue[2]= "budget";
           keyValue[3]= project.getBudget().toString();
           //helperMsg(Double.toString(project.getBudget()), value);
-          project.setBudget(Double.parseDouble(value));
+          if(value != ""){
+            project.setBudget(Double.parseDouble(value));
+          }
         }
         if(key.equals("projectGrant")){
           String oldGrantId = project.getGrantId();
@@ -139,6 +143,9 @@ public class editProject extends HttpServlet {
           project.setGrantId(newGrantId);
         }
       }
+      String projectID = project.getId();
+      System.out.println("Project ID is:");
+      System.out.println(projectID);
       String foo = ClothoAdapter.setProject(project, clothoObject);
       System.out.println(foo);
       //sendEmails(request);

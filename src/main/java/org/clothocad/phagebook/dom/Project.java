@@ -228,6 +228,7 @@ public class Project {
    public void deleteStatus(String toDelete){
        updates.remove(toDelete);
    }
+   
    /**
    * This converts the project requested to a HashMap.
    * 

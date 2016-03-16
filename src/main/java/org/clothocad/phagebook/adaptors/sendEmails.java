@@ -7,6 +7,7 @@ package org.clothocad.phagebook.adaptors;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -19,6 +20,8 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import org.clothocad.model.Person;
+import static org.clothocad.phagebook.adaptors.ClothoAdapter.clothoObject;
+import org.clothocad.phagebook.dom.Project;
 /**
  *
  * @author anna_g
@@ -98,7 +101,38 @@ public class sendEmails {
     }
     return message;
   }
-  
+ 
+  /*
+  ** This function gets the people associated with a project
+  ** and sends emails to 
+  **
+  */
+  private void sendEmails(String projectId, String text){
+      Project project = ClothoAdapter.getProject(projectId, clothoObject);
+      
+      String emailBody = text != null ? (String) text : "";
+      // get emails of the people attached to this project
+       
+      List<String> members = project.getMembers();
+      
+      Person creator = ClothoAdapter.getPerson(project.getCreatorId(), clothoObject);
+      Person lead = ClothoAdapter.getPerson(project.getLeadId(), clothoObject);
+      Map people = new HashMap();
+      people.put(creator.getEmailId(), creator.getFirstName() + ' ' + creator.getLastName());
+      people.put(creator.getEmailId(), lead.getFirstName() + ' ' + lead.getLastName());
+
+      for(int i = 0; i<members.size(); i++){
+        String personId = members.get(i);
+        System.out.println(personId);
+        Person member = ClothoAdapter.getPerson(personId, clothoObject);
+        String memberEmail = member.getEmailId();
+        String memberName = member.getFirstName() + ' ' + member.getLastName();
+        people.put(memberEmail, memberName);
+        
+      }
+      sendEmails.sendMessagesTo(people, emailBody);
+      
+    }
   
 //  public static void main(String[] args) {
 //    
