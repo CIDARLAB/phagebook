@@ -8,6 +8,7 @@ package org.clothocad.phagebook.adaptors.servlets;
 import org.clothocad.phagebook.adaptors.servlets.editProject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,7 @@ import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Grant;
 import org.clothocad.phagebook.dom.Organization;
 import org.clothocad.phagebook.dom.Project;
+import org.clothocad.phagebook.dom.Status;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
@@ -34,28 +36,29 @@ import org.junit.Test;
  */
 public class editProjectTest {
     static Project project = new Project();
+    static ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+    static Clotho clothoObject = new Clotho(conn);
 
   
     @BeforeClass
     public static void setUpClass() {
             
-        ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
-        Clotho clothoObject = new Clotho(conn);
-        //TODO: we need to have an authentication token at some point
-        String name = "L";
-        Map createUserMap = new HashMap();
-        String username = "phagebook";
-        String password = "backend";
 
+        //TODO: we need to have an authentication token at some point
+        Map createUserMap = new HashMap();
+        String username = "username";
+        String password = "password";
+        
         createUserMap.put("username", username);
         createUserMap.put("password", password);
 
+        clothoObject.createUser(createUserMap);
         Map loginMap = new HashMap();
         loginMap.put("username", username);
         loginMap.put("credentials", password);  
 
         clothoObject.login(loginMap);
-            
+        
         System.out.println("Making people.");
         
         Person person1 = new Person();
@@ -100,7 +103,9 @@ public class editProjectTest {
         String person3ID = ClothoAdapter.createPerson(person3, clothoObject);
         System.out.println(person3);
         System.out.println(person3ID);
-        
+       
+        clothoObject.login(loginMap);
+
         System.out.println();
         
         System.out.println("Making a project.");
@@ -133,7 +138,7 @@ public class editProjectTest {
         System.out.println("Project ID is!!");
         System.out.println(project.getId());
         // hacky -- set random ID so that the project got created in clotho
-        project.setId("random");
+        //project.setId("random");
         String projectID = ClothoAdapter.createProject(project, clothoObject);
         // does not create a project ?
         
@@ -184,104 +189,83 @@ public class editProjectTest {
       editProject.editProjectFunction(project, params, clothoObject);
       
       Project project1 = ClothoAdapter.getProject(prID, clothoObject);
-      String newName = project.getName();
-      Double newBudget = project.getBudget();
-      String newDesc = project.getDescription();
+      String newName = project1.getName();
+      Double newBudget = project1.getBudget();
+      String newDesc = project1.getDescription();
+      
       assertEquals(newBudget,oldBudget);
       assertEquals(newDesc,oldDesc);
+      assertEquals(oldName,newName);
+      //assertEquals(newDesc,"random desc");
 
-
-      
-      
     }
     
     /*
-    ** Checks if status was updated.
+    ** Checks if status was updated by comparing sizes of the 
+    ** original Status list and changed status list
     */
     @Test
     public void testProjectAddStatus()
     {
-    
+      String userId =project.getCreatorId();
+      String leadId = project.getLeadId();
+      String projectId = project.getId();
+      
+      // add some updates to the project -- make it two new updates
+      Status update1= new Status();
+      // update made by the creator of the project
+      update1.setText("update1");
+      update1.setUserId(userId);
+      System.out.println(update1);
+      System.out.println("About to create a Status in Clotho (in editProjectTest)");
+      String update1ID = ClothoAdapter.createStatus(update1, clothoObject);
+      System.out.println("Status ID is: "+update1ID);
+
+      
+      Status update2 = new Status();
+      // update made by the creator of the project
+      update2.setText("update1");
+      update2.setUserId(leadId);
+      System.out.println(update2);
+      System.out.println("About to create a Status in Clotho (in editProjectTest)");
+      String update2ID = ClothoAdapter.createStatus(update2, clothoObject);
+      System.out.println("Status ID is: "+update2ID);
+      
+      // store the updates Ids in a list
+      List<String> updatesIds = new ArrayList();
+      updatesIds.add(update1ID);
+      updatesIds.add(update2ID);
+      System.out.println(Arrays.toString(updatesIds.toArray()));
+      System.out.println(updatesIds.size());
+      //int oldSize = updatesIds.size();
+      
+      // now attach the list to this project
+      project.setUpdates(updatesIds);
+      
+      // update the project in Clotho
+      String projectId1 = ClothoAdapter.setProject(project, clothoObject);
+      
+      // now test the add update function -- should increase size by 1
+      addUpdateToProject.addProjectUpdate(userId, projectId1, "update3", clothoObject);
+      
+      // check if the size changes
+      Project updatedProject = ClothoAdapter.getProject(projectId1, clothoObject);
+      List<String> updatesIdsUpdated = updatedProject.getUpdates();
+      System.out.println(Arrays.toString(updatesIdsUpdated.toArray()));
+      System.out.println(updatesIdsUpdated.size());
+      int newSize = updatesIdsUpdated.size();
+
+      assertEquals(newSize,3);
+
+      //addUpdateToProject.addProjectUpdate(userID, projectID, , clothoObject);
     }
     
     @Test
     public void testEditProject()
     {
-//      System.out.println("***** \n EDIT PROJECT TEST \n *****");
-//    
-//      
-//      clothoObject.logout(); //HAVE TO LOGOUT OF CLOTHO IF LOGGED IN BECAUSE 
-//                             //YOU CAN'T EDIT A PERSON OBJECT IF YOU ARE NOT
-//                             //LOGGED INTO CLOTHO AS THAT PERSON
-//      Person person1 = new Person();
-//      String idP1 = "";
-//      String time = ""+ System.currentTimeMillis() ;
-//
-//      person1.setFirstName("Person");
-//      person1.setLastName("Editor");
-//      person1.setId(idP1);
-//      person1.setEmailId("Creator" + time + "@gmail.com");
-//      person1.setPassword("person1");
-//
-//      String creatorEmail = person1.getEmailId();
-//      String creatorPassword = person1.getPassword();
-//
-//      String person1ID = ClothoAdapter.createPerson(person1, clothoObject);
-//      System.out.println(person1);
-//      System.out.println(person1ID);
-//      
-//      System.out.println(projectID);
-//      Project oldProject = ClothoAdapter.getProject(projectID, clothoObject);
-//      System.out.println("\n*******");
-//      System.out.println("OLD PROJECT IS: ");
-//      //System.out.println(oldProject.fullProjectDescription());
-//      System.out.println("\n*******");
-//
-//
-//      HashMap params = new HashMap<String,String>();
-//      params.put("editorId", person1ID);
-//      params.put("creator", "Bob Smith");
-//      params.put("name", "Project");
-//      params.put("projectGrant", "1234");
-//      params.put("description", "NEW DESCRIPTION");
-//      //params.put("leadId", "");
-//      
-//      Project editedProject = ClothoAdapter.getProject(projectID, clothoObject);
-//      System.out.println("*******");
-//      System.out.println("EDITED PROJECT IS: ");
-//      //System.out.println(editedProject.fullProjectDescription());
-//      System.out.println("\n*******");
+
     }
     
-    /*
-    ** Looks at changes in the project and sends out emails to people in the object.
-    ** @params: Project Id String
-    ** 
-    */
-    private void sendEmails(String projectId){
-      Project project = ClothoAdapter.getProject(projectId, clothoObject);
 
-      // get emails of the people attached to this project
-       
-      List<String> members = project.getMembers();
-      
-      Person creator = ClothoAdapter.getPerson(project.getCreatorId(), clothoObject);
-      Person lead = ClothoAdapter.getPerson(project.getLeadId(), clothoObject);
-      Map people = new HashMap();
-      people.put(creator.getEmailId(), creator.getFirstName() + ' ' + creator.getLastName());
-      people.put(creator.getEmailId(), lead.getFirstName() + ' ' + lead.getLastName());
-
-      for(int i = 0; i<members.size(); i++){
-        String personId = members.get(i);
-        System.out.println(personId);
-        Person member = ClothoAdapter.getPerson(personId, clothoObject);
-        String memberEmail = member.getEmailId();
-        String memberName = member.getFirstName() + ' ' + member.getLastName();
-        people.put(memberEmail, memberName);
-        
-      }
-      sendEmails.sendMessagesTo(people, "Changes!!");
-      
-    }
   
 }

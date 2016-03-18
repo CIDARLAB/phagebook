@@ -86,6 +86,7 @@ public class editProject extends HttpServlet {
   static void editProjectFunction(Project project, HashMap params, Clotho clothoObject){
        
       // params is the hashmap of new values
+      System.out.println("In Edit Project function");
       
       Iterator entries = params.entrySet().iterator();
       while (entries.hasNext()) {
@@ -144,8 +145,9 @@ public class editProject extends HttpServlet {
         }
       }
       String projectID = project.getId();
-      System.out.println("Project ID is:");
+      System.out.println("in Edit Project Function Project ID is");
       System.out.println(projectID);
+      System.out.println(clothoObject);
       String foo = ClothoAdapter.setProject(project, clothoObject);
       System.out.println(foo);
       //sendEmails(request);

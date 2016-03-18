@@ -6,8 +6,6 @@
 package org.clothocad.phagebook.adaptors.servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,8 +15,10 @@ import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.model.Person;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
+import org.clothocad.phagebook.adaptors.sendEmails;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Project;
+import org.clothocad.phagebook.dom.Status;
 
 /**
  *
@@ -27,52 +27,46 @@ import org.clothocad.phagebook.dom.Project;
 public class addUpdateToProject extends HttpServlet {
 
   /**
-   * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-   * methods.
-   *
-   * @param request servlet request
-   * @param response servlet response
-   * @throws ServletException if a servlet-specific error occurs
-   * @throws IOException if an I/O error occurs
+   * 
+   * This function creates and associates a new status object with project in 
+   * clotho.
+   * 
+   * @param userID
+   * @param projectID
+   * @param newStatus
+
    */
-  protected void addProjectUpdate(String userID, String projectID, String newStatus)
-          throws ServletException, IOException {
+  protected static void addProjectUpdate(String userID, String projectID, String newStatus, 
+          Clotho clothoObject){
     
-    ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
-    Clotho clothoObject = new Clotho(conn);
+    Status newUpdate = new Status();
+    newUpdate.setText(newStatus);
+    newUpdate.setUserId(userID);
+    System.out.println(newUpdate);
+    System.out.println("About to create a Status in Clotho");
+    String statusID = ClothoAdapter.createStatus(newUpdate, clothoObject);
+    System.out.println("Status has been created in Clotho and ID is: "+statusID);
     
+    // get the objects associated with the passed in IDS from clotho
     Person editor = ClothoAdapter.getPerson(userID, clothoObject);
     Project project = ClothoAdapter.getProject(projectID, clothoObject);  
     
     System.out.println(editor.getEmailId());
     System.out.println(project.getName());
      
+    // get the existing list of project updates and add the id of the  new update
     List<String> projectUpdates = project.getUpdates();
-    projectUpdates.add(newStatus);
+    projectUpdates.add(statusID);
     
+    // update the update lists in the project object
     project.setUpdates(projectUpdates);
     
+    // change the project in clotho
     String foo = ClothoAdapter.setProject(project, clothoObject);
+    System.out.println("In addProjectUpdate function projectID is:");
     System.out.println(foo);
-    
-    // now email the peeps associate with the project what update was added
-
-    
-    /*response.setContentType("text/html;charset=UTF-8");
-    
-    try (PrintWriter out = response.getWriter()) {
-      // TODO output your page here. You may use following sample code. 
-      out.println("<!DOCTYPE html>");
-      out.println("<html>");
-      out.println("<head>");
-      out.println("<title>Servlet addUpdateToProject</title>");      
-      out.println("</head>");
-      out.println("<body>");
-      out.println("<h1>Servlet addUpdateToProject at " + request.getContextPath() + "</h1>");
-      out.println("</body>");
-      out.println("</html>");
-    }
-*/
+    // TODO: email the peeps associate with the project what update was added
+    sendEmails.sendEmails(foo,newStatus, clothoObject);
   }
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -100,12 +94,15 @@ public class addUpdateToProject extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
+    ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+    Clotho clothoObject = new Clotho(conn);
+
     // New Update will be a string.
     String userID = request.getParameter("userID");
     String projectID = request.getParameter("projectID");
     String newStatus = "";
     
-    addProjectUpdate(userID, projectID, newStatus);
+    addProjectUpdate(userID, projectID, newStatus, clothoObject);
   }
 
   /**

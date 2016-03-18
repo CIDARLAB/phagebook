@@ -8,7 +8,6 @@ package org.clothocad.phagebook.dom;
 import org.clothocad.model.Person;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.lang.String;
 import java.util.List;
 import lombok.Getter;

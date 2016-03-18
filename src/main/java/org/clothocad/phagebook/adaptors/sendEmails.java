@@ -19,6 +19,7 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothocad.model.Person;
 import static org.clothocad.phagebook.adaptors.ClothoAdapter.clothoObject;
 import org.clothocad.phagebook.dom.Project;
@@ -28,10 +29,8 @@ import org.clothocad.phagebook.dom.Project;
  */
 public class sendEmails {
 
-  
-  // fuck it lets make these public for now
-  final static String SENDER_DOMAIN_NAME = "phagebook.email@gmail.com";
-  final static String password = "Phagebook";
+  private final static String SENDER_DOMAIN_NAME = "phagebook.email@gmail.com";
+  private final static String password = "Phagebook";
   
  /**
  * Access this function first if you are sending a message. 
@@ -41,7 +40,6 @@ public class sendEmails {
    logIn(people, text);
   }
   
-
  /**
  * This function logs in to phagebook.email@gmail.com and sends emails to the 
  * people in the input map of people.
@@ -104,10 +102,12 @@ public class sendEmails {
  
   /*
   ** This function gets the people associated with a project
-  ** and sends emails to 
-  **
+  ** and sends emails to them. 
+  ** @param String text -- body of the email
   */
-  private void sendEmails(String projectId, String text){
+  public static void sendEmails(String projectId, String text, Clotho clothoObject){
+    System.out.println("In sendEmails function projectID is:");
+    System.out.println(projectId);
       Project project = ClothoAdapter.getProject(projectId, clothoObject);
       
       String emailBody = text != null ? (String) text : "";
@@ -130,7 +130,7 @@ public class sendEmails {
         people.put(memberEmail, memberName);
         
       }
-      sendEmails.sendMessagesTo(people, emailBody);
+      sendMessagesTo(people, emailBody);
       
     }
   
