@@ -64,7 +64,7 @@ public class queryProductByName extends HttpServlet {
         String productName = pProductName != null ? (String) pProductName : "";
         
         Object pSearchType = request.getParameter("searchType");
-        String searchType = pSearchType != null ? (String) pProductName: "";
+        String searchType = pSearchType != null ? (String) pSearchType: "";
         
         boolean isValidRequest = false;
         if (!productName.equals("") && !productName.equals("")){
@@ -99,6 +99,7 @@ public class queryProductByName extends HttpServlet {
                     break;
                     
             }
+            System.out.println("search type: "+searchType);
             
             List<Product> queryProductResults = ClothoAdapter.queryProduct(query, clothoObject, ClothoAdapter.QueryMode.valueOf(searchType));
 
