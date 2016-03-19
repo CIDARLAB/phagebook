@@ -100,6 +100,10 @@
         <servlet-name>autoCompleteProjects</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.autoCompleteProjects</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>autoCompleteVendors</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.autoCompleteVendors</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>inputProduct</servlet-name>
         <url-pattern>/inputProduct</url-pattern>
@@ -247,5 +251,9 @@
     <servlet-mapping>
         <servlet-name>autoCompleteProjects</servlet-name>
         <url-pattern>/autoCompleteProjects</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>autoCompleteVendors</servlet-name>
+        <url-pattern>/autoCompleteVendors</url-pattern>
     </servlet-mapping>
 </web-app>
