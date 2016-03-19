@@ -92,6 +92,9 @@ $(document).ready(function() {
     
     
 });
+    
+    
+    
 
 function checkPasswordMatch() {
     var password = $("#password").val();

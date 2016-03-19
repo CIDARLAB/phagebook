@@ -28,12 +28,12 @@ a:hover {
 #sidebar {
     position: fixed;
     float: left;
-    margin-top: 70px;
     margin-left: -15px;
     overflow: hidden;
     width: 250px;
     height: 100%;
     background-color: #FFFFFF;
+    /*z-index: -1000;*/
 }
 
 ul li {

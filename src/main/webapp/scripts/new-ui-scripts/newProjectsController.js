@@ -1,6 +1,4 @@
-// Author: Anna Goncharova (agonchar@bu.edu)
-
-function projectController($scope, $http){
+function newProjectsCtrl($scope, $http){
 console.log("loaded");
 
   $scope.greeting = 'Hello!';
@@ -126,8 +124,5 @@ console.log("loaded");
       }
     }); 
    }
-  
   };
-
-
 };

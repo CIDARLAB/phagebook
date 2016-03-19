@@ -68,25 +68,6 @@ public class createVendor extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         
-        ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
-        Clotho clothoObject = new Clotho(conn);
-        //TODO: we need to have an authentication token at some point
-        
-        Map createUserMap = new HashMap();
-        String username = "test"+ System.currentTimeMillis() ;
-       
-       
-        createUserMap.put("username", username);
-        createUserMap.put("password", "password");
-       
-       
-        clothoObject.createUser(createUserMap);
-       
-        Map loginMap = new HashMap();
-        loginMap.put("username", username);
-        loginMap.put("credentials", "password"); 
-        
-        clothoObject.login(loginMap);
         
         //get all necessary fields to create 
         //REQUIRING NAME & DESCRIPTION & CONTACT 
@@ -113,6 +94,17 @@ public class createVendor extends HttpServlet {
             
         }
         if (isValid){
+            ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+            Clotho clothoObject = new Clotho(conn);
+            //TODO: we need to have an authentication token at some point
+
+            String username = "phagebook";
+            String password = "backend";
+            Map loginMap = new HashMap();
+            loginMap.put("username", username);
+            loginMap.put("credentials", password); 
+            clothoObject.login(loginMap);
+        
             
             Vendor vendor = new Vendor();
             vendor.setName(name);
@@ -136,7 +128,7 @@ public class createVendor extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_CREATED);
             response.setContentType("application/json");
                 PrintWriter out = response.getWriter();
-                out.print(vendorJSON.toString());
+                out.print(vendorJSON);
                 out.flush();
                 out.close();
                 
@@ -150,7 +142,7 @@ public class createVendor extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.setContentType("application/json");
                 PrintWriter out = response.getWriter();
-                out.print(msg.toString());
+                out.print(msg);
                 out.flush();
                 out.close();
         }

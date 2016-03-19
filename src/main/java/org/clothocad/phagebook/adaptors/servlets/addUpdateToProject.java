@@ -6,7 +6,10 @@
 package org.clothocad.phagebook.adaptors.servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +22,7 @@ import org.clothocad.phagebook.adaptors.sendEmails;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Project;
 import org.clothocad.phagebook.dom.Status;
+import org.json.JSONObject;
 
 /**
  *
@@ -39,6 +43,7 @@ public class addUpdateToProject extends HttpServlet {
   protected static void addProjectUpdate(String userID, String projectID, String newStatus, 
           Clotho clothoObject){
     
+    // create a new status object
     Status newUpdate = new Status();
     newUpdate.setText(newStatus);
     newUpdate.setUserId(userID);
@@ -51,7 +56,9 @@ public class addUpdateToProject extends HttpServlet {
     Person editor = ClothoAdapter.getPerson(userID, clothoObject);
     Project project = ClothoAdapter.getProject(projectID, clothoObject);  
     
-    System.out.println(editor.getEmailId());
+    String editorName = editor.getFirstName() + " " +editor.getLastName();
+    //String projectName = 
+    System.out.println(editorName);
     System.out.println(project.getName());
      
     // get the existing list of project updates and add the id of the  new update
@@ -66,7 +73,7 @@ public class addUpdateToProject extends HttpServlet {
     System.out.println("In addProjectUpdate function projectID is:");
     System.out.println(foo);
     // TODO: email the peeps associate with the project what update was added
-    sendEmails.sendEmails(foo,newStatus, clothoObject);
+    sendEmails.sendEmails(foo, editorName, clothoObject);
   }
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -94,15 +101,57 @@ public class addUpdateToProject extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
-    Clotho clothoObject = new Clotho(conn);
+    try (PrintWriter out = response.getWriter()) {
 
-    // New Update will be a string.
-    String userID = request.getParameter("userID");
-    String projectID = request.getParameter("projectID");
-    String newStatus = "";
-    
-    addProjectUpdate(userID, projectID, newStatus, clothoObject);
+      ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+      Clotho clothoObject = new Clotho(conn);
+      Map createUserMap = new HashMap();
+      String username = "username";
+      String password = "password";
+
+      createUserMap.put("username", username);
+      createUserMap.put("password", password);
+
+      clothoObject.createUser(createUserMap);
+      Map loginMap = new HashMap();
+      loginMap.put("username", username);
+      loginMap.put("credentials", password);  
+
+      clothoObject.login(loginMap);
+      System.err.println("Got a new Update request in addUpdateToProject ");
+      // New Update will be a string.
+      // declare these here 
+      String userID = "";
+      String projectID = "";
+      String newStatus = "";
+      if(request.getParameter("userID")!=null){
+        userID = request.getParameter("userID");
+      }
+      if(request.getParameter("projectID")!=null){
+        projectID = request.getParameter("projectID");
+      }
+      if(request.getParameter("newStatus")!=null){
+        newStatus = request.getParameter("newStatus");
+      }
+
+      JSONObject result = new JSONObject();      
+
+      // if there is a status
+      if(newStatus.length() != 0){
+        addProjectUpdate(userID, projectID, newStatus, clothoObject);
+        result.put("success",1);
+      }else{
+        System.out.println("Update was too short -- letting the user know!");
+
+        result.put("short",1);
+      }
+      
+      PrintWriter writer = response.getWriter();
+      writer.println(result);
+      writer.flush();
+      writer.close();
+
+    }
   }
 
   /**

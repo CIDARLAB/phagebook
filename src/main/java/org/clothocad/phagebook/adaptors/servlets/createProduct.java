@@ -74,62 +74,50 @@ public class createProduct extends HttpServlet {
         Clotho clothoObject = new Clotho(conn);
         //TODO: we need to have an authentication token at some point
         
-       Map createUserMap = new HashMap();
-       String username = "test"+ System.currentTimeMillis() ;
+        String username = "phagebook";
+        String password = "backend";
+        Map loginMap = new HashMap();
+        loginMap.put("username", username);
+        loginMap.put("credentials", password);  
        
+        clothoObject.login(loginMap);
+        
+        
+        Object pProductUrl =  request.getParameter("productUrl") ;
+        String productUrl =   pProductUrl != null ? (String) pProductUrl : "";
+        
+        Object pCompanyId = request.getParameter("company");  
+        String companyId = pCompanyId != null ? (String) pCompanyId : "";
+        
+        Object pGoodType = request.getParameter("goodType");  
+        String goodType = pGoodType != null ? (String) pGoodType : "";
+        
+        Object pCost = request.getParameter("cost");
+        Double cost = pCost != null ? Double.parseDouble((String) pCost): -1.0d;
+        
+        Object pQuantity = request.getParameter("quantity");
+        Integer quantity = pQuantity != null ? Integer.parseInt((String) pQuantity) : -1;
+      
+        Object pName = request.getParameter("name");
+        String name = pName != null? (String) pName : "";
+        
        
-       createUserMap.put("username", username);
-       createUserMap.put("password", "password");
-       
-       
-       clothoObject.createUser(createUserMap);
-       
-       Map loginMap = new HashMap();
-       loginMap.put("username", username);
-       loginMap.put("credentials", "password");  
-       
-       clothoObject.login(loginMap);
-        String productUrl = request.getParameter("productUrl") ;
-        String companyName = request.getParameter("company");  
-        String goodType = request.getParameter("goodType");
-        double cost;  
-        int quantity;
-        try{
-            String costy = request.getParameter("cost");
-            cost =  Double.parseDouble(costy);
-        }
-        catch (NumberFormatException e){
-            cost = 0;
-        }
-        try{
-            
-            quantity = Integer.parseInt(request.getParameter("quantity"));
-        }
-        catch(NumberFormatException e){
-            quantity = 0;
-        }
-                
-        String name = request.getParameter("name");
-        String description = request.getParameter("description");
+        Object pDescription = request.getParameter("description");
+        String description = pDescription != null ? (String) pDescription: "";
+        
         Vendor comp = new Vendor();
         boolean isValidRequest = false;
-        if((!name.isEmpty() && (cost != 0) && (quantity != 0) && !companyName.isEmpty())){
-            Map queryMap   = new HashMap();
-            queryMap.put("name", companyName);
+        if((!name.isEmpty() && (cost > 0) && (quantity > 0) && !companyId.isEmpty())){
             
             isValidRequest = true;
-            
-            //company names are unique
-            //first one should be 0
-            
-            comp = ClothoAdapter.queryVendor(queryMap, clothoObject, ClothoAdapter.QueryMode.EXACT).get(0);
-            if (comp.getName().equals("Not Set")){
+            comp = ClothoAdapter.getVendor(companyId, clothoObject);
+            if (comp.getId().equals("")){
                 isValidRequest = false;
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 response.setContentType("application/json");
                 PrintWriter out = response.getWriter();
                 JSONObject responseJSON = new JSONObject();
-                responseJSON.put("message", "No Company with that ID exists");
+                responseJSON.put("message", "No Company with that id exists");
                 out.print(responseJSON.toString());
                 out.flush();
                 out.close();
@@ -144,20 +132,20 @@ public class createProduct extends HttpServlet {
             prod.setCost(cost);
             prod.setInventory(quantity);
             prod.setCompanyId(comp.getId());
-            prod.setDescription( (description != null) ? description : "Not Set");
-            prod.setProductURL( (productUrl != null) ? productUrl: "Not Set");
-            prod.setGoodType( GoodType.valueOf( (goodType != null) ? goodType : "INSTRUMENT"));
+            prod.setDescription( description );
+            prod.setProductURL( productUrl) ;
+            prod.setGoodType( GoodType.valueOf( (!goodType.equals("")) ? goodType : "INSTRUMENT"));
             
             
             //everything is set for that product
             ClothoAdapter.createProduct(prod, clothoObject);
             JSONObject product = new JSONObject();
             product.put("id", prod.getId());
-            
+            product.put("name", prod.getName());
             response.setStatus(HttpServletResponse.SC_CREATED);
             response.setContentType("application/json");
                 PrintWriter out = response.getWriter();
-                out.print(product.toString());
+                out.print(product);
                 out.flush();
                 out.close();
                 

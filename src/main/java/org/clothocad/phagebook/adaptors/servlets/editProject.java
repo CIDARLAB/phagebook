@@ -157,9 +157,7 @@ public class editProject extends HttpServlet {
 
       clothoObject.login(loginMap);
       System.out.println("got request in EditProject");
-      
-
-      
+    
       System.out.println(request);
       
       // these will be in a cookie?

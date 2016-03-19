@@ -1,6 +1,6 @@
 $(document).ready(function() {
      $("#lookupProjects").click( function () {
-        var name = $("#projectName").val();
+       var name = $("#projectName").val();
        var isValid = 0;
        if (name !== ''){
            isValid = 1;
@@ -32,7 +32,7 @@ $(document).ready(function() {
 
                }
             });
-            }
+        }
     });
     
     

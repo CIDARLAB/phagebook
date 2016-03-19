@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package org.clothocad.phagebook.adaptors;
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -33,11 +32,11 @@ public class sendEmails {
   private final static String password = "Phagebook";
   
  /**
- * Access this function first if you are sending a message. 
- * 
+ ** Access this function first if you are sending a message. 
+ ** 
  */
-  public static void sendMessagesTo(Map people, String text){
-   logIn(people, text);
+  public static void sendMessagesTo(Map people, String projectName, String changer){
+   logIn(people, projectName, changer);
   }
   
  /**
@@ -45,7 +44,7 @@ public class sendEmails {
  * people in the input map of people.
  * 
  */
-  private static void logIn(Map people, String text){
+  private static void logIn(Map people, String projectName, String changer){
     
     Properties props = new Properties();
     props.put("mail.smtp.host", "smtp.gmail.com");
@@ -72,7 +71,7 @@ public class sendEmails {
         String person = (String)entry.getValue();
         System.out.println("Person = " + person + ", Email = " + email);
       
-        Message message = createMessage(SENDER_DOMAIN_NAME, person, email, session, text);
+        Message message = createMessage(SENDER_DOMAIN_NAME, person, email, session, projectName, changer);
         Transport.send(message);
         System.out.println("Done");
       }
@@ -85,15 +84,27 @@ public class sendEmails {
   }
 
   public static Message createMessage(String senderDomain, String pers, String email,
-          Session session, String text) throws MessagingException{
+          Session session, String projectName, String changer) throws MessagingException{
     Message message = new MimeMessage(session);
     try{
       System.out.println("About to send an email to " + email);
       message.setFrom(new InternetAddress(senderDomain));
       message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-      message.setSubject("Changes made to a project.");
-      message.setText("Hi, " + pers + ". There were changes made to one "
-              + "of your projects."+text);
+      message.setSubject("New Project Update");
+      System.out.println("Working Directory = " +
+              System.getProperty("user.dir"));
+      String imgSource = "http://cidarlab.org/wp-content/uploads/2015/09/phagebook_AWH.png" ;
+      System.out.println(imgSource);
+      String foo ="src= \""+ imgSource+ "\">";
+            System.out.println(foo);
+
+      String messageTxt = "<img height=\"50\" width=\"200\" src=\""+ imgSource+ "\">" + 
+                "<p>Hi " + pers +",</p>" + " <p>A new update was added to project " + projectName + 
+                " by " + changer + ".</p>" +
+                " <p>Have a great day,</p>" +
+                " <p>The Phagebook Team</p>";
+
+      message.setContent(messageTxt, "text/html");
     } catch (MessagingException e){
       throw e;
     }
@@ -103,34 +114,37 @@ public class sendEmails {
   /*
   ** This function gets the people associated with a project
   ** and sends emails to them. 
-  ** @param String text -- body of the email
+  ** @param String changer -- name of the person who created the update
+  ** @param String projectId -- Id of the project that was updateds
   */
-  public static void sendEmails(String projectId, String text, Clotho clothoObject){
+  public static void sendEmails(String projectId, String changer, Clotho clothoObject){
     System.out.println("In sendEmails function projectID is:");
     System.out.println(projectId);
-      Project project = ClothoAdapter.getProject(projectId, clothoObject);
-      
-      String emailBody = text != null ? (String) text : "";
-      // get emails of the people attached to this project
-       
-      List<String> members = project.getMembers();
-      
-      Person creator = ClothoAdapter.getPerson(project.getCreatorId(), clothoObject);
-      Person lead = ClothoAdapter.getPerson(project.getLeadId(), clothoObject);
-      Map people = new HashMap();
-      people.put(creator.getEmailId(), creator.getFirstName() + ' ' + creator.getLastName());
-      people.put(creator.getEmailId(), lead.getFirstName() + ' ' + lead.getLastName());
+    Project project = ClothoAdapter.getProject(projectId, clothoObject);
 
-      for(int i = 0; i<members.size(); i++){
-        String personId = members.get(i);
-        System.out.println(personId);
-        Person member = ClothoAdapter.getPerson(personId, clothoObject);
-        String memberEmail = member.getEmailId();
-        String memberName = member.getFirstName() + ' ' + member.getLastName();
-        people.put(memberEmail, memberName);
-        
-      }
-      sendMessagesTo(people, emailBody);
+    // get the project name from proejct id to be used in the email
+    String projectName= project.getName();
+    
+    // get the list of people associate with the project
+    List<String> members = project.getMembers();
+    // create a hashmap of people and add members that are not in the list of members
+    Person creator = ClothoAdapter.getPerson(project.getCreatorId(), clothoObject);
+    Person lead = ClothoAdapter.getPerson(project.getLeadId(), clothoObject);
+    Map people = new HashMap();
+    people.put(creator.getEmailId(), creator.getFirstName() + ' ' + creator.getLastName());
+    people.put(creator.getEmailId(), lead.getFirstName() + ' ' + lead.getLastName());
+    // go through the list of members to add them to the hashmap
+    for(int i = 0; i<members.size(); i++){
+      String personId = members.get(i);
+      System.out.println(personId);
+      Person member = ClothoAdapter.getPerson(personId, clothoObject);
+      String memberEmail = member.getEmailId();
+      String memberName = member.getFirstName() + ' ' + member.getLastName();
+      people.put(memberEmail, memberName);
+
+    }
+    // inputs are hashmap of people, project name and person who added update
+    sendMessagesTo(people, projectName, changer);
       
     }
   

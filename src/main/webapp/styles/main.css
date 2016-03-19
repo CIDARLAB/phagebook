@@ -110,3 +110,16 @@ h3 {
 td {
     border: none !important;
 }
+
+/*
+** HEADER CSS BEGIN
+*/
+
+#headerNav{
+    margin-bottom: 0px!important;
+    position: inherit;
+}
+
+/*
+** HEADER CSS END
+*/
