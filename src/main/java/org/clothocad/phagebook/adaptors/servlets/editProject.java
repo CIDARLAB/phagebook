@@ -23,6 +23,7 @@ import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Grant;
 import org.clothocad.phagebook.dom.Project;
+import org.json.JSONObject;
 
 /**
  *
@@ -42,37 +43,7 @@ public class editProject extends HttpServlet {
    */
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    response.setContentType("text/html;charset=UTF-8");
-    try (PrintWriter out = response.getWriter()) {
-      
-      ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
-      Clotho clothoObject = new Clotho(conn);
-      
-      System.out.println(request);
-      
-      // these will be in a cookie?
-      String userID = request.getParameter("userID");
-      String projectID = request.getParameter("projectID");
-      
-      Person editor = ClothoAdapter.getPerson(userID, clothoObject);
-      Project project = ClothoAdapter.getProject(projectID, clothoObject);
 
-      System.out.println(editor.getEmailId());
-      System.out.println(project.getName());
-      
-      // get all of the parameters in the request
-      Enumeration e = request.getParameterNames();
-      
-      // loop through the enumeration to get values from the request and add to
-      // the hashmap
-      HashMap reqHashMap = new HashMap();
-      while(e.hasMoreElements()){
-        String key = (String) e.nextElement();
-        String value = request.getParameter(key);
-        reqHashMap.put(key, value);
-      }
-      editProjectFunction(project, reqHashMap, clothoObject);
-    }
   }
   
    /**
@@ -153,19 +124,77 @@ public class editProject extends HttpServlet {
       //sendEmails(request);
     }
   
-    public void helperMsg(String oldVal, String newVal){
+   public void helperMsg(String oldVal, String newVal){
       System.out.println("\nOld Value is: " + oldVal + "\nNew Value is: " + newVal);
-    }
+   }
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
   }
 
-
+  //processes requests for projects and created "Project" object
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
+    
+        response.setContentType("text/html;charset=UTF-8");
+    try (PrintWriter out = response.getWriter()) {
+      
+      ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+      Clotho clothoObject = new Clotho(conn);
+      Map createUserMap = new HashMap();
+      String username = "username";
+      String password = "password";
+
+      createUserMap.put("username", username);
+      createUserMap.put("password", password);
+
+      clothoObject.createUser(createUserMap);
+      Map loginMap = new HashMap();
+      loginMap.put("username", username);
+      loginMap.put("credentials", password);  
+
+      clothoObject.login(loginMap);
+      System.out.println("got request in EditProject");
+      
+
+      
+      System.out.println(request);
+      
+      // these will be in a cookie?
+      String userID = request.getParameter("userID");
+      String projectID = request.getParameter("projectID");
+      
+      Person editor = ClothoAdapter.getPerson(userID, clothoObject);
+      Project project = ClothoAdapter.getProject(projectID, clothoObject);
+
+      System.out.println(editor.getEmailId());
+      System.out.println(project.getName());
+      
+      // get all of the parameters in the request
+      Enumeration e = request.getParameterNames();
+      
+      // loop through the enumeration to get values from the request and add to
+      // the hashmap
+      HashMap reqHashMap = new HashMap();
+      while(e.hasMoreElements()){
+        String key = (String) e.nextElement();
+        String value = request.getParameter(key);
+        reqHashMap.put(key, value);
+      }
+      editProjectFunction(project, reqHashMap, clothoObject);
+                      
+      // create a result object and send it to the frontend
+//      JSONObject result = new JSONObject();
+//      result.put("success",1);
+//
+//      PrintWriter writer = response.getWriter();
+//      writer.println(result);
+//      writer.flush();
+//      writer.close();
+//    }
+    }
      
   }
 

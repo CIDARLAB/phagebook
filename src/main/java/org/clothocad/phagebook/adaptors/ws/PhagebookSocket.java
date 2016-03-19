@@ -132,7 +132,9 @@ public class PhagebookSocket
                     //Person user = (Person) personMap1;
                     Person user = ClothoAdapter.mapToPerson(personMap1, clothoObject);
                     System.out.println(user);
-                    Status newStatus = new Status(statusText, user);
+                    Status newStatus = new Status();
+                    newStatus.setText(statusText);
+                    newStatus.setUserId(user.getId());
                     System.out.println("made new status object");
                     //Add new status to the user
                     //ClothoAdaptor.createPerson(user, clothoObject);
