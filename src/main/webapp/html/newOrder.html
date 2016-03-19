@@ -9,14 +9,22 @@ and open the template in the editor.
         <title>New Order</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>-->
-        <script src="../scripts/new-ui-scripts/copyOfJqueryMinimized.js"></scripts>
-            
+        <link rel="stylesheet" href="../styles/cssBootstrap/bootstrap.css"/>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="../styles/main.css"/>
+        <link rel="stylesheet" href="../styles/sidebar.css"/>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+       
         <script src="../scripts/new-ui-scripts/cookieHandler.js"></script>
         <script src="../scripts/new-ui-scripts/newOrder.js"></script>
         
     </head>
     <body>
+        <div ng-module="newOrder">
+            <div ng-controller="newOrderCtrl">
+                <sidebar></sidebar>
+        <div class="container">
         Order Nickname: <input id="orderNickname" type="text" placeholder="Order Nickname">
         <br>
         Lab:<select class="form-control" id="lab-name"></select>
@@ -38,7 +46,15 @@ and open the template in the editor.
         Product Name Search:  <input id="productNameToSearch" type="text" placeholder="Product Query">
         Products <select id="productResults"></select>
         <button id="lookupProducts" type="submit">Look up Projects</button>
-        
+        </div>
+    
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
+        <script src="../scripts/new-ui-scripts/angular.ng-modules.js"></script>
+        <script src="../scripts/new-ui-scripts/sidebarDirective.js"></script>
+        <script src="../scripts/new-ui-scripts/newOrderController.js"></script>
+        <script src="../scripts/new-ui-scripts/newOrderApp.js"></script>
         
     </body>
+    
+        
 </html>

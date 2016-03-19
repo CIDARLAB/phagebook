@@ -13,7 +13,6 @@ and open the template in the editor.
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="../styles/main.css"/>
         <link rel="stylesheet" href="../styles/sidebar.css"/>
-        <link rel="stylesheet" href="../styles/profileContent.css"/>
         <link rel="icon" href="">
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
@@ -23,7 +22,9 @@ and open the template in the editor.
     <body>
         <div ng-module="addVendorsAndProducts">
             <div ng-controller="addVendorsAndProductsCtrl">
-             <sidebar></sidebar>
+                <sidebar></sidebar>
+                <div class="container">
+                    <br> <br>
         Vendor Name:   <input id="vendorName" type="text" placeholder="Vendor Name">
         <br>
         Vendor Website:<input id="vendorWebsite" type="text" placeholder="Vendor Website">
@@ -66,7 +67,7 @@ and open the template in the editor.
         
         <button id="createProduct" type="submit">Create Product</button>
         <br>
-
+        </div>
             </div>
         </div>
        
