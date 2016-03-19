@@ -1,4 +1,4 @@
-function profileCtrl($scope, $modal) {
+function profileCtrl($scope, $window) {
     $("document").ready(function () {
         $.ajax({
             url: 'getPersonById',
