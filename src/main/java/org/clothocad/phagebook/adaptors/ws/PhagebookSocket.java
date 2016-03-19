@@ -284,15 +284,6 @@ public class PhagebookSocket
         }
         return result;
     }
-    /*
-    //have GET_PROJECTS, GET_ORDERS -> return a map(key - projectId and value - projectName)
-    //      send username and password
-    //get_Project and Get_Order
-    //      send username, password and projectId, orderId, get the project object in JSON format,
-    //                                                              order object in JSON format
-    
-    
-    */
 
     private boolean isValidMessage(JSONObject messageObject) {
         boolean isValid = true;
