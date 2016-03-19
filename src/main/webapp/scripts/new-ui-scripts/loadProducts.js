@@ -1,21 +1,21 @@
 $(document).ready(function () {
-    $("#lookupProducts").click( function () {
-       
-    });
+   
     var timerVal;
     $("#productNameToSearch").keypress( keyPressHandler );
     
     
     function keyPressHandler(){
         clearTimeout(timerVal); // stops previous attempt.
-        timerVal = setTimeout(doAjax, 1000);//after a second of no input flip the flag.
+        timerVal = setTimeout(doAjax, 500);//after a second of no input flip the flag.
         
+        //add a little clear button
 
     }
     function doAjax()
     {
         var name = $("#productNameToSearch").val();
-      
+        var searchType = "EXACT"; //USE JQUERY TO FIND FIXES
+        
         var isValid = 0;
         if (name !== ''){
            isValid = 1;
@@ -29,7 +29,7 @@ $(document).ready(function () {
                async: false,
                data: {
                     "name": name,
-                    "searchType": "STARTSWITH"
+                    "searchType": searchType
                     
                },
                success: function (response) {
