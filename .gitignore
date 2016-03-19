@@ -5,3 +5,8 @@
 target/
 
 *.iml
+./credentialsAWS.txt
+credentialsAWS.txt
+/credentialsAWS.txt
+*/credentialsAWS.txt
+**/credentialsAWS.txt
