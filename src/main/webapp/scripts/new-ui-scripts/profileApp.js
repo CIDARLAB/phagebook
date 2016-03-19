@@ -1,11 +1,6 @@
 angular.module('profileApp', [])
         .controller('profileCtrl', profileCtrl)
-        .directive('header', function() {
-            return {
-                restrict: 'E',
-                templateUrl: './headerDirective.html'
-            };
-        })
+        .directive('header', header)
         .directive('sidebar',sidebar)
         .directive('content', function() {
             return {
