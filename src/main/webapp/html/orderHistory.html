@@ -14,20 +14,26 @@ and open the template in the editor.
         <link rel="stylesheet" href="../styles/main.css"/>
         <link rel="stylesheet" href="../styles/sidebar.css"/>
         
-        <script src="../scripts/clotho/clotho3API.js"></script>
+      
         <script src="../scripts/new-ui-scripts/cookieHandler.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
         <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
         <script src="../scripts/new-ui-scripts/angular.ng-modules.js"></script>
+        <style>
+            #content{
+                margin-left: 20%;
+                position: fixed;
+            }
+        </style>
     </head>
     <body>
         <div ng-module="orderHistory">
             <div ng-controller="orderHistoryCtrl">
                 <header></header>
                 <sidebar></sidebar>
-                <br><br><br><br> <br>
-                <div class="container">TODO write content</div>
+               
+                <div class="container" id="content">TODO write content</div>
                 
        
         
