@@ -5,16 +5,25 @@
                 <div class="navbar-header">
                     <a class= "navbar-brand" href="../index.html" title="Go to Phagebook Home">
                         <img alt="Phagebook Logo" src="../styles/img/icons/phagebook-logo-white.svg"> 
-                    </a> 
-                    <div class="dropdown">
-                        <img src="../styles/img/icons/gear.png" class="dropdown-toggle" type="button" id="moreDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <ul class="dropdown-menu" aria-labelledby="moreDropdown">
-                            <li><a href="../html/accountSettings.html">Account Settings</a></li>
-                            <li><a href="https://www.clothocad.org/#!/">Clotho</a></li>
-                            <li><a href="http://cidarlab.org/phagebook/">About Phagebook</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">Sign Out</a></li>
-                        </ul>
+                    </a>
+                    <div class ="btn-toolbar pull-right" aria-label="Header Toolbar" id="header-btn-toolbar">
+                        <div class="btn-group" style="margin-right:20px">
+                            <a href="currentOrders.html">
+                                <img alt="Current Orders" src="../styles/img/icons/cart.png" style="height:25px"/>
+                            </a>
+                        </div>
+                        <div class="btn-group pull-right">
+                            <div class="pull-right dropdown" id="moreDropdown">
+                                <img src="../styles/img/icons/gear.png" class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="gear-icon">
+                                <ul class="dropdown-menu" aria-labelledby="moreDropdown">
+                                    <li><a href="../html/accountSettings.html">Account Settings</a></li>
+                                    <li><a href="https://www.clothocad.org/#!/">Clotho</a></li>
+                                    <li><a href="http://cidarlab.org/phagebook/">About Phagebook</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Sign Out</a></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">

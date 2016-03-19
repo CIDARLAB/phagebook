@@ -53,14 +53,20 @@ footer {
     background-color:#FDFDFD;
 }
 
+#gear-icon {
+    height: 25px;
+}
+
+#header-btn-toolbar{
+    margin-top: 20px;
+    margin-left: 900px;
+    float: right;
+    position: relative;
+}
+
 h3 {
     font-family: "Open Sans", sans-serif;
     font-weight: 300;
-}
-
-#moreDropdown {
-    float: right;
-    height: 25px;
 }
 
 .navbar {
@@ -83,6 +89,7 @@ h3 {
     position: absolute; 
     overflow-x: hidden; 
     margin-left: 400px;
+    margin-top: 20px;
 }
 
 #profile-header {
