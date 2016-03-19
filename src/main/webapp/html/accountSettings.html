@@ -15,10 +15,8 @@
         <link rel="icon" href="">
 
         <script src="../scripts/clotho/clotho3API.js"></script>
-        
-        <script src="../scripts/new-ui-scripts/index.js"></script>
         <script src="../scripts/new-ui-scripts/cookieHandler.js"></script>
-        <script src="../scripts/jquery.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
         <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
         <script src="../scripts/jsBootstrap/js/bootstrap.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
@@ -35,8 +33,20 @@
                 color: #1E714A; 
             }
             
+            .form-group {
+                margin-bottom: 40px;
+            }
+            
             #general-account-settings {
                 margin: 50px 0px 0px 70px;
+            }
+            
+            #profile-account-settings {
+                margin: 50px 0px 0px 70px;
+            }
+            
+            #picture-preview {
+                height: 130px;
             }
             
             hr {
@@ -60,30 +70,61 @@
                     <div class="form-group row">
                         <label for="acctFirstName" class="col-sm-1 form-control-label">FIRST NAME</label>
                         <div class="col-sm-2">
-                            <input type="text" class="form-control" id="acctFirstName">
+                            <input type="text" class="form-control" id="acct-first-name">
                         </div>
-                        <label for="acctLastName" class="col-sm-1 form-control-label">LAST NAME</label>
+                        <label for="acct-last-name" class="col-sm-1 form-control-label">LAST NAME</label>
                         <div class="col-sm-2">
-                            <input type="text" class="form-control" id="acctLastName">
+                            <input type="text" class="form-control" id="acct-last-name">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="acctEmail" class="col-sm-1 form-control-label">EMAIL</label>
+                        <label for="acct-email" class="col-sm-1 form-control-label">EMAIL</label>
                         <div class="col-sm-5">
-                            <input type="email" class="form-control" id="acctEmail">
+                            <input type="email" class="form-control" id="acct-email">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="acctEmail" class="col-sm-1 form-control-label">PASSWORD</label>
+                        <label for="acct-password" class="col-sm-1 form-control-label">PASSWORD</label>
                         <div class="col-sm-5">
-                            <input type="password" class="form-control" id="acctPassword">
+                            <input type="password" class="form-control" id="acct-password">
                         </div>
                     </div>
                 </form>
-                <br><hr><br>
+                <hr><br>
                 <h3>Profile Settings</h3>
-                
-            </div>
+                <form id="profile-account-settings">
+                    <div class="form-group row">
+                        <label for="acct-institution" class="col-sm-1 form-control-label">INSTITUTION</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" id="acct-institution">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="acct-department" class="col-sm-1 form-control-label">DEPARTMENT</label>
+                        <div class="col-sm-5">
+                            <input type="email" class="form-control" id="acct-department">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="acct-title" class="col-sm-1 form-control-label">TITLE</label>
+                        <div class="col-sm-5">
+                            <input type="password" class="form-control" id="acct-title">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="acct-lab" class="col-sm-1 form-control-label">LAB</label>
+                        <div class="col-sm-5">
+                            <input type="password" class="form-control" id="acct-lab">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="profile-picture" class="col-sm-1 form-control-label">PROFILE PICTURE</label>
+                        <img alt="densmore-circle-pro-pic" src="../styles/img/mis/densmore-circle-pro-pic.png" id="picture-preview">
+                        <div class="col-sm-3">
+                            <input type="file" id="profile-picture">
+                        </div>
+                    </div>
+                </form>
         </div>
         
         <!-- ANGULAR -->

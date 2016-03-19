@@ -28,6 +28,7 @@ a:hover {
 #sidebar {
     position: fixed;
     float: left;
+    margin-top: -20px;
     margin-left: -15px;
     overflow: hidden;
     width: 250px;
