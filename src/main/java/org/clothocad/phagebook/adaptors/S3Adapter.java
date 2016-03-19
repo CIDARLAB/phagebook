@@ -87,7 +87,7 @@ public class S3Adapter {
         }
 
     }
-
+ 
     private static void createS3Folder(String bucketName, String folderName, AmazonS3 client) {
         // create meta-data for your folder and set content-length to 0
         ObjectMetadata metadata = new ObjectMetadata();
