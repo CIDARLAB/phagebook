@@ -9,6 +9,7 @@ import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.Bucket;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
@@ -34,22 +35,32 @@ public class S3Adapter {
 
     public static void initializeUserFolder(Person pers) {
         String clothoId = pers.getId();
+        String filepath = "C:\\Users\\azula\\Documents\\CIDAR\\phagebook\\credentialsAWS.txt";
         List<String> credentialsList = new ArrayList<String>();
         try {
-            FileReader fr = new FileReader(new File("../../credentials.txt"));
+            FileReader fr = new FileReader(new File(filepath));
             BufferedReader br = new BufferedReader(fr);
             String line;
             while ((line = br.readLine()) != null) {
-                System.out.println("LINE :: " + line);
+                //System.out.println("LINE :: " + line);
                 credentialsList.add(line);
             }
             String username = credentialsList.get(0);
             String password = credentialsList.get(1);
-
+            System.out.println("Username :: " + username);
+            System.out.println("Password :: " + password);
             AWSCredentials credentials = new BasicAWSCredentials(username, password);
+            System.out.println("Login Complete");
+            
             AmazonS3 s3client = new AmazonS3Client(credentials);
+            
+            // list buckets
+            for (Bucket bucket : s3client.listBuckets()) {
+                System.out.println(" - " + bucket.getName());
+            }
 
-            createS3Folder("users", clothoId, s3client);
+            System.out.println("Clotho id " + clothoId);
+            createS3Folder("phagebookaws", clothoId, s3client); 
 
         } catch (FileNotFoundException ex) {
             Logger.getLogger(createPerson.class.getName()).log(Level.SEVERE, null, ex);
