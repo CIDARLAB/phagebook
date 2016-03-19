@@ -99,6 +99,6 @@ public class S3Adapter {
                 folderName + "/", emptyContent, metadata); //folder name should be clothoID
         // send request to S3 to create folder
         client.putObject(putObjectRequest.withCannedAcl(CannedAccessControlList.PublicRead));
-        //              ;
+        
     }  
 }
