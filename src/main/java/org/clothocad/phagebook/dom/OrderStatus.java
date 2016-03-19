@@ -10,8 +10,7 @@ package org.clothocad.phagebook.dom;
  * @author innaturshudzhyan
  */
 public enum OrderStatus {
-    PENDING,
-    CREATED,
+    INPROGRESS,
     APPROVED,
     SUBMITTED,
     DENIED,

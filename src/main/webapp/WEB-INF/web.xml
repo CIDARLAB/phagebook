@@ -53,12 +53,52 @@
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.createVendor</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>queryPossibleProductByCompany</servlet-name>
-        <servlet-class>org.clothocad.phagebook.adaptors.servlets.queryPossibleProductByCompany</servlet-class>
+        <servlet-name>listCreatedOrdersOfPerson</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.listCreatedOrdersOfPerson</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>queryPossibleProductByName</servlet-name>
-        <servlet-class>org.clothocad.phagebook.adaptors.servlets.queryPossibleProductByName</servlet-class>
+        <servlet-name>autoComplete</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.autoComplete</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>addProductsToOrder</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.addProductsToOrder</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>listSubmittedOrdersOfPerson</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.listSubmittedOrdersOfPerson</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>submitOrderToPIs</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.submitOrderToPIs</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>sendOrderForApproval</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.sendOrderForApproval</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>markOrderAsReceived</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.markOrderAsReceived</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>approveOrder</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.approveOrder</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>removeProductsFromOrder</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.removeProductsFromOrder</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>listApprovedOrdersOfPerson</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.listApprovedOrdersOfPerson</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>loadPhagebookInstitutions</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.loadPhagebookInstitutions</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>autoCompleteProjects</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.autoCompleteProjects</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>inputProduct</servlet-name>
@@ -161,11 +201,51 @@
         <url-pattern>/createVendor</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>queryPossibleProductByCompany</servlet-name>
-        <url-pattern>/queryPossibleProductByCompany</url-pattern>
+        <servlet-name>listCreatedOrdersOfPerson</servlet-name>
+        <url-pattern>/listCreatedOrdersOfPerson</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>queryPossibleProductByName</servlet-name>
-        <url-pattern>/queryPossibleProductByName</url-pattern>
+        <servlet-name>autoComplete</servlet-name>
+        <url-pattern>/autoComplete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addProductsToOrder</servlet-name>
+        <url-pattern>/addProductsToOrder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>listSubmittedOrdersOfPerson</servlet-name>
+        <url-pattern>/listSubmittedOrdersOfPerson</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>submitOrderToPIs</servlet-name>
+        <url-pattern>/submitOrderToPIs</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>sendOrderForApproval</servlet-name>
+        <url-pattern>/sendOrderForApproval</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>markOrderAsReceived</servlet-name>
+        <url-pattern>/markOrderAsReceived</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>approveOrder</servlet-name>
+        <url-pattern>/approveOrder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>removeProductsFromOrder</servlet-name>
+        <url-pattern>/removeProductsFromOrder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>listApprovedOrdersOfPerson</servlet-name>
+        <url-pattern>/listApprovedOrdersOfPerson</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>loadPhagebookInstitutions</servlet-name>
+        <url-pattern>/loadPhagebookInstitutions</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>autoCompleteProjects</servlet-name>
+        <url-pattern>/autoCompleteProjects</url-pattern>
     </servlet-mapping>
 </web-app>

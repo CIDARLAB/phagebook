@@ -195,7 +195,8 @@ public class PhagebookSocket
                     loginResult = (Map)clothoObject.login(loginMap);
                     
                     Map ordersMap = new HashMap();
-                    List<String> orderids = ClothoAdapter.getPerson(loginResult.get("id").toString(), clothoObject).getOrders();
+                    List<String> orderids = ClothoAdapter.getPerson(loginResult.get("id").toString(), clothoObject).getApprovedOrders();
+
                     int numberOfOrders = orderids.size();
                     
                     for (int i = 0; i < numberOfOrders; i++)
@@ -268,8 +269,8 @@ public class PhagebookSocket
                     JSONOrder.put("budget",order.getBudget());
                     JSONOrder.put("maxOrderSize",order.getMaxOrderSize());
                     JSONOrder.put("approvedById",order.getApprovedById());
-                    JSONOrder.put("receivedById",order.getReceivedById());
-                    JSONOrder.put("relatedProjects",order.getRelatedProjects());
+                    JSONOrder.put("receivedById",order.getReceivedByIds());
+                    JSONOrder.put("relatedProjects",order.getRelatedProjectId());
                     JSONOrder.put("status",order.getStatus());
                     
                     result.put("data", JSONOrder);

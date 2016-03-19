@@ -1,255 +1,238 @@
 <!DOCTYPE html>
+
 <html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>Phagebook</title>
-    <link rel="shorcut icon" href="styles/images/phagebookLogoMin_16x16.ico"/>
 
-    <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
-    <script src="scripts/cookieHandler.js"></script>
-    <link rel="stylesheet" href="styles/cssBootstrap/bootstrap.css"/>
-    <!--<link rel="stylesheet" href="styles/clothoNavBar.css">-->
-    <link rel="stylesheet" href="styles/phagebookMainStyle.css"/>
-    <script src="scripts/clotho/clotho3API.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
- 
-</head>
+    <head>
 
-<body>
+        <title>Phagebook</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles/cssBootstrap/bootstrap.css"/>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="styles/main.css"/>
+        <link rel="icon" href="">
 
-<!--<div ng-app="clothoRoot">
-    <div class="container">
-        <div clotho-command-bar> </div>
-    </div>
+        <script src="scripts/clotho/clotho3API.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <script src="scripts/new-ui-scripts/index.js"></script>
+        <script src="scripts/new-ui-scripts/cookieHandler.js"></script>
+        <script src="scripts/jsBootstrap/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
+        <script src="../scripts/new-ui-scripts/angular.ng-modules.js"></script>
 
-    <terminal-aside></terminal-aside>   the normal Clotho bar isn't needed for the landing page-->
-<div ng-module="indexApp" ng-controller="indexCtrl">
-<div class="navbar navbar-static-top">
-    <div class="container-fluid">
+        <style>  
+            
+            .navbar {
+                -webkit-box-shadow: 0 8px 6px -6px #999;
+                -moz-box-shadow: 0 8px 6px -6px #999;
+                box-shadow: 0 8px 6px -6px #999;
+                background-color: #1E714A;
+                border-bottom: none;
+                height: 90px;
+                float: none;
+            }
 
-        <div class="navbar-header">
-            <ul class="navbar">
-                <li><img src="styles/images/phagebookWhite.png"></li>
-            </ul>
-        </div>
-        <div role="form" class="navbar-form navbar-right" method="post">
-            <div class="form-group">
-                <input type="email" class="form-control" id="returnEmail" placeholder="Email Address">
-            </div>
-            <div class="form-group">
-                <input type="password" class="form-control" id="returnPassword" placeholder="Password">
-            </div>
-            <!--<div class="checkbox">
-                <label style="color:whitesmoke">
-                    <input type="checkbox"> Remember Me
-                </label>
-            </div>-->
-            <button id="login" class="btn btn-default">Sign In</button>
-        </div>
-    </div>
-</div>
+            .navbar-brand {
+                float: left;
+                margin-top: 18px;
+            }
 
-<div class="container">
-    <div class="text-center col-md-6">
+            .control-label {
+                color: white;
+                font-size: 11px;
+                font-weight: 300;
+            }
 
-        <img src="styles/images/phagebookschem.png" alt="Phagebook Schematic">
+            .navbar-right {
+                margin-right: 30px;
+            }
 
-    </div>
-    <div class="col-md-1"></div>
+            .btn-default {
+                font-size: 12px;
+                border-radius: 24px;
+                padding: 8px 18px 8px 18px;
+            }
 
-    <div class="col-md-5">
+            #wrapper {
+                margin-top: 75px;
+            }
 
-        <!--this is where the new user input goes -->
-        <form class="form-horizontal" role="form" method="post">
-            <h3 style="font-weight:bold">Create a Phagebook Profile Today!</h3><br>
+            .btn-lg {
+                font-size: 14px;
+                background: #1E714A;
+                color: #FFFFFF;
+                border-radius: 24px;
+                padding: 8px 25px 8px 25px;
+            }
 
-            <div class="form-group">
-                <label class="control-label col-md-3" for="firstname">First Name:</label>
-                <div class="col-md-6">
-                    <input type="text" class="form-control" id="firstname" placeholder="First Name">
-                </div>
-            </div>
+            .btn-lg:hover {
+                background: #31A16F;
+                color: #FFFFFF;
+            }
 
-            <div class="form-group">
-                <label class="control-label col-md-3" for="lastname">Last Name:</label>
-                <div class="col-md-6">
-                    <input type="text" class="form-control" id="lastname" placeholder="Last Name">
-                </div>
-            </div>
+            #alt-link:link {
+                text-decoration: none;
+                color: white;
+                font-family: "Open Sans", sans-serif;
+                font-weight: 300;
+                font-size: 11px;
+            }
 
-            <div class="form-group">
-                <label class="control-label col-md-3" for="email" >Email:</label>
-                <div class="col-md-6">
-                    <input type="email" class="form-control" id="email" placeholder="Email Address">
-                </div>
-            </div>
+            #alt-link:visited {
+                text-decoration: none;
+                color: white;
+                font-family: "Open Sans", sans-serif;
+                font-weight: 300;
+                font-size: 11px;
+            }
 
-            <div class="form-group">
-                <label class="control-label col-md-3" for="password">Password:</label>
-                <div class="col-md-6">
-                    <input type="password" class="form-control" id="password" placeholder="Password">
-                </div>
-            </div>
+            #alt-link:hover {
+                text-decoration: underline;
+                font-family: "Open Sans", sans-serif;
+                font-weight: 300;
+                font-size: 11px;
+            }
 
-            <div class="form-group">
-                <label class="control-label col-md-3" for="confirmPassword">Re-enter password:</label>
-                <div class="col-md-6">
-                    <input type="password" class="form-control" id="confirmPassword" placeholder="Re-enter password">
-                </div>
-            </div>
-            <!--
-            <div class="form-group">
-                <label class="control-label col-md-3" for="lab">Lab:</label>
-                <div class="col-md-6">
-                    <input type="text" class="form-control" id="lab" placeholder="Lab">
-                </div>
-            </div>
+            .col-sm-12 {
+                margin-bottom: 10px;
+            }
 
-            <div class="form-group">
-                <label class="control-label col-md-3" for="institution">Institution:</label>
-                <div class="col-md-6">
-                    <input type="text" class="form-control" id="institution" placeholder="Institution">
-                </div>
-            </div>
+            .col-md-6 {
+                margin-top: 80px;
+            }
 
-            <div class="form-group">
-                <label class="control-label col-md-3" for="position">Position:</label>
-                <div class="col-md-6">
-                    <input id = "positionList" list="position"  class="form-control" name="position" placeholder="Position">
-                    <datalist id = "position">
-                        <option value = "Undergraduate" >Undergraduate</option>
-                        <option value = "Graduate">Graduate</option>
-                        <option value = "Postdoctorate" >Postdoctorate</option>
-                        <option value = "Lab Manager" >Lab Manager</option>
-                        <option value = "Principal Investigator">Principal Investigator</option>
-                    </datalist>
-                </div>
-            </div>
+            .col-md-5 {
+                margin-top: 50px;
+            }
 
-            <div class="form-group">
-                <label class="control-label col-md-3" for="permissions">Permissions:</label>
-                <div class="col-md-6">
-                    <input id="permissionsList" list ="permissions" class="form-control" name = "permissions" placeholder="Permissions">
-                    <datalist id = "permissions">
-                        <option value  = "Basic" >Basic</option>
-                        <option value  = "Private" >Private</option>
-                        <option value  = "Ninja" >Ninja</option>
-                    </datalist>
-                </div>
-            </div>
-            -->
-                <div class="form-group">
-                    <div class="text-center col-md-4"><br>
-                        <button id="addPerson" ng-click="" type="submit" class="btn btn-default" >Create Profile</button>
+            .row {
+                margin-bottom: 10px;
+                margin-left: 2px;
+            }
+
+            fieldset {
+                margin-top: 25px;
+                display: block;
+                border: solid 1px #666666;
+                border-color: #CCCCCC;
+                padding: 0px 40px 40px 40px;
+                background-color: #FDFDFD;
+            }
+
+            #createProfile {
+                float: right;
+            }
+        </style>
+
+    </head>
+
+    <body>  
+
+        <div ng-module="indexApp">
+            <div ng-controller="indexCtrl">
+                <div id="wrapper">
+                    <div class="navbar navbar-default navbar-fixed-top">
+                        <div class="container">
+                            <div class="navbar-header">
+                                <a class= "navbar-brand" href="." title="Go to Phagebook Home">
+                                    <img alt="Phagebook Logo" src="styles/img/icons/phagebook-logo-white.svg"> 
+                                </a>
+                                <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </div>
+                            <div class ="collapse navbar-collapse">
+                                <div class="navbar-form navbar-right" id="header-form" role="form" style="width:445px">
+                                    <div class="form-group">
+                                        <label for="loginEmailAddress" class="control-label">EMAIL ADDRESS</label>
+                                        <br/><input type="email" class="form-control input-sm" id="loginEmailAddress">
+                                        <br/><label class="control-label" style="color:white">
+                                            <input type="checkbox"> Remember Me
+                                        </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="loginPassword" class="control-label">PASSWORD</label>
+                                        <br/><input type="password" class="form-control input-sm" id="loginPassword">
+                                        <br/><a href="#" id="alt-link">Forgot your password?</a>
+                                    </div>                              
+                                    <button id="login" type="submit" class="btn btn-default">Log In</button>
+                                </div>
+                            </div>
+
+                    <div class="container">
+                        <div class="col-md-6">
+                            <img src="styles/img/icons/login-page-img.png" alt="Phagebook Login Image">
+                        </div>
+                        <div class="col-md-1"></div>
+                        <div class="col-md-5">
+                            <fieldset>
+                                <div><br/></div>
+                                <h3>Sign Up</h3>
+                                <p>Start connecting with other researchers -- it's free.</p>
+                                <div>
+                                    <div class="form-group" id="register-form">
+                                        <div class="col-sm-6">  
+                                            <input type="text" class="form-control" name="firstName" id="inputFirstName" placeholder="First Name">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control" name="lastName" id="inputLastName" placeholder="Last Name">
+                                        </div>
+                                        <div class="col-sm-12"></div>
+                                        <div class="col-sm-12">
+                                            <input type="text" class="form-control" name="emailId" id="emailAddress" placeholder="Email Address">
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <input type="password" class="form-control"  name="password" id="password" placeholder="Password">
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <input type="password" class="form-control" id="reenterPassword" placeholder="Re-enter Password" onChange="checkPasswordMatch()">
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <select class="form-control" id="institution">
+                                                <option>Institution...</option>
+                                                <option>Boston University</option>
+                                                <option>Harvard University</option>
+                                                <option>MIT</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <select class="form-control" id="lab-name">
+                                                <option>Lab Name...</option>
+                                                <option>CIDAR Lab</option>
+                                                <option>Khalil Lab</option>
+                                                <option>Wong Lab</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <p style='font-size:10px'>By clicking Create Profile you agree to our Terms and that you have read out Data Policy, including our Cookie Use</p>
+                                        </div>
+                                        <button id="createProfile" type="submit" onclick="return checkPasswordMatch();" class="btn btn-lg">Create Profile</button> 
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                            
+                        </div>
                     </div>
                 </div>
 
-        </form>
-
-
-    </div>
-</div>
-
-<!--centered at the bottom is the write-up copyright stuff-->
-    <div class="modal-footer">
-        Created by <a href="http://www.cidarlab.org" target="_blank">CIDAR at Boston University</a><br>
-        Built by <a href="mailto:phagebookdevelopment@googlegroups.com">The Phagebook Team</a><br> 
-        <img src="../styles/images/logo-trace_black.png" style="height:50px">
-        <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
-        <img src="../images/logos/cidar-backgbround-no-js.png" style="height:50px">
-        <br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
-    </div>
-
-</div>
-<!--------
-SCRIPTS
---------->
-<script>
-    $("#login").click(function () {
-                $.ajax({
-                    url: "loginUser",
-                    type: "POST",
-                    async: false,
-                    data: {
-                        "email": document.getElementById("returnEmail").value,
-                        "password": document.getElementById("returnPassword").value
-                    },
-                    success: function (response) {
-                        //alert(response);
-                        //alert("Got Some Response" + response);
-                        
-                        sessionStorage.setItem("response", response["id"]); //need to deprecate soon
-                        setCookie("loggedInUserId", response["id"], 1);     //use cookies instead..
-                        sessionStorage.setItem("username", document.getElementById("returnEmail").value);
-                        setCookie("username", document.getElementById("returnEmail").value, 1 );
-                        sessionStorage.setItem("password", document.getElementById("returnPassword").value);
-                        setCookie("password", document.getElementById("returnPassword").value, 1);
-                        if (response["activated"] == "false")
-                        {
-                            window.location.href = './html/validateEmail.html?id=' + getCookie("username");
-                        }
-                        else 
-                        {
-                            window.location.href = './html/profile.html?user=' + response["id"];
-                        }
-                    },
-                    error: function (response) {
-                        alert( response.responseJSON["message"]);
-                    }
-                });
-            }
-    );
-
-    $("#addPerson").click(function () {
-        //should create a person and send an email verification
+                <br> <br>
+                <footer></footer>
+                
+            </div>
+        </div>
+            
+        <!-- SCRIPTS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
+        <script src="../scripts/new-ui-scripts/angular.ng-modules.js"></script>
+        <script src="../scripts/new-ui-scripts/indexFooterDirective.js"></script>
+        <script src="../scripts/new-ui-scripts/indexController.js"></script>
+        <script src="../scripts/new-ui-scripts/indexApp.js"></script>
         
-        $.ajax({
-                    url: "createPerson",
-                    type: "POST",
-                    async: false,
-                    data: {
-                        //"id": loginResult.id,
-                        "firstName": document.getElementById("firstname").value,
-                        "lastName": document.getElementById("lastname").value,
-                        //"fullname": document.getElementById("firstname").value + " " + document.getElementById("lastname").value,
-                        //"lab": document.getElementById("lab").value,
-                        "emailId": document.getElementById("email").value,
-                        //"institution": document.getElementById("institution").value,
-                        //"position": document.getElementById("positionList").value,
-                        //"permissions": document.getElementById("permissionsList").value,
-                        //"friendsList": [],
-                        //"statusList": [],
-                        //"pubmedIdList": [],
-                        //"activated": false,
-                        //"activationString": ""
-                        "password": document.getElementById("password").value
-                    },
-                    success: function (response) {
-                        
-                       // sessionStorage.setItem("uniqueid", loginResult.id);
-                        sessionStorage.setItem("username", document.getElementById("email").value);
-                        //sessionStorage.setItem("password", document.getElementById("password").value);
+    </body>
 
-                        window.location.href = './html/validateEmail.html';
-                    },
-                    error: function (response) {
-                        //THIS CAN BE DONE BETTER ONCE WE KNOW WHAT WE ARE DOING.
-                        alert("\n" +  response.statusText + "!\n" + response.responseText);
-                    }
-                });
-        return false;
-    });
-
-</script>
-
-
-<script src="scripts/clotho/b18fc8c8.clotho-app-command.js"></script>
-<script src="scripts/clotho/c0f113c2.clotho-core-module.js"></script>
-<!--note - remove all scripts below this for api-only build-->
-<script src="scripts/clotho/c2a11f43.clotho-foundation-module.js"></script>
-<script src="scripts/clotho/68a2b2df.clotho-command-module.js"></script>
-<script src="scripts/indexAPI.js"></script>
-
-</body>
 </html>

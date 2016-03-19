@@ -98,8 +98,8 @@ public class loginUser extends HttpServlet {
             clothoQuery.put("emailId", email);
             Person loggedInPerson = null;
             if (isLoggedIn){
-                System.out.println("something");
-                loggedInPerson = ClothoAdapter.queryPerson(clothoQuery, clothoObject).get(0);
+                System.out.println("is logged in");
+                loggedInPerson = ClothoAdapter.queryPerson(clothoQuery, clothoObject, ClothoAdapter.QueryMode.EXACT).get(0);
             }
             
             
@@ -113,11 +113,12 @@ public class loginUser extends HttpServlet {
 
                     String idVal = (String) loggedInPerson.getId();
                     JSONObject responseJSON = new JSONObject();
-                    responseJSON.put("id", idVal);
+                    responseJSON.put("clothoId", idVal);
+                    responseJSON.put("emailId", loggedInPerson.getEmailId());
                     responseJSON.put("activated", "true");
                     response.setContentType("application/json");
                     PrintWriter out = response.getWriter();
-                    out.print(responseJSON.toString());
+                    out.print(responseJSON);
                     out.flush();
                     out.close();
                 }
@@ -126,11 +127,12 @@ public class loginUser extends HttpServlet {
                     //person is not activated in need to go to the email verification page
                     String idVal = (String) loggedInPerson.getId();
                     JSONObject responseJSON = new JSONObject();
-                    responseJSON.put("id", idVal);
+                    responseJSON.put("clothoId", idVal);
+                    responseJSON.put("emailId", loggedInPerson.getEmailId());
                     responseJSON.put("activated", "false");
                     response.setContentType("application/json");
                     PrintWriter out = response.getWriter();
-                    out.print(responseJSON.toString());
+                    out.print(responseJSON);
                     out.flush();
                     out.close();
                     
@@ -140,9 +142,10 @@ public class loginUser extends HttpServlet {
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                 response.setContentType("application/json");
                 PrintWriter out = response.getWriter();
-                JSONObject responseJSON = new JSONObject();
-                responseJSON.put("message", "No user found with those credenteials");
-                out.print(responseJSON.toString());
+
+                JSONObject obj = new JSONObject();
+                obj.put("message", "No user found with those credenteials");
+                out.print(obj);
                 out.flush();
                 out.close();
             

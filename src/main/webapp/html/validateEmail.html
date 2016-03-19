@@ -1,109 +1,169 @@
 <!DOCTYPE html>
+
 <html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>Validate Email</title>
-    <link rel="shorcut icon" href="../styles/images/phagebookLogoMin_16x16.ico"/>
-    <base href="/">
-    <link rel="stylesheet" href="../styles/cssBootstrap/bootstrap.css"/>
-    <link rel="stylesheet" href="../styles/clothoNavBar.css">
-    <link rel="stylesheet" href="../styles/phagebookMainStyle.css"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <script src="../scripts/angular.js"></script>
-    <script src="../scripts/jquery.js"></script>
-    <script src="../scripts/lodash.js"></script>
-    <script src="../scripts/cookieHandler.js"></script>
-    <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
 
+    <head>
 
-    <script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
-    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
+        <title>Validate Email</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../styles/cssBootstrap/bootstrap.css"/>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="../styles/main.css"/>
+        <link rel="icon" href="">
 
-<body>
-<div ng-module="clothoRoot">
-    <div class="container">
-        <div clotho-command-bar></div>
-    </div>
-    <terminal-aside></terminal-aside>
-</div>
+        <script src="../scripts/clotho/clotho3API.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <script src="../scripts/new-ui-scripts/cookieHandler.js"></script>
+        <script src="../scripts/new-ui-scripts/validateEmail.js"></script>
+        <script src="../bootstrap/js/bootstrap.min.js"></script>
 
-   <div class="intro-header">
-        <div class="container">
+        <style>
 
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="intro-message">
-                        <h1>Please check your email to verify your Phagebook account.</h1>
-                        <h3>Click the button below to resend the verification email.</h3>
-                        
-                        <ul class="list-inline">
-                            <li>
-                                <button id="resendButton" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-backward"></i> Resend Verification</button>
-                            </li>
-                        </ul>
+            .navbar {
+                -webkit-box-shadow: 0 8px 6px -6px #999;
+                -moz-box-shadow: 0 8px 6px -6px #999;
+                box-shadow: 0 8px 6px -6px #999;
+                background-color: #1E714A;
+                border-bottom: none;
+                height: 90px;
+                float: none;
+            }
+
+            .navbar-brand {
+                float: left;
+                margin-top: 18px;
+            }
+
+            .control-label {
+                color: white;
+                font-size: 11px;
+                font-weight: 300;
+            }
+
+            .navbar-right {
+                margin-right: 30px;
+            }
+
+            .btn-default {
+                font-size: 12px;
+                border-radius: 24px;
+                padding: 8px 18px 8px 18px;
+            }
+
+            #wrapper {
+                margin-top: 125px;
+            }
+
+            .btn-lg {
+                font-size: 14px;
+                background: #1E714A;
+                color: #FFFFFF;
+                border-radius: 24px;
+                padding: 8px 25px 8px 25px;
+            }
+
+            .btn-lg:hover {
+                background: #31A16F;
+                color: #FFFFFF;
+            }
+
+            #alt-link:link {
+                text-decoration: none;
+                color: white;
+                font-family: "Open Sans", sans-serif;
+                font-weight: 300;
+                font-size: 11px;
+            }
+
+            #alt-link:visited {
+                text-decoration: none;
+                color: white;
+                font-family: "Open Sans", sans-serif;
+                font-weight: 300;
+                font-size: 11px;
+            }
+
+            #alt-link:hover {
+                text-decoration: underline;
+                font-family: "Open Sans", sans-serif;
+                font-weight: 300;
+                font-size: 11px;
+            }
+
+            h3 {
+                font-weight: 400;
+            }
+
+            p {
+                font-size: 16px;
+                font-weight: 400;
+            }
+
+            #footer-content {
+                margin-top: 5px;
+            }
+
+        </style>
+
+    </head>
+
+    <body onload="verifyEmail();">
+
+        <div id="wrapper">
+            <div class="navbar navbar-default navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a class= "navbar-brand" href="../index.html" title="Go to Phagebook Home">
+                            <img alt="Phagebook Logo" src="../styles/img/icons/phagebook-logo-white.svg"> 
+                        </a>
+                        <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
                     </div>
+                    <div class ="collapse navbar-collapse">
+                        <div class="navbar-form navbar-right" id="header-form" role="form" style="width:445px">
+                            <div class="form-group">
+                                <label for="loginEmailAddress" class="control-label">EMAIL ADDRESS</label>
+                                <br/><input type="email" class="form-control input-sm" id="loginEmailAddress">
+                                <br/><label class="control-label" style="color:white">
+                                <input type="checkbox"> Remember Me
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label for="loginPassword" class="control-label">PASSWORD</label>
+                                <br/><input type="password" class="form-control input-sm" id="loginPassword">
+                                <br/><a href="#" id="alt-link">Forgot your password?</a>
+                            </div>                              
+                            <button id="login" type="submit" class="btn btn-default">Log In</button>
+                        </div>
+                   </div>
                 </div>
             </div>
-
         </div>
-    </div>
 
-    <div class="modal-footer">
-        Created by <a href="http://www.cidarlab.org" target="_blank">CIDAR at Boston University</a><br>
-        Built by <a href="mailto:phagebookdevelopment@googlegroups.com">The Phagebook Team</a><br> 
-        <img src="../styles/images/logo-trace_black.png" style="height:50px">
-        <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a>
-        <img src="../images/logos/cidar-backgbround-no-js.png" style="height:50px">
-        <br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
-    </div>
+        <div class="container" id="content">
+            <h3>Your account has been verified.</h3>
+            <p>You may now proceed to log into your profile.</p>
+        </div>
 
-<!---SCRIPTS-->
+        <footer>
+            <div class="modal-footer" style="text-align: left; font-size: 12px">
+                <div style="margin-top: 5px">
+                    Created by <a href="http://www.cidarlab.org" target="_blank">CIDAR at Boston University</a> |
+                    Built by <a href="mailto:phagebookdevelopment@googlegroups.com">The Phagebook Team</a> |  
+                    <img alt="Clotho Logo" src="../styles/img/logos/clotho-logo.png" style="height:25px">   
+                    <img alt="CIDAR Logo" src="../styles/img/logos/cidar-lab-logo.png" style="height:25px">   
+                    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+                        <img alt="Creative Commons License" src="../styles/img/logos/creative-commons-logo.png" style="height:25px"/>
+                    </a>
+                </div>
+            </div>
+        </footer>
 
-<script src="../scripts/clotho/b18fc8c8.clotho-app-command.js"></script>
-<script src="../scripts/clotho/c0f113c2.clotho-core-module.js"></script>
-<!--note - remove all scripts below this for api-only build-->
-<script type='text/javascript' src="../scripts/clotho/b18fc8c8.clotho-app-command.js"></script>
-<script type='text/javascript' src="../scripts/clotho/c0f113c2.clotho-core-module.js"></script>
-<script type='text/javascript' src="../scripts/clotho/c2a11f43.clotho-foundation-module.js"></script>
-<script src="../scripts/clotho/clotho3API.js"></script>
-<script src='../scripts/clotho/68a2b2df.clotho-command-module.js'></script>
-<script src="../scripts/angular.ng-modules.js"></script>
-<script>
-    $("#resendButton").click(function ()
-        { console.log(sessionStorage.getItem("username"));
-            
-        var user = getParameterByName('id');  //NOT NEEDED
-        //Johan needs to help with the code hash send thing??
-        $.ajax({
-                    url: "resendVerification",
-                    type: "GET",
-                    async: false,
-                    data: {
-                        //need to get emailId from sessionStorage
-                        //"emailId": code to get it from session Storage
-                        "id" : getCookie("loggedInUserId")
-                    },
-                    success: function (response) {
-                        alert(response["message"]);
-                        //reload the page? HTML pop-up? 
-                    },
-                    error: function () {
-                        alert("some sort of error occurred");
-                    }
-                });
-                
-        });
-    
-        function getParameterByName(name) {
-            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-                results = regex.exec(location.search);
-            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-        }
-</script>
+    </body>
 
-</body>
 </html>
-
-

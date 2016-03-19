@@ -26,18 +26,19 @@ import org.clothocad.phagebook.dom.CartItem;
 public class Order {
     
     
-    @Getter @Setter private String id;
-    @Getter @Setter private String name; 
-    @Getter @Setter private String description;
-    @Getter @Setter private Date dateCreated;
-    @Getter @Setter private String createdById; 
+    @Getter @Setter private String               id;
+    @Getter @Setter private String               name; 
+    @Getter @Setter private String               description;
+    @Getter @Setter private Date                 dateCreated;
+    @Getter @Setter private String               createdById; 
     @Getter @Setter private Map<String, Integer> products; //CART ITEM ID AND INTEGER...
-    @Getter @Setter private Double budget;
-    @Getter @Setter private Integer maxOrderSize;
-    @Getter @Setter private String approvedById;
-    @Getter @Setter private String receivedById;
-    @Getter @Setter private List<String> relatedProjects;
-    @Getter @Setter private OrderStatus status;
+    @Getter @Setter private Double               budget;
+    @Getter @Setter private Integer              maxOrderSize;
+    @Getter @Setter private String               approvedById;
+    @Getter @Setter private List<String>         receivedByIds;
+    @Getter @Setter private String               relatedProjectId;
+    @Getter @Setter private OrderStatus          status;
+    @Getter @Setter private String               affiliatedLabId;
     
     
 //    public Map<Product, Integer> getProducts(){
@@ -64,12 +65,14 @@ public class Order {
         this.description = "Not Set";
         this.dateCreated = new Date();
         this.createdById   = "Not Set";
-        this.relatedProjects = new ArrayList<>();
-        this.receivedById  = "Not Set";
-        this.approvedById  = "Not Set";
         this.products    = new HashMap<>();
         this.budget      = 0.0d;
-       this.maxOrderSize = 1;
-        
+        this.maxOrderSize = 1;
+        this.approvedById  = "Not Set";
+        this.receivedByIds  = new ArrayList<>();
+        this.relatedProjectId = "Not Set";
+        this.status = OrderStatus.INPROGRESS;
+        this.affiliatedLabId = "Not Set";
+     
     }
 }

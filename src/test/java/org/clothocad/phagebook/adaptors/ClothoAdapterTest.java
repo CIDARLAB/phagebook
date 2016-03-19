@@ -28,6 +28,7 @@ import org.clothocad.phagebook.dom.Grant;
 import org.clothocad.phagebook.dom.Institution;
 import org.clothocad.phagebook.dom.Instrument;
 import org.clothocad.phagebook.dom.Inventory;
+import org.clothocad.phagebook.dom.Lab;
 import org.clothocad.phagebook.dom.Notebook;
 import org.clothocad.phagebook.dom.Order;
 import org.clothocad.phagebook.dom.Organization;
@@ -344,6 +345,30 @@ public class ClothoAdapterTest {
         
     }
     @Test
+    public void testCreateLab(){
+        System.out.println("-----CREATE LAB TEST-----");
+      
+        Lab testLab = new Lab();
+        String idI = "";
+        testLab.setId(idI);
+        
+        String idI2 = ClothoAdapter.createInstiution(testLab, clothoObject);
+        assertEquals(idI2, testLab.getId());
+        if(idI.equals(testLab.getId())){
+            fail();
+        }
+        
+        testLab.setName("Lab creation test");
+        
+        String idI3 = ClothoAdapter.createInstiution(testLab, clothoObject);
+        assertEquals(idI3, testLab.getId());
+        if (idI.equals(testLab.getId())){
+            fail();
+        }
+      
+        System.out.println("----------");
+    }
+    @Test
     public void testCreateNotebook(){
         System.out.println("-----CREATE NOTEBOOK TEST-----");
        
@@ -595,7 +620,6 @@ public class ClothoAdapterTest {
         }
         System.out.println("----------");
     }
-   
     //make and receive back exactly what you made
     @Test
     public void testGetVendor()
@@ -827,6 +851,8 @@ public class ClothoAdapterTest {
         institution1.setDescription(description);
         institution1.setPhone(phone);
         institution1.setUrl(url);
+        institution1.setType(Institution.InstitutionType.Corporation);
+        
         
         String insitutionId = ClothoAdapter.createInstiution(institution1, clothoObject);
         if(institution1.getId().equals("Not Set")){
@@ -840,6 +866,8 @@ public class ClothoAdapterTest {
         assertEquals(institution1.getPhone(), institution2.getPhone());
         assertEquals(institution1.getUrl(), institution2.getUrl());
         assertEquals(institution1.getId(), institution2.getId());
+        assertEquals(institution1.getType().toString(), institution2.getType().toString());
+        
                 
         System.out.println("----------");
         
@@ -887,6 +915,41 @@ public class ClothoAdapterTest {
         System.out.println("----------");
     }
     @Test
+    public void testGetLab(){
+        System.out.println("-----GET LAB TEST-----");
+        //INSTITUTION FIELDS
+            String name        = "Clotho Test Name";
+            String description = "Clotho Test Description";
+            String phone       = "Clotho Test Phone";
+            String url         = "Clotho Test Url";
+        //
+        Lab lab1 = new Lab();
+        lab1.setName(name);
+        lab1.setDescription(description);
+        lab1.setPhone(phone);
+        lab1.setUrl(url);
+        lab1.setType(Institution.InstitutionType.Corporation);
+        
+        
+        String labId = ClothoAdapter.createInstiution(lab1, clothoObject);
+        if(lab1.getId().equals("Not Set")){
+            fail();
+        }
+        
+        Lab lab2 = ClothoAdapter.getLab(labId, clothoObject);
+        
+        assertEquals(lab1.getName(), lab2.getName());
+        assertEquals(lab1.getDescription(), lab2.getDescription());
+        assertEquals(lab1.getPhone(), lab2.getPhone());
+        assertEquals(lab1.getUrl(), lab2.getUrl());
+        assertEquals(lab1.getId(), lab2.getId());
+        assertEquals(lab1.getType().toString(), lab2.getType().toString());
+        
+                
+        System.out.println("----------");
+        
+    }
+    @Test
     public void testGetNotebook(){
         System.out.println("-----GET NOTEBOOK TEST-----");
         //Notebook fields
@@ -932,25 +995,33 @@ public class ClothoAdapterTest {
     @Test
     public void testGetOrder(){
         System.out.println("-----GET ORDER TEST-----");
+        //TODO: ADD TESTS FOR MORE PROPERTIES OF ORDER
+        
         //Order Fields
             String name = "Clotho Test Name";
             String description = "Clotho Test Description";
             Date dateCreated = new Date(787899600000L);
+            Double budget = 100.0d;
+            Integer maxOrderSize = 25;
+            
             Person createdBy = new Person();
+            Person receivedBy = new Person();
+            Person receivedBy2 = new Person();
                 clothoObject.logout();
                 ClothoAdapter.createPerson(createdBy, clothoObject);
+                ClothoAdapter.createPerson(receivedBy, clothoObject);
+                ClothoAdapter.createPerson(receivedBy2, clothoObject);
+                List<String> receivedByIds = new ArrayList<>();
+                receivedByIds.add(receivedBy.getId());
+                receivedByIds.add(receivedBy2.getId());
                 clothoLogin(this.username, this.password);
-            Map<String, Integer> cartItems = new HashMap<>();
+                Map<String, Integer> cartItems = new HashMap<>();
                 CartItem C1 = new CartItem();
                 CartItem C2 = new CartItem();
-                //CART ITEM PROPERTIES
-         
+                    //CART ITEM PROPERTIES
                     Product P1 = new Product();
                     Product P2 = new Product();
                     
-                   
-                    
-                
                     ClothoAdapter.createProduct(P1, clothoObject);
                     ClothoAdapter.createProduct(P2, clothoObject);
                     Map<String, Double> productsWithDiscount1 = new HashMap();
@@ -961,11 +1032,22 @@ public class ClothoAdapterTest {
                     C2.setProductWithDiscount(productsWithDiscount2);
                     ClothoAdapter.createCartItem(C1, clothoObject);
                     ClothoAdapter.createCartItem(C2, clothoObject);
-                //
-                cartItems.put(C1.getId(), 10);
-                cartItems.put(C2.getId(), 20);
+                    //
+                    cartItems.put(C1.getId(), 10);
+                    cartItems.put(C2.getId(), 20);
                 
                 //
+                Lab affiliatedLab = new Lab();
+                ClothoAdapter.createLab(affiliatedLab, clothoObject);
+                
+                Project proj = new Project();
+                ClothoAdapter.createProject(proj, clothoObject);
+                
+                
+                
+                
+                
+                
         //
         Order order1 = new Order();
         order1.setName(name);
@@ -973,6 +1055,16 @@ public class ClothoAdapterTest {
         order1.setDateCreated(dateCreated);
         order1.setCreatedById(createdBy.getId());
         order1.setProducts(cartItems);
+        
+        order1.setBudget(budget);
+        order1.setMaxOrderSize(maxOrderSize);
+        order1.setAffiliatedLabId(affiliatedLab.getId());
+        order1.setReceivedByIds(receivedByIds);
+        order1.setRelatedProjectId(proj.getId());
+        
+        
+        
+       
         
         String orderId = ClothoAdapter.createOrder(order1, clothoObject);
         if(order1.getId().equals("Not Set")){
@@ -985,8 +1077,16 @@ public class ClothoAdapterTest {
         assertEquals(order1.getDescription(), order2.getDescription());
         assertEquals(order1.getDateCreated().toString(), order2.getDateCreated().toString());
         assertEquals(order1.getCreatedById(), order2.getCreatedById());
+        assertEquals(order1.getBudget(), order2.getBudget());
+        assertEquals(order1.getMaxOrderSize(), order2.getMaxOrderSize());
+        assertEquals(order1.getAffiliatedLabId(), order2.getAffiliatedLabId());
+        assertEquals(order1.getReceivedByIds().size(), order2.getReceivedByIds().size());
+        for (int i = 0; i < order1.getReceivedByIds().size(); i++){
+            assertEquals(order1.getReceivedByIds().get(i), order2.getReceivedByIds().get(i));
+        }
+        assertEquals(order1.getRelatedProjectId(), order2.getRelatedProjectId());    
         
-
+       
         Map <String, Integer> idQuantityMap1 = new HashMap<>();
         
         for (Map.Entry pair : order1.getProducts().entrySet()) {
@@ -1117,6 +1217,23 @@ public class ClothoAdapterTest {
                 orders.add(O1.getId());
                 orders.add(O2.getId());
                 orders.add(O3.getId());
+            List<String> submittedOrders = new ArrayList<>();
+                Order O4 = new Order();
+                Order O5 = new Order();
+                Order O6 = new Order();
+                    ClothoAdapter.createOrder(O4, clothoObject);
+                    ClothoAdapter.createOrder(O5, clothoObject);
+                    ClothoAdapter.createOrder(O6, clothoObject);
+                submittedOrders.add(O4.getId());
+                submittedOrders.add(O5.getId());
+                submittedOrders.add(O6.getId());
+            List<String> approvedOrders = new ArrayList<>();
+                Order O7 = new Order();
+                Order O8 = new Order();
+                    ClothoAdapter.createOrder(O7, clothoObject);
+                    ClothoAdapter.createOrder(O8, clothoObject);
+                approvedOrders.add(O7.getId());
+                approvedOrders.add(O8.getId());
                 
         //
         Person person1 = new Person();
@@ -1135,7 +1252,11 @@ public class ClothoAdapterTest {
         person1.setProjects(projects);
         person1.setPublications(publications);
         person1.setRoles(roles);
-        person1.setOrders(orders);
+        person1.setCreatedOrders(orders);
+        person1.setSubmittedOrders(submittedOrders);
+        person1.setApprovedOrders(approvedOrders);
+        
+        
         
         
         String personId = ClothoAdapter.createPerson(person1, clothoObject);
@@ -1183,9 +1304,17 @@ public class ClothoAdapterTest {
         if (!person1.getRoles().equals(person2.getRoles())){
             fail("Person Roles are not equal");
         }
-        assertEquals(person1.getOrders().size(), person2.getOrders().size());
-        for (int i = 0; i < person1.getOrders().size(); i++){
-            assertEquals(person1.getOrders().get(i), person2.getOrders().get(i));
+        assertEquals(person1.getCreatedOrders().size(), person2.getCreatedOrders().size());
+        for (int i = 0; i < person1.getCreatedOrders().size(); i++){
+            assertEquals(person1.getCreatedOrders().get(i), person2.getCreatedOrders().get(i));
+        }
+        assertEquals(person1.getSubmittedOrders().size(), person2.getSubmittedOrders().size());
+        for (int i = 0; i < person1.getSubmittedOrders().size(); i++){
+            assertEquals(person1.getSubmittedOrders().get(i), person2.getSubmittedOrders().get(i));
+        }
+        assertEquals(person1.getApprovedOrders().size(), person2.getApprovedOrders().size());
+        for (int i = 0; i < person1.getApprovedOrders().size(); i++){
+            assertEquals(person1.getApprovedOrders().get(i), person2.getApprovedOrders().get(i));
         }
         System.out.println("----------");
     }

@@ -53,23 +53,33 @@ public class Project {
        this.creatorId = creator;
        this.name = name;
        this.description = description;
-       this.updates = new ArrayList<>();
+
        this.notebooks = new ArrayList<>();
        this.affiliatedLabs = new ArrayList<>();
        this.members = new ArrayList<>();
-       //System.out.println("created a new project?? 1");
+       this.updates = new ArrayList<>();
+       this.affiliatedLabs.add(lab.getId());
        
+       System.out.println("end of constructor");
+    
    }
-      public Project(String creator, String name, String description){
+
+   
+   public Project(Person creator, String name, String description){
+
        this.dateCreated = new Date();
-       this.creatorId = creator;
+       this.creatorId = creator.getId();
        this.name = name;
        this.description = description;
-       this.updates = new ArrayList<>();
+
        this.notebooks = new ArrayList<>();
        this.affiliatedLabs = new ArrayList<>();
        this.members = new ArrayList<>();
 
+       this.updates = new ArrayList<>();
+
+
+ 
    }
    
    

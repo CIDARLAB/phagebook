@@ -1,0 +1,58 @@
+a:link {
+    text-decoration: none;
+    font-family: "Open Sans", sans-serif;  
+    color: #000;
+    font-weight: 400;
+    font-size: 14px;
+    background-color: transparent !important;
+}
+
+a:visited {
+    text-decoration: none;
+    font-family: "Open Sans", sans-serif;
+    color: #000;
+    font-weight: 400;
+    font-size: 14px;
+    background-color: transparent !important;
+}
+            
+a:hover {
+    text-decoration: none !important;
+    font-family: "Open Sans", sans-serif;
+    color: #000;
+    font-weight: 400;
+    font-size: 14px;
+    background-color: transparent !important;
+}
+
+#sidebar {
+    position: fixed;
+    float: left;
+    margin-top: 70px;
+    margin-left: -15px;
+    overflow: hidden;
+    width: 250px;
+    height: 100%;
+    background-color: #FFFFFF;
+}
+
+ul li {
+    padding-left: 40px;
+    background: none;
+    width: 250px;
+}
+
+ul li.active {
+    background-color: #E0E0E0;
+    border-right-style: inset;
+    border-right-width: 5px;
+    border-right-color: #89C176;
+}
+
+ul li img {
+    height: 15px;
+    margin-top: 10px;
+    padding-right: 20px;
+    vertical-align: middle;
+    float: left;
+}

@@ -66,17 +66,11 @@ public class resendVerification extends HttpServlet {
         if (isValid){
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
-            Map createUserMap = new HashMap();
-            createUserMap.put("username", "ClothoBackend");
-            createUserMap.put("password", "phagebook");
-
-
-            clothoObject.createUser(createUserMap);
+            
 
             Map loginMap = new HashMap();
-            loginMap.put("username", "ClothoBackend");
-            loginMap.put("credentials", "phagebook");
-
+            loginMap.put("username", "phagebook");
+            loginMap.put("credentials", "backend");
 
             clothoObject.login(loginMap);
             
@@ -85,7 +79,7 @@ public class resendVerification extends HttpServlet {
             Person person1 = ClothoAdapter.getPerson(userId, clothoObject);
             
             if (person1 != null){
-                String link = Args.phagebookBaseURL + "/html/verifyEmail.html?emailId=" + person1.getEmailId() + "&salt=" + person1.getSalt();
+                String link = Args.phagebookBaseURL + "/html/validateEmail.html?emailId=" + person1.getEmailId() + "&salt=" + person1.getSalt();
                 EmailHandler handly = EmailHandler.getEmailHandler();
                 handly.sendEmailVerification(person1, link);
                 response.setStatus(HttpServletResponse.SC_OK);

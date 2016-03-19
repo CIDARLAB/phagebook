@@ -1,77 +1,34 @@
 <!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
 <html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>Ordering</title>
-    <link rel="shorcut icon" href="../styles/images/phagebookLogoMin_16x16.ico"/>
-    <base href="/">
-    <link rel="stylesheet" href="../styles/cssBootstrap/bootstrap.css"/>
-    <link rel="stylesheet" href="../styles/clothoNavBar.css">
-    <link rel="stylesheet" href="../styles/phagebookMainStyle.css"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <script src="../scripts/angular.js"></script>
-    <script src="../scripts/jquery.js"></script>
-    <script src="../scripts/lodash.js"></script>
-
-
-
-    <script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
-    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.0.0/q.js"></script>
-
-<body>
-<div ng-module="clothoRoot">
-    <div class="container">
-        <div clotho-command-bar></div>
-    </div>
-    <terminal-aside></terminal-aside>
-</div>
-
-<div class="container-fluid" id="ordering">
-<div ng-module="newOrderApp">
-    <div ng-controller="newOrderController">
+    <head>
+        <title>New Order</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <script src="../scripts/new-ui-scripts/cookieHandler.js"></script>
+        <script src="../scripts/new-ui-scripts/newOrder.js"></script>
         
-        <div class = "mainContent">
-            <div class ="col-md-6">
-                <div id ="newOrder">
-                    <h1 style="font-weight:bold">Create New Order</h1>
-                    <label>Name:</label><br>
-                    <input id="orderName" ng-model = "orderName" class="form-control" type="text"><br>
-                    <label>Description:</label><br>
-                    <input id="orderDescription" ng-model="orderDescription" class="form-control" type="text"><br>
-                    <br>
-                    <button type="button" class="btn btn-default" id="CreateNewOrderButton" ng-model="createOrder" ng-click="createOrder()">Create</button>
-                    
-                </div>
-            </div>
-        </div>
+    </head>
+    <body>
+        Order Nickname: <input id="orderNickname" type="text" placeholder="Order Nickname">
+        <br>
+        Lab:<select class="form-control" id="lab-name"></select>
+        <br>
+        Project Name Search:  <input id="projectName" type="text" placeholder="Order Limit">
+        Projects: <select class="form-control" id="projectResults"></select>
+        <button id="lookupProjects" type="submit">Look up Projects</button>
         
-    </div>
-</div>
-</div>
-    
-    <br><br>
-
-<div class="modal-footer">
-    Created by <a href="http://www.cidarlab.org" target="_blank">CIDAR at Boston University</a><br>
-    Built by <a href="mailto:azulad7@bu.edu">Allison Z. Durkan</a><br>
-    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
-</div>
-
-<!---SCRIPTS-->
-
-<script src="../scripts/clotho/b18fc8c8.clotho-app-command.js"></script>
-<script src="../scripts/clotho/c0f113c2.clotho-core-module.js"></script>
-<script type='text/javascript' src="../scripts/clotho/b18fc8c8.clotho-app-command.js"></script>
-<script type='text/javascript' src="../scripts/clotho/c0f113c2.clotho-core-module.js"></script>
-<script type='text/javascript' src="../scripts/clotho/c2a11f43.clotho-foundation-module.js"></script>
-<script src="../scripts/clotho/clotho3API.js"></script>
-<script src='../scripts/clotho/68a2b2df.clotho-command-module.js'></script>
-<script src="../scripts/angular.ng-modules.js"></script>
-<script src="../scripts/newOrderController.js"></script>
-<script src="../scripts/jsBootstrap/ui-bootstrap-tpls-0.12.0.min.js"></script>
-<script src="../scripts/papaparse.min.js"></script>
-
-
-</body>
+        <br>
+        Order Budget: <input id="orderBudget" type="text" placeholder="Order Budget">
+        <br>
+        Order Limit:  <input id="orderLimit" type="text" placeholder="Order Limit">
+        <br>
+        <button id="createOrder" type="submit">Create Order</button>
+        <br>
+    </body>
 </html>
