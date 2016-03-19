@@ -23,14 +23,18 @@
         <script src="../scripts/new-ui-scripts/angular.ng-modules.js"></script>
         
         <style>
-        h3 {
-            font-weight: 400;
-        }
-
-        p {
-            font-size: 16px;
-            font-weight: 400;
-        }
+            
+            h3 {
+                margin-top: 50px;
+                margin-left: 70px;
+            }
+            
+            p {
+                font-size: 16px;
+                font-weight: 400;
+                margin-left: 70px;
+            }
+            
         </style>
         
     </head>
@@ -39,8 +43,9 @@
         <div ng-module="profileApp">
             <div ng-controller="profileCtrl">
                 <header></header>
-                <div class="container">
+                <div class="container" style="margin:100px">
                     <h3>Manage Requests</h3>
+                    <br>
                     <p>You have no requests at this time.</p>
                 </div>
             </div>

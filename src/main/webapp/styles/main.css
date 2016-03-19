@@ -23,6 +23,26 @@ a:hover {
     background-color: transparent !important;
 }
 
+#add-colleagues-btn {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    background-color: #9E9E9E;
+    color: #FFFFFF;
+    border-radius: 8px;
+    border: none;
+    padding-right: 15px;
+    padding-left: 15px;
+    display: block;
+    clear: both;
+    margin-left: 35%;
+}
+            
+#add-colleagues-btn:hover {
+    background-color: #89C176;
+    border: none;
+}
+
 body {
     font-family: "Open Sans", sans-serif;
     font-style: normal;
@@ -31,7 +51,31 @@ body {
     margin-bottom: 60px;
 }
 
-#edit-profile {
+#colleagues {
+    float: right;
+}
+
+#create-status-btn {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    background-color: #9E9E9E;
+    color: #FFFFFF;
+    border-radius: 8px;
+    border: none;
+    padding-right: 15px;
+    padding-left: 15px;
+    display: block;
+    clear: both;
+    margin-left: 35%;
+}
+            
+#create-status-btn:hover {
+    background-color: #89C176;
+    border: none;
+}
+
+#edit-profile-btn {
     float: right;
     margin-left: 10px;
     background-color: #9E9E9E;
@@ -40,7 +84,7 @@ body {
     border: none;
 }
 
-#edit-profile:hover {
+#edit-profile-btn:hover {
     background-color: #89C176;
     border: none;
 }
@@ -69,6 +113,26 @@ h3 {
     font-weight: 300;
 }
 
+#list-colleagues li {
+    width: 400px;
+}
+
+#list-colleagues li a {
+    color: #1E714A;
+    font-weight: 400;
+}
+
+#list-colleagues li img {
+    height: 106px;
+    vertical-align: middle;
+    margin-left: -15px;
+    margin-top: -10px;
+}
+
+#list-colleague li p {
+    font-size: 10px;
+}
+
 .navbar {
     -webkit-box-shadow: 0 8px 6px -6px #999;
     -moz-box-shadow: 0 8px 6px -6px #999;
@@ -77,7 +141,7 @@ h3 {
     border-bottom: none;
     height: 70px;
     float: none;
-    position: relative;
+    position: fixed;
 }
 
 .navbar-brand {
@@ -89,7 +153,7 @@ h3 {
     position: absolute; 
     overflow-x: hidden; 
     margin-left: 30%;
-    margin-top: 20px;
+    margin-top: 100px;
 }
 
 #profile-header {
@@ -116,6 +180,10 @@ h3 {
     position: absolute;
     float: left;
     height: 180px;
+}
+
+#status-update-textarea {
+    margin: 20px 0px 20px -15px;
 }
 
 td {

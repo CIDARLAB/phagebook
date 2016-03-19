@@ -22,20 +22,41 @@
         <script src="../scripts/new-ui-scripts/angular.ng-modules.js"></script>
         
         <style>
+            
             #profile-nav {
-               margin-top: 375px;
+               margin-top: 450px;
+               margin-left: 28%;
                width: 900px;
             }
             
             #profile-nav-tabs li {
-                width: 200px;
+                width: 180px;
+                font-size: 14px;
             }
             
             #profile-nav-tabs li.active {
                 background-color: transparent;
                 border-right: none;
+                border-bottom: none;
+            }
+            
+            #profile-nav-tabs li.active a {
                 color: #1E714A;
             }
+            
+            #profile-nav-tabs li.hover {
+                border: none;
+            }
+            
+            .tab-content {
+                margin-top: 20px;
+                margin-left: 15px;
+            }
+            
+            h4 {
+                font-weight: 300;
+            }
+
         </style>
         
     <body>
@@ -50,7 +71,7 @@
                         <div class="panel-body" id="profile-overview">
                             <img alt="densmore-circle-pro-pic" src="../styles/img/mis/densmore-circle-pro-pic.png" id="profile-picture">
                             <a href="../html/accountSettings.html">
-                                <button id="edit-profile" type="button" class="btn btn-default">
+                                <button id="edit-profile-btn" type="button" class="btn btn-default">
                                     <img alt="Edit Profile" src="../styles/img/icons/white-pencil.png" style="height:20px">
                                 </button>
                             </a>
@@ -84,16 +105,40 @@
                 <div class="container" id="profile-nav">
                     <ul class="nav nav-tabs" id="profile-nav-tabs">
                         <li class="active"><a href="#overview" data-toggle="tab">Overview</a></li>
-                        <li><a href="#colleagues" data-toggle="tab">Colleagues</a></li>
+                        <li><a href="#colleagues-tab" data-toggle="tab">Colleagues</a></li>
                         <li><a href="#projects" data-toggle="tab">Projects</a></li>
                         <li><a href="#publications" data-toggle="tab">Publications</a></li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="overview">
-                            <h4>Pane A</h4>
-                            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+                            <br>
+                            <div class="row">
+                                <div class="container-fluid" id="status-update">
+                                    <h4>Status Updates</h4>
+                                    <p>Update your personal news, accomplishments, and lab events.</p>
+                                    <div class="col-sm-6">
+                                        <textarea class="form-control" rows="5" id="status-update-textarea" placeholder="Write new status here"></textarea>
+                                    </div>
+                                    <button id="create-status-btn" type="button" class="btn btn-default">Create Status</button>
+                                </div>
+                                <div class="container-fluid" id="colleagues">
+                                    <h4>Colleagues</h4>
+                                    <button id="add-colleagues-btn" type="button" class="btn btn-default">Add Colleagues</button>
+                                    <div class="col-sm-8">
+                                        <ul class="list-group" id="list-colleagues">
+                                            <li class="list-group-item">
+                                                <img alt="Kristel Tan" src="../styles/img/mis/kristel-tan-pro-pic.jpg">
+                                                <a href="#">Kristel Tan</a>
+                                                <p></p>
+                                                <p>CIDAR Lab</p>
+                                                <p>Boston University</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="tab-pane" id="colleagues">
+                        <div class="tab-pane" id="colleagues-tab">
                             <h4>Pane B</h4>
                             <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
                         </div>
