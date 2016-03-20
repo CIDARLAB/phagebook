@@ -82,7 +82,6 @@ body {
 
 #colleagues {
     margin-top: -245px;
-    margin-left: 50px;
     float: right;
 }
 
@@ -266,6 +265,7 @@ h3 {
 #search-colleagues {
     margin-top: 20px;
 }
+
 #search-colleagues-btn {
     font-size: 14px;
     background: #1E714A;
@@ -279,11 +279,32 @@ h3 {
     color: #FFFFFF;
 }
 
+#search-colleagues-list {
+    
+}
+
+#search-colleagues-list li {
+    width: 750px;
+    margin-bottom: 20px;
+}
+
+#search-colleagues-list img {
+    height: 90px;
+    vertical-align: middle;
+    margin-left: -15px;
+    margin-top: -10px;
+}
+
+#search-colleagues-list p {
+    font-size: 11px;
+    line-height: 10px;
+}
+
 #see-full-list-btn {
     background-color: #FFFFFF;
     border-radius: 0px;
     display: block;
-    width: 100%;
+    width: 400px;
 }
 
 #see-full-list-btn:hover {

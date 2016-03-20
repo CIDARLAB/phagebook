@@ -128,31 +128,6 @@
                                 </div>
                                 <div class="container-fluid" id="colleagues">
                                     <h4>Colleagues</h4>
-                                    <button id="add-colleagues-btn" type="button" class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-lg">Add Colleagues</button>
-                                    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-                                        <div class="modal-dialog modal-lg">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                                    <h4>Add Colleagues</h4>
-                                                </div>
-                                                <div class="modal-body" id="add-colleagues-modal">
-                                                    <p>Search for colleagues by entering their first or last name.</p>
-                                                    <div class="form-group row" id="search-colleagues">
-                                                        <label for="search-first-name" class="col-sm-2 form-control-label">FIRST NAME</label>
-                                                        <div class="col-sm-3">
-                                                            <input type="text" class="form-control" id="search-first-name">
-                                                        </div>
-                                                        <label for="search-last-name" class="col-sm-2 form-control-label">LAST NAME</label>
-                                                        <div class="col-sm-3">
-                                                            <input type="text" class="form-control" id="search-last-name">
-                                                        </div>
-                                                        <button id="search-colleagues-btn" type="submit" class="btn btn-lg">Search</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <br>
                                     <div class="col-sm-6">
                                         <ul class="list-group" id="list-colleagues">
@@ -164,15 +139,15 @@
                                                 <p>Boston University</p>
                                             </li>
                                             <li class="list-group-item">
-                                                <img alt="Kristel Tan" src="../styles/img/mis/kristel-tan-pro-pic.jpg">
-                                                <a href="#">Kristel Tan</a>
+                                                <img alt="Johan Ospina" src="../styles/img/mis/johan-pro-pic.jpg">
+                                                <a href="#">Johan Ospina</a>
                                                 <p></p>
                                                 <p>CIDAR Lab</p>
                                                 <p>Boston University</p>
                                             </li>
                                             <li class="list-group-item">
-                                                <img alt="Kristel Tan" src="../styles/img/mis/kristel-tan-pro-pic.jpg">
-                                                <a href="#">Kristel Tan</a>
+                                                <img alt="Allison Durkan" src="../styles/img/mis/allison-pro-pic.jpg">
+                                                <a href="#">Allison Durkan</a>
                                                 <p></p>
                                                 <p>CIDAR Lab</p>
                                                 <p>Boston University</p>
@@ -210,7 +185,64 @@
                         </div>
                         <div class="tab-pane" id="colleagues-tab">
                             <h4>All Colleagues</h4>
-                            <button id="add-colleagues-btn" type="button" class="btn btn-default">Add Colleagues</button>
+                            <button id="add-colleagues-btn" type="button" class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-lg">Add Colleagues</button>
+                            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                            <h4>Add Colleagues</h4>
+                                        </div>
+                                        <div class="modal-body" id="add-colleagues-modal">
+                                            <p>Search for colleagues by entering their first or last name.</p>
+                                            <div class="form-group row" id="search-colleagues">
+                                                <label for="search-first-name" class="col-sm-2 form-control-label">FIRST NAME</label>
+                                                <div class="col-sm-3">
+                                                    <input type="text" class="form-control" id="search-first-name">
+                                                </div>
+                                                <label for="search-last-name" class="col-sm-2 form-control-label">LAST NAME</label>
+                                                <div class="col-sm-3">
+                                                    <input type="text" class="form-control" id="search-last-name">
+                                                </div>
+                                                <button id="search-colleagues-btn" type="submit" class="btn btn-lg">Search</button>
+                                            </div>
+                                            <br>
+                                            <div id="search-colleagues-results" style="overflow-y:scroll; height:300px;">
+                                                <ul class="col-sm-12 list-group" id="search-colleagues-list">
+                                                    <li class="list-group-item">
+                                                        <img alt="Kristel Tan" src="../styles/img/mis/kristel-tan-pro-pic.jpg">
+                                                        <a href="#">Kristel Tan</a>
+                                                        <p></p>
+                                                        <p>CIDAR Lab</p>
+                                                        <p>Boston University</p>
+                                                    </li>
+                                                    <li class="list-group-item">
+                                                        <img alt="Johan Ospina" src="../styles/img/mis/johan-pro-pic.jpg">
+                                                        <a href="#">Johan Ospina</a>
+                                                        <p></p>
+                                                        <p>CIDAR Lab</p>
+                                                        <p>Boston University</p>
+                                                    </li>
+                                                    <li class="list-group-item">
+                                                        <img alt="Allison Durkan" src="../styles/img/mis/allison-pro-pic.jpg">
+                                                        <a href="#">Allison Durkan</a>
+                                                        <p></p>
+                                                        <p>CIDAR Lab</p>
+                                                        <p>Boston University</p>
+                                                    </li>
+                                                    <li class="list-group-item">
+                                                        <img alt="Prashant Vaidyanathan" src="../styles/img/mis/prashant-pro-pic.jpg">
+                                                        <a href="#">Prashant Vaidyanathan</a>
+                                                        <p></p>
+                                                        <p>CIDAR Lab</p>
+                                                        <p>Boston University</p>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <br>
                             <div>
                                 <ul class="list-inline list-group" id="colleagues-full-list">
@@ -222,22 +254,22 @@
                                         <p>Boston University</p>
                                     </li>
                                     <li class="list-group-item col-sm-5">
-                                        <img alt="Kristel Tan" src="../styles/img/mis/kristel-tan-pro-pic.jpg">
-                                        <a href="#">Kristel Tan</a>
+                                        <img alt="Allison Durkan" src="../styles/img/mis/allison-pro-pic.jpg">
+                                        <a href="#">Allison Durkan</a>
                                         <p></p>
                                         <p>CIDAR Lab</p>
                                         <p>Boston University</p>
                                     </li>
                                     <li class="list-group-item col-sm-5">
-                                        <img alt="Kristel Tan" src="../styles/img/mis/kristel-tan-pro-pic.jpg">
-                                        <a href="#">Kristel Tan</a>
+                                        <img alt="Johan Ospina" src="../styles/img/mis/johan-pro-pic.jpg">
+                                        <a href="#">Johan Ospina</a>
                                         <p></p>
                                         <p>CIDAR Lab</p>
                                         <p>Boston University</p>
                                     </li>
                                     <li class="list-group-item col-sm-5">
-                                        <img alt="Kristel Tan" src="../styles/img/mis/kristel-tan-pro-pic.jpg">
-                                        <a href="#">Kristel Tan</a>
+                                        <img alt="Prashant Vaidyanathan" src="../styles/img/mis/prashant-pro-pic.jpg">
+                                        <a href="#">Prashant Vaidyanathan</a>
                                         <p></p>
                                         <p>CIDAR Lab</p>
                                         <p>Boston University</p>
