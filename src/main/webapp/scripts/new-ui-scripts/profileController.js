@@ -65,6 +65,7 @@ function profileCtrl($scope, $window) {
             });
             
         });
+
     });
 
 
