@@ -1,24 +1,69 @@
 function profileCtrl($scope, $window) {
     $("document").ready(function () {
         $.ajax({
-            url: 'getPersonById',
+            url: '../getPersonById',
             type: 'GET',
             async: false,
             data: {
-                "userId": getParameterByName("user")
+                "userId": getCookie("clothoId")
             },
             success: function (response) {
-                var responseAsJSON = JSON.parse(response);
-                $scope.personID = responseAsJSON['loggedUserId'];
-                sessionStorage.setItem("loggedUserId", responseAsJSON['loggedUserId']);
-                $scope.displayName = responseAsJSON['fullname'];
-                $scope.pictureName = responseAsJSON["fullname"];
-                $scope.statuses = responseAsJSON["statusList"];
-                $scope.publications = responseAsJSON["publicationList"];
+                
             },
             error: {
             }
 
+        });
+        
+        $("#search-colleagues-btn").click(function () {
+          
+            var firstName = $("#search-first-name").val();
+            var lastName  = $("#search-last-name").val();
+            
+            
+            $.ajax({
+                url: '../queryFirstLastName',
+                type: 'GET',
+                async: false,
+                data: {
+                    "firstName": firstName,
+                    "lastName": lastName
+                },
+                success: function (response) {
+                    
+                    var ul = $("#search-colleagues-list");
+                    ul.empty();
+                    for (var i = 0; i < response.length; i++){
+                        var li = document.createElement("li");
+                        var img = $('<img id="dynamic">');
+                        img.attr('src', "../styles/img/mis/johan-pro-pic.jpg");
+                        img.appendTo(li);
+                        var a = document.createElement('a');
+                        a.href = "#";
+                        a.text = response[i].fullname;
+                        li.appendChild(a);
+                        var p1 = document.createElement("p");
+                        li.appendChild(p1);
+                        
+                        var p2 = document.createElement("p");
+                        p2.innerHTML = "CIDAR Lab";
+                        li.appendChild(p2);
+                        
+                       
+                        var p3 = document.createElement("p");
+                        p3.innerHTML = "Boston University";
+                        li.appendChild(p3);
+                        
+                         
+                        li.setAttribute('class', 'list-group-item');
+                        ul.append(li);
+                    }
+                },
+                error: {
+                }
+
+            });
+            
         });
     });
 
