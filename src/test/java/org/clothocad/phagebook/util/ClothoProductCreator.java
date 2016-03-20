@@ -154,6 +154,7 @@ public class ClothoProductCreator {
         Product telemen = new Product();
         telemen.setName("Telemetric Device");
         telemen.setCompanyId(synBioSupply.getId());
+       
         telemen.setInventory(10);
         telemen.setCost(34.50);
         telemen.setProductURL("www.DougsBioSupply.com");

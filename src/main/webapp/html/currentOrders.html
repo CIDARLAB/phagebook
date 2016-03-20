@@ -16,8 +16,16 @@ and open the template in the editor.
         
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+        
         <script src="../scripts/new-ui-scripts/cookieHandler.js"></script>
         <script src="../scripts/new-ui-scripts/currentOrders.js"></script>
+        <style>
+            #content{
+                margin-left: 20%;
+                position: fixed;
+            }
+        </style>
     </head>
     <body>
         <div ng-module="currentOrders">
@@ -25,7 +33,7 @@ and open the template in the editor.
                 <header></header>
                 <sidebar></sidebar>
             
-        <div class="container">
+        <div class="container" id="content">
         please parse the data needed from the response object in the AJAX call in my javascript file :)
         </div>
                 <footer></footer>

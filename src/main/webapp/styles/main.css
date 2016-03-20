@@ -23,6 +23,27 @@ a:hover {
     background-color: transparent !important;
 }
 
+#add-colleagues-btn {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    background-color: #9E9E9E;
+    color: #FFFFFF;
+    border-radius: 8px;
+    border: none;
+    padding-right: 15px;
+    padding-left: 15px;
+    display: block;
+    clear: both;
+    margin-left: 70%;
+    margin-top: -30px;
+}
+            
+#add-colleagues-btn:hover {
+    background-color: #89C176;
+    border: none;
+}
+
 body {
     font-family: "Open Sans", sans-serif;
     font-style: normal;
@@ -31,7 +52,32 @@ body {
     margin-bottom: 60px;
 }
 
-#edit-profile {
+#colleagues {
+    margin-top: -245px;
+    float: right;
+}
+
+#create-status-btn {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    background-color: #9E9E9E;
+    color: #FFFFFF;
+    border-radius: 8px;
+    border: none;
+    padding-right: 15px;
+    padding-left: 15px;
+    display: block;
+    clear: both;
+    margin-left: 35%;
+}
+            
+#create-status-btn:hover {
+    background-color: #89C176;
+    border: none;
+}
+
+#edit-profile-btn {
     float: right;
     margin-left: 10px;
     background-color: #9E9E9E;
@@ -40,7 +86,7 @@ body {
     border: none;
 }
 
-#edit-profile:hover {
+#edit-profile-btn:hover {
     background-color: #89C176;
     border: none;
 }
@@ -53,9 +99,41 @@ footer {
     background-color:#FDFDFD;
 }
 
+#gear-icon {
+    height: 25px;
+}
+
+#header-btn-toolbar{
+    margin-top: 20px;
+    margin-left: 900px;
+    float: right;
+    position: relative;
+}
+
 h3 {
     font-family: "Open Sans", sans-serif;
     font-weight: 300;
+}
+
+#list-colleagues li {
+    width: 400px;
+}
+
+#list-colleagues li a {
+    color: #1E714A;
+    font-weight: 400;
+}
+
+#list-colleagues li img {
+    height: 90px;
+    vertical-align: middle;
+    margin-left: -15px;
+    margin-top: -10px;
+}
+
+#list-colleagues li p {
+    font-size: 11px;
+    line-height: 10px;
 }
 
 .navbar {
@@ -77,8 +155,8 @@ h3 {
 #profile {
     position: absolute; 
     overflow-x: hidden; 
-    margin-top: 90px;
-    margin-left: 400px;
+    margin-left: 30%;
+    margin-top: 100px;
 }
 
 #profile-header {
@@ -105,6 +183,10 @@ h3 {
     position: absolute;
     float: left;
     height: 180px;
+}
+
+#status-update-textarea {
+    margin: 20px 0px 20px -15px;
 }
 
 td {
