@@ -9,7 +9,6 @@ function sidebar($window){
         },
         controller: function ($scope, $window) {
             
-            
             var currentPathName = $window.location.pathname;
             var tabs = new Object();
             tabs["0"] = "profile.html";
@@ -20,20 +19,14 @@ function sidebar($window){
             tabs["5"] = "orderHistory.html";
             tabs["6"] = "addVendorsAndProducts.html";
       
-            var check;
-            
-            for (var i = 0; i < 7; i++){
-                var url = "/html/" + tabs[i];
-                check = $scope.i;
-               
-                if (url === currentPathName ){
-                    $window.alert("i'm in here: " + currentPathName);
-                    alert($scope );
-                    $scope.i.setAttribute("class", "active");
-                }
-                
-            }
-       
+                var listElement;
+                for (var i = 0; i < 7; i++){
+                    var url = "/html/" + tabs[i];
+                    if (url === currentPathName ){
+                        listElement = document.getElementById(i.toString());
+                        listElement.setAttribute("class", "active");
+                    }
+                }       
             
             //class="active"
             //put code here if want the code to run before compilation
