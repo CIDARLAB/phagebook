@@ -155,6 +155,11 @@ public class processProject extends HttpServlet {
       if(descriptionString != null ){
        description = descriptionString;        
       }
+      String leadEmail = "";
+      String leadEmailIdString = request.getParameter("leadEmailId");
+      if(leadEmailIdString != null ){
+       leadEmail = leadEmailIdString;        
+      }
       System.out.println("(143) description is"); 
       System.out.println(description);
 
@@ -229,6 +234,7 @@ public class processProject extends HttpServlet {
       Person leadPerson = new Person();
       leadPerson.setFirstName(leadStringFirstName);
       leadPerson.setLastName(leadStringLastName);
+      leadPerson.setEmailId(leadEmail);
       System.out.println("(232) Lead " + leadPerson);
 
       

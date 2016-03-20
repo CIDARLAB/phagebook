@@ -246,7 +246,7 @@ public class editProjectTest {
       String projectId1 = ClothoAdapter.setProject(project, clothoObject);
       
       // now test the add update function -- should increase size by 1
-      addUpdateToProject.addProjectUpdate(userId, projectId1, "update3", clothoObject);
+      addUpdateToProject.addProjectUpdate(userId, projectId1, "update3",true, clothoObject);
       
       // check if the size changes
       Project updatedProject = ClothoAdapter.getProject(projectId1, clothoObject);

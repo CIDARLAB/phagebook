@@ -33,15 +33,18 @@ public class addUpdateToProject extends HttpServlet {
   /**
    * 
    * This function creates and associates a new status object with project in 
-   * clotho.
+   * clotho. It returns a list of strings that contain the text of
+   * each update. Continually, depending on the value passed from the 
+   * frontend it would or would not email people.
    * 
    * @param userID
+   * @param emailPeople
    * @param projectID
    * @param newStatus
 
    */
-  protected static List<String> addProjectUpdate(String userID, String projectID, String newStatus, 
-          Clotho clothoObject){
+  protected static List<String> addProjectUpdate(String userID, String projectID,
+          String newStatus, boolean emailPeople, Clotho clothoObject){
     
     // create a new status object
     Status newUpdate = new Status();
@@ -50,6 +53,7 @@ public class addUpdateToProject extends HttpServlet {
     System.out.println(newUpdate);
     System.out.println("About to create a Status in Clotho");
     String statusID = ClothoAdapter.createStatus(newUpdate, clothoObject);
+    
     System.out.println("Status has been created in Clotho and ID is: "+statusID);
     
     // get the objects associated with the passed in IDS from clotho
@@ -73,17 +77,13 @@ public class addUpdateToProject extends HttpServlet {
     System.out.println("In addProjectUpdate function projectID is:");
     System.out.println(foo);
     // TODO: email the peeps associate with the project what update was added
-    
-    sendEmails.sendEmails(foo, editorName, clothoObject);
-    /**
-     * 
-     * 
-    // for now don't email (because it is the demo)
-    
-    * 
-    * 
-    * 
-    */
+    if(emailPeople){
+      System.out.println();
+      System.out.println("I will email the people now");
+      System.out.println();
+      sendEmails.sendEmails(foo, editorName, clothoObject);
+    }
+
     return allUpdates;
   }
 
@@ -135,6 +135,7 @@ public class addUpdateToProject extends HttpServlet {
       String userID = "";
       String projectID = "";
       String newStatus = "";
+      boolean emailPeople = false;
       if(request.getParameter("userID")!=null){
         userID = request.getParameter("userID");
       }
@@ -144,12 +145,16 @@ public class addUpdateToProject extends HttpServlet {
       if(request.getParameter("newStatus")!=null){
         newStatus = request.getParameter("newStatus");
       }
+      if(request.getParameter("emailPeople")!=null){
+        // what if it is not a boolean?
+        emailPeople =  Boolean.parseBoolean(request.getParameter("emailPeople"));
+      }
 
       JSONObject result = new JSONObject();      
 
       // if there is a status
       if(newStatus.length() != 0){
-        List<String> allUpdates = addProjectUpdate(userID, projectID, newStatus, clothoObject);
+        List<String> allUpdates = addProjectUpdate(userID, projectID, newStatus, emailPeople, clothoObject);
         String listString = "";
         for (String s : allUpdates)
         {

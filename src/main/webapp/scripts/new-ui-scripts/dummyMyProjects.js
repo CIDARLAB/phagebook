@@ -20,20 +20,23 @@ $(document).ready(function() {
       var userId = arrOfIds[1];
       var newStatus = $("#newStatus").val();
       console.log(newStatus);
+      var emailPeople = document.getElementById("emailPeople").checked;
+      console.log(emailPeople);
       if(projectId != null && userId !=null && newStatus != null){
-      	 addUpdate(projectId, userId, newStatus);
+      	 addUpdate(projectId, userId, newStatus, emailPeople, emailPeople);
       }else{
-      	alert("Something is missing!");
+      	//alert("Something is missing!");
       }
      
     });
 
-    var addUpdate = function(projectID, userID, newStatus) {
+    var addUpdate = function(projectID, userID, newStatus, emailPeople) {
       	
         var data = {
             "userID": userID,
             "projectID": projectID,
-            "newStatus": newStatus
+            "newStatus": newStatus,
+            "emailPeople": emailPeople
         }
 
         $.ajax({
@@ -60,6 +63,7 @@ $(document).ready(function() {
         var name = "Phagebook";
         var leadFirstName = "Awesome";
         var leadLastName = "Ugrads"
+        var leadEmailId = "agonchar@bu.edu"
         var labs = "CIDAR";
         var projectBudget = 100;
         var grant = "Grant"
@@ -80,6 +84,7 @@ $(document).ready(function() {
             leadFirstName: leadFirstName,
             leadLastName: leadLastName,
             labs: labs,
+            leadEmailId: leadEmailId,
             projectBudget: projectBudget,
             grant: grant,
             description: desc,
