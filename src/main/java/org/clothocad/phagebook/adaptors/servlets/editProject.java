@@ -54,7 +54,7 @@ public class editProject extends HttpServlet {
    * @param params the request values that were converted from httpObject to Hashmap
    * @param clothoObject to log in to clotho
    */
-  static void editProjectFunction(Project project, HashMap params, Clotho clothoObject){
+  static boolean editProjectFunction(Project project, HashMap params, Clotho clothoObject){
        
       // params is the hashmap of new values
       System.out.println("In Edit Project function");
@@ -121,6 +121,10 @@ public class editProject extends HttpServlet {
       System.out.println(clothoObject);
       String foo = ClothoAdapter.setProject(project, clothoObject);
       System.out.println(foo);
+      if(projectID.length()>0){
+        return true;
+      }
+      return false;
       //sendEmails(request);
     }
   
@@ -181,17 +185,20 @@ public class editProject extends HttpServlet {
         String value = request.getParameter(key);
         reqHashMap.put(key, value);
       }
-      editProjectFunction(project, reqHashMap, clothoObject);
-                      
+      boolean result = editProjectFunction(project, reqHashMap, clothoObject);
+            
       // create a result object and send it to the frontend
-//      JSONObject result = new JSONObject();
-//      result.put("success",1);
-//
-//      PrintWriter writer = response.getWriter();
-//      writer.println(result);
-//      writer.flush();
-//      writer.close();
-//    }
+      JSONObject res = new JSONObject();
+      if(result){
+        res.put("success",1);
+      }else{
+        res.put("success",0);
+      }
+
+      PrintWriter writer = response.getWriter();
+      writer.println(res);
+      writer.flush();
+      writer.close();
     }
      
   }

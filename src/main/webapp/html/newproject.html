@@ -26,8 +26,8 @@
     <body>
         <!-- <div ng-module="projectsApp"> -->
         <div ng-module="newProjects">
-        <header></header>
-        <sidebar></sidebar>
+            <header></header>
+            <sidebar></sidebar>
             <div ng-controller="newProjectsCtrl">
                 <!-- <div ng-controller="newProjectsCtrl"> -->
                 <div class="container-fluid" id="newProject">
@@ -45,40 +45,41 @@
                                     <span class="error" ng-show="submitProject.name.$error.maxlength">
           Maximum length is 100 characters.</span>
                                 </div>
-                                <!--    
-      <div class="form-group"> <!~~ Organization lab ~~>
-        <label for="inputLab3" class="col-sm-2 control-label" >Lab(s)/Organization(s)</label>  
-        <div class="col-sm-4">
-          <input class="form-control" id="inputLab3" placeholder="Lab(s)" ng-model="formData.labs">
-        </div>
-         <span ng-show="labsRequired">{{labsRequired}}</span>
-      </div>
-      <div class="form-group"> <!~~ Person lead ~~>
-        <label for="inputLead3" class="col-sm-2 control-label" >Lead</label>  
-        <div class="col-sm-4">
-          <input class="form-control" id="inputLead3" placeholder="Lead" ng-model="formData.lead">
-        </div>
-         <span ng-show="leadRequired">{{leadRequired}}</span>
-      </div>
-      <div class="form-group">  <!~~ Double projectBudget ~~>
-        <label for="inputProjectBudget3" class="col-sm-2 control-label" >Project Budget</label>  
-        <div class="col-sm-4">
-          <input name="projectBudget" type="number" class="form-control" id="inputBudget3" placeholder="Budget" min="0" ng-model="formData.projectBudget">
-        </div>
-         <span ng-show="projectBudgetRequired">{{projectBudgetRequired}}</span>
-         <span class="error" ng-show="submitProject.projectBudget.$error.number">
+                                <div class="form-group">
+                                    <!~~ Organization lab ~~>
+                                    <label for="inputLab3" class="control-label">Lab(s)/Organization(s)</label>
+                                    <div class="">
+                                        <input class="form-control" id="inputLab3" placeholder="Lab(s)" ng-model="formData.labs">
+                                    </div>
+                                    <span ng-show="labsRequired">{{labsRequired}}</span>
+                                </div>
+                                <div class="form-group">
+                                    <!~~ Person lead ~~>
+                                    <label for="inputLead3" class="control-label">Lead</label>
+                                    <div class="">
+                                        <input class="form-control" id="inputLead3" placeholder="Lead" ng-model="formData.lead">
+                                    </div>
+                                    <span ng-show="leadRequired">{{leadRequired}}</span>
+                                </div>
+                                <div class="form-group">
+                                    <!~~ Double projectBudget ~~>
+                                    <label for="inputProjectBudget3" class="control-label">Project Budget</label>
+                                    <div class="">
+                                        <input name="projectBudget" type="number" class="form-control" id="inputBudget3" placeholder="Budget" min="0" ng-model="formData.projectBudget">
+                                    </div>
+                                    <span ng-show="projectBudgetRequired">{{projectBudgetRequired}}</span>
+                                    <span class="error" ng-show="submitProject.projectBudget.$error.number">
            Not a valid number.
          </span>
-      </div>
-      
-      <div class="form-group"> <!~~ Grant projectGrant by string name? ~~>
-        <label for="inputGrant3" class="col-sm-2 control-label" >Grant</label>  
-        <div class="col-sm-4">
-          <input  class="form-control" id="inputGrant3" placeholder="Grant" ng-model="formData.grant">
-        </div>
-         <span ng-show="projectGrantRequired">{{projectGrantRequired}}</span>
-      </div>
-    -->
+                                </div>
+                                <div class="form-group">
+                                    <!~~ Grant projectGrant by string name? ~~>
+                                    <label for="inputGrant3" class="control-label">Grant</label>
+                                    <div class="">
+                                        <input class="form-control" id="inputGrant3" placeholder="Grant" ng-model="formData.grant">
+                                    </div>
+                                    <span ng-show="projectGrantRequired">{{projectGrantRequired}}</span>
+                                </div>
                                 <div class="form-group">
                                     <!--String Description-->
                                     <label for="inputDescription3" class="control-label">Description*</label>

@@ -40,7 +40,7 @@ public class addUpdateToProject extends HttpServlet {
    * @param newStatus
 
    */
-  protected static void addProjectUpdate(String userID, String projectID, String newStatus, 
+  protected static List<String> addProjectUpdate(String userID, String projectID, String newStatus, 
           Clotho clothoObject){
     
     // create a new status object
@@ -57,7 +57,6 @@ public class addUpdateToProject extends HttpServlet {
     Project project = ClothoAdapter.getProject(projectID, clothoObject);  
     
     String editorName = editor.getFirstName() + " " +editor.getLastName();
-    //String projectName = 
     System.out.println(editorName);
     System.out.println(project.getName());
      
@@ -68,12 +67,23 @@ public class addUpdateToProject extends HttpServlet {
     // update the update lists in the project object
     project.setUpdates(projectUpdates);
     
+    List<String> allUpdates= project.getUpdates();
     // change the project in clotho
     String foo = ClothoAdapter.setProject(project, clothoObject);
     System.out.println("In addProjectUpdate function projectID is:");
     System.out.println(foo);
     // TODO: email the peeps associate with the project what update was added
-    sendEmails.sendEmails(foo, editorName, clothoObject);
+    
+    /**
+     * 
+     * 
+    // for now don't email (because it is the demo)
+    //sendEmails.sendEmails(foo, editorName, clothoObject);
+    * 
+    * 
+    * 
+    */
+    return allUpdates;
   }
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -138,8 +148,17 @@ public class addUpdateToProject extends HttpServlet {
 
       // if there is a status
       if(newStatus.length() != 0){
-        addProjectUpdate(userID, projectID, newStatus, clothoObject);
+        List<String> allUpdates = addProjectUpdate(userID, projectID, newStatus, clothoObject);
+        String listString = "";
+        for (String s : allUpdates)
+        {
+            //listString += s + "\t";
+            Status update = ClothoAdapter.getStatus(s, clothoObject);
+            System.out.println(update.getText());
+            listString += update.getText() + " ";
+        }
         result.put("success",1);
+        result.put("updates",listString);
       }else{
         System.out.println("Update was too short -- letting the user know!");
 

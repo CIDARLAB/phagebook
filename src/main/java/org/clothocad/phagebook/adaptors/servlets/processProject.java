@@ -84,6 +84,21 @@ public class processProject extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
+      ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+      Clotho clothoObject = new Clotho(conn);
+      Map createUserMap = new HashMap();
+      String username = "username";
+      String password = "password";
+
+      createUserMap.put("username", username);
+      createUserMap.put("password", password);
+
+      clothoObject.createUser(createUserMap);
+      Map loginMap = new HashMap();
+      loginMap.put("username", username);
+      loginMap.put("credentials", password);  
+
+      clothoObject.login(loginMap);
 
       // who is the user ?
       // get all of the fields from the request
@@ -147,8 +162,8 @@ public class processProject extends HttpServlet {
       System.out.println("(147) date is");
       System.out.println(date);
 
-      ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
-      Clotho clothoObject = new Clotho(conn);
+//      ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+//      Clotho clothoObject = new Clotho(conn);
 
       // Establish authorship here
       /*
@@ -169,20 +184,20 @@ public class processProject extends HttpServlet {
       creator.setPassword("1234567890");
       creator.setActivated(true);
 
-      String username = creator.getEmailId();
-      String password = creator.getPassword();
+//      String username = creator.getEmailId();
+//      String password = creator.getPassword();
 
       System.out.println("(173) creating a hashmap for the creator in Clotho");
 
-      Map createUserMap = new HashMap();
-      createUserMap.put("username", username);
-      createUserMap.put("password", password);
-      clothoObject.createUser(createUserMap);
-
-      Map loginMap = new HashMap();
-      loginMap.put("username", username);
-      loginMap.put("credentials", password);     
-      clothoObject.login(loginMap);
+//      Map createUserMap = new HashMap();
+//      createUserMap.put("username", username);
+//      createUserMap.put("password", password);
+//      clothoObject.createUser(createUserMap);
+//
+//      Map loginMap = new HashMap();
+//      loginMap.put("username", username);
+//      loginMap.put("credentials", password);     
+//      clothoObject.login(loginMap);
 
       String creatorID = ClothoAdapter.createPerson(creator, clothoObject);
       creator = ClothoAdapter.getPerson(creatorID, clothoObject);
@@ -210,7 +225,6 @@ public class processProject extends HttpServlet {
       // ajax support for getting lead names and displaying the
       // options.
 
-      clothoObject.login(loginMap);
 
       Person leadPerson = new Person();
       leadPerson.setFirstName(leadStringFirstName);
@@ -232,6 +246,7 @@ public class processProject extends HttpServlet {
         project.setAffiliatedLabs(labsList);
         project.setDescription(description);
 
+      clothoObject.login(loginMap);
       String projectID = ClothoAdapter.createProject(project, clothoObject);   
 
       System.out.println("(243) Project id is "+ projectID);
@@ -242,12 +257,13 @@ public class processProject extends HttpServlet {
       JSONObject result = new JSONObject();
 
       if(projectID != null){
-      result.put("success",1);
-      result.put("projectID", projectID);
-      System.out.println("successful");     
+        result.put("success",1);
+        result.put("projectID", projectID);
+        result.put("userID", leadPersonID);
+        System.out.println("successful");     
       }else{
-      result.put("error",1);
-      System.out.println("not successful"); 
+        result.put("error",1);
+        System.out.println("not successful"); 
       }
 
       PrintWriter writer = response.getWriter();
