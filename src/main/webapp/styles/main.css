@@ -113,6 +113,10 @@ h3 {
     font-weight: 300;
 }
 
+#list-colleagues {
+    position: relative;
+}
+
 #list-colleagues li {
     width: 400px;
 }
