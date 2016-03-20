@@ -9,7 +9,6 @@ function sidebar($window){
         },
         controller: function ($scope, $window) {
             
-            
             var currentPathName = $window.location.pathname;
             var tabs = new Object();
             tabs["0"] = "profile.html";
@@ -21,17 +20,21 @@ function sidebar($window){
             tabs["6"] = "addVendorsAndProducts.html";
       
             var check;
+            addEventListener('load', load, false);
             
-            for (var i = 0; i < 7; i++){
-                var url = "/html/" + tabs[i];
-                check = $scope.i;
-               
-                if (url === currentPathName ){
-                    $window.alert("i'm in here: " + currentPathName);
-                    alert($scope );
-                    $scope.i.setAttribute("class", "active");
+            function load() {
+                var listElement;
+                for (var i = 0; i < 7; i++){
+                    var url = "/html/" + tabs[i];
+                    check = $scope.i;
+
+                    if (url === currentPathName ){
+                        $window.alert("i'm in here: " + currentPathName);
+                        alert($scope );
+                        listElement = document.getElementById(i);
+                        listElement.setAttribute("class", "active");
+                    }
                 }
-                
             }
        
             

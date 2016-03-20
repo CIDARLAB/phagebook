@@ -37,9 +37,37 @@ a:hover {
     clear: both;
     margin-left: 70%;
     margin-top: -30px;
+    float: right;
 }
             
 #add-colleagues-btn:hover {
+    background-color: #89C176;
+    border: none;
+}
+
+#add-colleagues-modal {
+    margin-top: 10px;
+    margin-left: 40px;
+}
+
+#add-publication-btn {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    background-color: #9E9E9E;
+    color: #FFFFFF;
+    border-radius: 8px;
+    border: none;
+    padding-right: 15px;
+    padding-left: 15px;
+    display: block;
+    clear: both;
+    margin-left: 70%;
+    margin-top: -30px;
+    float: right;
+}
+            
+#add-publication-btn:hover {
     background-color: #89C176;
     border: none;
 }
@@ -56,6 +84,31 @@ body {
     margin-top: -245px;
     margin-left: 50px;
     float: right;
+}
+
+#colleagues-full-list {
+    display: inline;
+}
+
+#colleagues-full-list a {
+    color: #1E714A;
+    font-weight: 400;
+}
+
+#colleagues-full-list li {
+    margin-right: 50px;
+    margin-bottom: 25px;
+    height: 112px;
+}
+
+#colleagues-full-list img {
+    margin-top: -10px;
+    margin-left: -5px;
+    height: 110px;
+}
+
+#colleagues-tab {
+    margin-top: 50px;
 }
 
 #create-status-btn {
@@ -137,6 +190,16 @@ h3 {
     line-height: 10px;
 }
 
+#load-more-btn {
+    background-color: #FFFFFF;
+    border-radius: 0px;
+}
+
+#load-more-btn:hover {
+    background-color: #C1C1C1;
+    border-radius: 0px;
+}
+
 .navbar {
     -webkit-box-shadow: 0 8px 6px -6px #999;
     -moz-box-shadow: 0 8px 6px -6px #999;
@@ -184,6 +247,48 @@ h3 {
     position: absolute;
     float: left;
     height: 180px;
+}
+
+#publications {
+    margin-top: 50px;
+}
+
+#publications li {
+    padding: 30px 20px 20px 20px;
+    margin-bottom: 25px;
+}
+
+#publications p {
+    font-style: italic;
+    line-height: 10px;
+}
+
+#search-colleagues {
+    margin-top: 20px;
+}
+#search-colleagues-btn {
+    font-size: 14px;
+    background: #1E714A;
+    color: #FFFFFF;
+    border-radius: 24px;
+    padding: 8px 25px 8px 25px;
+}
+            
+#search-colleagues-btn:hover {
+    background: #31A16F;
+    color: #FFFFFF;
+}
+
+#see-full-list-btn {
+    background-color: #FFFFFF;
+    border-radius: 0px;
+    display: block;
+    width: 100%;
+}
+
+#see-full-list-btn:hover {
+    background-color: #C1C1C1;
+    border-radius: 0px;
 }
 
 #status-update-textarea {
