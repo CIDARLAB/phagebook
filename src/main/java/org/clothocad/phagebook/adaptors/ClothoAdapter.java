@@ -868,6 +868,15 @@ public class ClothoAdapter {
                 map.put("notebooks", notebooks);
             }
         }
+        if (person.getInstitution() !=null)
+            map.put("institution", person.getInstitution());
+        
+        if (person.getDepartment() !=null)
+            map.put("department", person.getDepartment());
+        
+        if (person.getTitle() !=null)
+            map.put("title", person.getTitle());
+        
         if (person.getLabs() != null)
         {
             if(!person.getLabs().isEmpty())
@@ -3169,6 +3178,21 @@ public class ClothoAdapter {
             }
         }
 
+        String institution = "";
+        if ( map.containsKey("institution")){
+            institution = (String) map.get("institution");
+        }
+        
+        String department = "";
+        if ( map.containsKey("department")){
+            department = (String) map.get("department");
+        }
+        
+        String title = "";
+        if ( map.containsKey("title")){
+            title = (String) map.get("title");
+        }
+        
         String id = "";
         if (map.containsKey("id")){
              id = (String) map.get("id");
@@ -3210,7 +3234,10 @@ public class ClothoAdapter {
         person.setActivated( map.containsKey("activated") ? (boolean) map.get("activated") : false);
         System.out.println("IN MAP TO PERSON: "+ map.toString());
         person.setActivationString( map.containsKey("activationString") ? (String) map.get("activationString") : "Not Set");
-    
+        
+        person.setInstitution(institution);
+        person.setDepartment(department);
+        person.setTitle(title);
         
         person.setSalt(map.containsKey("salt") ? (String) map.get("salt") : "");
        

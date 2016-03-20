@@ -32,13 +32,13 @@
                     <div class="row" >
                         <div class="panel panel-default">
                         <div class="panel-body" id="profile-overview">
-                            <img class="img-circle" alt="Profile Picture for {{clothoId}}" src="{{profilePictureLink}}" id="profile-picture">
-                            <button id="edit-profile" type="button" class="btn btn-default">
+                            <img class="img-circle" alt="Upload an Image" src="{{profilePictureLink}}" id="profile-picture">
+                            <button id="edit-profile-btn" type="button" class="btn btn-default">
                                 <img alt="Edit Profile" src="../styles/img/icons/white-pencil.png" style="height:20px">
                             </button>
                             <table class="table" id="profile-header">
                                 <tr id="profile-name">
-                                    <td><h3>Douglas Densmore</h3></td>
+                                    <td><h3>{{fullName}}</h3></td>
                                 </tr>
                                 <tr id="profile-description">
                                     <td><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut hendrerit erat. Quisque vehicula risus nec molestie ultrices.</p></td>
@@ -48,15 +48,15 @@
                             <table class="table" id="profile-info">
                                 <tr>
                                     <td><p style="color: #1E714A;">Institution</p></td>
-                                    <td id="profile-institution"><p>Boston University</p></td>
+                                    <td id="profile-institution"><p>{{institution}}</p></td>
                                 </tr>
                                 <tr>
                                     <td><p style="color: #1E714A;">Department</p></td>
-                                    <td id="profile-dept"><p>Electrical & Computer Engineering</p></td>
+                                    <td id="profile-dept"><p>{{department}}</p></td>
                                 </tr>
                                 <tr>
                                     <td><p style="color: #1E714A;">Title</p></td>
-                                    <td id="profile-title"><p>Associate Professor</p></td>
+                                    <td id="profile-title"><p>{{title}}</p></td>
                                 </tr>
                             </table>
                         </div>
@@ -154,7 +154,6 @@
                         </div>
                     </div>
                 </div>
-                <content></content>
                 <br> <br>
                 <footer></footer>
             </div>
