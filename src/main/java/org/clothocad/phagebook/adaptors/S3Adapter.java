@@ -35,70 +35,41 @@ public class S3Adapter {
 
     public static void initializeUserFolder(Person pers) {
         String clothoId = pers.getId();
-        String filepath = "C:\\Users\\azula\\Documents\\CIDAR\\phagebook\\credentialsAWS.txt";
-        List<String> credentialsList = new ArrayList<String>();
-        try {
-            FileReader fr = new FileReader(new File(filepath));
-            BufferedReader br = new BufferedReader(fr);
-            String line;
-            while ((line = br.readLine()) != null) {
-                //System.out.println("LINE :: " + line);
-                credentialsList.add(line);
-            }
-            String username = credentialsList.get(0);
-            String password = credentialsList.get(1);
-            System.out.println("Username :: " + username);
-            System.out.println("Password :: " + password);
-            AWSCredentials credentials = new BasicAWSCredentials(username, password);
-            System.out.println("Login Complete");
-            
-            AmazonS3 s3client = new AmazonS3Client(credentials);
-            
-            // list buckets
-            for (Bucket bucket : s3client.listBuckets()) {
-                System.out.println(" - " + bucket.getName());
-            }
 
-            System.out.println("Clotho id " + clothoId);
-            createS3Folder("phagebookaws", clothoId, s3client); 
+        AWSCredentials credentials = new BasicAWSCredentials(S3Credentials.getUsername(), S3Credentials.getPassword());
+        AmazonS3 s3client = new AmazonS3Client(credentials);
+        System.out.println("Login Complete");
 
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(createPerson.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(createPerson.class.getName()).log(Level.SEVERE, null, ex);
+        // list buckets
+        for (Bucket bucket : s3client.listBuckets()) {
+            System.out.println(" - " + bucket.getName());
         }
+
+        System.out.println("Clotho id " + clothoId);
+        createS3Folder("phagebookaws", clothoId, s3client);
+
+        //------------TESTING BEFORE INTEGRATED INTO PROFILE------------
+        String fileName = clothoId + "/" + "profilePicture.jpg";
+        String picturePath = "C:\\Users\\azula\\Pictures\\AllisonDurkan.jpg";
+        s3client.putObject(new PutObjectRequest("phagebookaws", fileName,
+                new File(picturePath))
+                .withCannedAcl(CannedAccessControlList.PublicRead));
 
     }
 
-    public static void uploadFile(Person pers, String bucketName, String filePath) {
+    public static void uploadProfilePicture(Person pers, String bucketName, String filePath) {
         String clothoId = pers.getId();
-        List<String> credentialsList = new ArrayList<String>();
-        try {
-            FileReader fr = new FileReader(new File("../../credentials.txt"));
-            BufferedReader br = new BufferedReader(fr);
-            String line;
-            while ((line = br.readLine()) != null) {
-                System.out.println("LINE :: " + line);
-                credentialsList.add(line);
-            }
-            String username = credentialsList.get(0);
-            String password = credentialsList.get(1);
-            //profile picture upload gets called with fileName == "profilePicture.jpg"
-            AWSCredentials credentials = new BasicAWSCredentials(username, password);
-            AmazonS3 s3client = new AmazonS3Client(credentials);
-            String fileName = clothoId + "/" + "profilePicture.jpg";
-            s3client.putObject(new PutObjectRequest(bucketName, fileName,
-                    new File(filePath))
-                    .withCannedAcl(CannedAccessControlList.PublicRead));
+        AWSCredentials credentials = new BasicAWSCredentials(S3Credentials.getUsername(), S3Credentials.getPassword());
+        System.out.println("Login Complete");
 
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(createPerson.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(createPerson.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        AmazonS3 s3client = new AmazonS3Client(credentials);
+        String fileName = clothoId + "/" + "profilePicture.jpg";
+        s3client.putObject(new PutObjectRequest(bucketName, fileName,
+                new File(filePath))
+                .withCannedAcl(CannedAccessControlList.PublicRead));
 
     }
- 
+
     private static void createS3Folder(String bucketName, String folderName, AmazonS3 client) {
         // create meta-data for your folder and set content-length to 0
         ObjectMetadata metadata = new ObjectMetadata();
@@ -110,6 +81,6 @@ public class S3Adapter {
                 folderName + "/", emptyContent, metadata); //folder name should be clothoID
         // send request to S3 to create folder
         client.putObject(putObjectRequest.withCannedAcl(CannedAccessControlList.PublicRead));
-        
-    }  
+
+    }
 }

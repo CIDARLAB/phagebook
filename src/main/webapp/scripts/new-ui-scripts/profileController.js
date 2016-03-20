@@ -1,4 +1,9 @@
 function profileCtrl($scope) {
+   var clothoId = getCookie("clothoId"); //this will get the clothoId from the cookie
+   $scope.clothoId = clothoId;
+   $scope.profilePictureLink = "http://s3.amazonaws.com/phagebookaws/" + clothoId + "/profilePicture.jpg";
+
+    
     $("document").ready(function () {
         $.ajax({
             url: 'getPersonById',
@@ -56,10 +61,6 @@ function profileCtrl($scope) {
             $scope.$apply();
         });
     };
-
-   var clothoId = getCookie("clothoId"); //this will get the clothoId from the cookie
-   $scope.clothoId = clothoId;
-   $scope.profilePictureLink = "http://s3.amazonaws.com/" + clothoId + "/profilePicture.jpg";
 
 }
 
