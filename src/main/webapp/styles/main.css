@@ -35,7 +35,8 @@ a:hover {
     padding-left: 15px;
     display: block;
     clear: both;
-    margin-left: 35%;
+    margin-left: 70%;
+    margin-top: -30px;
 }
             
 #add-colleagues-btn:hover {
@@ -52,6 +53,7 @@ body {
 }
 
 #colleagues {
+    margin-top: -245px;
     float: right;
 }
 
@@ -113,10 +115,6 @@ h3 {
     font-weight: 300;
 }
 
-#list-colleagues {
-    position: relative;
-}
-
 #list-colleagues li {
     width: 400px;
 }
@@ -127,14 +125,15 @@ h3 {
 }
 
 #list-colleagues li img {
-    height: 106px;
+    height: 90px;
     vertical-align: middle;
     margin-left: -15px;
     margin-top: -10px;
 }
 
-#list-colleague li p {
-    font-size: 10px;
+#list-colleagues li p {
+    font-size: 11px;
+    line-height: 10px;
 }
 
 .navbar {
