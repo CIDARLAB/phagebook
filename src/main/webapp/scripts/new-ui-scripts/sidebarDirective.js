@@ -19,24 +19,14 @@ function sidebar($window){
             tabs["5"] = "orderHistory.html";
             tabs["6"] = "addVendorsAndProducts.html";
       
-            var check;
-            addEventListener('load', load, false);
-            
-            function load() {
                 var listElement;
                 for (var i = 0; i < 7; i++){
                     var url = "/html/" + tabs[i];
-                    check = $scope.i;
-
                     if (url === currentPathName ){
-                        $window.alert("i'm in here: " + currentPathName);
-                        alert($scope );
-                        listElement = document.getElementById(i);
+                        listElement = document.getElementById(i.toString());
                         listElement.setAttribute("class", "active");
                     }
-                }
-            }
-       
+                }       
             
             //class="active"
             //put code here if want the code to run before compilation
