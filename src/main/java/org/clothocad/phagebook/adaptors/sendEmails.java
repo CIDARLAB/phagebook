@@ -132,14 +132,17 @@ public class sendEmails {
     Person lead = ClothoAdapter.getPerson(project.getLeadId(), clothoObject);
     Map people = new HashMap();
     people.put(creator.getEmailId(), creator.getFirstName() + ' ' + creator.getLastName());
-    people.put(creator.getEmailId(), lead.getFirstName() + ' ' + lead.getLastName());
+    people.put(lead.getEmailId(), lead.getFirstName() + ' ' + lead.getLastName());
     // go through the list of members to add them to the hashmap
     for(int i = 0; i<members.size(); i++){
       String personId = members.get(i);
-      System.out.println(personId);
       Person member = ClothoAdapter.getPerson(personId, clothoObject);
       String memberEmail = member.getEmailId();
       String memberName = member.getFirstName() + ' ' + member.getLastName();
+//      System.out.println("/n");
+//      System.out.println(memberName);
+//      System.out.println(memberEmail);
+//      System.out.println("/n");
       people.put(memberEmail, memberName);
 
     }

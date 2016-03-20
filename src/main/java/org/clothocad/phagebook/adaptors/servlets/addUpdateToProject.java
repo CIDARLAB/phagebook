@@ -74,11 +74,12 @@ public class addUpdateToProject extends HttpServlet {
     System.out.println(foo);
     // TODO: email the peeps associate with the project what update was added
     
+    sendEmails.sendEmails(foo, editorName, clothoObject);
     /**
      * 
      * 
     // for now don't email (because it is the demo)
-    //sendEmails.sendEmails(foo, editorName, clothoObject);
+    
     * 
     * 
     * 

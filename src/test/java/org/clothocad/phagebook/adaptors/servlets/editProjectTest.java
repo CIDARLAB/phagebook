@@ -68,7 +68,7 @@ public class editProjectTest {
         person1.setFirstName("Person");
         person1.setLastName("Creator");
         person1.setId(idP1);
-        person1.setEmailId("Creator" + time + "@gmail.com");
+        person1.setEmailId("anna@goncharova.com");
         person1.setPassword("person1");
         
         String creatorEmail = person1.getEmailId();
