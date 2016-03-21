@@ -1,13 +1,68 @@
-function profileCtrl($scope, $http) {
+ function profileCtrl($scope, $http) {
     var clothoId = getCookie("clothoId"); //this will get the clothoId from the cookie
     $scope.clothoId = clothoId;
     $scope.profilePictureLink = "http://s3.amazonaws.com/phagebookaws/" + clothoId + "/profilePicture.jpg";
 
+    $("document").ready(function () {
+        $("#search-colleagues-btn").click(function () {
+          
+            var firstName = $("#search-first-name").val();
+            var lastName  = $("#search-last-name").val();
+            
+            
+            $.ajax({
+                url: '../queryFirstLastName',
+                type: 'GET',
+                async: false,
+                data: {
+                    "firstName": firstName,
+                    "lastName": lastName
+                },
+                success: function (response) {
+                    
+                    var ul = $("#search-colleagues-list");
+                    ul.empty();
+                    for (var i = 0; i < response.length; i++){
+                        var li = document.createElement("li");
+                        var img = $('<img id="dynamic">');
+                        img.attr('src', "../styles/img/mis/johan-pro-pic.jpg");
+                        img.appendTo(li);
+                        var a = document.createElement('a');
+                        a.href = "#";
+                        a.text = response[i].fullname;
+                        li.appendChild(a);
+                        var p1 = document.createElement("p");
+                        li.appendChild(p1);
+                        
+                        var p2 = document.createElement("p");
+                        p2.innerHTML = "CIDAR Lab";
+                        li.appendChild(p2);
+                        
+                       
+                        var p3 = document.createElement("p");
+                        p3.innerHTML = "Boston University";
+                        li.appendChild(p3);
+                        
+                         
+                        li.setAttribute('class', 'list-group-item');
+                        ul.append(li);
+                    }
+                },
+                error: {
+                }
+
+            });
+            
+        });
+
+    });
+
+  
     $http({
         method: 'GET',
         url: 'getPersonById',
         params: {
-            "userId": clothoId
+            "userId": clothoId      
         }
     }).then(function successCallback(response) {
         var responseAsJSON = angular.fromJson(response.data);
@@ -20,9 +75,6 @@ function profileCtrl($scope, $http) {
         console.log("inside GET error");
     });
 
-    $http({
-        method: ''
-    })
 }
 
 

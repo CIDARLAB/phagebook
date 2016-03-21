@@ -199,6 +199,17 @@ h3 {
     border-radius: 0px;
 }
 
+#moreDropdown ul {
+    padding: 0px 0px 0px 0px;
+    width: 225px;
+}
+
+#moreDropdown ul li {
+    padding: 0px 0px 0px 0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 .navbar {
     -webkit-box-shadow: 0 8px 6px -6px #999;
     -moz-box-shadow: 0 8px 6px -6px #999;
