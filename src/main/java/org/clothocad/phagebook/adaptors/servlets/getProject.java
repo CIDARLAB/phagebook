@@ -28,11 +28,13 @@ public class getProject extends HttpServlet {
  @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         PrintWriter writer = response.getWriter();
-        String id = request.getParameter("id");
-        System.out.println(id);
-        System.out.println("inside getPorject");
-//        System.out.println("id ::" + id);
-//        System.out.println("inside servlet " + id);
+        
+        
+        Object projectIdObj = request.getParameter("projectID");
+        String projectId  = projectIdObj != null ? (String) projectIdObj : "" ;
+        System.out.println("projectId is:"); 
+        System.out.println(projectId);
+        System.out.println("inside Get Project");
         
         // possibly do not need this here
         Map createUserMap = new HashMap();
@@ -54,12 +56,13 @@ public class getProject extends HttpServlet {
         
         JSONObject projectObject = new JSONObject();
         System.out.println("before getProject");
-        Project proj =  ClothoAdapter.getProject(id, clothoObject);
-        System.out.println("here1");
+        Project proj =  ClothoAdapter.getProject(projectId, clothoObject);
+        System.out.println("After Clotho Adapter get project");
         
-        System.out.println(proj);
+        //System.out.println(proj);
         
         String desc = proj.getDescription();
+        System.out.println("Description is:");
         System.out.println(desc);
         
         projectObject.put("description",desc);
@@ -67,9 +70,9 @@ public class getProject extends HttpServlet {
         //projectObject.put("affiliatedLabs", proj.getAffiliatedLabs());
         projectObject.put("projectName", proj.getName());
         //projectObject.put("notebooks", proj.getNotebooks());
-        //projectObject.put("updates", proj.getUpdates());
-        //Grant grant = ClothoAdapter.getGrant(proj.getGrantId(), clothoObject);
-        //projectObject.put("grant", grant.getId());
+        projectObject.put("updates", proj.getUpdates());
+        Grant grant = ClothoAdapter.getGrant(proj.getGrantId(), clothoObject);
+        projectObject.put("grant", grant.getId());
 
         if(proj.getDateCreated() != null){
             String delims = "[ ]+";
@@ -81,7 +84,7 @@ public class getProject extends HttpServlet {
         System.out.println("here2");
         if(proj.getMembers() != null){
         }
-        if(!(proj.getCreatorId() == "")){
+        if(!(proj.getCreatorId().equals(""))){
             
             Person creator = ClothoAdapter.getPerson(proj.getCreatorId(), clothoObject);
             System.out.println( creator.getFirstName()+" " +creator.getLastName());
@@ -89,8 +92,8 @@ public class getProject extends HttpServlet {
         }
         //projectObject.put("members", proj.getMembers());
 
-        if(!(proj.getLeadId() == "")){
-            System.out.println("getting afdasf lead");
+        if(!(proj.getLeadId().equals(""))){
+            System.out.println("getting lead");
             String leadtId = proj.getLeadId();
             System.out.println(leadtId);
             Person lead = ClothoAdapter.getPerson(proj.getLeadId(), clothoObject);

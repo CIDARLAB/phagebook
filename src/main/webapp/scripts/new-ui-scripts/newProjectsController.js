@@ -111,7 +111,7 @@ console.log("loaded");
         console.log(dataSubmit); 
         console.log(response);
         console.log("response!!!");
-        setCookie("projectID", response.projectID);
+        setCookie("projectId", response.projectId, 10);
         console.log(document.cookie);
         //location.assign("./html/displayProjects.html");
 

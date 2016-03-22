@@ -125,7 +125,11 @@ public class processProject extends HttpServlet {
 
         
       String projectBudgetVal = request.getParameter("projectBudget");
+      System.out.println((String)projectBudgetVal);
       double projectBudget = 0.0;
+      if(!projectBudgetVal.equals("")  && projectBudgetVal != null){
+        projectBudget =Double.parseDouble((String) projectBudgetVal);
+      }
         System.out.println("Budget is:"); 
         System.out.println(projectBudget);
         
