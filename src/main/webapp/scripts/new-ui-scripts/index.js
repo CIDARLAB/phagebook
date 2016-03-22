@@ -28,7 +28,7 @@ $(document).ready(function () {
             } else if ( selectedInstitution === "Institution..."){
                 removeOptions(selectLabs);
                 var opt2 = document.createElement('option');
-                   opt2.value = -1;
+                   opt2.value = "";
                    opt2.innerHTML = "Lab Name...";
                    selectLabs.appendChild(opt2);
                 return;
@@ -58,7 +58,7 @@ $(document).ready(function () {
             removeOptions(selectInstitution);
             
             var opt = document.createElement('option');
-            opt.value = -1;
+            opt.value = "";
 
             opt.innerHTML = "Institution...";
             selectInstitution.appendChild(opt);

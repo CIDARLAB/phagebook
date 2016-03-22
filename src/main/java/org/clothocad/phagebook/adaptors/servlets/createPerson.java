@@ -103,15 +103,18 @@ public class createPerson extends HttpServlet {
         createdPerson.setEmailId(emailId);
         createdPerson.setPassword(password);
         
-        List<String> institutions = createdPerson.getInstitutions();
-        institutions.add(institutionId);
+        if (!institutionId.equals("")){
+            List<String> institutions = createdPerson.getInstitutions();
+            institutions.add(institutionId);
+            createdPerson.setInstitutions(institutions);
+        }
         
-        createdPerson.setInstitutions(institutions);
-        
-        List<String> labs = createdPerson.getLabs();
-        labs.add(labId);
-        
-        createdPerson.setLabs(labs);
+        if (!labId.equals("")){
+            List<String> labs = createdPerson.getLabs();
+            labs.add(labId);
+
+            createdPerson.setLabs(labs);
+        }
         
         
       
