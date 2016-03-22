@@ -7,6 +7,7 @@ package org.clothocad.phagebook.adaptors.ws;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -195,19 +196,27 @@ public class PhagebookSocket
                     loginResult = (Map)clothoObject.login(loginMap);
                     
                     Map ordersMap = new HashMap();
-                    List<String> orderids = ClothoAdapter.getPerson(loginResult.get("id").toString(), clothoObject).getApprovedOrders();
-
+                    Map queryMap = new HashMap();
+                    queryMap.put("emailId",getOrdersMap.get("username"));
+                    
+                    List<Person> person = ClothoAdapter.queryPerson(queryMap, clothoObject, ClothoAdapter.QueryMode.EXACT);
+                    
+                    List<String> orderids = person.get(0).getCreatedOrders();
+                    
                     int numberOfOrders = orderids.size();
                     
+                    List<Map> allOrders = new ArrayList<Map>();
                     for (int i = 0; i < numberOfOrders; i++)
                     {
-                        Order order = ClothoAdapter.getOrder(orderids.get(i), clothoObject);
-                   
-                        ordersMap.put("projectId",order.getId());
-                        ordersMap.put("projectName",order.getName());
+                        Order order = new Order();
+                        order = ClothoAdapter.getOrder(orderids.get(i), clothoObject);
+                        
+                        ordersMap.put("orderId",order.getId());
+                        ordersMap.put("orderName",order.getName());
+                        allOrders.add(ordersMap);
                     }
                     
-                    result.put("data", ordersMap);
+                    result.put("data", allOrders);
                     
                     break;
                 }
@@ -233,7 +242,7 @@ public class PhagebookSocket
                     JSONProject.put("notebooks",project.getNotebooks());
                     JSONProject.put("affiliatedLabs",project.getAffiliatedLabs());
                     JSONProject.put("name",project.getName());
-                    JSONProject.put("dateCreated",project.getDateCreated());
+                    JSONProject.put("dateCreated",project.getDateCreated().toString());
                     JSONProject.put("updates",project.getUpdates());
                     JSONProject.put("budget",project.getBudget());
                     JSONProject.put("grantId",project.getGrantId());
@@ -252,13 +261,9 @@ public class PhagebookSocket
                     Map loginMap = new HashMap();
                     loginMap.put("username",getOrderMap.get("username"));
                     loginMap.put("credentials",getOrderMap.get("password"));
-                    
-                    System.out.println("Here at after getOrderMap Result: " + getOrderMap.toString() );
-                    
+                  
                     Map loginResult = new HashMap();
                     loginResult = (Map)clothoObject.login(loginMap);
-                    System.out.println("Here at after login Result: " + loginResult.toString());
-                    System.out.println("Here at after getOrderMap Result: " + getOrderMap.toString() );
                     Order order = ClothoAdapter.getOrder(getOrderMap.get("id").toString(), clothoObject);
                     
                     JSONObject JSONOrder = new JSONObject();
@@ -266,15 +271,15 @@ public class PhagebookSocket
                     JSONOrder.put("id",order.getId());
                     JSONOrder.put("name",order.getName());
                     JSONOrder.put("description",order.getDescription());
-                    JSONOrder.put("dateCreated",order.getDateCreated());
+                    JSONOrder.put("dateCreated",order.getDateCreated().toString());
                     JSONOrder.put("createdById",order.getCreatedById());
-                    JSONOrder.put("products",order.getProducts());
-                    JSONOrder.put("budget",order.getBudget());
-                    JSONOrder.put("maxOrderSize",order.getMaxOrderSize());
+                    JSONOrder.put("products",order.getProducts().toString());
+                    JSONOrder.put("budget",order.getBudget().toString());
+                    JSONOrder.put("maxOrderSize",order.getMaxOrderSize().toString());
                     JSONOrder.put("approvedById",order.getApprovedById());
                     JSONOrder.put("receivedById",order.getReceivedByIds());
                     JSONOrder.put("relatedProjects",order.getRelatedProjectId());
-                    JSONOrder.put("status",order.getStatus());
+                    JSONOrder.put("status",order.getStatus().toString());
                     
                     result.put("data", JSONOrder);
                     
