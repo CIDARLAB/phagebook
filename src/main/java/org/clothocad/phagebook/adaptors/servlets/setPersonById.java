@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
+import org.clothocad.model.Person;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.CartItem;
@@ -47,7 +48,7 @@ public class setPersonById extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet setPersonById</title>");            
+            out.println("<title>Servlet setPersonById</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet setPersonById at " + request.getContextPath() + "</h1>");
@@ -83,90 +84,35 @@ public class setPersonById extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
-        Object pCartItems = request.getParameter("first");
-        String cartItems = pCartItems != null ? (String) pCartItems : "";
-       
-        Object pUser = request.getParameter("loggedInUserId");
-        String user = pUser != null ? (String) pUser : "";
-        
-        Object pOrderId = request.getParameter("orderId");
-        String orderId = pOrderId != null ? (String) pOrderId : "";
-        
+
+        System.out.println("Reached doPost in setPersonById");
+        String userId = (String) request.getParameter("userId");
+        System.out.println(userId);
         boolean isValid = false;
-        
-        if (!cartItems.equals("") && !user.equals("") && !orderId.equals("") ){
+        if (userId != null && userId != "") {
             isValid = true;
         }
-
-        if (isValid){
-            //NEED TO LOG INTO CLOTHO... better way TBA
-
+        
+        if (isValid) {
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
-            String username = "phagebook";
-            String password = "backend";
+            Map createUserMap = new HashMap();
+            String username = "test" + System.currentTimeMillis();
+            createUserMap.put("username", username);
+            createUserMap.put("password", "password");
+            clothoObject.createUser(createUserMap);
             Map loginMap = new HashMap();
             loginMap.put("username", username);
-            loginMap.put("credentials", password);     
+            loginMap.put("credentials", "password");
             clothoObject.login(loginMap);
-            //
             
-            //STEP 1, get the order we want to modify...
-            //assuming valid order ID.
-            Order editableOrder = ClothoAdapter.getOrder(orderId, clothoObject);
-            //now we have the order object.
-            JSONArray cartItemsJSONArray = new JSONArray(cartItems);
-            //we have our JSONArray of products to add with discounts
-            Map<String, Integer> items = editableOrder.getProducts(); //initialize, we want to add not replace
-            Date date = new Date();
-            for (int i = 0; i < cartItemsJSONArray.length(); i++){
-                //process the information that we have
-                
-                Map<String, Double>  productItemMap = new HashMap<>();
-                JSONObject obj = (JSONObject) cartItemsJSONArray.get(i);
-                Product product = ClothoAdapter.getProduct(obj.getString("productId"), clothoObject);
-                product.decreaseInventory(obj.getInt("quantity"));
-                productItemMap.put( obj.getString("productId") , obj.getDouble("discount"));
-                
-                CartItem item = new CartItem();
-                item.setDateCreated(date);
-                item.setProductWithDiscount(productItemMap);
-                
-                ClothoAdapter.createCartItem(item, clothoObject);
-                
-                items.put(item.getId(), obj.getInt("quantity"));
-                ClothoAdapter.setProduct(product, clothoObject);
-                
-                
-            }
-            //now have a CART ITEM ArrayList... all with ID's 
+            Person retrieve = ClothoAdapter.getPerson(userId, clothoObject);
             
+            JSONObject retrievedAsJSON = new JSONObject();
+            //retrievedAsJSON.put("firstName", retrieve.setFirstName(request.getParameter("firstName")));
+            //retrievedAsJSON.put("lastName", retrieve.setLastName(request.getParameter("lastName")));
             
-            editableOrder.setProducts(items);
-            
-            ClothoAdapter.setOrder(editableOrder, clothoObject);
-            
-            response.setContentType("application/json");
-            response.setStatus(HttpServletResponse.SC_ACCEPTED);
-            JSONObject responseJSON = new JSONObject();
-            responseJSON.put("message", "successfully modified order object");
-            PrintWriter out = response.getWriter();
-            out.print(responseJSON);
-            out.flush();
-            
-
-        } else {
-            response.setContentType("application/json");
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            JSONObject responseJSON = new JSONObject();
-            responseJSON.put("message", "missing parameters for servlet call");
-            PrintWriter out = response.getWriter();
-            out.print(responseJSON);
-            out.flush();
         }
-        
-    
     }
 
     /**
@@ -178,5 +124,4 @@ public class setPersonById extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }
