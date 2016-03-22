@@ -2,7 +2,7 @@ function newProjectsCtrl($scope, $http){
 console.log("loaded");
 
   $scope.greeting = 'Hello!';
-  $scope.personId = sessionStorage.getItem("loggedUserId");//retrieves the user id from session storage
+  $scope.personId = getCookie("clothoId");//retrieves the user id from session storage
 
   // form data object -- here are the results from the form are stored
   $scope.formData = {};
@@ -87,7 +87,6 @@ console.log("loaded");
 
   // !!!! create a check that pr budget is an int !!!!!!
 
-
   var dataSubmit =  {
     name: $scope.formData.name,
     leadFirstName:  $scope.formData.lead.firstName,
@@ -97,13 +96,13 @@ console.log("loaded");
     grant: $scope.formData.grant,
     description: $scope.formData.description,
     date: $scope.formData.date,
-    id: $scope.personId
+    emailId: $scope.personId
    };
    //dataSubmit = JSON.stringify(dataSubmit);
    console.log(dataSubmit);
    if(submit){
      $.ajax({
-      url: "processProject",
+      url: "/processProject",
       type: "POST",
       dataType: "json",
       async: false,
@@ -112,7 +111,7 @@ console.log("loaded");
         console.log(dataSubmit); 
         console.log(response);
         console.log("response!!!");
-        setCookie("projectID", response.projectID);
+        setCookie("projectId", response.projectId, 10);
         console.log(document.cookie);
         //location.assign("./html/displayProjects.html");
 

@@ -129,7 +129,8 @@ public class getPersonById extends HttpServlet {
             retrievedAsJSON.put("statusList", statusList);
             retrievedAsJSON.put("publicationList", publicationList);
             retrievedAsJSON.put("labList", labList);
-
+            System.out.println("looking at retrieved");
+            System.out.println(retrievedAsJSON);
             PrintWriter out = response.getWriter();
             out.print(retrievedAsJSON);
             out.flush();
