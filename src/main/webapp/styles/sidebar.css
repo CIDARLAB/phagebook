@@ -25,6 +25,14 @@ a:hover {
     background-color: transparent !important;
 }
 
+#ordering-links-title {
+    margin-left: 40px;
+}
+
+#projects-title {
+    margin-left: 40px;
+}
+
 #sidebar {
     position: fixed;
     float: left;

@@ -24,11 +24,19 @@ $(document).ready(function() {
             createProductAjax(productUrl, company, goodType, cost, quantity, name, description);
         }
     );
+    
+    var timerVal;
+    $("#companyName").keypress( keyPressHandler );
+    
+    
+    function keyPressHandler(){
+        clearTimeout(timerVal); // stops previous attempt.
+        timerVal = setTimeout(doAjax, 500);//after a second of no input flip the flag.
         
-    $("#lookupCompanies").click(function () 
-        {
-            //need to do an ajax call to that servlet I need...
-            
+
+    }
+    function doAjax(){
+             
        var name = $("#companyName").val();
        var isValid = 0;
        if (name !== ''){
@@ -63,8 +71,9 @@ $(document).ready(function() {
                }
             });
         }
-    });
+    }
         
+   
     }
 );
    

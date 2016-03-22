@@ -1,6 +1,18 @@
 $(document).ready(function() {
-     $("#lookupProjects").click( function () {
-       var name = $("#projectName").val();
+    
+    var timerVal;
+    $("#projectName").keypress( keyPressHandler );
+    
+    
+    function keyPressHandler(){
+        clearTimeout(timerVal); // stops previous attempt.
+        timerVal = setTimeout(doAjax, 500);//after a second of no input flip the flag.
+        
+
+    }
+    function doAjax(){
+        
+        var name = $("#projectName").val();
        var isValid = 0;
        if (name !== ''){
            isValid = 1;
@@ -33,7 +45,8 @@ $(document).ready(function() {
                }
             });
         }
-    });
+    }
+     
     
     
     $.ajax({
@@ -77,12 +90,6 @@ $(document).ready(function() {
         var budget = document.getElementById('orderBudget').value;
         var orderLimit = document.getElementById('orderLimit').value;
         
-        alert(name);
-        alert(createdBy);
-        alert(labId);
-        alert(associatedProjectId);
-        alert(budget);
-        alert(orderLimit);
         doAjaxCallToCreateOrder(name, createdBy, labId, associatedProjectId, budget, orderLimit);
         
         
