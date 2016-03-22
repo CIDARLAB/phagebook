@@ -23,6 +23,55 @@ a:hover {
     background-color: transparent !important;
 }
 
+#add-colleagues-btn {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    background-color: #9E9E9E;
+    color: #FFFFFF;
+    border-radius: 8px;
+    border: none;
+    padding-right: 15px;
+    padding-left: 15px;
+    display: block;
+    clear: both;
+    margin-left: 70%;
+    margin-top: -30px;
+    float: right;
+}
+            
+#add-colleagues-btn:hover {
+    background-color: #89C176;
+    border: none;
+}
+
+#add-colleagues-modal {
+    margin-top: 10px;
+    margin-left: 40px;
+}
+
+#add-publication-btn {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    background-color: #9E9E9E;
+    color: #FFFFFF;
+    border-radius: 8px;
+    border: none;
+    padding-right: 15px;
+    padding-left: 15px;
+    display: block;
+    clear: both;
+    margin-left: 70%;
+    margin-top: -30px;
+    float: right;
+}
+            
+#add-publication-btn:hover {
+    background-color: #89C176;
+    border: none;
+}
+
 body {
     font-family: "Open Sans", sans-serif;
     font-style: normal;
@@ -31,7 +80,57 @@ body {
     margin-bottom: 60px;
 }
 
-#edit-profile {
+#colleagues {
+    margin-top: -245px;
+    float: right;
+}
+
+#colleagues-full-list {
+    display: inline;
+}
+
+#colleagues-full-list a {
+    color: #1E714A;
+    font-weight: 400;
+}
+
+#colleagues-full-list li {
+    margin-right: 50px;
+    margin-bottom: 25px;
+    height: 112px;
+}
+
+#colleagues-full-list img {
+    margin-top: -10px;
+    margin-left: -5px;
+    height: 110px;
+}
+
+#colleagues-tab {
+    margin-top: 50px;
+}
+
+#create-status-btn {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    background-color: #9E9E9E;
+    color: #FFFFFF;
+    border-radius: 8px;
+    border: none;
+    padding-right: 15px;
+    padding-left: 15px;
+    display: block;
+    clear: both;
+    margin-left: 35%;
+}
+            
+#create-status-btn:hover {
+    background-color: #89C176;
+    border: none;
+}
+
+#edit-profile-btn {
     float: right;
     margin-left: 10px;
     background-color: #9E9E9E;
@@ -40,7 +139,7 @@ body {
     border: none;
 }
 
-#edit-profile:hover {
+#edit-profile-btn:hover {
     background-color: #89C176;
     border: none;
 }
@@ -53,9 +152,62 @@ footer {
     background-color:#FDFDFD;
 }
 
+#gear-icon {
+    height: 25px;
+}
+
+#header-btn-toolbar{
+    margin-top: 20px;
+    margin-left: 900px;
+    float: right;
+    position: relative;
+}
+
 h3 {
     font-family: "Open Sans", sans-serif;
     font-weight: 300;
+}
+
+#list-colleagues li {
+    width: 400px;
+}
+
+#list-colleagues li a {
+    color: #1E714A;
+    font-weight: 400;
+}
+
+#list-colleagues li img {
+    height: 90px;
+    vertical-align: middle;
+    margin-left: -15px;
+    margin-top: -10px;
+}
+
+#list-colleagues li p {
+    font-size: 11px;
+    line-height: 10px;
+}
+
+#load-more-btn {
+    background-color: #FFFFFF;
+    border-radius: 0px;
+}
+
+#load-more-btn:hover {
+    background-color: #C1C1C1;
+    border-radius: 0px;
+}
+
+#moreDropdown ul {
+    padding: 0px 0px 0px 0px;
+    width: 225px;
+}
+
+#moreDropdown ul li {
+    padding: 0px 0px 0px 0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .navbar {
@@ -77,8 +229,8 @@ h3 {
 #profile {
     position: absolute; 
     overflow-x: hidden; 
-    margin-top: 90px;
-    margin-left: 400px;
+    margin-left: 30%;
+    margin-top: 100px;
 }
 
 #profile-header {
@@ -105,6 +257,74 @@ h3 {
     position: absolute;
     float: left;
     height: 180px;
+}
+
+#publications {
+    margin-top: 50px;
+}
+
+#publications li {
+    padding: 30px 20px 20px 20px;
+    margin-bottom: 25px;
+}
+
+#publications p {
+    font-style: italic;
+    line-height: 10px;
+}
+
+#search-colleagues {
+    margin-top: 20px;
+}
+
+#search-colleagues-btn {
+    font-size: 14px;
+    background: #1E714A;
+    color: #FFFFFF;
+    border-radius: 24px;
+    padding: 8px 25px 8px 25px;
+}
+            
+#search-colleagues-btn:hover {
+    background: #31A16F;
+    color: #FFFFFF;
+}
+
+#search-colleagues-list {
+    
+}
+
+#search-colleagues-list li {
+    width: 750px;
+    margin-bottom: 20px;
+}
+
+#search-colleagues-list img {
+    height: 90px;
+    vertical-align: middle;
+    margin-left: -15px;
+    margin-top: -10px;
+}
+
+#search-colleagues-list p {
+    font-size: 11px;
+    line-height: 10px;
+}
+
+#see-full-list-btn {
+    background-color: #FFFFFF;
+    border-radius: 0px;
+    display: block;
+    width: 400px;
+}
+
+#see-full-list-btn:hover {
+    background-color: #C1C1C1;
+    border-radius: 0px;
+}
+
+#status-update-textarea {
+    margin: 20px 0px 20px -15px;
 }
 
 td {

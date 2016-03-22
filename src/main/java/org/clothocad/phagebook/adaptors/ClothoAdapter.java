@@ -1717,7 +1717,7 @@ public class ClothoAdapter {
                     if ( ((Map) queryResult).containsKey("schema")){
                         String schema = (String) ((Map) queryResult).get("schema");
                         if ( schema.equals(CartItem.class.getCanonicalName())){
-                            cartItems.add(mapToCartItem( (Map) queryResult, clothoObject));
+                            cartItems.add(ClothoAdapter.getCartItem ( (String) ((Map) queryResult).get("id") , clothoObject));
                         }
                     }
                 }
@@ -1758,7 +1758,7 @@ public class ClothoAdapter {
                     if ( ((Map) queryResult).containsKey("schema")){
                         String schema = (String) ((Map) queryResult).get("schema");
                         if ( schema.equals(Container.class.getCanonicalName())){
-                            containers.add(mapToContainer( (Map) queryResult, clothoObject));
+                            containers.add(ClothoAdapter.getContainer ( (String) ((Map) queryResult).get("id") , clothoObject));
                         }
                     }
                 }
@@ -1800,7 +1800,7 @@ public class ClothoAdapter {
                     if ( ((Map) queryResult).containsKey("schema")){
                         String schema = (String) ((Map) queryResult).get("schema");
                         if ( schema.equals(Entry.class.getCanonicalName())){
-                            entries.add(mapToEntry( (Map) queryResult, clothoObject));
+                            entries.add(ClothoAdapter.getEntry ( (String) ((Map) queryResult).get("id") , clothoObject));
                         }
                     }
                 }
@@ -1845,7 +1845,7 @@ public class ClothoAdapter {
                     if ( ((Map) queryResult).containsKey("schema")){
                         String schema = (String) ((Map) queryResult).get("schema");
                         if ( schema.equals(FundingAgency.class.getCanonicalName())){
-                            fundingAgencies.add(mapToFundingAgency( (Map) queryResult, clothoObject));
+                            fundingAgencies.add(ClothoAdapter.getFundingAgency ( (String) ((Map) queryResult).get("id") , clothoObject));
                         }
                     }
                 }
@@ -1888,7 +1888,7 @@ public class ClothoAdapter {
                     if ( ((Map) queryResult).containsKey("schema")){
                         String schema = (String) ((Map) queryResult).get("schema");
                         if ( schema.equals(Grant.class.getCanonicalName())){
-                            grants.add(mapToGrant( (Map) queryResult, clothoObject));
+                            grants.add(ClothoAdapter.getGrant ( (String) ((Map) queryResult).get("id") , clothoObject));
                         }
                     }
                 }
@@ -1930,7 +1930,7 @@ public class ClothoAdapter {
                     if ( ((Map) queryResult).containsKey("schema")){
                         String schema = (String) ((Map) queryResult).get("schema");
                         if ( schema.equals(Institution.class.getCanonicalName())){
-                            institutions.add(mapToInstitution( (Map) queryResult, clothoObject));
+                            institutions.add(ClothoAdapter.getInstitution ( (String) ((Map) queryResult).get("id") , clothoObject));
                         }
                     }
                 }
@@ -1972,7 +1972,7 @@ public class ClothoAdapter {
                     if ( ((Map) queryResult).containsKey("schema")){
                         String schema = (String) ((Map) queryResult).get("schema");
                         if ( schema.equals(Instrument.class.getCanonicalName())){
-                            instruments.add(mapToInstrument( (Map) queryResult, clothoObject));
+                            instruments.add(ClothoAdapter.getInstrument ( (String) ((Map) queryResult).get("id") , clothoObject));
                         }
                     }
                 }
@@ -2014,7 +2014,7 @@ public class ClothoAdapter {
                     if ( ((Map) queryResult).containsKey("schema")){
                         String schema = (String) ((Map) queryResult).get("schema");
                         if ( schema.equals(Lab.class.getCanonicalName())){
-                            labs.add(mapToLab( (Map) queryResult, clothoObject));
+                            labs.add(ClothoAdapter.getLab ( (String) ((Map) queryResult).get("id") , clothoObject));
                         }
                     }
                 }
@@ -2055,7 +2055,7 @@ public class ClothoAdapter {
                     if ( ((Map) queryResult).containsKey("schema")){
                         String schema = (String) ((Map) queryResult).get("schema");
                         if ( schema.equals(Notebook.class.getCanonicalName())){
-                            notebooks.add(mapToNotebook( (Map) queryResult, clothoObject));
+                            notebooks.add(ClothoAdapter.getNotebook ( (String) ((Map) queryResult).get("id") , clothoObject));
                         }
                     }
                 }
@@ -2096,7 +2096,7 @@ public class ClothoAdapter {
                     if ( ((Map) queryResult).containsKey("schema")){
                         String schema = (String) ((Map) queryResult).get("schema");
                         if ( schema.equals(Order.class.getCanonicalName())){
-                            orders.add(mapToOrder( (Map) queryResult, clothoObject));
+                            orders.add(ClothoAdapter.getOrder ( (String) ((Map) queryResult).get("id") , clothoObject));
                         }
                     }
                 }
@@ -2139,7 +2139,7 @@ public class ClothoAdapter {
                     if ( ((Map) queryResult).containsKey("schema")){
                         String schema = (String) ((Map) queryResult).get("schema");
                         if ( schema.equals(Person.class.getCanonicalName())){
-                            people.add(mapToPerson( (Map) queryResult, clothoObject));
+                            people.add(ClothoAdapter.getPerson ( (String) ((Map) queryResult).get("id") , clothoObject));
                         }
                     }
                 }
@@ -2181,7 +2181,7 @@ public class ClothoAdapter {
                     if ( ((Map) queryResult).containsKey("schema")){
                         String schema = (String) ((Map) queryResult).get("schema");
                         if ( schema.equals(Product.class.getCanonicalName())){
-                            products.add(mapToProduct( (Map) queryResult, clothoObject));
+                            products.add(ClothoAdapter.getProduct ( (String) ((Map) queryResult).get("id") , clothoObject));
                         }
                     }
                 }
@@ -2224,7 +2224,7 @@ public class ClothoAdapter {
                     if ( ((Map) queryResult).containsKey("schema")){
                         String schema = (String) ((Map) queryResult).get("schema");
                         if ( schema.equals(Project.class.getCanonicalName())){
-                            projects.add(mapToProject( (Map) queryResult, clothoObject));
+                            projects.add(ClothoAdapter.getProject ( (String) ((Map) queryResult).get("id") , clothoObject));
                         }
                     }
                 }
@@ -2267,7 +2267,7 @@ public class ClothoAdapter {
                     if ( ((Map) queryResult).containsKey("schema")){
                         String schema = (String) ((Map) queryResult).get("schema");
                         if ( schema.equals(Protocol.class.getCanonicalName())){
-                            protocols.add(mapToProtocol( (Map) queryResult, clothoObject));
+                            protocols.add(ClothoAdapter.getProtocol ( (String) ((Map) queryResult).get("id") , clothoObject));
                         }
                     }
                 }
@@ -2309,7 +2309,7 @@ public class ClothoAdapter {
                     if ( ((Map) queryResult).containsKey("schema")){
                         String schema = (String) ((Map) queryResult).get("schema");
                         if ( schema.equals(Publication.class.getCanonicalName())){
-                            publications.add(mapToPublication( (Map) queryResult, clothoObject));
+                            publications.add(ClothoAdapter.getPublication ( (String) ((Map) queryResult).get("id") , clothoObject));
                         }
                     }
                 }
@@ -2351,7 +2351,7 @@ public class ClothoAdapter {
                     if ( ((Map) queryResult).containsKey("schema")){
                         String schema = (String) ((Map) queryResult).get("schema");
                         if ( schema.equals(Sample.class.getCanonicalName())){
-                            samples.add(mapToSample( (Map) queryResult, clothoObject));
+                            samples.add(ClothoAdapter.getSample ( (String) ((Map) queryResult).get("id") , clothoObject));
                         }
                     }
                 }
@@ -2391,7 +2391,7 @@ public class ClothoAdapter {
                     if ( ((Map) queryResult).containsKey("schema")){
                         String schema = (String) ((Map) queryResult).get("schema");
                         if ( schema.equals(Status.class.getCanonicalName())){
-                            statuses.add(mapToStatus( (Map) queryResult, clothoObject));
+                            statuses.add(ClothoAdapter.getStatus ( (String) ((Map) queryResult).get("id") , clothoObject));
                         }
                     }
                 }
@@ -2430,7 +2430,7 @@ public class ClothoAdapter {
                     if ( ((Map) queryResult).containsKey("schema")){
                         String schema = (String) ((Map) queryResult).get("schema");
                         if ( schema.equals(Vendor.class.getCanonicalName())){
-                            vendors.add( getVendor( (String) ((Map) queryResult).get("id"), clothoObject));
+                            vendors.add(ClothoAdapter.getVendor ( (String) ((Map) queryResult).get("id") , clothoObject));
                         }
                     }
                 }
@@ -3269,7 +3269,7 @@ public class ClothoAdapter {
         if (map.containsKey("description")) { productURL = (String) map.get("productURL"); }
         
         
-        String company = null;
+        String company = "";
         if (map.containsKey("company")) { 
             String companyId =  (String) map.get("company");
             company = companyId;
@@ -3295,8 +3295,6 @@ public class ClothoAdapter {
             
         }
          
-    //@Getter @Setter private static Integer  inventory;
-    //@Getter @Setter private Double   unitPrice;
         
         Product product = new Product(name, company, cost);
         product.setInventory(inventory);
@@ -3581,7 +3579,7 @@ public class ClothoAdapter {
     }
     private static Vendor        mapToVendor(Map map, Clotho clothoObject)
     {
-        
+    
         //I set each property of a Vendor object to a default value (that match the constructors)
         String contact = "";
         //I see if the map contains a key for that Vendor property
