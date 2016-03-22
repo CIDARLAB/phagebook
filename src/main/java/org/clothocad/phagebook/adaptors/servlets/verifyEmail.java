@@ -5,13 +5,20 @@
  */
 package org.clothocad.phagebook.adaptors.servlets;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +28,7 @@ import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.model.Person;
+import org.clothocad.phagebook.adaptors.S3Adapter;
 import org.clothocad.phagebook.security.EmailSaltHasher;
 
 /**
@@ -113,15 +121,16 @@ public class verifyEmail extends HttpServlet {
        
             
             if (isValidated){
-                
-                
-                System.out.println("User "  + queryPersons.get(0).getEmailId() + " has been validated");
                 Person pers = queryPersons.get(0);
+
+                System.out.println("User "  + queryPersons.get(0).getEmailId() + " has been validated");
+               
                 pers.setActivated(true);
-                
                 clothoObject.logout();
                 ClothoAdapter.setPerson(pers, clothoObject);  
                 System.out.println("HERE AT VERIFY EMAIL: "+ ClothoAdapter.getPerson(pers.getId(), clothoObject).isActivated());
+                S3Adapter.initializeUserFolder(pers);//queryPersons.get(0).getId()
+                
                 
                 
             } else if (!isValidated){

@@ -15,9 +15,10 @@
         <link rel="icon" href="">
 
         <script src="../scripts/clotho/clotho3API.js"></script>
-        <script src="../scripts/new-ui-scripts/cookieHandler.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-        <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+        <script src="../scripts/new-ui-scripts/index.js"></script>
+        <script src="../scripts/new-ui-scripts/cookieHandler.js"></script>
+        <script src="../scripts/jsBootstrap/bootstrap.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
         <script src="../scripts/new-ui-scripts/angular.ng-modules.js"></script>
         
@@ -74,15 +75,13 @@
                     <div class="row" >
                         <div class="panel panel-default">
                         <div class="panel-body" id="profile-overview">
-                            <img alt="densmore-circle-pro-pic" src="../styles/img/mis/densmore-circle-pro-pic.png" id="profile-picture">
-                            <a href="../html/accountSettings.html">
-                                <button id="edit-profile-btn" type="button" class="btn btn-default">
-                                    <img alt="Edit Profile" src="../styles/img/icons/white-pencil.png" style="height:20px">
-                                </button>
-                            </a>
+                            <img class="img-circle" alt="Upload an Image" src="{{profilePictureLink}}" id="profile-picture">
+                            <button id="edit-profile-btn" type="button" class="btn btn-default">
+                                <img alt="Edit Profile" src="../styles/img/icons/white-pencil.png" style="height:20px">
+                            </button>
                             <table class="table" id="profile-header">
                                 <tr id="profile-name">
-                                    <td><h3>Douglas Densmore</h3></td>
+                                    <td><h3>{{fullName}}</h3></td>
                                 </tr>
                                 <tr id="profile-description">
                                     <td><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut hendrerit erat. Quisque vehicula risus nec molestie ultrices.</p></td>
@@ -92,15 +91,15 @@
                             <table class="table" id="profile-info">
                                 <tr>
                                     <td><p style="color: #1E714A;">Institution</p></td>
-                                    <td id="profile-institution"><p>Boston University</p></td>
+                                    <td id="profile-institution"><p>{{institution}}</p></td>
                                 </tr>
                                 <tr>
                                     <td><p style="color: #1E714A;">Department</p></td>
-                                    <td id="profile-dept"><p>Electrical & Computer Engineering</p></td>
+                                    <td id="profile-dept"><p>{{department}}</p></td>
                                 </tr>
                                 <tr>
                                     <td><p style="color: #1E714A;">Title</p></td>
-                                    <td id="profile-title"><p>Associate Professor</p></td>
+                                    <td id="profile-title"><p>{{title}}</p></td>
                                 </tr>
                             </table>
                         </div>
@@ -300,12 +299,15 @@
             </div>
         </div>
         
+
         <!-- ANGULAR SCRIPTS -->
         <script src="../scripts/new-ui-scripts/footerDirective.js"></script>
         <script src="../scripts/new-ui-scripts/sidebarDirective.js"></script>
         <script src="../scripts/new-ui-scripts/headerDirective.js"></script>
         <script src="../scripts/new-ui-scripts/profileController.js"></script>
         <script src="../scripts/new-ui-scripts/profileApp.js"></script>
-        
+     
+
+
     </body>
 </html>

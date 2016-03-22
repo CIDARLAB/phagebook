@@ -1,0 +1,101 @@
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+
+<!-- <form name="submitProject" class="form-horizontal" role="form">  -->
+  
+  <h3 class="projectFormTitle">Edit Project</h3>  
+  <div class="form-group">    <!-- String name -->
+    <label for="inputName" class="control-label">New Project Name</label>
+      <input name="name" class="form-control" ng-maxlength="100" ng-minlength="5" id="name" placeholder="Name" ng-model="formData.name">
+<!--      <span ng-show="nameRequired">{{nameRequired}}</span>
+     <span class="error" ng-show="submitProject.name.$error.minlength">
+      Minimum length is 5 characters.</span>
+     <span class="error" ng-show="submitProject.name.$error.maxlength">
+      Maximum length is 100 characters.</span> -->
+  </div>
+
+
+
+	<div class="form-group"> <!--String Description-->
+	<label for="inputDescription3" class="control-label" >New Project Description</label>  
+	  <textarea name="description" class="form-control" rows="5" id="desc" placeholder="Description"  ng-maxlength="1000" ng-minlength="50" ng-model="formData.description"></textarea>
+	 <!-- <span ng-show="descriptionRequired">{{descriptionRequired}}</span>
+	 <span class="error" ng-show="submitProject.description.$error.minlength">
+	  Minimum length is 50 characters.</span>
+	 <span class="error" ng-show="submitProject.description.$error.maxlength">
+	  Maximum length is 1000 characters.</span> -->
+	</div>
+
+	<div class="form-group"> <!-- Double projectBudget -->
+		  <div class="form-group">  
+        <label for="inputProjectBudget3" class="col-sm-2 control-label" > New Budget</label>  
+        <div class="col-sm-4">
+          <input name="projectBudget" type="number" class="form-control" id="budget" placeholder="Budget" min="0" ng-model="formData.projectBudget">
+        </div>
+<!--          <span ng-show="projectBudgetRequired">{{projectBudgetRequired}}</span>
+         <span class="error" ng-show="submitProject.projectBudget.$error.number">
+           Not a valid number.
+         </span> -->
+      </div>
+	</div>
+
+	<div class="form-group">
+	  <button class="editProject" onclick="edit()">
+		Edit Project
+		</button>
+	</div>  
+	<!-- </form> -->
+
+<script type="text/javascript">
+
+  var projectID = '56ed827fd4c6d585aa424574';
+  var p3id = '56ed827ed4c6d585aa424571';
+  var p2id = '56ed827ed4c6d585aa42456d';
+	
+  var edit = function(){
+  	console.log("in edit function!!");
+  	var newName = "";
+  	var newDesc = "";
+  	var newBudget = "";
+
+  	if($("#name").val()!=null){
+  		newName =  $("#name").val()
+  	}
+  	if($("#desc").val() != null){
+  		newDesc = $("#desc").val();
+  	}
+  	if($("#budget").val() != null){
+  		newBudget = $("#budget").val();
+  	}
+  	
+  	console.log(newDesc);
+  	console.log(newName);
+  	console.log(newName);
+  	var data = {
+  		"userID": p3id,
+  		"projectID": projectID,
+  		"description": newDesc,
+  		"name": newName,
+  		"budget": newBudget
+
+  	}
+
+		$.ajax({
+			url: "/editProject",
+			type: "POST",
+			dataType: "json",
+			data: data,
+			success: function (response) {
+			  console.log(dataSubmit); 
+			  console.log(response);
+			  console.log("response!!!");
+			},
+			error: function (err) {
+			  console.log("ERROR!!");
+			  console.log(err);
+			}
+		}); 
+  }
+
+
+</script>

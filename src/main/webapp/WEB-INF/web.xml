@@ -105,6 +105,14 @@
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.autoCompleteVendors</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>uploadProfilePicture</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.uploadProfilePicture</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>setPersonById</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.setPersonById</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>queryFirstLastName</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.queryFirstLastName</servlet-class>
     </servlet>
@@ -156,6 +164,23 @@
         <servlet-name>createPerson</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.createPerson</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>editProject</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.editProject</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>addUpdateToProject</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.addUpdateToProject</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>editProject</servlet-name>
+        <url-pattern>/editProject</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addUpdateToProject</servlet-name>
+        <url-pattern>/addUpdateToProject</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>processProject</servlet-name>
         <url-pattern>/processProject</url-pattern>
@@ -198,7 +223,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>getPersonById</servlet-name>
-        <url-pattern>/getPersonById</url-pattern>
+        <url-pattern>/html/getPersonById</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>createProduct</servlet-name>
@@ -259,6 +284,14 @@
     <servlet-mapping>
         <servlet-name>autoCompleteVendors</servlet-name>
         <url-pattern>/autoCompleteVendors</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>uploadProfilePicture</servlet-name>
+        <url-pattern>/uploadProfilePicture</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>setPersonById</servlet-name>
+        <url-pattern>/setPersonById</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>queryFirstLastName</servlet-name>

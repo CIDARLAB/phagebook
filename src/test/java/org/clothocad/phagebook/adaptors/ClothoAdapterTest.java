@@ -1122,6 +1122,9 @@ public class ClothoAdapterTest {
             String firstName = "Doug";
             String lastName = "Densmore";
             String password = "CLOTHO TEST PASSWORD";
+            String institution = "Boston University";
+            String department = "Electrical and Computer Engineering";
+            String title = "Associate Professor";
             boolean activated = true;
             String activationString = "CLOTHO TEST ACTIVATION STRING";
             
@@ -1255,7 +1258,9 @@ public class ClothoAdapterTest {
         person1.setCreatedOrders(orders);
         person1.setSubmittedOrders(submittedOrders);
         person1.setApprovedOrders(approvedOrders);
-        
+        person1.setInstitution(institution);
+        person1.setDepartment(department);
+        person1.setTitle(title);
         
         
         
@@ -1275,6 +1280,9 @@ public class ClothoAdapterTest {
         assertEquals(person1.getLastName(), person2.getLastName());
         assertEquals(person1.getPassword(), person2.getPassword());
         assertEquals(person1.isActivated(), person2.isActivated());
+        assertEquals(person1.getInstitution(), person2.getInstitution());
+        assertEquals(person1.getDepartment(), person2.getDepartment());
+        assertEquals(person1.getTitle(), person2.getTitle());
         assertEquals(person1.getActivationString(), person2.getActivationString());
         assertEquals(person1.getColleagues().size(), person2.getColleagues().size());
         assertEquals(person1.getColleagues().size(), person2.getColleagues().size());
