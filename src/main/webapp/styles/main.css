@@ -110,6 +110,21 @@ body {
     margin-top: 50px;
 }
 
+#createOrder {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #FFFFFF;
+    border-radius: 8px;
+    padding: 10px 30px 10px 30px;
+    background-color: #1E714A; 
+    border: none;
+}
+
+#createOrder:hover {
+    background-color: #31A16F;
+}
+
 #create-status-btn {
     font-family: "Open Sans", sans-serif;
     font-weight: 400;
