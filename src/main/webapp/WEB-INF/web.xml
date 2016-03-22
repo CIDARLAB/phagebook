@@ -223,7 +223,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>getPersonById</servlet-name>
-        <url-pattern>/html/getPersonById</url-pattern>
+        <url-pattern>/getPersonById</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>createProduct</servlet-name>

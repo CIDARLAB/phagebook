@@ -60,7 +60,7 @@
   
     $http({
         method: 'GET',
-        url: 'getPersonById',
+        url: '../getPersonById',
         params: {
             "userId": clothoId      
         }

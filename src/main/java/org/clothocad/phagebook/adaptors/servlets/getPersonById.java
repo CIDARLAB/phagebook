@@ -111,7 +111,7 @@ public class getPersonById extends HttpServlet {
                     publicationList.put("id", pub.getId());
                 }
             }
-
+            /*
             JSONObject labList = new JSONObject();
             if (retrieve.getLabs() != null) {
                 for (String lab : retrieve.getLabs()) {
@@ -126,9 +126,10 @@ public class getPersonById extends HttpServlet {
                     labList.put("roles", positions);
                 }
             }
+            */
             retrievedAsJSON.put("statusList", statusList);
             retrievedAsJSON.put("publicationList", publicationList);
-            retrievedAsJSON.put("labList", labList);
+            //retrievedAsJSON.put("labList", labList);
             System.out.println("looking at retrieved");
             System.out.println(retrievedAsJSON);
             PrintWriter out = response.getWriter();
