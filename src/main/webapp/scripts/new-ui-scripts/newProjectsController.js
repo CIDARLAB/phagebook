@@ -1,4 +1,4 @@
-function projectController($scope, $http){
+function newProjectsCtrl($scope, $http){
 console.log("loaded");
 
   $scope.greeting = 'Hello!';
@@ -17,41 +17,70 @@ console.log("loaded");
     //$scope.emailRequired = '';
     $scope.labsRequired = '';
     $scope.leadRequired = '';
+    $scope.leadFirstNameRequired = '';
+    $scope.leadLastNameRequired = '';
     $scope.projectBudgetRequired = '';
     $scope.projectGrantRequired = '';
     $scope.descriptionRequired = '';
     $scope.passwordRequired = '';
 
+    /** 
+     *
+     * This function validates the form.
+     * The input has to meet a number of conditions before
+     * approving the AJAX call to the server. 
+     * Output is a Boolean. 
+     */
     var validateForm = function(){
-      var count = 0; // has to meet a number of conditions before sending the ajax call
 
+      var count = 0; 
+
+      // Condition 1: a new project has to have a name.
       if(!$scope.formData.name ){
+        console.log("Condition 1 is not met.");
         $scope.nameRequired = 'Please provide a valid title for your new project.';
-      
       }else{
         count++;
       }
-      console.log("1");
-      console.log($scope.formData.description);
+
+      // Condition 2: a new project has to have a description.
       if(!$scope.formData.description){
-        console.log("2");
-        console.log($scope.formData.description);
+        console.log("Condition 2 is not met.");
+        //console.log($scope.formData.description);
         $scope.descriptionRequired = 'Please provide a valid description.';
       }else{
-        console.log("3");
         console.log($scope.formData.description);
         count++;
       }
+      console.log("$scope.formData.lead.firstName");
 
-      if(count >=2){
+      console.log($scope.formData.lead.firstName);
+
+      // Condition 3: lead person has to have a first AND a last name.
+      if(!$scope.formData.lead.firstName && !$scope.formData.lead.lastName ){
+        console.log("Condition 3 is not met.");
+        if(!$scope.formData.lead.firstName){
+          console.log("Lead does not have a first name.");
+          $scope.leadFirstNameRequired = 'Please provide first name.';
+        }
+        if(!$scope.formData.lead.lastName){
+          console.log("Lead does not have a last name.");          
+          $scope.leadLastNameRequired = 'Please provide last name.';
+        }
+      }else{
+        console.log($scope.formData.lead.firstName);
+        console.log($scope.formData.lead.lastName);
+        count++;
+      }
+
+      if(count >=3){
+        console.log("All conditions are met.");
         return true;
       }else{
         return false;
       }
 
     }
-
-    console.log($scope.formData.description);
 
     var submit = validateForm();
     console.log(submit);
@@ -61,7 +90,8 @@ console.log("loaded");
 
   var dataSubmit =  {
     name: $scope.formData.name,
-    lead:  $scope.formData.lead,
+    leadFirstName:  $scope.formData.lead.firstName,
+    leadLastName:  $scope.formData.lead.lastName,
     labs:  $scope.formData.labs,
     projectBudget: $scope.formData.projectBudget,
     grant: $scope.formData.grant,
@@ -84,16 +114,15 @@ console.log("loaded");
         console.log("response!!!");
         setCookie("projectID", response.projectID);
         console.log(document.cookie);
-        location.assign("./html/displayProjects.html");
+        //location.assign("./html/displayProjects.html");
 
       },
-      error: function () {
-        alert("ERROR!!");
+      error: function (err) {
+        console.log("ERROR!!");
+        console.log(err);
+
       }
     }); 
    }
-  
   };
-
-
 };

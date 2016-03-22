@@ -164,6 +164,23 @@
         <servlet-name>createPerson</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.createPerson</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>editProject</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.editProject</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>addUpdateToProject</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.addUpdateToProject</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>editProject</servlet-name>
+        <url-pattern>/editProject</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addUpdateToProject</servlet-name>
+        <url-pattern>/addUpdateToProject</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>processProject</servlet-name>
         <url-pattern>/processProject</url-pattern>

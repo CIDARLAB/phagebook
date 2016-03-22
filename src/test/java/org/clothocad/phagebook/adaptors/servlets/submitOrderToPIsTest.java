@@ -55,7 +55,7 @@ public class submitOrderToPIsTest {
     /**
      * Test of processRequest method, of class submitOrderToPIs.
      */
-    @Test
+    //@Test
     public void testSubmitOrderToPIs() throws Exception {
         
         /*

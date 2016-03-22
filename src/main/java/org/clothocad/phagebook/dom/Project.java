@@ -8,6 +8,7 @@ package org.clothocad.phagebook.dom;
 import org.clothocad.model.Person;
 import java.util.ArrayList;
 import java.util.Date;
+import java.lang.String;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
@@ -45,67 +46,8 @@ public class Project {
        this.grantId        = "Not Set";
        this.description    = "Not Set";
        this.id             = "Not Set";
-   }
-   
-   public Project(String creator, String name, Organization lab, String description){
-       System.out.println("start of constructor");
-       this.dateCreated = new Date();
-       this.creatorId = creator;
-       this.name = name;
-       this.description = description;
+   }   
 
-       this.notebooks = new ArrayList<>();
-       this.affiliatedLabs = new ArrayList<>();
-       this.members = new ArrayList<>();
-       this.updates = new ArrayList<>();
-       this.affiliatedLabs.add(lab.getId());
-       
-       System.out.println("end of constructor");
-    
-   }
-
-   
-   public Project(Person creator, String name, String description){
-
-       this.dateCreated = new Date();
-       this.creatorId = creator.getId();
-       this.name = name;
-       this.description = description;
-
-       this.notebooks = new ArrayList<>();
-       this.affiliatedLabs = new ArrayList<>();
-       this.members = new ArrayList<>();
-
-       this.updates = new ArrayList<>();
-
-
- 
-   }
-   
-   
-   public Project(String creator, String name, Organization lab, 
-        String lead, Double projectBudget, String projectGrant, String description){
-       this.creatorId = creator;
-       this.dateCreated = new Date();
-       this.name = name;
-       this.budget = projectBudget;
-       this.description = description;
-       this.updates = new ArrayList<>();
-       this.grantId = projectGrant;
-       this.leadId = lead;
-       this.notebooks = new ArrayList<>();
-       this.affiliatedLabs = new ArrayList<>();
-       this.members = new ArrayList<>();
-       //Create new lab notebook for creator?
-       
-       System.out.println("created a new project??");
-       Notebook creatorNotebook = new Notebook(creator, this.getId(), dateCreated);
-       this.affiliatedLabs.add(lab.getId());
-       this.members.add(creator);            
-        //Create new lab notebook for creator?
-       notebooks.add(creatorNotebook.getId());
-   }
-      
    
    private void addMember(Person newMember){
        boolean exists = false;
@@ -285,4 +227,66 @@ public class Project {
    public void deleteStatus(String toDelete){
        updates.remove(toDelete);
    }
+   
+   /**
+   * This converts the project requested to a HashMap.
+   * 
+   * @param       none
+   * @return      HashMap of the object
+   */
+//   public HashMap getHashMap(){
+//
+//    HashMap<String, Object> projectHM  = new HashMap<String, Object>();
+//
+//    projectHM.put("creator", this.creator);
+//    projectHM.put("name", this.name);
+//    projectHM.put("lab", this.affiliatedLabs);
+//    projectHM.put("lead",this.lead);
+//    projectHM.put("projectBudget",this.budget);
+//    projectHM.put("projectGrant", this.grant);
+//    projectHM.put("description", this.description);
+//    
+//    return projectHM;
+//   }
+   /*
+   ** To string method for the project
+   ** Outputformat:
+   ** Project name is x
+   ** Creator is x
+   ** Was created on x
+   */
+//   @Override public String toString(){
+//       String result = "Project";
+//       
+//       if(!this.name.equals("")){
+//        result += " name is " + this.name +"\n";
+//       }
+//       String creatorFirstName = creator.getFirstName();
+//       String creatorLastName = creator.getLastName();
+//       result += "Creator is "+ creatorFirstName + " " + creatorLastName + "\n";
+//       result += "Was created on "+ this.dateCreated + "\n";
+//       return result;
+//      
+//    }
+   
+//   public String fullProjectDescription(){
+////     Person creator, String name, Organization lab, 
+////     Person lead, Double projectBudget, Grant projectGrant, String description
+//       String result = "Project";
+//       
+//       if(!this.name.equals("")){
+//        result += " name is " + this.name +"\n";
+//       }
+//       String creatorFirstName = creator.getFirstName();
+//       String creatorLastName = creator.getLastName();
+//       result += "Creator is "+ creatorFirstName + " " + creatorLastName + "\n";
+//       result += "Was created on "+ this.dateCreated + "\n";
+//       //result += "First lab is "+ this.affiliatedLabs.get(0) + "\n";
+//       result += "Lead is "+ this.lead.getFirstName() +" " + this.lead.getLastName() + "\n";
+//       result += "Budget is "+ this.budget + "\n";
+//       result += "Grant  is "+ this.grant.getName() + "\n";
+//       result += "Description is "+ this.description + "\n";
+//
+//       return result;
+//   }
 }
