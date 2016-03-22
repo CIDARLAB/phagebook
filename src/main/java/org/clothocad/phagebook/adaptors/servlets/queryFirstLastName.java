@@ -120,7 +120,7 @@ public class queryFirstLastName extends HttpServlet {
                         publicationList.put("id", pub.getId());
                     }
                 }
-
+                /*
                 JSONObject labList = new JSONObject();
                 if (retrieve.getLabs() != null){
                     for (String lab:retrieve.getLabs()){
@@ -135,9 +135,10 @@ public class queryFirstLastName extends HttpServlet {
                         labList.put("roles", positions);
                     }
                 }
+                */
                 retrievedAsJSON.put("statusList", statusList);
                 retrievedAsJSON.put("publicationList", publicationList);
-                retrievedAsJSON.put("labList", labList);
+                //retrievedAsJSON.put("labList", labList);
                 peopleJSONArray.put(retrievedAsJSON);
             }
             
