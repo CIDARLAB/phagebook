@@ -82,10 +82,10 @@ public class loadPhagebookInstitutionsTest {
         KhalilLab.setName("Khalil Lab");
         
         Lab harvardLab1 = new Lab();
-        harvardLab1.setName("harvard lab 1");
+        harvardLab1.setName("The Laboratory at Harvard");
         
         Lab harvardLab2 = new Lab();
-        harvardLab2.setName("harvard lab 2");
+        harvardLab2.setName("Harvard Library Innovation Lab");
         
         Lab medialLab = new Lab();
         medialLab.setName("Media Lab");

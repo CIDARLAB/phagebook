@@ -116,6 +116,10 @@
         <servlet-name>queryFirstLastName</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.queryFirstLastName</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>loadUserData</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.loadUserData</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>inputProduct</servlet-name>
         <url-pattern>/inputProduct</url-pattern>
@@ -296,5 +300,9 @@
     <servlet-mapping>
         <servlet-name>queryFirstLastName</servlet-name>
         <url-pattern>/queryFirstLastName</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>loadUserData</servlet-name>
+        <url-pattern>/loadUserData</url-pattern>
     </servlet-mapping>
 </web-app>
