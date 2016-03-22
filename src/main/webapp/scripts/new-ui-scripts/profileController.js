@@ -82,7 +82,7 @@ function profileCtrl($scope, $http) {
         method: 'POST',
         url: 'setPersonById',
         params: {
-            
+            "userId" : clothoId
         }
     }).then(function successCallback(response) {
         
