@@ -253,9 +253,12 @@ public class PhagebookSocket
                     loginMap.put("username",getOrderMap.get("username"));
                     loginMap.put("credentials",getOrderMap.get("password"));
                     
+                    System.out.println("Here at after getOrderMap Result: " + getOrderMap.toString() );
+                    
                     Map loginResult = new HashMap();
                     loginResult = (Map)clothoObject.login(loginMap);
-                    
+                    System.out.println("Here at after login Result: " + loginResult.toString());
+                    System.out.println("Here at after getOrderMap Result: " + getOrderMap.toString() );
                     Order order = ClothoAdapter.getOrder(getOrderMap.get("id").toString(), clothoObject);
                     
                     JSONObject JSONOrder = new JSONObject();
