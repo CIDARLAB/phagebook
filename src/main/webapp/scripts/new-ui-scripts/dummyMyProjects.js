@@ -1,37 +1,71 @@
 // make a dummy project here
+
+
+var appendRow = function() {
+    var userID = getCookie("clothoId");
+    var projectID = "56f0c03dd4c6c0ff29fc5e53";
+
+    console.log(userID);
+    console.log(projectID);
+    // an ajax request to get the project that has project id
+    var data = {
+        "id": projectID
+    }
+    console.log(data);
+    $.ajax({
+        url: "/getProject",
+        type: "POST",
+        dataType: "json",
+        data: data,
+        success: function(response) {
+            //console.log(dataSubmit);
+            console.log(response);
+            console.log("response!!!");
+        },
+        error: function(err) {
+            console.log("ERROR!!");
+            console.log(err);
+        }
+    });
+    // var html = " <tbody>< tr >
+    //     < th scope = 'row' > < /th> < td > < /td> < td > < /td> < td > < /td> < td > < /td> < td > < /td> < td > < /td> < td > < /td> < /tr> < /tbody> "
+}
+
+
 $(document).ready(function() {
 
     $("#bang").click(function() {
-        makeDummy();
+        //makeDummy();
+        appendRow();
         //console.log(id);
     });
-    
+
     $("#editProject").click(function() {
         makeDummy();
         //console.log(id);
     });
-    
+
     $("#addUpdate").click(function() {
-    	console.log("clicked on addUpdate")
-      console.log( $("#projectID").text() );
-      var arrOfIds =  $("#projectID").text().split(" ");
-      console.log(arrOfIds);
-      var projectId = arrOfIds[0];
-      var userId = arrOfIds[1];
-      var newStatus = $("#newStatus").val();
-      console.log(newStatus);
-      var emailPeople = document.getElementById("emailPeople").checked;
-      console.log(emailPeople);
-      if(projectId != null && userId !=null && newStatus != null){
-      	 addUpdate(projectId, userId, newStatus, emailPeople, emailPeople);
-      }else{
-      	//alert("Something is missing!");
-      }
-     
+        console.log("clicked on addUpdate")
+        console.log($("#projectID").text());
+        var arrOfIds = $("#projectID").text().split(" ");
+        console.log(arrOfIds);
+        var projectId = arrOfIds[0];
+        var userId = arrOfIds[1];
+        var newStatus = $("#newStatus").val();
+        console.log(newStatus);
+        var emailPeople = document.getElementById("emailPeople").checked;
+        console.log(emailPeople);
+        if (projectId != null && userId != null && newStatus != null) {
+            addUpdate(projectId, userId, newStatus, emailPeople, emailPeople);
+        } else {
+            //alert("Something is missing!");
+        }
+
     });
 
     var addUpdate = function(projectID, userID, newStatus, emailPeople) {
-      	
+
         var data = {
             "userID": userID,
             "projectID": projectID,
@@ -96,12 +130,12 @@ $(document).ready(function() {
             type: "POST",
             dataType: "json",
             data: data,
-            async:true,
+            async: true,
             success: function(response) {
                 console.log(response);
                 projectID = response.projectID;
                 userID = response.userID
-                $('#projectID').html(projectID+" "+userID);
+                $('#projectID').html(projectID + " " + userID);
                 return edit(projectID, userID);
             },
             error: function(err) {
