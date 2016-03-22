@@ -25,10 +25,17 @@ and open the template in the editor.
         <script src="../scripts/new-ui-scripts/newOrder.js"></script>
         
         <style>
+            
             #content{
                 margin-left: 20%;
                 position: fixed;
             }
+            
+            label {
+                font-weight: 400;
+                color: #1E714A; 
+            }
+            
         </style>
     </head>
     <body>
@@ -36,9 +43,54 @@ and open the template in the editor.
             <div ng-controller="newOrderCtrl">
                 <header></header>
                 <sidebar></sidebar>
-        <div class="container" id="content" style="margin-top:100px">
-        <div class="container">
-        Order Nickname: <input id="orderNickname" type="text" placeholder="Order Nickname">
+                <div class="container" id="content" style="margin-top:100px">
+                    <div class="container">
+                        <h3>New Order</h3>
+                        <p>Generate a new order by entering the fields below. Please note that if you do not have administrative access,</p>
+                        <p>all orders will need to be submitted for review and approval.</p>
+                        <br>
+                        <form id="general-account-settings">
+                            <div class="form-group row">
+                                <label for="orderNickname" class="col-sm-2 form-control-label">ORDER NICKNAME</label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" id="orderNickname">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="lab-name" class="col-sm-2 form-control-label">LAB</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" id="lab-name">
+                                        <option>Lab Name...</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="projectName" class="col-sm-2 form-control-label">PROJECT NAME SEARCH</label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" id="projectName">
+                                </div>
+                                <label for="projectResults" class="col-sm-2 form-control-label">PROJECTS</label>
+                                <div class="col-sm-3">
+                                    <select class="form-control" id="projectResults">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="orderBudget" class="col-sm-2 form-control-label">ORDER BUDGET</label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" id="orderBudget">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="orderLimit" class="col-sm-2 form-control-label">ORDER LIMIT</label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" id="orderLimit">
+                                </div>
+                            </div>
+                        </form>
+                        <button id="createOrder" type="submit" class="btn btn-default">Create</button>
+                    </div>
+<!--        Order Nickname: <input id="orderNickname" type="text" placeholder="Order Nickname">
         <br>
         Lab:<select class="form-control" id="lab-name"></select>
         <br>
@@ -51,20 +103,16 @@ and open the template in the editor.
         Order Limit:  <input id="orderLimit" type="text" placeholder="Order Limit">
         <br>
         <button id="createOrder" type="submit">Create Order</button>
-        <br>
-        
-        <h2> --------------------- I DON'T KNOW WHERE TO PUT THIS BUT I SHOULD BE A COPY PASTE JOB ---------</h2>
-        
+        <br>-->
+                
         Product Name Search:  <input id="productNameToSearch" type="text" placeholder="Product Query" >
         Products <select id="productResults"></select>
-        <h2> THIS ALSO RETURNS JSON OBJECTS PLS DO SOMETHING ABOUT IT </h2>
        
         </div>
             </div>
         
         <footer></footer>
          </div>
-        </div>
         
         <script src="../scripts/new-ui-scripts/sidebarDirective.js"></script>
         <script src="../scripts/new-ui-scripts/headerDirective.js"></script>
