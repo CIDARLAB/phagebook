@@ -43,6 +43,7 @@ public class Person {
     @Getter @Setter private String                      institution;
     @Getter @Setter private String                      department;
     @Getter @Setter private String                      title;
+    @Getter @Setter private List<String>                institutions;
     @Getter @Setter private List<String>                labs;
     @Getter @Setter private List<String>                projects;
     @Getter @Setter private List<String>                publications;
@@ -76,6 +77,7 @@ public class Person {
         this.institution      = "Not Set";
         this.department       = "Not Set";
         this.title            = "Not Set";
+        this.institutions     = new ArrayList<>();
         this.labs             = new ArrayList<>();
         this.projects         = new ArrayList<>();
         this.publications     = new ArrayList<>();

@@ -868,6 +868,7 @@ public class ClothoAdapter {
                 map.put("notebooks", notebooks);
             }
         }
+
         if (person.getInstitution() !=null)
             map.put("institution", person.getInstitution());
         
@@ -876,7 +877,22 @@ public class ClothoAdapter {
         
         if (person.getTitle() !=null)
             map.put("title", person.getTitle());
-        
+
+        if (person.getInstitutions()!= null)
+        {
+            if (!person.getInstitutions().isEmpty()){
+                JSONArray institutions = new JSONArray();
+                for (String institutiton : person.getNotebooks()){
+                    if (institutiton != null){
+                        if (!institutiton.equals("Not Set") && !institutiton.isEmpty()){
+                            institutions.add(institutiton);
+                        }
+                    }
+                }
+                map.put("institutions", institutions);
+            }
+        }
+
         if (person.getLabs() != null)
         {
             if(!person.getLabs().isEmpty())
@@ -3123,8 +3139,17 @@ public class ClothoAdapter {
                 notebooks.add(notebookIds.getString(i));
             }
         }
+        //institutions
+                
+                
+        List<String> institutions = new ArrayList<>();
+        if (map.containsKey("institutions")){
+            JSONArray institutionIds = (JSONArray) map.get("institutions");
+            for (int i = 0; i < institutionIds.size(); i++){
+                institutions.add(institutionIds.getString(i));
+            }
+        }
         
-      
         List<String> labs = new ArrayList<>() ;
         if ( map.containsKey("labs")){
             JSONArray labIds = (JSONArray) map.get("labs");
@@ -3215,6 +3240,7 @@ public class ClothoAdapter {
         person.setProjects(projects);
         person.setStatuses(statuses);
         person.setNotebooks(notebooks);
+        person.setInstitutions(institutions);
         person.setLabs(labs);
         person.setColleagues(colleagues);
         person.setCreatedOrders(orders);
@@ -3241,13 +3267,12 @@ public class ClothoAdapter {
         person.setTitle(title);
         
         person.setSalt(map.containsKey("salt") ? (String) map.get("salt") : "");
-       
+        System.out.println("passed the salt");
+        
         if (map.containsKey("saltedEmailHash")){
             JSONArray byteArrayAsJSONArray = (JSONArray) map.get("saltedEmailHash");
     
          
-           
-            
             byte[] dataByte = new byte[ byteArrayAsJSONArray.size() ];
        
             for ( int i = 0 ; i < byteArrayAsJSONArray.size() ; i++ ) 
@@ -3266,13 +3291,14 @@ public class ClothoAdapter {
             
         
         if ( map.containsKey("roles")){
-            Map rolesMap = (Map)map.get("roles");
+            Map rolesMap = (Map) map.get("roles");
             for (String lab : labs) {
                 if (!lab.equals("Not Set")){
                     JSONArray labroles = (JSONArray) rolesMap.get(lab);
-
-                    for (Object labrole : labroles) {
-                        person.addRole(lab, PersonRole.valueOf((String) labrole));
+                    if (labroles != null){
+                        for (Object labrole : labroles) {
+                            person.addRole(lab, PersonRole.valueOf((String) labrole));
+                        }
                     }
                 }
             }
