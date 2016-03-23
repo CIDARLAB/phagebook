@@ -68,7 +68,7 @@
         var responseAsJSON = angular.fromJson(response.data);
         sessionStorage.setItem("loggedUserId", responseAsJSON['loggedUserId']);
         $scope.fullName = response.data.fullname;
-        $scope.institution = response.data.institution;
+        $scope.institution = response.data.institutions[0];
         $scope.department = response.data.department;
         $scope.title = response.data.title;
     }, function errorCallback(response) {
