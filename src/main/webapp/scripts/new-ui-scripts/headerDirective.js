@@ -1,7 +1,20 @@
-function header(){
+function header($window){
     return {
         restrict: 'E',
         templateUrl: '../html/headerDirective.html',
+        scope: {
+            user: '='
+        },
+        controller: function($scope, $window) {
+
+                document.getElementById("signout").onclick = function() {
+                    // add code here
+                    alert("clicked");
+                    //need to clear the cookie and take the user back to the login screen...
+                    clearCredentialsFromCookie();
+                };
+
+        },
         link: function($scope, $log) {
             $scope.items = [
                 'The first choice!',
@@ -16,6 +29,8 @@ function header(){
             $scope.toggled = function(open) {
                 $log.log('Dropdown is now: ', open);
             };
+
+
 
             $scope.toggleDropdown = function($event) {
                 $event.preventDefault();
