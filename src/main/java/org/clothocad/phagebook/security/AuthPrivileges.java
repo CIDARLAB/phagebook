@@ -5,7 +5,9 @@
  */
 package org.clothocad.phagebook.security;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
@@ -26,7 +28,7 @@ public class AuthPrivileges {
     // create all of the objects we will be initially testing
     Person doug = new Person();
     doug.setFirstName("Doug");
-    doug.setEmailId("abcd@gmail.com");
+    doug.setEmailId("dougd@bu.edu");
     doug.setPassword("123456");
 
     
@@ -49,9 +51,8 @@ public class AuthPrivileges {
     Institution boston = new Institution("BU");
     Institution cidar = new Institution("CIDAR");
     
-    Project pb = new Project(prash, "Phagebook", "Phagebook is awesome.");
-    Project cl = new Project(prash, "Cello", "Cello is awesome.");
-    
+    Project pb = new Project();
+    Project cl = new Project();
     doug.addInstitution(boston);
     prash.addInstitution(boston);
     anna.addInstitution(boston);
@@ -84,6 +85,8 @@ public class AuthPrivileges {
     String personIDanna = ClothoAdapter.createPerson(anna, clothoObject);    
     String personIDsher = ClothoAdapter.createPerson(sherlock, clothoObject);
     
+    makePrivate(projectIDpb, clothoObject);
+    
     clothoObject.logout();
     conn.closeConnection();
 
@@ -94,6 +97,28 @@ public class AuthPrivileges {
     System.out.println(personIDdoug);
     System.out.println(personIDanna);
     System.out.println(personIDsher);
+    
+    
+
+
+  }
+  
+  private static void makePrivate(String objectId, Clotho clothoObject){
+    List<String> add = new ArrayList<String>();
+    List<String> remove = new ArrayList<String>();
+
+
+    Map grantMap = new HashMap();
+    grantMap.put("id", objectId);
+    grantMap.put("user", "none");
+    grantMap.put("add", add);
+    grantMap.put("remove", remove);
+    
+    System.out.println(grantMap);
+    
+    Map grantResult = new HashMap();
+    grantResult = (Map)(clothoObject.grant(grantMap));
+    System.out.println(grantResult);
 
   }
   
