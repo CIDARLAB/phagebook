@@ -99,6 +99,9 @@ public class processProject extends HttpServlet {
       loginMap.put("credentials", password);  
 
       clothoObject.login(loginMap);
+      
+      JSONObject result = new JSONObject();
+
 
 
       Object prName = request.getParameter("name");
@@ -128,7 +131,13 @@ public class processProject extends HttpServlet {
       System.out.println((String)projectBudgetVal);
       double projectBudget = 0.0;
       if(!projectBudgetVal.equals("")  && projectBudgetVal != null){
+         result.put("budget", "1");
         projectBudget =Double.parseDouble((String) projectBudgetVal);
+        if(projectBudget<0){
+          result.put("budget", "0");
+          projectBudget = 0;
+          
+        }
       }
         System.out.println("Budget is:"); 
         System.out.println(projectBudget);
@@ -237,7 +246,6 @@ public class processProject extends HttpServlet {
       clothoObject.logout();
       conn.closeConnection();
 
-      JSONObject result = new JSONObject();
 
       if(projectID != null){
         result.put("success",1);

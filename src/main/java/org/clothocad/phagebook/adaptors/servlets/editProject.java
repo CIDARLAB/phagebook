@@ -142,15 +142,14 @@ public class editProject extends HttpServlet {
       String foo = ClothoAdapter.setProject(project, clothoObject);
       System.out.println(foo);
       
-      // FOR TESTING -- prints the result hashmap
-      
-      Iterator iterator = result.keySet().iterator();
-      while (iterator.hasNext()) {
-         String key = iterator.next().toString();
-         Integer value = (Integer)result.get(key);
-
-         System.out.println(key + " " + value);
-      }
+      // FOR TESTING -- prints the result hashmap    
+//      Iterator iterator = result.keySet().iterator();
+//      while (iterator.hasNext()) {
+//         String key = iterator.next().toString();
+//         Integer value = (Integer)result.get(key);
+//
+//         System.out.println(key + " " + value);
+//      }
       //
       if(projectID.length()>0){
         result.put("success", 1);
@@ -223,7 +222,7 @@ public class editProject extends HttpServlet {
             
       // create a result object and send it to the frontend
       JSONObject json = new JSONObject(result);
-      System.out.printf( "JSON: %s", json.toString(2) );
+//      System.out.printf( "JSON: %s", json.toString(2) );
       
 //      if((int)result.get("success") == 1){
 //        res.put("success",1);

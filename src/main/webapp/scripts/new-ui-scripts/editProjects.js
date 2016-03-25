@@ -209,7 +209,8 @@ $(document).ready(function() {
                 //console.log(dataSubmit);
                 console.log(response);
                 console.log("response!!!");
-                return location.reload();
+                // this reloads the window
+                //return location.reload();
             },
             error: function(err) {
                 console.log("ERROR!!");
