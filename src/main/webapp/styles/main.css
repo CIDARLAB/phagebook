@@ -81,7 +81,7 @@ body {
 }
 
 #colleagues {
-    margin-top: -280px;
+    margin-top: -260px;
     float: right;
 }
 
@@ -138,6 +138,19 @@ body {
 }
             
 #create-status-btn:hover {
+    background-color: #89C176;
+    border: none;
+}
+
+#edit-order-btn {
+    float: right;
+    background-color: #9E9E9E;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+}
+
+#edit-order-btn:hover {
     background-color: #89C176;
     border: none;
 }
@@ -244,11 +257,19 @@ h3 {
     margin-top: 8px;
 }
 
+#order-nickname[type="text"] {
+    font-size: 16px;
+    font-weight: 300;
+    font-style: italic;
+    background-color: transparent;
+    border: none;
+}
+
 #profile {
-    position: absolute; 
-    overflow-x: hidden; 
-    margin-left: 30%;
-    margin-top: 100px;
+    position: absolute;
+    overflow-x: hidden;
+    margin-top: 130px;
+    margin-left: 400px;
 }
 
 #profile-header {
@@ -268,6 +289,10 @@ h3 {
 #profile-overview {
     padding: 20px 40px 0px 50px;
     background-color: #FFFFFF;
+}
+
+#profile-panel {
+    margin-bottom: 150px;
 }
 
 #profile-picture {
@@ -309,10 +334,6 @@ h3 {
     color: #FFFFFF;
 }
 
-#search-colleagues-list {
-    
-}
-
 #search-colleagues-list li {
     width: 750px;
     margin-bottom: 20px;
@@ -344,6 +365,9 @@ h3 {
     border-radius: 0px;
 }
 
+#status-update-textarea {
+    resize: none;
+}
 
 td {
     border: none !important;
