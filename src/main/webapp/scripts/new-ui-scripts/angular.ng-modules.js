@@ -62,4 +62,4 @@
   angular.element(document).ready(function() {
         initNgModules(document);
   });
-})();
+});
