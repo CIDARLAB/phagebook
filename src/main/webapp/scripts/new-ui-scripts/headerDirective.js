@@ -12,6 +12,7 @@ function header($window){
                     alert("clicked");
                     //need to clear the cookie and take the user back to the login screen...
                     clearCredentialsFromCookie();
+                    window.location.href = "/";
                 };
 
         },
