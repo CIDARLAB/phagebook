@@ -1,6 +1,8 @@
 function profileCtrl($scope, $http) {
     var clothoId = getCookie("clothoId"); //this will get the clothoId from the cookie
+    var editBool = 0;
     $scope.clothoId = clothoId;
+    var editValue = document.getElementById("edit-info-btn").value;
     $scope.profilePictureLink = "http://s3.amazonaws.com/phagebookaws/" + clothoId + "/profilePicture.jpg";
 
     $("document").ready(function () {
@@ -55,11 +57,39 @@ function profileCtrl($scope, $http) {
 
         });
 
-        $("#edit-profile-btn").click(function () {
-            window.location = "../html/accountSettings.html";
-        });
-
     });
+
+    $("#edit-profile-btn").click(function () {
+        window.location = "../html/accountSettings.html";
+    });
+
+    var save = false;
+    $scope.edit = true;
+    $scope.$watch('edit', function () {
+        $scope.editText = $scope.edit ? 'Edit Information' : 'Save Changes';
+        if ($scope.edit) {
+            $scope.editText = 'Edit Information';
+            if (save) {
+                $http({
+                    method: 'POST',
+                    url: '../getPersonById',
+                    params: {
+                        "userId": clothoId,
+                        "institution": $scope.newInst
+                    }
+                }).then(function successCallback(response) {
+
+                }, function errorCallback(response) {
+                    console.log("inside setPersonById ajax error")
+                });
+            }
+            save = false;
+        } else {
+            $scope.editText = 'Save Changes';  
+            save = true;  
+        }
+    })
+
 
     $http({
         method: 'GET',
@@ -70,28 +100,20 @@ function profileCtrl($scope, $http) {
     }).then(function successCallback(response) {
         var responseAsJSON = angular.fromJson(response.data);
         $scope.fullName = response.data.fullname;
+        $scope.editFirstName = response.data.firstName;
+        $scope.editLastName = response.data.lastName;
+        $scope.editEmail = response.data.email;
+        $scope.editPassword = "need help here";
+        $scope.editInstitution = response.data.institution;
+        $scope.editDepartment = response.data.department;
+        $scope.editTitle = response.data.title;
+        $scope.editLab = response.data.lab;
         $scope.institution = response.data.institutions[0];
         $scope.department = response.data.department;
         $scope.title = response.data.title;
     }, function errorCallback(response) {
         console.log("inside getPersonById ajax error");
     });
-
-    $("#save-edits-button").click(function () {
-        $http({
-            method: 'POST',
-            url: '../getPersonById',
-            params: {
-                "userId": clothoId,
-                "institution": $scope.newInst
-            }
-        }).then(function successCallback(response) {
-
-        }, function errorCallback(response) {
-            console.log("inside setPersonById ajax error")
-        });
-    })
-
 
 
     $(document).ready(function () {
@@ -180,6 +202,27 @@ function profileCtrl($scope, $http) {
 
     });
 
+$scope.saveProfilePicture = function(){
+    var formData = new FormData();
+    var selectedFile = document.getElementById('uploadPicture').files[0];
+    formData.append('profilePicture', selectedFile);
+    formData.append('profilePictureName', selectedFile.name);
+    console.log(selectedFile);
+    console.log(selectedFile.name);
+    $http({
+        method: 'POST',
+        url: '../uploadProfilePicture',
+        params: formData,
+        cache: false,
+        contentType: false,
+        processData: false
+        }).then(function successCallback(response) {
+            //disable upload/submit button and redirect on success
+            
+        }, function errorCallback(response) {
+            console.log("inside upload new profile picture ajax error");
+        });
+        }; 
 }
 
 function getParameterByName(name) {
@@ -188,6 +231,7 @@ function getParameterByName(name) {
             results = regex.exec(location.search);
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
+
 
 //https://github.com/CIDARLAB/phoenix-core/blob/master/phoenix-core/src/main/webapp/javascript/upload.js
 //https://github.com/CIDARLAB/phoenix-core/blob/master/phoenix-core/src/main/java/org/cidarlab/phoenix/core/servlets/ClientServlet.java#L56

@@ -11,7 +11,6 @@
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="../styles/main.css"/>
         <link rel="stylesheet" href="../styles/sidebar.css"/>
-        <link rel="stylesheet" href="../styles/profileContent.css"/>
         <link rel="icon" href="">
 
         <script src="../scripts/clotho/clotho3API.js"></script>
@@ -85,29 +84,29 @@
             <div ng-controller="profileCtrl">
                 <header></header>
                 <div class="container" style="margin-top:100px">
-                <button id="edit-info-btn" type="button" class="btn btn-default">Edit Information</button>
+                <button id="edit-info-btn" type="button" class="btn btn-default" value="Edit Information" ng-click="edit = !edit">{{editText}}</button>
                 <h3>General Account Settings</h3>
                 <form id="general-account-settings">
                     <div class="form-group row">
                         <label for="acct-first-name" class="col-sm-2 form-control-label">FIRST NAME</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" id="acct-first-name" ng-bind="institution">
-                        </div>
+                            <input type="text" class="form-control" id="acct-first-name" ng-model="editFirstName" ng-disabled="edit">
+                        </div> 
                         <label for="acct-last-name" class="col-sm-2 form-control-label">LAST NAME</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" id="acct-last-name">
+                            <input type="text" class="form-control" id="acct-last-name" ng-model="editLastName" ng-disabled="edit">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="acct-email" class="col-sm-2 form-control-label">EMAIL</label>
                         <div class="col-sm-8">
-                            <input type="email" class="form-control" id="acct-email">
+                            <input type="email" class="form-control" id="acct-email" ng-model="editEmail" ng-disabled="edit">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="acct-password" class="col-sm-2 form-control-label">PASSWORD</label>
                         <div class="col-sm-8">
-                            <input type="password" class="form-control" id="acct-password">
+                            <input type="password" class="form-control" id="acct-password" ng-model="editPassword" ng-disabled="edit">
                         </div>
                     </div>
                 </form>
@@ -125,25 +124,26 @@
                     <div class="form-group row">
                         <label for="profile-department" class="col-sm-2 form-control-label">DEPARTMENT</label>
                         <div class="col-sm-8">
-                            <input type="email" class="form-control" id="profile-department">
+                            <input type="test" class="form-control" id="profile-department" ng-model="editDepartment" ng-disabled="edit">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="profile-title" class="col-sm-2 form-control-label">TITLE</label>
                         <div class="col-sm-8">
-                            <input type="password" class="form-control" id="profile-title">
+                            <input type="text" class="form-control" id="profile-title" ng-model="editTitle" ng-disabled="edit">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="profile-lab" class="col-sm-2 form-control-label">LAB</label>
                         <div class="col-sm-8">
-                            <input type="password" class="form-control" id="profile-lab">
+                            <input type="text" class="form-control" id="profile-lab" ng-model="editLab" ng-disabled="edit">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="profile-picture" class="col-sm-2 form-control-label">PROFILE PICTURE</label>
-                        <img alt="densmore-circle-pro-pic" src="{{profilePictureLink}}" id="picture-preview">
-                        <input type="file" id="upload-picture">
+                        <img alt="Upload a Profile Picture" src="{{profilePictureLink}}" id="picture-preview">
+                        <input type="file" id="uploadPicture">
+                        <button class="btn btn-default" type="button" ng-click="saveProfilePicture()">Save!</button>
                     </div>
                     <div class="form-group row">
                         <label for="profile-desc" class="col-sm-2 form-control-label">DESCRIPTION</label>
