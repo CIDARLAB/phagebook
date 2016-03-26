@@ -80,7 +80,7 @@ function profileCtrl($scope, $http) {
     
     $http({
         method: 'POST',
-        url: 'setPersonById',
+        url: 'getPersonById',
         params: {
             "userId" : clothoId,
             "institution" : $scope.newInst
