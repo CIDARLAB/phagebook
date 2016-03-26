@@ -38,8 +38,11 @@ and open the template in the editor.
         }
 
     </style>
+    
 </head>
+
 <body>
+    
 <div ng-module="newOrder">
     <div ng-controller="newOrderCtrl">
         <header></header>
@@ -47,19 +50,19 @@ and open the template in the editor.
         <div class="container" id="content" >
             <div class="container">
                 <h3>New Order</h3>
-                <p>Generate a new order by entering the fields below. Please note that if you do not have administrative access,</p>
-                <p>all orders will need to be submitted for review and approval.</p>
+                <br>
+                <p>Generate a new order by entering the fields below. Please note that if you do not have administrative access, <br> all orders will need to be submitted for review and approval.</p>
                 <br>
                 <form id="general-account-settings">
                     <div class="form-group row">
                         <label for="orderNickname" class="col-sm-2 form-control-label">ORDER NICKNAME</label>
-                        <div class="col-sm-3">
+                        <div class="col-sm-5">
                             <input type="text" class="form-control" id="orderNickname">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="lab-name" class="col-sm-2 form-control-label">LAB</label>
-                        <div class="col-sm-8">
+                        <div class="col-sm-5">
                             <select class="form-control" id="lab-name">
                                 <option value="" >Lab Name...</option>
                             </select>
@@ -67,38 +70,41 @@ and open the template in the editor.
                     </div>
                     <div class="form-group row">
                         <label for="projectName" class="col-sm-2 form-control-label">PROJECT NAME SEARCH</label>
-                        <div class="col-sm-3">
+                        <div class="col-sm-5">
                             <input type="text" class="form-control" id="projectName">
                         </div>
+                    </div>
+                    <div class="form-group row">
                         <label for="projectResults" class="col-sm-2 form-control-label">PROJECTS</label>
-                        <div class="col-sm-3">
+                        <div class="col-sm-5">
                             <select class="form-control" id="projectResults">
                             </select>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="orderBudget" class="col-sm-2 form-control-label">ORDER BUDGET</label>
-                        <div class="col-sm-3">
+                        <div class="col-sm-5">
                             <input type="text" class="form-control" id="orderBudget">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="orderLimit" class="col-sm-2 form-control-label">ORDER LIMIT</label>
-                        <div class="col-sm-3">
+                        <div class="col-sm-5">
                             <input type="text" class="form-control" id="orderLimit">
                         </div>
                     </div>
                 </form>
-                <button id="createOrder" type="submit" class="btn btn-default">Create</button>
+                <br>
+                <div class="col-sm-7">
+                    <button id="createOrder" type="submit" class="btn btn-default" style="float:right">Create</button>
+                </div>
             </div>
-
-
         </div>
     </div>
-
     <footer></footer>
 </div>
 
+<!-- ANGULAR SCRIPTS -->
 <script src="../scripts/new-ui-scripts/sidebarDirective.js"></script>
 <script src="../scripts/new-ui-scripts/headerDirective.js"></script>
 <script src="../scripts/new-ui-scripts/footerDirective.js"></script>
@@ -106,6 +112,5 @@ and open the template in the editor.
 <script src="../scripts/new-ui-scripts/newOrderApp.js"></script>
 
 </body>
-
 
 </html>
