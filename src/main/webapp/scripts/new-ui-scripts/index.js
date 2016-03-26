@@ -88,13 +88,15 @@ $(document).ready(function () {
         var lastName =    document.getElementById("inputLastName").value;
         var emailId =     document.getElementById("emailAddress").value;
         var password =    document.getElementById("password").value;
-        var institution = document.getElementById("institution").value; // selected institution id
-        var lab         = document.getElementById("lab-name").value;
         
         if ((firstName === "") || (lastName === "") || (emailId === "") || (password === ""))
         {
             alert("Fields cannot be blank!");
             isValid = 0;
+            
+            var institution = document.getElementById("institution").value; // selected institution id
+            var lab         = document.getElementById("lab-name").value;
+            
         }
         if (isValid && checkPasswordMatch()) {
             $.ajax({
@@ -150,23 +152,20 @@ $(document).ready(function () {
                 success: function (response) {
                     //alert(response);
                     //alert("Got Some Response" + response);
+                    setCookie("clothoId", response.clothoId, 1);
+                    setCookie("emailId", response.emailId, 1);
 
-
-                    setCookie("clothoId", response.clothoId, 1);     //use cookies instead..
-
-                    setCookie("emailId", document.getElementById("loginEmailAddress").value, 1);
 
 
                     if (response.activated === "false")
                     {
-                        setCookie("clothoId", response.clothoId, 1);
-                        setCookie("emailId", response.emailId, 1);
+                        
 
                         window.location.href = '../html/resendEmailVerification.html';
                     }
                     else
                     {
-                        window.location.href = '../html/profile.html?user=' + response.clothoId;
+                        window.location.href = '../html/profile.html';
                     }
                 },
                 error: function (response) {

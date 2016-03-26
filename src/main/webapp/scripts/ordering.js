@@ -37,7 +37,6 @@ function orderingCtrl($scope) {
         });
     }
 
-
 //    $scope.createOrder = function(){
 //         if (getCookie("Order") !== ""){
 //            var ids = getCookie("Order");
