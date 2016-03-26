@@ -10,7 +10,8 @@ function setCookie(cname, cvalue, exdays)
     var d = new Date();
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
     var expires = "expires=" + d.toUTCString();
-    document.cookie = cname + "=" + cvalue + "; " + expires;
+    var path = "path=/";
+    document.cookie = cname + "=" + cvalue + "; " + expires + path;
 }
 function getCookie(cname) {
     //GET A DAMN COOKIE VALUE
@@ -25,6 +26,12 @@ function getCookie(cname) {
     }
     return "";
     //
+}
+
+function clearCredentialsFromCookie(){
+
+    setCookie("clothoId", "", 1);
+    setCookie("emailId", "" , 1);
 }
 function appendToCookie(cname, cvalue, exdays) {
 
@@ -49,6 +56,6 @@ function getParameterByName(name)
 {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-            results = regex.exec(location.search);
+        results = regex.exec(location.search);
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }

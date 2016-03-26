@@ -5,12 +5,11 @@ function profileCtrl($scope, $modal) {
             type: 'GET',
             async: false,
             data: {
-                "userId": getParameterByName("user")
+                "userId": getCookie("clothoId")
             },
             success: function (response) {
                 var responseAsJSON = JSON.parse(response);
                 $scope.personID = responseAsJSON['loggedUserId'];
-                sessionStorage.setItem("loggedUserId", responseAsJSON['loggedUserId']);
                 $scope.displayName = responseAsJSON['fullname'];
                 $scope.pictureName = responseAsJSON["fullname"];
                 $scope.statuses = responseAsJSON["statusList"];

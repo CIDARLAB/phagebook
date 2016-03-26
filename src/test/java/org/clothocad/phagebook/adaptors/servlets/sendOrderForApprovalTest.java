@@ -54,8 +54,8 @@ public class sendOrderForApprovalTest {
     //@Test
     public void testTransfer() throws Exception {
             //use new Order Test to get an order ID. 
-            String userId = "56df6337d4c6def5c7c960f3";
-            String orderId = "56df633ed4c6def5c7c960f8";
+            String userId = "56f2edc2d4c6875fb6d32a51";
+            String orderId = "56f2edc4d4c6875fb6d32a57";
             
             
             //login

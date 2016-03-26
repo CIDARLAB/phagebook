@@ -129,6 +129,8 @@ public class newOrderTest {
             clothoObject.logout();
             
             ClothoAdapter.setPerson(creator, clothoObject);
+            
+            
     }
     
 }
