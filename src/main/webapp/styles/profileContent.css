@@ -1,0 +1,42 @@
+#overview-link:link {
+    text-decoration: none;
+    font-family: "Open Sans", sans-serif;  
+    color: #1E714A;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+#overview-link:visited {
+    text-decoration: none;
+    font-family: "Open Sans", sans-serif;
+    color: #1E714A;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+#overview-link:hover {
+    text-decoration: none;
+    font-family: "Open Sans", sans-serif;
+    color: #1E714A;
+    font-weight: 400;
+    font-size: 16px;
+    background-color: transparent !important;
+}
+
+.nav li:first-child.active {
+    background-color: transparent; 
+    border: none;
+    text-align: center;
+}
+
+#profile-content li {
+    font-size: 20px;
+}
+#profile-nav {
+    margin-top: 425px;
+    margin-left: 400px;
+}
+
+
+
+

@@ -108,7 +108,6 @@ body {
 
 #colleagues-tab {
     margin-top: 50px;
-    margin-bottom: 150px;
 }
 
 #createOrder {
@@ -166,7 +165,6 @@ footer {
     width: 100%;
     height: 60px;
     background-color: #FDFDFD;
-    margin-top: 10px;
 }
 
 #gear-icon {
@@ -183,10 +181,6 @@ footer {
 h3 {
     font-family: "Open Sans", sans-serif;
     font-weight: 300;
-}
-
-#list-colleagues {
-    margin-top: 0px;
 }
 
 #list-colleagues li {
@@ -250,8 +244,8 @@ h3 {
 #profile {
     position: absolute;
     overflow-x: hidden;
-    margin-top: 130px;
-    margin-left: 28%;
+    margin-top: 90px;
+    margin-left: 400px;
 }
 
 #profile-header {
@@ -287,10 +281,6 @@ h3 {
 #publications li {
     padding: 30px 20px 20px 20px;
     margin-bottom: 25px;
-}
-
-#publications-list {
-    margin-top: 0px;
 }
 
 #publications p {
@@ -355,3 +345,18 @@ h3 {
 td {
     border: none !important;
 }
+
+
+/*
+** HEADER CSS BEGIN
+*/
+
+#headerNav {
+    margin-bottom: 0px!important;
+    position: inherit;
+}
+
+
+/*
+** HEADER CSS END
+*/

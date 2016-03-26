@@ -11,6 +11,7 @@
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="../styles/main.css"/>
         <link rel="stylesheet" href="../styles/sidebar.css"/>
+        <link rel="stylesheet" href="../styles/profileContent.css"/>
         <link rel="icon" href="">
 
         <script src="../scripts/clotho/clotho3API.js"></script>
@@ -23,11 +24,9 @@
         <style>
             
             #profile-nav {
-                position: absolute;
-                margin-top: 400px;
-                margin-left: 26%;
-                width: 900px;
-                overflow-x: hidden;
+               margin-top: 450px;
+               margin-left: 28%;
+               width: 900px;
             }
             
             #profile-nav-tabs li {
@@ -37,7 +36,8 @@
             
             #profile-nav-tabs li.active {
                 background-color: transparent;
-                border: none;
+                border-right: none;
+                border-bottom: none;
             }
             
             #profile-nav-tabs li.active a {
@@ -51,7 +51,6 @@
             .tab-content {
                 margin-top: 20px;
                 margin-left: 15px;
-                margin-bottom: 150px;
             }
             
             h4 {
@@ -158,7 +157,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <br>
                             <div class="row">
                                 <div class="container-fluid" id="previous-posts">
                                     <h4>Previous Posts</h4>
@@ -303,9 +301,9 @@
         </div>
         
         <!-- ANGULAR SCRIPTS -->
-        <script src="../scripts/new-ui-scripts/headerDirective.js"></script>
         <script src="../scripts/new-ui-scripts/footerDirective.js"></script>
         <script src="../scripts/new-ui-scripts/sidebarDirective.js"></script>
+        <script src="../scripts/new-ui-scripts/headerDirective.js"></script>
         <script src="../scripts/new-ui-scripts/profileController.js"></script>
         <script src="../scripts/new-ui-scripts/profileApp.js"></script>
         
