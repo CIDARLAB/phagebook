@@ -85,16 +85,39 @@ public class createPerson extends HttpServlet {
         Clotho clothoObject = new Clotho(conn);
         
        
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
-        String password = request.getParameter("password");
-        String emailId = request.getParameter("emailId");
+        String firstName     = request.getParameter("firstName");
+        String lastName      = request.getParameter("lastName");
+        String password      = request.getParameter("password");
+        String emailId       = request.getParameter("emailId");
+        
+        
+        Object pInstitutionId = request.getParameter("institution");
+        String institutionId = pInstitutionId != null ? (String) pInstitutionId : "";
+        
+        Object pLabId = request.getParameter("lab");
+        String labId = pLabId != null ? (String) pLabId : "";
         
         Person createdPerson = new Person();
         createdPerson.setFirstName(firstName);
         createdPerson.setLastName(lastName);
         createdPerson.setEmailId(emailId);
         createdPerson.setPassword(password);
+        
+        if (!institutionId.equals("")){
+            List<String> institutions = createdPerson.getInstitutions();
+            institutions.add(institutionId);
+            createdPerson.setInstitutions(institutions);
+        }
+        
+        if (!labId.equals("")){
+            List<String> labs = createdPerson.getLabs();
+            labs.add(labId);
+
+            createdPerson.setLabs(labs);
+        }
+        
+        
+      
         
         
         EmailSaltHasher salty = EmailSaltHasher.getEmailSaltHasher();

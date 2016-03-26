@@ -12,7 +12,7 @@ $(document).ready(function() {
     }
     function doAjax(){
         
-        var name = $("#projectName").val();
+       var name = $("#projectName").val();
        var isValid = 0;
        if (name !== ''){
            isValid = 1;
@@ -113,11 +113,11 @@ function doAjaxCallToCreateOrder(name, createdBy, labId, associatedProjectId, bu
                     },
                     success: function (response) {
                         alert("order created!");
-                        sessionStorage.setItem("orderResponse", response.toString());
+                        window.location.href = "../html/currentOrders.html";
                         
                     },
                     error: function (response) {
-                        
+                        alert(response.message);
                     }
                 });
 }

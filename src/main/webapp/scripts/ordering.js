@@ -167,7 +167,6 @@ function totalNumberOfBoxesWithName(name) {
     return productNumber;
 }
 
-<<<<<<< HEAD
 // **** change name to cookie_manager.js *****
 
 // saves a new key value pair to cookie object on the page 
@@ -220,5 +219,3 @@ function getParameterByName(name)
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
-=======
->>>>>>> d677b10ca713c446c8ed28470f05cc2f389f9bb4
