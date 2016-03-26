@@ -1,6 +1,6 @@
 function footer(){
    return {
         restrict: 'E',
-        templateUrl: './footerDirective.html'
+        templateUrl: './html/footerDirective.html'
     };
 };
