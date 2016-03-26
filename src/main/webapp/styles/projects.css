@@ -1,0 +1,25 @@
+#inputLeadFirstName3{
+	width: 48%;
+	margin-right: 3%;
+	display: inline;
+}
+
+#inputLeadLastName3{
+	width: 48%;
+	display: inline;
+}
+
+.leadError{
+	width: 48%;
+	display: inline;
+}
+
+#newProject{
+	z-index: 0;
+	overflow: hidden;
+}
+
+/*.myProjects{
+	
+
+}*/

@@ -166,4 +166,3 @@ function totalNumberOfBoxesWithName(name) {
 
     return productNumber;
 }
-

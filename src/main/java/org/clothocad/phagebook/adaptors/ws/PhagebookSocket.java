@@ -85,7 +85,7 @@ public class PhagebookSocket
                 {
                     Map createStatusMap = new HashMap();
                     createStatusMap = (Map)messageObject.get("data");
-                    
+
                     Map loginMap = new HashMap();
                     loginMap.put("username",createStatusMap.get("username"));
                     loginMap.put("credentials",createStatusMap.get("password"));
@@ -94,9 +94,11 @@ public class PhagebookSocket
                     loginResult = (Map)clothoObject.login(loginMap);
                     System.out.println("LOGIN RESULT "  + loginResult.toString());
                     Person person = ClothoAdapter.getPerson(loginResult.get("id").toString(), clothoObject);
-                    Status stat = new Status(createStatusMap.get("status").toString(), person);
-                    ClothoAdapter.createStatus(stat, clothoObject);
-                    person.getStatuses().add(stat.getId());
+                    
+                    Status stat = new Status();
+                    stat.setText(createStatusMap.get("status").toString());
+                    stat.setUserId(person.getId());
+                    
                     
                     ClothoAdapter.setPerson(person, clothoObject);
    
@@ -142,7 +144,9 @@ public class PhagebookSocket
                     
                     Person person = ClothoAdapter.getPerson(loginResult.get("id").toString(), clothoObject);
                     
-                    Status stat = new Status(projectStatusMap.get("status").toString(),person);
+                    Status stat = new Status();
+                    stat.setText(projectStatusMap.get("status").toString());
+                    stat.setUserId(person.getId());
                     
                     ClothoAdapter.createStatus(stat, clothoObject);
                     
