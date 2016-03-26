@@ -14,17 +14,36 @@ $(document).ready(function() {
     var timerVal;
     // add handlers for keypresses on first names of people
     $("#inputLeadFirstName3").keypress(keyPressHandler);
+    $("#inputLeadLastName3").keypress(keyPressHandler);
+
     $("#inputMemberFirstName3").keypress(keyPressHandler);
-    
+    $("#inputMemberLastName3").keypress(keyPressHandler);
+
 
     var doAjax = function(id) {
 
-        var name = $("#"+id).val();
         console.log("name is");
         console.log(name);
+        var firstName = "";
+        var lastName = "";
+        //determine whether the input is last or first name
+        if(id.indexOf("First") > -1){
+          console.log("the input is the first name");
+          firstName = $("#"+id).val();
+
+        }else if(id.indexOf("Last") > -1){
+          console.log("the input is the last name");
+          lastName = $("#"+id).val();
+        }
+
+        var data = {
+          "firstName": firstName,
+          "lastName": lastName
+        }
+        console.log(data);
 
         var isValid = 0;
-        if (name !== '') {
+        if (firstName !== '' || lastName !== '') {
             isValid = 1;
         }
 
@@ -35,9 +54,7 @@ $(document).ready(function() {
                 url: "../findMemberForNewProject",
                 type: "GET",
                 async: false,
-                data: {
-                    "name": "test"
-                },
+                data: data,
                 success: function(res) {
                     // var select = document.getElementById('companyResults');
                     // removeOptions(select);
