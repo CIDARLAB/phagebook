@@ -1,4 +1,4 @@
-a:link {
+   a:link {
     text-decoration: none;
     font-family: "Open Sans", sans-serif;
     color: #1E714A;
@@ -245,17 +245,10 @@ h3 {
 }
 
 #profile {
-<<<<<<< HEAD
     position: absolute; 
     overflow-x: hidden; 
     margin-left: 30%;
     margin-top: 100px;
-=======
-    position: absolute;
-    overflow-x: hidden;
-    margin-top: 130px;
-    margin-left: 400px;
->>>>>>> a964036d5e2f3e8b0990298171822ebfdd738bed
 }
 
 #profile-header {
