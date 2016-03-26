@@ -1,6 +1,6 @@
 a:link {
     text-decoration: none;
-    font-family: "Open Sans", sans-serif;  
+    font-family: "Open Sans", sans-serif;
     color: #1E714A;
     font-weight: 400;
     font-size: 12px;
@@ -13,7 +13,7 @@ a:visited {
     font-weight: 400;
     font-size: 12px;
 }
-            
+
 a:hover {
     text-decoration: underline;
     font-family: "Open Sans", sans-serif;
@@ -81,7 +81,7 @@ body {
 }
 
 #colleagues {
-    margin-top: -245px;
+    margin-top: -280px;
     float: right;
 }
 
@@ -106,8 +106,19 @@ body {
     height: 110px;
 }
 
-#colleagues-tab {
-    margin-top: 50px;
+#createOrder {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #FFFFFF;
+    border-radius: 8px;
+    padding: 10px 30px 10px 30px;
+    background-color: #1E714A; 
+    border: none;
+}
+
+#createOrder:hover {
+    background-color: #31A16F;
 }
 
 #create-status-btn {
@@ -123,6 +134,7 @@ body {
     display: block;
     clear: both;
     margin-left: 35%;
+    float: right;
 }
             
 #create-status-btn:hover {
@@ -144,12 +156,12 @@ body {
     border: none;
 }
 
-footer {
+.footer {
     position: fixed;
     bottom: 0;
     width: 100%;
     height: 60px;
-    background-color:#FDFDFD;
+    background-color: #FDFDFD;
 }
 
 #gear-icon {
@@ -168,8 +180,12 @@ h3 {
     font-weight: 300;
 }
 
+#list-colleagues{
+    margin-top: 0px;
+}
+
 #list-colleagues li {
-    width: 400px;
+    width: 350px;
 }
 
 #list-colleagues li a {
@@ -190,12 +206,14 @@ h3 {
 }
 
 #load-more-btn {
-    background-color: #FFFFFF;
+    color: #FFFFFF;
+    background-color: #9E9E9E;
     border-radius: 0px;
+    font-size: 12px;
 }
 
 #load-more-btn:hover {
-    background-color: #C1C1C1;
+    background-color: #89C176;
     border-radius: 0px;
 }
 
@@ -227,14 +245,21 @@ h3 {
 }
 
 #profile {
+<<<<<<< HEAD
     position: absolute; 
     overflow-x: hidden; 
     margin-left: 30%;
     margin-top: 100px;
+=======
+    position: absolute;
+    overflow-x: hidden;
+    margin-top: 130px;
+    margin-left: 400px;
+>>>>>>> a964036d5e2f3e8b0990298171822ebfdd738bed
 }
 
 #profile-header {
-    width: 500px;
+    width: 550px;
     margin-left: 220px;
 }
 
@@ -259,14 +284,15 @@ h3 {
     height: 180px;
 }
 
-#publications {
-    margin-top: 50px;
-}
-
 #publications li {
     padding: 30px 20px 20px 20px;
     margin-bottom: 25px;
 }
+
+#publications-list {
+    margin-top: 0px;
+}
+
 
 #publications p {
     font-style: italic;
@@ -312,20 +338,19 @@ h3 {
 }
 
 #see-full-list-btn {
-    background-color: #FFFFFF;
+    background-color: #9E9E9E;
+    color: #FFFFFF;
     border-radius: 0px;
     display: block;
-    width: 400px;
+    width: 350px;
+    font-size: 12px;
 }
 
 #see-full-list-btn:hover {
-    background-color: #C1C1C1;
+    background-color: #89C176;
     border-radius: 0px;
 }
 
-#status-update-textarea {
-    margin: 20px 0px 20px -15px;
-}
 
 td {
     border: none !important;

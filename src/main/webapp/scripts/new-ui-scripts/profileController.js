@@ -64,14 +64,14 @@ function profileCtrl($scope, $http) {
 
     $http({
         method: 'GET',
-        url: 'getPersonById',
+        url: '../getPersonById',
         params: {
             "userId": clothoId
         }
     }).then(function successCallback(response) {
         var responseAsJSON = angular.fromJson(response.data);
         $scope.fullName = response.data.fullname;
-        $scope.institution = response.data.institution;
+        $scope.institution = response.data.institutions[0];
         $scope.department = response.data.department;
         $scope.title = response.data.title;
     }, function errorCallback(response) {
@@ -94,10 +94,12 @@ function profileCtrl($scope, $http) {
 }
 
 
-function getParameterByName(name)
-{
+function getParameterByName(name){
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
             results = regex.exec(location.search);
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
+
+//https://github.com/CIDARLAB/phoenix-core/blob/master/phoenix-core/src/main/webapp/javascript/upload.js
+//https://github.com/CIDARLAB/phoenix-core/blob/master/phoenix-core/src/main/java/org/cidarlab/phoenix/core/servlets/ClientServlet.java#L56

@@ -43,6 +43,7 @@ public class Person {
     @Getter @Setter private String                      institution;
     @Getter @Setter private String                      department;
     @Getter @Setter private String                      title;
+    @Getter @Setter private List<String>                institutions;
     @Getter @Setter private List<String>                labs;
     @Getter @Setter private List<String>                projects;
     @Getter @Setter private List<String>                publications;
@@ -76,6 +77,7 @@ public class Person {
         this.institution      = "Not Set";
         this.department       = "Not Set";
         this.title            = "Not Set";
+        this.institutions     = new ArrayList<>();
         this.labs             = new ArrayList<>();
         this.projects         = new ArrayList<>();
         this.publications     = new ArrayList<>();
@@ -248,5 +250,19 @@ public class Person {
     }
     public static enum PersonRole{
        MEMBER, PI, LABMANAGER, POSTDOC, GRADSTUDENT, UNDERGRADUATE,LABADMIN, VISITINGRESEARCHER,RAPROFESSOR
+    }
+    
+    @Override public String toString(){
+       String result = "Person is ";
+       
+       if(!this.firstName.equals("") && !this.lastName.equals("")){
+        result += this.firstName + " " + this.lastName +"\n";
+       }
+       if(!this.id.equals("")){
+        result += "ID is: " + this.id +"\n";
+       }
+       
+       return result;
+      
     }
 }

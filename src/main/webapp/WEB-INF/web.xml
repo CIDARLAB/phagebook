@@ -116,6 +116,10 @@
         <servlet-name>queryFirstLastName</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.queryFirstLastName</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>loadUserData</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.loadUserData</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>inputProduct</servlet-name>
         <url-pattern>/inputProduct</url-pattern>
@@ -164,6 +168,23 @@
         <servlet-name>createPerson</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.createPerson</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>editProject</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.editProject</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>addUpdateToProject</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.addUpdateToProject</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>editProject</servlet-name>
+        <url-pattern>/editProject</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addUpdateToProject</servlet-name>
+        <url-pattern>/addUpdateToProject</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>processProject</servlet-name>
         <url-pattern>/processProject</url-pattern>
@@ -206,7 +227,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>getPersonById</servlet-name>
-        <url-pattern>/html/getPersonById</url-pattern>
+        <url-pattern>/getPersonById</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>createProduct</servlet-name>
@@ -279,5 +300,9 @@
     <servlet-mapping>
         <servlet-name>queryFirstLastName</servlet-name>
         <url-pattern>/queryFirstLastName</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>loadUserData</servlet-name>
+        <url-pattern>/loadUserData</url-pattern>
     </servlet-mapping>
 </web-app>

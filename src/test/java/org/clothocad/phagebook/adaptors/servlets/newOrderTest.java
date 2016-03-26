@@ -118,7 +118,7 @@ public class newOrderTest {
             order.setMaxOrderSize(orderLimit);
             order.setAffiliatedLabId(labId);
             order.setRelatedProjectId(associatedProjectId);
-            order.setStatus(OrderStatus.INPROGRESS);
+            //order.setStatus(OrderStatus.INPROGRESS);
             
             ClothoAdapter.createOrder(order, clothoObject); // CREATED THE ORDER
                                                             // BUT I NOW NEED TO LINK IT TO THE USER
@@ -129,6 +129,8 @@ public class newOrderTest {
             clothoObject.logout();
             
             ClothoAdapter.setPerson(creator, clothoObject);
+            
+            
     }
     
 }

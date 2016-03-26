@@ -96,12 +96,7 @@ public class verifyEmail extends HttpServlet {
             
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
-            Map createUserMap = new HashMap();
-            createUserMap.put("username", "ClothoBackend");
-            createUserMap.put("password", "phagebook");
-
-           
-            clothoObject.createUser(createUserMap);
+          
 
             Map loginMap = new HashMap();
             loginMap.put("username", "ClothoBackend");
@@ -113,7 +108,7 @@ public class verifyEmail extends HttpServlet {
            
           
             queryPersons = ClothoAdapter.queryPerson(query, clothoObject, ClothoAdapter.QueryMode.EXACT);
-            
+            System.out.println("I leave that method");
             byte[] recreatedHash = salty.hash(emailId.toCharArray(), salt.getBytes("UTF-8"));
            
             boolean isValidated = salty.isExpectedPassword(emailId.toCharArray(), salt.getBytes("UTF-8"), queryPersons.get(0).getSaltedEmailHash());

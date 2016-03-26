@@ -40,11 +40,11 @@ public class S3Adapter {
         createS3Folder("phagebookaws", clothoId, s3client);
 
         //------------TESTING BEFORE INTEGRATED INTO PROFILE------------
-        /*String fileName = clothoId + "/" + "profilePicture.jpg";
+        String fileName = clothoId + "/" + "profilePicture.jpg";
         String picturePath = "C:\\Users\\azula\\Pictures\\AllisonDurkan.jpg";
         s3client.putObject(new PutObjectRequest("phagebookaws", fileName,
                 new File(picturePath))
-                .withCannedAcl(CannedAccessControlList.PublicRead));*/
+                .withCannedAcl(CannedAccessControlList.PublicRead));
 
     }
 

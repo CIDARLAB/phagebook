@@ -5,47 +5,50 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <html>
-    <head>
-        <title>Current Orders</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../styles/cssBootstrap/bootstrap.css"/>
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="../styles/main.css"/>
-        <link rel="stylesheet" href="../styles/sidebar.css"/>
-        
-        
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-        <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-        
-        <script src="../scripts/new-ui-scripts/cookieHandler.js"></script>
-        <script src="../scripts/new-ui-scripts/currentOrders.js"></script>
-        <style>
-            #content{
-                margin-left: 20%;
-                position: fixed;
-            }
-        </style>
-    </head>
-    <body>
-        <div ng-module="currentOrders">
-            <div ng-controller="currentOrdersCtrl">
-                <header></header>
-                <sidebar></sidebar>
-            
-        <div class="container" id="content">
-        please parse the data needed from the response object in the AJAX call in my javascript file :)
+<head>
+    <title>Current Orders</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/cssBootstrap/bootstrap.css"/>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="../styles/main.css"/>
+    <link rel="stylesheet" href="../styles/sidebar.css"/>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+
+    <script src="../scripts/new-ui-scripts/cookieHandler.js"></script>
+    <script src="../scripts/new-ui-scripts/currentOrders.js"></script>
+    <style>
+        #content{
+            margin-left: 28%;
+            position: fixed;
+            margin-top: 130px;
+        }
+    </style>
+</head>
+<body>
+<div ng-module="currentOrders">
+    <div ng-controller="currentOrdersCtrl">
+        <header></header>
+        <sidebar></sidebar>
+        <div class="container-fluid" id="content">
+            Product Name Search:  <input id="productNameToSearch" type="text" placeholder="Product Query" >
+            Products <select id="productResults"></select>
+            <br>
+            Order Info: <textarea id="order-info"></textarea>
         </div>
-                <footer></footer>
-            </div>
-        </div>
-        
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
-        <script src="../scripts/new-ui-scripts/angular.ng-modules.js"></script>
-        <script src="../scripts/new-ui-scripts/sidebarDirective.js"></script>
-        <script src="../scripts/new-ui-scripts/headerDirective.js"></script>
-        <script src="../scripts/new-ui-scripts/footerDirective.js"></script>
-        <script src="../scripts/new-ui-scripts/currentOrdersController.js"></script>
-        <script src="../scripts/new-ui-scripts/currentOrdersApp.js"></script>
-    </body>
+        <footer></footer>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
+<script src="../scripts/new-ui-scripts/angular.ng-modules.js"></script>
+<script src="../scripts/new-ui-scripts/sidebarDirective.js"></script>
+<script src="../scripts/new-ui-scripts/headerDirective.js"></script>
+<script src="../scripts/new-ui-scripts/footerDirective.js"></script>
+<script src="../scripts/new-ui-scripts/currentOrdersController.js"></script>
+<script src="../scripts/new-ui-scripts/currentOrdersApp.js"></script>
+</body>
 </html>

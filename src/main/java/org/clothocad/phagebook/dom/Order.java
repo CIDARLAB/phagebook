@@ -73,6 +73,6 @@ public class Order {
         this.relatedProjectId = "Not Set";
         this.status = OrderStatus.INPROGRESS;
         this.affiliatedLabId = "Not Set";
-        
+     
     }
 }

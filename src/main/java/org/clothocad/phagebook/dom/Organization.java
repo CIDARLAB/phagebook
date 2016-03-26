@@ -41,5 +41,17 @@ public class Organization {
         this.phone       = "Not Set";
         this.url         = "Not Set";
     }
+    
+    @Override public String toString(){
+      
+      String result = "Organization is ";
+
+      if(!this.name.equals("") ){
+        result += this.name;
+      }
+      
+      return result;
+
+    }
 
 }
