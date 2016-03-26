@@ -24,28 +24,15 @@
             
             #profile-nav {
                 position: absolute;
-                margin-top: 425px;
-                margin-left: 400px;
-                width: 862px;
+                margin-top: 400px;
+                margin-left: 26%;
+                width: 900px;
                 overflow-x: hidden;
-                background: transparent;
-                border: none;
-            }
-            
-            #profile-nav-heading {
-                background: none;
-                border-bottom: none;
-                margin-top: 50px;
-            }
-            
-            #profile-nav-tabs {
-                margin-top: 0px;
             }
             
             #profile-nav-tabs li {
-                width: 200px;
+                width: 180px;
                 font-size: 14px;
-                text-align: center;
             }
             
             #profile-nav-tabs li.active {
@@ -59,6 +46,12 @@
             
             #profile-nav-tabs li.hover {
                 border: none;
+            }
+            
+            .tab-content {
+                margin-top: 20px;
+                margin-left: 15px;
+                margin-bottom: 150px;
             }
             
             h4 {
@@ -115,208 +108,200 @@
                         </div>   
                     </div>
                 </div>
-                <div class="panel with-nav-tabs panel-default" id="profile-nav">
-                    <div class="panel-heading" id="profile-nav-heading">
-                        <ul class="nav nav-tabs" id="profile-nav-tabs">
-                            <li class="active"><a href="#overview" data-toggle="tab">Overview</a></li>
-                            <li><a href="#colleagues-tab" data-toggle="tab">Colleagues</a></li>
-                            <li><a href="#projects" data-toggle="tab">Projects</a></li>
-                            <li><a href="#publications" data-toggle="tab">Publications</a></li>
-                        </ul>
-                    </div>
-                    <div class="panel-body">
-                        <div class="tab-content">
-                            <div class="tab-pane fade in active" id="overview">
-                                <br>
-                                <div class="row">
-                                    <div class="container-fluid" id="status-update">
-                                        <div class="col-sm-6" id="status-updates">
-                                            <h4>Status Updates</h4>
-                                            <p>Update your personal news, accomplishments, and lab events.</p>
-                                            <br>
-                                            <textarea class="form-control" rows="5" id="status-update-textarea" placeholder="Write new status here"></textarea>
-                                            <br>
-                                            <button id="create-status-btn" type="button" class="btn btn-default">Create Status</button>
-                                        </div>
+                <div class="container" id="profile-nav">
+                    <ul class="nav nav-tabs" id="profile-nav-tabs">
+                        <li class="active"><a href="#overview" data-toggle="tab">Overview</a></li>
+                        <li><a href="#colleagues-tab" data-toggle="tab">Colleagues</a></li>
+                        <li><a href="#projects" data-toggle="tab">Projects</a></li>
+                        <li><a href="#publications" data-toggle="tab">Publications</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="overview">
+                            <br>
+                            <div class="row">
+                                <div class="container-fluid" id="status-update">
+                                    <h4>Status Updates</h4>
+                                    <p>Update your personal news, accomplishments, and lab events.</p>
+                                    <div class="col-sm-6">
+                                        <textarea class="form-control" rows="5" id="status-update-textarea" placeholder="Write new status here"></textarea>
                                     </div>
-                                    <div class="container-fluid" id="colleagues">
-                                        <div class="col-sm-2">
-                                            <h4>Colleagues</h4>
-                                            <br>
-                                                <ul class="list-group" id="list-colleagues">
-                                                    <li class="list-group-item">
-                                                        <img alt="Kristel Tan" src="../styles/img/mis/kristel-tan-pro-pic.jpg">
-                                                        <a href="#">Kristel Tan</a>
-                                                        <p></p>
-                                                        <p>CIDAR Lab</p>
-                                                        <p>Boston University</p>
-                                                    </li>
-                                                    <li class="list-group-item">
-                                                        <img alt="Johan Ospina" src="../styles/img/mis/johan-pro-pic.jpg">
-                                                        <a href="#">Johan Ospina</a>
-                                                        <p></p>
-                                                        <p>CIDAR Lab</p>
-                                                        <p>Boston University</p>
-                                                    </li>
-                                                    <li class="list-group-item">
-                                                        <img alt="Allison Durkan" src="../styles/img/mis/allison-pro-pic.jpg">
-                                                        <a href="#">Allison Durkan</a>
-                                                        <p></p>
-                                                        <p>CIDAR Lab</p>
-                                                        <p>Boston University</p>
-                                                    </li>
-                                                </ul>
-                                                <button id="see-full-list-btn" type="button" class="btn btn-secondary btn-block">See Full List...</button>
-                                        </div>
-                                    </div>
+                                    <button id="create-status-btn" type="button" class="btn btn-default">Create Status</button>
                                 </div>
-                                <br>
-                                <div class="row">
-                                    <div class="container-fluid" id="previous-posts">
-                                        <div class="col-sm-12">
-                                        <h4>Previous Posts</h4>
-                                        <br>
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">MARCH 19, 2016</div>
-                                            <div class="panel-body">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam non velit tellus. Quisque rutrum libero ut scelerisque malesuada. Sed a lacus quis sem dapibus malesuada. Cras rutrum et erat nec tempus.
-                                            </div>
-                                        </div>
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">MARCH 1, 2016</div>
-                                            <div class="panel-body">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam non velit tellus. Quisque rutrum libero ut scelerisque malesuada. Sed a lacus quis sem dapibus malesuada. Cras rutrum et erat nec tempus.
-                                            </div>
-                                        </div>
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">FEBRUARY 17, 2016</div>
-                                            <div class="panel-body">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam non velit tellus. Quisque rutrum libero ut scelerisque malesuada. Sed a lacus quis sem dapibus malesuada. Cras rutrum et erat nec tempus.
-                                            </div>
-                                        </div>
-                                        <button id="load-more-btn" type="button" class="btn btn-secondary btn-block">Load More...</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="colleagues-tab">
-                                <div class="col-sm-12">
-                                <h4>All Colleagues</h4>
-                                <button id="add-colleagues-btn" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal1">Add Colleagues</button>
-                                <div id="myModal1" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="add-colleagues-btn">
-                                    <div class="modal-dialog modal-lg">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button id="myModal1-close" type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                                <h4>Add Colleagues</h4>
-                                            </div>
-                                            <div class="modal-body" id="add-colleagues-modal">
-                                                <p>Search for colleagues by entering their first or last name.</p>
-                                                <div class="form-group row" id="search-colleagues">
-                                                    <label for="search-first-name" class="col-sm-2 form-control-label">FIRST NAME</label>
-                                                    <div class="col-sm-3">
-                                                        <input type="text" class="form-control" id="search-first-name">
-                                                    </div>
-                                                    <label for="search-last-name" class="col-sm-2 form-control-label">LAST NAME</label>
-                                                    <div class="col-sm-3">
-                                                        <input type="text" class="form-control" id="search-last-name">
-                                                    </div>
-                                                    <button id="search-colleagues-btn" type="submit" class="btn btn-lg">Search</button>
-                                                </div>
-                                                <br>
-                                                <div id="search-colleagues-results" style="overflow-y:scroll; height:300px;">
-                                                    <ul class="col-sm-12 list-group" id="search-colleagues-list">
-
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br><br>
-                                <div>
-                                    <ul class="list-inline list-group" id="colleagues-full-list">
-                                        <li class="list-group-item col-sm-5">
-                                            <img alt="Kristel Tan" src="../styles/img/mis/kristel-tan-pro-pic.jpg">
-                                            <a href="#">Kristel Tan</a>
-                                            <p></p>
-                                            <p>CIDAR Lab</p>
-                                            <p>Boston University</p>
-                                        </li>
-                                        <li class="list-group-item col-sm-5">
-                                            <img alt="Allison Durkan" src="../styles/img/mis/allison-pro-pic.jpg">
-                                            <a href="#">Allison Durkan</a>
-                                            <p></p>
-                                            <p>CIDAR Lab</p>
-                                            <p>Boston University</p>
-                                        </li>
-                                        <li class="list-group-item col-sm-5">
-                                            <img alt="Johan Ospina" src="../styles/img/mis/johan-pro-pic.jpg">
-                                            <a href="#">Johan Ospina</a>
-                                            <p></p>
-                                            <p>CIDAR Lab</p>
-                                            <p>Boston University</p>
-                                        </li>
-                                        <li class="list-group-item col-sm-5">
-                                            <img alt="Prashant Vaidyanathan" src="../styles/img/mis/prashant-pro-pic.jpg">
-                                            <a href="#">Prashant Vaidyanathan</a>
-                                            <p></p>
-                                            <p>CIDAR Lab</p>
-                                            <p>Boston University</p>
-                                        </li>
-                                    </ul>
-                                </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="projects">Projects</div>
-                            <div class="tab-pane fade" id="publications">
-                                <div class="col-sm-12">
-                                    <h4>Publications</h4>
-                                    <button id="add-publication-btn" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal2">Add Publication</button>
-                                    <div id="myModal2" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="add-publication-btn">
-                                        <div class="modal-dialog modal-lg">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button id="mymodal2-close" type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                                    <h4>Add Publication</h4>
-                                                </div>
-                                                <div class="modal-body" id="add-publiction-modal">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="container-fluid" id="colleagues">
+                                    <h4>Colleagues</h4>
                                     <br>
-                                    <div>
-                                        <ul class="list-inline list-group" id="publications-list">
-                                            <li class="list-group-item col-sm-12">
-                                                <a href="http://islab.soe.uoguelph.ca/sareibi/TEACHING_dr/ENG6530_RCS_html_dr/outline_W2015/docs/PAPER_REVIEW_dr/HighLevel_HDL_dr/TaxonomyOfESL.pdf"><h5 class="list-group-item-heading">A Platform-based taxonomy for ESL design</h5></a>
-                                                <br>
-                                                <p>D Densmore, R Passerone, A Sangiovanni-Vincentelli</p>
-                                                <p>IEEE Design & Test of Computers, 359-374</p>
+                                    <div class="col-sm-6">
+                                        <ul class="list-group" id="list-colleagues">
+                                            <li class="list-group-item">
+                                                <img alt="Kristel Tan" src="../styles/img/mis/kristel-tan-pro-pic.jpg">
+                                                <a href="#">Kristel Tan</a>
+                                                <p></p>
+                                                <p>CIDAR Lab</p>
+                                                <p>Boston University</p>
                                             </li>
-                                            <li class="list-group-item col-sm-12">
-                                                <a href="https://www.researchgate.net/publication/228634243_A_next-generation_design_framework_for_platform-based_design"><h5 class="list-group-item-heading">A next-generation design framework for platform-based design</h5></a>
-                                                <br>
-                                                <p>A Davare, D Densmore, T Meyerowitz, A Pinto, A Sangiovanni-Vincentelli, ...</p>
-                                                <p>Conference on using hardware design and verification languages (DVCon) 152</p>
+                                            <li class="list-group-item">
+                                                <img alt="Johan Ospina" src="../styles/img/mis/johan-pro-pic.jpg">
+                                                <a href="#">Johan Ospina</a>
+                                                <p></p>
+                                                <p>CIDAR Lab</p>
+                                                <p>Boston University</p>
                                             </li>
-                                            <li class="list-group-item col-sm-12">
-                                                <a href="http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0018882"><h5 class="list-group-item-heading">Eugene–a domain specific language for specifying and constraining synthetic biological parts, devices, and systems</h5></a>
-                                                <br>
-                                                <p>L Bilitchenko, A Liu, S Cheung, E Weeding, B Xia, M Leguia, JC Anderson, ...</p>
-                                                <p>PloS one 6 (4), e18882</p>
+                                            <li class="list-group-item">
+                                                <img alt="Allison Durkan" src="../styles/img/mis/allison-pro-pic.jpg">
+                                                <a href="#">Allison Durkan</a>
+                                                <p></p>
+                                                <p>CIDAR Lab</p>
+                                                <p>Boston University</p>
                                             </li>
                                         </ul>
+                                        <button id="see-full-list-btn" type="button" class="btn btn-secondary btn-block">See Full List...</button>
                                     </div>
                                 </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="container-fluid" id="previous-posts">
+                                    <h4>Previous Posts</h4>
+                                    <br>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">MARCH 19, 2016</div>
+                                        <div class="panel-body">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam non velit tellus. Quisque rutrum libero ut scelerisque malesuada. Sed a lacus quis sem dapibus malesuada. Cras rutrum et erat nec tempus.
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">MARCH 1, 2016</div>
+                                        <div class="panel-body">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam non velit tellus. Quisque rutrum libero ut scelerisque malesuada. Sed a lacus quis sem dapibus malesuada. Cras rutrum et erat nec tempus.
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">FEBRUARY 17, 2016</div>
+                                        <div class="panel-body">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam non velit tellus. Quisque rutrum libero ut scelerisque malesuada. Sed a lacus quis sem dapibus malesuada. Cras rutrum et erat nec tempus.
+                                        </div>
+                                    </div>
+                                    <button id="load-more-btn" type="button" class="btn btn-secondary btn-block">Load More...</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="colleagues-tab">
+                            <h4>All Colleagues</h4>
+                            <button id="add-colleagues-btn" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal1">Add Colleagues</button>
+                            <div id="myModal1" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="add-colleagues-btn">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button id="myModal1-close" type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                            <h4>Add Colleagues</h4>
+                                        </div>
+                                        <div class="modal-body" id="add-colleagues-modal">
+                                            <p>Search for colleagues by entering their first or last name.</p>
+                                            <div class="form-group row" id="search-colleagues">
+                                                <label for="search-first-name" class="col-sm-2 form-control-label">FIRST NAME</label>
+                                                <div class="col-sm-3">
+                                                    <input type="text" class="form-control" id="search-first-name">
+                                                </div>
+                                                <label for="search-last-name" class="col-sm-2 form-control-label">LAST NAME</label>
+                                                <div class="col-sm-3">
+                                                    <input type="text" class="form-control" id="search-last-name">
+                                                </div>
+                                                <button id="search-colleagues-btn" type="submit" class="btn btn-lg">Search</button>
+                                            </div>
+                                            <br>
+                                            <div id="search-colleagues-results" style="overflow-y:scroll; height:300px;">
+                                                <ul class="col-sm-12 list-group" id="search-colleagues-list">
+                                                    
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div>
+                                <ul class="list-inline list-group" id="colleagues-full-list">
+                                    <li class="list-group-item col-sm-5">
+                                        <img alt="Kristel Tan" src="../styles/img/mis/kristel-tan-pro-pic.jpg">
+                                        <a href="#">Kristel Tan</a>
+                                        <p></p>
+                                        <p>CIDAR Lab</p>
+                                        <p>Boston University</p>
+                                    </li>
+                                    <li class="list-group-item col-sm-5">
+                                        <img alt="Allison Durkan" src="../styles/img/mis/allison-pro-pic.jpg">
+                                        <a href="#">Allison Durkan</a>
+                                        <p></p>
+                                        <p>CIDAR Lab</p>
+                                        <p>Boston University</p>
+                                    </li>
+                                    <li class="list-group-item col-sm-5">
+                                        <img alt="Johan Ospina" src="../styles/img/mis/johan-pro-pic.jpg">
+                                        <a href="#">Johan Ospina</a>
+                                        <p></p>
+                                        <p>CIDAR Lab</p>
+                                        <p>Boston University</p>
+                                    </li>
+                                    <li class="list-group-item col-sm-5">
+                                        <img alt="Prashant Vaidyanathan" src="../styles/img/mis/prashant-pro-pic.jpg">
+                                        <a href="#">Prashant Vaidyanathan</a>
+                                        <p></p>
+                                        <p>CIDAR Lab</p>
+                                        <p>Boston University</p>
+                                    </li>
+                                </ul>
+                            </div>    
+                        </div>
+                        <div class="tab-pane" id="projects">
+                            <h4>Pane C</h4>
+                            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+                        </div>
+                        <div class="tab-pane" id="publications">
+                            <h4>Publications</h4>
+                            <button id="add-publication-btn" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal2">Add Publication</button>
+                            <div id="myModal2" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="add-publication-btn">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button id="mymodal2-close" type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                            <h4>Add Publication</h4>
+                                        </div>
+                                        <div class="modal-body" id="add-publiction-modal">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div>
+                                <ul class="list-inline list-group" id="publications-list">
+                                    <li class="list-group-item col-sm-12">
+                                        <a href="http://islab.soe.uoguelph.ca/sareibi/TEACHING_dr/ENG6530_RCS_html_dr/outline_W2015/docs/PAPER_REVIEW_dr/HighLevel_HDL_dr/TaxonomyOfESL.pdf"><h5 class="list-group-item-heading">A Platform-based taxonomy for ESL design</h5></a>
+                                        <br>
+                                        <p>D Densmore, R Passerone, A Sangiovanni-Vincentelli</p>
+                                        <p>IEEE Design & Test of Computers, 359-374</p>
+                                    </li>
+                                    <li class="list-group-item col-sm-12">
+                                        <a href="https://www.researchgate.net/publication/228634243_A_next-generation_design_framework_for_platform-based_design"><h5 class="list-group-item-heading">A next-generation design framework for platform-based design</h5></a>
+                                        <br>
+                                        <p>A Davare, D Densmore, T Meyerowitz, A Pinto, A Sangiovanni-Vincentelli, ...</p>
+                                        <p>Conference on using hardware design and verification languages (DVCon) 152</p>
+                                    </li>
+                                    <li class="list-group-item col-sm-12">
+                                        <a href="http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0018882"><h5 class="list-group-item-heading">Eugene–a domain specific language for specifying and constraining synthetic biological parts, devices, and systems</h5></a>
+                                        <br>
+                                        <p>L Bilitchenko, A Liu, S Cheung, E Weeding, B Xia, M Leguia, JC Anderson, ...</p>
+                                        <p>PloS one 6 (4), e18882</p>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
+                <br> <br>
                 <footer></footer>
             </div>
         </div>
-
+        
         <!-- ANGULAR SCRIPTS -->
         <script src="../scripts/new-ui-scripts/headerDirective.js"></script>
         <script src="../scripts/new-ui-scripts/footerDirective.js"></script>
