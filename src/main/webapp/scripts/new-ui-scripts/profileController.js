@@ -82,7 +82,8 @@ function profileCtrl($scope, $http) {
         method: 'POST',
         url: 'setPersonById',
         params: {
-            "userId" : clothoId
+            "userId" : clothoId,
+            "institution" : $scope.newInst
         }
     }).then(function successCallback(response) {
         
