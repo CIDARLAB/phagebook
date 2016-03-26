@@ -109,8 +109,8 @@
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.queryFirstLastName</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>loadUserData</servlet-name>
-        <servlet-class>org.clothocad.phagebook.adaptors.servlets.loadUserData</servlet-class>
+        <servlet-name>findMemberForNewProject</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.findMemberForNewProject</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>inputProduct</servlet-name>
@@ -168,7 +168,6 @@
         <servlet-name>addUpdateToProject</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.addUpdateToProject</servlet-class>
     </servlet>
-    
     <servlet-mapping>
         <servlet-name>editProject</servlet-name>
         <url-pattern>/editProject</url-pattern>
@@ -286,7 +285,7 @@
         <url-pattern>/queryFirstLastName</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>loadUserData</servlet-name>
-        <url-pattern>/loadUserData</url-pattern>
+        <servlet-name>findMemberForNewProject</servlet-name>
+        <url-pattern>/findMemberForNewProject</url-pattern>
     </servlet-mapping>
 </web-app>

@@ -171,15 +171,15 @@ public class processProject extends HttpServlet {
         Person creator;
         String usernameCreator;
         String passwordCreator;
-        String creatorId;
+        String creatorID;
        String rand=  request.getParameter("emailId");
        System.out.println("***");
        System.out.println(rand);
        System.out.println("***");
       if(request.getParameter("emailId")!=null){
-        creatorId = request.getParameter("emailId");
-        System.out.println("Creator's Id is: " + creatorId);
-        creator = ClothoAdapter.getPerson(creatorId, clothoObject);
+        creatorID = request.getParameter("emailId");
+        System.out.println("Creator's Id is: " + creatorID);
+        creator = ClothoAdapter.getPerson(creatorID, clothoObject);
         usernameCreator = creator.getEmailId();
         passwordCreator = creator.getPassword();
 
@@ -192,8 +192,8 @@ public class processProject extends HttpServlet {
         creator.setEmailId("anna@gmail.com");
         creator.setPassword("1234567890");
         creator.setActivated(true);
-        creatorId = ClothoAdapter.createPerson(creator, clothoObject);
-        creator = ClothoAdapter.getPerson(creatorId, clothoObject);
+        creatorID = ClothoAdapter.createPerson(creator, clothoObject);
+        creator = ClothoAdapter.getPerson(creatorID, clothoObject);
       
       }
       
@@ -228,20 +228,33 @@ public class processProject extends HttpServlet {
       leadPerson.setId(leadPersonID);
       
       System.out.println("About to create a new project.");
-      
+      // create and set the fields for a new project
         Project project = new Project();
         project.setName(projectName);
         project.setBudget(projectBudget);
         project.setLeadId(leadPersonID);
-        project.setCreatorId(creatorId);
+        project.setCreatorId(creatorID);
         project.setGrantId(grantID);
         project.setAffiliatedLabs(labsList);
         project.setDescription(description);
 
       clothoObject.login(loginMap);
       String projectID = ClothoAdapter.createProject(project, clothoObject);   
+      
+      // attach the project id to the list of the projects of according members
+      List<String> leadProjects =leadPerson.getProjects();
+      leadProjects.add(projectID);
+      // update the lead in clotho
+      leadPersonID = ClothoAdapter.setPerson(leadPerson, clothoObject);
+      
+      List<String> creatorProjects = creator.getProjects();
+      creatorProjects.add(projectID);
+      // update the lead in clotho
+      creatorID = ClothoAdapter.setPerson(creator, clothoObject);
+      
+//      List<String> creatorProjects =leadPerson.getProjects();
 
-      System.out.println("New Project ID is "+ projectID);
+       System.out.println("New Project ID is "+ projectID);
 
       clothoObject.logout();
       conn.closeConnection();

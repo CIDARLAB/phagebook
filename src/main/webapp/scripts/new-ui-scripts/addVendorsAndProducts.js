@@ -1,140 +1,202 @@
-$(document).ready(function() {
-    $("#createVendor").click(function()
-        {
-            var name        =  $("#vendorName").val();
-            var description =  $("#vendorDescription").val();
-            var contact     =  $("#vendorContact").val();
-            var phone       =  $("#vendorPhone").val();
-            var url         =  $("#vendorWebsite").val();
-            
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    
+<head>
+    
+    <title>Add Vendors and Products</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/cssBootstrap/bootstrap.css"/>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="../styles/main.css"/>
+    <link rel="stylesheet" href="../styles/sidebar.css"/>
+    <link rel="icon" href="">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="../scripts/new-ui-scripts/addVendorsAndProducts.js"></script>
+    <script src="../scripts/new-ui-scripts/cookieHandler.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
+    <script src="../scripts/new-ui-scripts/angular.ng-modules.js"></script>
+    
+    <style>
+        
+        #content{
+            position: relative;
+            margin-left: 26%;
+            margin-top: 130px;
+            margin-bottom: 150px;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            z-index: inherit;
+        }
+        
+        label {
+            font-weight: 400;
+            color: #1E714A;
+        }
+        
+        hr {
+            border: 0;
+            height: 1px;
+            background: #C1C1C1;
+            width: 85%;
+            float: left;
+            margin-left: 20px;
+        }
+        
+    </style>
+    
+</head>
+
+<body>
+<div ng-module="addVendorsAndProducts">
+    <div ng-controller="addVendorsAndProductsCtrl">
+        <header></header>
+        <sidebar></sidebar>
+        <div class="container" id="content" >
+            <div class="container">
+                <h3>Add a Vendor</h3>
+                <br><br>
+                <form id="add-vendor-form">
+                    <div class="form-group row">
+                        <label for="vendorName" class="col-sm-2 form-control-label">VENDOR NAME</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="vendorName">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="vendorWebsite" class="col-sm-2 form-control-label">VENDOR WEBSITE</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="vendorWebsite">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="vendorEmail" class="col-sm-2 form-control-label">VENDOR EMAIL</label>
+                        <div class="col-sm-4">
+                            <input type="email" class="form-control" id="vendorEmail">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="vendorContact" class="col-sm-2 form-control-label">VENDOR CONTACT</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="vendorContact">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="vendorPhone" class="col-sm-2 form-control-label">VENDOR PHONE</label>
+                        <div class="col-sm-4">
+                            <input type="tel" class="form-control" id="vendorPhone">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="vendorDescription" class="col-sm-2 form-control-label">VENDOR DESCRIPTION</label>
+                        <div class="col-sm-4">
+                            <textarea class="form-control" rows="5" id="vendorDescription" style="resize:none"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <button id="createVendor" type="submit" class="btn btn-default" style="float:right">Create Vendor</button>
+                    </div>
+                    <div class="col-sm-4" id="upload-vendor-column">
+                        <p>To upload multiple vendors,</p>
+                        <br>
+                        <p>1. Download the CSV template below</p>
+                        <button id="dl-csv-vendor-btn" type="button" class="btn btn-default">Download CSV</button>
+                        <br><br><br>
+                        <p>2. Upload the completed document</p>
+                        <span class="btn btn-default btn-file" id="ul-csv-vendor-btn">
+                            Upload CSV <input type="file">
+                        </span>
+                    </div>
+                </form>
+            </div>
+            Company Name Search:  <input id="companyName" type="text" placeholder="Company Name">
+            Companies: <select class="form-control" id="companyResults"></select>
+            <br><hr><br><br>
+            <div class="container">
+                <h3>Add a Product</h3>
+                <br><br>
+                <form id="add-product-form">
+                    <div class="form-group row">
+                        <label for="productName" class="col-sm-2 form-control-label">PRODUCT NAME</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="productName">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="productPrice" class="col-sm-2 form-control-label">PRODUCT PRICE</label>
+                        <div class="col-sm-4">
+                            <input type="number" class="form-control" id="productPrice">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="productUrl" class="col-sm-2 form-control-label">PRODUCT LINK</label>
+                        <div class="col-sm-4">
+                            <input type="url" class="form-control" id="productUrl">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="productPromotion" class="col-sm-2 form-control-label">PRODUCT PROMOTION</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="productPromotion">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="productType" class="col-sm-2 form-control-label">PRODUCT TYPE</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" id="productType">
+                                <option>INSTRUMENT</option>
+                                <option>SAMPLE</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="productDescription" class="col-sm-2 form-control-label">PRODUCT DESCRIPTION</label>
+                        <div class="col-sm-4">
+                            <textarea class="form-control" rows="5" id="productDescription" style="resize:none"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="productQuantity" class="col-sm-2 form-control-label">PRODUCT QUANTITY</label>
+                        <div class="col-sm-4">
+                            <input type="number" class="form-control" id="productQuantity">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <button id="createProduct" type="submit" class="btn btn-default" style="float:right">Create Product</button>
+                    </div>
+                    <div class="col-sm-4" id="upload-product-column">
+                        <p>To upload multiple products,</p>
+                        <br>
+                        <p>1. Download the CSV template below</p>
+                        <button id="dl-csv-product-btn" type="button" class="btn btn-default">Download CSV</button>
+                        <br><br><br>
+                        <p>2. Upload the completed document</p>
+                        <span class="btn btn-default btn-file" id="ul-csv-product-btn">
+                            Upload CSV <input type="file">
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
            
-            createVendorAjax(name, description, contact, phone, url);
-        }
-    );
-    
-    $("#createProduct").click(function()
-        {   var productUrl  = $("#productUrl").val();
-            var company     = $("#companyResults").val();
-            var goodType    = $("#productType").val();
-            var cost        = $("#productPrice").val();
-            var quantity    = $("#productQuantity").val();
-            var name        = $("#productName").val();
-            var description = $("#productDescription").val();
-            
-            createProductAjax(productUrl, company, goodType, cost, quantity, name, description);
-        }
-    );
-    
-    var timerVal;
-    $("#companyName").keypress( keyPressHandler );
-    
-    
-    function keyPressHandler(){
-        clearTimeout(timerVal); // stops previous attempt.
-        timerVal = setTimeout(doAjax, 500);//after a second of no input flip the flag.
-        
+        <footer></footer>
+    </div>
+</div>
 
-    }
-    function doAjax(){
-             
-       var name = $("#companyName").val();
-       var isValid = 0;
-       if (name !== ''){
-           isValid = 1;
-       }
-      
-        
-        if (isValid){
-            $.ajax({
-               //do this for projects...
-               url: "../autoCompleteVendors",
-               type: "GET",
-               async: false,
-               data: {
-                    "name": name
-               },
-               success: function (response) {
-                   var select = document.getElementById('companyResults');
-                   removeOptions(select);
-                   var lengthOfResponse = response.length;
-                   for (var i = 0; i < lengthOfResponse; i++){
-                        var opt = document.createElement('option');
-                            opt.value = response[i].id;
+<!-- ANGULAR SCRIPTS -->
+<script src="../scripts/new-ui-scripts/headerDirective.js"></script>
+<script src="../scripts/new-ui-scripts/sidebarDirective.js"></script>
+<script src="../scripts/new-ui-scripts/footerDirective.js"></script>
+<script src="../scripts/new-ui-scripts/addVendorsAndProductsController.js"></script>
+<script src="../scripts/new-ui-scripts/addVendorsAndProductsApp.js"></script>
 
-                            opt.innerHTML = response[i].name;
-                            select.appendChild(opt);
-                   }
+</body>
 
-               },
-               error: function (response) {
-                   alert("unable to find anything");
-               }
-            });
-        }
-    }
-        
-   
-    }
-);
-   
-function createVendorAjax(name, description, contact, phone, url){
-    $.ajax({
-            //do this for projects...
-            url: "../createVendor",
-            type: "POST",
-            async: false,
-            data: {
-                 "name": name,
-                 "description": description,
-                 "contact": contact,
-                 "phone": phone, 
-                 "url": url
-                 
-            },
-            success: function (response) {
-                alert("Vendor created, ID is " + response.id);
-            },
-            error: function (response) {
-
-            }
-         });
-}
-
-function createProductAjax(productUrl, company, goodType, cost, quantity, name, description){
-    $.ajax({
-            //do this for projects...
-            url: "../createProduct",
-            type: "POST",
-            async: false,
-            data: {
-                "productUrl": productUrl,
-                "company": company,
-                "goodType": goodType,
-                "cost": cost,
-                "quantity": quantity,
-                "name": name,
-                "description": description
-                
-            },
-            success: function (response) {
-               alert("Product created\n" + 
-                       "Named: " + response.name +'\n' +
-                       "id "  + response.id );
-
-            },
-            error: function (response) {
-
-            }
-         });
-}
-
-function removeOptions(selectbox)
-{
-    var i;
-    for(i=selectbox.options.length-1;i>=0;i--)
-    {
-        selectbox.remove(i);
-    }
-}
-    
-
+</html>
