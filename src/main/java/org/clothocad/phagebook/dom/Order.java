@@ -31,7 +31,7 @@ public class Order {
     @Getter @Setter private String               description;
     @Getter @Setter private Date                 dateCreated;
     @Getter @Setter private String               createdById; 
-    @Getter @Setter private Map<String, Integer> products; //CART ITEM ID AND INTEGER...
+    @Getter @Setter private List<String>         products; //CART ITEM ID
     @Getter @Setter private Double               budget;
     @Getter @Setter private Integer              maxOrderSize;
     @Getter @Setter private String               approvedById;
@@ -55,7 +55,7 @@ public class Order {
     public Order(String name) {
         this.name = name;
         
-        this.products = new HashMap<>();
+        this.products = new ArrayList<>();
     };   
     
     public Order()
@@ -65,7 +65,7 @@ public class Order {
         this.description = "Not Set";
         this.dateCreated = new Date();
         this.createdById   = "Not Set";
-        this.products    = new HashMap<>();
+        this.products    = new ArrayList<>();
         this.budget      = 0.0d;
         this.maxOrderSize = 1;
         this.approvedById  = "Not Set";

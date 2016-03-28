@@ -68,7 +68,7 @@ function createOrderCard(orderJSON) {
     tmpl.querySelector('.total-before-tax-value').innerText = totalBeforeTax;
     tmpl.querySelector('.tax-value').innerText = "$"+ TAX * totalBeforeTax;
     tmpl.querySelector('.total-after-tax-value').innerText = "$" + ( (TAX * totalBeforeTax) + totalBeforeTax);
-    
+
 
 
 
