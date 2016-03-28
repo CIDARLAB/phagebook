@@ -93,14 +93,21 @@ public class listCreatedOrdersOfPerson extends HttpServlet {
                 for (String created : createdOrders ){
                     Order temp = ClothoAdapter.getOrder(created, clothoObject);
                     JSONObject tempAsJSON = new JSONObject();
+                    
                     tempAsJSON.put("name", temp.getName());
+                    
                     tempAsJSON.put("description", temp.getDescription());
+                    
                     tempAsJSON.put("dateCreated", temp.getDateCreated().toString());
+                    
                     Person createdById = ClothoAdapter.getPerson(temp.getCreatedById(), clothoObject);
                     tempAsJSON.put("createdById", createdById.getEmailId());
+                    
                     tempAsJSON.put("creatorName", createdById.getFirstName() + " " + createdById.getLastName());
                   
-                    tempAsJSON.put("products", temp.getProducts());
+                    tempAsJSON.put("products", temp.getProducts()); //cart item ids and quantity
+                    
+                    
                     tempAsJSON.put("budget", temp.getBudget());
                     String approvedByEmail = "";
                     String approvedByName = "";
@@ -115,7 +122,6 @@ public class listCreatedOrdersOfPerson extends HttpServlet {
                     JSONArray receivedByIds = new JSONArray();
                     List<String> receivedBys = temp.getReceivedByIds();
                     for (int i = 0; i< receivedBys.size() ; i++){
-                        JSONObject receivedByJSON = new JSONObject();
                         String receivedByID = "";
                         String receivedByFullName= "";
                         JSONObject receiverJSON = new JSONObject();
@@ -128,8 +134,7 @@ public class listCreatedOrdersOfPerson extends HttpServlet {
                             receiverJSON.put("receiverName",receivedByFullName);
                           
                         }
-                        receivedByJSON.put("user "+ i , receivedByID);
-                        receivedByIds.put(receivedByJSON);
+                        receivedByIds.put(receiverJSON);
                     }
                     tempAsJSON.put("limit", temp.getMaxOrderSize());
                     tempAsJSON.put("receivedByIds", receivedByIds);

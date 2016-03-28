@@ -94,6 +94,7 @@ and open the template in the editor.
                     </div>
                 </div>
             </div>
+        <template id = "order-card-template">
             <div class="col-sm-9" style="margin-top: 20px">
                 <div class="panel panel-default" class="order-card">
                     <div class="panel-heading order-heading" style="height:60px">
@@ -107,7 +108,7 @@ and open the template in the editor.
                     </div>
                     <div class="panel-body order-top-panel">
                         <br>
-                        <p>Associated Project:&nbsp;<a href="#" style="color:#1E714A;">Project Name</a></p>
+                        <p>Associated Project:&nbsp;<a class="order-project-name" href="#" style="color:#1E714A;">Project Name</a></p>
                         <br>
                         <table class="table order-property-table">
                             <tr class="order-property-headers">
@@ -119,12 +120,12 @@ and open the template in the editor.
                                 <td>ORDER BUDGET</td>
                             </tr>
                             <tr class="order-property-data">
-                                <td class="order-id">123456789</td>
+                                <td class="order-id" style="font-size: 9px">123456789</td>
                                 <td class="order-created-by">Douglas Densmore</td>
-                                <td class="order-received-by">N/A</td>
-                                <td class="order-approved-by">N/A</td>
-                                <td class="order-limit">50 Items</td>
-                                <td class="order-budget">$5000.00</td>
+                                <td class="order-received-by"></td>
+                                <td class="order-approved-by"></td>
+                                <td class="order-limit"></td>
+                                <td class="order-budget">$</td>
                             </tr>
                         </table>
                     </div>
@@ -143,13 +144,7 @@ and open the template in the editor.
                             <td class="item-custom-unit-price">$7.89</td>
                             <td class="item-total-price">$37.86</td>
                         </tr>
-                        <tr>
-                            <td class="item-name" style="overflow: hidden; text-overflow: ellipsis">AmScope 150C All-Metal Optical Glass Microscope</td>
-                            <td class="item-qty">10</td>
-                            <td class="item-unit-price">$84.98</td>
-                            <td class="item-custom-unit-price">$84.98</td>
-                            <td class="item-total-price">$849.90</td>
-                        </tr>
+
                     </table>
                     <div class="panel-body order-bottom-panel">
                         <div class="btn-group order-card-btn-group" role="group">
@@ -174,7 +169,7 @@ and open the template in the editor.
                             </tr>
                             <tr>
                                 <td>Grand Total:</td>
-                                <td class="total-before-tax-value">$949.90</td>
+                                <td class="total-after-tax-value">$949.90</td>
                             </tr>
                         </table>
                         <br>
@@ -183,7 +178,7 @@ and open the template in the editor.
                 <button type="button" class="btn btn-default submit-order-btn">Submit</button>
             </div>
             <br><br>
-        </div>
+        </template>
     </div>
     <footer></footer>
 </div>
