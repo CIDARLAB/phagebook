@@ -35,20 +35,66 @@ $(document).ready(function() {
                 },
                 success: function (response) {
 
-                    var select = document.getElementById('productResults');
-                    removeOptions(select);
-                    var lengthOfResponse = response.length;
-                    for (var i = 0; i < lengthOfResponse; i++){
-                        var opt = document.createElement('option');
-                        opt.value = response[i].id;
+                    var table = $("#product-result-table");
+                    table.empty();
 
-                        opt.innerHTML = response[i].name;
-                        select.appendChild(opt);
+                    for (var i = 0; i < response.length; i++) {
+
+                        var tr = document.createElement("tr");
+                        tr.id = "product"+i;
+                        var checkbox = document.createElement("td");
+                        var checkboxTableData = document.createElement("input");
+                        checkboxTableData.type = "checkbox";
+                        checkboxTableData.value = response[i].clothoID;
+
+                        checkbox.appendChild(checkboxTableData);
+
+                        tr.appendChild(checkbox);
+
+
+                        var image = document.createElement("td");
+                        var imageTableData = $('<img id="dynamic">');
+                        imageTableData.attr('src', "../styles/img/mis/test-item.jpg");
+                        imageTableData.appendTo(image);
+                        imageTableData.attr('style', 'height:70px;');
+                        tr.appendChild(image);
+
+
+
+                        var anchor = document.createElement("td");
+                        var a = document.createElement('a');
+                        a.href = "#";
+                        a.text = response[i].name;
+                        a.setAttribute("style", "color:#1E714A");
+                        anchor.appendChild(a);
+
+                        tr.appendChild(anchor);
+
+
+                        var unitPrice = document.createElement("td");
+                            unitPrice.innerHTML = "Unit Price: " + response[i].unitPrice;
+
+                        tr.appendChild(unitPrice);
+
+                        var quantity = document.createElement("td");
+                            var quantityTableData = document.createElement("input");
+                                quantityTableData.type = "number";
+                                quantityTableData.name = "quantity";
+                                quantityTableData.placeholder = 1;
+                                quantityTableData.value = 1;
+                            quantity.appendChild(quantityTableData);
+
+                        tr.appendChild(quantity);
+
+                        table.append(tr);
+
                     }
 
                 },
                 error: function (response) {
-                    alert(response.responseText);
+                    alert(response.responseJSON.message);
+
+
                 }
             });
         }
@@ -74,24 +120,33 @@ $(document).ready(function() {
                 values["AffiliatedLabId"]   = response[i].affiliatedLabId;
                 values["DateCreated"]       = response[i].dateCreated;
                 values["Name"]              = response[i].name;
+                values["Limit"]             = response[i].limit;
+                values["CreatedByName"]     = response[i].creatorName;
                 values["RelatedProjectId"]  = response[i].relatedProjectId;
+                values["RelatedProjectName"]= response[i].relatedProjectName;
                 values["Description"]       = response[i].description;
                 values["ReceivedByIds"]     = response[i].receivedByIds;
                 values["ApprovedById"]      = response[i].approvedById;
+                values["ApprovedByName"]    = response[i].approvedByName;
                 values["CreatedByEmailId"]  = response[i].createdById;
                 values["Products"]          = response[i].products;
                 values["Budget"]            = response[i].budget;
                 values["Status"]            = response[i].status;
+                values["Id"]                = response[i].id;
 
 
-                for (key in values) {
-                    var keyString = $.trim(key);
-                    var keyValue  = $.trim(values[key]);
-                    var box = $("#order-info");
-                    box.val(box.val() + keyString + ": " + JSON.stringify(values[key]) + "\n");
+                createOrderCard(values);
+
+                var select = document.getElementById("list-of-orders");
+                removeOptions(select);
+                var lengthOfResponse = response.length;
+                for (var j = 0; j < lengthOfResponse; j++){
+                    var opt = document.createElement('option');
+                    opt.value = response[j].id;
+
+                    opt.innerHTML = response[j].name;
+                    select.appendChild(opt);
                 }
-                var box = $("#order-info");
-                box.val(box.val() + "END OF ORDER: " + i + "\n");
 
             }
 
@@ -102,7 +157,63 @@ $(document).ready(function() {
     });
 
 
+    $("#add-to-order-btn").click( function (){
+
+        var orderToAddTo  = document.getElementById("list-of-orders").value;
+
+        var i = 0;
+        var tableRow = document.getElementById("product0");
+        var productsToAdd = [];
+
+        while (tableRow != null) {
+            var tableRowKids = tableRow.childNodes;
+            var checkbox  = tableRowKids[0].childNodes[0]; // this is the checkbox
+            var unitPrice = tableRowKids[3].innerHTML.slice(12); //removes the UNIT PRICE string
+            var quantity  = tableRowKids[4].childNodes[0];
+
+            if (checkbox.checked){
+
+                var cartItemJSON = {};
+                cartItemJSON["productId"] = checkbox.value;
+                cartItemJSON["quantity"]  = quantity.value;
+                cartItemJSON["discount"]  = 100;
+                productsToAdd.push(cartItemJSON);
+
+            }
+            i++;
+            tableRow = document.getElementById("product"+i);
+        }
+
+
+        $.ajax({
+            url: '../addProductsToOrder',
+            type: 'POST',
+            async: false,
+            data: {
+                "CartItems"     : productsToAdd,
+                "loggedInUserId": getCookie("clothoId"),
+                "orderId"       : orderToAddTo
+            },
+            success: function (response) {
+                alert("Products Added!");
+                window.location.href = "../html/currentOrders.html";
+            },
+            error: function (response) {
+                alert("error adding product to order");
+            }
+        });
+
+
+
+
+
+
+
+    });
+
 });
+
+
 
 function removeOptions(selectbox)
 {

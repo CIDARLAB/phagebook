@@ -20,6 +20,7 @@ and open the template in the editor.
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script src="../scripts/new-ui-scripts/cookieHandler.js"></script>
     <script src="../scripts/new-ui-scripts/currentOrders.js"></script>
+    <script src="../scripts/new-ui-scripts/orderCardCreator.js"></script>
     
     <style>
         
@@ -75,34 +76,7 @@ and open the template in the editor.
                                 <br>
                                 <div id="productResults" style="overflow:auto; height:300px; overflow:auto;"">
                                     <table class="table" id="product-result-table">
-                                        <tr>
-                                            <td><input type="checkbox" value=""></td>
-                                            <td><img alt="6 Piece Pyrex Glass Test Tube Set" src="../styles/img/mis/test-item.jpg" style="height:70px;"></td>
-                                            <td><a href="#" style="color:#1E714A">6 Piece Pyrex Glass Test Tube Set</a></td>
-                                            <td>Unit Price: $7.89</td>
-                                            <td><input type="number" name="quantity" placeholder="1"></td>
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox" value=""></td>
-                                            <td><img alt="6 Piece Pyrex Glass Test Tube Set" src="../styles/img/mis/test-item.jpg" style="height:70px;"></td>
-                                            <td><a href="#" style="color:#1E714A">6 Piece Pyrex Glass Test Tube Set</a></td>
-                                            <td>Unit Price: $7.89</td>
-                                            <td><input type="number" name="quantity" placeholder="1"></td>
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox" value=""></td>
-                                            <td><img alt="6 Piece Pyrex Glass Test Tube Set" src="../styles/img/mis/test-item.jpg" style="height:70px;"></td>
-                                            <td><a href="#" style="color:#1E714A">6 Piece Pyrex Glass Test Tube Set</a></td>
-                                            <td>Unit Price: $7.89</td>
-                                            <td><input type="number" name="quantity" placeholder="1"></td>
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox" value=""></td>
-                                            <td><img alt="6 Piece Pyrex Glass Test Tube Set" src="../styles/img/mis/test-item.jpg" style="height:70px;"></td>
-                                            <td><a href="#" style="color:#1E714A">6 Piece Pyrex Glass Test Tube Set</a></td>
-                                            <td>Unit Price: $7.89</td>
-                                            <td><input type="number" name="quantity" placeholder="1"></td>
-                                        </tr>
+
                                     </table>
                                 </div>
                                 <br><br>
@@ -120,24 +94,23 @@ and open the template in the editor.
                     </div>
                 </div>
             </div>
-            <br><br>
-            <div class="col-sm-9">
-                <div class="panel panel-default" id="order-card">
-                    <div class="panel-heading" id="order-heading" style="height:60px">
-                        <label for="orderNickname" class="col-xs-2 form-control-label" style="margin-top:10px">Order Name: </label>
+            <div class="col-sm-9" style="margin-top: 20px">
+                <div class="panel panel-default" class="order-card">
+                    <div class="panel-heading order-heading" style="height:60px">
+                        <label class="col-xs-2 form-control-label" style="margin-top:10px">Order Name: </label>
                         <div class="col-sm-5" style="margin-left:-25px; margin-top:10px">
-                            <input type="text" id="order-nickname" name="type" disabled="disabled" value="CIDAR Lab Order #1"/>
+                            <input type="text" class="order-nickname" name="type" disabled="disabled" value="CIDAR Lab Order #1"/>
                         </div>
-                        <button id="edit-order-btn" type="button" class="btn btn-default">
+                        <button type="button" class="btn btn-default edit-order-btn">
                             <img alt="Edit Order" src="../styles/img/icons/white-pencil.png" style="height:20px">
                         </button>
                     </div>
-                    <div class="panel-body" id="order-top-panel">
+                    <div class="panel-body order-top-panel">
                         <br>
                         <p>Associated Project:&nbsp;<a href="#" style="color:#1E714A;">Project Name</a></p>
                         <br>
-                        <table class="table" id="order-property-table">
-                            <tr id="order-property-headers">
+                        <table class="table order-property-table">
+                            <tr class="order-property-headers">
                                 <td>ORDER ID #</td>
                                 <td>CREATED BY</td>
                                 <td>RECEIVED BY</td>
@@ -145,18 +118,18 @@ and open the template in the editor.
                                 <td>ORDER LIMIT</td>
                                 <td>ORDER BUDGET</td>
                             </tr>
-                            <tr id="order-property-data">
-                                <td id="order-id">123456789</td>
-                                <td id="order-created-by">Douglas Densmore</td>
-                                <td id="order-received-by">N/A</td>
-                                <td id="order-approved-by">N/A</td>
-                                <td id="order-limit">50 Items</td>
-                                <td id="order-budget">$5000.00</td>
+                            <tr class="order-property-data">
+                                <td class="order-id">123456789</td>
+                                <td class="order-created-by">Douglas Densmore</td>
+                                <td class="order-received-by">N/A</td>
+                                <td class="order-approved-by">N/A</td>
+                                <td class="order-limit">50 Items</td>
+                                <td class="order-budget">$5000.00</td>
                             </tr>
                         </table>
                     </div>
-                    <table class="table table-hover" id="order-items-table">
-                        <tr id="order-items-headers">
+                    <table class="table table-hover order-items-table">
+                        <tr class="order-items-headers">
                             <td>ITEM</td>
                             <td>QTY.</td>
                             <td>UNIT PRICE</td>
@@ -164,51 +137,52 @@ and open the template in the editor.
                             <td>TOTAL PRICE</td>
                         </tr>
                         <tr>
-                            <td id="item-name">6 Piece Pyrex Glass Test Tube Set</td>
-                            <td id="item-qty">6</td>
-                            <td id="item-unit-price">$7.89</td>
-                            <td id="item-custom-unit-price">$7.89</td>
-                            <td id="item-total-price">$37.86</td>
+                            <td class="item-name">6 Piece Pyrex Glass Test Tube Set</td>
+                            <td class="item-qty">6</td>
+                            <td class="item-unit-price">$7.89</td>
+                            <td class="item-custom-unit-price">$7.89</td>
+                            <td class="item-total-price">$37.86</td>
                         </tr>
                         <tr>
-                            <td id="item-name" style="overflow: hidden; text-overflow: ellipsis">AmScope 150C All-Metal Optical Glass Microscope</td>
-                            <td id="item-qty">10</td>
-                            <td id="item-unit-price">$84.98</td>
-                            <td id="item-custom-unit-price">$84.98</td>
-                            <td id="item-total-price">$849.90</td>
+                            <td class="item-name" style="overflow: hidden; text-overflow: ellipsis">AmScope 150C All-Metal Optical Glass Microscope</td>
+                            <td class="item-qty">10</td>
+                            <td class="item-unit-price">$84.98</td>
+                            <td class="item-custom-unit-price">$84.98</td>
+                            <td class="item-total-price">$849.90</td>
                         </tr>
                     </table>
-                    <div class="panel-body" id="order-bottom-panel">
-                        <div class="btn-group" role="group" id="order-card-btn-group">
-                            <button id="export-csv-btn" type="button" class="btn btn-default">
+                    <div class="panel-body order-bottom-panel">
+                        <div class="btn-group order-card-btn-group" role="group">
+                            <button type="button" class="btn btn-default export-csv-btn">
                                 <img alt="Export CSV" src="../styles/img/icons/export-csv.png" style="height:15px; vertical-align:middle;">
                                 &nbsp;Export CSV
                             </button>
-                            <button id="delete-order-btn" type="button" class="btn btn-default">
+                            <button type="button" class="btn btn-default delete-order-btn">
                                 <img alt="Delete Order" src="../styles/img/icons/delete-order.png" style="height:15px; vertical-align:middle;">
                                 &nbsp;Delete Order
                             </button>
                         </div>
                         <br>
-                        <table class="table" id="order-totals-table">
+                        <table class="table order-totals-table">
                             <tr>
                                 <td>Total before tax:</td>
-                                <td id="total-before-tax-value">$887.76</td>
+                                <td class="total-before-tax-value">$887.76</td>
                             </tr>
                             <tr>
                                 <td>Tax:</td>
-                                <td id="tax-value">$62.14</td>
+                                <td class="tax-value">$62.14</td>
                             </tr>
                             <tr>
                                 <td>Grand Total:</td>
-                                <td id="total-before-tax-value">$949.90</td>
+                                <td class="total-before-tax-value">$949.90</td>
                             </tr>
                         </table>
                         <br>
-                     </div>
+                    </div>
                 </div>
-                <button id="submit-order-btn" type="button" class="btn btn-default">Submit</button>
+                <button type="button" class="btn btn-default submit-order-btn">Submit</button>
             </div>
+            <br><br>
         </div>
     </div>
     <footer></footer>

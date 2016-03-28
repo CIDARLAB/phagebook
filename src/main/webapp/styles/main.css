@@ -216,7 +216,7 @@ body {
     border: none;
 }
 
-#delete-order-btn {
+.delete-order-btn {
     font-family: "Open Sans", sans-serif;
     font-weight: 400;
     font-size: 12px;
@@ -228,7 +228,7 @@ body {
     border: none;
 }
 
-#delete-order-btn:hover {
+.delete-order-btn:hover {
     background-color: #EC3C56;
 }
 
@@ -282,7 +282,7 @@ body {
     background-color: #89C176;
 }
 
-#edit-order-btn {
+.edit-order-btn {
     float: right;
     background-color: #9E9E9E;
     height: 40px;
@@ -290,7 +290,7 @@ body {
     border: none;
 }
 
-#edit-order-btn:hover {
+.edit-order-btn:hover {
     background-color: #89C176;
     border: none;
 }
@@ -309,7 +309,7 @@ body {
     border: none;
 }
 
-#export-csv-btn {
+.export-csv-btn {
     font-family: "Open Sans", sans-serif;
     font-weight: 400;
     font-size: 12px;
@@ -322,7 +322,7 @@ body {
     margin-right: 15px;
 }
 
-#export-csv-btn:hover {
+.export-csv-btn:hover {
     background-color: #89C176;
 }
 
@@ -422,28 +422,28 @@ h3 {
     border-right: 0.5px solid #666666;
 }
 
-#order-bottom-panel {
+.order-bottom-panel {
     padding-top: 0px;
     padding-bottom: 0px;
 }
 
-#order-card-btn-group {
+.order-card-btn-group {
     position: absolute;
     margin-top: 90px;
 }
 
-#order-items-table {
+.order-items-table {
     border: 0.25px #D5D5D5;
     table-layout: auto;
 }
 
-#order-items-table tr td {
+.order-items-table tr td {
     border: 0.25px #D5D5D5;
     padding: 10px 15px 10px 15px;
     vertical-align: middle;
 }
 
-#order-items-headers td {
+.order-items-headers td {
     font-weight: 600;
     color: #262626;
     background-color: #F2F2F2;
@@ -453,7 +453,7 @@ h3 {
     vertical-align: middle;
 }
 
-#order-nickname[type="text"] {
+.order-nickname[type="text"] {
     font-size: 16px;
     font-weight: 300;
     font-style: italic;
@@ -461,20 +461,20 @@ h3 {
     border: none;
 }
 
-#order-top-panel {
+.order-top-panel {
     padding: 0px 0px 0px 40px;
 }
 
-#order-property-headers td {
+.order-property-headers td {
     color: #1E714A;
     padding: 0px 0px 0px 0px;
 }
 
-#order-property-data td {
+.order-property-data td {
     padding: 0px 0px 0px 0px;
 }
 
-#order-totals-table {
+.order-totals-table {
     width: 200px;
     float: right;
 }
@@ -604,7 +604,7 @@ h3 {
     resize: none;
 }
 
-#submit-order-btn {
+.submit-order-btn {
     font-family: "Open Sans", sans-serif;
     font-weight: 400;
     font-size: 14px;
@@ -616,7 +616,7 @@ h3 {
     float: right;
 }
 
-#submit-order-btn:hover {
+.submit-order-btn:hover {
     background-color: #31A16F;
 }
 
