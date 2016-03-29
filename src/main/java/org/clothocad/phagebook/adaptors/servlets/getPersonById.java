@@ -93,6 +93,8 @@ public class getPersonById extends HttpServlet {
             retrievedAsJSON.put("department", retrieve.getDepartment());
             retrievedAsJSON.put("title", retrieve.getTitle());
             
+            System.out.println(retrievedAsJSON);
+            
             JSONObject statusList = new JSONObject();
             if (retrieve.getStatuses() != null) {
                 for (String status : retrieve.getStatuses()) {
@@ -174,9 +176,9 @@ public class getPersonById extends HttpServlet {
             Clotho clothoObject = new Clotho(conn);
             Map setUserMap = new HashMap();
             String username = "test" + System.currentTimeMillis();
-            setUserMap.put("firstName", firstName);
-            setUserMap.put("lastName", lastName);
-            clothoObject.createUser(createUserMap);
+            //setUserMap.put("firstName", firstName);
+            //setUserMap.put("lastName", lastName);
+            //clothoObject.createUser(createUserMap);
             Map loginMap = new HashMap();
             loginMap.put("username", username);
             loginMap.put("credentials", "password");

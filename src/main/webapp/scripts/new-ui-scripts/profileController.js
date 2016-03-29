@@ -3,9 +3,34 @@ function profileCtrl($scope, $http) {
     var editBool = 0;
     $scope.clothoId = clothoId;
     var editValue = document.getElementById("edit-info-btn").value;
-    $scope.profilePictureLink = "http://s3.amazonaws.com/phagebookaws/" + clothoId + "/profilePicture.jpg";
 
-    $("document").ready(function () {
+    angular.element(document).ready(function () {
+        console.log("before ajax but inside page onload.`");
+        $http({
+            method: 'GET',
+            url: '../getPersonById',
+            params: {
+                "userId": clothoId
+            }
+        }).then(function successCallback(response) {
+            console.log("inside successCall of get person GET");
+            var responseAsJSON = angular.fromJson(response.data);
+            $scope.fullName = response.data.fullname;
+            $scope.editFirstName = response.data.firstName;
+            $scope.editLastName = response.data.lastName;
+            $scope.editEmail = response.data.name;
+            $scope.editPassword = "need help here";
+            $scope.editInstitution = response.data.institution;
+            $scope.editDepartment = response.data.department;
+            $scope.editTitle = response.data.title;
+            $scope.editLab = response.data.lab;
+            $scope.institution = response.data.institutions[0];
+            $scope.department = response.data.department;
+            $scope.title = response.data.title;
+        }, function errorCallback(response) {
+            console.log("inside GET error");
+        });
+        console.log("after ajax");
         $("#search-colleagues-btn").click(function () {
 
             var firstName = $("#search-first-name").val();
@@ -56,6 +81,20 @@ function profileCtrl($scope, $http) {
             });
 
         });
+        var fileExt = ".jpg";
+        var awsPath = "http://s3.amazonaws.com/phagebookaws/" + clothoId + "/profilePicture";
+
+        UrlExists(awsPath + fileExt, function (status) {
+            if (status === 200) {
+                // file was found
+                console.log("it is a jpeg");
+            } else if (status === 404) {
+                // 404 not found
+                fileExt = ".png";
+            }
+        });
+        $scope.profilePictureLink = awsPath + fileExt;
+        console.log(awsPath + fileExt);
 
     });
 
@@ -78,151 +117,18 @@ function profileCtrl($scope, $http) {
                         "institution": $scope.newInst
                     }
                 }).then(function successCallback(response) {
-
+                    console.log("some success in setPersonById ajax call");
                 }, function errorCallback(response) {
-                    console.log("inside setPersonById ajax error")
+                    console.log("inside setPersonById ajax error");
                 });
             }
             save = false;
         } else {
-            $scope.editText = 'Save Changes';  
-            save = true;  
+            $scope.editText = 'Save Changes';
+            save = true;
         }
     })
 
-
-    $http({
-        method: 'GET',
-        url: '../getPersonById',
-        params: {
-            "userId": clothoId
-        }
-    }).then(function successCallback(response) {
-        var responseAsJSON = angular.fromJson(response.data);
-        $scope.fullName = response.data.fullname;
-        $scope.editFirstName = response.data.firstName;
-        $scope.editLastName = response.data.lastName;
-        $scope.editEmail = response.data.email;
-        $scope.editPassword = "need help here";
-        $scope.editInstitution = response.data.institution;
-        $scope.editDepartment = response.data.department;
-        $scope.editTitle = response.data.title;
-        $scope.editLab = response.data.lab;
-        $scope.institution = response.data.institutions[0];
-        $scope.department = response.data.department;
-        $scope.title = response.data.title;
-    }, function errorCallback(response) {
-        console.log("inside getPersonById ajax error");
-    });
-
-
-    $(document).ready(function () {
-
-        $('#institution').change(function () {
-            //this is innefficient... make a servlet to make a call on change instead actually... its easier
-            var selectedInstitution = $('#institution option').filter(':selected').text();
-
-            var responseArray = JSON.parse(sessionStorage.getItem("index-institutions"));
-
-
-            var selectLabs = document.getElementById('lab-name');
-
-
-            var numberOfInstitutions = responseArray.length;
-
-
-            for (var i = 0; i < numberOfInstitutions; i++) {
-
-                if (responseArray[i].institutionName === selectedInstitution) {
-                    removeOptions(selectLabs);
-                    var labsArray = responseArray[i].labs;
-                    var labsLength = labsArray.length;
-                    for (var j = 0; j < labsLength; j++) {
-                        var opt2 = document.createElement('option');
-                        opt2.value = labsArray[j].labId;
-                        opt2.innerHTML = labsArray[j].labName;
-                        selectLabs.appendChild(opt2);
-                    }
-                } else if (selectedInstitution === "Institution...") {
-                    removeOptions(selectLabs);
-                    var opt2 = document.createElement('option');
-                    opt2.value = "";
-                    opt2.innerHTML = "Lab Name...";
-                    selectLabs.appendChild(opt2);
-                    return;
-                }
-
-
-            }
-        });
-
-
-
-
-        $.ajax({
-            url: "../loadPhagebookInstitutions",
-            type: "GET",
-            async: false,
-            data:
-                    {
-                    },
-            success: function (response) {
-                var responseArray = response.institutions; //array of JSONObjects with labs attached 
-
-                var selectInstitution = document.getElementById('institution');
-
-
-                sessionStorage.setItem("index-institutions", JSON.stringify(responseArray)); // stores in sess stor
-                removeOptions(selectInstitution);
-
-                var opt = document.createElement('option');
-                opt.value = "";
-
-                opt.innerHTML = "Institution...";
-                selectInstitution.appendChild(opt);
-
-                var numberOfInstitutions = responseArray.length;
-                for (var i = 0; i < numberOfInstitutions; i++) {
-
-
-                    var opt = document.createElement('option');
-                    opt.value = responseArray[i].institutionId;
-
-                    opt.innerHTML = responseArray[i].institutionName;
-                    selectInstitution.appendChild(opt);
-
-
-                }
-
-            },
-            error: function (response) {
-                alert("No Institutions To Load");
-            }
-        });
-
-    });
-
-$scope.saveProfilePicture = function(){
-    var formData = new FormData();
-    var selectedFile = document.getElementById('uploadPicture').files[0];
-    formData.append('profilePicture', selectedFile);
-    formData.append('profilePictureName', selectedFile.name);
-    console.log(selectedFile);
-    console.log(selectedFile.name);
-    $http({
-        method: 'POST',
-        url: '../uploadProfilePicture',
-        params: formData,
-        cache: false,
-        contentType: false,
-        processData: false
-        }).then(function successCallback(response) {
-            //disable upload/submit button and redirect on success
-            
-        }, function errorCallback(response) {
-            console.log("inside upload new profile picture ajax error");
-        });
-        }; 
 }
 
 function getParameterByName(name) {
@@ -232,6 +138,16 @@ function getParameterByName(name) {
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
-
+function UrlExists(url, cb) {
+    jQuery.ajax({
+        url: url,
+        dataType: 'text',
+        type: 'GET',
+        complete: function (xhr) {
+            if (typeof cb === 'function')
+                cb.apply(this, [xhr.status]);
+        }
+    });
+}
 //https://github.com/CIDARLAB/phoenix-core/blob/master/phoenix-core/src/main/webapp/javascript/upload.js
 //https://github.com/CIDARLAB/phoenix-core/blob/master/phoenix-core/src/main/java/org/cidarlab/phoenix/core/servlets/ClientServlet.java#L56

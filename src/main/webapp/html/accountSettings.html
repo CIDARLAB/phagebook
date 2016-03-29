@@ -19,6 +19,7 @@
         <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
         <script src="../scripts/new-ui-scripts/angular.ng-modules.js"></script>
+        <script src="../scripts/new-ui-scripts/uploadProfilePicture.js"></script>
         
         <style>
             
@@ -130,7 +131,7 @@
                         <label for="profile-picture" class="col-sm-2 form-control-label">PROFILE PICTURE</label>
                         <img alt="Upload a Profile Picture" src="{{profilePictureLink}}" id="picture-preview">
                         <input type="file" id="uploadPicture">
-                        <button class="btn btn-default" type="button" ng-click="saveProfilePicture()">Save!</button>
+                        <button class="btn btn-default" type="button" onclick="saveProfilePicture()">Save Picture</button>
                     </div>
                     <div class="form-group row">
                         <label for="profile-desc" class="col-sm-2 form-control-label">DESCRIPTION</label>

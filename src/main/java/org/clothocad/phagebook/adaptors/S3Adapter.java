@@ -40,16 +40,16 @@ public class S3Adapter {
         createS3Folder("phagebookaws", clothoId, s3client);
 
         //------------TESTING BEFORE INTEGRATED INTO PROFILE------------
-        String fileName = clothoId + "/" + "profilePicture.jpg";
+        /*String fileName = clothoId + "/" + "profilePicture.jpg";
         String picturePath = "C:\\Users\\azula\\Pictures\\AllisonDurkan.jpg";
         s3client.putObject(new PutObjectRequest("phagebookaws", fileName,
                 new File(picturePath))
-                .withCannedAcl(CannedAccessControlList.PublicRead));
+                .withCannedAcl(CannedAccessControlList.PublicRead));*/
 
     }
 
-    public static void uploadProfilePicture(Person pers, String filePath) {
-        String clothoId = pers.getId();
+    public static void uploadProfilePicture(String clothoId, String filePath) {
+        //String clothoId = pers.getId();
         AWSCredentials credentials = new BasicAWSCredentials(S3Credentials.getUsername(), S3Credentials.getPassword());
         System.out.println("Login Complete");
 
@@ -59,6 +59,17 @@ public class S3Adapter {
                 new File(filePath))
                 .withCannedAcl(CannedAccessControlList.PublicRead));
 
+    }
+    
+    public static void uploadProfilePicture(String clothoId, File file){
+        AWSCredentials credentials = new BasicAWSCredentials(S3Credentials.getUsername(), S3Credentials.getPassword());
+        System.out.println("Login Complete");
+
+        AmazonS3 s3client = new AmazonS3Client(credentials);
+        String fileName = clothoId + "/" + "profilePicture.jpg";
+        s3client.putObject(new PutObjectRequest("phagebookaws", fileName,
+                file)
+                .withCannedAcl(CannedAccessControlList.PublicRead));
     }
 
     private static void createS3Folder(String bucketName, String folderName, AmazonS3 client) {
