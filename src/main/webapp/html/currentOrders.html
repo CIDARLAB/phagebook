@@ -20,13 +20,18 @@ and open the template in the editor.
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script src="../scripts/new-ui-scripts/cookieHandler.js"></script>
     <script src="../scripts/new-ui-scripts/currentOrders.js"></script>
+    <script src="../scripts/new-ui-scripts/orderCardCreator.js"></script>
     
     <style>
         
         #content{
+            position: relative;
             margin-left: 26%;
-            position: fixed;
             margin-top: 130px;
+            margin-bottom: 150px;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            z-index: inherit;
         }
         
         label {
@@ -46,35 +51,136 @@ and open the template in the editor.
         <div class="container" id="content" >
             <div class="container">
                 <h3>Current Orders</h3>
-                <br>
                 <div class="col-sm-9">
-                    <div class="panel panel-default" id="order-card">
-                        <div class="panel-heading" id="order-heading" style="height:60px">
-                            <label for="orderNickname" class="col-xs-2 form-control-label" style="margin-top:10px">Order Name: </label>
-                            <div class="col-sm-5" style="margin-left:-25px; margin-top:10px"">
-                                <input type="text" id="order-nickname" name="type" disabled="disabled" value="CIDAR Lab Order #1"/>
+                    <button id="add-items-btn" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal3">
+                        <img alt="Add Items" src="../styles/img/icons/add-items.png" style="height:15px; vertical-align:middle;">
+                        &nbsp;Add Items
+                    </button>
+                </div>
+                <div id="myModal3" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="add-items-btn">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button id="myModal3-close" type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4>Add Items</h4>
                             </div>
-                            <button id="edit-order-btn" type="button" class="btn btn-default">
-                                <img alt="Edit Order" src="../styles/img/icons/white-pencil.png" style="height:20px">
-                            </button>
-                        </div>
-                        <div class="panel-body">
-                             <p>...</p>
-                        </div>
-                        <table class="table">
+                            <div class="modal-body" id="add-items-modal">
+                                <p>Search for products by typing their name and select which products you would like to add to a specific order.</p>
+                                <div class="form-group row" id="search-products">
+                                    <label for="productNameToSearch" class="col-sm-3 form-control-label">PRODUCT SEARCH</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" id="productNameToSearch">
+                                    </div>
+                                    <button id="search-products-btn" type="submit" class="btn btn-lg">Search</button>
+                                </div>
+                                <br>
+                                <div id="productResults" style="overflow:auto; height:300px; overflow:auto;"">
+                                    <table class="table" id="product-result-table">
 
-                        </table>
+                                    </table>
+                                </div>
+                                <br><br>
+                                <div class="form-group row" id="select-order-add-item">
+                                    <label for="list-of-orders" class="col-sm-2 form-control-label">SELECT ORDER</label>
+                                    <div class="col-sm-5">
+                                        <select class="form-control" id="list-of-orders">
+                                            <option>CIDAR Lab Order #1</option>
+                                        </select>
+                                    </div>
+                                    <button id="add-to-order-btn" type="submit" class="btn btn-lg">Add to Order</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <!--
-                Product Name Search:  <input id="productNameToSearch" type="text" placeholder="Product Query" >
-                Products <select id="productResults"></select>
-                <br>
-                Order Info: <textarea id="order-info"></textarea>-->
             </div>
-        </div>
-        <footer></footer>
+        <template id = "order-card-template">
+            <div class="col-sm-9" style="margin-top: 20px">
+                <div class="panel panel-default" class="order-card">
+                    <div class="panel-heading order-heading" style="height:60px">
+                        <label class="col-xs-2 form-control-label" style="margin-top:10px">Order Name: </label>
+                        <div class="col-sm-5" style="margin-left:-25px; margin-top:10px">
+                            <input type="text" class="order-nickname" name="type" disabled="disabled" value="CIDAR Lab Order #1"/>
+                        </div>
+                        <button type="button" class="btn btn-default edit-order-btn">
+                            <img alt="Edit Order" src="../styles/img/icons/white-pencil.png" style="height:20px">
+                        </button>
+                    </div>
+                    <div class="panel-body order-top-panel">
+                        <br>
+                        <p>Associated Project:&nbsp;<a class="order-project-name" href="#" style="color:#1E714A;">Project Name</a></p>
+                        <br>
+                        <table class="table order-property-table">
+                            <tr class="order-property-headers">
+                                <td>ORDER ID #</td>
+                                <td>CREATED BY</td>
+                                <td>RECEIVED BY</td>
+                                <td>APPROVED BY</td>
+                                <td>ORDER LIMIT</td>
+                                <td>ORDER BUDGET</td>
+                            </tr>
+                            <tr class="order-property-data">
+                                <td class="order-id" style="font-size: 9px">123456789</td>
+                                <td class="order-created-by">Douglas Densmore</td>
+                                <td class="order-received-by"></td>
+                                <td class="order-approved-by"></td>
+                                <td class="order-limit"></td>
+                                <td class="order-budget">$</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <table class="table table-hover order-items-table">
+                        <tr class="order-items-headers">
+                            <td>ITEM</td>
+                            <td>QTY.</td>
+                            <td>UNIT PRICE</td>
+                            <td>CUSTOM UNIT PRICE</td>
+                            <td>TOTAL PRICE</td>
+                        </tr>
+                        <tr>
+                            <td class="item-name">6 Piece Pyrex Glass Test Tube Set</td>
+                            <td class="item-qty">6</td>
+                            <td class="item-unit-price">$7.89</td>
+                            <td class="item-custom-unit-price">$7.89</td>
+                            <td class="item-total-price">$37.86</td>
+                        </tr>
+
+                    </table>
+                    <div class="panel-body order-bottom-panel">
+                        <div class="btn-group order-card-btn-group" role="group">
+                            <button type="button" class="btn btn-default export-csv-btn">
+                                <img alt="Export CSV" src="../styles/img/icons/export-csv.png" style="height:15px; vertical-align:middle;">
+                                &nbsp;Export CSV
+                            </button>
+                            <button type="button" class="btn btn-default delete-order-btn">
+                                <img alt="Delete Order" src="../styles/img/icons/delete-order.png" style="height:15px; vertical-align:middle;">
+                                &nbsp;Delete Order
+                            </button>
+                        </div>
+                        <br>
+                        <table class="table order-totals-table">
+                            <tr>
+                                <td>Total before tax:</td>
+                                <td class="total-before-tax-value">$887.76</td>
+                            </tr>
+                            <tr>
+                                <td>Tax:</td>
+                                <td class="tax-value">$62.14</td>
+                            </tr>
+                            <tr>
+                                <td>Grand Total:</td>
+                                <td class="total-after-tax-value">$949.90</td>
+                            </tr>
+                        </table>
+                        <br>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-default submit-order-btn">Submit</button>
+            </div>
+            <br><br>
+        </template>
     </div>
+    <footer></footer>
 </div>
     
 <!-- ANGULAR SCRIPTS -->

@@ -41,8 +41,12 @@ a:hover {
     width: 250px;
     height: 100%;
     background-color: #FFFFFF;
+<<<<<<< HEAD
     /*z-index: -1;*/
+=======
+>>>>>>> 168f1ca24b6bbee5fc69ba5c0139bac0c2f3e009
 }
+
 ul{
     margin-top: 75px;
 }

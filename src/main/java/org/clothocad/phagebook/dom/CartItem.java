@@ -15,16 +15,20 @@ import lombok.Setter;
  * @author Herb
  */
 public class CartItem {
-    @Getter @Setter private Map<String, Double> productWithDiscount; //ID with a discount. 
+    @Getter @Setter private Double discount; //ID of a PRODUCT
     @Getter @Setter private String id;
     @Getter @Setter private Date dateCreated;
+    @Getter @Setter private String productId;
+    @Getter @Setter private Integer quantity;
     
     public CartItem()
     {
     
         this.id = "Not Set"; 
-        this.productWithDiscount = new HashMap();
+        this.productId = "Not Set";
         this.dateCreated = new Date();
+        this.discount = 1d;
+        this.quantity = 0;
     }
     
 }
