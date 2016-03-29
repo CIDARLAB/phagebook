@@ -657,6 +657,41 @@ public class ClothoAdapterTest {
         System.out.println("----------");
         
     }
+    
+    @Test
+    public void testGetCartItem(){
+        System.out.println("-----GET CART ITEM TEST-----");
+        CartItem cItem1 = new CartItem();
+        //Cart Item Fields 
+            //
+            Product product = new Product();
+            ClothoAdapter.createProduct(product, clothoObject);
+        cItem1.setProductId(product.getId());
+        Date dateCreated = new Date();
+        cItem1.setDateCreated(dateCreated);
+        
+        Double discount = .5d;
+        cItem1.setDiscount(discount);
+        Integer quantity = 50;
+        cItem1.setQuantity(quantity);
+        
+        
+        //
+        String cartItemId = ClothoAdapter.createCartItem(cItem1, clothoObject);
+        if(cItem1.getId().equals("Not Set")){
+            fail();
+        }
+        
+        CartItem cItem2 = ClothoAdapter.getCartItem(cartItemId, clothoObject);
+        
+        assertEquals(cItem1.getId() , cItem2.getId());
+        assertEquals(cItem1.getDateCreated().toString(), cItem2.getDateCreated().toString());
+        assertEquals(cItem1.getDiscount(), cItem2.getDiscount());
+        assertEquals(cItem1.getQuantity(), cItem2.getQuantity());
+        
+        System.out.println("----------");
+    }
+    
     @Test
     public void testGetContainer(){
         System.out.println("-----GET CONTAINER TEST-----");
@@ -1002,6 +1037,7 @@ public class ClothoAdapterTest {
             String description = "Clotho Test Description";
             Date dateCreated = new Date(787899600000L);
             Double budget = 100.0d;
+            
             Integer maxOrderSize = 25;
             
             Person createdBy = new Person();
@@ -1015,7 +1051,7 @@ public class ClothoAdapterTest {
                 receivedByIds.add(receivedBy.getId());
                 receivedByIds.add(receivedBy2.getId());
                 clothoLogin(this.username, this.password);
-                Map<String, Integer> cartItems = new HashMap<>();
+                List<String> cartItems = new ArrayList<>();
                 CartItem C1 = new CartItem();
                 CartItem C2 = new CartItem();
                     //CART ITEM PROPERTIES
@@ -1024,17 +1060,16 @@ public class ClothoAdapterTest {
                     
                     ClothoAdapter.createProduct(P1, clothoObject);
                     ClothoAdapter.createProduct(P2, clothoObject);
-                    Map<String, Double> productsWithDiscount1 = new HashMap();
-                    productsWithDiscount1.put(P1.getId(), 100.0);
-                    Map<String, Double> productsWithDiscount2 = new HashMap();
-                    productsWithDiscount2.put(P2.getId(), 50.0);
-                    C1.setProductWithDiscount(productsWithDiscount1);
-                    C2.setProductWithDiscount(productsWithDiscount2);
+                    
+                    C1.setProductId(P1.getId());
+                    C1.setDiscount(1.0d);
                     ClothoAdapter.createCartItem(C1, clothoObject);
+                    C2.setProductId(P2.getId());
+                    C2.setDiscount(1.0d);
                     ClothoAdapter.createCartItem(C2, clothoObject);
                     //
-                    cartItems.put(C1.getId(), 10);
-                    cartItems.put(C2.getId(), 20);
+                    cartItems.add(C1.getId());
+                    cartItems.add(C2.getId());
                 
                 //
                 Lab affiliatedLab = new Lab();
@@ -1072,6 +1107,7 @@ public class ClothoAdapterTest {
         }
         
         Order order2 = ClothoAdapter.getOrder(orderId, clothoObject);
+        
         assertEquals(order1.getId(), order2.getId());
         assertEquals(order1.getName(), order2.getName());
         assertEquals(order1.getDescription(), order2.getDescription());
@@ -1085,29 +1121,9 @@ public class ClothoAdapterTest {
             assertEquals(order1.getReceivedByIds().get(i), order2.getReceivedByIds().get(i));
         }
         assertEquals(order1.getRelatedProjectId(), order2.getRelatedProjectId());    
-        
-       
-        Map <String, Integer> idQuantityMap1 = new HashMap<>();
-        
-        for (Map.Entry pair : order1.getProducts().entrySet()) {
-                if (((String) pair.getKey()) != null){
-                    idQuantityMap1.put(((String)pair.getKey()), (Integer) pair.getValue());
-                }
-            }
-        Map <String, Integer> idQuantityMap2 = new HashMap<>();
-        for (Map.Entry pair : order2.getProducts().entrySet()){
-            if  (((String) pair.getKey()) != null){
-                idQuantityMap2.put(((String)pair.getKey()), (Integer) pair.getValue());
-            }
+        for (int i = 0; i < order1.getProducts().size(); i++){
+            assertEquals(order1.getProducts().get(i), order2.getProducts().get(i));
         }
-        if (idQuantityMap1.equals(idQuantityMap2)){
-            System.out.println("THIS RETURNS TRUE");
-            
-        } else {
-            fail();
-        }
-       
-        
         
         System.out.println("----------");
     }

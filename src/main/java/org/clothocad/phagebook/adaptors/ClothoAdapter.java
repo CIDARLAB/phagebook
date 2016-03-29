@@ -71,28 +71,25 @@ public class ClothoAdapter {
         Map map = new HashMap();
         map.put("schema", CartItem.class.getCanonicalName());
         
-        if (cartItem.getProductWithDiscount() != null ){  
-            if (!cartItem.getProductWithDiscount().isEmpty()) {
-                
-                
-            JSONObject productsWithDiscount = new JSONObject();
-        
-            for (Map.Entry pair : cartItem.getProductWithDiscount().entrySet()) { //String Double pairs.
-                if ((pair.getKey()) != null){
-                    if (!((String) pair.getKey()).equals("Not Set") && !((String) pair.getKey()).isEmpty() ){
-                        productsWithDiscount.put(((String)pair.getKey()), pair.getValue());
-                    }
-                }
-            }
-
-            map.put("productWithDiscount" , productsWithDiscount);
-            
-            
+        if (cartItem.getProductId()!= null){
+            if (!cartItem.getProductId().equals("") && !cartItem.getProductId().equals("Not Set")){
+                map.put("product", cartItem.getProductId());
             }
         }
         
+       
+        
         if (cartItem.getDateCreated() != null){
             map.put("dateCreated", cartItem.getDateCreated().toString());
+        }
+        
+      
+        if (cartItem.getDiscount()!= null){
+            map.put("discount", cartItem.getDiscount().toString());
+        }
+        
+        if (cartItem.getQuantity() != null){
+            map.put("quantity", cartItem.getQuantity().toString());
         }
        
         String id = (String) clothoObject.set(map);
@@ -677,23 +674,22 @@ public class ClothoAdapter {
             
         }
         
-        
-        if (order.getProducts() != null) //CART ITEM AND INT PAIRS
+        if (order.getProducts()!= null) //LIST OF CART ITEM ID's
         {
-            if (!order.getProducts().isEmpty()){
-                JSONObject products = new JSONObject();
-
-                for (Map.Entry pair : order.getProducts().entrySet()) {
-                    if (((String) pair.getKey()) != null){
-                        if (!((String)pair.getKey()).equals("Not Set") && !((String)pair.getKey()).isEmpty() ){
-                            products.put(((String)pair.getKey()), pair.getValue());
+            if (!order.getProducts().isEmpty())
+            {
+                JSONArray cartItemIds = new JSONArray();
+                for (String cartItem : order.getProducts()){
+                    if (cartItem != null){
+                        if (!cartItem.equals("Not Set") && !cartItem.isEmpty()){
+                            cartItemIds.add(cartItem);
                         }
                     }
                 }
-
-                map.put("products" , products);
+                map.put("products", cartItemIds);
             }
-        } 
+        }
+        
         
         if (order.getBudget() != null){
             map.put("budget", order.getBudget().toString());
@@ -2515,43 +2511,34 @@ public class ClothoAdapter {
             }
         }
         
+        Double discount = 1d;
         
-        //A MAP OF A PRODUCT AS A KEY AND AN INTEGER VALUE FOR THE VALUE FOR THAT KEY
-        Map<String, Double> products = null;
-        if (map.containsKey("productWithDiscount")){
-            Map productIds = (Map) map.get("productWithDiscount");
-            products = new HashMap<>() ;
-            //This declares an iterator to iterate through all of the key value pairs in a hash map
-            Iterator it = productIds.entrySet().iterator();
-            while (it.hasNext()) 
-            {
-                //an example of an entry pair is <OBJECT MEM LOCATION
-                Map.Entry entryPair = (Map.Entry) it.next();
-                String productId = (String) entryPair.getKey();
-              
-                try 
-                {
-                  
-                    Double quantity = Double.parseDouble( (String)entryPair.getValue());
-                    products.put(productId, quantity);
-
-
-                } catch (Exception e)
-                {
-                    // Something went wrong!
-                    System.out.println("something went wrong in mapToOrder");
-                    e.toString();
-                }
-
-            }
+        if (map.containsKey("discount")){
+            discount = Double.parseDouble((String) map.get("discount"));
+        }   
+        
+        String product = "";
+        if (map.containsKey("product")){
+            product = (String) map.get("product");
         }
+        Integer quantity = 0;
+        
+        if (map.containsKey("quantity")){
+            quantity = Integer.parseInt((String) map.get("quantity"));
+        }
+        
         
         
         
         CartItem cartItem = new CartItem();
         cartItem.setDateCreated(dateCreated);
         cartItem.setId(id);
-        cartItem.setProductWithDiscount(products);
+        cartItem.setDiscount(discount);
+        cartItem.setQuantity(quantity);
+        cartItem.setProductId(product);
+        
+        
+        
         
         
         return cartItem;
@@ -2987,7 +2974,7 @@ public class ClothoAdapter {
         String description = "";
         Date dateCreated = new Date();
         String createdBy = "";
-        Map<String, Integer> products = new HashMap<>();
+        List<String> products = new ArrayList<>();
         String id = "";
         Double budget = -1.0d;
         Integer maxOrderSize = -1;
@@ -3024,34 +3011,14 @@ public class ClothoAdapter {
             }
             //A MAP OF A PRODUCT AS A KEY AND AN INTEGER VALUE FOR THE VALUE FOR THAT KEY
 
+            
             if (map.containsKey("products")){
-                Map productIds = (Map) map.get("products");
-                products = new HashMap<>() ;
-                //This declares an iterator to iterate through all of the key value pairs in a hash map
-                Iterator it = productIds.entrySet().iterator();
-                while (it.hasNext()) 
-                {
-                    //an example of an entry pair is <OBJECT MEM LOCATION
-                    Map.Entry entryPair = (Map.Entry) it.next();
-                    String productOrderid = (String) entryPair.getKey();
-
-
-                    try 
-                    {
-
-                        int quantity = (int) entryPair.getValue();
-                        products.put(productOrderid, quantity);
-
-
-                    } catch (Exception e)
-                    {
-                        // Something went wrong!
-                        System.out.println("something went wrong in mapToOrder");
-                        e.toString();
-                    }
-
+                JSONArray productIds = (JSONArray) map.get("products");
+                for (int i = 0; i < productIds.size(); i++){
+                    products.add(productIds.getString(i));
                 }
             }
+            
             if (map.containsKey("id")){
                  id = (String) map.get("id");
             }
