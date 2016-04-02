@@ -81,15 +81,13 @@ public class parseCartItem extends HttpServlet {
             
             CartItem cartItem = ClothoAdapter.getCartItem(cartItemId, clothoObject);
             
-            
-            Iterator it = cartItem.getProductWithDiscount().entrySet().iterator();
-            while (it.hasNext()) {
-                Map.Entry pair = (Map.Entry)it.next();
-                Product product = ClothoAdapter.getProduct((String) pair.getKey(), clothoObject);
-                responseJSON.put("discount", pair.getValue());
-                responseJSON.put("productName", product.getName());
-                responseJSON.put("productUnitPrice", product.getUnitPrice());
-            }
+
+            Product product = ClothoAdapter.getProduct(cartItem.getProductId(), clothoObject);
+            responseJSON.put("productId", product.getId());
+            responseJSON.put("discount", cartItem.getDiscount());
+            responseJSON.put("productName", product.getName());
+            responseJSON.put("productUnitPrice", product.getUnitPrice());
+           
             
             response.setContentType("application/json");
             response.setStatus(HttpServletResponse.SC_OK);
