@@ -1,0 +1,91 @@
+<template id = "order-card-template">
+    <div class="col-sm-9" style="margin-top: 20px">
+        <div class="panel panel-default" class="order-card">
+            <div class="panel-heading order-heading" style="height:60px">
+                <label class="col-xs-2 form-control-label" style="margin-top:10px">Order Name: </label>
+                <div class="col-sm-5" style="margin-left:-25px; margin-top:10px">
+                    <input type="text" class="order-nickname" name="type" disabled="disabled" value="CIDAR Lab Order #1"/>
+                </div>
+                <button type="button" class="btn btn-default edit-order-btn">
+                    <img alt="Edit Order" src="../styles/img/icons/white-pencil.png" style="height:20px">
+                </button>
+            </div>
+            <div class="panel-body order-top-panel">
+                <br>
+                <p>Associated Project:&nbsp;<a href="#" style="color:#1E714A;">Project Name</a></p>
+                <br>
+                <table class="table order-property-table">
+                    <tr class="order-property-headers">
+                        <td>ORDER ID #</td>
+                        <td>CREATED BY</td>
+                        <td>RECEIVED BY</td>
+                        <td>APPROVED BY</td>
+                        <td>ORDER LIMIT</td>
+                        <td>ORDER BUDGET</td>
+                    </tr>
+                    <tr class="order-property-data">
+                        <td class="order-id">123456789</td>
+                        <td class="order-created-by">Douglas Densmore</td>
+                        <td class="order-received-by">N/A</td>
+                        <td class="order-approved-by">N/A</td>
+                        <td class="order-limit">50 Items</td>
+                        <td class="order-budget">$5000.00</td>
+                    </tr>
+                </table>
+            </div>
+            <table class="table table-hover order-items-table">
+                <tr class="order-items-headers">
+                    <td>ITEM</td>
+                    <td>QTY.</td>
+                    <td>UNIT PRICE</td>
+                    <td>CUSTOM UNIT PRICE</td>
+                    <td>TOTAL PRICE</td>
+                </tr>
+                <tr>
+                    <td class="item-name">6 Piece Pyrex Glass Test Tube Set</td>
+                    <td class="item-qty">6</td>
+                    <td class="item-unit-price">$7.89</td>
+                    <td class="item-custom-unit-price">$7.89</td>
+                    <td class="item-total-price">$37.86</td>
+                </tr>
+                <tr>
+                    <td class="item-name" style="overflow: hidden; text-overflow: ellipsis">AmScope 150C All-Metal Optical Glass Microscope</td>
+                    <td class="item-qty">10</td>
+                    <td class="item-unit-price">$84.98</td>
+                    <td class="item-custom-unit-price">$84.98</td>
+                    <td class="item-total-price">$849.90</td>
+                </tr>
+            </table>
+            <div class="panel-body order-bottom-panel">
+                <div class="btn-group order-card-btn-group" role="group">
+                    <button type="button" class="btn btn-default export-csv-btn">
+                        <img alt="Export CSV" src="../styles/img/icons/export-csv.png" style="height:15px; vertical-align:middle;">
+                        &nbsp;Export CSV
+                    </button>
+                    <button type="button" class="btn btn-default delete-order-btn">
+                        <img alt="Delete Order" src="../styles/img/icons/delete-order.png" style="height:15px; vertical-align:middle;">
+                        &nbsp;Delete Order
+                    </button>
+                </div>
+                <br>
+                <table class="table order-totals-table">
+                    <tr>
+                        <td>Total before tax:</td>
+                        <td class="total-before-tax-value">$887.76</td>
+                    </tr>
+                    <tr>
+                        <td>Tax:</td>
+                        <td class="tax-value">$62.14</td>
+                    </tr>
+                    <tr>
+                        <td>Grand Total:</td>
+                        <td class="total-before-tax-value">$949.90</td>
+                    </tr>
+                </table>
+                <br>
+            </div>
+        </div>
+        <button type="button" class="btn btn-default submit-order-btn">Submit</button>
+    </div>
+    <br><br>
+</template>

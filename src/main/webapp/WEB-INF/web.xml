@@ -108,6 +108,17 @@
         <servlet-name>queryFirstLastName</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.queryFirstLastName</servlet-class>
     </servlet>
+<<<<<<< HEAD
+=======
+    <servlet>
+        <servlet-name>loadUserData</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.loadUserData</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>parseCartItem</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.parseCartItem</servlet-class>
+    </servlet>
+>>>>>>> 168f1ca24b6bbee5fc69ba5c0139bac0c2f3e009
     <servlet-mapping>
         <servlet-name>inputProduct</servlet-name>
         <url-pattern>/inputProduct</url-pattern>
@@ -156,6 +167,25 @@
         <servlet-name>createPerson</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.createPerson</servlet-class>
     </servlet>
+<<<<<<< HEAD
+=======
+    <servlet>
+        <servlet-name>editProject</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.editProject</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>addUpdateToProject</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.addUpdateToProject</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>editProject</servlet-name>
+        <url-pattern>/editProject</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addUpdateToProject</servlet-name>
+        <url-pattern>/addUpdateToProject</url-pattern>
+    </servlet-mapping>
+>>>>>>> 168f1ca24b6bbee5fc69ba5c0139bac0c2f3e009
     <servlet-mapping>
         <servlet-name>processProject</servlet-name>
         <url-pattern>/processProject</url-pattern>
@@ -264,4 +294,16 @@
         <servlet-name>queryFirstLastName</servlet-name>
         <url-pattern>/queryFirstLastName</url-pattern>
     </servlet-mapping>
+<<<<<<< HEAD
 </web-app>
+=======
+    <servlet-mapping>
+        <servlet-name>loadUserData</servlet-name>
+        <url-pattern>/loadUserData</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>parseCartItem</servlet-name>
+        <url-pattern>/parseCartItem</url-pattern>
+    </servlet-mapping>
+</web-app>
+>>>>>>> 168f1ca24b6bbee5fc69ba5c0139bac0c2f3e009

@@ -22,31 +22,6 @@
 
         <style>
 
-            .navbar {
-                -webkit-box-shadow: 0 8px 6px -6px #999;
-                -moz-box-shadow: 0 8px 6px -6px #999;
-                box-shadow: 0 8px 6px -6px #999;
-                background-color: #1E714A;
-                border-bottom: none;
-                height: 90px;
-                float: none;
-            }
-
-            .navbar-brand {
-                float: left;
-                margin-top: 18px;
-            }
-
-            .control-label {
-                color: white;
-                font-size: 11px;
-                font-weight: 300;
-            }
-
-            .navbar-right {
-                margin-right: 30px;
-            }
-
             .btn-default {
                 font-size: 12px;
                 border-radius: 24px;
@@ -112,40 +87,30 @@
 
     <body>
 
-        <div ng-module="indexApp">
-            <div ng-controller="indexCtrl">
-                <div id="wrapper">
-                    <div class="navbar navbar-default navbar-fixed-top">
-                        <div class="container">
-                            <div class="navbar-header">
-                                <a class= "navbar-brand" href="../index.html" title="Go to Phagebook Home">
-                                    <img alt="Phagebook Logo" src="../styles/img/icons/phagebook-logo-white.svg"> 
-                                </a>
-                                <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                                    <span class="sr-only">Toggle navigation</span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+        <div ng-module="addVendorsAndProducts">
+            <div ng-controller="addVendorsAndProductsCtrl">
+                <header></header>
                 <div class="container" id="content">
-                    <h3>Please check your email to verify your Phagebook account.</h3>
-                    <p>If you did not receive a verification email, click the button below to resend it.</p>
-                    <br/><button id="resendVerification" type="submit" class="btn btn-lg">Resend Verification</button>
+                    <h3>Vendor #156 'Amazon' has been submitted for review.</h3>
+                    <p>You will receive an email when the status of this request has been updated.</p>
+                    <br/>
+                    <a href="addVendorsAndProducts.html">
+                        <button id="backtoVendorsAndProducts" type="submit" class="btn btn-lg">
+                            <img alt="Download CSV" src="../styles/img/icons/vendors-and-products-white.png" style="height:15px; vertical-align:middle;">
+                            &nbsp;&nbsp;Back to Vendors & Products
+                        </button>
+                    </a>
                 </div>
-
                 <footer></footer>
             </div>
         </div>
         
         <!-- ANGULAR SCRIPTS -->
+        <script src="../scripts/new-ui-scripts/headerDirective.js"></script>
+        <script src="../scripts/new-ui-scripts/sidebarDirective.js"></script>
         <script src="../scripts/new-ui-scripts/footerDirective.js"></script>
-        <script src="../scripts/new-ui-scripts/indexController.js"></script>
-        <script src="../scripts/new-ui-scripts/indexApp.js"></script>
+        <script src="../scripts/new-ui-scripts/addVendorsAndProductsController.js"></script>
+        <script src="../scripts/new-ui-scripts/addVendorsAndProductsApp.js"></script>
 
     </body>
 

@@ -163,53 +163,52 @@
                                 </div>
                             </div>
 
-                    <div class="container">
-                        <div class="col-md-6">
-                            <img src="styles/img/icons/login-page-img.png" alt="Phagebook Login Image">
-                        </div>
-                        <div class="col-md-1"></div>
-                        <div class="col-md-5">
-                            <fieldset>
-                                <div><br/></div>
-                                <h3>Sign Up</h3>
-                                <p>Start connecting with other researchers -- it's free.</p>
-                                <div>
-                                    <div class="form-group" id="register-form">
-                                        <div class="col-sm-6">  
-                                            <input type="text" class="form-control" name="firstName" id="inputFirstName" placeholder="First Name">
+                        <div class="container">
+                            <div class="col-md-6">
+                                <img src="styles/img/icons/login-page-img.png" alt="Phagebook Login Image">
+                            </div>
+                            <div class="col-md-1"></div>
+                            <div class="col-md-5">
+                                <fieldset>
+                                    <div><br/></div>
+                                    <h3>Sign Up</h3>
+                                    <p>Start connecting with other researchers -- it's free.</p>
+                                    <div>
+                                        <div class="form-group" id="register-form">
+                                            <div class="col-sm-6">  
+                                                <input type="text" class="form-control" name="firstName" id="inputFirstName" placeholder="First Name">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control" name="lastName" id="inputLastName" placeholder="Last Name">
+                                            </div>
+                                            <div class="col-sm-12"></div>
+                                            <div class="col-sm-12">
+                                                <input type="text" class="form-control" name="emailId" id="emailAddress" placeholder="Email Address">
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <input type="password" class="form-control"  name="password" id="password" placeholder="Password">
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <input type="password" class="form-control" id="reenterPassword" placeholder="Re-enter Password" onChange="checkPasswordMatch()">
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <select class="form-control" id="institution">
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <select class="form-control" id="lab-name">
+                                                    <option>Lab Name...</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <p style='font-size:10px'>By clicking Create Profile you agree to our Terms and that you have read out Data Policy, including our Cookie Use</p>
+                                            </div>
+                                            <button id="createProfile" type="submit" onclick="return checkPasswordMatch();" class="btn btn-lg">Create Profile</button> 
                                         </div>
-                                        <div class="col-sm-6">
-                                            <input type="text" class="form-control" name="lastName" id="inputLastName" placeholder="Last Name">
-                                        </div>
-                                        <div class="col-sm-12"></div>
-                                        <div class="col-sm-12">
-                                            <input type="text" class="form-control" name="emailId" id="emailAddress" placeholder="Email Address">
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <input type="password" class="form-control"  name="password" id="password" placeholder="Password">
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <input type="password" class="form-control" id="reenterPassword" placeholder="Re-enter Password" onChange="checkPasswordMatch()">
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <select class="form-control" id="institution">
-                                            </select>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <select class="form-control" id="lab-name">
-                                                <option>Lab Name...</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <p style='font-size:10px'>By clicking Create Profile you agree to our Terms and that you have read out Data Policy, including our Cookie Use</p>
-                                        </div>
-                                        <button id="createProfile" type="submit" onclick="return checkPasswordMatch();" class="btn btn-lg">Create Profile</button> 
                                     </div>
-                                </div>
-                            </fieldset>
-                        </div>
-                    </div>
-                            
+                                </fieldset>
+                            </div>
+                        </div>  
                         </div>
                     </div>
                 </div>
@@ -220,9 +219,9 @@
             </div>
         </div>
             
-        <!-- SCRIPTS -->
+        <!-- ANGULAR SCRIPTS -->
         
-        <script src="../scripts/new-ui-scripts/indexFooterDirective.js"></script>
+        <script src="../scripts/new-ui-scripts/footerDirective.js"></script>
         <script src="../scripts/new-ui-scripts/indexController.js"></script>
         <script src="../scripts/new-ui-scripts/indexApp.js"></script>
         

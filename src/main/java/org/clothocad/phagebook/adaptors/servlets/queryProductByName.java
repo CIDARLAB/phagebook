@@ -108,7 +108,7 @@ public class queryProductByName extends HttpServlet {
             for (Product product : queryProductResults){
                 JSONObject productAsJson = new JSONObject();
                 productAsJson.put("clothoID", product.getId());
-                productAsJson.put("cost", product.getCost());
+                productAsJson.put("unitPrice", product.getCost());
                 productAsJson.put("productURL", (product.getProductURL() != null) ? product.getProductURL() : "");
                 productAsJson.put("goodType", product.getGoodType());
                 productAsJson.put("inventory", product.getInventory());
@@ -131,6 +131,12 @@ public class queryProductByName extends HttpServlet {
                 out.flush();
             } else {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                response.setContentType("application/json");
+                PrintWriter out = response.getWriter();
+                JSONObject responseJSON = new JSONObject();
+                responseJSON.put("message", "no results found at all");
+                out.print(responseJSON);
+                out.flush();
             }
             
         } else {
