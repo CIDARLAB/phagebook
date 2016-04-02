@@ -230,6 +230,7 @@ body {
 
 .delete-order-btn:hover {
     background-color: #EC3C56;
+    color: #FFFFFF;
 }
 
 #dl-csv-product-btn {
@@ -319,11 +320,12 @@ body {
     padding-right: 15px;
     padding-left: 15px;
     border: none;
-    margin-right: 15px;
+    margin-right: 0px;
 }
 
 .export-csv-btn:hover {
     background-color: #89C176;
+    color: #FFFFFF;
 }
 
 .footer {
@@ -427,7 +429,7 @@ h3 {
     padding-bottom: 0px;
 }
 
-.order-card-btn-group {
+#order-buttons {
     position: absolute;
     margin-top: 90px;
 }
@@ -437,10 +439,11 @@ h3 {
     table-layout: auto;
 }
 
-.order-items-table tr td {
-    border: 0.25px #D5D5D5;
+.order-items-table tr th td {
+    //border: 0.25px #D5D5D5;
     padding: 10px 15px 10px 15px;
     vertical-align: middle;
+    border: 1px solid black !important;
 }
 
 .order-items-headers td {
