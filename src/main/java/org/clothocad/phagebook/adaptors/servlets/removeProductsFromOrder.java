@@ -8,6 +8,7 @@ package org.clothocad.phagebook.adaptors.servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -108,32 +109,28 @@ public class removeProductsFromOrder extends HttpServlet {
             
             Person userP = ClothoAdapter.getPerson(user, clothoObject);
             Order ord = ClothoAdapter.getOrder(orderId, clothoObject);
-            Map<String, Integer> cartItemMap = ord.getProducts(); //CART ITEM ID AND INTEGER MAP
+            List<String> cartItemsInOrder = ord.getProducts(); //CART ITEM ID 
             String[] cartItemsToRemove = cartItems.split(",");
             if (ord.getCreatedById().equals(userP.getId()) || ord.getReceivedByIds().contains(userP.getId())){
                 
                 for (int i = 0; i < cartItemsToRemove.length; i++)
                 {
-                    if (cartItemMap.containsKey(cartItemsToRemove[i])){ //they key exists in the map 
+                    
+                    
+                    if (cartItemsInOrder.contains(cartItemsToRemove[i])){ //they key exists in the map 
                         //remove that specific Cart Item.
-                        int quantity = cartItemMap.get(cartItemsToRemove[i]);
-
                         CartItem cItem = ClothoAdapter.getCartItem(cartItemsToRemove[i], clothoObject);
-                        //GET THE PRODUC ATTRIBUTED
-                        Map <String, Double> productWdiscount = cItem.getProductWithDiscount(); 
-                        //WILL ALWAYS BE SIZE ONE
+                        int quantity = cItem.getQuantity();
 
-                    for (Map.Entry<String, Double> entry : productWdiscount.entrySet()) {
-                        //System.out.println("ProductId=" + entry.getKey() + ", Discount=" + entry.getValue());
-                        Product product = ClothoAdapter.getProduct(entry.getKey(), clothoObject);
+                        Product product = ClothoAdapter.getProduct(cItem.getProductId(), clothoObject);
                         product.increaseInventory(quantity);
 
                         ClothoAdapter.setProduct(product, clothoObject); //increase inventory for that product
 
-                    }
+                    
                         //DON'T KNOW HOW TO DELETE FROM CLOTHO...
                         //will unlink though from the cart item map...
-                       cartItemMap.remove(cartItemsToRemove[i]);
+                       cartItemsInOrder.remove(cartItemsToRemove[i]);
 
 
 
@@ -141,7 +138,7 @@ public class removeProductsFromOrder extends HttpServlet {
 
                 }
 
-                ord.setProducts(cartItemMap); // set the new cart item map with the ones we don't want nixed
+                ord.setProducts(cartItemsInOrder); // set the new cart item map with the ones we don't want nixed
                 ClothoAdapter.setOrder(ord, clothoObject);
 
             }

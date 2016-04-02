@@ -39,6 +39,7 @@ public class Order {
     @Getter @Setter private String               relatedProjectId;
     @Getter @Setter private OrderStatus          status;
     @Getter @Setter private String               affiliatedLabId;
+    @Getter @Setter private Double               taxRate;
     
     
 //    public Map<Product, Integer> getProducts(){
@@ -72,6 +73,7 @@ public class Order {
         this.receivedByIds  = new ArrayList<>();
         this.relatedProjectId = "Not Set";
         this.status = OrderStatus.INPROGRESS;
+        this.taxRate = 1.0d;
         this.affiliatedLabId = "Not Set";
         
     }

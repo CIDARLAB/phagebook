@@ -1,6 +1,7 @@
 function createOrderCard(orderJSON) {
     var content = document.getElementById('content');
     var tmpl = document.getElementById('order-card-template').content.cloneNode(true);
+
     tmpl.querySelector('.order-nickname').value         = orderJSON.Name;
     tmpl.querySelector('.order-project-name').innerText = orderJSON.RelatedProjectName;
     tmpl.querySelector('.order-id').innerText           = orderJSON.ClothoId;
