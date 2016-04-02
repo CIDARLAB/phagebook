@@ -56,21 +56,12 @@ $(document).ready(function() {
                 async: false,
                 data: data,
                 success: function(res) {
-                    // var select = document.getElementById('companyResults');
-                    // removeOptions(select);
-                    // var lengthOfResponse = response.length;
-                    // for (var i = 0; i < lengthOfResponse; i++) {
-                    //     var opt = document.createElement('option');
-                    //     opt.value = response[i].id;
-
-                    //     opt.innerHTML = response[i].name;
-                    //     select.appendChild(opt);
-                    // }
+                    
                     console.log(res);
 
                 },
                 error: function(res) {
-                    alert("unable to find anything");
+                    consoel.log("unable to find anything");
                 }
             });
         }

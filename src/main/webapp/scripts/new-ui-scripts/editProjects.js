@@ -104,7 +104,7 @@ $(document).ready(function() {
             success: function(response) {
                 //console.log(dataSubmit);
                 console.log(response);
-                alert(response.updates);
+                // alert(response.updates);
                 console.log("response!!!");
             },
             error: function(err) {

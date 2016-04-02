@@ -227,6 +227,8 @@ public class processProject extends HttpServlet {
       String leadPersonID = ClothoAdapter.createPerson(leadPerson, clothoObject);
       leadPerson.setId(leadPersonID);
       
+      clothoObject.logout();
+
       System.out.println("About to create a new project.");
       // create and set the fields for a new project
         Project project = new Project();
@@ -249,6 +251,12 @@ public class processProject extends HttpServlet {
       
       List<String> creatorProjects = creator.getProjects();
       creatorProjects.add(projectID);
+      
+      // for debugging; display all projects
+      for (int i = 0; i < creatorProjects.size(); i++) {
+        System.out.println(creatorProjects.get(i));
+      }
+      
       // update the lead in clotho
       creatorID = ClothoAdapter.setPerson(creator, clothoObject);
       
