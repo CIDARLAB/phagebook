@@ -87,6 +87,7 @@ public class parseCartItem extends HttpServlet {
             responseJSON.put("discount", cartItem.getDiscount());
             responseJSON.put("productName", product.getName());
             responseJSON.put("productUnitPrice", product.getUnitPrice());
+            responseJSON.put("quantity", cartItem.getQuantity());
            
             
             response.setContentType("application/json");

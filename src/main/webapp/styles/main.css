@@ -352,6 +352,30 @@ h3 {
     font-weight: 300;
 }
 
+.item-custom-unit-price {
+    text-align: right;
+}
+
+.item-name {
+    text-align: left;
+}
+
+.item-qty {
+    text-align: center;
+}
+
+.item-total-price {
+    text-align: right;
+}
+
+.item-unit-price {
+    text-align: right;
+}
+
+.item-custom-unit-price {
+    text-align: right;
+}
+
 #list-colleagues{
     margin-top: 0px;
 }
@@ -440,10 +464,9 @@ h3 {
 }
 
 .order-items-table tr th td {
-    //border: 0.25px #D5D5D5;
+    border: 0.25px #D5D5D5;
     padding: 10px 15px 10px 15px;
     vertical-align: middle;
-    border: 1px solid black !important;
 }
 
 .order-items-headers td {
