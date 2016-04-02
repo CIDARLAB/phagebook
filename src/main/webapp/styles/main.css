@@ -74,7 +74,7 @@ a:hover {
 }
 
 #add-items-modal label {
-    font-weight: 400;
+    font-weight: 600;
     font-size: 14px;
 }
 
@@ -289,6 +289,7 @@ body {
     height: 40px;
     border-radius: 10px;
     border: none;
+    color: #FFFFFF;
 }
 
 .edit-order-btn:hover {
@@ -358,6 +359,11 @@ h3 {
 
 .item-name {
     text-align: left;
+}
+
+.item-name img {
+    margin-right:10px; 
+    display:none;
 }
 
 .item-qty {
@@ -487,10 +493,6 @@ h3 {
     border: none;
 }
 
-.order-top-panel {
-    padding: 0px 0px 0px 40px;
-}
-
 .order-property-headers td {
     color: #1E714A;
     padding: 0px 0px 0px 0px;
@@ -498,6 +500,10 @@ h3 {
 
 .order-property-data td {
     padding: 0px 0px 0px 0px;
+}
+
+.order-top-panel {
+    padding: 0px 0px 0px 40px;
 }
 
 .order-totals-table {
@@ -644,6 +650,7 @@ h3 {
 
 .submit-order-btn:hover {
     background-color: #31A16F;
+    color: #FFFFFF;
 }
 
 td {
