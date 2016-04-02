@@ -81,8 +81,12 @@ public class addProductsToOrder extends HttpServlet {
          *ASSUMPTION 3: I GET THE LOGGED IN PERSONS'S ID (if I need it) from the cookie
          *ASSUMPTION 4: I GET THE ORDER ID PASSED IN.
         */ 
+        
+       
         Object pCartItems = request.getParameter("CartItems");
         String cartItems = pCartItems != null ? (String) pCartItems : "";
+
+      
         
         
         
@@ -136,7 +140,7 @@ public class addProductsToOrder extends HttpServlet {
                 CartItem item = new CartItem();
                 item.setDateCreated(date);
                 item.setProductId(obj.getString("productId"));
-                item.setDiscount(Double.parseDouble(obj.getString("discount")));
+                item.setDiscount( obj.getDouble("discount"));
                 item.setQuantity(obj.getInt("quantity"));
                 
                 
