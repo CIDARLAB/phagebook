@@ -116,6 +116,14 @@
         <servlet-name>parseCartItem</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.parseCartItem</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>findMemberForNewProject</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.findMemberForNewProject</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>findMemberForNewProject</servlet-name>
+        <url-pattern>/findMemberForNewProject</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>inputProduct</servlet-name>
         <url-pattern>/inputProduct</url-pattern>

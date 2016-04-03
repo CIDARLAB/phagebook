@@ -110,6 +110,16 @@ public class processProject extends HttpServlet {
         System.out.println(projectName);  
 
       
+      Object mFName = request.getParameter("memberFirstName");
+      String memberFirstName  = mFName != null ? (String) mFName : "" ;
+      Object mLName = request.getParameter("memberFirstName");
+      String memberLastName  = mLName != null ? (String) mLName : "" ;
+        System.out.println("Member's first name is:"); 
+        System.out.println(memberFirstName);
+        System.out.println("Member's last name is:"); 
+        System.out.println(memberLastName);
+        
+        
       Object leadFName = request.getParameter("leadFirstName");
       String leadStringFirstName  = leadFName != null ? (String) leadFName : "" ;
       Object leadLName = request.getParameter("leadLastName");
@@ -160,6 +170,7 @@ public class processProject extends HttpServlet {
       String leadEmailId  = leadEmailAdr != null ? (String) leadEmailAdr : "" ;
         System.out.println("leadEmailId is"); 
         System.out.println(leadEmailId);
+        
 
 
       Date date1= new java.util.Date();
@@ -172,11 +183,12 @@ public class processProject extends HttpServlet {
         String usernameCreator;
         String passwordCreator;
         String creatorID;
-       String rand=  request.getParameter("emailId");
+       String rand =  request.getParameter("emailId");
        System.out.println("***");
        System.out.println(rand);
        System.out.println("***");
       if(request.getParameter("emailId")!=null){
+        System.out.println("creator exists");
         creatorID = request.getParameter("emailId");
         System.out.println("Creator's Id is: " + creatorID);
         creator = ClothoAdapter.getPerson(creatorID, clothoObject);
@@ -220,14 +232,20 @@ public class processProject extends HttpServlet {
       // TODO: Add form checking for lead and 
       // ajax support for getting lead names and displaying the options.
       // TODO: Check whether lead exists in the DB.
+      String testLeadFirstName = "Bob";
+      String testLeadLastName = "Smith";
+      String testLeadEmail = "bob@smith.com";
       Person leadPerson = new Person();
-      leadPerson.setFirstName(leadStringFirstName);
-      leadPerson.setLastName(leadStringLastName);
-      leadPerson.setEmailId(leadEmailId);
+
+      leadPerson.setFirstName(testLeadFirstName);
+      leadPerson.setLastName(testLeadLastName);
+      leadPerson.setEmailId(testLeadEmail);
+      
+      clothoObject.logout();
+
       String leadPersonID = ClothoAdapter.createPerson(leadPerson, clothoObject);
       leadPerson.setId(leadPersonID);
       
-      clothoObject.logout();
 
       System.out.println("About to create a new project.");
       // create and set the fields for a new project
@@ -251,6 +269,8 @@ public class processProject extends HttpServlet {
       
       List<String> creatorProjects = creator.getProjects();
       creatorProjects.add(projectID);
+      
+      
       
       // for debugging; display all projects
       for (int i = 0; i < creatorProjects.size(); i++) {
