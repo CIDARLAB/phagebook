@@ -133,6 +133,7 @@ $(document).ready(function() {
                 values["Budget"]            = response[i].budget;
                 values["Status"]            = response[i].status;
                 values["ClothoId"]          = response[i].id;
+                values["TaxRate"]           = response[i].taxRate;
 
 
                 createOrderCard(values);
@@ -149,6 +150,11 @@ $(document).ready(function() {
                 }
 
             }
+            $('.submit-order-btn').click(submitButtonHandler);
+            $('.delete-order-btn').click(deleteButtonHandler);
+            $('.export-csv-btn').click(exportCSVHandler);
+            $('.edit-order-btn').click(editButtonHandler);
+
 
         },
         error: function (response) {
@@ -159,7 +165,7 @@ $(document).ready(function() {
 
     $("#add-to-order-btn").click( function (){
 
-        var orderToAddTo  = document.getElementById("list-of-orders").value;
+        var orderToAddTo  = document.getElementById("list-of-orders").value; // the clotho Id of that order
 
         var i = 0;
         var tableRow = document.getElementById("product0");
@@ -184,13 +190,16 @@ $(document).ready(function() {
             tableRow = document.getElementById("product"+i);
         }
 
+        alert(JSON.stringify(productsToAdd));
+
 
         $.ajax({
             url: '../addProductsToOrder',
             type: 'POST',
+            dataType: 'JSON',
             async: false,
             data: {
-                "CartItems"     : productsToAdd,
+                "CartItems"     : JSON.stringify(productsToAdd),
                 "loggedInUserId": getCookie("clothoId"),
                 "orderId"       : orderToAddTo
             },
@@ -218,8 +227,36 @@ $(document).ready(function() {
 function removeOptions(selectbox)
 {
     var i;
-    for(i=selectbox.options.length-1;i>=0;i--)
+
+    for( i = selectbox.options.length-1 ; i>=0 ; i--)
     {
         selectbox.remove(i);
     }
+}
+
+function deleteButtonHandler(){
+
+    var orderId = this.value;
+
+    alert(orderId);
+
+}
+
+function submitButtonHandler(){
+
+    var orderId = this.value;
+    alert(orderId);
+
+}
+
+function exportCSVHandler(){
+
+    var orderId = this.value;
+    alert(orderId);
+
+}
+
+function editButtonHandler(){
+    var orderId = this.value;
+    alert(orderId);
 }
