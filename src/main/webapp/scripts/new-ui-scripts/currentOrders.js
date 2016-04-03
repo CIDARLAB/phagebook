@@ -247,6 +247,26 @@ function submitButtonHandler(){
     var orderId = this.value;
     alert(orderId);
 
+    $.ajax({
+        url: '../addProductsToOrder',
+        type: 'POST',
+        dataType: 'JSON',
+        async: false,
+        data: {
+            "CartItems"     : JSON.stringify(productsToAdd),
+            "loggedInUserId": getCookie("clothoId"),
+            "orderId"       : orderToAddTo
+        },
+        success: function (response) {
+            alert("Products Added!");
+            window.location.href = "../html/currentOrders.html";
+        },
+        error: function (response) {
+            alert("error adding product to order");
+        }
+    });
+
+
 }
 
 function exportCSVHandler(){
