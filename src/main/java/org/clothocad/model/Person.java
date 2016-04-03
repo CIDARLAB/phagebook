@@ -24,6 +24,8 @@ import org.clothocad.phagebook.dom.Status;
  *
  * @author prash
  * @author KatieLewis
+ * @author AllisonDurkan
+ * @author JohanOspina
  */
 public class Person {
     
@@ -56,10 +58,7 @@ public class Person {
    
     //When sign up -- how do you affiliate position with Organization? e.g. PI at BU but affiliate researcher at berkeley
     //profile pic? text link
-    
-    
-    
-    
+  
 
     public Person(){
         this.id               = "Not Set";

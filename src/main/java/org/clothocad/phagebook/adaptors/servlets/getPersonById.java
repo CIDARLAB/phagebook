@@ -9,12 +9,14 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import static javax.xml.bind.JAXBIntrospector.getValue;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.model.Person;
@@ -25,6 +27,7 @@ import org.clothocad.phagebook.dom.Institution;
 import org.clothocad.phagebook.dom.Publication;
 import org.clothocad.phagebook.dom.Status;
 import org.json.JSONObject;
+import static org.json.JSONObject.NULL;
 
 /**
  *
@@ -161,11 +164,26 @@ public class getPersonById extends HttpServlet {
         
         System.out.println("reached doPost");
         
-        String userId = (String) request.getParameter("userId");
+        String userId = (String) getValue(request.getPart("clothoId"));
+        String newStatus = (String) getValue(request.getPart("status"));
+        String newFirstName = (String) getValue(request.getPart("editFirstName"));
+        String newLastName = (String) getValue(request.getPart("editLastName"));
+        //String newEmail = (String) getValue(request.getPart("editEmail"));
+        //String newPassword = (String) getValue(request.getPart("editPassword"));
+        String newInstitution = (String) getValue(request.getPart("editInstitution"));
+        String newTitle = (String) getValue(request.getPart("editTitle"));
+        String newLab = (String) getValue(request.getPart("editLab"));
+        
+        String institutionId = newInstitution != null ? (String) newInstitution : "";
+        
+        String labId = newLab != null ? (String) newLab : "";
+        
         System.out.println(userId);
-        boolean isValid = false;
-        if (userId != null && userId != "") {
-            isValid = true;
+        System.out.println(newStatus);
+        boolean editPerson = false;
+        boolean isValid = false; //used only to make sure the person exists in Clotho
+        if (userId != null && !"".equals(userId)) {
+                isValid = true;
         }
         
         
@@ -186,61 +204,61 @@ public class getPersonById extends HttpServlet {
             //
 
             Person retrieve = ClothoAdapter.getPerson(userId, clothoObject);
-
+            Person newPersonObj = new Person(); 
             JSONObject retrievedAsJSON = new JSONObject();
-            retrievedAsJSON.put("fullname", retrieve.getFirstName() + " " + retrieve.getLastName());
-            //get position? role?? we will look into this
-            retrievedAsJSON.put("firstName", retrieve.getFirstName());
-            retrievedAsJSON.put("lastName", retrieve.getLastName());
-            retrievedAsJSON.put("loggedUserId", retrieve.getId());
-            retrievedAsJSON.put("institution", retrieve.getInstitution());
-            retrievedAsJSON.put("department", retrieve.getDepartment());
-            retrievedAsJSON.put("title", retrieve.getTitle());
             
-            JSONObject statusList = new JSONObject();
-            if (retrieve.getStatuses() != null) {
-                for (String status : retrieve.getStatuses()) {
-                    Status stat = ClothoAdapter.getStatus(status, clothoObject);
-
-                    statusList.put("text", stat.getText());
-                    statusList.put("date", stat.getCreated().toString());
-                }
+            if (newFirstName != NULL && !"".equals(newFirstName)){
+                newPersonObj.setFirstName(newFirstName);
+                editPerson = true;
             }
-
-            JSONObject publicationList = new JSONObject();
-            if (retrieve.getPublications() != null) {
-
-                for (String publication : retrieve.getPublications()) {
-                    Publication pub = ClothoAdapter.getPublication(publication, clothoObject);
-                    publicationList.put("id", pub.getId());
-                }
+            
+            if (newLastName != NULL && !"".equals(newLastName)){
+                newPersonObj.setLastName(newLastName);
+                editPerson = true;
             }
-            /*
-            JSONObject labList = new JSONObject();
-            if (retrieve.getLabs() != null) {
-                for (String lab : retrieve.getLabs()) {
-                    Institution inst = ClothoAdapter.getInstitution(lab, clothoObject);
-                    labList.put("name", inst.getName());
-                    Set<PersonRole> rolesAtInstitution = retrieve.getRole(lab);
-                    JSONObject positions = new JSONObject();
-                    Iterator<PersonRole> it = rolesAtInstitution.iterator();
-                    while (it.hasNext()) {
-                        positions.put(inst.getName(), it.next());
-                    }
-                    labList.put("roles", positions);
-                }
+            
+            /*if (newEmail != NULL && !"".equals(newEmail)){
+                
             }
-            */
-            retrievedAsJSON.put("statusList", statusList);
-            retrievedAsJSON.put("publicationList", publicationList);
-            //retrievedAsJSON.put("labList", labList);
-            System.out.println("looking at retrieved");
-            System.out.println(retrievedAsJSON);
-            PrintWriter out = response.getWriter();
-            out.print(retrievedAsJSON);
-            out.flush();
-            out.close();
-
+            
+            if (newPassword != NULL && !"".equals(newPassword)){
+                
+            }*/
+            
+            if (newInstitution != NULL && !"".equals(newInstitution)){
+                List<String> institutions = newPersonObj.getInstitutions();
+                institutions.add(institutionId);
+                newPersonObj.setInstitutions(institutions);
+                editPerson = true;
+            }
+            
+            if (newTitle != NULL && !"".equals(newTitle)){
+                newPersonObj.setTitle(newTitle);
+                editPerson = true;
+            }
+            
+            if (newStatus != NULL && !"".equals(newStatus)){
+                newPersonObj.addStatus(newStatus); 
+                editPerson = true;
+            }
+            
+            if (newLab != NULL && !"".equals(newLab)){
+                List<String> labs = newPersonObj.getLabs();
+                labs.add(labId);
+                newPersonObj.setLabs(labs);
+                editPerson = true;
+            }
+            
+            if (editPerson){
+                clothoObject.logout();
+                ClothoAdapter.setPerson(newPersonObj, clothoObject);
+                
+                //should I call some stuff to update the fiedl?
+                //or popup to tel them to refresh
+                //or actually refresh
+            }
+            
+            
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 
