@@ -75,9 +75,9 @@ public class newProjectTest {
     }
     
     @Test
-    public void whatDo()
+    public void multipleProjects()
     {
-      // How to test the projects page???!
+
       
     
     }

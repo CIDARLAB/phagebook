@@ -117,14 +117,6 @@
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.parseCartItem</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>findMemberForNewProject</servlet-name>
-        <servlet-class>org.clothocad.phagebook.adaptors.servlets.findMemberForNewProject</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>findMemberForNewProject</servlet-name>
-        <url-pattern>/findMemberForNewProject</url-pattern>
-    </servlet-mapping>
-     <servlet>
         <servlet-name>listPIsOfLab</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.listPIsOfLab</servlet-class>
     </servlet>
@@ -191,10 +183,6 @@
     <servlet>
         <servlet-name>addUpdateToProject</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.addUpdateToProject</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>allProjects</servlet-name>
-        <servlet-class>org.clothocad.phagebook.adaptors.servlets.getAllProjects</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>editProject</servlet-name>
@@ -321,9 +309,6 @@
         <url-pattern>/parseCartItem</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>allProjects</servlet-name>
-        <url-pattern>/allProjects</url-pattern>
-    </servlet-mapping>
         <servlet-name>listPIsOfLab</servlet-name>
         <url-pattern>/listPIsOfLab</url-pattern>
     </servlet-mapping>
