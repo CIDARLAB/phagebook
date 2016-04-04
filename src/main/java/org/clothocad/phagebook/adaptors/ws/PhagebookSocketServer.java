@@ -20,9 +20,6 @@ import org.eclipse.jetty.websocket.WebSocketServlet;
 public class PhagebookSocketServer {
     public static void main(String[] args){
         Server server = new Server(9090);
-        //ServerConnector connector = new ServerConnector(server);
-        //connector.setPort(9090);
-        //server.addConnector(connector);
         
         WebSocketServlet wsServlet = new WebSocketServlet() {
             @Override
@@ -34,7 +31,6 @@ public class PhagebookSocketServer {
         
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.setContextPath("/");
-        //server.setHandler(context);
         
         ServletHolder holderEvents = new ServletHolder("ws-events", PhagebookServlet.class);
         context.addServlet(new ServletHolder(wsServlet), "/websocket/");        
@@ -44,8 +40,7 @@ public class PhagebookSocketServer {
         contextWeb.setResourceBase("../phagebook/src/main/webapp");
         contextWeb.setContextPath("/");
         contextWeb.setParentLoaderPriority(true);
-        //server.setHandler(contextWeb);
-       
+        
         HandlerList handlers = new HandlerList();
         handlers.addHandler(context);
         handlers.addHandler(contextWeb);

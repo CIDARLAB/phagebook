@@ -56,7 +56,6 @@ public class ClothoProductCreator {
      public void createProducts(){
         ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
         Clotho clothoObject = new Clotho(conn);
-   
        Map createUserMap = new HashMap();
        String username = "test"+ System.currentTimeMillis() ;
        
