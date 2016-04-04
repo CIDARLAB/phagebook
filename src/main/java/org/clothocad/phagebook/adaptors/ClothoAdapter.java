@@ -695,6 +695,10 @@ public class ClothoAdapter {
             map.put("budget", order.getBudget().toString());
         }
         
+        if (order.getTaxRate()!= null){
+            map.put("taxRate", order.getTaxRate().toString());
+        }
+        
         if (order.getMaxOrderSize() != null )
         {
             map.put("maxOrderSize", order.getMaxOrderSize().toString());
@@ -2956,6 +2960,7 @@ public class ClothoAdapter {
         List<String> products = new ArrayList<>();
         String id = "";
         Double budget = -1.0d;
+        Double taxRate = -1.0d;
         Integer maxOrderSize = -1;
         String approvedById = "";
         String affiliatedLabId = "";
@@ -3005,6 +3010,10 @@ public class ClothoAdapter {
             {
                 budget = Double.parseDouble((String) map.get("budget"));
             }
+            
+            if (map.containsKey("taxRate")){
+                taxRate = Double.parseDouble((String) map.get("taxRate"));
+            }
 
 
             if (map.containsKey("maxOrderSize"))
@@ -3052,6 +3061,7 @@ public class ClothoAdapter {
         order.setCreatedById(createdBy);
         order.setProducts(products);
         order.setBudget(budget);
+        order.setTaxRate(taxRate);
         order.setMaxOrderSize(maxOrderSize);
         order.setApprovedById(approvedById);
         order.setReceivedByIds(receivedByIds);

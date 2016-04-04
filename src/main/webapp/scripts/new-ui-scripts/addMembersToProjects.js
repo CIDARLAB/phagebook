@@ -4,6 +4,7 @@ CIDAR Lab, Boston University
 This file is responsible for looking up Phagebook's members to be added to the project.
 */
 
+
 $(document).ready(function() {
 
     var keyPressHandler = function() {
@@ -58,6 +59,29 @@ $(document).ready(function() {
           }
         }
 
+        // this attaches the html to the page
+        var attachHTML = function(id,idCheckBox, name){
+            console.log(attachHTML);
+            console.log(idCheckBox);
+            console.log(id);
+            var checkbox = "<input type=\"checkbox\" id=\"" + idCheckBox +
+            "\">"+"<label for=\""+idCheckBox+"\">"+name+"</label>";
+            console.log(checkbox);
+            var checkboxAppend = "#append";
+            // construct the id for the appending div
+            if(id.indexOf("Lead") > -1){
+                console.log("LEADDD");
+                checkboxAppend+="Lead";
+            }
+            if(id.indexOf("Member") > -1){
+                console.log("MEMBERRR");
+                checkboxAppend+="Member";
+                console.log(checkboxAppend);
+            }
+
+            $(checkboxAppend).append(checkbox);
+        }
+
         var data = {
           "firstName": firstName,
           "lastName": lastName
@@ -79,9 +103,18 @@ $(document).ready(function() {
                 data: data,
                 success: function(res) {
                     // if(res.data)
-                    console.log(res[0]);
-                    console.log(res.data);
-                    console.log(res.clothoId);
+                    console.log(res)
+                    if(res.length>0){
+                        console.log("response is long!");
+                        for(var i =0; i<res.length; i++){
+                            console.log(i);
+                            var idCheckBox = "checkbox"+i;
+                            var name = res[i].firstName + " " + res[i].lastName;
+                            console.log(name); 
+                            console.log(id);                     
+                            attachHTML(id,idCheckBox, name);
+                        }
+                    }
 
                 },
                 error: function(res) {

@@ -230,6 +230,7 @@ body {
 
 .delete-order-btn:hover {
     background-color: #EC3C56;
+    color: #FFFFFF;
 }
 
 #dl-csv-product-btn {
@@ -354,11 +355,12 @@ body {
     padding-right: 15px;
     padding-left: 15px;
     border: none;
-    margin-right: 15px;
+    margin-right: 0px;
 }
 
 .export-csv-btn:hover {
     background-color: #89C176;
+    color: #FFFFFF;
 }
 
 .footer {
@@ -383,6 +385,30 @@ body {
 h3 {
     font-family: "Open Sans", sans-serif;
     font-weight: 300;
+}
+
+.item-custom-unit-price {
+    text-align: right;
+}
+
+.item-name {
+    text-align: left;
+}
+
+.item-qty {
+    text-align: center;
+}
+
+.item-total-price {
+    text-align: right;
+}
+
+.item-unit-price {
+    text-align: right;
+}
+
+.item-custom-unit-price {
+    text-align: right;
 }
 
 #list-colleagues{
@@ -465,7 +491,7 @@ h3 {
     padding-bottom: 0px;
 }
 
-.order-card-btn-group {
+#order-buttons {
     position: absolute;
     margin-top: 90px;
 }
@@ -475,7 +501,7 @@ h3 {
     table-layout: auto;
 }
 
-.order-items-table tr td {
+.order-items-table tr th td {
     border: 0.25px #D5D5D5;
     padding: 10px 15px 10px 15px;
     vertical-align: middle;

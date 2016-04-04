@@ -81,8 +81,12 @@ public class addProductsToOrder extends HttpServlet {
          *ASSUMPTION 3: I GET THE LOGGED IN PERSONS'S ID (if I need it) from the cookie
          *ASSUMPTION 4: I GET THE ORDER ID PASSED IN.
         */ 
+        
+       
         Object pCartItems = request.getParameter("CartItems");
         String cartItems = pCartItems != null ? (String) pCartItems : "";
+
+      
         
         
         
@@ -123,29 +127,31 @@ public class addProductsToOrder extends HttpServlet {
             //now we have the order object.
             JSONArray cartItemsJSONArray = new JSONArray(cartItems);
             //we have our JSONArray of products to add with discounts
-            Map<String, Integer> items = editableOrder.getProducts(); //initialize, we want to add not replace
+            List<String> items = editableOrder.getProducts(); //initialize, we want to add not replace
             Date date = new Date();
             for (int i = 0; i < cartItemsJSONArray.length(); i++){
                 //process the information that we have
                 
-                Map<String, Double>  productItemMap = new HashMap<>();
                 JSONObject obj = (JSONObject) cartItemsJSONArray.get(i);
                 Product product = ClothoAdapter.getProduct(obj.getString("productId"), clothoObject);
                 product.decreaseInventory(obj.getInt("quantity"));
-                productItemMap.put( obj.getString("productId") , obj.getDouble("discount"));
+                
                 
                 CartItem item = new CartItem();
                 item.setDateCreated(date);
-                item.setProductWithDiscount(productItemMap);
+                item.setProductId(obj.getString("productId"));
+                item.setDiscount( obj.getDouble("discount"));
+                item.setQuantity(obj.getInt("quantity"));
+                
+                
                 
                 ClothoAdapter.createCartItem(item, clothoObject);
-                
-                items.put(item.getId(), obj.getInt("quantity"));
                 ClothoAdapter.setProduct(product, clothoObject);
                 
+                items.add(item.getId());
                 
             }
-            //now have a CART ITEM ArrayList... all with ID's 
+            //now have a CART ITEM OBJECT all with ID's 
             
             
             editableOrder.setProducts(items);
