@@ -38,13 +38,21 @@ public class uploadVendorCSV extends HttpServlet {
        
         //request.getParameter RETURNS NULL IF IT DOESN'T EXIST!!!
         JSONArray arr = new JSONArray(request.getParameter("jsonArray"));
-        
+        //System.out.println(arr.toString(2));
         /////////////////Ask Johan
         List<String> vendorIds = new ArrayList<String>();
         ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
         Clotho clothoObject = new Clotho(conn);
-//        
-//        vendorIds = OrderController.getVendors(arr, clothoObject);
+
+        String username = "phagebook";
+        String password = "backend";
+        Map loginMap = new HashMap();
+        loginMap.put("username", username);
+        loginMap.put("credentials", password);  
+
+        clothoObject.login(loginMap);
+        
+        vendorIds = OrderController.getVendors(arr, clothoObject);
         
         PrintWriter writer = response.getWriter();
         

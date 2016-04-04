@@ -44,16 +44,19 @@ public class uploadProductCSV extends HttpServlet {
         ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
         Clotho clothoObject = new Clotho(conn);
         
-        String username = "innatur@bu.edu";
-        String password = "12345";
-        
-        clothoObject.login(username, password);
+        String username = "phagebook";
+        String password = "backend";
+        Map loginMap = new HashMap();
+        loginMap.put("username", username);
+        loginMap.put("credentials", password);  
+
+        clothoObject.login(loginMap);
         
         productIds = OrderController.getProducts(arr, clothoObject);
         
         PrintWriter writer = response.getWriter();
         
-        writer.println(productIds.toString());
+        writer.println("worked");
         writer.flush();
         writer.close();
         

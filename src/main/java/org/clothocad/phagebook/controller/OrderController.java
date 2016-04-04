@@ -37,8 +37,9 @@ public class OrderController {
     public static List<String> getProducts(JSONArray list,Clotho clothoObject) {
         List<String> productIds = new ArrayList<String>();
         
-        for (int i = 0; i < (list.length()); i++) {
+        for (int i = 0; i < (list.length()-1); i++) {
 
+            //add check
             String productUrl = list.getJSONObject(i).get("URL").toString();
             String companyName = list.getJSONObject(i).get("Company Name").toString();
             String goodType = list.getJSONObject(i).get("Type").toString();
@@ -74,10 +75,11 @@ public class OrderController {
 
     public static List<String> getVendors(JSONArray list,Clotho clothoObject) {
         List<String> companiesIds = new ArrayList<String>();
-        for (int i = 0; i < (list.length()); i++) {
+        for (int i = 0; i < (list.length()-1); i++) {
 
             String companyName = list.getJSONObject(i).get("Name").toString();
             String description = list.getJSONObject(i).get("Description").toString();
+            //System.out.println("i = " + i+" description = " + description);
             String contact = list.getJSONObject(i).get("Contact").toString();
             String phone = list.getJSONObject(i).get("Phone").toString();
             String url = list.getJSONObject(i).get("URL").toString();
@@ -102,7 +104,7 @@ public class OrderController {
                 else{
                 System.out.println("vendor already exists");
                    company = companyArray.get(0);
-                }
+                }            
         }
         return companiesIds;
     }

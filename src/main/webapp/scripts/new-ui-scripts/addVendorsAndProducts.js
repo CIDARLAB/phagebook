@@ -30,11 +30,11 @@ $(document).ready(function () {
     $("#companyName").keypress(keyPressHandler);
 
     $("#dl-csv-vendor-btn").click(function () {
-        window.open("../orderTemplates/VendorTemplate.csv", '_blank');
+        window.open("../orderTemplates/VendorTemplateBlank.csv", '_blank');
     });
 
     $("#dl-csv-product-btn").click(function () {
-        window.open("../orderTemplates/ProductTemplate.csv", '_blank');
+        window.open("../orderTemplates/ProductTemplateBlank.csv", '_blank');
     });
 
    
@@ -47,7 +47,7 @@ $(document).ready(function () {
         var parsedResults = Papa.parse(file, {
             header: true,
             complete: function (results) {
-                //var objRes = JSON.stringify(results.data);
+                alert(JSON.stringify(results.data));
                 $.ajax({
                     //do this for projects...
                     url: "../uploadVendorCSV",
