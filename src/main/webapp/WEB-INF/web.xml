@@ -116,6 +116,18 @@
         <servlet-name>parseCartItem</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.parseCartItem</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>listPIsOfLab</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.listPIsOfLab</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>addPIToLab</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.addPIToLab</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>createLab</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.createLab</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>inputProduct</servlet-name>
         <url-pattern>/inputProduct</url-pattern>
@@ -295,5 +307,17 @@
     <servlet-mapping>
         <servlet-name>parseCartItem</servlet-name>
         <url-pattern>/parseCartItem</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>listPIsOfLab</servlet-name>
+        <url-pattern>/listPIsOfLab</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addPIToLab</servlet-name>
+        <url-pattern>/addPIToLab</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>createLab</servlet-name>
+        <url-pattern>/createLab</url-pattern>
     </servlet-mapping>
 </web-app>
