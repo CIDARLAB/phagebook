@@ -85,74 +85,87 @@ public class PhagebookSocket
                 {
                     Map createStatusMap = new HashMap();
                     createStatusMap = (Map)messageObject.get("data");
-
+                    
                     Map loginMap = new HashMap();
                     loginMap.put("username",createStatusMap.get("username"));
                     loginMap.put("credentials",createStatusMap.get("password"));
                     
                     Map loginResult = new HashMap();
                     loginResult = (Map)clothoObject.login(loginMap);
-                    System.out.println("LOGIN RESULT "  + loginResult.toString());
-                    Person person = ClothoAdapter.getPerson(loginResult.get("id").toString(), clothoObject);
                     
-                    Status stat = new Status();
-                    stat.setText(createStatusMap.get("status").toString());
-                    stat.setUserId(person.getId());
+                    Map queryMap = new HashMap();
+                    queryMap.put("emailId",createStatusMap.get("username"));
                     
+                    List<Person> person = ClothoAdapter.queryPerson(queryMap, clothoObject, ClothoAdapter.QueryMode.EXACT);
                     
-                    ClothoAdapter.setPerson(person, clothoObject);
-   
+                    List<String> statuses = new ArrayList<String>();
+                    statuses.add((String)createStatusMap.get("status"));
+                    
+                    person.get(0).setStatuses(statuses);
+                    
+                    System.out.println("person status  -------" + person.get(0).getStatuses());
+                    
                     result.put("data", "Status created successfully.");
 
                     break;
                 }
                 case CHANGE_ORDERING_STATUS:
                 {
-                    Map orderStatusMap = new HashMap();
-                    orderStatusMap = (Map)messageObject.get("data");
+                    Map getOrderMap = new HashMap();
+                    getOrderMap = (Map)messageObject.get("data");
                     
                     Map loginMap = new HashMap();
-                    loginMap.put("username",orderStatusMap.get("username"));
-                    loginMap.put("credentials",orderStatusMap.get("password"));
-                    
+                    loginMap.put("username",getOrderMap.get("username"));
+                    loginMap.put("credentials",getOrderMap.get("password"));
+                  
                     Map loginResult = new HashMap();
                     loginResult = (Map)clothoObject.login(loginMap);
                     
-                    Order order = ClothoAdapter.getOrder(loginResult.get("id").toString(), clothoObject);
+                    System.out.println("in Phagebook Socket, right before get Order ");
+                    Order order = ClothoAdapter.getOrder(getOrderMap.get("id").toString(), clothoObject);
                     
-                    order.setStatus(OrderStatus.valueOf(orderStatusMap.get("status").toString()));
+                    System.out.println("Order id received :: " + order.getId());
                     
+                    order.setStatus(OrderStatus.valueOf(getOrderMap.get("status").toString()));
+                    System.out.println("Changed the order status " + order.getStatus() );
                     ClothoAdapter.setOrder(order, clothoObject);
 
+                    System.out.println("order status -------" + order.getStatus());
+                    
                     result.put("data", "Status created successfully.");
 
                     break;
                 }
                 case CREATE_PROJECT_STATUS:
                 {
-                    Map projectStatusMap = new HashMap();
-                    projectStatusMap = (Map)messageObject.get("data");
+                    Map getProjectMap = new HashMap();
+                    getProjectMap = (Map)messageObject.get("data");
                     
                     Map loginMap = new HashMap();
-                    loginMap.put("username",projectStatusMap.get("username"));
-                    loginMap.put("credentials",projectStatusMap.get("password"));
+                    loginMap.put("username",getProjectMap.get("username"));
+                    loginMap.put("credentials",getProjectMap.get("password"));
                     
                     Map loginResult = new HashMap();
                     loginResult = (Map)clothoObject.login(loginMap);
                     
-                    Project project = ClothoAdapter.getProject(loginResult.get("id").toString(), clothoObject);
+                    Map queryMap = new HashMap();
+                    queryMap.put("emailId",getProjectMap.get("username"));
                     
-                    Person person = ClothoAdapter.getPerson(loginResult.get("id").toString(), clothoObject);
+                    List<Person> person = ClothoAdapter.queryPerson(queryMap, clothoObject, ClothoAdapter.QueryMode.EXACT);
                     
-                    Status stat = new Status();
-                    stat.setText(projectStatusMap.get("status").toString());
-                    stat.setUserId(person.getId());
+                    List<String> projectids = person.get(0).getProjects();
                     
-                    ClothoAdapter.createStatus(stat, clothoObject);
+                    Project project = ClothoAdapter.getProject(getProjectMap.get("id").toString(), clothoObject);
                     
-                    project.getUpdates().add(stat.getId());
+                    
+                    List<String> statuses = new ArrayList<String>();
+                    statuses.add((String)getProjectMap.get("status"));
+                    
+                    project.setUpdates(statuses);
                     
                     ClothoAdapter.setProject(project, clothoObject);
+
+                    System.out.println("project status -------" + project.getUpdates());
 
                     result.put("data", "Status created successfully.");
 
@@ -171,19 +184,35 @@ public class PhagebookSocket
                     Map loginResult = new HashMap();
                     loginResult = (Map)clothoObject.login(loginMap);
                     
-                    Map projectsMap = new HashMap();
-                    List<String> projectids = ClothoAdapter.getPerson(loginResult.get("id").toString(), clothoObject).getProjects();
+                    Map queryMap = new HashMap();
+                    queryMap.put("emailId",getProjectsMap.get("username"));
+                    
+                    List<Person> person = ClothoAdapter.queryPerson(queryMap, clothoObject, ClothoAdapter.QueryMode.EXACT);
+                    
+                    List<String> projectids = person.get(0).getProjects();
+                    System.out.println("Name  :: " + person.toString());
+                    System.out.println("Ids of the Project :: "+ person.get(0).toString());
+                    System.out.println("Projects :: " + person.get(0).getProjects());
+                    //System.out.println("person.get(0).getProjects() --------- " + person.get(0).getProjects());
+                    
                     int numberOfProjects = projectids.size();
                     
+                    //System.out.println("number of projects ------------- "+ numberOfProjects);
+                    
+                    List<Map> allProjects = new ArrayList<Map>();
                     for (int i = 0; i < numberOfProjects; i++)
                     {
-                        Project project = ClothoAdapter.getProject(projectids.get(i), clothoObject);
-                   
-                        projectsMap.put("projectId",project.getId());
-                        projectsMap.put("projectName",project.getName());
+                        Map projectsMap = new HashMap();
+                        
+                        Project project = new Project();
+                        project = ClothoAdapter.getProject(projectids.get(i), clothoObject);
+                        
+                        projectsMap.put("orderId",project.getId());
+                        projectsMap.put("orderName",project.getName());
+                        allProjects.add(projectsMap);
                     }
                     
-                    result.put("data", projectsMap);
+                    result.put("data", allProjects);
                     
                     break;
                 }
@@ -199,7 +228,7 @@ public class PhagebookSocket
                     Map loginResult = new HashMap();
                     loginResult = (Map)clothoObject.login(loginMap);
                     
-                    Map ordersMap = new HashMap();
+                    
                     Map queryMap = new HashMap();
                     queryMap.put("emailId",getOrdersMap.get("username"));
                     
@@ -212,6 +241,8 @@ public class PhagebookSocket
                     List<Map> allOrders = new ArrayList<Map>();
                     for (int i = 0; i < numberOfOrders; i++)
                     {
+                        Map ordersMap = new HashMap();
+                        
                         Order order = new Order();
                         order = ClothoAdapter.getOrder(orderids.get(i), clothoObject);
                         

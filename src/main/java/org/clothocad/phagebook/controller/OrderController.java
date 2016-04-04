@@ -24,6 +24,7 @@ import org.clothocad.phagebook.dom.Order;
 import org.clothocad.phagebook.dom.OrderColumns;
 import org.clothocad.phagebook.dom.Product;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 //import java.util.List;
 //import org.clothocad.phagebook.dom.Product;
@@ -32,189 +33,177 @@ import org.json.JSONArray;
  * @author innaturshudzhyan
  */
 public class OrderController {
-
-    public static List<Product> getProducts(JSONArray list,Clotho clothoObject) {
-        List<Product> products = new ArrayList<Product>();
+    
+    public static List<String> getProducts(JSONArray list,Clotho clothoObject) {
+        List<String> productIds = new ArrayList<String>();
+        
         for (int i = 0; i < (list.length()); i++) {
 
-            JSONArray productList = new JSONArray();
-            productList = (JSONArray) list.get(i);
-            if(productList.length() != 6){
-                continue;
-            }
-            String productName = "";
-            String description = "";
-            String url = "";
-            String companyName = "";
-            String type = "";
-            String price = "";
-            for (int j = 0; j < productList.length(); j++) {
-                productName = (String) productList.get(0);
-                description = (String) productList.get(1);
-                url = (String) productList.get(2);
-                companyName = (String) productList.get(3);
-                type = (String) productList.get(4);
-                price = (String) productList.get(5);
-
-            }
+            String productUrl = list.getJSONObject(i).get("URL").toString();
+            String companyName = list.getJSONObject(i).get("Company Name").toString();
+            String goodType = list.getJSONObject(i).get("Type").toString();
+            String cost = list.getJSONObject(i).get("Cost").toString();
+            String quantity = list.getJSONObject(i).get("Quantity").toString();
+            String name = list.getJSONObject(i).get("Name").toString();
+            String description = list.getJSONObject(i).get("Description").toString();
+            
             Vendor company; 
             Map companyQuery = new HashMap();
             companyQuery.put("name",companyName);
             List<Vendor> companyList = ClothoAdapter.queryVendor(companyQuery, clothoObject, ClothoAdapter.QueryMode.EXACT);
             if(companyList.isEmpty()){
                 company = new Vendor(companyName);
-                ClothoAdapter.createVendor(company, clothoObject);
+                String companyId = ClothoAdapter.createVendor(company, clothoObject);
             }
             else{
                company = companyList.get(0);
             }
                 
-            Product product = new Product(productName, company.getId(), Double.valueOf(price));
+            Product product = new Product(name, company.getId(), Double.valueOf(cost));
 
-            product.setProductURL(url);
-            product.setGoodType(GoodType.valueOf(type));
+            product.setProductURL(productUrl);
+            product.setGoodType(GoodType.valueOf(goodType));
             product.setDescription(description);
-            products.add(product);
+            
+            String id = ClothoAdapter.createProduct(product, clothoObject);
+            
+            productIds.add(id);
         }
-        return products;
+        return productIds;
     }
 
-    public static List<Vendor> getCompanies(JSONArray list,Clotho clothoObject) {
-        List<Vendor> companies = new ArrayList<Vendor>();
+    public static List<String> getVendors(JSONArray list,Clotho clothoObject) {
+        List<String> companiesIds = new ArrayList<String>();
         for (int i = 0; i < (list.length()); i++) {
 
-            JSONArray companyList = new JSONArray();
-            companyList = (JSONArray) list.get(i);
-            if(companyList.length() != 5){
-                continue;
-            }
-            String companyName = "";
-            String description = "";
-            String phone = "";
-            String url = "";
-            String contact = "";
-            
-            for (int j = 0; j < companyList.length(); j++) {
-                companyName = (String) companyList.get(0);
-                description = (String) companyList.get(1);
-                phone = (String) companyList.get(2);
-                url = (String) companyList.get(3);
-                contact = (String) companyList.get(4);
-                
-            }
-            
-                Vendor company = new Vendor(companyName);
+            String companyName = list.getJSONObject(i).get("Name").toString();
+            String description = list.getJSONObject(i).get("Description").toString();
+            String contact = list.getJSONObject(i).get("Contact").toString();
+            String phone = list.getJSONObject(i).get("Phone").toString();
+            String url = list.getJSONObject(i).get("URL").toString();
 
-                Map companyQuery = new HashMap();
-                companyQuery.put("name",companyName);
-                List<Vendor> companyArray = ClothoAdapter.queryVendor(companyQuery, clothoObject, ClothoAdapter.QueryMode.EXACT);
-                if(companyArray.isEmpty()){
-                    company = new Vendor(companyName);
-                    ClothoAdapter.createVendor(company, clothoObject);
-                }
-                else{
-                   company = companyArray.get(0);
-                }
+            Vendor company = new Vendor(companyName);
+
+            Map companyQuery = new HashMap();
+            companyQuery.put("name",companyName);
                 
+            List<Vendor> companyArray = ClothoAdapter.queryVendor(companyQuery, clothoObject, ClothoAdapter.QueryMode.EXACT);
+            if(companyArray.isEmpty()){
+                System.out.println("vendor doesn't exist");
+                company = new Vendor(companyName);
                 company.setDescription(description);
+                company.setContact(contact);
                 company.setPhone(phone);
                 company.setUrl(url);
-                company.setContact(contact);
-
-                companies.add(company);
-             
-        }
-        return companies;
-    }
-
-    
-    
-    public static List<Product> getProducts(String filename) {
-
-        BufferedReader br = null;
-        List<String> csvLines = new ArrayList<String>();
-        try {
-            br = new BufferedReader(new FileReader(filename));
-            String line = "";
-            while ((line = br.readLine()) != null) {
-                csvLines.add(line);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                String id = ClothoAdapter.createVendor(company, clothoObject);
+                System.out.println("id = "+ i + " = "+ id);
+                companiesIds.add(id);
                 }
-            }
-        }
-        return getProducts(csvLines);
-    }
-
-    public static List<Product> getProducts(List<String> csvLines) {
-        List<Product> products = new ArrayList<Product>();
-        for (String line : csvLines) {//for each line (of DataType String) in csvLines (a list of Strings)
-            String[] pieces = line.split(",");
-
-            Vendor company1 = new Vendor(pieces[3]);
-            Product product = new Product(pieces[0], company1.getId(), Double.parseDouble(pieces[5]));
-
-            product.setDescription(pieces[1]);
-            product.setProductURL(pieces[2]);
-            product.setGoodType(GoodType.valueOf(pieces[4]));
-
-            products.add(product);
-        }
-        return products;
-    }
-
-    public static List<Vendor> getCompanies(String filename) {
-
-        BufferedReader br = null;
-        List<String> csvLines = new ArrayList<String>();
-        try {
-            br = new BufferedReader(new FileReader(filename));
-            String line = "";
-            while ((line = br.readLine()) != null) {
-
-                csvLines.add(line);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                else{
+                System.out.println("vendor already exists");
+                   company = companyArray.get(0);
                 }
-            }
         }
-        return getCompanies(csvLines);
+        return companiesIds;
     }
 
-    public static List<Vendor> getCompanies(List<String> csvLines) {
-        List<Vendor> companies = new ArrayList<Vendor>();
-        for (String line : csvLines) {//for each line (of DataType String) in csvLines (a list of Strings)
-            String[] pieces = line.split(",");
-
-            Vendor company = new Vendor(pieces[0]);
-
-            company.setDescription(pieces[1]);
-            company.setPhone(pieces[2]);
-            company.setUrl(pieces[3]);
-            company.setContact(pieces[4]);
-
-            companies.add(company);
-        }
-        return companies;
-    }
+//    public static List<Product> getProducts(String filename) {
+//
+//        BufferedReader br = null;
+//        List<String> csvLines = new ArrayList<String>();
+//        try {
+//            br = new BufferedReader(new FileReader(filename));
+//            String line = "";
+//            while ((line = br.readLine()) != null) {
+//                csvLines.add(line);
+//            }
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } finally {
+//            if (br != null) {
+//                try {
+//                    br.close();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//        return getProducts(csvLines);
+//    }
+//
+//    public static List<Product> getProducts(List<String> csvLines) {
+//        List<Product> products = new ArrayList<Product>();
+//        for (String line : csvLines) {//for each line (of DataType String) in csvLines (a list of Strings)
+//            String[] pieces = line.split(",");
+//
+//            Vendor company1 = new Vendor(pieces[3]);
+//            Product product = new Product(pieces[0], company1.getId(), Double.parseDouble(pieces[5]));
+//
+//            product.setDescription(pieces[1]);
+//            product.setProductURL(pieces[2]);
+//            product.setGoodType(GoodType.valueOf(pieces[4]));
+//
+//            products.add(product);
+//        }
+//        return products;
+//    }
+//
+//    //input a file path
+//    public static List<JSONObject> getVendors(String filename) {
+//        
+//        BufferedReader br = null;
+//        List<String> csvLines = new ArrayList<String>();
+//        try {
+//            br = new BufferedReader(new FileReader(filename));
+//            String line = "";
+//            while ((line = br.readLine()) != null) {
+//                csvLines.add(line);
+//            }
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } finally {
+//            if (br != null) {
+//                try {
+//                    br.close();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//        return getVendors(csvLines);
+//    }
+//    //returns a list of vendors
+//    public static List<JSONObject> getVendors(List<String> csvLines) {
+//        List<Vendor> companies = new ArrayList<Vendor>();
+//        List<JSONObject> JSONCompanies = new ArrayList<JSONObject>();
+//        
+//        for (String line : csvLines) {//for each line (of DataType String) in csvLines (a list of Strings)
+//            String[] pieces = line.split(",");
+//            if (!"Name".equals(pieces[0]))
+//            {
+//                Vendor company = new Vendor(pieces[0]);
+//                company.setDescription(pieces[1]);
+//                company.setContact(pieces[2]);
+//                company.setPhone(pieces[3]);
+//                company.setUrl(pieces[4]);
+//                companies.add(company);
+//                
+//                JSONObject JSONCompany = new JSONObject();
+//                JSONCompany.put("name",company.getName());
+//                JSONCompany.put("description",company.getDescription());
+//                JSONCompany.put("contact",company.getContact());
+//                JSONCompany.put("phone",company.getPhone());
+//                JSONCompany.put("url",company.getUrl());
+//                JSONCompanies.add(JSONCompany);
+//            }
+//            
+//        }
+//        return JSONCompanies;
+//    }
 
     public static double getTotalPrice(Order order) {
         double total = 0.0;
@@ -297,6 +286,74 @@ public class OrderController {
         }
         System.out.println(orders);
         return orders;
+    }
+    
+    public static void main(String[] args) {
+//        JSONArray arrV = new JSONArray();
+//        JSONObject ven1 = new JSONObject();
+//        JSONObject ven2 = new JSONObject();
+//        ven1.put("Name", "Apple");
+//        ven1.put("Description", "Prashant's Future Company");
+//        ven1.put("Contact", "Meh");
+//        ven1.put("Phone", "7778887878");
+//        ven1.put("URL", "www.banana.com");
+//        
+//        ven2.put("Name", "Microsoft");
+//        ven2.put("Description", "Best company in the world");
+//        ven2.put("Contact", "Inna");
+//        ven2.put("Phone", "6178179898");
+//        ven2.put("URL", "www.microsoft.com");
+//        
+//        arrV.put(ven1);
+//        arrV.put(ven2);
+//        
+//        ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+//        Clotho clothoObject = new Clotho(conn);
+//        
+//        String username = "innatur@bu.edu";
+//        String password = "12345";
+//        
+//        clothoObject.login(username, password);
+//        
+//        List<String> vendorsIds = new ArrayList<String>();
+//        vendorsIds = getVendors(arrV, clothoObject);
+        
+        JSONArray arrC = new JSONArray();
+        JSONObject pr1 = new JSONObject();
+        JSONObject pr2 = new JSONObject();
+        
+        pr1.put("URL", "plate.com");
+        pr1.put("Company Name", "Apple");
+        pr1.put("Type", GoodType.INSTRUMENT.toString());
+        pr1.put("Cost", 123);
+        pr1.put("Quantity", 1);
+        pr1.put("Name", "plate");
+        pr1.put("Description", "plate");
+        
+        pr2.put("URL", "plate1.com");
+        pr2.put("Company Name", "Apple1");
+        pr2.put("Type", GoodType.INSTRUMENT.toString());
+        pr2.put("Cost", 1231);
+        pr2.put("Quantity", 1);
+        pr2.put("Name", "plate1");
+        pr2.put("Description", "plate1");
+        
+        arrC.put(pr1);
+        arrC.put(pr2);
+        
+        ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+        Clotho clothoObject = new Clotho(conn);
+        
+        String username = "innatur@bu.edu";
+        String password = "12345";
+        
+        clothoObject.login(username, password);
+        
+        List<String> productsIds = new ArrayList<String>();
+        productsIds = getProducts(arrC, clothoObject);
+        
+        conn.closeConnection();
+        
     }
 
 }
