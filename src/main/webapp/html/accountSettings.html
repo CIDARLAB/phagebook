@@ -20,6 +20,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
         <script src="../scripts/new-ui-scripts/angular.ng-modules.js"></script>
         <script src="../scripts/new-ui-scripts/uploadProfilePicture.js"></script>
+
+        <script src="../scripts/new-ui-scripts/accountSettings.js"></script>
         
         <style>
             
@@ -140,8 +142,37 @@
                         </div>
                     </div>
                 </form>
+                    <hr><br>
+                <form id="add-labs-and-pis">
+                    <div class="form-group row">
+                        <label for="institution-drop-down" class="col-sm-2 form-control-label">INSTITUTIONS</label>
+                        <select class="form-control col-sm-2" id="institution-drop-down">
+                            <option>...</option>
+                        </select>
+                    </div>
+                    <div class="form-group row">
+                        <label for="pi-lab-results" class="col-sm-2 form-control-label">LAB NAME</label>
+                        <select class="form-control col-sm-2" id="pi-lab-results" >
+                            <option>...</option>
+                        </select>
+
+                        <div class="col-sm-8">
+                           <button class="form-control"> ADD PI's </button>
+                        </div>
+                        <div class="col-sm-8">
+                            <button class="form-control"> ADD LAB </button>
+                        </div>
+                        <div class="col-sm-8">
+                            <button class="form-control" id="load-pis"> LOAD PIs </button>
+                        </div>
+
+                    </div>
+
+                </form>
                 </div>
+
                 <br> <br>
+
                 <footer></footer>
             </div>
         </div>

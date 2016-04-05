@@ -73,7 +73,7 @@ public class Order {
         this.receivedByIds  = new ArrayList<>();
         this.relatedProjectId = "Not Set";
         this.status = OrderStatus.INPROGRESS;
-        this.taxRate = 1.0d;
+        this.taxRate = 0.0d;
         this.affiliatedLabId = "Not Set";
      
     }
