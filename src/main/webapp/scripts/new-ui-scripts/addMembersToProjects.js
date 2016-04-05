@@ -17,13 +17,8 @@ $(document).ready(function() {
     // every time the keypress event gets triggered, we send an 
     // ajax call to the server with the values in the fields
 
-    // first name, last name separation is a potential legacy and could be 
-    // reduced to just name over time
     $("#inputLeadName").keypress(keyPressHandler);
-    // $("#inputLeadLastName3").keypress(keyPressHandler);
 
-    // $("#inputMemberFirstName3").keypress(keyPressHandler);
-    // $("#inputMemberLastName3").keypress(keyPressHandler);
     var firstName = "";
     var lastName = "";
 
@@ -39,7 +34,6 @@ $(document).ready(function() {
             firstName = fullNameArr[0];
             lastName = fullNameArr[1];
         }
-
 
         var data = {
             "firstName": firstName,
@@ -61,18 +55,11 @@ $(document).ready(function() {
                 async: false,
                 data: data,
                 success: function(response) {
-                    // console.log(response)
-                    // console.log(output); 
-                    // console.log("Response is: ");
-                    // console.log(response);
-                    // console.log("****");
+
                     if (response.length > 0) {
                         var select = document.getElementById(output + "_Results");
-                        // console.log(select);
                         removeOptions(select);
-                        // console.log("Response is: ");
-                        // console.log(response);
-                        // console.log("****");
+
                         for (var i = 0; i < response.length; i++) {
                             var opt = document.createElement('option');
                             console.log(response[i].fullname);

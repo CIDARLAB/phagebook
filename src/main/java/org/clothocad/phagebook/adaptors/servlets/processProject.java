@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +27,9 @@ import org.clothocad.phagebook.dom.Grant;
 import org.clothocad.phagebook.dom.Organization;
 import org.clothocad.model.Person;
 import org.clothocad.phagebook.dom.Project;
+import org.json.JSONArray;
 import org.json.JSONObject;
+import sun.misc.IOUtils;
 
 // IMPORT PROJECT FILE HERE
 
@@ -103,33 +106,122 @@ public class processProject extends HttpServlet {
       JSONObject result = new JSONObject();
 
 
-
       Object prName = request.getParameter("name");
       String projectName  = prName != null ? (String) prName : "" ;
         System.out.println("New Project name is:"); 
         System.out.println(projectName);  
-
       
-      Object mFName = request.getParameter("memberFirstName");
-      String memberFirstName  = mFName != null ? (String) mFName : "" ;
-      Object mLName = request.getParameter("memberFirstName");
-      String memberLastName  = mLName != null ? (String) mLName : "" ;
-        System.out.println("Member's first name is:"); 
-        System.out.println(memberFirstName);
-        System.out.println("Member's last name is:"); 
-        System.out.println(memberLastName);
+      // create project first to modify at the end according to 
+      // the other objects' ids
+      Project project = new Project();
+      project.setName(projectName);
+      
+      String projectID = ClothoAdapter.createProject(project, clothoObject); 
         
-        
-      Object leadFName = request.getParameter("leadFirstName");
-      String leadStringFirstName  = leadFName != null ? (String) leadFName : "" ;
-      Object leadLName = request.getParameter("leadLastName");
-      String leadStringLastName  = leadLName != null ? (String) leadLName : "" ;
-      // gets the lead's name
-        System.out.println("lead's FirstName is:");
-        System.out.println(leadStringFirstName);
-        System.out.println("lead's LastName is:"); 
-        System.out.println(leadStringLastName);
+   
+      clothoObject.logout();
+      Object membersObj = request.getParameter("members");
+      String membersString  = membersObj != null ? (String) membersObj : "" ;
+      String[] membersNames = membersString.split(", ");
 
+      System.out.println(membersString);
+      // now parse the string into an array of names
+//      ArrayList<String> membersN= new ArrayList<String>(Arrays.asList(membersNames));
+      ArrayList<String> membersIDs = new ArrayList<String>();
+      for(int i=0;i<membersNames.length;i++){
+//        // get first and last names
+        String fullName = membersNames[i];
+        System.out.println(fullName);
+        String[] splitted = fullName.split("\\s+");
+        String memberFirstName = splitted[0];
+        String memberLastName = splitted[1];
+        System.out.println("Splitted and joined name is: " +memberFirstName
+        + " "+ memberLastName);
+//        // at some point may want to query for 
+//        // the members
+        Person member = new Person();
+        member.setFirstName(memberFirstName);
+        member.setLastName(memberLastName);
+//        // create a project list for every member and add our
+//        // project's id to that list
+        List<String> projectList = new ArrayList<String>();
+        projectList.add(projectID);
+        member.setProjects(projectList);
+//        
+        String memberID = ClothoAdapter.createPerson(member, clothoObject);
+        System.out.println("New member has been created and his ID is:");
+        System.out.println(memberID);
+          // add member's own Id to its object and update
+        member.setId(memberID);
+        memberID = ClothoAdapter.setPerson(member, clothoObject);
+//        // now add the member'd id to the array of member ids to be
+//        // later attached to the project
+        membersIDs.add(memberID);
+//        
+      }
+      for(int i=0;i<membersIDs.size();i++){
+        System.out.println("The ID "+i+" in membersIDs is: "+ membersIDs.get(i));
+        
+      }
+      System.out.println("Now getting lead!");
+      Object leadIdObj = request.getParameter("leadID");
+      String leadId  = leadIdObj != null ? (String) leadIdObj : "" ;
+      System.out.println(leadId);
+      if(!leadId.equals("0")){
+          System.out.println("Lead exists in the database!");
+          // we know that this person exists in the database
+          Person lead = ClothoAdapter.getPerson(leadId, clothoObject);
+          System.out.println(lead.getFirstName()+" "+lead.getLastName());
+          String leadFullName = request.getParameter("leadName");
+          System.out.println(leadFullName);
+          System.out.println(lead.getFirstName()+" "+lead.getLastName());
+          
+          List<String> leadProjects = lead.getProjects();
+          leadProjects.add(projectID);
+          lead.setProjects(leadProjects);
+//          
+//          List<String> leadProjectsNew = lead.getProjects();
+//          
+//          System.out.println("Old size is:");
+//          System.out.println(leadProjectsOld.size());
+//          System.out.println("New size is:");
+//          System.out.println(leadProjectsNew.size());
+          // compare length, just to check
+//          if(leadProjectsOld.size() < leadProjectsNew.size()){
+//            System.out.println("all good! Lead has more projects than"
+//                    + "he or she had before!!!");
+//          }else{
+//            System.out.println("nope! lead's projects were not changed!");
+//          }
+          
+          String leadId2 = ClothoAdapter.setPerson(lead, clothoObject);
+          project.setLeadId(leadId2);
+       }else{
+        // we want to use lead's name passed in from the form!
+        Object leadFName = request.getParameter("leadFirstName");
+        String leadStringFirstName  = leadFName != null ? (String) leadFName : "" ;
+        Object leadLName = request.getParameter("leadLastName");
+        String leadStringLastName  = leadLName != null ? (String) leadLName : "" ;
+        // gets the lead's name
+          System.out.println("lead's FirstName is:");
+          System.out.println(leadStringFirstName);
+          System.out.println("lead's LastName is:"); 
+          System.out.println(leadStringLastName);
+          // now create a new person lead and attach the project to him/her
+          // and vice versa
+          Person lead = new Person();
+          lead.setFirstName(leadStringFirstName);
+          lead.setLastName(leadStringLastName);
+//          clothoObject.logout();
+          String leadPersonID = ClothoAdapter.createPerson(lead, clothoObject);
+          lead.setId(leadPersonID);
+          List<String> projectList = new ArrayList<String>();
+          projectList.add(projectID);
+          lead.setProjects(projectList);
+          leadPersonID = ClothoAdapter.setPerson(lead,clothoObject);
+          project.setLeadId(leadPersonID);
+      }
+              
         
       Object labsName = request.getParameter("labs");
       String labs  = labsName != null ? (String) labsName : "" ;
@@ -183,13 +275,13 @@ public class processProject extends HttpServlet {
         String usernameCreator;
         String passwordCreator;
         String creatorID;
-       String rand =  request.getParameter("emailId");
+       String rand =  request.getParameter("emailID");
        System.out.println("***");
        System.out.println(rand);
        System.out.println("***");
-      if(request.getParameter("emailId")!=null){
+      if(request.getParameter("emailID")!=null){
         System.out.println("creator exists");
-        creatorID = request.getParameter("emailId");
+        creatorID = request.getParameter("emailID");
         System.out.println("Creator's Id is: " + creatorID);
         creator = ClothoAdapter.getPerson(creatorID, clothoObject);
         usernameCreator = creator.getEmailId();
@@ -227,46 +319,19 @@ public class processProject extends HttpServlet {
       List<String> labsList = new ArrayList<String>();
       labsList.add(lab.getName());
 
-      
-
-      // TODO: Add form checking for lead and 
-      // ajax support for getting lead names and displaying the options.
-      // TODO: Check whether lead exists in the DB.
-      String testLeadFirstName = "Bob";
-      String testLeadLastName = "Smith";
-      String testLeadEmail = "bob@smith.com";
-      Person leadPerson = new Person();
-
-      leadPerson.setFirstName(testLeadFirstName);
-      leadPerson.setLastName(testLeadLastName);
-      leadPerson.setEmailId(testLeadEmail);
-      
-      clothoObject.logout();
-
-      String leadPersonID = ClothoAdapter.createPerson(leadPerson, clothoObject);
-      leadPerson.setId(leadPersonID);
-      
-
       System.out.println("About to create a new project.");
       // create and set the fields for a new project
-        Project project = new Project();
-        project.setName(projectName);
         project.setBudget(projectBudget);
-        project.setLeadId(leadPersonID);
         project.setCreatorId(creatorID);
         project.setGrantId(grantID);
         project.setAffiliatedLabs(labsList);
         project.setDescription(description);
 
       clothoObject.login(loginMap);
-      String projectID = ClothoAdapter.createProject(project, clothoObject);   
+      projectID = ClothoAdapter.setProject(project, clothoObject);   
       
       // attach the project id to the list of the projects of according members
-      List<String> leadProjects =leadPerson.getProjects();
-      leadProjects.add(projectID);
-      // update the lead in clotho
-      leadPersonID = ClothoAdapter.setPerson(leadPerson, clothoObject);
-      
+      clothoObject.logout();
       List<String> creatorProjects = creator.getProjects();
       creatorProjects.add(projectID);
       
@@ -284,14 +349,13 @@ public class processProject extends HttpServlet {
 
        System.out.println("New Project ID is "+ projectID);
 
-      clothoObject.logout();
+//      clothoObject.logout();
       conn.closeConnection();
 
 
       if(projectID != null){
         result.put("success",1);
         result.put("projectId", projectID);
-        result.put("leadId", leadPersonID);
         System.out.println("successful");     
       }else{
         result.put("error",1);

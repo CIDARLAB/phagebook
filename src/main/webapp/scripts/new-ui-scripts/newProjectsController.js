@@ -65,7 +65,7 @@ function newProjectsCtrl($scope, $http) {
             if (leadNameCheck()) {
                 count++;
             }else{
-                console.log("Lead name invalid.");
+                $scope.descriptionRequired = "Format invalid. Please enter as 'James Smith'";
             }
             //Condition 4: valid input for members' names: 2 words
             if (membersCheck()) {
@@ -157,14 +157,14 @@ function newProjectsCtrl($scope, $http) {
             leadName: $("#lead_selectDiv option:selected").text(),
             leadID: $("#lead_selectDiv option:selected").val(),
 
-            members: membersArray,
+            members: $scope.formData.members,
 
             labs: $scope.formData.labs,
             projectBudget: $scope.formData.projectBudget,
             grant: $scope.formData.grant,
             description: $scope.formData.description,
             date: $scope.formData.date,
-            emailId: $scope.personId
+            emailID: $scope.personId
         };
 
         if (submit) {
