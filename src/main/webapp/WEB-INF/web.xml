@@ -1,19 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">    <servlet>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+    <servlet>
+        <servlet-name>uploadVendorCSV</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.uploadVendorCSV</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>uploadVendorCSV</servlet-name>
+        <url-pattern>/uploadVendorCSV</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>uploadProductCSV</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.uploadProductCSV</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>uploadProductCSV</servlet-name>
+        <url-pattern>/uploadProductCSV</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>processProject</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.processProject</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>processOrder</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.processOrder</servlet-class>
+        <url-pattern>/processOrder</url-pattern>
     </servlet>
     <servlet>
         <servlet-name>verifyEmail</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.verifyEmail</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>inputProduct</servlet-name>
-        <servlet-class>org.clothocad.phagebook.adaptors.servlets.inputProduct</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>resendVerification</servlet-name>
@@ -139,10 +153,6 @@
         <servlet-name>getAllProjects</servlet-name>
         <url-pattern>/getAllProjects</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>inputProduct</servlet-name>
-        <url-pattern>/inputProduct</url-pattern>
-    </servlet-mapping>
     <servlet>
         <servlet-name>addProducts</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.AddProducts</servlet-class>
@@ -150,14 +160,6 @@
     <servlet-mapping>
         <servlet-name>addProducts</servlet-name>
         <url-pattern>/addProducts</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>inputCompany</servlet-name>
-        <servlet-class>org.clothocad.phagebook.adaptors.servlets.inputCompany</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>inputCompany</servlet-name>
-        <url-pattern>/inputCompany</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>newOrder</servlet-name>
