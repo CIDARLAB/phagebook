@@ -19,60 +19,31 @@ $(document).ready(function() {
 
     // first name, last name separation is a potential legacy and could be 
     // reduced to just name over time
-    $("#inputLeadFirstName3").keypress(keyPressHandler);
-    $("#inputLeadLastName3").keypress(keyPressHandler);
+    $("#inputLeadName").keypress(keyPressHandler);
+    // $("#inputLeadLastName3").keypress(keyPressHandler);
 
-    $("#inputMemberFirstName3").keypress(keyPressHandler);
-    $("#inputMemberLastName3").keypress(keyPressHandler);
+    // $("#inputMemberFirstName3").keypress(keyPressHandler);
+    // $("#inputMemberLastName3").keypress(keyPressHandler);
     var firstName = "";
     var lastName = "";
 
     var doAjax = function(id) {
-        // pass in the id of the form value being used
-        //determine whether the input is last or first name
-        // get parents class and get child first or last name
 
-        // output is responsible for either attaching the result 
-        // of the querying ajax call to member or lead selection boxes
-        var output ="";
+        var output = "lead";
 
-        if(id.indexOf("First") > -1){ // for grabbing input from the first name box
-
-          console.log("the input is the first name");
-          firstName = $("#"+id).val();
-          // check the class of the present element
-          if($("#" + id).hasClass("leadForm")){  // check whether input is lead 
-            output = "lead";
-            // if it is lead, also grab the data from 
-            // the last name form input
-            lastName = $("#inputLeadLastName3").val();
-            console.log(lastName);
-          }else if($("#" + id).hasClass("memberForm")){  // check whether input is member 
-             output = "member";
-            lastName = $("#inputMemberLastName3").val();
-          }
-        }   
-
-        if(id.indexOf("Last") > -1){  // for grabbing input from the last name box
-          console.log("the input is the last name");
-          lastName = $("#"+id).val();
-
-          if($("#" + id).hasClass("leadForm")){ // check whether input is lead 
-             output = "lead";
-            // if it is lead, also grab the data from 
-            // the last name form input
-            firstName = $("#inputLeadFirstName3").val();
-            console.log(lastName);
-          }else if($("#" + id).hasClass("memberForm")){  // check whether input is member 
-             output = "member";
-            firstName = $("#inputMemberFirstName3").val();
-            console.log(lastName);
-          }
+        fullName = $("#inputLeadName").val();
+        console.log(fullName);
+        firstName = fullName;
+        if (fullName.indexOf(' ') >= 0) {
+            fullNameArr = fullName.split(" ");
+            firstName = fullNameArr[0];
+            lastName = fullNameArr[1];
         }
 
+
         var data = {
-          "firstName": firstName,
-          "lastName": lastName
+            "firstName": firstName,
+            "lastName": lastName
         }
         console.log(data);
 
@@ -82,7 +53,7 @@ $(document).ready(function() {
         }
 
         if (isValid) {
-          console.log("about to send ajax req");
+            console.log("about to send ajax req");
             $.ajax({
                 //do this for projects...
                 url: "../findMemberForNewProject",
@@ -95,14 +66,14 @@ $(document).ready(function() {
                     // console.log("Response is: ");
                     // console.log(response);
                     // console.log("****");
-                    if(response.length>0){
+                    if (response.length > 0) {
                         var select = document.getElementById(output + "_Results");
                         // console.log(select);
                         removeOptions(select);
                         // console.log("Response is: ");
                         // console.log(response);
                         // console.log("****");
-                        for (var i = 0; i < response.length; i++){
+                        for (var i = 0; i < response.length; i++) {
                             var opt = document.createElement('option');
                             console.log(response[i].fullname);
                             opt.value = response[i].clothoId;
@@ -117,15 +88,15 @@ $(document).ready(function() {
                 }
             });
         }
-    };
+    }
 });
 
-function loadSelectElementOptions(){
+function loadSelectElementOptions() {
     var min = 12,
-    max = 100,
-    select = document.getElementById('lab-name');
+        max = 100,
+        select = document.getElementById('lab-name');
 
-    for (var i = min; i<=max; i++){
+    for (var i = min; i <= max; i++) {
         var opt = document.createElement('option');
         opt.value = i;
         opt.innerHTML = i;
@@ -133,13 +104,11 @@ function loadSelectElementOptions(){
     }
 }
 
-var removeOptions = function(selectbox)
-{
+var removeOptions = function(selectbox) {
     var i;
     console.log("IN REMOVE OPTIONS");
     console.log(selectbox);
-    for(i=selectbox.options.length;i>=0;i--)
-    {
+    for (i = selectbox.options.length; i >= 0; i--) {
         console.log(selectbox);
         console.log("about to remove a box");
         console.log(selectbox.i);
