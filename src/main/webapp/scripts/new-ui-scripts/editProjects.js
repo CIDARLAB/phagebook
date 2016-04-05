@@ -52,46 +52,16 @@ var appendRow = function() {
 
 
 $(document).ready(function() {
-        var userID = getCookie("clothoID");
 
-        var data = {
-            "userID": userID,
-        }
-
-        $.ajax({
-            url: "/getAllProjects",
-            type: "POST",
-            dataType: "json",
-            data: data,
-            success: function(response) {
-                // response is the array of projects
-                console.log(response);
-                console.log("response!!!");
-                // this reloads the window
-                //return location.reload();
-            },
-            error: function(err) {
-                console.log("ERROR!!");
-                console.log(err);
-            }
-        });
-
-
-
-    // appendRow();
 
 
     $("#loadProject").click(function() {
-        //makeDummy();
         appendRow();
 
-
-        //console.log(id);
     });
 
     $("#editProject").click(function() {
         edit();
-        //console.log(id);
     });
 
     $("#addUpdate").click(function() {
@@ -165,14 +135,8 @@ $(document).ready(function() {
         // how new projects should be passed in
         var data = {
             name: name,
-            // leadFirstName: "",
-            // leadLastName: "",
-            // labs: labs,
-            // leadEmailId: leadEmailId,
             projectBudget: projectBudget,
-            // grant: grant,
             description: desc,
-            // date: date
         };
 
         $.ajax({

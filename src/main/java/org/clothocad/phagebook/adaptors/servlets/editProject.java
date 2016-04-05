@@ -151,6 +151,7 @@ public class editProject extends HttpServlet {
 //         System.out.println(key + " " + value);
 //      }
       //
+      System.out.println("got here!");
       if(projectID.length()>0){
         result.put("success", 1);
         return result;
@@ -219,19 +220,20 @@ public class editProject extends HttpServlet {
         reqHashMap.put(key, value);
       }
       Map result = editProjectFunction(project, reqHashMap, clothoObject);
-            
+      System.out.println("resulting map is: "+result);
+      System.out.println(result);
       // create a result object and send it to the frontend
       JSONObject json = new JSONObject(result);
 //      System.out.printf( "JSON: %s", json.toString(2) );
       
-//      if((int)result.get("success") == 1){
-//        res.put("success",1);
-//      }else if ((int)result.get("success") == 0){
-//        res.put("success",0);
-//      }
+      if((int)result.get("success") == 1){
+        json.put("success",1);
+      }else if ((int)result.get("success") == 0){
+        json.put("success",0);
+      }
       
       PrintWriter writer = response.getWriter();
-      writer.println(result);
+      writer.println(json);
       writer.flush();
       writer.close();
     }

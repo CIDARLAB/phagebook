@@ -148,31 +148,35 @@ $(document).ready(function() {
         var emailPeople = document.getElementById("emailPeople").checked;
 
         if ($("#newStatus").val() != null) {
-            newStatus = $("#newStatus").val();
-            console.log("in add update function");
-            var data = {
-                "userID": userID,
-                "projectID": selectedProject,
-                "newStatus": newStatus,
-                "emailPeople": emailPeople
-            }
-            console.log(data);
-
-            $.ajax({
-                url: "/addUpdateToProject",
-                type: "POST",
-                dataType: "json",
-                data: data,
-                success: function(response) {
-                    //console.log(dataSubmit);
-                    console.log(response);
-                    console.log("response!!!");
-                },
-                error: function(err) {
-                    console.log("ERROR!!");
-                    console.log(err);
+            if (selectedProject != "") {
+                newStatus = $("#newStatus").val();
+                console.log("in add update function");
+                var data = {
+                    "userID": userID,
+                    "projectID": selectedProject,
+                    "newStatus": newStatus,
+                    "emailPeople": emailPeople
                 }
-            });
+                console.log(data);
+
+                $.ajax({
+                    url: "/addUpdateToProject",
+                    type: "POST",
+                    dataType: "json",
+                    data: data,
+                    success: function(response) {
+                        //console.log(dataSubmit);
+                        console.log(response);
+                        console.log("response!!!");
+                    },
+                    error: function(err) {
+                        console.log("ERROR!!");
+                        console.log(err);
+                    }
+                });
+            }else{
+                alert("Please select a project from the dropdown menu first!");
+            }
         } else {
             alert("Write new status first!");
         }
