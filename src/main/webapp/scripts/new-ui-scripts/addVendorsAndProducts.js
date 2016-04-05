@@ -60,7 +60,7 @@ $(document).ready(function () {
                         alert("Uploaded :" + response);
                     },
                     error: function (response) {
-                        alert("Failed horribly");
+                        alert("Failed to load file");
                     }
                 });
             }
@@ -89,7 +89,7 @@ $(document).ready(function () {
                         alert("Uploaded :" + response);
                     },
                     error: function (response) {
-                        alert("Failed horribly");
+                        alert("Failed to load file");
                     }
                 });
             }

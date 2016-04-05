@@ -39,36 +39,37 @@ public class OrderController {
         
         for (int i = 0; i < (list.length()-1); i++) {
 
-            //add check
-            String productUrl = list.getJSONObject(i).get("URL").toString();
-            String companyName = list.getJSONObject(i).get("Company Name").toString();
-            String goodType = list.getJSONObject(i).get("Type").toString();
-            String cost = list.getJSONObject(i).get("Cost").toString();
-            String quantity = list.getJSONObject(i).get("Quantity").toString();
-            String name = list.getJSONObject(i).get("Name").toString();
-            String description = list.getJSONObject(i).get("Description").toString();
-            
-            Vendor company; 
-            Map companyQuery = new HashMap();
-            companyQuery.put("name",companyName);
-            List<Vendor> companyList = ClothoAdapter.queryVendor(companyQuery, clothoObject, ClothoAdapter.QueryMode.EXACT);
-            if(companyList.isEmpty()){
-                company = new Vendor(companyName);
-                String companyId = ClothoAdapter.createVendor(company, clothoObject);
-            }
-            else{
-               company = companyList.get(0);
-            }
-                
-            Product product = new Product(name, company.getId(), Double.valueOf(cost));
+                String productUrl = list.getJSONObject(i).get("URL").toString();
+                String companyName = list.getJSONObject(i).get("Company Name").toString();
+                String goodType = list.getJSONObject(i).get("Type").toString();
+                String cost = list.getJSONObject(i).get("Cost").toString();
+                String quantity = list.getJSONObject(i).get("Quantity").toString();
+                String name = list.getJSONObject(i).get("Name").toString();
+                String description = list.getJSONObject(i).get("Description").toString();
 
-            product.setProductURL(productUrl);
-            product.setGoodType(GoodType.valueOf(goodType));
-            product.setDescription(description);
+
+                Vendor company; 
+                Map companyQuery = new HashMap();
+                companyQuery.put("name",companyName);
+                List<Vendor> companyList = ClothoAdapter.queryVendor(companyQuery, clothoObject, ClothoAdapter.QueryMode.EXACT);
+                if(companyList.isEmpty()){
+                    company = new Vendor(companyName);
+                    String companyId = ClothoAdapter.createVendor(company, clothoObject);
+                }
+                else{
+                   company = companyList.get(0);
+                }
+
+                Product product = new Product(name, company.getId(), Double.valueOf(cost));
+
+                product.setProductURL(productUrl);
+                product.setGoodType(GoodType.valueOf(goodType));
+                product.setDescription(description);
+
+                String id = ClothoAdapter.createProduct(product, clothoObject);
+
+                productIds.add(id);
             
-            String id = ClothoAdapter.createProduct(product, clothoObject);
-            
-            productIds.add(id);
         }
         return productIds;
     }
