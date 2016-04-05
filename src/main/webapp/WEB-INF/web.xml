@@ -128,6 +128,14 @@
         <servlet-name>createLab</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.createLab</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>getAllProjects</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.getAllProjects</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>getAllProjects</servlet-name>
+        <url-pattern>/getAllProjects</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>inputProduct</servlet-name>
         <url-pattern>/inputProduct</url-pattern>

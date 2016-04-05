@@ -276,9 +276,9 @@ public class processProject extends HttpServlet {
         String passwordCreator;
         String creatorID;
        String rand =  request.getParameter("emailID");
-       System.out.println("***");
-       System.out.println(rand);
-       System.out.println("***");
+//       System.out.println("***");
+//       System.out.println(rand);
+//       System.out.println("***");
       if(request.getParameter("emailID")!=null){
         System.out.println("creator exists");
         creatorID = request.getParameter("emailID");
@@ -288,7 +288,7 @@ public class processProject extends HttpServlet {
         passwordCreator = creator.getPassword();
 
       }else{
-        
+        // should never reach this, but here for debugging purposes
         System.out.println("(180) Creator does not exist, so creating a new one");
         creator = new Person();
         creator.setFirstName("Anna");
@@ -300,15 +300,18 @@ public class processProject extends HttpServlet {
         creator = ClothoAdapter.getPerson(creatorID, clothoObject);
       
       }
-      
+      clothoObject.login(loginMap);
+
       // create the Grant object 
       
       // TODO: check whether grant exists.
       Grant grantObject = new Grant();
       grantObject.setName(grant);
       String grantID = ClothoAdapter.createGrant(grantObject, clothoObject);
+      System.out.println("Grant ID is: "+grantID);
       grantObject.setId(grantID);
-      
+      grantID = ClothoAdapter.setGrant(grantObject, clothoObject);
+
 
       // need to add support for creating and adding a number of labs/organizations
       // format of passed in lab? 
@@ -327,16 +330,18 @@ public class processProject extends HttpServlet {
         project.setAffiliatedLabs(labsList);
         project.setDescription(description);
 
-      clothoObject.login(loginMap);
       projectID = ClothoAdapter.setProject(project, clothoObject);   
       
       // attach the project id to the list of the projects of according members
       clothoObject.logout();
       List<String> creatorProjects = creator.getProjects();
-      creatorProjects.add(projectID);
-      
-      
-      
+      if(!creatorID.equals(leadId)){
+        // this is to make sure that the creator and the lead aren't
+        // the same people since the project ID has already been 
+        // added to the lead's list of projects
+        creatorProjects.add(projectID);
+      }
+            
       // for debugging; display all projects
       for (int i = 0; i < creatorProjects.size(); i++) {
         System.out.println(creatorProjects.get(i));
@@ -350,8 +355,18 @@ public class processProject extends HttpServlet {
        System.out.println("New Project ID is "+ projectID);
 
 //      clothoObject.logout();
-      conn.closeConnection();
+      clothoObject.login(loginMap);
 
+      // now print all of the things in the project
+      Project test = ClothoAdapter.getProject(projectID, clothoObject);
+      System.out.println("Name is " +test.getName());
+      System.out.println("Budget is " +test.getBudget());
+      System.out.println("Description is " +test.getDescription());
+      System.out.println("Lead ID is " +test.getLeadId());
+      System.out.println("Creator ID is " +test.getCreatorId());
+      System.out.println("Grant ID is " +test.getGrantId());
+
+      conn.closeConnection();
 
       if(projectID != null){
         result.put("success",1);

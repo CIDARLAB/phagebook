@@ -52,7 +52,31 @@ var appendRow = function() {
 
 
 $(document).ready(function() {
-    appendRow();
+        var userID = getCookie("clothoId");
+
+        var data = {
+            "userID": userID,
+        }
+
+        $.ajax({
+            url: "/getAllProjects",
+            type: "POST",
+            dataType: "json",
+            data: data,
+            success: function(response) {
+                // response is the array of projects
+                console.log("response!!!");
+                console.log(response);
+            },
+            error: function(err) {
+                console.log("ERROR!!");
+                console.log(err);
+            }
+        });
+
+
+
+    // appendRow();
 
 
     $("#loadProject").click(function() {

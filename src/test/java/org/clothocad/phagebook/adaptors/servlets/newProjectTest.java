@@ -64,11 +64,12 @@ public class newProjectTest {
         person.setPassword("class811");
         person.setActivated(true);
         
-        
         String personID = ClothoAdapter.createPerson(person, clothoObject);
         System.out.println(person);
         System.out.println(personID);
         
+        // create an array for the project Ids
+        List<String> projectIds = new ArrayList<String>();
         clothoObject.login(loginMap);
 
         String project1Name = "Phagebook";
@@ -89,7 +90,8 @@ public class newProjectTest {
         project1.setDescription(des);
         
         String project1ID = ClothoAdapter.createProject(project1, clothoObject);
-        // does not create a project ?
+
+        projectIds.add(project1ID);
         
         project.setId(project1ID);
         System.out.println("Project # 1 has been made.");
@@ -113,13 +115,24 @@ public class newProjectTest {
         project2.setDescription(des2);
         
         String project2ID = ClothoAdapter.createProject(project2, clothoObject);
-        // does not create a project ?
+        
+        projectIds.add(project2ID);
         
         project.setId(project2ID);
         System.out.println("Project # 2 has been made.");
         System.out.println(project);
         System.out.println(project2ID);
         System.out.println("----------");
+        
+        clothoObject.logout();
+        // attach the project id list to the person and update in the database
+        person.setProjects(projectIds);
+        personID = ClothoAdapter.setPerson(person, clothoObject);
+        System.out.println("should be gucci!");
+        
+        // get this person and check how many projects they've got
+        Person test = ClothoAdapter.getPerson(personID, clothoObject);
+        System.out.println(test.getProjects().size());
     }
     
     @AfterClass
@@ -132,8 +145,6 @@ public class newProjectTest {
     
     @After
     public void tearDown() {
-        clothoObject.logout();
-        conn.closeConnection();
     }
     
     @Test
