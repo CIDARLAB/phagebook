@@ -963,10 +963,9 @@ public class ClothoAdapterTest {
         lab1.setDescription(description);
         lab1.setPhone(phone);
         lab1.setUrl(url);
-        lab1.setType(Institution.InstitutionType.Corporation);
         
         
-        String labId = ClothoAdapter.createInstiution(lab1, clothoObject);
+        String labId = ClothoAdapter.createLab(lab1, clothoObject);
         if(lab1.getId().equals("Not Set")){
             fail();
         }
@@ -978,7 +977,6 @@ public class ClothoAdapterTest {
         assertEquals(lab1.getPhone(), lab2.getPhone());
         assertEquals(lab1.getUrl(), lab2.getUrl());
         assertEquals(lab1.getId(), lab2.getId());
-        assertEquals(lab1.getType().toString(), lab2.getType().toString());
         
                 
         System.out.println("----------");
