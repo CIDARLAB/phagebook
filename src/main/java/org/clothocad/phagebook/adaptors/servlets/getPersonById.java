@@ -95,7 +95,7 @@ public class getPersonById extends HttpServlet {
             retrievedAsJSON.put("institution", retrieve.getInstitution());
             retrievedAsJSON.put("department", retrieve.getDepartment());
             retrievedAsJSON.put("title", retrieve.getTitle());
-            
+            System.out.println("this is our JSON obj");
             System.out.println(retrievedAsJSON);
             
             JSONObject statusList = new JSONObject();
@@ -137,6 +137,7 @@ public class getPersonById extends HttpServlet {
             //retrievedAsJSON.put("labList", labList);
             System.out.println("looking at retrieved");
             System.out.println(retrievedAsJSON);
+            response.setContentType("application/json");
             PrintWriter out = response.getWriter();
             out.print(retrievedAsJSON);
             out.flush();
@@ -164,20 +165,31 @@ public class getPersonById extends HttpServlet {
         
         System.out.println("reached doPost");
         
-        String userId = (String) getValue(request.getPart("clothoId"));
-        String newStatus = (String) getValue(request.getPart("status"));
-        String newFirstName = (String) getValue(request.getPart("editFirstName"));
-        String newLastName = (String) getValue(request.getPart("editLastName"));
-        //String newEmail = (String) getValue(request.getPart("editEmail"));
-        //String newPassword = (String) getValue(request.getPart("editPassword"));
-        String newInstitution = (String) getValue(request.getPart("editInstitution"));
-        String newTitle = (String) getValue(request.getPart("editTitle"));
-        String newLab = (String) getValue(request.getPart("editLab"));
+        Object pUserId = request.getParameter("clothoId");
+        String userId = pUserId != null ? (String) pUserId: "";
+
+        Object pNewStatus = request.getParameter("status");
+        String newStatus = pNewStatus != null ? (String) pNewStatus: "";        
+
+        Object pNewFirstName = request.getParameter("editFirstName");
+        String newFirstName = pNewFirstName != null ? (String) pNewFirstName: "";
         
-        String institutionId = newInstitution != null ? (String) newInstitution : "";
+        Object pNewLastName = request.getParameter("editLastName");
+        String newLastName = pNewLastName != null ? (String) pNewLastName: "";
         
-        String labId = newLab != null ? (String) newLab : "";
+  /*      Object pNewInstitution = request.getParameter("editInstitution");
+        String newInstitution = pNewInstitution != null ? (String) pNewInstitution: "";
+*/
+        Object pNewDepartment = request.getParameter("editDepartment");
+        String newDepartment = pNewDepartment != null ? (String) pNewDepartment: "";
         
+        Object pNewTitle = request.getParameter("editTitle");
+        String newTitle = pNewTitle != null ? (String) pNewTitle: "";
+        
+        Object pNewLab = request.getParameter("editLab");
+        String newLab = pNewLab != null ? (String) pNewLab: "";
+        Object pLabId = request.getParameter("lab");
+        String labId = pLabId != null ? (String) pLabId : "";
         System.out.println(userId);
         System.out.println(newStatus);
         boolean editPerson = false;
@@ -225,10 +237,15 @@ public class getPersonById extends HttpServlet {
                 
             }*/
             
-            if (newInstitution != NULL && !"".equals(newInstitution)){
+           /* if (newInstitution != NULL && !"".equals(newInstitution)){
                 List<String> institutions = newPersonObj.getInstitutions();
                 institutions.add(institutionId);
                 newPersonObj.setInstitutions(institutions);
+                editPerson = true;
+            }*/
+            
+            if (newDepartment != NULL && !"".equals(newDepartment)){
+                newPersonObj.setDepartment(newDepartment);
                 editPerson = true;
             }
             
@@ -252,10 +269,6 @@ public class getPersonById extends HttpServlet {
             if (editPerson){
                 clothoObject.logout();
                 ClothoAdapter.setPerson(newPersonObj, clothoObject);
-                
-                //should I call some stuff to update the fiedl?
-                //or popup to tel them to refresh
-                //or actually refresh
             }
             
             

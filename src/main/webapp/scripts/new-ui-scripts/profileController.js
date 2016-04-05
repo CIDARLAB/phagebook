@@ -12,7 +12,7 @@ function profileCtrl($scope, $http) {
             url: '../getPersonById',
             params: {
                 "userId": clothoId,
-                "status": $scope.statusUpdateTextarea
+                "status": $scope.statusUpdateTextarea 
             }
         }).then(function successCallback(response) {
             console.log("some success in getPersonById status ajax call");
@@ -20,21 +20,23 @@ function profileCtrl($scope, $http) {
             console.log("inside getPersonById status ajax error");
         });
     });
+    
 
-    angular.element(document).ready(function () {
+    angular.element(document).ready(function ($scope) {
         console.log("before ajax but inside page onload.`");
         $.ajax({
             type: 'GET',
-            url: '../getPersonById',
+            url: '../getPersonById', 
             data: {
                 "userId": clothoId
             },
             success: function (response) {
-                var responseAsJSON = angular.fromJson(response.data);
-                $scope.fullName = response.data.fullname;
-                $scope.institution = response.data.institution;
-                $scope.department = response.data.department;
-                $scope.title = response.data.title;
+                var responseAsJSON = angular.fromJson(response);
+                console.log(JSON.stringify(responseAsJSON));
+                $("#fullName").text(responseAsJSON.fullname);
+                $("#dept").text(responseAsJSON.department);
+                $("#institution").text(responseAsJSON.institution);
+                $("#title").text(responseAsJSON.title);
             },
             error: {
                 //console.log("inside GET error");

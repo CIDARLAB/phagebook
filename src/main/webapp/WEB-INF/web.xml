@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-    <servlet>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">    <servlet>
         <servlet-name>processProject</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.processProject</servlet-class>
     </servlet>
@@ -109,10 +108,6 @@
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.uploadProfilePicture</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>setPersonById</servlet-name>
-        <servlet-class>org.clothocad.phagebook.adaptors.servlets.setPersonById</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>queryFirstLastName</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.queryFirstLastName</servlet-class>
     </servlet>
@@ -148,14 +143,7 @@
         <servlet-name>newOrder</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.newOrder</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>SelectColumns</servlet-name>
-        <servlet-class>org.clothocad.phagebook.adaptors.servlets.SelectColumns</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>SelectColumns</servlet-name>
-        <url-pattern>/SelectColumns</url-pattern>
-    </servlet-mapping>
+   
     <servlet-mapping>
         <servlet-name>newOrder</servlet-name>
         <url-pattern>/newOrder</url-pattern>
@@ -295,10 +283,6 @@
     <servlet-mapping>
         <servlet-name>uploadProfilePicture</servlet-name>
         <url-pattern>/uploadProfilePicture</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>setPersonById</servlet-name>
-        <url-pattern>/setPersonById</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>queryFirstLastName</servlet-name>

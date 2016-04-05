@@ -1,5 +1,4 @@
 function settingsCtrl($scope, $http){
-
     var clothoId = getCookie("clothoId"); //this will get the clothoId from the cookie
     var editBool = 0;
     $scope.clothoId = clothoId;
@@ -7,6 +6,8 @@ function settingsCtrl($scope, $http){
     $scope.fixLater = true;
     
     angular.element(document).ready(function () {
+        
+    console.log("this is the settings controller");
         $http({
             method: 'GET',
             url: '../getPersonById',
@@ -15,18 +16,15 @@ function settingsCtrl($scope, $http){
             }
         }).then(function successCallback(response) {
             console.log("inside successCall of get person GET");
-            var responseAsJSON = angular.fromJson(response.data);
-            $scope.editFirstName = response.data.firstName;
-            $scope.editLastName = response.data.lastName;
-            $scope.editEmail = response.data.name;
-            $scope.editPassword = "need help here";
-            $scope.editInstitution = response.data.institution;
-            $scope.editDepartment = response.data.department;
-            $scope.editTitle = response.data.title;
-            $scope.editLab = response.data.lab;
-            $scope.institution = response.data.institutions;
-            $scope.department = response.data.department;
-            $scope.title = response.data.title;
+            var responseAsJSON = angular.fromJson(response);
+            $scope.editFirstName = response.firstName;
+            $scope.editLastName = response.lastName;
+            //$scope.editEmail = response.name;
+            //$scope.editPassword = "need help here";
+            $scope.editInstitution = response.institution;
+            $scope.editDepartment = response.department;
+            $scope.editTitle = response.title;
+            //$scope.editLab = response.lab;
         }, function errorCallback(response) {
             console.log("inside GET error");
         });
@@ -50,10 +48,15 @@ function settingsCtrl($scope, $http){
                     url: '../getPersonById',
                     params: {
                         "userId": clothoId,
-                        "institution": $scope.newInst
+                        //"institution": $scope.newInst,
+                        "department" : $scope.editDepartment,
+                        "title" : $scope.editTitle,
+                        "lab" : $scope.editLab,
+                        "profileDescription" : $scope.editProfileDescription
                     }
                 }).then(function successCallback(response) {
                     console.log("some success in setPersonById ajax call");
+                    //location.reload();
                 }, function errorCallback(response) {
                     console.log("inside setPersonById ajax error");
                 });

@@ -18,6 +18,7 @@ function saveProfilePicture() {
             success: function (response) {
                 console.log("inside ajax post uploadProfPic success");
                 console.log(response);
+                location.reload();
             },
             error: function (response) {
                 console.log("inside ajax post uploadProfPic error");

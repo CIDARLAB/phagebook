@@ -68,7 +68,7 @@
     </head>
     
     <body>
-        <div ng-module="profileApp">
+        <div ng-module="settingsApp">
             <div ng-controller="settingsCtrl">
                 <header></header>
                 <div class="container" style="margin-top:100px">
@@ -136,7 +136,7 @@
                     <div class="form-group row">
                         <label for="profile-desc" class="col-sm-2 form-control-label">DESCRIPTION</label>
                         <div class="col-sm-8">
-                            <textarea class="form-control" rows="4" id="profile-desc"></textarea>
+                            <textarea class="form-control" rows="4" id="profile-desc" ng-model="editProfileDescription"></textarea>
                         </div>
                     </div>
                 </form>
@@ -152,7 +152,7 @@
         <script src="../scripts/new-ui-scripts/sidebarDirective.js"></script>
         <script src="../scripts/new-ui-scripts/headerDirective.js"></script>
         <script src="../scripts/new-ui-scripts/settingsController.js"></script>
-        <script src="../scripts/new-ui-scripts/profileApp.js"></script>
+        <script src="../scripts/new-ui-scripts/settingsApp.js"></script>
         
     </body>
  
