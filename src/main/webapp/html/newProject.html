@@ -20,17 +20,14 @@
     <script src="../scripts/new-ui-scripts/newProjectsController.js"></script>
     <script src="../scripts/new-ui-scripts/newProjectsApp.js"></script>
     <script src="../scripts/new-ui-scripts/cookieHandler.js"></script>
-    <script src="../scripts/new-ui-scripts/fetchAllProjects.js"></script>
+    <!-- <script src="../scripts/new-ui-scripts/fetchAllProjects.js"></script> -->
     <script src="../scripts/new-ui-scripts/addMembersToProjects.js"></script>
 
     <body>
-        <div id="test"></div>
-        <!-- <div ng-module="projectsApp"> -->
         <div ng-module="newProjects">
             <header></header>
             <sidebar></sidebar>
             <div ng-controller="newProjectsCtrl">
-                <!-- <div ng-controller="newProjectsCtrl"> -->
                 <div class="container-fluid" id="newProject">
                     <div class="row">
                         <div class="col-md-9 col-lg-9" style="float: right">
@@ -39,69 +36,66 @@
                                 <div class="form-group">
                                     <!-- String name -->
                                     <label for="inputName" class="control-label">Project Title*</label>
-                                    <input name="name" class="form-control" ng-maxlength="100" ng-minlength="5" id="inputName" placeholder="Name" ng-model="formData.name">
+                                    <input name="name" class="form-control" ng-maxlength="100" ng-minlength="0" id="inputName" placeholder="Name" ng-model="formData.name">
                                     <span ng-show="nameRequired">{{nameRequired}}</span>
-                                    <span class="error" ng-show="submitProject.name.$error.minlength">
-          Minimum length is 5 characters.</span>
-                                    <span class="error" ng-show="submitProject.name.$error.maxlength">
-          Maximum length is 100 characters.</span>
+                                    <span class="error" ng-show="submitProject.name.$error.minlength">Minimum length is 0 characters.</span>
+                                    <span class="error" ng-show="submitProject.name.$error.maxlength">Maximum length is 100 characters.</span>
                                 </div>
                                 <div class="form-group">
-                                    <!~~ Organization lab ~~>
+                                    <!-- Organization lab -->
                                     <label for="inputLab3" class="control-label">Lab(s)/Organization(s)</label>
                                     <div class="">
                                         <input class="form-control" id="inputLab3" placeholder="Lab(s)" ng-model="formData.labs">
                                     </div>
                                     <span ng-show="labsRequired">{{labsRequired}}</span>
                                 </div>
-                                <div class="form-group">
-                                    <!~~ Add Lead ~~>
-                                    <label for="inputLead3" class="control-label">Lead</label>
-                                    <!--
-                  <input class="form-control" id="inputLead3" placeholder="Lead" ng-model="formData.lead"> 
-                -->
-                                    <br>
-                                    <input name="leadFirstName" class="form-control newProject-input leadForm firstName" id="inputLeadFirstName3" placeholder="First Name" ng-model="formData.lead.firstName">
-                                    <input name="leadLastName" class="form-control leadForm lastName" id="inputLeadLastName3" placeholder="Last Name" ng-model="formData.lead.lastName">
-                                    <div class="leadError">
-                                        <span ng-show="leadFirstNameRequired">{{leadFirstNameRequired}}</span>
-                                    </div>
-                                    <div class="leadError">
-                                        <span ng-show="leadLastNameRequired">{{leadLastNameRequired}}</span>
-                                    </div>
-                                    <div id="appendLead"></div>
-                                </div>
-                                <div class="form-group">
-                                    <!~~ Add Member ~~>
-                                    <label for="inputMember3" class="control-label">Member</label>
-                                    <!--
-                  <input class="form-control" id="inputLead3" placeholder="Lead" ng-model="formData.lead"> 
-                -->
-                                    <br>
-                                    <input name="memberFirstName" class="form-control newProject-input memberForm firstName" id="inputMemberFirstName3" placeholder="First Name" ng-model="formData.member.firstName">
-                                    <input name="memberLastName" class="form-control memberForm lastName" id="inputMemberLastName3" placeholder="Last Name" ng-model="formData.member.lastName">
-                                    <div class="leadError">
-                                        <span ng-show="leadFirstNameRequired">{{leadFirstNameRequired}}</span>
-                                    </div>
-                                    <div class="leadError">
-                                        <span ng-show="leadLastNameRequired">{{leadLastNameRequired}}</span>
-                                    </div>
-                                    <div id="appendMember"></div>
 
+                                <div class="form-group">
+                                    <!-- Add Lead -->
+                                    <label for="inputLead3" class="control-label">Search for Lead:</label>
+                                    <br>
+                                    <input name="leadFirstName" class="form-control newProject-input leadForm firstName" id="inputLeadFirstName3" placeholder="First Name" ng-model="formData.leadFirstName">
+                                    <input name="leadLastName" class="form-control leadForm lastName" id="inputLeadLastName3" placeholder="Last Name" ng-model="formData.leadLastName">
+                                    <div class="leadError">
+                                        <span ng-show="leadFirstNameRequired">{{leadFirstNameRequired}}</span>
+                                    </div>
+                                    <div class="leadError">
+                                        <span ng-show="leadLastNameRequired">{{leadLastNameRequired}}</span>
+                                    </div>
+                                    <div id="lead_selectDiv">
+                                        <label for="leadResults" class="control-label">Select Lead</label>
+                                        <select class="form-control" id="lead_Results"></select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <!-- Add Member -->
+                                    <label for="inputMember3" class="control-label">Search for Member:</label>
+                                    <br>
+                                    <input name="memberFirstName" class="form-control newProject-input memberForm firstName" id="inputMemberFirstName3" placeholder="First Name" ng-model="formData.memberFirstName">
+                                    <input name="memberLastName" class="form-control memberForm lastName" id="inputMemberLastName3" placeholder="Last Name" ng-model="formData.memberLastName">
+                                    <!--                                     <div class="leadError">
+                                        <span ng-show="leadFirstNameRequired">{{leadFirstNameRequired}}</span>
+                                    </div>
+                                    <div class="leadError">
+                                        <span ng-show="leadLastNameRequired">{{leadLastNameRequired}}</span>
+                                    </div> -->
+                                    <div id="member_selectDiv">
+                                        <label for="memberResults" class="control-label">Select Member</label>
+                                        <select class="form-control" id="member_Results"></select>
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <!~~ Double projectBudget ~~>
+                                    <!-- Double projectBudget -->
                                     <label for="inputProjectBudget3" class="control-label">Project Budget</label>
                                     <div class="">
                                         <input name="projectBudget" type="number" class="form-control" id="inputBudget3" placeholder="Budget" min="0" ng-model="formData.projectBudget">
                                     </div>
                                     <span ng-show="projectBudgetRequired">{{projectBudgetRequired}}</span>
-                                    <span class="error" ng-show="submitProject.projectBudget.$error.number">
-           Not a valid number.
-         </span>
+                                    <span class="error" ng-show="submitProject.projectBudget.$error.number">Not a valid number.</span>
                                 </div>
                                 <div class="form-group">
-                                    <!~~ Grant projectGrant by string name? ~~>
+                                    <!-- Grant projectGrant by string name? -->
                                     <label for="inputGrant3" class="control-label">Grant</label>
                                     <div class="">
                                         <input class="form-control" id="inputGrant3" placeholder="Grant" ng-model="formData.grant">
@@ -109,14 +103,12 @@
                                     <span ng-show="projectGrantRequired">{{projectGrantRequired}}</span>
                                 </div>
                                 <div class="form-group">
-                                    <!--String Description-->
+                                    <!-- String Description -->
                                     <label for="inputDescription3" class="control-label">Description*</label>
                                     <textarea name="description" class="form-control" rows="5" id="inputDescription3" placeholder="Description" ng-maxlength="1000" ng-minlength="50" ng-model="formData.description"></textarea>
                                     <span ng-show="descriptionRequired">{{descriptionRequired}}</span>
-                                    <span class="error" ng-show="submitProject.description.$error.minlength">
-          Minimum length is 50 characters.</span>
-                                    <span class="error" ng-show="submitProject.description.$error.maxlength">
-          Maximum length is 1000 characters.</span>
+                                    <span class="error" ng-show="submitProject.description.$error.minlength">Minimum length is 50 characters.</span>
+                                    <span class="error" ng-show="submitProject.description.$error.maxlength">Maximum length is 1000 characters.</span>
                                 </div>
                                 <div class="form-group">
                                     <button type="submit" ng-click="saveData()" class="btn btn-default">Create</button>

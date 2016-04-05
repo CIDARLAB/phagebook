@@ -57,24 +57,25 @@ function newProjectsCtrl($scope, $http) {
                 console.log($scope.formData.description);
                 count++;
             }
-            console.log("$scope.formData.lead.firstName");
-
-            console.log($scope.formData.lead.firstName);
+            // }
+            // console.log($scope.formData.lead.lastName);
+            // console.log("$scope.formData.lead.firstName");
+            // console.log($scope.formData.lead.firstName);
 
             // Condition 3: lead person has to have a first AND a last name.
-            if (!$scope.formData.lead.firstName && !$scope.formData.lead.lastName) {
+            if (!$scope.formData.leadFirstName && !$scope.formData.leadLastName) {
                 console.log("Condition 3 is not met.");
-                if (!$scope.formData.lead.firstName) {
+                if (!$scope.formData.leadFirstName) {
                     console.log("Lead does not have a first name.");
                     $scope.leadFirstNameRequired = 'Please provide first name.';
                 }
-                if (!$scope.formData.lead.lastName) {
+                if (!$scope.formData.leadLastName) {
                     console.log("Lead does not have a last name.");
                     $scope.leadLastNameRequired = 'Please provide last name.';
                 }
             } else {
-                console.log($scope.formData.lead.firstName);
-                console.log($scope.formData.lead.lastName);
+                console.log($scope.formData.leadFirstName);
+                console.log($scope.formData.leadLastName);
                 count++;
             }
 
@@ -94,11 +95,17 @@ function newProjectsCtrl($scope, $http) {
 
         var dataSubmit = {
             name: $scope.formData.name,
-            leadFirstName: $scope.formData.lead.firstName,
-            leadLastName: $scope.formData.lead.lastName,
 
-            memberFirstName: $scope.formData.member.firstName,
-            memberLastName: $scope.formData.member.lastName,
+            leadFirstName: $scope.formData.leadFirstName,
+            leadLastName: $scope.formData.leadLastName,
+
+            // get id of lead 
+            leadID: $( "#lead_selectDiv option:selected" ).val(),
+
+            memberFirstName: $scope.formData.memberFirstName,
+            memberLastName: $scope.formData.memberLastName,
+
+            memberID: $( "#member_selectDiv option:selected" ).val(),
 
             labs: $scope.formData.labs,
             projectBudget: $scope.formData.projectBudget,
@@ -117,6 +124,7 @@ function newProjectsCtrl($scope, $http) {
                 async: false,
                 data: dataSubmit,
                 success: function(response) {
+
                     console.log(dataSubmit);
                     console.log(response);
                     console.log("response!!!");
