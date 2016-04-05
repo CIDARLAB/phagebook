@@ -92,6 +92,13 @@ function createOrderCard(orderJSON) {
         }
 
     }
+    if (orderJSON.Products == ""){
+       var tr=  document.createElement('tr');
+        tr.innerHTML = "There are currently no items in this order";
+        tr.className += "no-items-message";
+
+        orderItemsTable.appendChild(tr);
+    }
 
     tmpl.querySelector('.total-before-tax-value').innerText = "$" + totalBeforeTax;
     tmpl.querySelector('.tax-value').innerText = "$"+ (TAX * totalBeforeTax) ;
@@ -127,7 +134,6 @@ function doCartItemAjax(cartItemId){
             var customUnitPrice = (percentage * response.productUnitPrice);
 
             var quantity        = response.quantity;
-           
             var totalPrice      =  quantity * response.productUnitPrice  * percentage;
 
 

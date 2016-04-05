@@ -14,8 +14,11 @@ import lombok.Setter;
  *
  * @author Herb
  */
-public class Lab extends Institution {
+public class Lab extends Organization {
     @Getter @Setter List<String> leadPIs;
+    //TODO ADD MEMBERS
+    
+    //@Getter @Setter List<String> members;
     public Lab(String name){
        super(name);
     }
@@ -23,5 +26,6 @@ public class Lab extends Institution {
     public Lab(){
         super();
         this.leadPIs = new ArrayList<>();
+        //this.members = new ArrayList<>();
     }
 }
