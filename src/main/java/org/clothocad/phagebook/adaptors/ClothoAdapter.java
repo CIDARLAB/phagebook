@@ -3250,6 +3250,7 @@ public class ClothoAdapter {
     }
     private static Product       mapToProduct(Map map, Clotho clothoObject)
     {
+        if (map != null){
         String name = "";
         if (map.containsKey("name")){ name = (String) map.get("name"); }
         
@@ -3274,7 +3275,9 @@ public class ClothoAdapter {
         if (map.containsKey("cost")){ cost = (Double) map.get("cost");}
         
         int inventory = 0;
-        if (map.containsKey("inventory")) { inventory = (int) map.get("inventory");}
+        if (map.containsKey("inventory")) { 
+            inventory = (int) map.get("inventory");
+        }
         
         String id = "";
         if (map.containsKey("id")){  id = (String) map.get("id"); }
@@ -3295,6 +3298,10 @@ public class ClothoAdapter {
         product.setGoodType(goodType);
         
         product.setId(id);
+        }
+        Product product = new Product();
+        product.setId("");
+        
         return product;
         
     }
