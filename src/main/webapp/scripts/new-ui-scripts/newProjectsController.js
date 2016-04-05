@@ -22,10 +22,8 @@ function newProjectsCtrl($scope, $http) {
         $scope.formData.date = createdDate;
 
         $scope.nameRequired = '';
-        //$scope.emailRequired = '';
         $scope.labsRequired = '';
         $scope.leadRequired = '';
-        $scope.leadNameRequired = '';
         $scope.leadNameRequired = '';
         $scope.projectBudgetRequired = '';
         $scope.projectGrantRequired = '';
@@ -38,7 +36,7 @@ function newProjectsCtrl($scope, $http) {
          * This function validates the form.
          * The input has to meet a number of conditions before
          * approving the AJAX call to the server. 
-         * Output is a Boolean. 
+         * Output is a boolean. 
          */
         var validateForm = function() {
 

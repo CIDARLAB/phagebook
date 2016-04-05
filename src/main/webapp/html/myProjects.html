@@ -22,8 +22,8 @@
     <script src="../scripts/new-ui-scripts/newProjectsApp.js"></script>
     <script src="../scripts/new-ui-scripts/cookieHandler.js"></script>
     <script src="../scripts/new-ui-scripts/fetchAllProjects.js"></script>
+    <!-- <script src="../scripts/new-ui-scripts/editProjects.js"></script> -->
     <script src="../scripts/new-ui-scripts/cookieHandler.js"></script>
-
 
     <body>
         <!-- <div ng-module="projectsApp"> -->
@@ -31,43 +31,12 @@
             <header></header>
             <sidebar></sidebar>
             <div ng-controller="newProjectsCtrl">
-                <h3 class="projectFormTitle">Table of Projects</h3>
-                <div class="container-fluid" id="newProject">
+                <div class="container-fluid">
                     <div class="col-md-9 col-lg-9" style="float:right">
                         <div class="row">
-                             <div class="editProjectDiv" id="editProject" style="width: 100px;border:black solid 1px; float: right;">
+                            <div class="editProjectDiv" id="editProject" style="width: 100px;border:black solid 1px; float: right;">
                                 Get All Projects
                             </div>
-<!--                             <div class="bs-example" data-example-id="simple-table">
-                                <table class="table">
-                                    <caption>Optional table caption.</caption>
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Project Name</th>
-                                            <th>Creator</th>
-                                            <th>Labs</th>
-                                            <th>Date Created</th>
-                                            <th>Budget ($)</th>
-                                            <th>Description</th>
-                                            <th>Grant</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Phagebook</td>
-                                            <td>Awesome Ugrads</td>
-                                            <td>CIDAR</td>
-                                            <td>2015</td>
-                                            <td>100</td>
-                                            <td>This is Phagebook</td>
-                                            <td>Grant</td>
-                                        </tr>
-                                    </tbody>
-
-                                </table>
-                            </div> -->
                             <div class="form-group">
                                 <button type="submit" id="loadProject" on-click="makeDummy()" class="btn btn-default">Load Selected Project</button>
                             </div>
@@ -77,64 +46,45 @@
                 <footer></footer>
             </div>
         </div>
-       
-        <form style = "margin: 0 auto; width: 1000px;">
-        <h3 class="projectFormTitle">Edit Project</h3>
-        <div class="form-group">
-            <!-- String name -->
-            <label for="inputName" class="control-label">New Project Name</label>
-            <input name="name" class="form-control" ng-maxlength="100" ng-minlength="5" id="name" placeholder="Name" ng-model="formData.name">
-            <!--      <span ng-show="nameRequired">{{nameRequired}}</span>
-     <span class="error" ng-show="submitProject.name.$error.minlength">
-      Minimum length is 5 characters.</span>
-     <span class="error" ng-show="submitProject.name.$error.maxlength">
-      Maximum length is 100 characters.</span> -->
-        </div>
-        <div class="form-group">
-            <!--String Description-->
-            <label for="inputDescription3" class="control-label">New Project Description</label>
-            <textarea name="description" class="form-control" rows="5" id="desc" placeholder="Description" ng-maxlength="1000" ng-minlength="50" ng-model="formData.description"></textarea>
-            <!-- <span ng-show="descriptionRequired">{{descriptionRequired}}</span>
-     <span class="error" ng-show="submitProject.description.$error.minlength">
-      Minimum length is 50 characters.</span>
-     <span class="error" ng-show="submitProject.description.$error.maxlength">
-      Maximum length is 1000 characters.</span> -->
-        </div>
-        <div class="form-group">
+        <br>
+        <br>
+        <form style="margin: 0 auto; width: 1000px;">
+            <h3 class="projectFormTitle">Edit Project</h3>
+            <div class="editProjectDiv">
+                <select class="form-control" id="editProjectDropdown">
+                    <option value="">
+                        Select...
+                    </option>
+                </select>
+                <button type="button" id="populateFormButton" on-click="populateForm()" class="btn btn-default">Edit Selected Project</button>
+            </div>
+            <div class="form-group">
+                <!-- String name -->
+                <label for="inputName" class="control-label">New Project Name</label>
+                <input name="name" class="form-control" ng-maxlength="100" ng-minlength="5" id="name" placeholder="Name" ng-model="formData.name">
+            </div>
+            <div class="form-group">
+                <!--String Description-->
+                <label for="inputDescription3" class="control-label">New Project Description</label>
+                <textarea name="description" class="form-control" rows="5" id="desc" placeholder="Description" ng-maxlength="1000" ng-minlength="50" ng-model="formData.description"></textarea>
+            </div>
             <!-- Double projectBudget -->
             <div class="form-group">
-                <label for="inputProjectBudget3" class="col-sm-2 control-label"> New Budget</label>
-                <div class="col-sm-4">
-                    <input name="projectBudget" type="number" class="form-control" id="budget" placeholder="Budget" min="0" ng-model="formData.projectBudget">
-                </div>
-                <!--          <span ng-show="projectBudgetRequired">{{projectBudgetRequired}}</span>
-         <span class="error" ng-show="submitProject.projectBudget.$error.number">
-           Not a valid number.
-         </span> -->
+                <label for="inputProjectBudget3" class="control-label"> New Budget</label>
+                <!-- <div class="col-sm-4"> -->
+                <input name="projectBudget" type="number" class="form-control" id="budget" placeholder="Budget" min="0" ng-model="formData.projectBudget">
+                <!-- </div> -->
+                <button type="button" id="submitEditChange" class="btn btn-default">Submit</button>
             </div>
-        </div>
-        <br>
-        <div class="form-group">
-            <div class="editProjectDiv" id="editProject" style="width: 100px;border:black solid 1px; float: right;">
-                Edit Project
-            </div>
-        </div>
-        <br>
-        <br>
-        <h3 class="projectFormTitle">New Update</h3>
-        <div class="form-group">
-            <!-- String name -->
-            <label for="inputName" class="control-label">Add New Update</label>
-            <input name="newStatus" class="form-control" ng-maxlength="500" ng-minlength="5" id="newStatus" placeholder="Update" ng-model="formData.newStatus">
-            <br>
-            <br><br>
-            <label><input type="checkbox" id="emailPeople" value="first_checkbox"> Email members of the team</label><br>
-            <div class="addUpdateDiv" id="addUpdate" style="width: 100px;border:black solid 1px; float: left;">
-                Add Update
-            </div>
-            
+            <div class="form-group">
+                <h3 class="projectFormTitle">New Update</h3>
+                <!-- String name -->
+                <label for="inputName" class="control-label">Add New Update</label>
+                <input name="newStatus" class="form-control" ng-maxlength="500" ng-minlength="5" id="newStatus" placeholder="Update" ng-model="formData.newStatus">
+                <label>
+                    <input type="checkbox" id="emailPeople" value="first_checkbox"> Email members of the team</label>
+                <br>
+                <button type="button" id="addUpdate" class="btn btn-default">Add Update</button>
         </form>
-        <!-- </form> -->
-    <br>
-    <div id="projectID"></div>
+        <br>
     </body>

@@ -52,7 +52,7 @@ var appendRow = function() {
 
 
 $(document).ready(function() {
-        var userID = getCookie("clothoId");
+        var userID = getCookie("clothoID");
 
         var data = {
             "userID": userID,
@@ -65,8 +65,10 @@ $(document).ready(function() {
             data: data,
             success: function(response) {
                 // response is the array of projects
-                console.log("response!!!");
                 console.log(response);
+                console.log("response!!!");
+                // this reloads the window
+                //return location.reload();
             },
             error: function(err) {
                 console.log("ERROR!!");

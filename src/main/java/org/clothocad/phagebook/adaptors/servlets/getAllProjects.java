@@ -90,6 +90,8 @@ public class getAllProjects extends HttpServlet {
           
         projectObject.put("description",desc);
         
+        projectObject.put("projectId",projectId);
+        
         projectObject.put("budget", proj.getBudget());
           System.out.println( "budget is " + proj.getBudget());
         
