@@ -75,6 +75,6 @@ public class Order {
         this.status = OrderStatus.INPROGRESS;
         this.taxRate = 0.0d;
         this.affiliatedLabId = "Not Set";
-        
+     
     }
 }
