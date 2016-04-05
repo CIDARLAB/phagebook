@@ -97,6 +97,7 @@ public class listCreatedOrdersOfPerson extends HttpServlet {
                     tempAsJSON.put("name", temp.getName());
                     
                     tempAsJSON.put("description", temp.getDescription());
+                    tempAsJSON.put("taxRate", temp.getTaxRate());
                     
                     tempAsJSON.put("dateCreated", temp.getDateCreated().toString());
                     
@@ -105,7 +106,7 @@ public class listCreatedOrdersOfPerson extends HttpServlet {
                     
                     tempAsJSON.put("creatorName", createdById.getFirstName() + " " + createdById.getLastName());
                   
-                    tempAsJSON.put("products", temp.getProducts()); //cart item ids and quantity
+                    tempAsJSON.put("products", new JSONArray(temp.getProducts())); //cart item ids and quantity
                     
                     
                     tempAsJSON.put("budget", temp.getBudget());

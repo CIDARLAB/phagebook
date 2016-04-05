@@ -40,6 +40,11 @@ and open the template in the editor.
             font-size: 16px;
         }
         
+        .btn-group {
+            position: relative;
+            float: bottom;
+        }
+        
     </style>
     
 </head>
@@ -84,7 +89,7 @@ and open the template in the editor.
                                     <label for="list-of-orders" class="col-sm-2 form-control-label">SELECT ORDER</label>
                                     <div class="col-sm-5">
                                         <select class="form-control" id="list-of-orders">
-                                            <option>CIDAR Lab Order #1</option>
+
                                         </select>
                                     </div>
                                     <button id="add-to-order-btn" type="submit" class="btn btn-lg">Add to Order</button>
@@ -129,7 +134,7 @@ and open the template in the editor.
                             </tr>
                         </table>
                     </div>
-                    <table class="table table-hover order-items-table">
+                    <table class="table table-bordered order-items-table">
                         <tr class="order-items-headers">
                             <td>ITEM</td>
                             <td>QTY.</td>
@@ -138,24 +143,24 @@ and open the template in the editor.
                             <td>TOTAL PRICE</td>
                         </tr>
                         <tr>
-                            <td class="item-name">6 Piece Pyrex Glass Test Tube Set</td>
-                            <td class="item-qty">6</td>
-                            <td class="item-unit-price">$7.89</td>
-                            <td class="item-custom-unit-price">$7.89</td>
-                            <td class="item-total-price">$37.86</td>
+
                         </tr>
 
                     </table>
                     <div class="panel-body order-bottom-panel">
-                        <div class="btn-group order-card-btn-group" role="group">
+                        <div id="order-buttons">
+                        <div class="btn-group" role="group">
                             <button type="button" class="btn btn-default export-csv-btn">
                                 <img alt="Export CSV" src="../styles/img/icons/export-csv.png" style="height:15px; vertical-align:middle;">
                                 &nbsp;Export CSV
                             </button>
+                        </div>
+                        <div class="btn-group" role="group">
                             <button type="button" class="btn btn-default delete-order-btn">
                                 <img alt="Delete Order" src="../styles/img/icons/delete-order.png" style="height:15px; vertical-align:middle;">
                                 &nbsp;Delete Order
                             </button>
+                        </div>
                         </div>
                         <br>
                         <table class="table order-totals-table">

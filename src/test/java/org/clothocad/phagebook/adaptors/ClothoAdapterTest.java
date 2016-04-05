@@ -348,7 +348,7 @@ public class ClothoAdapterTest {
     public void testCreateLab(){
         System.out.println("-----CREATE LAB TEST-----");
       
-        Lab testLab = new Lab();
+        Institution testLab = new Institution();
         String idI = "";
         testLab.setId(idI);
         

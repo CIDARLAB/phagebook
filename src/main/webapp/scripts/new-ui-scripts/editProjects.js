@@ -52,20 +52,16 @@ var appendRow = function() {
 
 
 $(document).ready(function() {
-    appendRow();
+
 
 
     $("#loadProject").click(function() {
-        //makeDummy();
         appendRow();
 
-
-        //console.log(id);
     });
 
     $("#editProject").click(function() {
         edit();
-        //console.log(id);
     });
 
     $("#addUpdate").click(function() {
@@ -104,7 +100,7 @@ $(document).ready(function() {
             success: function(response) {
                 //console.log(dataSubmit);
                 console.log(response);
-                alert(response.updates);
+                // alert(response.updates);
                 console.log("response!!!");
             },
             error: function(err) {
@@ -139,14 +135,8 @@ $(document).ready(function() {
         // how new projects should be passed in
         var data = {
             name: name,
-            // leadFirstName: "",
-            // leadLastName: "",
-            // labs: labs,
-            // leadEmailId: leadEmailId,
             projectBudget: projectBudget,
-            // grant: grant,
             description: desc,
-            // date: date
         };
 
         $.ajax({
@@ -209,7 +199,8 @@ $(document).ready(function() {
                 //console.log(dataSubmit);
                 console.log(response);
                 console.log("response!!!");
-                return location.reload();
+                // this reloads the window
+                //return location.reload();
             },
             error: function(err) {
                 console.log("ERROR!!");

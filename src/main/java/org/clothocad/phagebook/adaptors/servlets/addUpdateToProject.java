@@ -58,7 +58,12 @@ public class addUpdateToProject extends HttpServlet {
     
     // get the objects associated with the passed in IDS from clotho
     Person editor = ClothoAdapter.getPerson(userID, clothoObject);
+    System.out.println("User Id is: ");
+    System.out.println(userID);
+    
     Project project = ClothoAdapter.getProject(projectID, clothoObject);  
+    System.out.println("Project Id is: ");
+    System.out.println(projectID);
     
     String editorName = editor.getFirstName() + " " +editor.getLastName();
     System.out.println(editorName);

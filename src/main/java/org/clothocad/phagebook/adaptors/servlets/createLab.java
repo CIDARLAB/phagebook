@@ -8,7 +8,6 @@ package org.clothocad.phagebook.adaptors.servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,17 +19,15 @@ import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
-import org.clothocad.phagebook.dom.CartItem;
-import org.clothocad.phagebook.dom.Order;
-import org.clothocad.phagebook.dom.Product;
-import org.json.JSONArray;
+import org.clothocad.phagebook.dom.Institution;
+import org.clothocad.phagebook.dom.Lab;
 import org.json.JSONObject;
 
 /**
  *
  * @author Herb
  */
-public class addProductsToOrder extends HttpServlet {
+public class createLab extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,7 +40,6 @@ public class addProductsToOrder extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
         
     }
 
@@ -74,43 +70,33 @@ public class addProductsToOrder extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        /*Add products to an order...
-         *ASSUMPTION 1: I receive a JSONArray with key value pairs <String, int> product id, and quantity
-         *ASSUMPTION 2: Along with each object I get a "discount" : double key...
-         * I take care of everything here 
-         *ASSUMPTION 3: I GET THE LOGGED IN PERSONS'S ID (if I need it) from the cookie
-         *ASSUMPTION 4: I GET THE ORDER ID PASSED IN.
-        */ 
         
-       
-        Object pCartItems = request.getParameter("CartItems");
-        String cartItems = pCartItems != null ? (String) pCartItems : "";
-
-      
+        Object pInstitutionId = request.getParameter("institution");
+        String institutionId = pInstitutionId != null ? (String) pInstitutionId: "";
         
+        Object pUser = request.getParameter("user");
+        String userId = pUser != null ? (String) pUser: "";
         
+        Object pName = request.getParameter("name");
+        String name = pName != null ? (String) pName : "";
         
-        Object pUser = request.getParameter("loggedInUserId");
-        String user = pUser != null ? (String) pUser : "";
+        Object pDescription = request.getParameter("description");
+        String description = pDescription != null ? (String) pDescription : "";
         
-        Object pOrderId = request.getParameter("orderId");
-        String orderId = pOrderId != null ? (String) pOrderId : "";
+        Object pPhone = request.getParameter("phone");
+        String phone = pPhone != null ? (String) pPhone : "";
+        
+        Object pUrl  = request.getParameter("url");
+        String url = pUrl != null ? (String) pUrl : "";
         
         boolean isValid = false;
         
-        if (!cartItems.equals("") && !user.equals("") && !orderId.equals("") ){
+        if (!institutionId.equals("") && !name.equals("") && !description.equals("")
+                && !phone.equals("") && !url.equals("")){
             isValid = true;
         }
         
-        //should now have something like this parsed.
-        /*
-          [{"productId": "<ID>" , "quantity": "5", "discount": "100" }, {"productId": "<ID> ,.. etc"}];  
-        
-        
-        */
         if (isValid){
-            //NEED TO LOG INTO CLOTHO... better way TBA
-
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
             String username = "phagebook";
@@ -119,63 +105,48 @@ public class addProductsToOrder extends HttpServlet {
             loginMap.put("username", username);
             loginMap.put("credentials", password);     
             clothoObject.login(loginMap);
-            //
+            // able to query now. 
+            Institution inst = ClothoAdapter.getInstitution(institutionId, clothoObject);
             
-            //STEP 1, get the order we want to modify...
-            //assuming valid order ID.
-            Order editableOrder = ClothoAdapter.getOrder(orderId, clothoObject);
-            //now we have the order object.
-            JSONArray cartItemsJSONArray = new JSONArray(cartItems);
-            //we have our JSONArray of products to add with discounts
-            List<String> items = editableOrder.getProducts(); //initialize, we want to add not replace
-            Date date = new Date();
-            for (int i = 0; i < cartItemsJSONArray.length(); i++){
-                //process the information that we have
-                
-                JSONObject obj = (JSONObject) cartItemsJSONArray.get(i);
-                Product product = ClothoAdapter.getProduct(obj.getString("productId"), clothoObject);
-                product.decreaseInventory(obj.getInt("quantity"));
-                
-                
-                CartItem item = new CartItem();
-                item.setDateCreated(date);
-                item.setProductId(obj.getString("productId"));
-                item.setDiscount( obj.getDouble("discount"));
-                item.setQuantity(obj.getInt("quantity"));
-                
-                
-                
-                ClothoAdapter.createCartItem(item, clothoObject);
-                ClothoAdapter.setProduct(product, clothoObject);
-                
-                items.add(item.getId());
-                
-            }
-            //now have a CART ITEM OBJECT all with ID's 
+            Lab lab = new Lab();
+            lab.setName(name);
+            lab.setUrl(url);
+            lab.setPhone(phone);
+            lab.setDescription(description);
+            List<String> leadPIList = new ArrayList<>();
+            leadPIList.add(userId);
+            lab.setLeadPIs(leadPIList);
+            
+            ClothoAdapter.createLab(lab, clothoObject);
+            
+            List<String> labs = inst.getLabs();
+            labs.add(lab.getId());
+            inst.setLabs(labs);
+            ClothoAdapter.setInstitution(inst, clothoObject);
+            JSONObject responseJSON = new JSONObject();
             
             
-            editableOrder.setProducts(items);
             
-            ClothoAdapter.setOrder(editableOrder, clothoObject);
+            
+            
             
             response.setContentType("application/json");
-            response.setStatus(HttpServletResponse.SC_ACCEPTED);
-            JSONObject responseJSON = new JSONObject();
-            responseJSON.put("message", "successfully modified order object");
-            PrintWriter out = response.getWriter();
-            out.print(responseJSON);
-            out.flush();
-            
-
-        } else {
-            response.setContentType("application/json");
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            JSONObject responseJSON = new JSONObject();
-            responseJSON.put("message", "missing parameters for servlet call");
+            response.setStatus(HttpServletResponse.SC_OK);
+            responseJSON.put("labId", lab.getId());
             PrintWriter out = response.getWriter();
             out.print(responseJSON);
             out.flush();
         }
+        else{
+            response.setContentType("application/json");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            JSONObject responseJSON = new JSONObject();
+            responseJSON.put("message", "missing parameters");
+            PrintWriter out = response.getWriter();
+            out.print(responseJSON);
+            out.flush();
+        }
+       
         
         
         
@@ -188,7 +159,7 @@ public class addProductsToOrder extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "creates a lab in clotho and puts the logged in user as a PI";
     }// </editor-fold>
 
 }

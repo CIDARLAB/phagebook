@@ -557,9 +557,6 @@ public class ClothoAdapter {
                 map.put("id", lab.getId());
             }
         }
-        if (lab.getType() != null){
-            map.put("type", lab.getType().toString());
-        }
         
         if (lab.getLeadPIs() != null){
             if (!lab.getLeadPIs().isEmpty()){
@@ -2880,16 +2877,14 @@ public class ClothoAdapter {
                 }
             
         }
-        Institution.InstitutionType type = Institution.InstitutionType.Independent;
-        if (map.containsKey("type")) { type = Institution.InstitutionType.valueOf((String) map.get("type")); }
         
-        
+           
         Lab lab = new Lab(name);
         lab.setPhone(phone);
         lab.setUrl(url);
         lab.setLeadPIs(leadPIs);
         lab.setDescription(description);
-        lab.setType(type);
+       
         
         String id = "";
         if (map.containsKey("id")){

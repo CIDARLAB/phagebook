@@ -8,25 +8,25 @@ package org.clothocad.phagebook.adaptors.servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import net.sf.json.JSONObject;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
+import org.clothocad.model.Person;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
-import org.clothocad.phagebook.dom.CartItem;
-import org.clothocad.phagebook.dom.Product;
+import org.clothocad.phagebook.dom.Lab;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  *
  * @author Herb
  */
-public class parseCartItem extends HttpServlet {
+public class listPIsOfLab extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -56,18 +56,16 @@ public class parseCartItem extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         
-        Object pUser = request.getParameter("user");
-        String user = pUser != null ? (String) pUser: "";
+       
+        Object pLabId = request.getParameter("lab");
+        String labId = pLabId != null ? (String) pLabId: "";
         
-        Object pCartItemId = request.getParameter("cartItem");
-        String cartItemId = pCartItemId != null ? (String) pCartItemId: "";
         boolean isValid = false;
         
-        
-        if (!user.equals("") && !cartItemId.equals("")){
+        if (!labId.equals("")){
             isValid = true;
         }
-        JSONObject responseJSON = new JSONObject();
+        
         if (isValid){
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
@@ -79,33 +77,51 @@ public class parseCartItem extends HttpServlet {
             clothoObject.login(loginMap);
             // able to query now. 
             
-            CartItem cartItem = ClothoAdapter.getCartItem(cartItemId, clothoObject);
             
-
-            Product product = ClothoAdapter.getProduct(cartItem.getProductId(), clothoObject);
-            responseJSON.put("productId", product.getId());
-            responseJSON.put("discount", cartItem.getDiscount());
-            responseJSON.put("productName", product.getName());
-            responseJSON.put("productUnitPrice", product.getUnitPrice());
-            responseJSON.put("quantity", cartItem.getQuantity());
-           
+            Lab lab = ClothoAdapter.getLab(labId, clothoObject); //Lab
+            if (!lab.getId().equals("")){
+                JSONArray PIs = new JSONArray();
+                for (String pi : lab.getLeadPIs()){
+                    Person piPers = ClothoAdapter.getPerson(pi, clothoObject);
+                    JSONObject PI = new JSONObject();
+                    PI.put("name", piPers.getFirstName() + " " + piPers.getLastName() );
+                    PI.put("email", piPers.getEmailId());
+                    PI.put("clothoId", piPers.getId());
+                    PIs.put(PI);
+                    
+                }
+                response.setContentType("application/json");
+                response.setStatus(HttpServletResponse.SC_OK);
+                PrintWriter out = response.getWriter();
+                out.print(PIs);
+                out.flush();
+            } else {
+                response.setContentType("application/json");
+                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                JSONObject responseJSON = new JSONObject();
+                responseJSON.put("message", "Lab not found in Clotho");
+                PrintWriter out = response.getWriter();
+                out.print(responseJSON);
+                out.flush();
+                
+            }
             
-            response.setContentType("application/json");
-            response.setStatus(HttpServletResponse.SC_OK);
-            PrintWriter out = response.getWriter();
-            out.print(responseJSON);
-            out.flush();
             
         }
-        else {
+        else
+        {
             response.setContentType("application/json");
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            responseJSON.put("message", "id provided does not exist");
+            JSONObject responseJSON = new JSONObject();
+            responseJSON.put("message", "Lab Id Cannot Be Blank");
             PrintWriter out = response.getWriter();
             out.print(responseJSON);
             out.flush();
+            
         }
-              
+               
+        
+        
     }
 
     /**

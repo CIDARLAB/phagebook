@@ -60,7 +60,7 @@ $(document).ready(function () {
                         alert("Uploaded :" + response);
                     },
                     error: function (response) {
-                        alert("Failed to load file");
+                        alert("Failed horribly");
                     }
                 });
             }
@@ -89,7 +89,7 @@ $(document).ready(function () {
                         alert("Uploaded :" + response);
                     },
                     error: function (response) {
-                        alert("Failed to load file");
+                        alert("Failed horribly");
                     }
                 });
             }
@@ -203,5 +203,3 @@ function removeOptions(selectbox)
         selectbox.remove(i);
     }
 }
-
-
