@@ -67,21 +67,25 @@
                                     <div class="col-sm-2 float-left control-label">FIND LEAD:</div>
                                     <br>
                                     <div class="input-div col-sm-9 float-right">
-                                        <input name="leadFirstName" class="form-control newProject-input leadForm firstName" id="inputLeadFirstName3" placeholder="First Name" ng-model="formData.leadFirstName">
-                                        <input name="leadLastName" class="form-control leadForm lastName" id="inputLeadLastName3" placeholder="Last Name" ng-model="formData.leadLastName">
+                                        <input name="leadFirstName" class="form-control newProject-input leadForm firstName" id="inputLeadFirstName3" placeholder="ex: James Smith" ng-model="formData.leadName">
+                                        <!-- <input name="leadLastName" class="form-control leadForm lastName" id="inputLeadLastName3" placeholder="Last Name" ng-model="formData.leadLastName"> -->
                                         <div class="leadError">
-                                            <span ng-show="leadFirstNameRequired">{{leadFirstNameRequired}}</span>
+                                            <span ng-show="leadNameRequired">{{leadNameRequired}}</span>
                                         </div>
-                                        <div class="leadError">
+                                        <!-- <div class="leadError">
                                             <span ng-show="leadLastNameRequired">{{leadLastNameRequired}}</span>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div id="lead_selectDiv">
                                         <div for="leadResults" class="float-left col-sm-2 control-label">SELECT LEAD</div>
                                         <div class="col-sm-9 float-right">
-                                            <select class="form-control" id="lead_Results"></select>
+                                            <select class="form-control" id="lead_Results">
+                                                <option value="">
+                                                    Select...
+                                                </option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -120,6 +124,7 @@
                                         <p class="team-members-desc">Please separate team member names by a comma. (ex. John Smith, Jane Doe, ...)
                                         </p>
                                         <input name="memberFirstName" class="form-control newProject-input memberForm firstName" id="inputMemberFirstName3" placeholder="Names" ng-model="formData.members">
+                                        <span ng-show="membersRequired">{{membersRequired}}</span>
                                         <!-- <input name="memberFirstName" class="form-control newProject-input memberForm firstName" id="inputMemberFirstName3" placeholder="First Name" ng-model="formData.memberFirstName"> -->
                                         <!-- <input name="memberLastName" class="form-control memberForm lastName" id="inputMemberLastName3" placeholder="Last Name" ng-model="formData.memberLastName"> -->
                                         <!--                                     <div class="leadError">

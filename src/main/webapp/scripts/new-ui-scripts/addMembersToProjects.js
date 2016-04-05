@@ -138,8 +138,11 @@ var removeOptions = function(selectbox)
     var i;
     console.log("IN REMOVE OPTIONS");
     console.log(selectbox);
-    for(i=selectbox.options.length-1;i>=0;i--)
+    for(i=selectbox.options.length;i>=0;i--)
     {
+        console.log(selectbox);
+        console.log("about to remove a box");
+        console.log(selectbox.i);
         selectbox.remove(i);
     }
 }
