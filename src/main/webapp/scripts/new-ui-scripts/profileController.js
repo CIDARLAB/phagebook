@@ -7,17 +7,20 @@ function profileCtrl($scope, $http) {
     $scope.profilePictureLink = awsPath + fileExt;
 
     $("#createStatusBtn").click(function () {
+        alert("Create New Status Button click" + $("#statusUpdateTextarea")[0].value);
         $http({
             method: 'POST',
-            url: '../getPersonById',
+            url: '../createStatus',
             params: {
-                "userId": clothoId,
-                "status": $scope.statusUpdateTextarea 
+                "clothoId": clothoId,
+                "status": $("#statusUpdateTextarea")[0].value
             }
         }).then(function successCallback(response) {
             console.log("some success in getPersonById status ajax call");
+            console.log(response.message);
         }, function errorCallback(response) {
             console.log("inside getPersonById status ajax error");
+            console.log(JSON.stringify(response));
         });
     });
     

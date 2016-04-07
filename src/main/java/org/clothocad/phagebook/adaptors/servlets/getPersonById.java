@@ -35,6 +35,11 @@ import static org.json.JSONObject.NULL;
  */
 public class getPersonById extends HttpServlet {
 
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+    }
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -44,7 +49,6 @@ public class getPersonById extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -57,18 +61,16 @@ public class getPersonById extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         System.out.println("reached doGet");
-        
+
         String userId = (String) request.getParameter("userId");
         System.out.println(userId);
         boolean isValid = false;
         if (userId != null && userId != "") {
             isValid = true;
         }
-        
-        
-        
+
         if (isValid) {
             //ESTABLISH CONNECTION
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
@@ -95,9 +97,13 @@ public class getPersonById extends HttpServlet {
             retrievedAsJSON.put("institution", retrieve.getInstitution());
             retrievedAsJSON.put("department", retrieve.getDepartment());
             retrievedAsJSON.put("title", retrieve.getTitle());
+            retrievedAsJSON.put("email", retrieve.getEmailId());
+            String labId = retrieve.getLabs().size() > 0 ? retrieve.getLabs().get(0) : "0";
+
+            retrievedAsJSON.put("lab", ClothoAdapter.getLab(labId, clothoObject));
             System.out.println("this is our JSON obj");
             System.out.println(retrievedAsJSON);
-            
+
             JSONObject statusList = new JSONObject();
             if (retrieve.getStatuses() != null) {
                 for (String status : retrieve.getStatuses()) {
@@ -131,7 +137,7 @@ public class getPersonById extends HttpServlet {
                     labList.put("roles", positions);
                 }
             }
-            */
+             */
             retrievedAsJSON.put("statusList", statusList);
             retrievedAsJSON.put("publicationList", publicationList);
             //retrievedAsJSON.put("labList", labList);
@@ -162,123 +168,116 @@ public class getPersonById extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
-        
-        System.out.println("reached doPost");
-        
-        Object pUserId = request.getParameter("clothoId");
-        String userId = pUserId != null ? (String) pUserId: "";
+        processRequest(request, response);
 
-        Object pNewStatus = request.getParameter("status");
-        String newStatus = pNewStatus != null ? (String) pNewStatus: "";        
+        System.out.println("reached doPost");
+        /* Map myMap = request.getParameterMap();
+
+        Iterator iterator = myMap.keySet().iterator();
+
+        while (iterator.hasNext()) {
+            String key = iterator.next().toString();
+            System.out.println(myMap.get(key).toString());
+            System.out.println(key);
+        }*/
+
+        Object pUserId = request.getParameter("clothoId");
+        String userId = pUserId != null ? (String) pUserId : "";
 
         Object pNewFirstName = request.getParameter("editFirstName");
-        String newFirstName = pNewFirstName != null ? (String) pNewFirstName: "";
-        
+        String newFirstName = pNewFirstName != null ? (String) pNewFirstName : "";
+
         Object pNewLastName = request.getParameter("editLastName");
-        String newLastName = pNewLastName != null ? (String) pNewLastName: "";
-        
-  /*      Object pNewInstitution = request.getParameter("editInstitution");
+        String newLastName = pNewLastName != null ? (String) pNewLastName : "";
+
+        /*      Object pNewInstitution = request.getParameter("editInstitution");
         String newInstitution = pNewInstitution != null ? (String) pNewInstitution: "";
-*/
+         */
         Object pNewDepartment = request.getParameter("editDepartment");
-        String newDepartment = pNewDepartment != null ? (String) pNewDepartment: "";
-        
+        String newDepartment = pNewDepartment != null ? (String) pNewDepartment : "";
+
         Object pNewTitle = request.getParameter("editTitle");
-        String newTitle = pNewTitle != null ? (String) pNewTitle: "";
-        
+        String newTitle = pNewTitle != null ? (String) pNewTitle : "";
+
         Object pNewLab = request.getParameter("editLab");
-        String newLab = pNewLab != null ? (String) pNewLab: "";
+        String newLab = pNewLab != null ? (String) pNewLab : "";
+
         Object pLabId = request.getParameter("lab");
         String labId = pLabId != null ? (String) pLabId : "";
-        System.out.println(userId);
-        System.out.println(newStatus);
-        boolean editPerson = false;
+
+        Object pProfileDescription = request.getParameter("profileDescription");
+        String newProfileDescription = pProfileDescription != null ? (String) pProfileDescription : "";
+
         boolean isValid = false; //used only to make sure the person exists in Clotho
-        if (userId != null && !"".equals(userId)) {
-                isValid = true;
+        if (!userId.equals("")) {
+            isValid = true;
         }
-        
-        
-        
+
         if (isValid) {
             //ESTABLISH CONNECTION
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
-            Map setUserMap = new HashMap();
-            String username = "test" + System.currentTimeMillis();
-            //setUserMap.put("firstName", firstName);
-            //setUserMap.put("lastName", lastName);
-            //clothoObject.createUser(createUserMap);
+            String username = "phagebook";
+            String password = "backend";
             Map loginMap = new HashMap();
             loginMap.put("username", username);
-            loginMap.put("credentials", "password");
+            loginMap.put("credentials", password);
             clothoObject.login(loginMap);
             //
 
             Person retrieve = ClothoAdapter.getPerson(userId, clothoObject);
-            Person newPersonObj = new Person(); 
-            JSONObject retrievedAsJSON = new JSONObject();
-            
-            if (newFirstName != NULL && !"".equals(newFirstName)){
-                newPersonObj.setFirstName(newFirstName);
-                editPerson = true;
-            }
-            
-            if (newLastName != NULL && !"".equals(newLastName)){
-                newPersonObj.setLastName(newLastName);
-                editPerson = true;
-            }
-            
-            /*if (newEmail != NULL && !"".equals(newEmail)){
+            if (!retrieve.getId().equals("")) {
+                if (!newFirstName.equals("")) {
+                    retrieve.setFirstName(newFirstName);
+                }
+
+                if (!newLastName.equals("")) {
+                    retrieve.setLastName(newLastName);
+                }
+
+                /*if (newEmail != NULL && !"".equals(newEmail)){
                 
             }
             
             if (newPassword != NULL && !"".equals(newPassword)){
                 
             }*/
-            
-           /* if (newInstitution != NULL && !"".equals(newInstitution)){
-                List<String> institutions = newPersonObj.getInstitutions();
+ /* if (newInstitution != NULL && !"".equals(newInstitution)){
+                List<String> institutions = retrieve.getInstitutions();
                 institutions.add(institutionId);
-                newPersonObj.setInstitutions(institutions);
+                retrieve.setInstitutions(institutions);
                 editPerson = true;
             }*/
-            
-            if (newDepartment != NULL && !"".equals(newDepartment)){
-                newPersonObj.setDepartment(newDepartment);
-                editPerson = true;
-            }
-            
-            if (newTitle != NULL && !"".equals(newTitle)){
-                newPersonObj.setTitle(newTitle);
-                editPerson = true;
-            }
-            
-            if (newStatus != NULL && !"".equals(newStatus)){
-                newPersonObj.addStatus(newStatus); 
-                editPerson = true;
-            }
-            
-            if (newLab != NULL && !"".equals(newLab)){
-                List<String> labs = newPersonObj.getLabs();
+                if (!newDepartment.equals("")) {
+                    retrieve.setDepartment(newDepartment);
+                }
+
+                if (!newTitle.equals("")) {
+                    retrieve.setTitle(newTitle);
+                }
+
+                if (!newProfileDescription.equals("")) {
+                    retrieve.setProfileDescription(newProfileDescription);
+
+                }
+
+                /*  if (newLab != NULL && !"".equals(newLab)) {
+                List<String> labs = retrieve.getLabs();
                 labs.add(labId);
-                newPersonObj.setLabs(labs);
+                retrieve.setLabs(labs);
                 editPerson = true;
-            }
-            
-            if (editPerson){
+            }*/
                 clothoObject.logout();
-                ClothoAdapter.setPerson(newPersonObj, clothoObject);
+                ClothoAdapter.setPerson(retrieve, clothoObject);
+
             }
-            
-            
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 
         }
 
     }
-   
+
     /**
      * Returns a short description of the servlet.
      *
