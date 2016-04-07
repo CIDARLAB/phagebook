@@ -34,7 +34,7 @@ public class Status{
         this.id       = "Not Set";
         this.text     = "Not Set"; 
         this.userId   = "Not Set";
-        Date today = Calendar.getInstance().getTime();
+        Date today = new Date();//Calendar.getInstance().getTime();
         this.created = today;
     }
     

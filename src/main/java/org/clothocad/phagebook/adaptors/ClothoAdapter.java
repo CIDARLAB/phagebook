@@ -828,6 +828,9 @@ public class ClothoAdapter {
         if (person.getFirstName() !=null)
             map.put("firstName", person.getFirstName());
         
+        if (person.getProfileDescription() !=null)
+            map.put("profileDescription", person.getProfileDescription());
+        
         if(person.getLastName() != null)
             map.put("lastName", person.getLastName());
         
@@ -1595,7 +1598,9 @@ public class ClothoAdapter {
     public static Lab     getLab(String id, Clotho clothoObject)
     {
         Map labMap = (Map) clothoObject.get(id);
-        Lab lab = mapToLab(labMap, clothoObject);
+        Lab lab = new Lab();
+        if (labMap != null)
+            mapToLab(labMap, clothoObject);
         return lab;
     }
     /**
@@ -3201,6 +3206,11 @@ public class ClothoAdapter {
             title = (String) map.get("title");
         }
         
+        String profileDescription = "";
+        if ( map.containsKey("profileDescription")){
+            profileDescription = (String) map.get("profileDescription");
+        }
+        
         String id = "";
         if (map.containsKey("id")){
              id = (String) map.get("id");
@@ -3229,6 +3239,7 @@ public class ClothoAdapter {
         person.setPublications(publications);
         person.setSubmittedOrders(submittedOrders);
         person.setApprovedOrders(approvedOrders);
+        person.setProfileDescription(profileDescription);
         
         
         

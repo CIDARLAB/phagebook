@@ -17,14 +17,15 @@ function settingsCtrl($scope, $http){
         }).then(function successCallback(response) {
             console.log("inside successCall of get person GET");
             var responseAsJSON = angular.fromJson(response);
-            $scope.editFirstName = response.firstName;
-            $scope.editLastName = response.lastName;
-            //$scope.editEmail = response.name;
+            console.log(JSON.stringify(responseAsJSON));
+            $scope.editFirstName = response.data.firstName;
+            $scope.editLastName = response.data.lastName;
+            $scope.editEmail = response.data.email;
             //$scope.editPassword = "need help here";
-            $scope.editInstitution = response.institution;
-            $scope.editDepartment = response.department;
-            $scope.editTitle = response.title;
-            //$scope.editLab = response.lab;
+            $scope.editInstitution = response.data.institution;
+            $scope.editDepartment = response.data.department;
+            $scope.editTitle = response.data.title;
+            $scope.editLab = response.data.lab;
         }, function errorCallback(response) {
             console.log("inside GET error");
         });
@@ -47,8 +48,10 @@ function settingsCtrl($scope, $http){
                     method: 'POST',
                     url: '../getPersonById',
                     params: {
-                        "userId": clothoId,
+                        "clothoId": clothoId,
                         //"institution": $scope.newInst,
+                        "editFirstName" : $scope.editFirstName,
+                        "editLastName" : $scope.editLastName,
                         "department" : $scope.editDepartment,
                         "title" : $scope.editTitle,
                         "lab" : $scope.editLab,
