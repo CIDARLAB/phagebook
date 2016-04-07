@@ -47,14 +47,31 @@ function createOrderCard(orderJSON) {
 
         for (var i = 0; i < orderJSON.Products.length; i++ ) {
 
-
+                
+                
+                        //<td class="item-name">
+                        //        <a type="button" href="">
+                        //            <img alt="Delete item" src="../styles/img/icons/remove-item.png"/>
+                        //        </a>
+                        //    </td>
                 var response = doCartItemAjax(orderJSON.Products[i]);
                 var itemQty = response.quantity;
                 var rowCount = orderItemsTable.insertRow(i+1);
                 var itemNameCell  = rowCount.insertCell(0);
                     itemNameCell.className = "item-name";
-                    itemNameCell.style= "overflow: hidden; text-overflow: ellipsis";
-                    itemNameCell.innerHTML = response.itemName;
+                    var a = document.createElement('a');
+                    a.type="button";
+                   
+                    a.href="";
+                    a.value = "sample";
+                    var img = document.createElement('img');
+                    img.src ="../styles/img/icons/remove-item.png";
+                    img.className="delete-icon";
+                    a.appendChild(img);
+                    itemNameCell.style = "overflow: hidden; text-overflow: ellipsis";
+                    itemNameCell.appendChild(a);
+                    itemNameCell.innerHTML += response.itemName;
+                    
 
                 var itemQtyCell   = rowCount.insertCell(1);
                     itemQtyCell.className = "item-qty";
@@ -117,8 +134,6 @@ function doCartItemAjax(cartItemId){
             var customUnitPrice = (percentage * response.productUnitPrice);
 
             var quantity        = response.quantity;
-
-
             var totalPrice      =  quantity * response.productUnitPrice  * percentage;
 
 

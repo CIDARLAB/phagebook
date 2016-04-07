@@ -278,5 +278,31 @@ function exportCSVHandler(){
 
 function editButtonHandler(){
     var orderId = this.value;
-    alert(orderId);
+    
+    var editBtn = this;
+    var orderCard = this.parentElement.parentElement; //to get to the order card
+    var removeItemIcon = orderCard.querySelector(".item-name img");
+    var items = orderCard.getElementsByClassName('item-name');
+    
+    
+ 
+    if (editBtn.innerText == "Edit") {
+        editBtn.innerText = "Save";
+        editBtn.style.color = "#FFFFFF";
+        for (var i = 0; i < items.length; i++){
+            items[i].querySelector(".delete-icon").style.display = "inline-block";
+        }
+        var orderNickname = orderCard.querySelector(".order-nickname");
+        orderNickname.disabled = false;
+        orderNickname.style.border = "0.25 solid";
+    }
+    else {
+        editBtn.innerText = "Edit";
+        
+        for (var i = 0; i < items.length; i++){
+            items[i].querySelector(".delete-icon").style.display = "none";
+        }
+        var orderNickname = orderCard.querySelector(".order-nickname");
+        orderNickname.disabled = true;
+    }
 }
