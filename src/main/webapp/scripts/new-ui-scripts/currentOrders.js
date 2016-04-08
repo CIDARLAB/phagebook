@@ -1,5 +1,5 @@
 $(document).ready(function() {
-
+    var user = getCookie("clothoId");
     var timerVal;
     $("#productNameToSearch").keypress( keyPressHandler );
 
@@ -100,7 +100,7 @@ $(document).ready(function() {
         }
     }
 
-    var user = getCookie("clothoId");
+
     //clotho ID of logged in user...
 
     $.ajax({
@@ -161,6 +161,33 @@ $(document).ready(function() {
             alert(response.responseJSON.message);
         }
     });
+
+
+    $(".delete-product-button").click( function () {
+
+        alert(this.name);
+
+        $.ajax({
+            //do this for projects...
+            url: "../removeProductsFromOrder",
+            type: "GET",
+            async: false,
+            data: {
+                "user": user
+            },
+            success: function (response) {
+
+            },
+            error: function (response) {
+                alert(response.responseJSON.message);
+
+
+            }
+        });
+        return false;
+
+    });
+
 
 
     $("#add-to-order-btn").click( function (){
@@ -275,6 +302,8 @@ function exportCSVHandler(){
     alert(orderId);
 
 }
+
+
 
 function editButtonHandler(){
     var orderId = this.value;
