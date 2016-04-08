@@ -1623,7 +1623,10 @@ public class ClothoAdapter {
     public static Product         getProduct(String id, Clotho clothoObject)
     {
         Map productMap = (Map) clothoObject.get(id);
-        Product product = mapToProduct(productMap, clothoObject);
+        Product product = new Product();
+        if (productMap != null){
+        product = mapToProduct(productMap, clothoObject);
+        }
         return product;   
     }
     /**
@@ -1696,7 +1699,10 @@ public class ClothoAdapter {
     public static Vendor          getVendor(String id, Clotho clothoObject)
     {
         Map companyMap = (Map) clothoObject.get(id);
-        Vendor company = mapToVendor(companyMap, clothoObject);
+        Vendor company = new Vendor();
+        if (companyMap != null){
+            company = mapToVendor(companyMap, clothoObject);
+        }
         return company;
     }
     // </editor-fold>
@@ -3250,7 +3256,7 @@ public class ClothoAdapter {
     }
     private static Product       mapToProduct(Map map, Clotho clothoObject)
     {
-        if (map != null){
+        
         String name = "";
         if (map.containsKey("name")){ name = (String) map.get("name"); }
         
@@ -3298,9 +3304,8 @@ public class ClothoAdapter {
         product.setGoodType(goodType);
         
         product.setId(id);
-        }
-        Product product = new Product();
-        product.setId("");
+        
+        
         
         return product;
         

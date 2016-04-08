@@ -61,9 +61,10 @@ function createOrderCard(orderJSON) {
                     itemNameCell.className = "item-name";
                     var a = document.createElement('a');
                     a.type="button";
-                   
-                    a.href="";
-                    a.value = "sample";
+                    a.className ="delete-product-button";
+                    a.href ="";
+                    a.name = orderJSON.Products[i];
+
                     var img = document.createElement('img');
                     img.src ="../styles/img/icons/remove-item.png";
                     img.className="delete-icon";
