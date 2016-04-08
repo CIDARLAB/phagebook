@@ -36,7 +36,7 @@ $(document).ready(function() {
                 success: function (response) {
 
                     var table = $("#product-result-table");
-                    table.empty();
+                    table.find("tr:gt(0)").remove();
 
                     for (var i = 0; i < response.length; i++) {
 
@@ -85,8 +85,17 @@ $(document).ready(function() {
                             quantity.appendChild(quantityTableData);
 
                         tr.appendChild(quantity);
-
+                        var discount = document.createElement("td");
+                            var discountTableData = document.createElement("input");
+                                discountTableData.type = "number";
+                                discountTableData.name = "discount";
+                                discountTableData.placeholder = 1;
+                                discountTableData.value = 1;
+                            discount.appendChild(discountTableData);
+                        tr.appendChild(discount);
                         table.append(tr);
+
+
 
                     }
 
@@ -151,7 +160,7 @@ $(document).ready(function() {
 
             }
             $('.submit-order-btn').click(submitButtonHandler);
-            $('.delete-order-btn').click(deleteButtonHandler);
+            $('.delete-order-btn').click({user:user},deleteButtonHandler);
             $('.export-csv-btn').click(exportCSVHandler);
             $('.edit-order-btn').click(editButtonHandler);
 
@@ -163,20 +172,23 @@ $(document).ready(function() {
     });
 
 
-    $(".delete-product-button").click( function () {
+    $(".delete-icon").click( function () {
 
-        alert(this.name);
+
 
         $.ajax({
             //do this for projects...
             url: "../removeProductsFromOrder",
-            type: "GET",
+            type: "POST",
             async: false,
             data: {
-                "user": user
+                "user": user,
+                "cartItem": this.name,
+                "orderId": this.parentNode.name
             },
             success: function (response) {
-
+                alert(response.message);
+                window.location.href = "";
             },
             error: function (response) {
                 alert(response.responseJSON.message);
@@ -184,6 +196,8 @@ $(document).ready(function() {
 
             }
         });
+
+
         return false;
 
     });
@@ -203,13 +217,14 @@ $(document).ready(function() {
             var checkbox  = tableRowKids[0].childNodes[0]; // this is the checkbox
             var unitPrice = tableRowKids[3].innerHTML.slice(12); //removes the UNIT PRICE string
             var quantity  = tableRowKids[4].childNodes[0];
+            var discount  = tableRowKids[5].childNodes[0];
 
             if (checkbox.checked){
 
                 var cartItemJSON = {};
                 cartItemJSON["productId"] = checkbox.value;
                 cartItemJSON["quantity"]  = quantity.value;
-                cartItemJSON["discount"]  = 100;
+                cartItemJSON["discount"]  = discount.value;
                 productsToAdd.push(cartItemJSON);
 
             }
@@ -261,11 +276,33 @@ function removeOptions(selectbox)
     }
 }
 
-function deleteButtonHandler(){
+function deleteButtonHandler(event){
 
     var orderId = this.value;
 
-    alert(orderId);
+    if (confirm("Really delete this order?")) {
+
+        $.ajax({
+            url: '../deleteOrder',
+            type: 'POST',
+            dataType: 'JSON',
+            async: false,
+            data: {
+                "user": event.data.user,
+                "orderId": orderId
+            },
+            success: function (response) {
+                alert(response.message);
+                window.location.href = ""; //refreshes page
+            },
+            error: function (response) {
+                alert(response.message);
+                window.location.href = ""; //refreshes page
+            }
+        });
+    }else {
+        //do nothing
+    }
 
 }
 

@@ -648,10 +648,18 @@ h3 {
     float: right;
 }
 
+.submit-order-btn:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+
+}
+
 .submit-order-btn:hover {
     background-color: #31A16F;
     color: #FFFFFF;
 }
+
+
 
 td {
     border: none !important;

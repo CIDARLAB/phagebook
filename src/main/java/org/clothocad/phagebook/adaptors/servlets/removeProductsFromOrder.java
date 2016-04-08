@@ -83,10 +83,6 @@ public class removeProductsFromOrder extends HttpServlet {
         Object pCartItems = request.getParameter("cartItem");
         String cartItem = pCartItems != null ? (String) pCartItems: "";
         
-        //DIRECT ASSUMPTION THAT CART ITEMS IS THE ID OF A CART ITEM
-        
-        //
-       
         
         Object pOrderId = request.getParameter("orderId");
         String orderId = pOrderId != null ? (String) pOrderId: "";
@@ -116,6 +112,7 @@ public class removeProductsFromOrder extends HttpServlet {
                
                     
                     if (cartItemsInOrder.contains(cartItem)){ //they key exists in the map 
+     
                         //remove that specific Cart Item.
                         CartItem cItem = ClothoAdapter.getCartItem(cartItem, clothoObject);
                         int quantity = cItem.getQuantity();
@@ -124,25 +121,22 @@ public class removeProductsFromOrder extends HttpServlet {
                         product.increaseInventory(quantity);
 
                         ClothoAdapter.setProduct(product, clothoObject); //increase inventory for that product
-
+                       
                     
                         //DON'T KNOW HOW TO DELETE FROM CLOTHO...
                         //will unlink though from the cart item map...
-                       cartItemsInOrder.remove(cartItem);
-
+                        cartItemsInOrder.remove(cartItem);
+                   
+                       
+                        ord.setProducts(cartItemsInOrder); // set the new cart item map with the ones we don't want nixed
+                        ClothoAdapter.setOrder(ord, clothoObject);
 
 
                     }
 
                 }
 
-                ord.setProducts(cartItemsInOrder); // set the new cart item map with the ones we don't want nixed
-                ClothoAdapter.setOrder(ord, clothoObject);
-
-            
-            
-            
-            
+              
             response.setContentType("application/json");
             response.setStatus(HttpServletResponse.SC_OK);
             JSONObject responseJSON = new JSONObject();

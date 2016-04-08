@@ -1,4 +1,6 @@
 function createOrderCard(orderJSON) {
+
+
     var content = document.getElementById('content');
     var tmpl = document.getElementById('order-card-template').content.cloneNode(true);
 
@@ -63,11 +65,12 @@ function createOrderCard(orderJSON) {
                     a.type="button";
                     a.className ="delete-product-button";
                     a.href ="";
-                    a.name = orderJSON.Products[i];
+                    a.name = orderJSON.ClothoId;
 
                     var img = document.createElement('img');
                     img.src ="../styles/img/icons/remove-item.png";
                     img.className="delete-icon";
+                    img.name = orderJSON.Products[i];
                     a.appendChild(img);
                     itemNameCell.style = "overflow: hidden; text-overflow: ellipsis";
                     itemNameCell.appendChild(a);
@@ -97,13 +100,19 @@ function createOrderCard(orderJSON) {
        var tr=  document.createElement('tr');
         tr.innerHTML = "There are currently no items in this order";
         tr.className += "no-items-message";
+        tmpl.querySelector('.submit-order-btn').disabled = true;
 
         orderItemsTable.appendChild(tr);
     }
 
     tmpl.querySelector('.total-before-tax-value').innerText = "$" + totalBeforeTax;
     tmpl.querySelector('.tax-value').innerText = "$"+ (TAX * totalBeforeTax) ;
+    if (orderJSON.Budget < ( (TAX * totalBeforeTax) + totalBeforeTax)){
+        tmpl.querySelector('.total-after-tax-value').style = "color: red";
+        tmpl.querySelector('.submit-order-btn').disabled = true;
+    }
     tmpl.querySelector('.total-after-tax-value').innerText = "$" + ( (TAX * totalBeforeTax) + totalBeforeTax);
+
 
 
 
@@ -119,6 +128,7 @@ function createOrderCard(orderJSON) {
 
 function doCartItemAjax(cartItemId){
     var responseObject = {};
+
     $.ajax({
         //do this for projects...
         url: "../parseCartItem",
