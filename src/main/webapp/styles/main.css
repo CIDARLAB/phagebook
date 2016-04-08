@@ -343,9 +343,9 @@ body {
 
 #header-btn-toolbar{
     margin-top: 20px;
-    margin-left: 900px;
-    float: right;
-    position: relative;
+    margin-left: 1020px;
+    float: right !important;
+    position: absolute;
 }
 
 h3 {
@@ -443,7 +443,7 @@ h3 {
 
 .navbar-brand {
     float: left;
-    margin-top: 8px;
+    margin-top: -2px;
 }
 
 .navbar .divider-vertical {
