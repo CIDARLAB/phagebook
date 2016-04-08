@@ -32,8 +32,15 @@ function profileCtrl($scope, $window) {
                 success: function (response) {
                     
                     var ul = $("#search-colleagues-list");
+
                     ul.empty();
+
+
                     for (var i = 0; i < response.length; i++){
+                        var tmpl = document.getElementById('order-card-template').content.cloneNode(true);
+                        tmpl.querySelector(".colleague-name").text = response[i].fullname;
+                        tmpl.querySelector(".main-lab").innerHTML  = response[i].mainLab;
+                        /*
                         var li = document.createElement("li");
                         var img = $('<img id="dynamic">');
                         img.attr('src', "../styles/img/mis/johan-pro-pic.jpg");
@@ -57,6 +64,8 @@ function profileCtrl($scope, $window) {
                          
                         li.setAttribute('class', 'list-group-item');
                         ul.append(li);
+                        */
+                        ul.appendChild(tmpl);
                     }
                 },
                 error: {

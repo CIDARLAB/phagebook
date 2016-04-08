@@ -4,6 +4,10 @@
         <servlet-name>uploadVendorCSV</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.uploadVendorCSV</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>deleteOrder</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.deleteOrder</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>uploadVendorCSV</servlet-name>
         <url-pattern>/uploadVendorCSV</url-pattern>
@@ -23,13 +27,11 @@
     <servlet>
         <servlet-name>processOrder</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.processOrder</servlet-class>
-      
     </servlet>
     <servlet>
         <servlet-name>verifyEmail</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.verifyEmail</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>resendVerification</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.resendVerification</servlet-class>
@@ -142,7 +144,6 @@
         <servlet-name>createLab</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.createLab</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>addProducts</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.AddProducts</servlet-class>
@@ -151,7 +152,6 @@
         <servlet-name>addProducts</servlet-name>
         <url-pattern>/addProducts</url-pattern>
     </servlet-mapping>
-   
     <servlet>
         <servlet-name>newOrder</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.newOrder</servlet-class>
@@ -323,5 +323,9 @@
     <servlet-mapping>
         <servlet-name>createLab</servlet-name>
         <url-pattern>/createLab</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deleteOrder</servlet-name>
+        <url-pattern>/deleteOrder</url-pattern>
     </servlet-mapping>
 </web-app>

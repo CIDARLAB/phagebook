@@ -733,7 +733,7 @@ h3 {
     float: right;
 }
 
-.submit-order-btn[disabled] {
+.submit-order-btn:disabled {
     opacity: 0.65;
     cursor: not-allowed;
 }

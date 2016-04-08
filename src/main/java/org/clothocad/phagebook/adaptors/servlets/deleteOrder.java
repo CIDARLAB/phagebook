@@ -19,17 +19,14 @@ import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.model.Person;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
-import org.clothocad.phagebook.dom.CartItem;
 import org.clothocad.phagebook.dom.Order;
-import org.clothocad.phagebook.dom.Product;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
  *
  * @author Herb
  */
-public class removeProductsFromOrder extends HttpServlet {
+public class deleteOrder extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,7 +39,7 @@ public class removeProductsFromOrder extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -73,27 +70,19 @@ public class removeProductsFromOrder extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         
-        //I WILL BE GETTING A JSON ARRAY OF CART ITEM IDS THAT I NEED TO REMOVE FROM AN ORDER
-        //AND A USER NAME THAT IS ASSOCIATED WITH THAT ORDER
-        //AND THAT ORDER ID.
-        
         Object pUser = request.getParameter("user");
         String user = pUser != null ? (String) pUser: "";
-        
-        Object pCartItems = request.getParameter("cartItem");
-        String cartItem = pCartItems != null ? (String) pCartItems: "";
         
         
         Object pOrderId = request.getParameter("orderId");
         String orderId = pOrderId != null ? (String) pOrderId: "";
         
         boolean isValid = false;
-        if (!user.equals("")&& !cartItem.equals("") && !orderId.equals("")){
+        if (!user.equals("") && !orderId.equals("")){
             isValid = true;
         }
         
         if (isValid){
-            
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
             String username = "phagebook";
@@ -104,57 +93,49 @@ public class removeProductsFromOrder extends HttpServlet {
             clothoObject.login(loginMap);
             
             Person userP = ClothoAdapter.getPerson(user, clothoObject);
-            Order ord = ClothoAdapter.getOrder(orderId, clothoObject);
-            List<String> cartItemsInOrder = ord.getProducts(); //CART ITEM ID 
-           
-            if (ord.getCreatedById().equals(userP.getId()) || ord.getReceivedByIds().contains(userP.getId())){
-                
-               
-                    
-                    if (cartItemsInOrder.contains(cartItem)){ //they key exists in the map 
      
-                        //remove that specific Cart Item.
-                        CartItem cItem = ClothoAdapter.getCartItem(cartItem, clothoObject);
-                        int quantity = cItem.getQuantity();
-
-                        Product product = ClothoAdapter.getProduct(cItem.getProductId(), clothoObject);
-                        product.increaseInventory(quantity);
-
-                        ClothoAdapter.setProduct(product, clothoObject); //increase inventory for that product
-                       
-                    
-                        //DON'T KNOW HOW TO DELETE FROM CLOTHO...
-                        //will unlink though from the cart item map...
-                        cartItemsInOrder.remove(cartItem);
-                   
-                       
-                        ord.setProducts(cartItemsInOrder); // set the new cart item map with the ones we don't want nixed
-                        ClothoAdapter.setOrder(ord, clothoObject);
-
-
-                    }
-
-                }
-
-              
+            
+            List<String> userCreatedOrders = userP.getCreatedOrders();
+            
+            if (userCreatedOrders.contains(orderId)){
+                userCreatedOrders.remove(orderId);
+                userP.setCreatedOrders(userCreatedOrders);
+                
+                
+                
+                
+                clothoObject.logout();
+                ClothoAdapter.setPerson(userP, clothoObject);
+                response.setContentType("application/json");
+                response.setStatus(HttpServletResponse.SC_OK);
+                JSONObject responseJSON = new JSONObject();
+                responseJSON.put("message", "Order deleted");
+                PrintWriter out = response.getWriter();
+                out.print(responseJSON);
+                out.flush();
+            } else{
+            
             response.setContentType("application/json");
             response.setStatus(HttpServletResponse.SC_OK);
             JSONObject responseJSON = new JSONObject();
-            responseJSON.put("message", "Order should be updated, please verify");
+            responseJSON.put("message", "Order not found for this user");
             PrintWriter out = response.getWriter();
             out.print(responseJSON);
             out.flush();
+            }
             
-        }else 
-        {
+        } else {
             response.setContentType("application/json");
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             JSONObject responseJSON = new JSONObject();
-            responseJSON.put("message", "missing servlet parameters");
+            responseJSON.put("message", "Missing Parameters");
             PrintWriter out = response.getWriter();
             out.print(responseJSON);
             out.flush();
         }
+        
+        
+        
     }
 
     /**
