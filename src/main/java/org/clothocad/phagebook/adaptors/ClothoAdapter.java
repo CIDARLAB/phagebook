@@ -2148,12 +2148,13 @@ public class ClothoAdapter {
                 //map.put("query", "Tel"); // the value for which we are querying.
                 // map.put("key", "name"); // the key of the object we are querying
                 queryResults = (JSONArray) clothoObject.startsWith(query); 
-                
-                for (Object queryResult : queryResults){
-                    if ( ((Map) queryResult).containsKey("schema")){
-                        String schema = (String) ((Map) queryResult).get("schema");
-                        if ( schema.equals(Person.class.getCanonicalName())){
-                            people.add(ClothoAdapter.getPerson ( (String) ((Map) queryResult).get("id") , clothoObject));
+                if (queryResults != null){
+                    for (Object queryResult : queryResults){
+                        if ( ((Map) queryResult).containsKey("schema")){
+                            String schema = (String) ((Map) queryResult).get("schema");
+                            if ( schema.equals(Person.class.getCanonicalName())){
+                                people.add(ClothoAdapter.getPerson ( (String) ((Map) queryResult).get("id") , clothoObject));
+                            }
                         }
                     }
                 }
@@ -2163,10 +2164,11 @@ public class ClothoAdapter {
             case EXACT:
                 query.put("schema", Person.class.getCanonicalName());
                 queryResults = (JSONArray) clothoObject.query(query);
-        
-                for (Object queryResult : queryResults)
-                {
-                    people.add(mapToPerson( (Map) queryResult, clothoObject));
+                if (queryResults != null){
+                    for (Object queryResult : queryResults)
+                    {
+                        people.add(mapToPerson( (Map) queryResult, clothoObject));
+                    }
                 }
                 
                 break;
