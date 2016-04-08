@@ -78,6 +78,10 @@ a:hover {
     font-size: 14px;
 }
 
+#add-labs-and-pis {
+    margin: 50px 0px 0px 70px;
+}
+
 #add-publication-btn {
     font-family: "Open Sans", sans-serif;
     font-weight: 400;
@@ -295,6 +299,7 @@ body {
 .edit-order-btn:hover {
     background-color: #89C176;
     border: none;
+    color: #FFFFFF;
 }
 
 #edit-profile-btn {
@@ -339,6 +344,10 @@ body {
 
 #gear-icon {
     height: 25px;
+}
+
+#general-account-settings {
+    margin: 50px 0px 0px 70px;
 }
 
 #header-btn-toolbar{
@@ -405,6 +414,29 @@ h3 {
 #list-colleagues li p {
     font-size: 11px;
     line-height: 10px;
+}
+
+.list-group-horizontal .list-group-item {
+    display: inline-block;
+    background-color: transparent;
+    padding: 30px 20px 20px 40px;
+    margin-bottom: 0;
+    margin-right: 0;
+    width: 300px;
+}
+
+.list-group-horizontal .list-group-item:hover {
+    background-color: #D9D9D9;
+}
+
+.list-group-horizontal .list-group-item:first-child {
+    border-top-right-radius:0;
+    border-bottom-left-radius:4px;
+}
+
+.list-group-horizontal .list-group-item:last-child {
+    border-top-right-radius:4px;
+    border-bottom-left-radius:0;
 }
 
 #load-more-btn {
@@ -511,6 +543,50 @@ h3 {
     float: right;
 }
 
+#pi-full-list {
+    display: inline;
+}
+
+#pi-full-list a {
+    color: #1E714A;
+    font-weight: 400;
+    float: left;
+ }
+
+#pi-full-list li {
+    margin-left: 50px;
+    height: 102px;
+    width: 450px;
+}
+
+#pi-full-list li div {
+    float: left;
+    margin-top: 5px;
+}
+
+#pi-full-list li div p {
+    text-align: left;
+    line-height: 10px;
+    clear: both;
+}
+
+#pi-full-list li img {
+    margin-top: -20px;
+    margin-left: -30px;
+    height: 100px;
+    float: left;
+}
+
+#pi-full-list li input {
+    float: right;
+    transform: scale(1.5);
+}
+
+#pi-results {
+    overflow:auto;
+    height:200px;
+}
+
 #product-result-table tr td {
     vertical-align: middle;
 }
@@ -520,6 +596,10 @@ h3 {
     overflow-x: hidden;
     margin-top: 130px;
     margin-left: 400px;
+}
+
+#profile-account-settings {
+    margin: 50px 0px 0px 70px;
 }
 
 #profile-header {
@@ -601,6 +681,11 @@ h3 {
     line-height: 10px;
 }
 
+#search-pi-list li {
+    width: 750px;
+    margin-bottom: 20px;
+}
+
 #search-products {
     margin-top: 20px;
 }
@@ -646,6 +731,11 @@ h3 {
     background-color: #1E714A; 
     border: none;
     float: right;
+}
+
+.submit-order-btn[disabled] {
+    opacity: 0.65;
+    cursor: not-allowed;
 }
 
 .submit-order-btn:hover {
