@@ -37,10 +37,7 @@ $(document).ready(function () {
              
         }
     });
-    
-        
-        
-   
+
     $.ajax({
         url: "../loadPhagebookInstitutions",
         type: "GET",
@@ -81,6 +78,7 @@ $(document).ready(function () {
             alert("No Institutions To Load");
         }
     });
+
     $('#createProfile').click(function () {
 
         var isValid = 1;
@@ -179,9 +177,6 @@ $(document).ready(function () {
 
 });
 
-
-
-
 function checkPasswordMatch() {
     var password = $("#password").val();
     var confirmPassword = $("#reenterPassword").val();
@@ -202,8 +197,7 @@ function isEmpty(el) {
     return !$.trim(el.html());
 }
 
-function removeOptions(selectbox)
-{
+function removeOptions(selectbox) {
     var i;
     for(i=selectbox.options.length-1;i>=0;i--)
     {

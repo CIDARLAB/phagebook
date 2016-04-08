@@ -139,31 +139,29 @@
                             <a href="" data-toggle="modal" data-target="#add-modal"><h4>Add PI</h4></a>
                             <p>Add a principal investigator to an existing lab.</p>
                         </div>
-                        <div class="modal fade" id="add-modal" tabindex="-1" role="dialog" aria-labelledby="add-remove-label" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
+                        <div class="modal fade bs-example-modal-lg" id="add-modal" tabindex="-1" role="dialog" aria-labelledby="add-remove-label" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
-                                        <h4 class="modal-title" id="add-remove-label">Add and Remove Principal Investigators</h4>
+                                        <h4 class="modal-title" id="add-remove-label">Add Principal Investigators</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <p>Select an institution and lab to view its current PIs.</p>
                                         <br>
-                                        <div class="form-group row">
-                                            <label for="institution-drop-down" class="col-sm-2 form-control-label">INSTITUTIONS</label>
-                                            <div class="col-sm-4">
-                                                <select class="form-control" id="institution-drop-down">
-                                                <option>...</option>
-                                                </select>
+                                        <p>Search for users by entering their first or last name and select the individuals you'd like to add to a lab.</p>
+                                        <br>
+                                        <div class="form-group row" id="search-colleagues">
+                                            <label for="search-first-name" class="col-sm-2 form-control-label">FIRST NAME</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" id="search-first-name">
                                             </div>
-                                            <label for="pi-lab-results" class="col-sm-2 form-control-label">LAB NAME</label>
-                                            <div class="col-sm-4">
-                                                <select class="form-control" id="pi-lab-results">
-                                                <option>...</option>
-                                                </select>
+                                            <label for="search-last-name" class="col-sm-2 form-control-label">LAST NAME</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" id="search-last-name">
                                             </div>
+                                            <button id="search-colleagues-btn" type="submit" class="btn btn-lg">Search</button>
                                         </div>
                                         <br>
                                         <div id="pi-results">
@@ -171,7 +169,7 @@
                                                 <li class="list-group-item col-sm-5">
                                                     <img alt="Kristel Tan" src="../styles/img/mis/kristel-tan-pro-pic.jpg">
                                                     <div>
-                                                        <a href="#"><p>Kristel Tan</p></a>
+                                                        <a href=""><p>Kristel Tan</p></a>
                                                         <p>CIDAR Lab</p>
                                                         <p>Boston University</p>
                                                     </div>
@@ -180,7 +178,7 @@
                                                 <li class="list-group-item col-sm-5">
                                                     <img alt="Kristel Tan" src="../styles/img/mis/kristel-tan-pro-pic.jpg">
                                                     <div>
-                                                        <a href="#"><p>Kristel Tan</p></a>
+                                                        <a href=""><p>Kristel Tan</p></a>
                                                         <p>CIDAR Lab</p>
                                                         <p>Boston University</p>
                                                     </div>
@@ -189,9 +187,23 @@
                                             </ul>
                                         </div>
                                     </div>
+                                    <br><br>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                        <div class="form-group row">
+                                            <label for="institution-drop-down" class="col-sm-2 form-control-label">INSTITUTIONS</label>
+                                            <div class="col-sm-3">
+                                                <select class="form-control" id="institution-drop-down">
+                                                    <option>...</option>
+                                                </select>
+                                            </div>
+                                            <label for="pi-lab-results" class="col-sm-2 form-control-label">LAB NAME</label>
+                                            <div class="col-sm-3">
+                                                <select class="form-control" id="pi-lab-results">
+                                                    <option>...</option>
+                                                </select>
+                                            </div>
+                                            <button id="add-to-lab-btn" type="button" class="btn btn-primary">Add to Lab</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -199,8 +211,66 @@
                         <div class="list-group-item">
                             <img alt="Remove PI" src="../styles/img/icons/remove-pi.svg" style="height:50px; float:left; margin-right:20px;">
                             <br>
-                            <a href="" data-toggle="modal" data-target="#add-modal"><h4>Remove PI</h4></a>
+                            <a href="" data-toggle="modal" data-target="#remove-modal"><h4>Remove PI</h4></a>
                             <p>Remove a principal investigator from an existing lab.</p>
+                        </div>
+                        <div class="modal fade bs-example-modal-lg" id="remove-modal" tabindex="-1" role="dialog" aria-labelledby="add-remove-label" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        <h4 class="modal-title" id="remove-label">Remove Principal Investigators</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <br>
+                                        <p>Select an institution and lab to load its existing PIs.</p>
+                                        <br>
+                                        <div class="form-group row">
+                                            <label for="institution-drop-down" class="col-sm-2 form-control-label">INSTITUTIONS</label>
+                                            <div class="col-sm-3">
+                                                <select class="form-control" id="institution-drop-down">
+                                                    <option>...</option>
+                                                </select>
+                                            </div>
+                                            <label for="pi-lab-results" class="col-sm-2 form-control-label">LAB NAME</label>
+                                            <div class="col-sm-3">
+                                                <select class="form-control" id="pi-lab-results">
+                                                    <option>...</option>
+                                                </select>
+                                            </div>
+                                            <button id="go-btn" type="button" class="btn btn-primary">Go</button>
+                                        </div>
+                                        <div id="pi-results">
+                                            <ul class="list-inline list-group" id="pi-full-list">
+                                                <li class="list-group-item col-sm-5">
+                                                    <img alt="Kristel Tan" src="../styles/img/mis/kristel-tan-pro-pic.jpg">
+                                                    <div>
+                                                        <a href=""><p>Kristel Tan</p></a>
+                                                        <p>CIDAR Lab</p>
+                                                        <p>Boston University</p>
+                                                    </div>
+                                                    <input type="checkbox">
+                                                </li>
+                                                <li class="list-group-item col-sm-5">
+                                                    <img alt="Kristel Tan" src="../styles/img/mis/kristel-tan-pro-pic.jpg">
+                                                    <div>
+                                                        <a href=""><p>Kristel Tan</p></a>
+                                                        <p>CIDAR Lab</p>
+                                                        <p>Boston University</p>
+                                                    </div>
+                                                    <input type="checkbox">
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="modal-footer">
+                                        <button id="remove-pi-btn" type="button" class="btn btn-primary">Remove</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="list-group-item">
                             <img alt="Create New Lab" src="../styles/img/icons/create-new-lab.svg" style="height:50px; float:left; margin-right:20px;">
@@ -229,37 +299,8 @@
                         </div>
                     </div>
                 </div>
-                <!--<form id="add-labs-and-pis">-->
-                    <!--<div class="form-group row">-->
-                        <!--<label for="institution-drop-down" class="col-sm-2 form-control-label">INSTITUTIONS</label>-->
-                        <!--<div class="col-sm-8">-->
-                            <!--<select class="form-control" id="institution-drop-down">-->
-                                <!--<option>...</option>-->
-                            <!--</select>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="form-group row">-->
-                        <!--<label for="pi-lab-results" class="col-sm-2 form-control-label">LAB NAME</label>-->
-                        <!--<div class="col-sm-8">-->
-                            <!--<select class="form-control col-sm-8" id="pi-lab-results" >-->
-                                <!--<option>...</option>-->
-                            <!--</select>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="form-group-row">-->
-                        <!--<div class="col-sm-8">-->
-                           <!--<button class="form-control"> ADD PI's </button>-->
-                        <!--</div>-->
-                        <!--<div class="col-sm-8">-->
-                            <!--<button class="form-control"> ADD LAB </button>-->
-                        <!--</div>-->
-                        <!--<div class="col-sm-8">-->
-                            <!--<button class="form-control" id="load-pis"> LOAD PIs </button>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</form>-->
                 </div>
-                <br> <br>
+                <br><br>
                 <footer></footer>
             </div>
         </div>
