@@ -1,9 +1,5 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+
 <html>
     
 <head>
@@ -29,7 +25,6 @@ and open the template in the editor.
             margin-left: 26%;
             margin-top: 130px;
             margin-bottom: 150px;
-            overflow-y: scroll;
             overflow-x: hidden;
             z-index: inherit;
         }
@@ -72,16 +67,26 @@ and open the template in the editor.
                             <div class="modal-body" id="add-items-modal">
                                 <p>Search for products by typing their name and select which products you would like to add to a specific order.</p>
                                 <div class="form-group row" id="search-products">
-                                    <label for="productNameToSearch" class="col-sm-3 form-control-label">PRODUCT SEARCH</label>
+                                    <label for="productNameToSearch" class="col-sm-2 form-control-label">SEARCH BY</label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control" id="productNameToSearch">
+                                        <input type="text" class="form-control" id="productNameToSearch" placeholder="Product name">
                                     </div>
-                                    <button id="search-products-btn" type="submit" class="btn btn-lg">Search</button>
+                                    <div class="col-sm-1" style="font-weight:600;">OR</div>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" id="vendorNameToSearch" placeholder="Vendor name">
+                                    </div>
                                 </div>
                                 <br>
-                                <div id="productResults" style="overflow:auto; height:300px; overflow:auto;"">
+                                <div id="productResults" style="overflow:auto; height:300px; overflow:auto;">
                                     <table class="table" id="product-result-table">
-
+                                        <tr>
+                                            <td>Select</td>
+                                            <td></td>
+                                            <td>Product Name</td>
+                                            <td>Unit Price</td>
+                                            <td>Quantity</td>
+                                            <td>Discount</td>
+                                        </tr>
                                     </table>
                                 </div>
                                 <br><br>
@@ -99,21 +104,19 @@ and open the template in the editor.
                     </div>
                 </div>
             </div>
-        <template id = "order-card-template">
+        <template id="order-card-template">
             <div class="col-sm-9" style="margin-top: 20px">
                 <div class="panel panel-default" class="order-card">
                     <div class="panel-heading order-heading" style="height:60px">
                         <label class="col-xs-2 form-control-label" style="margin-top:10px">Order Name: </label>
                         <div class="col-sm-5" style="margin-left:-25px; margin-top:10px">
-                            <input type="text" class="order-nickname" name="type" disabled="disabled" value="CIDAR Lab Order #1"/>
+                            <input type="text" class="order-nickname" name="type" value="CIDAR Lab Order #1" disabled/>
                         </div>
-                        <button type="button" class="btn btn-default edit-order-btn">
-                            <img alt="Edit Order" src="../styles/img/icons/white-pencil.png" style="height:20px">
-                        </button>
+                        <button type="button" class="btn btn-default edit-order-btn">Edit</button>
                     </div>
                     <div class="panel-body order-top-panel">
                         <br>
-                        <p>Associated Project:&nbsp;<a class="order-project-name" href="#" style="color:#1E714A;">Project Name</a></p>
+                        <p>Associated Project:&nbsp;<a class="order-project-name" href="#" style="color:#1E714A;"></a></p>
                         <br>
                         <table class="table order-property-table">
                             <tr class="order-property-headers">
@@ -134,7 +137,7 @@ and open the template in the editor.
                             </tr>
                         </table>
                     </div>
-                    <table class="table table-bordered order-items-table">
+                    <table class="table order-items-table">
                         <tr class="order-items-headers">
                             <td>ITEM</td>
                             <td>QTY.</td>
@@ -142,10 +145,6 @@ and open the template in the editor.
                             <td>CUSTOM UNIT PRICE</td>
                             <td>TOTAL PRICE</td>
                         </tr>
-                        <tr>
-
-                        </tr>
-
                     </table>
                     <div class="panel-body order-bottom-panel">
                         <div id="order-buttons">
@@ -166,15 +165,15 @@ and open the template in the editor.
                         <table class="table order-totals-table">
                             <tr>
                                 <td>Total before tax:</td>
-                                <td class="total-before-tax-value">$887.76</td>
+                                <td class="total-before-tax-value"></td>
                             </tr>
                             <tr>
                                 <td>Tax:</td>
-                                <td class="tax-value">$62.14</td>
+                                <td class="tax-value"></td>
                             </tr>
                             <tr>
                                 <td>Grand Total:</td>
-                                <td class="total-after-tax-value">$949.90</td>
+                                <td class="total-after-tax-value"></td>
                             </tr>
                         </table>
                         <br>

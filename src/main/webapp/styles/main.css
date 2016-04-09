@@ -74,8 +74,18 @@ a:hover {
 }
 
 #add-items-modal label {
-    font-weight: 400;
+    font-weight: 600;
     font-size: 14px;
+}
+
+#add-labs-and-pis {
+    margin: 50px 0px 0px 70px;
+}
+
+#add-modal label {
+    font-weight: 600;
+    font-size: 14px;
+    color: #666666;
 }
 
 #add-publication-btn {
@@ -98,6 +108,23 @@ a:hover {
 #add-publication-btn:hover {
     background-color: #89C176;
     border: none;
+}
+
+#add-to-lab-btn {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    background-color: #9E9E9E;
+    color: #FFFFFF;
+    border-radius: 8px;
+    padding-right: 15px;
+    padding-left: 15px;
+    border: none;
+    float: left;
+}
+
+#add-to-lab-btn:hover {
+    background-color: #89C176;
 }
 
 #add-to-order-btn {
@@ -212,7 +239,7 @@ body {
 }
 
 #create-status-btn:hover {
-    background-color: #EC3C56;
+    background-color: #89C176;
     border: none;
 }
 
@@ -289,11 +316,13 @@ body {
     height: 40px;
     border-radius: 10px;
     border: none;
+    color: #FFFFFF;
 }
 
 .edit-order-btn:hover {
     background-color: #89C176;
     border: none;
+    color: #FFFFFF;
 }
 
 #edit-profile-btn {
@@ -340,11 +369,29 @@ body {
     height: 25px;
 }
 
+#general-account-settings {
+    margin: 50px 0px 0px 70px;
+}
+
+#go-btn {
+    font-size: 14px;
+    background: #1E714A;
+    color: #FFFFFF;
+    border-radius: 24px;
+    padding: 8px 25px 8px 25px;
+    border: none;
+}
+
+#go-btn:hover {
+    background: #31A16F;
+    color: #FFFFFF;
+}
+
 #header-btn-toolbar{
     margin-top: 20px;
-    margin-left: 900px;
-    float: right;
-    position: relative;
+    margin-left: 1020px;
+    float: right !important;
+    position: absolute;
 }
 
 h3 {
@@ -358,6 +405,11 @@ h3 {
 
 .item-name {
     text-align: left;
+}
+
+.item-name img {
+    margin-right:10px; 
+    display:none;
 }
 
 .item-qty {
@@ -401,6 +453,29 @@ h3 {
     line-height: 10px;
 }
 
+.list-group-horizontal .list-group-item {
+    display: inline-block;
+    background-color: transparent;
+    padding: 30px 20px 20px 40px;
+    margin-bottom: 0;
+    margin-right: 0;
+    width: 300px;
+}
+
+.list-group-horizontal .list-group-item:hover {
+    background-color: #D9D9D9;
+}
+
+.list-group-horizontal .list-group-item:first-child {
+    border-top-right-radius:0;
+    border-bottom-left-radius:4px;
+}
+
+.list-group-horizontal .list-group-item:last-child {
+    border-top-right-radius:4px;
+    border-bottom-left-radius:0;
+}
+
 #load-more-btn {
     color: #FFFFFF;
     background-color: #9E9E9E;
@@ -411,6 +486,11 @@ h3 {
 #load-more-btn:hover {
     background-color: #89C176;
     border-radius: 0px;
+}
+
+#add-modal .modal-footer {
+    padding-top: 30px;
+    padding-bottom: 0px;
 }
 
 #moreDropdown ul {
@@ -437,7 +517,7 @@ h3 {
 
 .navbar-brand {
     float: left;
-    margin-top: 8px;
+    margin-top: -2px;
 }
 
 .navbar .divider-vertical {
@@ -487,10 +567,6 @@ h3 {
     border: none;
 }
 
-.order-top-panel {
-    padding: 0px 0px 0px 40px;
-}
-
 .order-property-headers td {
     color: #1E714A;
     padding: 0px 0px 0px 0px;
@@ -500,9 +576,58 @@ h3 {
     padding: 0px 0px 0px 0px;
 }
 
+.order-top-panel {
+    padding: 0px 0px 0px 40px;
+}
+
 .order-totals-table {
     width: 200px;
     float: right;
+}
+
+#pi-full-list {
+    display: inline;
+}
+
+#pi-full-list a {
+    color: #1E714A;
+    font-weight: 400;
+    float: left;
+ }
+
+#pi-full-list li {
+    margin-left: 50px;
+    height: 102px;
+    width: 450px;
+}
+
+#pi-full-list li div {
+    float: left;
+    margin-top: -5px;
+}
+
+#pi-full-list li div p {
+    text-align: left;
+    line-height: 10px;
+    clear: both;
+}
+
+#pi-full-list li img {
+    margin-top: -30px;
+    margin-left: -40px;
+    height: 100px;
+    float: left;
+}
+
+#pi-full-list li input {
+    float: right;
+    transform: scale(1.5);
+    margin-top: -5px;
+}
+
+#pi-results {
+    overflow:auto;
+    height:200px;
 }
 
 #product-result-table tr td {
@@ -514,6 +639,10 @@ h3 {
     overflow-x: hidden;
     margin-top: 130px;
     margin-left: 400px;
+}
+
+#profile-account-settings {
+    margin: 50px 0px 0px 70px;
 }
 
 #profile-header {
@@ -561,6 +690,29 @@ h3 {
     line-height: 10px;
 }
 
+#remove-modal label {
+    font-weight: 600;
+    font-size: 14px;
+    color: #666666;
+}
+
+#remove-pi-btn {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    background-color: #CD344A;
+    color: #FFFFFF;
+    border-radius: 8px;
+    padding-right: 15px;
+    padding-left: 15px;
+    border: none;
+}
+
+#remove-pi-btn:hover {
+    background-color: #EC3C56;
+    color: #FFFFFF;
+}
+
 #search-colleagues {
     margin-top: 20px;
 }
@@ -571,6 +723,7 @@ h3 {
     color: #FFFFFF;
     border-radius: 24px;
     padding: 8px 25px 8px 25px;
+    border: none;
 }
 
 #search-colleagues-btn:hover {
@@ -593,6 +746,11 @@ h3 {
 #search-colleagues-list p {
     font-size: 11px;
     line-height: 10px;
+}
+
+#search-pi-list li {
+    width: 750px;
+    margin-bottom: 20px;
 }
 
 #search-products {
@@ -642,8 +800,14 @@ h3 {
     float: right;
 }
 
+.submit-order-btn:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
 .submit-order-btn:hover {
     background-color: #31A16F;
+    color: #FFFFFF;
 }
 
 td {

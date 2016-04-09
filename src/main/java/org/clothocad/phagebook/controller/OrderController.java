@@ -53,7 +53,6 @@ public class OrderController {
                 String name = list.getJSONObject(i).get("Name").toString();
                 String description = list.getJSONObject(i).get("Description").toString();
 
-
                 Vendor company; 
                 Map companyQuery = new HashMap();
                 companyQuery.put("name",companyName);
