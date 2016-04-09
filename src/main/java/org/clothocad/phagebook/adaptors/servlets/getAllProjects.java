@@ -146,7 +146,7 @@ public class getAllProjects extends HttpServlet {
             System.out.println( "membersNum is " + membersSize);
             System.out.println( "membersNames is " + members);
             System.out.println("members are: "+members);
-          
+
         }
         if(!(proj.getCreatorId().equals(""))){
           System.out.println("CREATOR ID ISN'T NULL!");

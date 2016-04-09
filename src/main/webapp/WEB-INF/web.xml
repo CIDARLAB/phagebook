@@ -152,7 +152,6 @@
         <servlet-name>createLab</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.createLab</servlet-class>
     </servlet>
-<<<<<<< HEAD
     <servlet>
         <servlet-name>getAllProjects</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.getAllProjects</servlet-class>
@@ -205,6 +204,14 @@
         <servlet-name>addUpdateToProject</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.addUpdateToProject</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>findMemberForNewProject</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.findMemberForNewProject</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>findMemberForNewProject</servlet-name>
+        <url-pattern>/findMemberForNewProject</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>editProject</servlet-name>
         <url-pattern>/editProject</url-pattern>
