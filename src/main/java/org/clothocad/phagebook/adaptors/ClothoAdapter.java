@@ -1072,7 +1072,9 @@ public class ClothoAdapter {
             map.put("goodType", product.getGoodType().toString());
         }
         
-        map.put("inventory", product.getInventory());
+        if (product.getInventory() != null){
+            map.put("inventory", product.getInventory());
+        }
         
         if (product.getName() != null) {
             if (!product.getName().isEmpty() && !product.getName().equals("Not Set"))
@@ -1082,6 +1084,10 @@ public class ClothoAdapter {
         if (product.getDescription() != null) {
             if (!product.getDescription().isEmpty() && !product.getDescription().equals("Not Set"))
                 map.put("description", product.getDescription());
+        }
+        if (product.getQuantity() != null) {
+           
+                map.put("quantity", product.getDescription());
         }
   
         if (product.getCompanyId() != null){
@@ -3283,6 +3289,11 @@ public class ClothoAdapter {
             inventory = (int) map.get("inventory");
         }
         
+        int quantity = 0;
+        if (map.containsKey("quantity")){
+            quantity = (int) map.get("quantity");
+        }
+        
         String id = "";
         if (map.containsKey("id")){  id = (String) map.get("id"); }
         
@@ -3299,6 +3310,7 @@ public class ClothoAdapter {
         product.setUnitPrice(cost);
         product.setDescription(description);
         product.setProductURL(productURL);
+        product.setQuantity(quantity);
         product.setGoodType(goodType);
         
         product.setId(id);
