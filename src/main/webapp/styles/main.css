@@ -82,6 +82,12 @@ a:hover {
     margin: 50px 0px 0px 70px;
 }
 
+#add-modal label {
+    font-weight: 600;
+    font-size: 14px;
+    color: #666666;
+}
+
 #add-publication-btn {
     font-family: "Open Sans", sans-serif;
     font-weight: 400;
@@ -102,6 +108,23 @@ a:hover {
 #add-publication-btn:hover {
     background-color: #89C176;
     border: none;
+}
+
+#add-to-lab-btn {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    background-color: #9E9E9E;
+    color: #FFFFFF;
+    border-radius: 8px;
+    padding-right: 15px;
+    padding-left: 15px;
+    border: none;
+    float: left;
+}
+
+#add-to-lab-btn:hover {
+    background-color: #89C176;
 }
 
 #add-to-order-btn {
@@ -216,7 +239,7 @@ body {
 }
 
 #create-status-btn:hover {
-    background-color: #EC3C56;
+    background-color: #89C176;
     border: none;
 }
 
@@ -350,6 +373,20 @@ body {
     margin: 50px 0px 0px 70px;
 }
 
+#go-btn {
+    font-size: 14px;
+    background: #1E714A;
+    color: #FFFFFF;
+    border-radius: 24px;
+    padding: 8px 25px 8px 25px;
+    border: none;
+}
+
+#go-btn:hover {
+    background: #31A16F;
+    color: #FFFFFF;
+}
+
 #header-btn-toolbar{
     margin-top: 20px;
     margin-left: 1020px;
@@ -449,6 +486,11 @@ h3 {
 #load-more-btn:hover {
     background-color: #89C176;
     border-radius: 0px;
+}
+
+#add-modal .modal-footer {
+    padding-top: 30px;
+    padding-bottom: 0px;
 }
 
 #moreDropdown ul {
@@ -561,7 +603,7 @@ h3 {
 
 #pi-full-list li div {
     float: left;
-    margin-top: 5px;
+    margin-top: -5px;
 }
 
 #pi-full-list li div p {
@@ -571,8 +613,8 @@ h3 {
 }
 
 #pi-full-list li img {
-    margin-top: -20px;
-    margin-left: -30px;
+    margin-top: -30px;
+    margin-left: -40px;
     height: 100px;
     float: left;
 }
@@ -580,6 +622,7 @@ h3 {
 #pi-full-list li input {
     float: right;
     transform: scale(1.5);
+    margin-top: -5px;
 }
 
 #pi-results {
@@ -647,6 +690,29 @@ h3 {
     line-height: 10px;
 }
 
+#remove-modal label {
+    font-weight: 600;
+    font-size: 14px;
+    color: #666666;
+}
+
+#remove-pi-btn {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    background-color: #CD344A;
+    color: #FFFFFF;
+    border-radius: 8px;
+    padding-right: 15px;
+    padding-left: 15px;
+    border: none;
+}
+
+#remove-pi-btn:hover {
+    background-color: #EC3C56;
+    color: #FFFFFF;
+}
+
 #search-colleagues {
     margin-top: 20px;
 }
@@ -657,6 +723,7 @@ h3 {
     color: #FFFFFF;
     border-radius: 24px;
     padding: 8px 25px 8px 25px;
+    border: none;
 }
 
 #search-colleagues-btn:hover {
