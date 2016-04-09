@@ -54,30 +54,30 @@
 
     <body>
 
-        <div ng-app="addVendorsAndProducts">
-            <div ng-controller="addVendorsAndProductsCtrl">
+        <div ng-app="currentOrders">
+            <div ng-controller="currentOrdersCtrl">
                 <header></header>
                 <div class="container" id="content">
-                    <h3>Vendor #156 'Amazon' has been submitted for review.</h3>
-                    <p>You will receive an email when the status of this request has been updated.</p>
+                    <h3>Order #57092d1dd4c6de0585088915 'My Order' has been submitted for review.</h3>
+                    <p>You will receive an email when the status of your order has been updated.</p>
                     <br/>
-                    <a href="addVendorsAndProducts.html">
-                        <button id="backtoVendorsAndProducts" type="submit" class="btn btn-lg">
-                            <img alt="Download CSV" src="../styles/img/icons/vendors-and-products-white.png" style="height:15px; vertical-align:middle;">
-                            &nbsp;&nbsp;Back to Vendors & Products
+                    <a href="currentOrders.html">
+                        <button id="backtocurrentOrders" type="submit" class="btn btn-lg">
+                            <img alt="Download CSV" src="../styles/img/icons/cart.png" style="height:15px; vertical-align:middle;">
+                            &nbsp;&nbsp;Back to Current Orders
                         </button>
                     </a>
                 </div>
                 <footer></footer>
             </div>
         </div>
-        
+
         <!-- ANGULAR SCRIPTS -->
         <script src="../scripts/new-ui-scripts/headerDirective.js"></script>
         <script src="../scripts/new-ui-scripts/sidebarDirective.js"></script>
         <script src="../scripts/new-ui-scripts/footerDirective.js"></script>
-        <script src="../scripts/new-ui-scripts/addVendorsAndProductsController.js"></script>
-        <script src="../scripts/new-ui-scripts/addVendorsAndProductsApp.js"></script>
+        <script src="../scripts/new-ui-scripts/currentOrdersController.js"></script>
+        <script src="../scripts/new-ui-scripts/currentOrdersApp.js"></script>
 
     </body>
 

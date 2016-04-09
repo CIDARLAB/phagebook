@@ -1,6 +1,7 @@
 $(document).ready( documentReady);
 
 function documentReady(){
+    $("#success-lab-alert").hide();
     $.ajax({
         //do this for projects...
         url: "../loadPhagebookInstitutions",
@@ -108,7 +109,40 @@ function documentReady(){
             doLabAjaxCall(selectedLab);
         }
 
-    })
+    });
+
+    $("#submit-lab-btn").click(function (){
+
+        //WHY IS THIS AN ARRAY .. JQUERY EXPLAIN
+        var name           = document.getElementById("lab-name").value;
+        var description    = document.getElementById("lab-description").value;
+        var phone          = document.getElementById("lab-phone").value;
+        var url            = document.getElementById("lab-website").value;
+        var institutionId  = $("#create-lab-institution").val();
+        $.ajax({
+            //do this for projects...
+            url: "../createLab",
+            type: "POST",
+            async: false,
+            data: {
+                "user"       : getCookie("clothoId"),
+                "name"       : name,
+                "description": description,
+                "phone"      : phone,
+                "url"        : url,
+                "institution": institutionId
+
+
+            },
+            success: function (response) {
+                $("#success-lab-alert").fadeIn();
+            },
+            error: function (response) {
+
+            }
+
+        })
+    });
 }
 
 

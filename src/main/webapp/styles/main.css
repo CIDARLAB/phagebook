@@ -151,6 +151,11 @@ body {
     margin-bottom: 60px;
 }
 
+.btn[disabled]:hover {
+    background-color: #1E714A;
+    border: none;
+}
+
 #colleagues {
     margin-top: -260px;
     float: right;
@@ -176,6 +181,14 @@ body {
     margin-left: -5px;
     height: 110px;
 }
+
+#create-new-lab-form {
+    margin-left: 25px;
+}
+
+/*#create-new-modal .modal-footer {*/
+    /*padding-bottom: 0px;*/
+/*}*/
 
 #createOrder {
     font-family: "Open Sans", sans-serif;
@@ -563,6 +576,16 @@ h3 {
     font-size: 16px;
     font-weight: 300;
     font-style: italic;
+    background-color: #FFFFFF;
+    border: 1px solid #D5D5D5;
+    border-radius: 8px;
+    padding-left: 10px;
+}
+
+.order-nickname[type="text"][disabled] {
+    font-size: 16px;
+    font-weight: 300;
+    font-style: italic;
     background-color: transparent;
     border: none;
 }
@@ -788,6 +811,23 @@ h3 {
     resize: none;
 }
 
+#submit-lab-btn {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #FFFFFF;
+    border-radius: 8px;
+    padding: 10px 30px 10px 30px;
+    background-color: #1E714A;
+    border: none;
+    float: right;
+}
+
+#submit-lab-btn:hover {
+    background-color: #31A16F;
+    color: #FFFFFF;
+}
+
 .submit-order-btn {
     font-family: "Open Sans", sans-serif;
     font-weight: 400;
@@ -808,6 +848,15 @@ h3 {
 .submit-order-btn:hover {
     background-color: #31A16F;
     color: #FFFFFF;
+}
+
+#success-lab-alert {
+    text-align: left;
+    height: 38px;
+}
+
+#success-lab-content {
+    margin-top: -5px;
 }
 
 td {

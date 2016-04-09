@@ -194,6 +194,7 @@
                                             <div class="col-sm-3">
                                                 <select class="form-control institution-drop-down">
                                                     <option>...</option>
+
                                                 </select>
                                             </div>
                                             <label for="lab-drop-down" class="col-sm-2 form-control-label">LAB NAME</label>
@@ -232,6 +233,7 @@
                                             <div class="col-sm-3">
                                                 <select class="form-control institution-drop-down">
                                                     <option>...</option>
+
                                                 </select>
                                             </div>
                                             <label for="lab-drop-down" class="col-sm-2 form-control-label">LAB NAME</label>
@@ -288,6 +290,9 @@
                                         <h4 class="modal-title" id="create-new-label">Create New Lab</h4>
                                     </div>
                                     <div class="modal-body">
+                                        <br>
+                                        <p>Create a new lab by entering the fields below. Please note that if you do not have administrative access, all labs will need to be submitted for review and approval.</p>
+                                        <br>
                                         <form id="create-new-lab-form">
                                             <div class="form-group row">
                                                 <label for="lab-name" class="col-sm-2 form-control-label">NAME</label>
@@ -298,8 +303,9 @@
                                             <div class="form-group row">
                                                 <label for="institution-drop-down" class="col-sm-2 form-control-label">INSTITUTION</label>
                                                 <div class="col-sm-8">
-                                                    <select class="form-control institution-drop-down">
+                                                    <select class="form-control institution-drop-down" id="create-lab-institution">
                                                         <option>...</option>
+
                                                     </select>
                                                 </div>
                                             </div>
@@ -316,16 +322,21 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="lab-website" class="col-sm-2 form-control-label">LAB WEBSITE</label>
+                                                <label for="lab-description" class="col-sm-2 form-control-label">LAB DESCRIPTION</label>
                                                 <div class="col-sm-8">
-                                                    <input type="url" class="form-control" id="lab-website">
+                                                    <textarea class="form-control" rows="5" id="lab-description" style="resize:none"></textarea>
                                                 </div>
                                             </div>
                                         </form>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                        <div class="alert alert-success col-sm-8" id="success-lab-alert">
+                                            <div id="success-lab-content">
+                                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                                Successfully submitted lab!
+                                            </div>
+                                        </div>
+                                        <button id="submit-lab-btn" type="button" class="btn btn-primary">Submit</button>
                                     </div>
                                 </div>
                             </div>
