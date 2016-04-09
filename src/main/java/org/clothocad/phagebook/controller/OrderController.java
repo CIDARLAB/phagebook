@@ -238,7 +238,7 @@ public class OrderController {
         
         List<String> orders = new ArrayList<String>();
         String header = "";
-        int headerCount = 0;
+        int headerCount = 0; //to make sure the header only appears once
         
         //System.out.println("HERE IN ORDERFORM");
         int count = 1;       
