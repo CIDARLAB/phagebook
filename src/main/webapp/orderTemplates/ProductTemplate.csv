@@ -1,2 +1,4 @@
 URL,Company Name,Type,Cost,Quantity,Name,Description
-w1,C,INSTRUMENT,1,1,Product,a
+www.product1.com,Company1,INSTRUMENT,120,3,ProductFromCompany1,Good Product 1
+www.product2.com,Company2,INSTRUMENT,138,2,ProductFromCompany2,Good Product 2
+www.product3.com,Company3,SAMPLE,1208,10,ProductFromCompany3,Good Product 3

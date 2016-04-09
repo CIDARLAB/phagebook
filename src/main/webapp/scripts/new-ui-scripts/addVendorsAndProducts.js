@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
     $("#createVendor").click(function ()
     {
@@ -58,10 +57,11 @@ $(document).ready(function () {
                         "jsonArray": JSON.stringify(results.data)
                     },
                     success: function (response) {
-                        alert("Uploaded :" + response);
+                        alert("Vendors created");
+                        window.location.href = "../html/vpSubmittedForReview.html";
                     },
                     error: function (response) {
-                        alert("Failed horribly");
+                        alert("Failed to upload");
                     }
                 });
             }
@@ -87,10 +87,11 @@ $(document).ready(function () {
                         "jsonArray": JSON.stringify(results.data)
                     },
                     success: function (response) {
-                        alert("Uploaded :" + response);
+                        alert("Products created");
+                        window.location.href = "../html/vpSubmittedForReview.html";
                     },
                     error: function (response) {
-                        alert("Failed horribly");
+                        alert("Failed to upload");
                     }
                 });
             }
@@ -204,4 +205,3 @@ function removeOptions(selectbox)
         selectbox.remove(i);
     }
 }
-

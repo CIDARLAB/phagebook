@@ -1,13 +1,12 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package org.clothocad.phagebook.adaptors.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +21,7 @@ import org.clothocad.model.Person;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Institution;
+import org.clothocad.phagebook.dom.Lab;
 import org.clothocad.phagebook.dom.Publication;
 import org.clothocad.phagebook.dom.Status;
 import org.json.JSONArray;
@@ -30,7 +30,7 @@ import org.json.JSONObject;
 /**
  *
  * @author Herb
- */
+
 public class queryFirstLastName extends HttpServlet {
 
     /**
@@ -41,7 +41,7 @@ public class queryFirstLastName extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-     */
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
@@ -55,7 +55,7 @@ public class queryFirstLastName extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-     */
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -82,19 +82,31 @@ public class queryFirstLastName extends HttpServlet {
             loginMap.put("credentials", password);     
             clothoObject.login(loginMap);
             // able to query now. 
-            Map query = new HashMap();
+            Map query1 = new HashMap();
+            Map query2 = new HashMap();
             if (!firstName.equals("")){
-                query.put("firstName", firstName); // the value for which we are querying.
+                query1.put("query", firstName); // the value for which we are querying.
+                query1.put("key", "firstName");
             }
             if (!lastName.equals("")){
-                query.put("lastName", lastName); // the key of the object we are querying
+                query2.put("query", lastName); // the key of the object we are querying
+                query2.put("key", "lastName");
             }       
             
            
-            List<Person> people = ClothoAdapter.queryPerson(query, clothoObject, ClothoAdapter.QueryMode.EXACT);
+            List<Person> peopleFirstName = ClothoAdapter.queryPerson(query1, clothoObject, ClothoAdapter.QueryMode.STARTSWITH);
+            List<Person> peopleLastName  = ClothoAdapter.queryPerson(query2, clothoObject, ClothoAdapter.QueryMode.STARTSWITH);
+            List<Person> combinedList = new ArrayList<Person>(peopleFirstName);
+            combinedList.addAll(peopleLastName);
+            Set<Person> hs = new HashSet<>();
+            hs.addAll(combinedList);
+            combinedList.clear();
+            combinedList.addAll(hs);
+            
+            
             JSONArray peopleJSONArray = new JSONArray();
             
-            for (Person retrieve : people){
+            for (Person retrieve : combinedList){
                 JSONObject retrievedAsJSON = new JSONObject();
                 retrievedAsJSON.put("fullname", retrieve.getFirstName() + " " + retrieve.getLastName());
                 //get position? role?? we will look into this
@@ -102,17 +114,25 @@ public class queryFirstLastName extends HttpServlet {
                 retrievedAsJSON.put("lastName", retrieve.getLastName());
                 retrievedAsJSON.put("clothoId", retrieve.getId());
 
-                String firstInstitutionId = (retrieve.getInstitutions().size() > 0) ? retrieve.getInstitutions().get(0): "None" ;
-                    if (!firstInstitutionId.equals("None")){
-                        retrievedAsJSON.put("institutionName", ClothoAdapter.getInstitution(firstInstitutionId, clothoObject) .getName());
-                    }
-                    
-                    String firstLabId = (retrieve.getLabs().size() > 0) ? retrieve.getLabs().get(0): "None";
-                    if (!firstLabId.equals("None")) {
-                        retrievedAsJSON.put("labName", ClothoAdapter.getLab(firstLabId, clothoObject).getName());
-                    }
 
+                JSONArray institutionList = new JSONArray();
                 
+                if (retrieve.getInstitutions() != null){
+                    for (String institution: retrieve.getInstitutions()){
+                        Institution inst = ClothoAdapter.getInstitution(institution, clothoObject);
+                        institutionList.put(inst.getName());
+                    }
+                }
+                JSONArray labList = new JSONArray();
+                if (retrieve.getLabs() != null){
+                    for (String lab:retrieve.getLabs()){
+                        Lab labo = ClothoAdapter.getLab(lab, clothoObject);
+                        labList.put(labo.getName());
+                    }
+                }
+                
+                retrievedAsJSON.put("mainInstitution" , ((institutionList.length() == 0) ? "Other" : institutionList.get(0)));
+                retrievedAsJSON.put("mainLab", ((labList.length() == 0) ? "Other" : labList.get(0)));
                 
                 //retrievedAsJSON.put("labList", labList);
                 peopleJSONArray.put(retrievedAsJSON);
@@ -147,7 +167,7 @@ public class queryFirstLastName extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-     */
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -158,10 +178,13 @@ public class queryFirstLastName extends HttpServlet {
      * Returns a short description of the servlet.
      *
      * @return a String containing servlet description
-     */
+
     @Override
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 
 }
+
+
+*/
