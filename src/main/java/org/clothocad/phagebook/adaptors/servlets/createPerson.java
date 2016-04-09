@@ -146,6 +146,7 @@ public class createPerson extends HttpServlet {
 
             EmailHandler emailer = EmailHandler.getEmailHandler();
             String link = Args.phagebookBaseURL + "/html/validateEmail.html?emailId=" +createdPerson.getEmailId() + "&salt=" + createdPerson.getSalt() ;
+            System.out.println(link);
             emailer.sendEmailVerification(createdPerson, link);
             response.setStatus(HttpServletResponse.SC_OK);
             response.setContentType("application/JSON");

@@ -1638,7 +1638,7 @@ public class ClothoAdapter {
         Map productMap = (Map) clothoObject.get(id);
         Product product = new Product();
         if (productMap != null){
-        product = mapToProduct(productMap, clothoObject);
+            product = mapToProduct(productMap, clothoObject);
         }
         return product;   
     }
@@ -3302,8 +3302,8 @@ public class ClothoAdapter {
         if (map.containsKey("cost")){ cost = (Double) map.get("cost");}
         
         int inventory = 0;
-        if (map.containsKey("inventory")) { 
-            inventory = (int) map.get("inventory");
+        if (map.containsKey("inventory")) {
+            inventory = (int)map.get("inventory");
         }
         
         int quantity = 0;

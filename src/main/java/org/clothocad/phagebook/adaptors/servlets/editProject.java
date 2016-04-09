@@ -54,12 +54,16 @@ public class editProject extends HttpServlet {
    * @param params the request values that were converted from httpObject to Hashmap
    * @param clothoObject to log in to clotho
    */
-  static boolean editProjectFunction(Project project, HashMap params, Clotho clothoObject){
+  static Map<String, Object> editProjectFunction(Project project, HashMap params, Clotho clothoObject){
        
       // params is the hashmap of new values
       System.out.println("In Edit Project function");
       
       Iterator entries = params.entrySet().iterator();
+      // result hashmap would let the user know whether there have
+      // been unedited values.
+      Map result = new HashMap();
+
       while (entries.hasNext()) {
         // reset the value if it is diff from the one in the project object
         Map.Entry entry = (Map.Entry) entries.next();
@@ -70,6 +74,7 @@ public class editProject extends HttpServlet {
         String[] keyValue = new String[4]; 
         keyValue[0] = key; // type of new value (like "description")
         keyValue[1] = value; // the actual new value (like "This is a new desciption")
+        
         if(key.equals("editorId")){
           Person editor = ClothoAdapter.getPerson(value, clothoObject);
           System.out.println();
@@ -80,6 +85,10 @@ public class editProject extends HttpServlet {
           //helperMsg(project.getDescription(), value);
           if(value != ""){
             project.setDescription(value);
+            result.put("desc", 1);
+          }
+          else{
+            result.put("desc", 0); 
           }
           
         }
@@ -89,12 +98,16 @@ public class editProject extends HttpServlet {
           //helperMsg(project.getName(), value);
           if(value != ""){
             project.setName(value);
+            result.put("name", 1);
+          }else{
+            result.put("name", 0);
           }
           
         }
         if(key.equals("leadId")){
           //helperMsg(project.getLeadId(), value);
           System.out.println("Can't edit lead yet, sorry!");
+          // TODO: add lead editing capabilities
         }
         if(key.equals("budget")){
           keyValue[2]= "budget";
@@ -102,17 +115,24 @@ public class editProject extends HttpServlet {
           //helperMsg(Double.toString(project.getBudget()), value);
           if(value != ""){
             project.setBudget(Double.parseDouble(value));
-          }
+            result.put("budget", 1);
+          }else{
+            result.put("budget", 0);
+           }
         }
         if(key.equals("projectGrant")){
-          String oldGrantId = project.getGrantId();
-          Grant newGrant = new Grant(value);
-          String newGrantId = ClothoAdapter.createGrant(newGrant, clothoObject);
-          
-          keyValue[2]= "projectGrant";
-          keyValue[3]= oldGrantId;
+          if(value != ""){
+            String oldGrantId = project.getGrantId();
+            Grant newGrant = new Grant(value);
+            String newGrantId = ClothoAdapter.createGrant(newGrant, clothoObject);
+            keyValue[2]= "projectGrant";
+            keyValue[3]= oldGrantId;
 
-          project.setGrantId(newGrantId);
+            project.setGrantId(newGrantId);
+            result.put("grant", 1);
+          }else{
+            result.put("grant", 0);
+          }
         }
       }
       String projectID = project.getId();
@@ -121,10 +141,24 @@ public class editProject extends HttpServlet {
       System.out.println(clothoObject);
       String foo = ClothoAdapter.setProject(project, clothoObject);
       System.out.println(foo);
+      
+      // FOR TESTING -- prints the result hashmap    
+//      Iterator iterator = result.keySet().iterator();
+//      while (iterator.hasNext()) {
+//         String key = iterator.next().toString();
+//         Integer value = (Integer)result.get(key);
+//
+//         System.out.println(key + " " + value);
+//      }
+      //
+      System.out.println("got here!");
       if(projectID.length()>0){
-        return true;
+        result.put("success", 1);
+        return result;
+      }else{
+        result.put("success", 0);
+        return result;
       }
-      return false;
       //sendEmails(request);
     }
   
@@ -185,18 +219,21 @@ public class editProject extends HttpServlet {
         String value = request.getParameter(key);
         reqHashMap.put(key, value);
       }
-      boolean result = editProjectFunction(project, reqHashMap, clothoObject);
-            
+      Map result = editProjectFunction(project, reqHashMap, clothoObject);
+      System.out.println("resulting map is: "+result);
+      System.out.println(result);
       // create a result object and send it to the frontend
-      JSONObject res = new JSONObject();
-      if(result){
-        res.put("success",1);
-      }else{
-        res.put("success",0);
+      JSONObject json = new JSONObject(result);
+//      System.out.printf( "JSON: %s", json.toString(2) );
+      
+      if((int)result.get("success") == 1){
+        json.put("success",1);
+      }else if ((int)result.get("success") == 0){
+        json.put("success",0);
       }
-
+      
       PrintWriter writer = response.getWriter();
-      writer.println(res);
+      writer.println(json);
       writer.flush();
       writer.close();
     }
