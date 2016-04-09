@@ -37,8 +37,14 @@ public class OrderController {
     public static List<String> getProducts(JSONArray list,Clotho clothoObject) {
         List<String> productIds = new ArrayList<String>();
         
-        for (int i = 0; i < (list.length()-1); i++) {
-
+        for (int i = 0; i < (list.length()); i++) {
+                
+                JSONObject obj = new JSONObject();
+                obj = (JSONObject)list.get(i);
+                if(!obj.has("URL") || !obj.has("Company Name") || !obj.has("Type") || !obj.has("Cost") || !obj.has("Quantity") || !obj.has("Name") || !obj.has("Description")){
+                    continue;
+                }
+                
                 String productUrl = list.getJSONObject(i).get("URL").toString();
                 String companyName = list.getJSONObject(i).get("Company Name").toString();
                 String goodType = list.getJSONObject(i).get("Type").toString();
@@ -76,8 +82,14 @@ public class OrderController {
 
     public static List<String> getVendors(JSONArray list,Clotho clothoObject) {
         List<String> companiesIds = new ArrayList<String>();
-        for (int i = 0; i < (list.length()-1); i++) {
-
+        for (int i = 0; i < (list.length()); i++) {
+            
+            JSONObject obj = new JSONObject();
+            obj = (JSONObject)list.get(i);
+            if(!obj.has("Name") || !obj.has("Description") || !obj.has("Contact") || !obj.has("Phone") || !obj.has("URL")){
+                continue;
+            }
+                
             String companyName = list.getJSONObject(i).get("Name").toString();
             String description = list.getJSONObject(i).get("Description").toString();
             //System.out.println("i = " + i+" description = " + description);
