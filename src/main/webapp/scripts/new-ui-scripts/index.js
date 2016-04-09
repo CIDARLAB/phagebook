@@ -92,10 +92,11 @@ $(document).ready(function () {
             alert("Fields cannot be blank!");
             isValid = 0;
             
-            var institution = document.getElementById("institution").value; // selected institution id
-            var lab         = document.getElementById("lab-name").value;
-            
+
         }
+        var institution = document.getElementById("institution").value; // selected institution id
+        var lab         = document.getElementById("lab-name").value;
+
         if (isValid && checkPasswordMatch()) {
             $.ajax({
                 url: "../createPerson",

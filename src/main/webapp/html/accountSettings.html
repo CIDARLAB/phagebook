@@ -164,8 +164,8 @@
                                             <button id="search-colleagues-btn" type="submit" class="btn btn-lg">Search</button>
                                         </div>
                                         <br>
-                                        <div id="pi-results">
-                                            <ul class="list-inline list-group" id="pi-full-list">
+                                        <div class="pi-results" id="pi-add-results">
+                                            <ul class="list-inline list-group pi-full-list" id="pi-add-list">
                                                 <li class="list-group-item col-sm-5">
                                                     <img alt="Kristel Tan" src="../styles/img/mis/kristel-tan-pro-pic.jpg">
                                                     <div>
@@ -193,14 +193,14 @@
                                             <label for="institution-drop-down" class="col-sm-2 form-control-label">INSTITUTIONS</label>
                                             <div class="col-sm-3">
                                                 <select class="form-control institution-drop-down">
-                                                    <option>...</option>
+                                                    <option value="">...</option>
 
                                                 </select>
                                             </div>
                                             <label for="lab-drop-down" class="col-sm-2 form-control-label">LAB NAME</label>
                                             <div class="col-sm-3">
                                                 <select class="form-control lab-drop-down">
-                                                    <option>...</option>
+                                                    <option value="">...</option>
                                                 </select>
                                             </div>
                                             <button id="add-to-lab-btn" type="button" class="btn btn-primary">Add to Lab</button>
@@ -232,38 +232,34 @@
                                             <label for="institution-drop-down" class="col-sm-2 form-control-label">INSTITUTIONS</label>
                                             <div class="col-sm-3">
                                                 <select class="form-control institution-drop-down">
-                                                    <option>...</option>
+                                                    <option value="">...</option>
 
                                                 </select>
                                             </div>
                                             <label for="lab-drop-down" class="col-sm-2 form-control-label">LAB NAME</label>
                                             <div class="col-sm-3">
                                                 <select class="form-control lab-drop-down">
-                                                    <option>...</option>
+                                                    <option value="">...</option>
                                                 </select>
                                             </div>
                                             <button id="go-btn" type="button" class="btn btn-primary">Go</button>
                                         </div>
-                                        <div id="pi-results">
-                                            <ul class="list-inline list-group" id="pi-full-list">
-                                                <li class="list-group-item col-sm-5">
-                                                    <img alt="Kristel Tan" src="../styles/img/mis/kristel-tan-pro-pic.jpg">
-                                                    <div>
-                                                        <a href=""><p>Kristel Tan</p></a>
-                                                        <p>CIDAR Lab</p>
-                                                        <p>Boston University</p>
-                                                    </div>
-                                                    <input type="checkbox">
-                                                </li>
-                                                <li class="list-group-item col-sm-5">
-                                                    <img alt="Kristel Tan" src="../styles/img/mis/kristel-tan-pro-pic.jpg">
-                                                    <div>
-                                                        <a href=""><p>Kristel Tan</p></a>
-                                                        <p>CIDAR Lab</p>
-                                                        <p>Boston University</p>
-                                                    </div>
-                                                    <input type="checkbox">
-                                                </li>
+                                        <div class = "pi-results" id="pi-remove-results">
+                                            <ul class="list-inline list-group pi-full-list" id="pi-remove-list" >
+                                                <template id="person-results-template">
+                                                    <li class="list-group-item col-sm-5">
+
+                                                        <img alt="Kristel Tan" src="../styles/img/mis/kristel-tan-pro-pic.jpg">
+                                                        <div>
+                                                            <a class ="pi-profile-link" href=""><p class ="pi-name">Kristel Tan</p></a>
+                                                            <p class = "pi-lab-name">CIDAR Lab</p>
+                                                            <p class = "pi-institution-name">Boston University</p>
+                                                        </div>
+                                                        <input class= "pi-id" type="checkbox">
+
+                                                    </li>
+                                                </template>
+
                                             </ul>
                                         </div>
                                     </div>
@@ -304,7 +300,7 @@
                                                 <label for="institution-drop-down" class="col-sm-2 form-control-label">INSTITUTION</label>
                                                 <div class="col-sm-8">
                                                     <select class="form-control institution-drop-down" id="create-lab-institution">
-                                                        <option>...</option>
+                                                        <option value="">...</option>
 
                                                     </select>
                                                 </div>

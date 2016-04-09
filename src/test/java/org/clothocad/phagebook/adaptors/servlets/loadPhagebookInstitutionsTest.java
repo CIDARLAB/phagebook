@@ -83,6 +83,7 @@ public class loadPhagebookInstitutionsTest {
         loginMap.put("credentials", password);
         clothoObject.login(loginMap);
         
+        /*
         Lab CIDAR = new Lab();
         CIDAR.setDescription("Center for Integrated Design Automation Research");
         CIDAR.setName("CIDAR");
@@ -94,7 +95,7 @@ public class loadPhagebookInstitutionsTest {
         KhalilLab.setDescription("Khalil Lab Description");
         KhalilLab.setName("Khalil Lab");
         KhalilLab.setLeadPIs(PIs);
-        /*
+        
         Lab harvardLab1 = new Lab();
         harvardLab1.setName("The Laboratory at Harvard");
         harvardLab1.setLeadPIs(PIs);
@@ -110,23 +111,23 @@ public class loadPhagebookInstitutionsTest {
         Lab mitLab2 = new Lab();
         mitLab2.setName("MIT Lab 2");
         medialLab.setLeadPIs(PIs);
-        */
+        
         
         
         
         ClothoAdapter.createLab(CIDAR, clothoObject);
         ClothoAdapter.createLab(KhalilLab, clothoObject);
-        /*
+        
         ClothoAdapter.createLab(harvardLab1, clothoObject);
         ClothoAdapter.createLab(harvardLab2, clothoObject);
         ClothoAdapter.createLab(medialLab, clothoObject);
         ClothoAdapter.createLab(mitLab2, clothoObject);
-        */
+        
         List<String> PILabs = new ArrayList<>();
         
         PILabs.add(CIDAR.getId());
         PILabs.add(KhalilLab.getId());
-        /*
+        
         PILabs.add(harvardLab1.getId());
         PILabs.add(harvardLab2.getId());
         PILabs.add(medialLab.getId());
@@ -143,8 +144,8 @@ public class loadPhagebookInstitutionsTest {
         bostonUniversity.setPhone("(617) 353-2000");
         bostonUniversity.setUrl("www.bu.edu");
         bostonUniversity.setType(Institution.InstitutionType.University);
-        bostonUniversity.getLabs().add(CIDAR.getId());
-        bostonUniversity.getLabs().add(KhalilLab.getId());
+        //bostonUniversity.getLabs().add(CIDAR.getId());
+        //bostonUniversity.getLabs().add(KhalilLab.getId());
         
         
         Institution MIT              = new Institution();

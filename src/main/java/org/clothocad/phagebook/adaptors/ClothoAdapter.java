@@ -552,6 +552,12 @@ public class ClothoAdapter {
             map.put("url", lab.getUrl());
         }
         
+        if (lab.getInstitution() != null) {
+            if (!lab.getInstitution().isEmpty() && !lab.getInstitution().equals("Not Set"))
+            map.put("institution", lab.getInstitution());
+        }
+        
+        
         if (lab.getId() != null){
             if (!lab.getId().isEmpty() && !lab.getId().equals("Not Set")){
                 map.put("id", lab.getId());
@@ -866,9 +872,8 @@ public class ClothoAdapter {
         }
         if (person.getInstitutions()!= null)
         {
-            if (!person.getInstitutions().isEmpty()){
                 JSONArray institutions = new JSONArray();
-                for (String institutiton : person.getNotebooks()){
+                for (String institutiton : person.getInstitutions()){
                     if (institutiton != null){
                         if (!institutiton.equals("Not Set") && !institutiton.isEmpty()){
                             institutions.add(institutiton);
@@ -876,12 +881,12 @@ public class ClothoAdapter {
                     }
                 }
                 map.put("institutions", institutions);
-            }
+            System.out.println("INSTITS: " + institutions.toString());
         }
+        
         if (person.getLabs() != null)
         {
-            if(!person.getLabs().isEmpty())
-            {
+            
                 JSONArray labs = new JSONArray();
                 JSONArray roles;
                 Map rolesMap = new HashMap();
@@ -911,12 +916,11 @@ public class ClothoAdapter {
                 }
                 map.put("labs", labs);
                 map.put("roles", rolesMap);
-            }
+            
         }
         if (person.getColleagues() != null)
         {
-            if (!person.getColleagues().isEmpty())
-            {
+            
                 JSONArray colleagues = new JSONArray();
                 for (String colleague : person.getColleagues())
                 {
@@ -928,7 +932,7 @@ public class ClothoAdapter {
 
                 }
                 map.put("colleagues", colleagues);
-            }
+            
         }
         
         if (person.getCreatedOrders() != null)
@@ -1038,6 +1042,8 @@ public class ClothoAdapter {
                 map.put("id", person.getId());
             }
         }
+        
+        
        
         String id = (String) clothoObject.set(map);
         
@@ -1540,7 +1546,12 @@ public class ClothoAdapter {
     public static Institution     getInstitution(String id, Clotho clothoObject)
     {
         Map institutionMap = (Map) clothoObject.get(id);
-        Institution institution = mapToInstitution(institutionMap, clothoObject);
+        Institution institution = new Institution();
+        if (institutionMap != null)
+        {       
+            institution = mapToInstitution(institutionMap, clothoObject);
+        
+        }
         return institution;
     }
     /**
@@ -2773,6 +2784,8 @@ public class ClothoAdapter {
         String url = "";
         if (map.containsKey("url")) {url = (String) map.get("url");}
         
+        
+        
         Institution.InstitutionType type = Institution.InstitutionType.Independent;
         if (map.containsKey("type")) { type = Institution.InstitutionType.valueOf((String) map.get("type")); }
         
@@ -2875,6 +2888,8 @@ public class ClothoAdapter {
         String phone = "";
         if (map.containsKey("phone")) { phone = (String) map.get("phone"); }
         
+        String institution = "";
+        if (map.containsKey("institution")) {institution = (String) map.get("institution");}
         
         String url = "";
         if (map.containsKey("url")) {url = (String) map.get("url");}
@@ -2891,10 +2906,12 @@ public class ClothoAdapter {
            
         Lab lab = new Lab(name);
         lab.setPhone(phone);
+        lab.setInstitution(institution);
         lab.setUrl(url);
         lab.setLeadPIs(leadPIs);
         lab.setDescription(description);
        
+        
         
         String id = "";
         if (map.containsKey("id")){
@@ -3697,8 +3714,7 @@ public class ClothoAdapter {
         
         if (person.getProjects() != null)
         {
-            if (!person.getProjects().isEmpty())
-            {
+            
                 JSONArray projects = new JSONArray();
                 for (String project : person.getProjects()){
                     if (project != null){
@@ -3708,12 +3724,26 @@ public class ClothoAdapter {
                     }
                 }
                 map.put("projects", projects);
-            }
+            
+        }
+        
+        if (person.getInstitutions() != null)
+        {
+            
+                JSONArray institutions = new JSONArray();
+                for (String institution : person.getInstitutions()){
+                    if (institution != null){
+                        if (!institution.equals("Not Set") && !institution.isEmpty()){
+                            institutions.add(institution);
+                        }
+                    }
+                }
+                map.put("institutions", institutions);
+            
         }
        
         if (person.getStatuses() != null)
         {
-            if (!person.getStatuses().isEmpty()){
                 JSONArray statuses = new JSONArray();
                 for (String status : person.getStatuses()){
                     if (status != null){
@@ -3723,12 +3753,11 @@ public class ClothoAdapter {
                     }
                 }
                 map.put("statuses", statuses);
-            }
+            
         }
         
         if (person.getNotebooks() != null)
         {
-            if (!person.getNotebooks().isEmpty()){
                 JSONArray notebooks = new JSONArray();
                 for (String notebook : person.getNotebooks()){
                     if (notebook != null){
@@ -3738,7 +3767,7 @@ public class ClothoAdapter {
                     }
                 }
                 map.put("notebooks", notebooks);
-            }
+            
         }
         if (person.getLabs() != null)
         {
