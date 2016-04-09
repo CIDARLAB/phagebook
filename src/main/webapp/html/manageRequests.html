@@ -46,11 +46,240 @@
                 <div class="container" style="margin:100px">
                     <h3>Manage Requests</h3>
                     <br>
-                    <p>You have no requests at this time.</p>
+
+                    <div class="request">
+                        <button type="button" class="btn btn-block request-btn" data-toggle="collapse" data-target=".order-card">
+                            ORDER #57092d1dd4c6de0585088915 &nbsp;'My Order'
+                        </button>
+                        <div class="panel panel-default collapse order-card">
+                            <div class="panel-heading order-heading" style="height:60px">
+                                <label class="col-xs-2 form-control-label" style="margin-top:10px">Order Name: </label>
+                                <div class="col-sm-7" style="margin-left:-25px; margin-top:10px">
+                                    <input type="text" class="order-nickname" name="type" disabled/>
+                                </div>
+                            </div>
+                            <div class="panel-body order-top-panel">
+                                <br>
+                                <p>Associated Project:&nbsp;
+                                    <a class="order-project-name" href="" style="color:#1E714A;"></a></p>
+                                <br>
+                                <table class="table order-property-table">
+                                    <tr class="order-property-headers">
+                                        <td>ORDER ID #</td>
+                                        <td>CREATED BY</td>
+                                        <td>RECEIVED BY</td>
+                                        <td>APPROVED BY</td>
+                                        <td>ORDER LIMIT</td>
+                                        <td>ORDER BUDGET</td>
+                                    </tr>
+                                    <tr class="order-property-data">
+                                        <td class="order-id"></td>
+                                        <td class="order-created-by"></td>
+                                        <td class="order-received-by"></td>
+                                        <td class="order-approved-by"></td>
+                                        <td class="order-limit"></td>
+                                        <td class="order-budget">$</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <table class="table order-items-table">
+                                <tr class="order-items-headers">
+                                    <td>ITEM</td>
+                                    <td>QTY.</td>
+                                    <td>UNIT PRICE</td>
+                                    <td>CUSTOM UNIT PRICE</td>
+                                    <td>TOTAL PRICE</td>
+                                </tr>
+                            </table>
+                            <div class="panel-body order-bottom-panel">
+                                <div id="order-buttons">
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default approve-btn">
+                                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                            &nbsp;Approve
+                                        </button>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default decline-btn">
+                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                            &nbsp;Decline
+                                        </button>
+                                    </div>
+                                </div>
+                                <br>
+                                <table class="table order-totals-table">
+                                    <tr>
+                                        <td>Total before tax:</td>
+                                        <td class="total-before-tax-value"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tax:</td>
+                                        <td class="tax-value"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Grand Total:</td>
+                                        <td class="total-after-tax-value"></td>
+                                    </tr>
+                                </table>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="request">
+                        <button type="button" class="btn btn-block request-btn" data-toggle="collapse" data-target=".vendor-card">
+                            VENDOR #392dl230s03eo9342dsf &nbsp;'Test Vendor'
+                        </button>
+                        <div class="panel panel-default collapse vendor-card">
+                            <div class="panel-body vendor-panel">
+                                <table class="table vendor-property-table">
+                                    <tr class="vendor-property-headers">
+                                        <td>VENDOR NAME</td>
+                                        <td>VENDOR WEBSITE</td>
+                                        <td>VENDOR EMAIL</td>
+                                        <td>VENDOR CONTACT</td>
+                                        <td>VENDOR PHONE</td>
+                                        <td>VENDOR DESCRIPTION</td>
+                                    </tr>
+                                    <tr class="vendor-property-data">
+                                        <td class="vendor-name">Test Vendor</td>
+                                        <td class="vendor-website">http://www.examplevendor.com</td>
+                                        <td class="vendor-email">contact@vendor.com</td>
+                                        <td class="vendor-contact">Vendor Contact</td>
+                                        <td class="vendor-phone">617-353-4357</td>
+                                        <td class="vendor-description">I am the greatest vendor ever!</td>
+                                    </tr>
+                                </table>
+                                <div id="approve-decline-btns">
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default approve-btn">
+                                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                            &nbsp;Approve
+                                        </button>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default decline-btn">
+                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                            &nbsp;Decline
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="request">
+                        <button type="button" class="btn btn-block request-btn" data-toggle="collapse" data-target=".product-card">
+                            PRODUCT #90kel230s03eo304ksf &nbsp;'6 Piece Pyrex Glass Test Tube Set'
+                        </button>
+                        <div class="panel panel-default collapse product-card">
+                            <div class="panel-body product-panel">
+                                <table class="table product-property-table">
+                                    <tr class="product-property-headers">
+                                        <td>PRODUCT NAME</td>
+                                        <td>PRODUCT PRICE</td>
+                                        <td>ASSOCIATED VENDOR</td>
+                                        <td>PRODUCT PROMOTION</td>
+                                        <td>PRODUCT TYPE</td>
+                                        <td>PRODUCT DESCRIPTION</td>
+                                        <td>PRODUCT QUANTITY</td>
+                                    </tr>
+                                    <tr class="product-property-data">
+                                        <td class="product-name">6 Piece Pyrex Glass Test Tube Set</td>
+                                        <td class="product-price">$7.89</td>
+                                        <td class="product-associated-vendor">Test Vendor</td>
+                                        <td class="product-promotion">20% Off</td>
+                                        <td class="product-type">INSTRUMENT</td>
+                                        <td class="product-description">I am the greatest product ever!</td>
+                                        <td class="quantity">100</td>
+                                    </tr>
+                                </table>
+                                <div id="approve-decline-btns">
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default approve-btn">
+                                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                            &nbsp;Approve
+                                        </button>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default decline-btn">
+                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                            &nbsp;Decline
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="request">
+                        <button type="button" class="btn btn-block request-btn" data-toggle="collapse" data-target=".friend-card">
+                            FRIEND REQUEST from &nbsp;<a>Johan Ospina</a>
+                        </button>
+                        <div class="panel panel-default collapse friend-card">
+                            <div class="panel-body product-panel">
+                                <div id="approve-decline-btns">
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default approve-btn">
+                                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                            &nbsp;Approve
+                                        </button>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default decline-btn">
+                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                            &nbsp;Decline
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="request">
+                        <button type="button" class="btn btn-block request-btn" data-toggle="collapse" data-target=".lab-card">
+                            LAB &nbsp; 'Some Lab Name'
+                        </button>
+                        <div class="panel panel-default collapse lab-card">
+                            <div class="panel-body lab-panel">
+                                <table class="table lab-property-table">
+                                    <tr class="lab-property-headers">
+                                        <td>NAME</td>
+                                        <td>INSTITUTION</td>
+                                        <td>PHONE NUMBER</td>
+                                        <td>LAB WEBSITE</td>
+                                        <td>LAB DESCRIPTION</td>
+                                    </tr>
+                                    <tr class="lab-property-data">
+                                        <td class="lab-name">Some Lab Name</td>
+                                        <td class="lab-institution">Boston University</td>
+                                        <td class="lab-phone">617-353-4357</td>
+                                        <td class="lab-website">http://www.somelabname.com</td>
+                                        <td class="lab-description">This is the best lab ever!</td>
+                                    </tr>
+                                </table>
+                                <div id="approve-decline-btns">
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default approve-btn">
+                                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                            &nbsp;Approve
+                                        </button>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default decline-btn">
+                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                            &nbsp;Decline
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
+                <br> <br>
+                <footer></footer>
             </div>
-            <br> <br>
-            <footer></footer>
         </div>
         
         <!-- ANGULAR SCRIPTS -->
