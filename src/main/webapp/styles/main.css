@@ -110,6 +110,10 @@ a:hover {
     border: none;
 }
 
+#add-publication-modal {
+    text-align: center;
+}
+
 #add-to-lab-btn {
     font-family: "Open Sans", sans-serif;
     font-weight: 400;
@@ -160,8 +164,15 @@ a:hover {
     color: #FFFFFF;
 }
 
-#approve-decline-btns {
-
+.approved-status {
+    background-color: #27ae60;
+    color: #FFFFFF;
+    text-align: center;
+    vertical-align: middle;
+    width: 200px;
+    height: auto;
+    float: right;
+    border-radius: 8px;
 }
 
 body {
@@ -206,10 +217,6 @@ body {
 #create-new-lab-form {
     margin-left: 25px;
 }
-
-/*#create-new-modal .modal-footer {*/
-    /*padding-bottom: 0px;*/
-/*}*/
 
 #createOrder {
     font-family: "Open Sans", sans-serif;
@@ -341,6 +348,17 @@ body {
 
 #dl-csv-vendor-btn:hover {
     background-color: #89C176;
+}
+
+.denied-status {
+    background-color: #c0392b;
+    color: #FFFFFF;
+    text-align: center;
+    vertical-align: middle;
+    width: 200px;
+    height: auto;
+    float: right;
+    border-radius: 8px;
 }
 
 #edit-info-btn {
@@ -598,6 +616,12 @@ h3 {
     margin-top: 90px;
 }
 
+.order-date {
+    padding: 10px 0px 10px 30px;
+    background-color: #BDBDBD;
+    color: #000000;
+}
+
 .order-items-table {
     border: 0.25px #D5D5D5;
     table-layout: auto;
@@ -769,6 +793,17 @@ h3 {
     line-height: 10px;
 }
 
+.received-status {
+    background-color: #e67e22;
+    color: #FFFFFF;
+    text-align: center;
+    vertical-align: middle;
+    width: 200px;
+    height: auto;
+    float: right;
+    border-radius: 8px;
+}
+
 #remove-modal label {
     font-weight: 600;
     font-size: 14px;
@@ -809,15 +844,15 @@ h3 {
 .request-btn {
     text-align: left;
     height: 50px;
-    background-color: #2c3e50;
-    border-color: #2c3e50;
+    background-color: #7f8c8d;
+    border-color: #7f8c8d;
     color: #FFFFFF;
     border-radius: 0px;
 }
 
 .request-btn:hover {
-    background-color: #34495e;
-    border-color: #34495e;
+    background-color: #95a5a6;
+    border-color: #95a5a6;
     color: #FFFFFF;
 }
 

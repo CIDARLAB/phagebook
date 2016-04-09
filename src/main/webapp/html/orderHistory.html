@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+
 <html>
+
     <head>
+
         <title>Order History</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,38 +18,267 @@ and open the template in the editor.
         <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
         <script src="../scripts/new-ui-scripts/angular.ng-modules.js"></script>
+
         <style>
+
             #content{
-                margin-left: 28%;
-                position: fixed;
+                position: relative;
+                margin-left: 26%;
                 margin-top: 130px;
+                margin-bottom: 150px;
+                overflow-x: hidden;
+                z-index: inherit;
             }
+
+            label {
+                font-family: "Open Sans", sans-serif;
+                font-weight: 300;
+                font-size: 16px;
+            }
+
         </style>
+
     </head>
+
     <body>
+
         <div ng-module="orderHistory">
             <div ng-controller="orderHistoryCtrl">
                 <header></header>
                 <sidebar></sidebar>
-               
                 <div class="container" id="content">
 
-                    Order Info: <textarea id="order-info">use the get approved orders servlet to get information on
-                any approved orders that this person has</textarea>
+                    <!--<template id="order-card-history-template">-->
+                        <div class="col-sm-9" style="margin-top: 20px">
+                            <div class="panel panel-default order-card">
+                                <div class="order-date">ORDER PLACED&nbsp;</div>
+                                <div class="panel-heading order-heading" style="height:60px">
+                                    <label class="col-xs-2 form-control-label" style="margin-top:10px">Order Name:</label>
+                                    <div class="received-status">
+                                        <h4>RECEIVED</h4>
+                                    </div>
+                                </div>
+                                <div class="panel-body order-top-panel">
+                                    <br>
+                                    <p>Associated Project:&nbsp;<a class="order-project-name" href="" style="color:#1E714A;"></a></p>
+                                    <br>
+                                    <table class="table order-property-table">
+                                        <tr class="order-property-headers">
+                                            <td>ORDER ID #</td>
+                                            <td>CREATED BY</td>
+                                            <td>RECEIVED BY</td>
+                                            <td>APPROVED BY</td>
+                                            <td>ORDER LIMIT</td>
+                                            <td>ORDER BUDGET</td>
+                                        </tr>
+                                        <tr class="order-property-data">
+                                            <td class="order-id"></td>
+                                            <td class="order-created-by"></td>
+                                            <td class="order-received-by"></td>
+                                            <td class="order-approved-by"></td>
+                                            <td class="order-limit"></td>
+                                            <td class="order-budget">$</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <table class="table order-items-table">
+                                    <tr class="order-items-headers">
+                                        <td>ITEM</td>
+                                        <td>QTY.</td>
+                                        <td>UNIT PRICE</td>
+                                        <td>CUSTOM UNIT PRICE</td>
+                                        <td>TOTAL PRICE</td>
+                                    </tr>
+                                </table>
+                                <div class="panel-body order-bottom-panel">
+                                    <div id="order-buttons">
+                                        <div class="btn-group" role="group">
+                                            <button type="button" class="btn btn-default export-csv-btn">
+                                                <img alt="Export CSV" src="../styles/img/icons/export-csv.png" style="height:15px; vertical-align:middle;">
+                                                &nbsp;Export CSV
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <table class="table order-totals-table">
+                                        <tr>
+                                            <td>Total before tax:</td>
+                                            <td class="total-before-tax-value"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tax:</td>
+                                            <td class="tax-value"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Grand Total:</td>
+                                            <td class="total-after-tax-value"></td>
+                                        </tr>
+                                    </table>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                        <br><br>
+                    <!--</template>-->
 
+                    <!--<template id="order-card-history-template">-->
+                    <div class="col-sm-9" style="margin-top: 20px">
+                        <div class="panel panel-default order-card">
+                            <div class="order-date">ORDER PLACED&nbsp;</div>
+                            <div class="panel-heading order-heading" style="height:60px">
+                                <label class="col-xs-2 form-control-label" style="margin-top:10px">Order Name:</label>
+                                <div class="approved-status">
+                                    <h4>APPROVED</h4>
+                                </div>
+                            </div>
+                            <div class="panel-body order-top-panel">
+                                <br>
+                                <p>Associated Project:&nbsp;<a class="order-project-name" href="" style="color:#1E714A;"></a></p>
+                                <br>
+                                <table class="table order-property-table">
+                                    <tr class="order-property-headers">
+                                        <td>ORDER ID #</td>
+                                        <td>CREATED BY</td>
+                                        <td>RECEIVED BY</td>
+                                        <td>APPROVED BY</td>
+                                        <td>ORDER LIMIT</td>
+                                        <td>ORDER BUDGET</td>
+                                    </tr>
+                                    <tr class="order-property-data">
+                                        <td class="order-id"></td>
+                                        <td class="order-created-by"></td>
+                                        <td class="order-received-by"></td>
+                                        <td class="order-approved-by"></td>
+                                        <td class="order-limit"></td>
+                                        <td class="order-budget">$</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <table class="table order-items-table">
+                                <tr class="order-items-headers">
+                                    <td>ITEM</td>
+                                    <td>QTY.</td>
+                                    <td>UNIT PRICE</td>
+                                    <td>CUSTOM UNIT PRICE</td>
+                                    <td>TOTAL PRICE</td>
+                                </tr>
+                            </table>
+                            <div class="panel-body order-bottom-panel">
+                                <div id="order-buttons">
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default export-csv-btn">
+                                            <img alt="Export CSV" src="../styles/img/icons/export-csv.png" style="height:15px; vertical-align:middle;">
+                                            &nbsp;Export CSV
+                                        </button>
+                                    </div>
+                                </div>
+                                <br>
+                                <table class="table order-totals-table">
+                                    <tr>
+                                        <td>Total before tax:</td>
+                                        <td class="total-before-tax-value"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tax:</td>
+                                        <td class="tax-value"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Grand Total:</td>
+                                        <td class="total-after-tax-value"></td>
+                                    </tr>
+                                </table>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                    <br><br>
+                    <!--</template>-->
+
+                    <!--<template id="order-card-history-template">-->
+                    <div class="col-sm-9" style="margin-top: 20px">
+                        <div class="panel panel-default order-card">
+                            <div class="order-date">ORDER PLACED&nbsp;</div>
+                            <div class="panel-heading order-heading" style="height:60px">
+                                <label class="col-xs-2 form-control-label" style="margin-top:10px">Order Name:</label>
+                                <div class="denied-status">
+                                    <h4>DENIED</h4>
+                                </div>
+                            </div>
+                            <div class="panel-body order-top-panel">
+                                <br>
+                                <p>Associated Project:&nbsp;<a class="order-project-name" href="" style="color:#1E714A;"></a></p>
+                                <br>
+                                <table class="table order-property-table">
+                                    <tr class="order-property-headers">
+                                        <td>ORDER ID #</td>
+                                        <td>CREATED BY</td>
+                                        <td>RECEIVED BY</td>
+                                        <td>APPROVED BY</td>
+                                        <td>ORDER LIMIT</td>
+                                        <td>ORDER BUDGET</td>
+                                    </tr>
+                                    <tr class="order-property-data">
+                                        <td class="order-id"></td>
+                                        <td class="order-created-by"></td>
+                                        <td class="order-received-by"></td>
+                                        <td class="order-approved-by"></td>
+                                        <td class="order-limit"></td>
+                                        <td class="order-budget">$</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <table class="table order-items-table">
+                                <tr class="order-items-headers">
+                                    <td>ITEM</td>
+                                    <td>QTY.</td>
+                                    <td>UNIT PRICE</td>
+                                    <td>CUSTOM UNIT PRICE</td>
+                                    <td>TOTAL PRICE</td>
+                                </tr>
+                            </table>
+                            <div class="panel-body order-bottom-panel">
+                                <div id="order-buttons">
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-default export-csv-btn">
+                                            <img alt="Export CSV" src="../styles/img/icons/export-csv.png" style="height:15px; vertical-align:middle;">
+                                            &nbsp;Export CSV
+                                        </button>
+                                    </div>
+                                </div>
+                                <br>
+                                <table class="table order-totals-table">
+                                    <tr>
+                                        <td>Total before tax:</td>
+                                        <td class="total-before-tax-value"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tax:</td>
+                                        <td class="tax-value"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Grand Total:</td>
+                                        <td class="total-after-tax-value"></td>
+                                    </tr>
+                                </table>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                    <br><br>
+                    <!--</template>-->
 
                 </div>
-                
-       
-        
-        <footer></footer>
+                <footer></footer>
             </div>
         </div>
+
+        <!-- ANGULAR SCRIPTS -->
         <script src="../scripts/new-ui-scripts/sidebarDirective.js"></script>
         <script src="../scripts/new-ui-scripts/headerDirective.js"></script>
         <script src="../scripts/new-ui-scripts/footerDirective.js"></script>
         <script src="../scripts/new-ui-scripts/orderHistoryController.js"></script>
         <script src="../scripts/new-ui-scripts/orderHistoryApp.js"></script>
+
     </body>
     
     
