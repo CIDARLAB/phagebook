@@ -23,5 +23,6 @@ public enum OrderColumns {
     COMPANY_CONTACT,
     COMPANY_PHONE,
     UNIT_PRICE,
+    CUSTOM_UNIT_PRICE,
     TOTAL_PRICE
 }

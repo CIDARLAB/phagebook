@@ -113,6 +113,8 @@ public class createLab extends HttpServlet {
             lab.setUrl(url);
             lab.setPhone(phone);
             lab.setDescription(description);
+            lab.setInstitution(institutionId);
+            
             List<String> leadPIList = new ArrayList<>();
             leadPIList.add(userId);
             lab.setLeadPIs(leadPIList);

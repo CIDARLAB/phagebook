@@ -87,6 +87,15 @@ public class listPIsOfLab extends HttpServlet {
                     PI.put("name", piPers.getFirstName() + " " + piPers.getLastName() );
                     PI.put("email", piPers.getEmailId());
                     PI.put("clothoId", piPers.getId());
+                    String firstInstitutionId = (piPers.getInstitutions().size() > 0) ? piPers.getInstitutions().get(0): "None" ;
+                    if (!firstInstitutionId.equals("None")){
+                        PI.put("institutionName", ClothoAdapter.getInstitution(firstInstitutionId, clothoObject) .getName());
+                    }
+                    
+                    String firstLabId = (piPers.getLabs().size() > 0) ? piPers.getLabs().get(0): "None";
+                    if (!firstLabId.equals("None")) {
+                        PI.put("labName", ClothoAdapter.getLab(firstLabId, clothoObject).getName());
+                    }
                     PIs.put(PI);
                     
                 }

@@ -31,7 +31,7 @@ import org.json.JSONObject;
  *
  * @author Herb
  */
-public class queryFirstLastName extends HttpServlet {
+public class findMemberForNewProject extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -59,8 +59,7 @@ public class queryFirstLastName extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-        
+        System.out.println("in doGet of findMemberForNewProject");
         Object pFirstName = request.getParameter("firstName");
         String firstName = pFirstName != null ? (String) pFirstName: "";
         
@@ -84,12 +83,15 @@ public class queryFirstLastName extends HttpServlet {
             // able to query now. 
             Map query = new HashMap();
             if (!firstName.equals("")){
+                System.out.println("in query first name is:");
+                System.out.println(firstName);
                 query.put("firstName", firstName); // the value for which we are querying.
             }
             if (!lastName.equals("")){
+                System.out.println("in query last name is:");
+                System.out.println(lastName);
                 query.put("lastName", lastName); // the key of the object we are querying
-            }       
-            
+            } 
            
             List<Person> people = ClothoAdapter.queryPerson(query, clothoObject, ClothoAdapter.QueryMode.EXACT);
             JSONArray peopleJSONArray = new JSONArray();
@@ -100,20 +102,46 @@ public class queryFirstLastName extends HttpServlet {
                 //get position? role?? we will look into this
                 retrievedAsJSON.put("firstName", retrieve.getFirstName());
                 retrievedAsJSON.put("lastName", retrieve.getLastName());
+                retrievedAsJSON.put("email", retrieve.getEmailId());
                 retrievedAsJSON.put("clothoId", retrieve.getId());
+                System.out.println(retrieve.getFirstName());
+                System.out.println(retrieve.getLastName());
+//                JSONObject statusList = new JSONObject();
+//                if (retrieve.getStatuses() != null){
+//                    for (String status:retrieve.getStatuses()){
+//                        Status stat = ClothoAdapter.getStatus(status, clothoObject);
+//
+//                        statusList.put("text", stat.getText());
+//                        statusList.put("date", stat.getCreated().toString());
+//                    }
+//                }
 
-                String firstInstitutionId = (retrieve.getInstitutions().size() > 0) ? retrieve.getInstitutions().get(0): "None" ;
-                    if (!firstInstitutionId.equals("None")){
-                        retrievedAsJSON.put("institutionName", ClothoAdapter.getInstitution(firstInstitutionId, clothoObject) .getName());
+//                JSONObject publicationList = new JSONObject();
+//                if (retrieve.getPublications() != null){
+//
+//                    for (String publication:retrieve.getPublications()){
+//                        Publication pub = ClothoAdapter.getPublication(publication, clothoObject);
+//                        publicationList.put("id", pub.getId());
+//                    }
+//                }
+                /*
+                JSONObject labList = new JSONObject();
+                if (retrieve.getLabs() != null){
+                    for (String lab:retrieve.getLabs()){
+                        Institution inst = ClothoAdapter.getInstitution(lab, clothoObject);
+                        labList.put("name", inst.getName());
+                        Set<Person.PersonRole> rolesAtInstitution = retrieve.getRole(lab);
+                        JSONObject positions = new JSONObject();
+                        Iterator <Person.PersonRole> it = rolesAtInstitution.iterator();
+                        while(it.hasNext()){
+                            positions.put(inst.getName(), it.next());
+                        }
+                        labList.put("roles", positions);
                     }
-                    
-                    String firstLabId = (retrieve.getLabs().size() > 0) ? retrieve.getLabs().get(0): "None";
-                    if (!firstLabId.equals("None")) {
-                        retrievedAsJSON.put("labName", ClothoAdapter.getLab(firstLabId, clothoObject).getName());
-                    }
-
-                
-                
+                }
+                */
+//                retrievedAsJSON.put("statusList", statusList);
+//                retrievedAsJSON.put("publicationList", publicationList);
                 //retrievedAsJSON.put("labList", labList);
                 peopleJSONArray.put(retrievedAsJSON);
             }

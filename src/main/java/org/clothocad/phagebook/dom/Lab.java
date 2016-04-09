@@ -16,6 +16,7 @@ import lombok.Setter;
  */
 public class Lab extends Organization {
     @Getter @Setter List<String> leadPIs;
+    @Getter @Setter String       institution;
     //TODO ADD MEMBERS
     
     //@Getter @Setter List<String> members;

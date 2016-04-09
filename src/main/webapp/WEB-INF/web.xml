@@ -5,6 +5,14 @@
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.uploadVendorCSV</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>exportOrderCSV</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.exportOrderCSV</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>exportOrderCSV</servlet-name>
+        <url-pattern>/exportOrderCSV</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>deleteOrder</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.deleteOrder</servlet-class>
     </servlet>

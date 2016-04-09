@@ -94,6 +94,7 @@ public class createPerson extends HttpServlet {
         Object pInstitutionId = request.getParameter("institution");
         String institutionId = pInstitutionId != null ? (String) pInstitutionId : "";
         
+        System.out.println("Passed in instit ID" + institutionId);
         Object pLabId = request.getParameter("lab");
         String labId = pLabId != null ? (String) pLabId : "";
         
@@ -107,6 +108,7 @@ public class createPerson extends HttpServlet {
             List<String> institutions = createdPerson.getInstitutions();
             institutions.add(institutionId);
             createdPerson.setInstitutions(institutions);
+            System.out.println("I GOT TO HERE WITH ID " + institutionId);
         }
         
         if (!labId.equals("")){
@@ -139,10 +141,12 @@ public class createPerson extends HttpServlet {
       
         if (isUnique){
             clothoObject.logout();
+            System.out.println(createdPerson.getInstitutions() + " THE INSTITUTIONS");
             ClothoAdapter.createPerson(createdPerson, clothoObject);
 
             EmailHandler emailer = EmailHandler.getEmailHandler();
             String link = Args.phagebookBaseURL + "/html/validateEmail.html?emailId=" +createdPerson.getEmailId() + "&salt=" + createdPerson.getSalt() ;
+            System.out.println(link);
             emailer.sendEmailVerification(createdPerson, link);
             response.setStatus(HttpServletResponse.SC_OK);
             response.setContentType("application/JSON");

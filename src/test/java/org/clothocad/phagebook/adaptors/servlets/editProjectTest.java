@@ -97,7 +97,7 @@ public class editProjectTest {
         person3.setFirstName("Person");
         person3.setLastName("Lead");
         person3.setId(idP3);
-        person3.setEmailId("agonchar@bu.edu");
+        person3.setEmailId("angonchar@bu.edu");
         person3.setPassword("person3");
         
         String person3ID = ClothoAdapter.createPerson(person3, clothoObject);
