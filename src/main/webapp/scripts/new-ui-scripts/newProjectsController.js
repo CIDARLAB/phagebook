@@ -5,6 +5,85 @@ This file is responsible for processing and checking the data from new projects 
 */
 
 function newProjectsCtrl($scope, $http) {
+
+    $.ajax({
+        url: "../loadPhagebookInstitutions",
+        type: "GET",
+        async: false,
+        data: {},
+        success: function(response) {
+            var responseArray = response.institutions; //array of JSONObjects with labs attached 
+            console.log(responseArray);
+            var selectInstitution = document.getElementById('institution');
+
+
+            sessionStorage.setItem("index-institutions", JSON.stringify(responseArray)); // stores in sess stor
+            // removeOptions1(selectInstitution);
+
+            var opt = document.createElement('option');
+            opt.value = "";
+
+            opt.innerHTML = "Institution...";
+            selectInstitution.appendChild(opt);
+
+            var numberOfInstitutions = responseArray.length;
+            for (var i = 0; i < numberOfInstitutions; i++) {
+
+
+                var opt = document.createElement('option');
+                opt.value = responseArray[i].institutionId;
+
+                opt.innerHTML = responseArray[i].institutionName;
+                selectInstitution.appendChild(opt);
+
+
+            }
+
+        },
+        error: function(response) {
+            alert("No Institutions To Load");
+        }
+    });
+
+    $('#institution').change(function() {
+        //this is innefficient... make a servlet to make a call on change instead actually... its easier
+        var selectedInstitution = $('#institution option').filter(':selected').text();
+
+        var responseArray = JSON.parse(sessionStorage.getItem("index-institutions"));
+
+
+        var selectLabs = document.getElementById('lab-name');
+
+
+        var numberOfInstitutions = responseArray.length;
+
+
+        for (var i = 0; i < numberOfInstitutions; i++) {
+
+            if (responseArray[i].institutionName === selectedInstitution) {
+                removeOptions(selectLabs);
+                var labsArray = responseArray[i].labs;
+                var labsLength = labsArray.length;
+                for (var j = 0; j < labsLength; j++) {
+                    var opt2 = document.createElement('option');
+                    opt2.value = labsArray[j].labId;
+                    opt2.innerHTML = labsArray[j].labName;
+                    selectLabs.appendChild(opt2);
+                }
+            } else if (selectedInstitution === "Institution...") {
+                removeOptions(selectLabs);
+                var opt2 = document.createElement('option');
+                opt2.value = "";
+                opt2.innerHTML = "Lab Name...";
+                selectLabs.appendChild(opt2);
+                return;
+            }
+
+
+        }
+    });
+
+
     console.log("loaded");
 
     $scope.personId = getCookie("clothoId"); //retrieves the user id from session storage
@@ -62,14 +141,14 @@ function newProjectsCtrl($scope, $http) {
             // Condition 3: valid input for lead's name: 2 words
             if (leadNameCheck()) {
                 count++;
-            }else{
+            } else {
                 $scope.leadNameRequired = "Format invalid. Please enter as 'James Smith'";
             }
             //Condition 4: valid input for members' names: 2 words
             if (membersCheck()) {
                 console.log("adding 1!")
                 count++;
-            }else{
+            } else {
                 console.log("Members names invalid.");
             }
 
@@ -93,7 +172,7 @@ function newProjectsCtrl($scope, $http) {
         var leadNameCheck = function() {
 
                 var leadFullName = $scope.formData.leadName;
-                if (leadFullName  != undefined) {
+                if (leadFullName != undefined) {
                     var splitName = leadFullName.split(" ");
                     var leadNameSelected = $("#lead_selectDiv option:selected").text();
                     console.log(splitName.length);
@@ -133,7 +212,7 @@ function newProjectsCtrl($scope, $http) {
                 console.log("about to return membersArray");
                 console.log(membersArray);
                 return true;
-            }else{
+            } else {
                 $scope.membersRequired = "Please enters members' names.";
                 return false;
             }
@@ -157,7 +236,9 @@ function newProjectsCtrl($scope, $http) {
 
             members: $scope.formData.members,
 
-            labs: $scope.formData.labs,
+            lab: $("#lab_selectDiv option:selected").text(),
+            labID: $("#lab_selectDiv option:selected").val(),
+
             projectBudget: $scope.formData.projectBudget,
             grant: $scope.formData.grant,
             description: $scope.formData.description,
@@ -176,20 +257,24 @@ function newProjectsCtrl($scope, $http) {
                 async: false,
                 data: dataSubmit,
                 success: function(response) {
+
                     console.log(dataSubmit);
                     console.log(response);
                     console.log("response!!!");
                     setCookie("projectId", response.projectId, 10);
                     console.log(document.cookie);
+                    alert("A new project has been created!");
                     //location.assign("./html/displayProjects.html");
 
                 },
                 error: function(err) {
-                    console.log("ERROR!!");
+
+                    console.log("Error!");
                     console.log(err);
 
                 }
             });
         }
     };
+
 };

@@ -165,7 +165,9 @@ public class processProject extends HttpServlet {
       System.out.println("Now getting lead!");
       Object leadIdObj = request.getParameter("leadID");
       String leadId  = leadIdObj != null ? (String) leadIdObj : "" ;
+      System.out.println("Lead ID is: ");
       System.out.println(leadId);
+      
       if(!leadId.equals("0")){
           System.out.println("Lead exists in the database!");
           // we know that this person exists in the database
@@ -208,10 +210,16 @@ public class processProject extends HttpServlet {
       }
               
         
-      Object labsName = request.getParameter("labs");
-      String labs  = labsName != null ? (String) labsName : "" ;
-        System.out.println("Labs is:"); 
-        System.out.println(labs);
+      Object labNameObj = request.getParameter("lab");
+      String labName  = labNameObj != null ? (String) labNameObj : "" ;
+      
+      Object labIdObj = request.getParameter("labID");
+      String labId  = labIdObj != null ? (String) labIdObj : "" ;
+        
+      System.out.println("Lab is:"); 
+        System.out.println(labName);
+        System.out.println("Lab Id is:"); 
+        System.out.println(labId);
 
         
       String projectBudgetVal = request.getParameter("projectBudget");
@@ -223,7 +231,6 @@ public class processProject extends HttpServlet {
         if(projectBudget<0){
           result.put("budget", "0");
           projectBudget = 0;
-          
         }
       }
         System.out.println("Budget is:"); 
@@ -242,11 +249,10 @@ public class processProject extends HttpServlet {
        System.out.println(description);
 
       
-      
-      Object leadEmailAdr = request.getParameter("leadEmailId");
-      String leadEmailId  = leadEmailAdr != null ? (String) leadEmailAdr : "" ;
-        System.out.println("leadEmailId is"); 
-        System.out.println(leadEmailId);
+//      Object leadEmailAdr = request.getParameter("leadEmailId");
+//      String leadEmailId  = leadEmailAdr != null ? (String) leadEmailAdr : "" ;
+//        System.out.println("leadEmailId is"); 
+//        System.out.println(leadEmailId);
         
       Date date1= new java.util.Date();
       String date = new Timestamp(date1.getTime()).toString();
@@ -291,9 +297,15 @@ public class processProject extends HttpServlet {
       // for now assume there is only one organization/lab
       // TODO: add options for a bunch of labs
       
-      Organization lab = new Organization(labs);
+      Organization lab = ClothoAdapter.getLab(labId, clothoObject);
+      System.out.println("\n");
+      System.out.println(lab.getName());
+      System.out.println(lab.getDescription());
+      System.out.println("\n");
       List<String> labsList = new ArrayList<String>();
       labsList.add(lab.getName());
+      System.out.println(labsList);
+       System.out.println("\n");
 
       System.out.println("About to create a new project.");
       // create and set the fields for a new project
@@ -323,13 +335,13 @@ public class processProject extends HttpServlet {
       }
       
       creatorID = ClothoAdapter.setPerson(creator, clothoObject);
-      
-      
+
        System.out.println("New Project ID is "+ projectID);
        System.out.println(creator.getProjects());
 
        clothoObject.login(loginMap);
-
+      
+      // CODE BELOW IS NOT ESSENTIAL
       // now print all of the things in the project
       Project test = ClothoAdapter.getProject(projectID, clothoObject);
       
@@ -340,7 +352,6 @@ public class processProject extends HttpServlet {
       System.out.println("Creator ID is " +test.getCreatorId());
       System.out.println("Grant ID is " +test.getGrantId());
       
-      // another test
       Project checkProject = ClothoAdapter.getProject(projectID, clothoObject);
       
       String checkProjectCreatorId = checkProject.getCreatorId();
@@ -360,6 +371,7 @@ public class processProject extends HttpServlet {
       List<String> checkProjectPersonProjects = checkProjectPerson.getProjects();
       System.out.println("checkProjectPersonProjects");
       System.out.println(checkProjectPersonProjects);     
+      // CODE ABOVE IS NOT ESSENTIAL
       
       conn.closeConnection();
 

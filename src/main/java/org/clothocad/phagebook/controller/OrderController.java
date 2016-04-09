@@ -65,6 +65,8 @@ public class OrderController {
             product.setProductURL(productUrl);
             product.setGoodType(GoodType.valueOf(goodType));
             product.setDescription(description);
+            product.setInventory(Integer.parseInt(quantity));
+            
             
             String id = ClothoAdapter.createProduct(product, clothoObject);
             

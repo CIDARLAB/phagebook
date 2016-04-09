@@ -673,8 +673,6 @@ public class ClothoAdapter {
         
         if (order.getProducts()!= null) //LIST OF CART ITEM ID's
         {
-            if (!order.getProducts().isEmpty())
-            {
                 JSONArray cartItemIds = new JSONArray();
                 for (String cartItem : order.getProducts()){
                     if (cartItem != null){
@@ -683,8 +681,9 @@ public class ClothoAdapter {
                         }
                     }
                 }
+                System.out.println("CART ITEM ID's ARE : "+ cartItemIds.toString());
                 map.put("products", cartItemIds);
-            }
+            
         }
         
         
@@ -934,8 +933,7 @@ public class ClothoAdapter {
         
         if (person.getCreatedOrders() != null)
         {
-            if (!person.getCreatedOrders().isEmpty())
-            {
+            
                 JSONArray orders = new JSONArray();
                 for (String order : person.getCreatedOrders())
                 {
@@ -947,12 +945,11 @@ public class ClothoAdapter {
                     }
                 }
                 map.put("orders", orders);
-            }
+            
         }
         if (person.getSubmittedOrders()!= null)
         {
-            if (!person.getSubmittedOrders().isEmpty())
-            {
+            
                 JSONArray orders = new JSONArray();
                 for (String order : person.getSubmittedOrders())
                 {
@@ -964,13 +961,12 @@ public class ClothoAdapter {
                     }
                 }
                 map.put("submittedOrders", orders);
-            }
+            
         }
         
         if (person.getApprovedOrders()!= null)
         {
-            if (!person.getApprovedOrders().isEmpty())
-            {
+           
                 JSONArray orders = new JSONArray();
                 for (String order : person.getApprovedOrders())
                 {
@@ -982,7 +978,7 @@ public class ClothoAdapter {
                     }
                 }
                 map.put("approvedOrders", orders);
-            }
+            
         }
         
         
@@ -1076,7 +1072,9 @@ public class ClothoAdapter {
             map.put("goodType", product.getGoodType().toString());
         }
         
-        map.put("inventory", product.getInventory());
+        if (product.getInventory() != null){
+            map.put("inventory", product.getInventory());
+        }
         
         if (product.getName() != null) {
             if (!product.getName().isEmpty() && !product.getName().equals("Not Set"))
@@ -1086,6 +1084,10 @@ public class ClothoAdapter {
         if (product.getDescription() != null) {
             if (!product.getDescription().isEmpty() && !product.getDescription().equals("Not Set"))
                 map.put("description", product.getDescription());
+        }
+        if (product.getQuantity() != null) {
+           
+                map.put("quantity", product.getDescription());
         }
   
         if (product.getCompanyId() != null){
@@ -1623,7 +1625,10 @@ public class ClothoAdapter {
     public static Product         getProduct(String id, Clotho clothoObject)
     {
         Map productMap = (Map) clothoObject.get(id);
-        Product product = mapToProduct(productMap, clothoObject);
+        Product product = new Product();
+        if (productMap != null){
+        product = mapToProduct(productMap, clothoObject);
+        }
         return product;   
     }
     /**
@@ -1696,7 +1701,10 @@ public class ClothoAdapter {
     public static Vendor          getVendor(String id, Clotho clothoObject)
     {
         Map companyMap = (Map) clothoObject.get(id);
-        Vendor company = mapToVendor(companyMap, clothoObject);
+        Vendor company = new Vendor();
+        if (companyMap != null){
+            company = mapToVendor(companyMap, clothoObject);
+        }
         return company;
     }
     // </editor-fold>
@@ -2146,12 +2154,13 @@ public class ClothoAdapter {
                 //map.put("query", "Tel"); // the value for which we are querying.
                 // map.put("key", "name"); // the key of the object we are querying
                 queryResults = (JSONArray) clothoObject.startsWith(query); 
-                
-                for (Object queryResult : queryResults){
-                    if ( ((Map) queryResult).containsKey("schema")){
-                        String schema = (String) ((Map) queryResult).get("schema");
-                        if ( schema.equals(Person.class.getCanonicalName())){
-                            people.add(ClothoAdapter.getPerson ( (String) ((Map) queryResult).get("id") , clothoObject));
+                if (queryResults != null){
+                    for (Object queryResult : queryResults){
+                        if ( ((Map) queryResult).containsKey("schema")){
+                            String schema = (String) ((Map) queryResult).get("schema");
+                            if ( schema.equals(Person.class.getCanonicalName())){
+                                people.add(ClothoAdapter.getPerson ( (String) ((Map) queryResult).get("id") , clothoObject));
+                            }
                         }
                     }
                 }
@@ -2161,10 +2170,11 @@ public class ClothoAdapter {
             case EXACT:
                 query.put("schema", Person.class.getCanonicalName());
                 queryResults = (JSONArray) clothoObject.query(query);
-        
-                for (Object queryResult : queryResults)
-                {
-                    people.add(mapToPerson( (Map) queryResult, clothoObject));
+                if (queryResults != null){
+                    for (Object queryResult : queryResults)
+                    {
+                        people.add(mapToPerson( (Map) queryResult, clothoObject));
+                    }
                 }
                 
                 break;
@@ -3250,6 +3260,7 @@ public class ClothoAdapter {
     }
     private static Product       mapToProduct(Map map, Clotho clothoObject)
     {
+        
         String name = "";
         if (map.containsKey("name")){ name = (String) map.get("name"); }
         
@@ -3274,7 +3285,14 @@ public class ClothoAdapter {
         if (map.containsKey("cost")){ cost = (Double) map.get("cost");}
         
         int inventory = 0;
-        if (map.containsKey("inventory")) { inventory = (int) map.get("inventory");}
+        if (map.containsKey("inventory")) { 
+            inventory = (int) map.get("inventory");
+        }
+        
+        int quantity = 0;
+        if (map.containsKey("quantity")){
+            quantity = (int) map.get("quantity");
+        }
         
         String id = "";
         if (map.containsKey("id")){  id = (String) map.get("id"); }
@@ -3292,9 +3310,13 @@ public class ClothoAdapter {
         product.setUnitPrice(cost);
         product.setDescription(description);
         product.setProductURL(productURL);
+        product.setQuantity(quantity);
         product.setGoodType(goodType);
         
         product.setId(id);
+        
+        
+        
         return product;
         
     }
@@ -3720,8 +3742,7 @@ public class ClothoAdapter {
         }
         if (person.getLabs() != null)
         {
-            if(!person.getLabs().isEmpty())
-            {
+           
                 JSONArray labs = new JSONArray();
                 JSONArray roles;
                 Map rolesMap = new HashMap();
@@ -3752,11 +3773,10 @@ public class ClothoAdapter {
                 map.put("labs", labs);
                 map.put("roles", rolesMap);
             }
-        }
+        
         if (person.getColleagues() != null)
         {
-            if (!person.getColleagues().isEmpty())
-            {
+            
                 JSONArray colleagues = new JSONArray();
                 for (String colleague : person.getColleagues())
                 {
@@ -3768,13 +3788,12 @@ public class ClothoAdapter {
 
                 }
                 map.put("colleagues", colleagues);
-            }
+            
         }
         
         if (person.getCreatedOrders() != null)
         {
-            if (!person.getCreatedOrders().isEmpty())
-            {
+            
                 JSONArray orders = new JSONArray();
                 for (String order : person.getCreatedOrders())
                 {
@@ -3786,12 +3805,11 @@ public class ClothoAdapter {
                     }
                 }
                 map.put("orders", orders);
-            }
+           
         }
         if (person.getSubmittedOrders()!= null)
         {
-            if (!person.getSubmittedOrders().isEmpty())
-            {
+           
                 JSONArray orders = new JSONArray();
                 for (String order : person.getSubmittedOrders())
                 {
@@ -3803,13 +3821,12 @@ public class ClothoAdapter {
                     }
                 }
                 map.put("submittedOrders", orders);
-            }
+            
         }
         
         if (person.getApprovedOrders()!= null)
         {
-            if (!person.getApprovedOrders().isEmpty())
-            {
+            
                 JSONArray orders = new JSONArray();
                 for (String order : person.getApprovedOrders())
                 {
@@ -3821,14 +3838,13 @@ public class ClothoAdapter {
                     }
                 }
                 map.put("approvedOrders", orders);
-            }
+            
         }
         
         
         if(person.getPublications() != null)
         {
-            if (!person.getPublications().isEmpty())
-            {
+            
                 JSONArray publications = new JSONArray();
                 for (String publication : person.getPublications())
                 {
@@ -3840,7 +3856,7 @@ public class ClothoAdapter {
                     
                 }
                 map.put("publications", publications);
-            }
+            
         }
         if (person.getFirstName() !=null)
             map.put("firstName", person.getFirstName());

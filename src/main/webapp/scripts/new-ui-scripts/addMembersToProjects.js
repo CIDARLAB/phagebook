@@ -6,7 +6,11 @@ This file is responsible for looking up Phagebook's members to be added to the p
 
 $(document).ready(function() {
 
+
+
+
     var keyPressHandler = function() {
+        console.log("IN ADD MEMBERS TO PROJECTS");
         clearTimeout(timerVal); // stops previous attempt.
         timerVal = setTimeout(doAjax(this.id), 500); //after a second of no input flip the flag.
     }
@@ -76,8 +80,6 @@ $(document).ready(function() {
             });
         }
     }
-
-
 
 
 });

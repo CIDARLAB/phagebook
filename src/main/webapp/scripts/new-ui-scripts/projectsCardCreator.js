@@ -1,13 +1,38 @@
-function createOrderCard(orderJSON) {
+function createTemplateCard(projectJSON) {
+
+    /*
+        data:
+            projectId
+            description
+            budget
+            affiliatedLabs
+            projectName
+            updates
+            grant
+            dateCreated
+            membersNum
+            membersNames
+            membersIds
+            creator  // this is name
+            creatorId
+            lead  // this is name
+            leadId
+    */
 
 
     var content = document.getElementById('content');
     var tmpl = document.getElementById('order-card-template').content.cloneNode(true);
 
-    tmpl.querySelector('.order-nickname').value         = orderJSON.Name;
-    tmpl.querySelector('.order-project-name').innerText = orderJSON.RelatedProjectName;
-    tmpl.querySelector('.order-id').innerText           = orderJSON.ClothoId;
-    tmpl.querySelector('.order-created-by').innerText   = orderJSON.CreatedByName;
+    tmpl.querySelector('.project-name').value                     = projectJSON.projectName;
+    tmpl.querySelector('.project-description').innerText          = projectJSON.description;
+    tmpl.querySelector('.project-budget').innerText               = projectJSON.budget;
+    tmpl.querySelector('.project-affiliatedLabs').innerText       = projectJSON.affiliatedLabs;
+    tmpl.querySelector('.project-updates').value                  = projectJSON.updates;
+    tmpl.querySelector('.project-grant').innerText                = projectJSON.grant;
+    tmpl.querySelector('.project-dateCreated').innerText          = projectJSON.dateCreated;
+    tmpl.querySelector('.project-membersNames').innerText         = projectJSON.membersNames;
+    tmpl.querySelector('.project-creator').innerText              = projectJSON.creator;
+    tmpl.querySelector('.project-lead').innerText                 = projectJSON.lead;
 
     if (orderJSON.ReceivedByIds != ""){ //when it's not empty
         for (var j = 0 ; j < orderJSON.ReceivedByIds.length; j++){
@@ -112,13 +137,6 @@ function createOrderCard(orderJSON) {
         tmpl.querySelector('.submit-order-btn').disabled = true;
     }
     tmpl.querySelector('.total-after-tax-value').innerText = "$" + ( (TAX * totalBeforeTax) + totalBeforeTax);
-
-
-
-
-
-
-
 
     content.appendChild(tmpl);
 }
