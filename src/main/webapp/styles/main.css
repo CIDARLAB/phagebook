@@ -207,9 +207,9 @@ body {
     margin-left: 25px;
 }
 
-#create-new-modal .modal-footer {
-    padding-bottom: 0px;
-}
+/*#create-new-modal .modal-footer {*/
+    /*padding-bottom: 0px;*/
+/*}*/
 
 #createOrder {
     font-family: "Open Sans", sans-serif;
