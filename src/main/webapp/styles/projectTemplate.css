@@ -1,0 +1,59 @@
+body{
+	font-size: 10px!important;
+}
+.project-card-template {
+    width: 450px;
+    /*height: 300px;*/
+    border: solid black 5px;
+}
+
+.project-name-content {
+    /*position: absolute;*/
+    font-family: 'Open Sans';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
+    color: #21825C;
+    line-height: 20px;
+}
+
+.project-dateCreated-content {
+    font-family: 'Open Sans Italic', 'Open Sans';
+    font-weight: 400;
+    font-style: italic;
+    font-size: 12px;
+    color: #333333;
+    line-height: 20px;
+}
+
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.project-people-person-img {
+    height: 50px;
+    width: 50px;
+}
+
+ul {
+		margin:0;
+		padding:0;
+    list-style-type: none;
+}
+.heading{
+	font-weight: bold;
+}
+.project-people-heading{
+	font-weight: bold;
+}
+.row {
+    margin-right: 0px!important;
+    margin-left: 0px!important;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
