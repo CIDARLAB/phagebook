@@ -18,7 +18,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
         <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
-        <!--<script src="../scripts/new-ui-scripts/accountSettings.js"></script>-->
+        <script src="../scripts/new-ui-scripts/accountSettings.js"></script>
         
         <style>
             
@@ -192,13 +192,14 @@
                                         <div class="form-group row">
                                             <label for="institution-drop-down" class="col-sm-2 form-control-label">INSTITUTIONS</label>
                                             <div class="col-sm-3">
-                                                <select class="form-control" id="institution-drop-down">
+                                                <select class="form-control institution-drop-down">
                                                     <option>...</option>
+
                                                 </select>
                                             </div>
-                                            <label for="pi-lab-results" class="col-sm-2 form-control-label">LAB NAME</label>
+                                            <label for="lab-drop-down" class="col-sm-2 form-control-label">LAB NAME</label>
                                             <div class="col-sm-3">
-                                                <select class="form-control" id="pi-lab-results">
+                                                <select class="form-control lab-drop-down">
                                                     <option>...</option>
                                                 </select>
                                             </div>
@@ -230,13 +231,14 @@
                                         <div class="form-group row">
                                             <label for="institution-drop-down" class="col-sm-2 form-control-label">INSTITUTIONS</label>
                                             <div class="col-sm-3">
-                                                <select class="form-control" id="institution-drop-down">
+                                                <select class="form-control institution-drop-down">
                                                     <option>...</option>
+
                                                 </select>
                                             </div>
-                                            <label for="pi-lab-results" class="col-sm-2 form-control-label">LAB NAME</label>
+                                            <label for="lab-drop-down" class="col-sm-2 form-control-label">LAB NAME</label>
                                             <div class="col-sm-3">
-                                                <select class="form-control" id="pi-lab-results">
+                                                <select class="form-control lab-drop-down">
                                                     <option>...</option>
                                                 </select>
                                             </div>
@@ -288,11 +290,53 @@
                                         <h4 class="modal-title" id="create-new-label">Create New Lab</h4>
                                     </div>
                                     <div class="modal-body">
-                                        ...
+                                        <br>
+                                        <p>Create a new lab by entering the fields below. Please note that if you do not have administrative access, all labs will need to be submitted for review and approval.</p>
+                                        <br>
+                                        <form id="create-new-lab-form">
+                                            <div class="form-group row">
+                                                <label for="lab-name" class="col-sm-2 form-control-label">NAME</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control" id="lab-name">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="institution-drop-down" class="col-sm-2 form-control-label">INSTITUTION</label>
+                                                <div class="col-sm-8">
+                                                    <select class="form-control institution-drop-down" id="create-lab-institution">
+                                                        <option>...</option>
+
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="lab-phone" class="col-sm-2 form-control-label">PHONE NUMBER</label>
+                                                <div class="col-sm-8">
+                                                    <input type="tel" class="form-control" id="lab-phone">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="lab-website" class="col-sm-2 form-control-label">LAB WEBSITE</label>
+                                                <div class="col-sm-8">
+                                                    <input type="url" class="form-control" id="lab-website">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="lab-description" class="col-sm-2 form-control-label">LAB DESCRIPTION</label>
+                                                <div class="col-sm-8">
+                                                    <textarea class="form-control" rows="5" id="lab-description" style="resize:none"></textarea>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                        <div class="alert alert-success col-sm-8" id="success-lab-alert">
+                                            <div id="success-lab-content">
+                                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                                Successfully submitted lab!
+                                            </div>
+                                        </div>
+                                        <button id="submit-lab-btn" type="button" class="btn btn-primary">Submit</button>
                                     </div>
                                 </div>
                             </div>

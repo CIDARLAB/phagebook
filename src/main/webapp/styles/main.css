@@ -143,12 +143,38 @@ a:hover {
     background-color: #89C176;
 }
 
+.approve-btn {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    background-color: #1E714A;
+    color: #FFFFFF;
+    border-radius: 8px;
+    padding-right: 15px;
+    padding-left: 15px;
+    border: none;
+}
+
+.approve-btn:hover {
+    background-color: #31A16F;
+    color: #FFFFFF;
+}
+
+#approve-decline-btns {
+
+}
+
 body {
     font-family: "Open Sans", sans-serif;
     font-style: normal;
     color: #666666;
     background-color: #F4F4F4;
     margin-bottom: 60px;
+}
+
+.btn[disabled]:hover {
+    background-color: #1E714A;
+    border: none;
 }
 
 #colleagues {
@@ -176,6 +202,14 @@ body {
     margin-left: -5px;
     height: 110px;
 }
+
+#create-new-lab-form {
+    margin-left: 25px;
+}
+
+/*#create-new-modal .modal-footer {*/
+    /*padding-bottom: 0px;*/
+/*}*/
 
 #createOrder {
     font-family: "Open Sans", sans-serif;
@@ -241,6 +275,23 @@ body {
 #create-status-btn:hover {
     background-color: #89C176;
     border: none;
+}
+
+.decline-btn {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    background-color: #CD344A;
+    color: #FFFFFF;
+    border-radius: 8px;
+    padding-right: 15px;
+    padding-left: 15px;
+    border: none;
+}
+
+.decline-btn:hover {
+    background-color: #EC3C56;
+    color: #FFFFFF;
 }
 
 .delete-order-btn {
@@ -428,6 +479,15 @@ h3 {
     text-align: right;
 }
 
+.lab-property-headers td {
+    color: #1E714A;
+    padding: 0px 0px 0px 0px;
+}
+
+.lab-property-data td {
+    padding: 0px 0px 0px 0px;
+}
+
 #list-colleagues{
     margin-top: 0px;
 }
@@ -563,6 +623,16 @@ h3 {
     font-size: 16px;
     font-weight: 300;
     font-style: italic;
+    background-color: #FFFFFF;
+    border: 1px solid #D5D5D5;
+    border-radius: 8px;
+    padding-left: 10px;
+}
+
+.order-nickname[type="text"][disabled] {
+    font-size: 16px;
+    font-weight: 300;
+    font-style: italic;
     background-color: transparent;
     border: none;
 }
@@ -576,8 +646,8 @@ h3 {
     padding: 0px 0px 0px 0px;
 }
 
-.order-top-panel {
-    padding: 0px 0px 0px 40px;
+.order-top-panel p {
+    margin-left: 10px;
 }
 
 .order-totals-table {
@@ -628,6 +698,15 @@ h3 {
 #pi-results {
     overflow:auto;
     height:200px;
+}
+
+.product-property-headers td {
+    color: #1E714A;
+    padding: 0px 0px 0px 0px;
+}
+
+.product-property-data td {
+    padding: 0px 0px 0px 0px;
 }
 
 #product-result-table tr td {
@@ -713,6 +792,41 @@ h3 {
     color: #FFFFFF;
 }
 
+.request {
+    margin-left: 70px;
+    margin-bottom: 10px;
+}
+
+.request a {
+    color: white;
+    text-decoration: underline;
+}
+
+.request .glyphicon {
+    margin-right: 10px;
+}
+
+.request-btn {
+    text-align: left;
+    height: 50px;
+    background-color: #2c3e50;
+    border-color: #2c3e50;
+    color: #FFFFFF;
+    border-radius: 0px;
+}
+
+.request-btn:hover {
+    background-color: #34495e;
+    border-color: #34495e;
+    color: #FFFFFF;
+}
+
+.request-btn:active {
+    background-color: #95a5a6;
+    border-color: #95a5a6;
+    color: #FFFFFF;
+}
+
 #search-colleagues {
     margin-top: 20px;
 }
@@ -788,6 +902,23 @@ h3 {
     resize: none;
 }
 
+#submit-lab-btn {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #FFFFFF;
+    border-radius: 8px;
+    padding: 10px 30px 10px 30px;
+    background-color: #1E714A;
+    border: none;
+    float: right;
+}
+
+#submit-lab-btn:hover {
+    background-color: #31A16F;
+    color: #FFFFFF;
+}
+
 .submit-order-btn {
     font-family: "Open Sans", sans-serif;
     font-weight: 400;
@@ -808,6 +939,15 @@ h3 {
 .submit-order-btn:hover {
     background-color: #31A16F;
     color: #FFFFFF;
+}
+
+#success-lab-alert {
+    text-align: left;
+    height: 38px;
+}
+
+#success-lab-content {
+    margin-top: -5px;
 }
 
 td {
@@ -890,8 +1030,17 @@ td {
 }
 
 #upload-product-column {
-    margin-top: -570px;
+    margin-top: -480px;
     margin-left: 40px;
     padding-left: 50px;
     border-left: 0.5px solid #C1C1C1;
+}
+
+.vendor-property-headers td {
+    color: #1E714A;
+    padding: 0px 0px 0px 0px;
+}
+
+.vendor-property-data td {
+    padding: 0px 0px 0px 0px;
 }

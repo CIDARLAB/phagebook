@@ -1,6 +1,7 @@
 $(document).ready( documentReady);
 
 function documentReady(){
+    $("#success-lab-alert").hide();
     $.ajax({
         //do this for projects...
         url: "../loadPhagebookInstitutions",
@@ -14,66 +15,89 @@ function documentReady(){
 
             // POSSIBLE WAY TO GET THE RESPONSE AGAIN?
             //sessionStorage.setItem("institutions", JSON.stringify(response));
-            var select = document.getElementById('institution-drop-down');
+            var selects = document.getElementsByClassName('institution-drop-down');
             sessionStorage.setItem("accountSettings-institutions", JSON.stringify(response.institutions));
-            removeOptions(select);
             var length = response.institutions.length; //has institutions and labs
-            var count = 0;
-            var opt = document.createElement('option');
-            opt.value ="";
-            opt.innerHTML = "...";
-            select.appendChild(opt);
-            for (var i = 0; i < length; i++){
+            for (var k=0; k < selects.length ; k++){
 
-                opt = document.createElement('option');
-                opt.value = response.institutions[i].institutitonId;
+                removeOptions(selects[k]);
 
-                opt.innerHTML = response.institutions[i].institutionName;
-                select.appendChild(opt);
+                var opt = document.createElement('option');
+                opt.value ="";
+                opt.innerHTML = "...";
+                selects[k].appendChild(opt);
+                for (var i = 0; i < length; i++){
+
+                    opt = document.createElement('option');
+                    opt.value = response.institutions[i].institutionId;
+
+                    opt.innerHTML = response.institutions[i].institutionName;
+                    selects[k].appendChild(opt);
 
 
+                }
             }
+
         },
         error: function (response) {
 
         }
     });
 
-    $('#institution-drop-down').change( function () {
+    $('.institution-drop-down').change( function () {
 
 
-        var selectedInstitution =  $('#institution-drop-down option').filter(':selected').text();
+        var selectedInstitution = this.options[this.selectedIndex].innerHTML;
 
-        var responseArray = JSON.parse(sessionStorage.getItem("index-institutions"));
+        var selectInstitutions =  document.getElementsByClassName('institution-drop-down');
+
+        for (var select =0; select < selectInstitutions.length ; select++ ){
+            selectInstitutions[select].selectedIndex = this.selectedIndex;
+        }
+
+        var responseArray = JSON.parse(sessionStorage.getItem("accountSettings-institutions"));
 
 
-        var selectLabs = document.getElementById('pi-lab-results');
+        var selectsLabs = document.getElementsByClassName('lab-drop-down');
 
 
         var numberOfInstitutions = responseArray.length;
 
 
-        for (var i = 0; i < numberOfInstitutions; i++) {
+        for (var i = 0; i < numberOfInstitutions; i++)
+        {
+            var labsArray = responseArray[i].labs;
+            var labsLength = labsArray.length;
 
-            if (responseArray[i].institutionName === selectedInstitution ){
-                removeOptions(selectLabs);
-                var labsArray = responseArray[i].labs;
-                var labsLength = labsArray.length;
-                for (var j = 0 ; j < labsLength ; j++){
-                    var opt2 = document.createElement('option');
-                    opt2.value = labsArray[j].labId;
+                if (responseArray[i].institutionName == selectedInstitution)
+                    for (var i2 = 0; i2 < selectsLabs.length ; i2++) {
 
-                    opt2.innerHTML = labsArray[j].labName;
-                    selectLabs.appendChild(opt2);
+
+                        removeOptions(selectsLabs[i2]);
+
+                        for (var j = 0; j < labsLength; j++) {
+
+                            var opt2 = document.createElement('option');
+                            opt2.value = labsArray[j].labId;
+
+                            opt2.innerHTML = labsArray[j].labName;
+                            selectsLabs[i2].appendChild(opt2);
+                        }
+                    }
+
+
+            else if ( selectedInstitution === "..."){
+
+                    for (var i3 =0; i3 < selectsLabs.length ; i3++) {
+
+                        var opt2 = document.createElement('option');
+                        opt2.value = "";
+                        opt2.innerHTML = "...";
+                        selectsLabs[i3].appendChild(opt2);
+                        return;
+                    }
                 }
-            } else if ( selectedInstitution === "..."){
-                removeOptions(selectLabs);
-                var opt2 = document.createElement('option');
-                opt2.value = "";
-                opt2.innerHTML = "...";
-                selectLabs.appendChild(opt2);
-                return;
-            }
+
 
 
         }
@@ -85,7 +109,40 @@ function documentReady(){
             doLabAjaxCall(selectedLab);
         }
 
-    })
+    });
+
+    $("#submit-lab-btn").click(function (){
+
+        //WHY IS THIS AN ARRAY .. JQUERY EXPLAIN
+        var name           = document.getElementById("lab-name").value;
+        var description    = document.getElementById("lab-description").value;
+        var phone          = document.getElementById("lab-phone").value;
+        var url            = document.getElementById("lab-website").value;
+        var institutionId  = $("#create-lab-institution").val();
+        $.ajax({
+            //do this for projects...
+            url: "../createLab",
+            type: "POST",
+            async: false,
+            data: {
+                "user"       : getCookie("clothoId"),
+                "name"       : name,
+                "description": description,
+                "phone"      : phone,
+                "url"        : url,
+                "institution": institutionId
+
+
+            },
+            success: function (response) {
+                $("#success-lab-alert").fadeIn();
+            },
+            error: function (response) {
+
+            }
+
+        })
+    });
 }
 
 
