@@ -25,6 +25,7 @@ public class Product extends Good{
     
     @Getter @Setter private Integer  inventory;
     @Getter @Setter private Double   unitPrice;
+    @Getter @Setter private Integer  quantity;
 
     
     public Product(){
@@ -34,6 +35,7 @@ public class Product extends Good{
         this.goodType   = GoodType.INSTRUMENT;
         this.cost       = 0.0d;
         this.inventory  = 0;
+        this.quantity   = 0;
         this.unitPrice  = 0.0d;
     }
     /**

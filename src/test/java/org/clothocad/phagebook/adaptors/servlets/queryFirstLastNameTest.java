@@ -64,10 +64,10 @@ public class queryFirstLastNameTest {
      */
     @Test
     public void testServlet() throws Exception {
-        Object pFirstName = "Johan";
+        Object pFirstName = "joha";
         String firstName = pFirstName != null ? (String) pFirstName: "";
         
-        Object pLastName = "Ospina";
+        Object pLastName = "";
         String lastName = pLastName != null ? (String) pLastName: "";
         
         boolean isValid = false;
@@ -93,13 +93,17 @@ public class queryFirstLastNameTest {
             }
             if (!lastName.equals("")){
                 query2.put("query", lastName); // the key of the object we are querying
-                query2.put("key", "lastName");
+                query2.put("key", "name");
             }       
-            
-           
-            List<Person> peopleFirstName = ClothoAdapter.queryPerson(query1, clothoObject, ClothoAdapter.QueryMode.STARTSWITH);
-            List<Person> peopleLastName  = ClothoAdapter.queryPerson(query2, clothoObject, ClothoAdapter.QueryMode.STARTSWITH);
-            List<Person> combinedList = new ArrayList<Person>(peopleFirstName);
+            List<Person> peopleFirstName = new ArrayList<>();
+            if (!query1.isEmpty()){
+                peopleFirstName = ClothoAdapter.queryPerson(query1, clothoObject, ClothoAdapter.QueryMode.STARTSWITH);
+            }
+            List<Person> peopleLastName  = new ArrayList<>();
+            if (!query2.isEmpty()){
+                peopleLastName  = ClothoAdapter.queryPerson(query2, clothoObject, ClothoAdapter.QueryMode.STARTSWITH);
+            }
+            List<Person> combinedList = new ArrayList<>(peopleFirstName);
             combinedList.addAll(peopleLastName);
             Set<Person> hs = new HashSet<>();
             hs.addAll(combinedList);
