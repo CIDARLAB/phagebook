@@ -1087,7 +1087,7 @@ public class ClothoAdapter {
         }
         if (product.getQuantity() != null) {
            
-                map.put("quantity", product.getDescription());
+                map.put("quantity", product.getQuantity());
         }
   
         if (product.getCompanyId() != null){
