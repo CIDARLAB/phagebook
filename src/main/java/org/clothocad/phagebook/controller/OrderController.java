@@ -235,11 +235,14 @@ public class OrderController {
     //inputs: order and list of enums
     //return a list of strings
     public static List<String> createOrderForm(Order order, List<OrderColumns> ColumnList) {
-        List<String> orders = new ArrayList<String>();
         
-        System.out.println("HERE IN ORDERFORM");
+        List<String> orders = new ArrayList<String>();
+        String header = "";
+        int headerCount = 0;
+        
+        //System.out.println("HERE IN ORDERFORM");
         int count = 1;       
-        System.out.println("The products= " + order.getProducts().toString());
+        //System.out.println("The products= " + order.getProducts().toString());
         List<String>  cartItemIds = order.getProducts();
         ClothoConnection conn = new ClothoConnection (Args.clothoLocation);
         Clotho clothoObject = new Clotho(conn);
@@ -249,56 +252,81 @@ public class OrderController {
                 cartItems.add(ClothoAdapter.getCartItem(cartItemIds.get(i), clothoObject));
         }
         
+        
         for (CartItem cartItem : cartItems ){
             String orderString = "";
             Product product = ClothoAdapter.getProduct(cartItem.getProductId(), clothoObject);
             Vendor vendor = ClothoAdapter.getVendor(product.getCompanyId(), clothoObject);
             
-            ClothoAdapter.clothoObject.logout();
             for (OrderColumns clist1 : ColumnList) {
                 switch (clist1) {
                     case SERIAL_NUMBER:
                         orderString = orderString + count + ",";
+                        header = header + ",";
                         count++;
                         break;
                     case PRODUCT_NAME:
                         orderString = orderString + product.getName() + ",";
+                        header = header + "ITEM,";
                         break;                    
                     case PRODUCT_URL:
                         orderString = orderString + product.getProductURL() + ",";
+                        header = header + "URL,";
                         break;
                     case PRODUCT_DESCRIPTION:
                         orderString = orderString + product.getDescription() + ",";
+                        header = header + "DESCRIPTION,";
                         break;
                     case QUANTITY:
                         orderString = orderString + cartItem.getQuantity() + ",";
+                        header = header + "QUANTITY,";
                         break;
                     case COMPANY_NAME:
                         orderString = orderString + vendor.getName() + ",";
+                        header = header + "COMPANY NAME,";
                         break;
                     case COMPANY_URL:
                         orderString = orderString + vendor.getUrl() + ",";
+                        header = header + "COMPANY URL,";
                         break;
                     case COMPANY_DESCRIPTION:
                         orderString = orderString + vendor.getDescription() + ",";
+                        header = header + "COMPANY DESCRIPTION,";
                         break;
                     case COMPANY_CONTACT:
                         orderString = orderString + vendor.getContact() + ",";
+                        header = header + "CONTACT,";
                         break;
                     case COMPANY_PHONE:
                         orderString = orderString + vendor.getPhone() + ",";
+                        header = header + "PHONE NUMBER,";
                         break;
                     case UNIT_PRICE:
                         orderString = orderString + product.getCost() + ",";
+                        header = header + "UNIT PRICE,";
                         break;
-                    case TOTAL_PRICE:
+                    case CUSTOM_UNIT_PRICE:
+                        orderString = orderString + product.getCost() * cartItem.getDiscount() + ",";
+                        header = header + "CUSTOM UNIT PRICE,";
+                        break;
+                    case TOTAL_PRICE: 
                         orderString = orderString + (product.getCost() *  cartItem.getQuantity()) + ",";
+                        header = header + "TOTAL PRICE,";
                         break;
                 }
             }
-            orders.add(orderString);
+            //orderString = orderString.substring(0, orderString.length()-1) + "\n" + "new line here";
+            if (headerCount == 0)
+            {
+                orders.add(header.substring(0, header.length()-1) + "\n");
+                headerCount ++;
+            }
+                
+            orders.add(orderString.substring(0, orderString.length()-1) + "\n");
         }
-        System.out.println(orders);
+        
+        //ClothoAdapter.clothoObject.logout();
+            
         return orders;
     }
     

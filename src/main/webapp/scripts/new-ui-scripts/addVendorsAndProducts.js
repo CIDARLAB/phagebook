@@ -57,10 +57,10 @@ $(document).ready(function () {
                         "jsonArray": JSON.stringify(results.data)
                     },
                     success: function (response) {
-                        alert("Uploaded :" + response);
+                        alert("Vendors created");
                     },
                     error: function (response) {
-                        alert("Failed horribly");
+                        alert("Failed to upload");
                     }
                 });
             }
@@ -86,10 +86,10 @@ $(document).ready(function () {
                         "jsonArray": JSON.stringify(results.data)
                     },
                     success: function (response) {
-                        alert("Uploaded :" + response);
+                        alert("Products created");
                     },
                     error: function (response) {
-                        alert("Failed horribly");
+                        alert("Failed to upload");
                     }
                 });
             }
