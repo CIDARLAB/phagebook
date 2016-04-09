@@ -302,24 +302,58 @@ public class OrderController {
         return orders;
     }
     
-    public static void main(String[] args) {
-//        JSONArray arrV = new JSONArray();
-//        JSONObject ven1 = new JSONObject();
-//        JSONObject ven2 = new JSONObject();
-//        ven1.put("Name", "Apple");
-//        ven1.put("Description", "Prashant's Future Company");
-//        ven1.put("Contact", "Meh");
-//        ven1.put("Phone", "7778887878");
-//        ven1.put("URL", "www.banana.com");
+//    public static void main(String[] args) {
+////        JSONArray arrV = new JSONArray();
+////        JSONObject ven1 = new JSONObject();
+////        JSONObject ven2 = new JSONObject();
+////        ven1.put("Name", "Apple");
+////        ven1.put("Description", "Prashant's Future Company");
+////        ven1.put("Contact", "Meh");
+////        ven1.put("Phone", "7778887878");
+////        ven1.put("URL", "www.banana.com");
+////        
+////        ven2.put("Name", "Microsoft");
+////        ven2.put("Description", "Best company in the world");
+////        ven2.put("Contact", "Inna");
+////        ven2.put("Phone", "6178179898");
+////        ven2.put("URL", "www.microsoft.com");
+////        
+////        arrV.put(ven1);
+////        arrV.put(ven2);
+////        
+////        ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+////        Clotho clothoObject = new Clotho(conn);
+////        
+////        String username = "innatur@bu.edu";
+////        String password = "12345";
+////        
+////        clothoObject.login(username, password);
+////        
+////        List<String> vendorsIds = new ArrayList<String>();
+////        vendorsIds = getVendors(arrV, clothoObject);
 //        
-//        ven2.put("Name", "Microsoft");
-//        ven2.put("Description", "Best company in the world");
-//        ven2.put("Contact", "Inna");
-//        ven2.put("Phone", "6178179898");
-//        ven2.put("URL", "www.microsoft.com");
+//        JSONArray arrC = new JSONArray();
+//        JSONObject pr1 = new JSONObject();
+//        JSONObject pr2 = new JSONObject();
 //        
-//        arrV.put(ven1);
-//        arrV.put(ven2);
+//        pr1.put("URL", "plate.com");
+//        pr1.put("Company Name", "Apple");
+//        pr1.put("Type", GoodType.INSTRUMENT.toString());
+//        pr1.put("Cost", 123);
+//        pr1.put("Quantity", 1);
+//        pr1.put("Name", "plate");
+//        pr1.put("Description", "plate");
+//        
+//        pr2.put("URL", "plate1.com");
+//        pr2.put("Company Name", "Apple1");
+//        pr2.put("Type", GoodType.INSTRUMENT.toString());
+//        pr2.put("Cost", 1231);
+//        pr2.put("Quantity", 1);
+//        pr2.put("Name", "plate1");
+//        pr2.put("Description", "plate1");
+//        
+//        arrC.put(pr1);
+//        arrC.put(pr2);
 //        
 //        ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
 //        Clotho clothoObject = new Clotho(conn);
@@ -329,45 +363,11 @@ public class OrderController {
 //        
 //        clothoObject.login(username, password);
 //        
-//        List<String> vendorsIds = new ArrayList<String>();
-//        vendorsIds = getVendors(arrV, clothoObject);
-        
-        JSONArray arrC = new JSONArray();
-        JSONObject pr1 = new JSONObject();
-        JSONObject pr2 = new JSONObject();
-        
-        pr1.put("URL", "plate.com");
-        pr1.put("Company Name", "Apple");
-        pr1.put("Type", GoodType.INSTRUMENT.toString());
-        pr1.put("Cost", 123);
-        pr1.put("Quantity", 1);
-        pr1.put("Name", "plate");
-        pr1.put("Description", "plate");
-        
-        pr2.put("URL", "plate1.com");
-        pr2.put("Company Name", "Apple1");
-        pr2.put("Type", GoodType.INSTRUMENT.toString());
-        pr2.put("Cost", 1231);
-        pr2.put("Quantity", 1);
-        pr2.put("Name", "plate1");
-        pr2.put("Description", "plate1");
-        
-        arrC.put(pr1);
-        arrC.put(pr2);
-        
-        ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
-        Clotho clothoObject = new Clotho(conn);
-        
-        String username = "innatur@bu.edu";
-        String password = "12345";
-        
-        clothoObject.login(username, password);
-        
-        List<String> productsIds = new ArrayList<String>();
-        productsIds = getProducts(arrC, clothoObject);
-        
-        conn.closeConnection();
-        
-    }
+//        List<String> productsIds = new ArrayList<String>();
+//        productsIds = getProducts(arrC, clothoObject);
+//        
+//        conn.closeConnection();
+//        
+//    }
 
 }

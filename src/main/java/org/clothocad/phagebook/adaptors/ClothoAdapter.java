@@ -1087,7 +1087,7 @@ public class ClothoAdapter {
         }
         if (product.getQuantity() != null) {
            
-                map.put("quantity", product.getDescription());
+                map.put("quantity", product.getQuantity());
         }
   
         if (product.getCompanyId() != null){
@@ -3284,9 +3284,9 @@ public class ClothoAdapter {
         double cost = 0;
         if (map.containsKey("cost")){ cost = (Double) map.get("cost");}
         
-        Integer inventory = 0;
+        int inventory = 0;
         if (map.containsKey("inventory")) {
-            inventory = Integer.parseInt((String)map.get("inventory"));
+            inventory = (int)map.get("inventory");
         }
         
         int quantity = 0;
