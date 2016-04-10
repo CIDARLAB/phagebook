@@ -80,7 +80,7 @@ a:hover {
     padding-left: 15px;
     display: block;
     clear: both;
-    margin-left: 77%;
+    float: right;
 }
 
 #add-custom-pub-btn:hover {
