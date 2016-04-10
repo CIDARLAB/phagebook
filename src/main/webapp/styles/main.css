@@ -50,6 +50,26 @@ a:hover {
     margin-left: 10px;
 }
 
+#add-custom-pub-btn {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    background-color: #9E9E9E;
+    color: #FFFFFF;
+    border-radius: 8px;
+    border: none;
+    padding-right: 15px;
+    padding-left: 15px;
+    display: block;
+    clear: both;
+    margin-left: 77%;
+}
+
+#add-custom-pub-btn:hover {
+    background-color: #89C176;
+    border: none;
+}
+
 #add-items-btn {
     font-family: "Open Sans", sans-serif;
     font-weight: 400;
@@ -110,8 +130,47 @@ a:hover {
     border: none;
 }
 
-#add-publication-modal {
-    text-align: center;
+#add-publication-modal label {
+    font-weight: 400;
+    color: #1E714A;
+}
+
+#add-publication-modal p {
+    font-style: normal !important;
+}
+
+#add-doi-btn {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    background-color: #9E9E9E;
+    color: #FFFFFF;
+    border-radius: 8px;
+    border: none;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+#add-doi-btn:hover {
+    background-color: #89C176;
+    border: none;
+}
+
+#add-pubmed-btn {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    background-color: #9E9E9E;
+    color: #FFFFFF;
+    border-radius: 8px;
+    border: none;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+#add-pubmed-btn:hover {
+    background-color: #89C176;
+    border: none;
 }
 
 #add-to-lab-btn {
@@ -318,6 +377,11 @@ body {
     color: #FFFFFF;
 }
 
+#doi-input {
+    float: left;
+    width: 600px;
+}
+
 #dl-csv-product-btn {
     font-family: "Open Sans", sans-serif;
     font-weight: 400;
@@ -456,6 +520,11 @@ body {
     color: #FFFFFF;
 }
 
+h3 {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 300;
+}
+
 #header-btn-toolbar{
     margin-top: 20px;
     margin-left: 1020px;
@@ -463,9 +532,13 @@ body {
     position: absolute;
 }
 
-h3 {
-    font-family: "Open Sans", sans-serif;
-    font-weight: 300;
+#invalid-combo-alert .modal-body {
+    padding-bottom: 0px;
+}
+
+#invalid-combo-alert .modal-header {
+    border: none;
+    padding-bottom: 0px;
 }
 
 .item-custom-unit-price {
@@ -791,6 +864,11 @@ h3 {
 #publications p {
     font-style: italic;
     line-height: 10px;
+}
+
+#pubmed-id-input {
+    float: left;
+    width: 600px;
 }
 
 .received-status {
