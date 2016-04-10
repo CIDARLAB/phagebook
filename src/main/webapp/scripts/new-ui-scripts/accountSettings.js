@@ -2,7 +2,12 @@ $(document).ready( documentReady);
 
 function documentReady(){
     $("#success-lab-alert").hide();
-    $("#remove-pi-btn").click(removePIBtnHandler);
+
+    //$("#remove-pi-btn").click(removePIBtnHandler);
+
+    $("#search-colleagues-btn").click(searchBtnHandler);
+    $("#add-to-lab-btn").click(addPIBtnHandler);
+
     $.ajax({
         //do this for projects...
         url: "../loadPhagebookInstitutions",
@@ -161,7 +166,6 @@ function doLabAjaxCall(labId){
 
             for (var i =0; i  <  response.length; i++){
                 personResultRectCreate(personJSON);
-                alert("PI" + i + ": " + response[i].name + " Email: " + response[i].email + " ClothoId: " + response[i].clothoId );
             }
 
         },
@@ -200,14 +204,58 @@ function loadPhagebookInstitutions(response){
 }
 
 function searchBtnHandler(){
-    var firstName = $("#search-first-name").val()
+    var firstName = $("#search-first-name").val();
+    var lastName  = $("#search-last-name").val();
+
+
+    $.ajax({
+        url: '../queryFirstLastName',
+        type: 'GET',
+        async: false,
+        data: {
+            "firstName": firstName,
+            "lastName": lastName
+        },
+        success: function (response) {
+
+
+            var ul = $("#pi-add-list");
+
+            ul.empty();
+
+
+            for (var i = 0; i < response.length; i++){
+                var tmpl = document.getElementById('person-results-template').content.cloneNode(true);
+
+
+                tmpl.querySelector('.pi-name').innerText            = response[i].fullname;
+                tmpl.querySelector('.pi-lab-name').innerText        =  (response[i].labName == null) ? "" : response[i].labName;
+                tmpl.querySelector('.pi-institution-name').innerText = response[i].institutionName;
+
+                tmpl.querySelector('.pi-profile-link').href = "../html/colleague.html?user=" + response[i].clothoId;
+                tmpl.querySelector('.pi-id').value = response[i].clothoId;
+
+
+                ul.append(tmpl);
+            }
+        },
+        error: {
+        }
+
+    });
+    return false;
+
+
 }
 
 function goBtnHandler(){
-    var dropdown = this.parentNode.querySelector('.lab-drop-down');
+    var dropdown = document.getElementById("remove-pi-container").querySelector(".lab-drop-down");
     var labId = dropdown.options[dropdown.selectedIndex].value;
+    var content = $("#pi-remove-list");
+    content.empty();
     event.preventDefault();
-    alert(labId);
+
+
 
     $.ajax({
         //do this for projects...
@@ -225,7 +273,7 @@ function goBtnHandler(){
                 var name     = response[i].name;
                 var email    = response[i].email;
                 var clothoId = response[i].clothoId;
-                alert("PI" + i + ": " + name + " Email: " + email + " ClothoId: " + clothoId );
+
                 personResultRectCreate(response[i]);
 
 
@@ -244,8 +292,7 @@ function goBtnHandler(){
 
 
 function personResultRectCreate(personJSON){
-    alert(JSON.stringify(personJSON));
-    var content = document.getElementById('pi-remove-list');
+    var content = $("#pi-remove-list");
     var tmpl = document.getElementById('person-results-template').content.cloneNode(true);
 
     tmpl.querySelector('.pi-name').innerText            = personJSON.name;
@@ -255,15 +302,99 @@ function personResultRectCreate(personJSON){
     tmpl.querySelector('.pi-profile-link').href = "../html/colleague.html?user=" + personJSON.clothoId;
     tmpl.querySelector('.pi-id').value = personJSON.clothoId;
 
-    content.appendChild(tmpl);
+    content.append(tmpl);
 
 
 }
 
 function removePIBtnHandler(){
-    alert("hello");
+    var container = document.getElementById("pi-remove-results");
+    var peopleBoxes = container.getElementsByClassName("pi-id");
 
-    document.querySelector('.pi-id');
+    var dropdown = container.parentNode.querySelector(".lab-drop-down");
+    var labId = dropdown.options[dropdown.selectedIndex].value;
+    event.preventDefault();
+
+    for (var i = 0; i < peopleBoxes.length; i++){
+
+
+        if (peopleBoxes[i].checked){
+            $.ajax({
+                //do this for projects...
+
+                url: "../removePIFromLab",
+                type: "POST",
+                async: false,
+                data: {
+                    "lab": labId,
+                    "userId": peopleBoxes[i].value
+                },
+                success: function (response) {
+                    alert(response.message);
+
+                    goBtnHandler();
+
+                },
+                error: function (response) {
+
+                }
+            });
+
+
+
+        }
+
+
+    }
+
+
+}
+
+function addPIBtnHandler(){
+    var container = document.getElementById("pi-add-results");
+    var peopleBoxes = container.getElementsByClassName("pi-id");
+
+    var dropdown = this.parentNode.querySelector('.lab-drop-down');
+    var labId = dropdown.options[dropdown.selectedIndex].value;
+    event.preventDefault();
+
+
+
+    for (var i = 0; i < peopleBoxes.length ; i++){
+
+
+        if (peopleBoxes[i].checked) {
+
+
+
+            $.ajax({
+                //do this for projects...
+
+                url: "../addPIToLab",
+                type: "POST",
+                async: false,
+                data: {
+                    "lab": labId,
+                    "userId": peopleBoxes[i].value
+                },
+                success: function (response) {
+                    alert(response.message);
+
+                },
+                error: function (response) {
+
+                }
+            });
+
+        }
+
+
+
+
+
+    }
+
+
 
 
 

@@ -565,7 +565,7 @@ public class ClothoAdapter {
         }
         
         if (lab.getLeadPIs() != null){
-            if (!lab.getLeadPIs().isEmpty()){
+            
                 JSONArray leadPIs = new JSONArray();
                 for (String leadId : lab.getLeadPIs()){
                     if (leadId != null){
@@ -575,7 +575,7 @@ public class ClothoAdapter {
                     }
                 }
                 map.put("leadPIs", leadPIs);
-            }
+            
         }
         
         
@@ -3687,6 +3687,9 @@ public class ClothoAdapter {
     }
     public static String setInventory(Inventory inventory, Clotho clothoObject){
         return ClothoAdapter.createInventory(inventory, clothoObject);
+    }
+    public static String setLab(Lab lab, Clotho clothoObject){
+        return ClothoAdapter.createLab(lab, clothoObject);
     }
     public static String setNotebook(Notebook notebook, Clotho clothoObject){
         return ClothoAdapter.createNotebook(notebook, clothoObject);

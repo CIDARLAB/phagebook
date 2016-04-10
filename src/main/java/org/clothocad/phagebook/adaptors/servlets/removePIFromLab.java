@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
-import org.clothocad.model.Person;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Lab;
@@ -26,7 +25,7 @@ import org.json.JSONObject;
  *
  * @author Herb
  */
-public class addPIToLab extends HttpServlet {
+public class removePIFromLab extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,7 +38,7 @@ public class addPIToLab extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -69,13 +68,12 @@ public class addPIToLab extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        //at most we'd add like 10 PIs to a lab...
+        
         Object pLabId = request.getParameter("lab");
         String labId = pLabId != null ? (String) pLabId: "";
         
         Object pUserId = request.getParameter("userId");
         String userId = pUserId != null ? (String) pUserId: "";
-        
         
         boolean isValid = false;
         
@@ -98,11 +96,11 @@ public class addPIToLab extends HttpServlet {
             List<String> labPIList = lab.getLeadPIs(); // to change
             JSONObject responseJSON = new JSONObject();
             
-            if (!labPIList.contains(pLabId)){
-                labPIList.add(userId);
-                responseJSON.put("message", "new PI added!");
+            if (labPIList.contains(userId)){
+                labPIList.remove(userId);
+                responseJSON.put("message", "PI removed");
             }else{
-                responseJSON.put("message", "Person is already a PI!");
+                responseJSON.put("message", "Person is not a PI!");
             }
             
             lab.setLeadPIs(labPIList);
@@ -127,7 +125,6 @@ public class addPIToLab extends HttpServlet {
             out.print(responseJSON);
             out.flush();
         }
-        
     }
 
     /**
