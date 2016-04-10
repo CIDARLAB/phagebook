@@ -21,13 +21,12 @@ import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Order;
 import org.clothocad.phagebook.dom.OrderStatus;
-import org.json.JSONObject;
 
 /**
  *
  * @author Herb
  */
-public class approveOrder extends HttpServlet {
+public class denyOrder extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -99,57 +98,40 @@ public class approveOrder extends HttpServlet {
             loginMap.put("credentials", password);
             clothoObject.login(loginMap);
             
-            Order orderToApprove = ClothoAdapter.getOrder(orderId, clothoObject);
-            List<String> receivedByList = orderToApprove.getReceivedByIds();
-            String finalApprover = "";
-            String fAEmailId = "";
-            for (String id : receivedByList){
-                if (id.equals(userId)){
-                    finalApprover = id;
-                    Person approver = ClothoAdapter.getPerson(id, clothoObject);
-                    clothoObject.logout();
-                    Map login2 = new HashMap();
-                    fAEmailId = approver.getEmailId();
-                    login2.put("username", fAEmailId);
-                    login2.put("credentials", approver.getPassword());
-                    clothoObject.login(login2);
-                    List<String> approvedOrder = approver.getApprovedOrders();
-                    List<String> submittedOrders = approver.getSubmittedOrders(); // need to add to approved and remove from submitted..
-                    approvedOrder.add(orderToApprove.getId());
-                    submittedOrders.remove(orderToApprove.getId());
-                    orderToApprove.setStatus(OrderStatus.APPROVED);
-                    ClothoAdapter.setOrder(orderToApprove, clothoObject);
-                    clothoObject.logout();
-                    ClothoAdapter.setPerson(approver, clothoObject);
-                    
-                    
-                }
+            Order orderToDeny = ClothoAdapter.getOrder(orderId, clothoObject);
+            List<String> receivedByList = orderToDeny.getReceivedByIds();
+            
+            for (String receivedById : receivedByList){ //for each PI I need to remove the order
+                Person receiver = ClothoAdapter.getPerson(receivedById, clothoObject);
+                List<String> originalReceivedBy= receiver.getSubmittedOrders();//original
+                originalReceivedBy.remove(orderToDeny.getId());
+                receiver.setSubmittedOrders(originalReceivedBy);
+                
+                clothoObject.logout();
+                ClothoAdapter.setPerson(receiver, clothoObject);
+                
+                
+                
                 
             }
+            clothoObject.logout();
+            clothoObject.login(loginMap);
+                    
+            //removed all trace that this order was submitted
             
-            response.setContentType("application/json");
-            response.setStatus(HttpServletResponse.SC_OK);
-            JSONObject responseJSON = new JSONObject();
-            responseJSON.put("message", "Order has been approved!");
-            responseJSON.put("approvedBy", finalApprover);
-            responseJSON.put("approvedByEmail", fAEmailId);
-            PrintWriter out = response.getWriter();
-            out.print(responseJSON);
-            out.flush();
+            Person creator = ClothoAdapter.getPerson(orderToDeny.getCreatedById(), clothoObject);
+            List<String> originalDeniedOrders = creator.getDeniedOrders();
+            originalDeniedOrders.add(orderToDeny.getId());
+            orderToDeny.setStatus(OrderStatus.DENIED);
+            ClothoAdapter.setOrder(orderToDeny, clothoObject);
+            clothoObject.logout();
+            ClothoAdapter.setPerson(creator, clothoObject);
             
             
-        }
-        else 
-        {
-            response.setContentType("application/json");
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            JSONObject responseJSON = new JSONObject();
-            responseJSON.put("message", "missing parameters for servlet call");
-            PrintWriter out = response.getWriter();
-            out.print(responseJSON);
-            out.flush();
-        }
-        
+            
+            
+                
+            }
     }
 
     /**

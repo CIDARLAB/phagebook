@@ -16,18 +16,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
-import org.clothocad.model.Person;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
-import org.clothocad.phagebook.dom.Order;
-import org.clothocad.phagebook.dom.OrderStatus;
+import org.clothocad.phagebook.dom.Lab;
 import org.json.JSONObject;
 
 /**
  *
  * @author Herb
  */
-public class approveOrder extends HttpServlet {
+public class removePIFromLab extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -71,85 +69,62 @@ public class approveOrder extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         
-        Object pOrderId = request.getParameter("orderId");
-        String orderId = pOrderId != null ? (String) pOrderId : "";
+        Object pLabId = request.getParameter("lab");
+        String labId = pLabId != null ? (String) pLabId: "";
         
         Object pUserId = request.getParameter("userId");
-        String userId = pUserId != null ? (String) pUserId : "";
+        String userId = pUserId != null ? (String) pUserId: "";
         
         boolean isValid = false;
-        if (!orderId.equals("") && !userId.equals("")){
+        
+        if (!labId.equals("") && !userId.equals("")){
             isValid = true;
         }
         
         if (isValid){
-            //login
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
-         
             String username = "phagebook";
             String password = "backend";
-            /*
-            
-                DIRECT ASSUMPTION THAT USER: phagebook exists and their 
-                                   PASSWORD: backend
-            */
             Map loginMap = new HashMap();
-            loginMap.put("username"   , username);
-            loginMap.put("credentials", password);
+            loginMap.put("username", username);
+            loginMap.put("credentials", password);     
             clothoObject.login(loginMap);
+            // able to query now. 
+            Lab lab = ClothoAdapter.getLab(labId, clothoObject); //Lab
+            //Person person = ClothoAdapter.getPerson(userId, clothoObject); //if we ever wanted to use more props check priviledge maybe?
+            List<String> labPIList = lab.getLeadPIs(); // to change
+            JSONObject responseJSON = new JSONObject();
             
-            Order orderToApprove = ClothoAdapter.getOrder(orderId, clothoObject);
-            List<String> receivedByList = orderToApprove.getReceivedByIds();
-            String finalApprover = "";
-            String fAEmailId = "";
-            for (String id : receivedByList){
-                if (id.equals(userId)){
-                    finalApprover = id;
-                    Person approver = ClothoAdapter.getPerson(id, clothoObject);
-                    clothoObject.logout();
-                    Map login2 = new HashMap();
-                    fAEmailId = approver.getEmailId();
-                    login2.put("username", fAEmailId);
-                    login2.put("credentials", approver.getPassword());
-                    clothoObject.login(login2);
-                    List<String> approvedOrder = approver.getApprovedOrders();
-                    List<String> submittedOrders = approver.getSubmittedOrders(); // need to add to approved and remove from submitted..
-                    approvedOrder.add(orderToApprove.getId());
-                    submittedOrders.remove(orderToApprove.getId());
-                    orderToApprove.setStatus(OrderStatus.APPROVED);
-                    ClothoAdapter.setOrder(orderToApprove, clothoObject);
-                    clothoObject.logout();
-                    ClothoAdapter.setPerson(approver, clothoObject);
-                    
-                    
-                }
-                
+            if (labPIList.contains(userId)){
+                labPIList.remove(userId);
+                responseJSON.put("message", "PI removed");
+            }else{
+                responseJSON.put("message", "Person is not a PI!");
             }
+            
+            lab.setLeadPIs(labPIList);
+            
+            ClothoAdapter.setLab(lab, clothoObject);
+            
             
             response.setContentType("application/json");
             response.setStatus(HttpServletResponse.SC_OK);
-            JSONObject responseJSON = new JSONObject();
-            responseJSON.put("message", "Order has been approved!");
-            responseJSON.put("approvedBy", finalApprover);
-            responseJSON.put("approvedByEmail", fAEmailId);
+            
             PrintWriter out = response.getWriter();
             out.print(responseJSON);
             out.flush();
             
             
-        }
-        else 
-        {
+        } else{
             response.setContentType("application/json");
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             JSONObject responseJSON = new JSONObject();
-            responseJSON.put("message", "missing parameters for servlet call");
+            responseJSON.put("message", "Lab or User Id cannot be blank.");
             PrintWriter out = response.getWriter();
             out.print(responseJSON);
             out.flush();
         }
-        
     }
 
     /**

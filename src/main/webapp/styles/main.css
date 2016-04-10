@@ -23,6 +23,24 @@ a:hover {
     background-color: transparent !important;
 }
 
+#add-colleague-btn {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    background-color: #9E9E9E;
+    color: #FFFFFF;
+    border-radius: 8px;
+    padding-right: 15px;
+    padding-left: 15px;
+    float: right;
+    margin-top: 30px;
+    border: none;
+}
+
+#add-colleague-btn:hover {
+    background-color: #89C176;
+}
+
 #add-colleagues-btn {
     font-family: "Open Sans", sans-serif;
     font-weight: 400;
@@ -48,6 +66,26 @@ a:hover {
 #add-colleagues-modal {
     margin-top: 10px;
     margin-left: 10px;
+}
+
+#add-custom-pub-btn {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    background-color: #9E9E9E;
+    color: #FFFFFF;
+    border-radius: 8px;
+    border: none;
+    padding-right: 15px;
+    padding-left: 15px;
+    display: block;
+    clear: both;
+    float: right;
+}
+
+#add-custom-pub-btn:hover {
+    background-color: #89C176;
+    border: none;
 }
 
 #add-items-btn {
@@ -110,8 +148,47 @@ a:hover {
     border: none;
 }
 
-#add-publication-modal {
-    text-align: center;
+#add-publication-modal label {
+    font-weight: 400;
+    color: #1E714A;
+}
+
+#add-publication-modal p {
+    font-style: normal !important;
+}
+
+#add-doi-btn {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    background-color: #9E9E9E;
+    color: #FFFFFF;
+    border-radius: 8px;
+    border: none;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+#add-doi-btn:hover {
+    background-color: #89C176;
+    border: none;
+}
+
+#add-pubmed-btn {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    background-color: #9E9E9E;
+    color: #FFFFFF;
+    border-radius: 8px;
+    border: none;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+#add-pubmed-btn:hover {
+    background-color: #89C176;
+    border: none;
 }
 
 #add-to-lab-btn {
@@ -186,6 +263,13 @@ body {
 .btn[disabled]:hover {
     background-color: #1E714A;
     border: none;
+}
+
+#colleague {
+    position: absolute;
+    overflow-x: hidden;
+    margin-top: 130px;
+    margin-left: 16%;
 }
 
 #colleagues {
@@ -316,6 +400,11 @@ body {
 .delete-order-btn:hover {
     background-color: #EC3C56;
     color: #FFFFFF;
+}
+
+#doi-input {
+    float: left;
+    width: 600px;
 }
 
 #dl-csv-product-btn {
@@ -456,6 +545,11 @@ body {
     color: #FFFFFF;
 }
 
+h3 {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 300;
+}
+
 #header-btn-toolbar{
     margin-top: 20px;
     margin-left: 1020px;
@@ -463,9 +557,13 @@ body {
     position: absolute;
 }
 
-h3 {
-    font-family: "Open Sans", sans-serif;
-    font-weight: 300;
+#invalid-combo-alert .modal-body {
+    padding-bottom: 0px;
+}
+
+#invalid-combo-alert .modal-header {
+    border: none;
+    padding-bottom: 0px;
 }
 
 .item-custom-unit-price {
@@ -793,6 +891,11 @@ h3 {
     line-height: 10px;
 }
 
+#pubmed-id-input {
+    float: left;
+    width: 600px;
+}
+
 .received-status {
     background-color: #e67e22;
     color: #FFFFFF;
@@ -860,6 +963,21 @@ h3 {
     background-color: #95a5a6;
     border-color: #95a5a6;
     color: #FFFFFF;
+}
+
+.right-inner-addon {
+    position: relative;
+}
+
+.right-inner-addon input {
+    padding-right: 30px;
+}
+
+.right-inner-addon i {
+    position: absolute;
+    right: 0px;
+    padding: 10px 12px;
+    pointer-events: none;
 }
 
 #search-colleagues {

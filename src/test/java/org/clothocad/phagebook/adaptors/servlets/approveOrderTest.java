@@ -5,13 +5,9 @@
  */
 package org.clothocad.phagebook.adaptors.servlets;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.clothoapi.clotho3javaapi.Clotho;
@@ -21,60 +17,44 @@ import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Order;
 import org.clothocad.phagebook.dom.OrderStatus;
-import org.json.JSONObject;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  *
  * @author Herb
  */
-public class approveOrder extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
+public class approveOrderTest {
+    
+    public approveOrderTest() {
+    }
+    
+    @BeforeClass
+    public static void setUpClass() {
+    }
+    
+    @AfterClass
+    public static void tearDownClass() {
+    }
+    
+    @Before
+    public void setUp() {
+    }
+    
+    @After
+    public void tearDown() {
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-        
-        Object pOrderId = request.getParameter("orderId");
+    @Test
+    public void testApproveOrder(){
+        Object pOrderId =  "5709cae632ea17d8a0190df7";	
         String orderId = pOrderId != null ? (String) pOrderId : "";
         
-        Object pUserId = request.getParameter("userId");
+        Object pUserId = "5709782232ea17d8a0190d1e";
         String userId = pUserId != null ? (String) pUserId : "";
         
         boolean isValid = false;
@@ -127,39 +107,9 @@ public class approveOrder extends HttpServlet {
                 
             }
             
-            response.setContentType("application/json");
-            response.setStatus(HttpServletResponse.SC_OK);
-            JSONObject responseJSON = new JSONObject();
-            responseJSON.put("message", "Order has been approved!");
-            responseJSON.put("approvedBy", finalApprover);
-            responseJSON.put("approvedByEmail", fAEmailId);
-            PrintWriter out = response.getWriter();
-            out.print(responseJSON);
-            out.flush();
-            
-            
-        }
-        else 
-        {
-            response.setContentType("application/json");
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            JSONObject responseJSON = new JSONObject();
-            responseJSON.put("message", "missing parameters for servlet call");
-            PrintWriter out = response.getWriter();
-            out.print(responseJSON);
-            out.flush();
-        }
-        
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
+    }
 }
+
+    
+

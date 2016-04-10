@@ -40,3 +40,8 @@
 	margin-left: 15px;
 	margin-right: 15px;
 }
+
+.control-label {
+	font-weight: 400;
+	color: #1E714A;
+}

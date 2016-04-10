@@ -48,6 +48,7 @@ public class Person {
     @Getter @Setter private List<String>                createdOrders;
     @Getter @Setter private List<String>                submittedOrders;
     @Getter @Setter private List<String>                approvedOrders;
+    @Getter @Setter private List<String>                deniedOrders;
     
    
    

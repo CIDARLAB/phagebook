@@ -1,38 +1,42 @@
-function orderHistoryCtrl($scope){
-    $(document).ready(function () {
+/**
+ * Created by Herb on 4/9/16.
+ */
+$(document).ready(documentReady);
 
-        $.ajax({
-            url: "../listOrdersOfPerson",
-            type: "GET",
-            async: false,
-            data: {
-                "user": getCookie("clothoId")
-            },
-            success: function(response)
-            {
-                for(var i =0; i < response.length; i++){
-                    generateOrderCard(response[i]);
-                }
+function documentReady(){
 
-            },
-            error: function(response)
-            {
+    $.ajax({
+        //do this for projects...
 
+        url: "../listSubmittedOrdersOfPerson",
+        type: "GET",
+        async: false,
+        data: {
+            "user": getCookie("clothoId")
+        },
+        success: function (response) {
+
+            for (var i=0; i < response.length; i++){
+                parseOrderRequest(response[i]);
             }
-        });
 
 
+        },
+        error: function (response) {
 
-
+        }
     });
+
+    $(".decline-btn").click(declineOrderBtnHandler);
+    $(".approve-btn").click(approveOrderBtnHandler);
 
 }
 
-function generateOrderCard(orderJSON){
+function parseOrderRequest(orderJSON){
     console.log(orderJSON);
     var content = $("#content");
-    var template = document.getElementById('order-card-history-template').content.cloneNode(true);
-
+    var template = document.getElementById('submitted-order-request-template').content.cloneNode(true);
+    template.querySelector('.request-btn').innerHTML=  "ORDER #" + orderJSON.clothoId + "&nbsp; ' " + orderJSON.name + "'";
     template.querySelector('.order-nickname').value         = orderJSON.name;
     template.querySelector('.order-project-name').innerText = orderJSON.relatedProjectName;
     var received = orderJSON.receivedByIds[0]["0"] + "\n";
@@ -54,25 +58,6 @@ function generateOrderCard(orderJSON){
     template.querySelector('.order-approved-by').innerText = (orderJSON.approvedById != null) ? orderJSON.approvedById: "N/A" ;
     template.querySelector('.order-budget').innerText = orderJSON.budget;
     template.querySelector('.order-limit').innerText = "$" +orderJSON.orderLimit;
-    template.querySelector('.order-enum-status').innerText = orderJSON.status;
-
-    switch (orderJSON.status){
-        case "SUBMITTED":
-            template.querySelector('.status').className = "received-status";
-            break;
-        case "DENIED":
-            template.querySelector('.status').className = "denied-status";
-
-            break;
-        case "APPROVED":
-            template.querySelector('.status').className = "approved-status";
-
-            break;
-        default:
-            template.querySelector('.status').className = "recieved-status";
-            break;
-
-    }
 
     var orderItemsTable = template.querySelector('.order-items-table');
 
@@ -124,7 +109,7 @@ function generateOrderCard(orderJSON){
             itemCustomPrice.innerHTML = "$" + response.customUnitPrice;
             var itemTotalPrice = rowCount.insertCell(4);
             itemTotalPrice.className = "item-total-price";
-            itemTotalPrice.innerHTML =  "$" +  response.totalPrice;
+            itemTotalPrice.innerHTML =  "$" +  response.totalPrice.toFixed(2);
 
 
             totalBeforeTax += response.totalPrice;
@@ -139,7 +124,7 @@ function generateOrderCard(orderJSON){
 
         orderItemsTable.appendChild(tr);
     }
-    template.querySelector('.total-before-tax-value').innerText = "$" + totalBeforeTax;
+    template.querySelector('.total-before-tax-value').innerText = "$" + totalBeforeTax.toFixed(2);
 
     template.querySelector('.tax-value').innerText = "$"+ ( (TAX - 1) * totalBeforeTax).toFixed(2) ;
     if (orderJSON.Budget < ( (TAX * totalBeforeTax) + totalBeforeTax)){
@@ -147,6 +132,14 @@ function generateOrderCard(orderJSON){
         template.querySelector('.submit-order-btn').disabled = true;
     }
     template.querySelector('.total-after-tax-value').innerText = "$" + (TAX * totalBeforeTax).toFixed(2);
+
+
+
+
+
+    template.querySelector('.approve-btn').value = orderJSON.clothoId;
+    template.querySelector('.decline-btn').value = orderJSON.clothoId;
+
 
 
     content.append(template);
@@ -190,3 +183,60 @@ function doCartItemAjax(cartItemId){
     return responseObject;
 
 }
+
+function approveOrderBtnHandler(){
+    alert(this.value);
+
+    $.ajax({
+        //do this for projects...
+        url: "../approveOrder",
+        type: "POST",
+        async: false,
+        data: {
+            "userId": getCookie("clothoId"),
+            "orderId": this.value
+        },
+        success: function (response) {
+            alert("order approved");
+            window.location.href="";
+        },
+        error: function (response){
+            window.location.href="";
+        }
+    });
+
+
+
+}
+function declineOrderBtnHandler(){
+
+
+    if (confirm("Really delete this order?")) {
+
+        $.ajax({
+            //do this for projects...
+            url: "../denyOrder",
+            type: "POST",
+            async: false,
+            data: {
+                "userId": getCookie("clothoId"),
+                "orderId": this.value
+            },
+            success: function (response) {
+                alert("order denied");
+                window.location.href="";
+
+            },
+            error: function (response){
+                window.location.href="";
+            }
+        });
+
+    } else {
+        //do nothing
+    }
+
+
+
+}
+
