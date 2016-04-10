@@ -98,6 +98,8 @@ public class listSubmittedOrdersOfPerson extends HttpServlet {
                     tempAsJSON.put("createdById", creator.getEmailId());
                     tempAsJSON.put("createdByName", creator.getFirstName() + " " +creator.getLastName());
                     tempAsJSON.put("products", temp.getProducts());
+                    tempAsJSON.put("orderLimit", temp.getMaxOrderSize());
+                    tempAsJSON.put("taxRate", temp.getTaxRate());
                     tempAsJSON.put("budget", temp.getBudget());
                     if (!temp.getApprovedById().equals("") && !temp.getApprovedById().equals("Not Set") ){
                         tempAsJSON.put("approvedById", (ClothoAdapter.getPerson(temp.getApprovedById(), clothoObject)).getEmailId());
@@ -107,12 +109,12 @@ public class listSubmittedOrdersOfPerson extends HttpServlet {
                     for (int i = 0; i< receivedBys.size() ; i++){
                         if (!receivedBys.get(i).equals("") && !receivedBys.get(i).equals("Not Set")){
                         JSONObject receivedByJSON = new JSONObject();
-                        receivedByJSON.put("user "+ i , (ClothoAdapter.getPerson(receivedBys.get(i), clothoObject)).getEmailId());
+                        receivedByJSON.put( ""+ i , (ClothoAdapter.getPerson(receivedBys.get(i), clothoObject)).getEmailId());
                         receivedByIds.put(receivedByJSON);
                         }
                     }
                     tempAsJSON.put("receivedByIds", receivedByIds);
-                    tempAsJSON.put("relatedProjectId", temp.getRelatedProjectId());
+                    tempAsJSON.put("relatedProjectName", (ClothoAdapter.getProject(temp.getRelatedProjectId(), clothoObject)).getName());
                     tempAsJSON.put("status", temp.getStatus());
                     tempAsJSON.put("affiliatedLabId", temp.getAffiliatedLabId());
                     createdOrdersJSON.put(tempAsJSON); // put it in there...

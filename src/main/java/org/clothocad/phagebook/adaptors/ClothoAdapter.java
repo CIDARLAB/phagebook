@@ -715,8 +715,7 @@ public class ClothoAdapter {
         }
         if (order.getReceivedByIds()!= null)
         {
-            if (!order.getReceivedByIds().isEmpty())
-            {
+            
                 JSONArray receivedByIds = new JSONArray();
                 for (String personId : order.getReceivedByIds()){
                     if (personId != null){
@@ -726,7 +725,7 @@ public class ClothoAdapter {
                     }
                 }
                 map.put("receivedByIds", receivedByIds);
-            }
+           
         }
         
         if (order.getStatus() != null)
@@ -983,8 +982,22 @@ public class ClothoAdapter {
                 }
                 map.put("approvedOrders", orders);
             
+        }if (person.getDeniedOrders()!= null)
+        {
+           
+                JSONArray orders = new JSONArray();
+                for (String order : person.getDeniedOrders())
+                {
+                    if (order!= null)
+                    {
+                        if (!order.equals("Not Set") && !order.isEmpty()){
+                            orders.add(order);
+                        }
+                    }
+                }
+                map.put("deniedOrders", orders);
+            
         }
-        
         
         if(person.getPublications() != null)
         {
@@ -3177,6 +3190,16 @@ public class ClothoAdapter {
             }
         }
         
+        List<String> deniedOrders = new ArrayList<>();
+        if (map.containsKey("deniedOrders")){
+            JSONArray orderIds = (JSONArray) map.get("deniedOrders");
+            
+            for (int i = 0; i < orderIds.size(); i++){
+                deniedOrders.add(orderIds.getString(i));
+            }
+        }
+        
+        
         List<String> approvedOrders = new ArrayList<>();
         if (map.containsKey("approvedOrders")){
             JSONArray orderIds = (JSONArray) map.get("approvedOrders");
@@ -3223,6 +3246,8 @@ public class ClothoAdapter {
         person.setPublications(publications);
         person.setSubmittedOrders(submittedOrders);
         person.setApprovedOrders(approvedOrders);
+        person.setDeniedOrders(deniedOrders);
+        
         
         
         

@@ -20,6 +20,14 @@
         <servlet-name>removePIFromLab</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.removePIFromLab</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>listOrdersOfPerson</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.listOrdersOfPerson</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>denyOrder</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.denyOrder</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>uploadVendorCSV</servlet-name>
         <url-pattern>/uploadVendorCSV</url-pattern>
@@ -343,5 +351,13 @@
     <servlet-mapping>
         <servlet-name>removePIFromLab</servlet-name>
         <url-pattern>/removePIFromLab</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>listOrdersOfPerson</servlet-name>
+        <url-pattern>/listOrdersOfPerson</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>denyOrder</servlet-name>
+        <url-pattern>/denyOrder</url-pattern>
     </servlet-mapping>
 </web-app>

@@ -139,7 +139,7 @@ function doCartItemAjax(cartItemId){
             "cartItem": cartItemId
         },
         success: function (response) {
-            var percentage      = (response.discount / 100.00);
+            var percentage      = 1 - (response.discount / 100.00);
             var itemName        = response.productName;
             var itemUnitPrice   = response.productUnitPrice;
             var customUnitPrice = (percentage * response.productUnitPrice);
