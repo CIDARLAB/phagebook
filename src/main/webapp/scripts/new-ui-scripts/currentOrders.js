@@ -3,7 +3,6 @@ $(document).ready(function() {
     var timerVal;
     $("#productNameToSearch").keypress( keyPressHandler );
 
-
     function keyPressHandler(){
         clearTimeout(timerVal); // stops previous attempt.
         timerVal = setTimeout(doAjax, 500);//after a second of no input flip the flag.
@@ -12,8 +11,7 @@ $(document).ready(function() {
 
     }
 
-    function doAjax()
-    {
+    function doAjax() {
         var name = $("#productNameToSearch").val();
         var searchType = "STARTSWITH"; //USE JQUERY TO FIND FIXES
 
@@ -141,7 +139,6 @@ $(document).ready(function() {
                 values["ClothoId"]          = response[i].id;
                 values["TaxRate"]           = response[i].taxRate;
 
-
                 createOrderCard(values);
 
                 var select = document.getElementById("list-of-orders");
@@ -242,19 +239,13 @@ $(document).ready(function() {
                 "orderId"       : orderToAddTo
             },
             success: function (response) {
-                alert("Products Added!");
+                //alert("Products Added!");
                 window.location.href = "../html/currentOrders.html";
             },
             error: function (response) {
-                alert("error adding product to order");
+                alert("An error occurred with adding the product to this order.");
             }
         });
-
-
-
-
-
-
 
     });
 
@@ -275,7 +266,7 @@ function deleteButtonHandler(event){
 
     var orderId = this.value;
 
-    if (confirm("Really delete this order?")) {
+    if (confirm("Are you sure you want to delete this order?")) {
 
         $.ajax({
             url: '../deleteOrder',
@@ -287,7 +278,7 @@ function deleteButtonHandler(event){
                 "orderId": orderId
             },
             success: function (response) {
-                alert(response.message);
+                //alert(response.message);
                 window.location.href = ""; //refreshes page
             },
             error: function (response) {
@@ -319,7 +310,7 @@ function submitButtonHandler(){
             window.location.href = "../html/currentOrders.html";
         },
         error: function (response) {
-            alert("error submitting order");
+            alert("An error occurred upon submitting this order.");
         }
     });
 
@@ -341,7 +332,7 @@ function exportCSVHandler(){
             window.open("../resources/OrderSheets/Order_" + orderId + ".csv",'_blank');
         },
         error: function (response) {
-            alert("Failed horribly");
+            alert("An error occurred with exporting the CSV.");
         }
     });
     
@@ -349,8 +340,6 @@ function exportCSVHandler(){
     
 
 }
-
-
 
 function editButtonHandler(){
     var orderId = this.value;
