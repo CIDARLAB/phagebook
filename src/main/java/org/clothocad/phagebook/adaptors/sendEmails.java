@@ -138,6 +138,9 @@ public class sendEmails {
       String personId = members.get(i);
       Person member = ClothoAdapter.getPerson(personId, clothoObject);
       String memberEmail = member.getEmailId();
+      if(memberEmail.equals("Not Set")){
+        break;
+      }
       String memberName = member.getFirstName() + ' ' + member.getLastName();
 //      System.out.println("/n");
 //      System.out.println(memberName);

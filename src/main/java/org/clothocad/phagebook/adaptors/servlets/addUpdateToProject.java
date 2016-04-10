@@ -7,6 +7,7 @@ package org.clothocad.phagebook.adaptors.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -160,16 +161,20 @@ public class addUpdateToProject extends HttpServlet {
       // if there is a status
       if(newStatus.length() != 0){
         List<String> allUpdates = addProjectUpdate(userID, projectID, newStatus, emailPeople, clothoObject);
-        String listString = "";
+        List<Map<String, String>> listOfUpdates = new ArrayList<Map<String, String>>();
+
         for (String s : allUpdates)
         {
             //listString += s + "\t";
             Status update = ClothoAdapter.getStatus(s, clothoObject);
-            System.out.println(update.getText());
-            listString += update.getText() + " ";
+            Map u = new HashMap();
+            u.put("date", update.getCreated());
+            u.put("userId", update.getUserId());
+            u.put("text", update.getText());
+            listOfUpdates.add(u);
         }
         result.put("success",1);
-        result.put("updates",listString);
+        result.put("updates",listOfUpdates);
       }else{
         System.out.println("Update was too short -- letting the user know!");
 

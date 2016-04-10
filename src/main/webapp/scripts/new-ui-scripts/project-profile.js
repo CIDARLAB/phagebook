@@ -135,4 +135,56 @@ $(document).ready(function() {
         });
     }
 
+    $("#create-status-btn").click(function() {
+        console.log("clicked on addUpdate")
+
+        var userID = getCookie("clothoId");
+        var projectID = id;
+        var newStatus = $("#status-update-textarea").val();
+        console.log(newStatus);
+        var emailPeople = document.getElementById("emailPeople").checked;
+        console.log(emailPeople);
+        if (projectID != null && userID != null && newStatus != null) {
+            console.log("about to add update");
+            addUpdate(projectID, userID, newStatus, emailPeople);
+        } else {
+            //alert("Something is missing!");
+        }
+
+    });
+
+    var checkAddUpdateResponse = function(response){
+        // if the update was too short -- alerts?
+        if(response["short"] == 1){
+            alert("The update was too short! Please input a longer string.");
+        }
+    }
+
+    var addUpdate = function(projectID, userID, newStatus, emailPeople) {
+
+        console.log("in add update function");
+        var data = {
+            "userID": userID,
+            "projectID": projectID,
+            "newStatus": newStatus,
+            "emailPeople": emailPeople
+        }
+
+        $.ajax({
+            url: "/addUpdateToProject",
+            type: "POST",
+            dataType: "json",
+            data: data,
+            success: function(response) {
+                console.log(response);
+                console.log("response!!!");
+                return checkAddUpdateResponse(response);
+            },
+            error: function(err) {
+                console.log("ERROR!!");
+                console.log(err);
+            }
+        });
+    }
+
 });
