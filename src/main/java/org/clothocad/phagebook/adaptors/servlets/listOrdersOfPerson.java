@@ -8,6 +8,7 @@ package org.clothocad.phagebook.adaptors.servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,6 +19,9 @@ import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.model.Person;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
+import org.clothocad.phagebook.dom.Order;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  *
@@ -80,8 +84,105 @@ public class listOrdersOfPerson extends HttpServlet {
             } 
             if (exists){
                 
+                List<String> approvedOrderIds = prashant.getApprovedOrders();
+                List<String> deniedOrderIds   = prashant.getDeniedOrders();
+                JSONArray allOrders = new JSONArray();
+                for (String approved : approvedOrderIds){
+                    Order approvedOrder = ClothoAdapter.getOrder(approved, clothoObject);
+                    
+                   
+                    JSONObject approvedJSON = new JSONObject();
+                    approvedJSON.put("name", approvedOrder.getName());
+                    approvedJSON.put("description", approvedOrder.getDescription());
+                    approvedJSON.put("clothoId", approvedOrder.getId());
+                    approvedJSON.put("dateCreated", approvedOrder.getDateCreated().toString());
+                    Person creator = ClothoAdapter.getPerson(approvedOrder.getCreatedById(), clothoObject);
+                    approvedJSON.put("createdById", creator.getEmailId());
+                    approvedJSON.put("createdByName", creator.getFirstName() + " " +creator.getLastName());
+                    approvedJSON.put("products", approvedOrder.getProducts());
+                    approvedJSON.put("orderLimit", approvedOrder.getMaxOrderSize());
+                    approvedJSON.put("taxRate", approvedOrder.getTaxRate());
+                    approvedJSON.put("budget", approvedOrder.getBudget());
+                    if (!approvedOrder.getApprovedById().equals("") && !approvedOrder.getApprovedById().equals("Not Set") ){
+                        approvedJSON.put("approvedById", (ClothoAdapter.getPerson(approvedOrder.getApprovedById(), clothoObject)).getEmailId());
+                    }
+                    JSONArray receivedByIds = new JSONArray();
+                    List<String> receivedBys = approvedOrder.getReceivedByIds();
+                    for (int i = 0; i< receivedBys.size() ; i++){
+                        if (!receivedBys.get(i).equals("") && !receivedBys.get(i).equals("Not Set")){
+                        JSONObject receivedByJSON = new JSONObject();
+                        receivedByJSON.put( ""+ i , (ClothoAdapter.getPerson(receivedBys.get(i), clothoObject)).getEmailId());
+                        receivedByIds.put(receivedByJSON);
+                        }
+                    }
+                    approvedJSON.put("receivedByIds", receivedByIds);
+                    approvedJSON.put("relatedProjectName", (ClothoAdapter.getProject(approvedOrder.getRelatedProjectId(), clothoObject)).getName());
+                    approvedJSON.put("status", approvedOrder.getStatus());
+                    approvedJSON.put("affiliatedLabId", approvedOrder.getAffiliatedLabId());
+                    
+                    
+                    allOrders.put(approvedJSON);
+                }
                 
+                for (String denied : deniedOrderIds){
+                    Order deniedOrder = ClothoAdapter.getOrder(denied, clothoObject);
+                    
+                    JSONObject deniedJSON = new JSONObject();
+                    deniedJSON.put("name", deniedOrder.getName());
+                    deniedJSON.put("description", deniedOrder.getDescription());
+                    deniedJSON.put("clothoId", deniedOrder.getId());
+                    deniedJSON.put("dateCreated", deniedOrder.getDateCreated().toString());
+                    Person creator = ClothoAdapter.getPerson(deniedOrder.getCreatedById(), clothoObject);
+                    deniedJSON.put("createdById", creator.getEmailId());
+                    deniedJSON.put("createdByName", creator.getFirstName() + " " +creator.getLastName());
+                    deniedJSON.put("products", deniedOrder.getProducts());
+                    deniedJSON.put("orderLimit", deniedOrder.getMaxOrderSize());
+                    deniedJSON.put("taxRate", deniedOrder.getTaxRate());
+                    deniedJSON.put("budget", deniedOrder.getBudget());
+                    if (!deniedOrder.getApprovedById().equals("") && !deniedOrder.getApprovedById().equals("Not Set") ){
+                        deniedJSON.put("approvedById", (ClothoAdapter.getPerson(deniedOrder.getApprovedById(), clothoObject)).getEmailId());
+                    }
+                    JSONArray receivedByIds = new JSONArray();
+                    List<String> receivedBys = deniedOrder.getReceivedByIds();
+                    for (int i = 0; i< receivedBys.size() ; i++){
+                        if (!receivedBys.get(i).equals("") && !receivedBys.get(i).equals("Not Set")){
+                        JSONObject receivedByJSON = new JSONObject();
+                        receivedByJSON.put( ""+ i , (ClothoAdapter.getPerson(receivedBys.get(i), clothoObject)).getEmailId());
+                        receivedByIds.put(receivedByJSON);
+                        }
+                    }
+                    deniedJSON.put("receivedByIds", receivedByIds);
+                    deniedJSON.put("relatedProjectName", (ClothoAdapter.getProject(deniedOrder.getRelatedProjectId(), clothoObject)).getName());
+                    deniedJSON.put("status", deniedOrder.getStatus());
+                    deniedJSON.put("affiliatedLabId", deniedOrder.getAffiliatedLabId());
+                    
+                    
+                    allOrders.put(deniedJSON);
+                }
+                
+                response.setContentType("application/json");
+                response.setStatus(HttpServletResponse.SC_OK);
+                PrintWriter out = response.getWriter();
+                out.print(allOrders);
+                out.flush();
+                        
+            }else {
+                response.setContentType("application/json");
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                JSONObject responseJSON = new JSONObject();
+                responseJSON.put("message", "id provided does not exist");
+                PrintWriter out = response.getWriter();
+                out.print(responseJSON);
+                out.flush();
             }
+        } else {
+            response.setContentType("application/json");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            JSONObject responseJSON = new JSONObject();
+            responseJSON.put("message", "missing an id to query with");
+            PrintWriter out = response.getWriter();
+            out.print(responseJSON);
+            out.flush();
         }
     }
 

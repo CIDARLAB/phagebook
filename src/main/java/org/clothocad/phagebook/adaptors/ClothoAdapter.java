@@ -982,22 +982,22 @@ public class ClothoAdapter {
                 }
                 map.put("approvedOrders", orders);
             
-        }if (person.getDeniedOrders()!= null)
-        {
-           
-                JSONArray orders = new JSONArray();
-                for (String order : person.getDeniedOrders())
+    }if (person.getDeniedOrders()!= null)
+    {
+
+            JSONArray orders = new JSONArray();
+            for (String order : person.getDeniedOrders())
+            {
+                if (order!= null)
                 {
-                    if (order!= null)
-                    {
-                        if (!order.equals("Not Set") && !order.isEmpty()){
-                            orders.add(order);
-                        }
+                    if (!order.equals("Not Set") && !order.isEmpty()){
+                        orders.add(order);
                     }
                 }
-                map.put("deniedOrders", orders);
-            
-        }
+            }
+            map.put("deniedOrders", orders);
+
+    }
         
         if(person.getPublications() != null)
         {
@@ -3883,12 +3883,11 @@ public class ClothoAdapter {
                 map.put("submittedOrders", orders);
             
         }
-        
-        if (person.getApprovedOrders()!= null)
+        if (person.getSubmittedOrders()!= null)
         {
-            
+           
                 JSONArray orders = new JSONArray();
-                for (String order : person.getApprovedOrders())
+                for (String order : person.getSubmittedOrders())
                 {
                     if (order!= null)
                     {
@@ -3897,7 +3896,24 @@ public class ClothoAdapter {
                         }
                     }
                 }
-                map.put("approvedOrders", orders);
+                map.put("submittedOrders", orders);
+            
+        }
+        
+        if (person.getDeniedOrders()!= null)
+        {
+           
+                JSONArray orders = new JSONArray();
+                for (String order : person.getDeniedOrders())
+                {
+                    if (order!= null)
+                    {
+                        if (!order.equals("Not Set") && !order.isEmpty()){
+                            orders.add(order);
+                        }
+                    }
+                }
+                map.put("deniedOrders", orders);
             
         }
         

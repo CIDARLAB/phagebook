@@ -52,7 +52,7 @@ public class newOrder extends HttpServlet {
         
         Object pTaxRate     = request.getParameter("tax");
         String taxRateString      =  pTaxRate != null ? (String) pTaxRate: "" ;
-        Double taxRate = Double.parseDouble(taxRateString);
+        Double taxRate = Double.parseDouble(taxRateString) / 100;
         
         
         Object pAssociatedProject  = request.getParameter("associatedProjectId");

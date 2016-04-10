@@ -109,7 +109,7 @@ function parseOrderRequest(orderJSON){
             itemCustomPrice.innerHTML = "$" + response.customUnitPrice;
             var itemTotalPrice = rowCount.insertCell(4);
             itemTotalPrice.className = "item-total-price";
-            itemTotalPrice.innerHTML =  "$" +  response.totalPrice;
+            itemTotalPrice.innerHTML =  "$" +  response.totalPrice.toFixed(2);
 
 
             totalBeforeTax += response.totalPrice;
@@ -124,17 +124,22 @@ function parseOrderRequest(orderJSON){
 
         orderItemsTable.appendChild(tr);
     }
-    template.querySelector('.total-before-tax-value').innerText = "$" + totalBeforeTax;
-    console.log(TAX);
-    template.querySelector('.tax-value').innerText = "$"+ (TAX * totalBeforeTax) ;
-    if (orderJSON.budget < ( (TAX * totalBeforeTax) + totalBeforeTax)){
+    template.querySelector('.total-before-tax-value').innerText = "$" + totalBeforeTax.toFixed(2);
+
+    template.querySelector('.tax-value').innerText = "$"+ ( (TAX - 1) * totalBeforeTax).toFixed(2) ;
+    if (orderJSON.Budget < ( (TAX * totalBeforeTax) + totalBeforeTax)){
         template.querySelector('.total-after-tax-value').style = "color: red";
         template.querySelector('.submit-order-btn').disabled = true;
     }
-    template.querySelector('.total-after-tax-value').innerText = "$" + ( (TAX * totalBeforeTax) + totalBeforeTax);
+    template.querySelector('.total-after-tax-value').innerText = "$" + (TAX * totalBeforeTax).toFixed(2);
+
+
+
+
 
     template.querySelector('.approve-btn').value = orderJSON.clothoId;
     template.querySelector('.decline-btn').value = orderJSON.clothoId;
+
 
 
     content.append(template);
@@ -192,9 +197,11 @@ function approveOrderBtnHandler(){
             "orderId": this.value
         },
         success: function (response) {
-
+            alert("order approved");
+            window.location.href="";
         },
         error: function (response){
+            window.location.href="";
         }
     });
 
@@ -202,22 +209,33 @@ function approveOrderBtnHandler(){
 
 }
 function declineOrderBtnHandler(){
-    alert(this.value);
-    $.ajax({
-        //do this for projects...
-        url: "../denyOrder",
-        type: "POST",
-        async: false,
-        data: {
-            "userId": getCookie("clothoId"),
-            "orderId": this.value
-        },
-        success: function (response) {
 
-        },
-        error: function (response){
-        }
-    });
+
+    if (confirm("Really delete this order?")) {
+
+        $.ajax({
+            //do this for projects...
+            url: "../denyOrder",
+            type: "POST",
+            async: false,
+            data: {
+                "userId": getCookie("clothoId"),
+                "orderId": this.value
+            },
+            success: function (response) {
+                alert("order denied");
+                window.location.href="";
+
+            },
+            error: function (response){
+                window.location.href="";
+            }
+        });
+
+    } else {
+        //do nothing
+    }
+
 
 
 }

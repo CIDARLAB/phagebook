@@ -20,6 +20,7 @@ import org.clothocad.model.Person;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Order;
+import org.clothocad.phagebook.dom.OrderStatus;
 
 /**
  *
@@ -121,8 +122,12 @@ public class denyOrder extends HttpServlet {
             Person creator = ClothoAdapter.getPerson(orderToDeny.getCreatedById(), clothoObject);
             List<String> originalDeniedOrders = creator.getDeniedOrders();
             originalDeniedOrders.add(orderToDeny.getId());
+            orderToDeny.setStatus(OrderStatus.DENIED);
+            ClothoAdapter.setOrder(orderToDeny, clothoObject);
             clothoObject.logout();
             ClothoAdapter.setPerson(creator, clothoObject);
+            
+            
             
             
                 

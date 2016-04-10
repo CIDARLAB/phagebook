@@ -89,15 +89,16 @@ $(document).ready(function() {
         var associatedProjectId = document.getElementById('projectResults').value;
         var budget = document.getElementById('orderBudget').value;
         var orderLimit = document.getElementById('orderLimit').value;
+        var taxRate = document.getElementById('taxRate').value;
         
-        doAjaxCallToCreateOrder(name, createdBy, labId, associatedProjectId, budget, orderLimit);
+        doAjaxCallToCreateOrder(name, createdBy, labId, associatedProjectId, budget, orderLimit,taxRate);
         
         
    
     });
     
 });
-function doAjaxCallToCreateOrder(name, createdBy, labId, associatedProjectId, budget, orderLimit){
+function doAjaxCallToCreateOrder(name, createdBy, labId, associatedProjectId, budget, orderLimit,taxRate){
     $.ajax({
                     url: "../newOrder",
                     type: "POST",
@@ -109,7 +110,8 @@ function doAjaxCallToCreateOrder(name, createdBy, labId, associatedProjectId, bu
                         "labId": labId,
                         "associatedProjectId": associatedProjectId,
                         "budget": budget,
-                        "orderLimit": orderLimit
+                        "orderLimit": orderLimit,
+                        "tax": taxRate
                     },
                     success: function (response) {
                         alert("order created!");
