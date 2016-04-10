@@ -85,8 +85,13 @@ public class getProject extends HttpServlet {
             System.out.println( creator.getFirstName()+" " +creator.getLastName());
             projectObject.put("creator", creator.getFirstName()+" " +creator.getLastName());
             projectObject.put("creatorId", proj.getCreatorId());
+             if(creator.getLabs().size()>0){
+              // if a person has labs - get 'em!
+               System.out.println("creator has more than 0 labs");
+               projectObject.put("creatorLabs", creator.getLabs());
+              
+            }
         }
-        //projectObject.put("members", proj.getMembers());
 
         if(!(proj.getLeadId().equals(""))){
             System.out.println("Getting Lead person");
@@ -99,6 +104,12 @@ public class getProject extends HttpServlet {
               System.out.println("Getting Lead name, it is:");
               System.out.println(lead.getFirstName()+lead.getLastName());              
               projectObject.put("lead", lead.getFirstName()+" "+lead.getLastName());
+            }
+            if(lead.getLabs().size()>0){
+              System.out.println("lead has more than 0 labs");
+              // if a person has labs - get 'em!
+               projectObject.put("leadLabs", lead.getLabs());
+              
             }
         }
         

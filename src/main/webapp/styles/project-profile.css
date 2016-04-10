@@ -1,0 +1,50 @@
+#add-members-btn {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    background-color: #9E9E9E;
+    color: #FFFFFF;
+    border-radius: 8px;
+    border: none;
+    padding-right: 15px;
+    padding-left: 15px;
+    display: block;
+    clear: both;
+    margin-left: 70%;
+    margin-top: -30px;
+    float: right;
+}
+
+#project-profile-nav{
+    position: absolute;
+    margin-top: 38%;
+    margin-left: 400px;
+    width: 862px;
+    overflow-x: hidden;
+    background: transparent;
+    border: none;
+}
+
+#project-profile-overview {
+    padding: 20px 40px 30px 50px;
+    background-color: #FFFFFF;
+}
+
+#edit-project-btn {
+    float: right;
+    margin-left: 10px;
+    background-color: #9E9E9E;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+}
+
+#submit-project-btn{
+    float: right;
+    margin-left: 10px;
+    background-color: #9E9E9E;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    display: none;
+}

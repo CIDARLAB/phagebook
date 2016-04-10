@@ -71,7 +71,7 @@ public class getAllProjects extends HttpServlet {
     Person user = ClothoAdapter.getPerson(userID, clothoObject);
     System.out.println(user.getFirstName() + " "+user.getLastName());
     
-// get the projects array
+    // get the projects array
     
     List<String> projectsList  =user.getProjects();
     System.out.println(projectsList);
