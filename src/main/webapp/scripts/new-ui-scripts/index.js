@@ -73,9 +73,14 @@ $(document).ready(function () {
         var lastName =  document.getElementById("inputLastName").value;
         var emailId =   document.getElementById("emailAddress").value;
         var password =  document.getElementById("password").value;
-        
+
         if ((firstName === "") || (lastName === "") || (emailId === "") || (password === "")) {
             $("#fields-required-alert").fadeIn();
+            isValid = 0;
+        }
+
+        else if (validateEmail(emailId) == false) {
+            $("#invalid-email-alert").fadeIn();
             isValid = 0;
         }
 
@@ -100,22 +105,24 @@ $(document).ready(function () {
                     var responseJSON = JSON.parse(response);
                     setCookie("emailId", responseJSON.emailId, 1);
                     setCookie("clothoId", responseJSON.clothoId, 1);
+                    console.log(validateEmail(emailId));
                     window.location.href = '../html/resendEmailVerification.html';
                 },
                 error: function (response) {
-                    //THIS CAN BE DONE BETTER ONCE WE KNOW WHAT WE ARE DOING.
-                    alert("\n" + response.statusText + "!\n" + response.responseText);
-                    window.location.href = '../';
+                    $("#duplicate-user-alert").fadeIn();
                 }
             });
         }
     });
 
     $('#login').click(function () {
+
         var isValid = 1;
         var loginId = document.getElementById("loginEmailAddress").value;
         var password = document.getElementById("loginPassword").value;
+
         if ((loginId === "") || (password === "")) {
+            $("#invalid-combo-alert").modal('show');
             isValid = 0;
         }
 
@@ -176,4 +183,9 @@ function removeOptions(selectbox) {
     for(i=selectbox.options.length-1;i>=0;i--) {
         selectbox.remove(i);
     }
+}
+
+function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
 }

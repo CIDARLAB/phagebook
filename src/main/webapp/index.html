@@ -21,6 +21,15 @@
         <script src="/scripts/new-ui-scripts/angular.ng-modules.js"></script>
         <script src="scripts/new-ui-scripts/index.js"></script>
 
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('[data-toggle="popover"]').popover({
+                    placement : 'bottom',
+                    trigger : 'hover'
+                });
+            });
+        </script>
+
         <style>  
             
             .navbar {
@@ -147,14 +156,14 @@
                                     <div class="form-group">
                                         <label for="loginEmailAddress" class="control-label">EMAIL ADDRESS</label>
                                         <br/><input type="email" class="form-control input-sm" id="loginEmailAddress">
-                                        <br/><label class="control-label" style="color:white">
+                                        <br/><label class="control-label" style="color:white" data-toggle="popover" data-trigger="hover" data-content="Functionality coming soon!">
                                             <input type="checkbox"> Remember Me
                                         </label>
                                     </div>
                                     <div class="form-group">
                                         <label for="loginPassword" class="control-label">PASSWORD</label>
                                         <br/><input type="password" class="form-control input-sm" id="loginPassword">
-                                        <br/><a href="" id="alt-link" rel="popover" data-toggle="popover" data-placement="bottom" data-trigger="click" data-content="Functionality coming soon!">Forgot your password?</a>
+                                        <br/><a href="" id="alt-link" data-toggle="popover" data-trigger="hover" data-content="Functionality coming soon!">Forgot your password?</a>
                                     </div>                              
                                     <button id="login" type="submit" class="btn btn-default">Log In</button>
                                 </div>
@@ -194,6 +203,14 @@
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                     <strong>Error!</strong> All fields are required.
                                 </div>
+                                <div class="alert alert-danger alert-dismissible" id="duplicate-user-alert" role="alert" style="display:none">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <strong>Error!</strong> An account with this email address has already been created.
+                                </div>
+                                <div class="alert alert-danger alert-dismissible" id="invalid-email-alert" role="alert" style="display:none">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <strong>Error!</strong> Please enter a valid email address.
+                                </div>
                                 <div>
                                     <div class="form-group" id="register-form">
                                         <div class="col-sm-6">
@@ -204,7 +221,7 @@
                                         </div>
                                         <div class="col-sm-12"></div>
                                         <div class="col-sm-12">
-                                            <input type="text" class="form-control" name="emailId" id="emailAddress" placeholder="Email Address">
+                                            <input type="email" class="form-control" name="emailId" id="emailAddress" placeholder="Email Address">
                                         </div>
                                         <div class="col-sm-12">
                                             <input type="password" class="form-control"  name="password" id="password" placeholder="Password">
