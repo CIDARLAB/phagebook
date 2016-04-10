@@ -92,22 +92,29 @@ public class listSubmittedOrdersOfPerson extends HttpServlet {
                     JSONObject tempAsJSON = new JSONObject();
                     tempAsJSON.put("name", temp.getName());
                     tempAsJSON.put("description", temp.getDescription());
+                    tempAsJSON.put("clothoId", temp.getId());
                     tempAsJSON.put("dateCreated", temp.getDateCreated().toString());
-                    tempAsJSON.put("createdById", (ClothoAdapter.getPerson(temp.getCreatedById(), clothoObject)).getEmailId());
+                    Person creator = ClothoAdapter.getPerson(temp.getCreatedById(), clothoObject);
+                    tempAsJSON.put("createdById", creator.getEmailId());
+                    tempAsJSON.put("createdByName", creator.getFirstName() + " " +creator.getLastName());
                     tempAsJSON.put("products", temp.getProducts());
                     tempAsJSON.put("budget", temp.getBudget());
-                    tempAsJSON.put("approvedById", (ClothoAdapter.getPerson(temp.getApprovedById(), clothoObject)).getEmailId());
+                    if (!temp.getApprovedById().equals("") && !temp.getApprovedById().equals("Not Set") ){
+                        tempAsJSON.put("approvedById", (ClothoAdapter.getPerson(temp.getApprovedById(), clothoObject)).getEmailId());
+                    }
                     JSONArray receivedByIds = new JSONArray();
                     List<String> receivedBys = temp.getReceivedByIds();
                     for (int i = 0; i< receivedBys.size() ; i++){
+                        if (!receivedBys.get(i).equals("") && !receivedBys.get(i).equals("Not Set")){
                         JSONObject receivedByJSON = new JSONObject();
                         receivedByJSON.put("user "+ i , (ClothoAdapter.getPerson(receivedBys.get(i), clothoObject)).getEmailId());
                         receivedByIds.put(receivedByJSON);
+                        }
                     }
                     tempAsJSON.put("receivedByIds", receivedByIds);
                     tempAsJSON.put("relatedProjectId", temp.getRelatedProjectId());
                     tempAsJSON.put("status", temp.getStatus());
-                    tempAsJSON.put("affiliatedLabId", (ClothoAdapter.getLab(temp.getAffiliatedLabId(), clothoObject)));
+                    tempAsJSON.put("affiliatedLabId", temp.getAffiliatedLabId());
                     createdOrdersJSON.put(tempAsJSON); // put it in there...
                 }
                 

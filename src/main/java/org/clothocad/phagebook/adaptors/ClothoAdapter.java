@@ -1624,7 +1624,10 @@ public class ClothoAdapter {
     public static Person          getPerson(String id, Clotho clothoObject)
     {
         Map personMap = (Map) clothoObject.get(id);
-        Person person = mapToPerson(personMap, clothoObject);
+        Person person = new Person();
+        if (personMap != null){
+            person = mapToPerson(personMap, clothoObject);
+        }
         return person;
     }
     /**

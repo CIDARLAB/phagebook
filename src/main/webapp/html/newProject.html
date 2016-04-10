@@ -1,7 +1,9 @@
 <!DOCTYPE html>
+
 <html>
 
 <head lang="en">
+
     <meta charset="UTF-8">
     <title>Projects</title>
     <meta charset="UTF-8">
@@ -10,19 +12,27 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="../styles/main.css" />
     <link rel="stylesheet" href="../styles/sidebar.css" />
-
+    <link rel="stylesheet" href="../styles/projects.css" />
     <link rel="icon" href="../styles/img/logos/phagebook-favicon.png" sizes="16x16">
 
-    <link rel="stylesheet" href="../styles/projects.css" />
+    <script src="../scripts/new-ui-scripts/cookieHandler.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <!---SCRIPTS-->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
-
     <script src="../scripts/new-ui-scripts/cookieHandler.js"></script>
     <!-- <script src="../scripts/new-ui-scripts/fetchAllProjects.js"></script> -->
     <script src="../scripts/new-ui-scripts/addMembersToProjects.js"></script>
 
+    <style>
+
+        label {
+            font-weight: 400;
+            color: #1E714A;
+        }
+
+    </style>
+
     <body>
+
         <div ng-module="newProjects">
             <header></header>
             <sidebar></sidebar>
@@ -66,13 +76,9 @@
                                     <br>
                                     <div class="input-div col-sm-9 float-right">
                                         <input name="leadName" class="form-control newProject-input leadForm leadName" id="inputLeadName" placeholder="ex: James Smith" ng-model="formData.leadName">
-                                        <!-- <input name="leadLastName" class="form-control leadForm lastName" id="inputLeadLastName3" placeholder="Last Name" ng-model="formData.leadLastName"> -->
                                         <div class="leadError">
                                             <span ng-show="leadNameRequired">{{leadNameRequired}}</span>
                                         </div>
-                                        <!-- <div class="leadError">
-                                            <span ng-show="leadLastNameRequired">{{leadLastNameRequired}}</span>
-                                        </div> -->
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -87,14 +93,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!--                                 <div class="form-group row">
-                                    <div id="member_selectDiv">
-                                        <div class="col-sm-2 control-label float-left">SELECT MEMBER</div>
-                                        <div class="col-sm-9 float-right">
-                                            <select class="form-control" id="member_Results"></select>
-                                        </div>
-                                    </div>
-                                </div> -->
                                 <div class="form-group">
                                     <!-- Double projectBudget -->
                                     <div class="col-sm-2 control-label float-left">FUNDING AMOUNT</div>
@@ -122,14 +120,6 @@
                                         </p>
                                         <input name="memberFirstName" class="form-control newProject-input memberForm firstName" id="inputMemberFirstName3" placeholder="Names" ng-model="formData.members">
                                         <span ng-show="membersRequired">{{membersRequired}}</span>
-                                        <!-- <input name="memberFirstName" class="form-control newProject-input memberForm firstName" id="inputMemberFirstName3" placeholder="First Name" ng-model="formData.memberFirstName"> -->
-                                        <!-- <input name="memberLastName" class="form-control memberForm lastName" id="inputMemberLastName3" placeholder="Last Name" ng-model="formData.memberLastName"> -->
-                                        <!--                                     <div class="leadError">
-                                        <span ng-show="leadFirstNameRequired">{{leadFirstNameRequired}}</span>
-                                    </div>
-                                    <div class="leadError">
-                                        <span ng-show="leadLastNameRequired">{{leadLastNameRequired}}</span>
-                                    </div> -->
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -145,12 +135,12 @@
             <br>
             <footer></footer>
         </div>
-    </body>
         <script src="../scripts/new-ui-scripts/angular.ng-modules.js"></script>
-    <script src="../scripts/new-ui-scripts/sidebarDirective.js"></script>
-    <script src="../scripts/new-ui-scripts/headerDirective.js"></script>
-    <script src="../scripts/new-ui-scripts/footerDirective.js"></script>
-    <script src="../scripts/new-ui-scripts/newProjectsController.js"></script>
-    <script src="../scripts/new-ui-scripts/newProjectsApp.js"></script>
+        <script src="../scripts/new-ui-scripts/sidebarDirective.js"></script>
+        <script src="../scripts/new-ui-scripts/headerDirective.js"></script>
+        <script src="../scripts/new-ui-scripts/footerDirective.js"></script>
+        <script src="../scripts/new-ui-scripts/newProjectsController.js"></script>
+        <script src="../scripts/new-ui-scripts/newProjectsApp.js"></script>
+
 
 </html>

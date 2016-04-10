@@ -1,7 +1,9 @@
 <!DOCTYPE html>
+
 <html>
 
 <head lang="en">
+
     <meta charset="UTF-8">
     <title>Projects</title>
     <meta charset="UTF-8">
@@ -12,82 +14,88 @@
     <link rel="stylesheet" href="../styles/sidebar.css" />
     <link rel="stylesheet" href="../styles/projects.css" />
     <link rel="icon" href="../styles/img/logos/phagebook-favicon.png" sizes="16x16">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-    <!---SCRIPTS-->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
-    <script src="../scripts/new-ui-scripts/angular.ng-modules.js"></script>
-    <script src="../scripts/new-ui-scripts/sidebarDirective.js"></script>
-    <script src="../scripts/new-ui-scripts/headerDirective.js"></script>
-    <script src="../scripts/new-ui-scripts/footerDirective.js"></script>
-    <script src="../scripts/new-ui-scripts/newProjectsController.js"></script>
-    <script src="../scripts/new-ui-scripts/newProjectsApp.js"></script>
-    <script src="../scripts/new-ui-scripts/cookieHandler.js"></script>
-    <script src="../scripts/new-ui-scripts/fetchAllProjects.js"></script>
-    <!-- <script src="../scripts/new-ui-scripts/editProjects.js"></script> -->
-    <script src="../scripts/new-ui-scripts/cookieHandler.js"></script>
 
-    <body>
-        <!-- <div ng-module="projectsApp"> -->
-        <div ng-module="newProjects">
-            <header></header>
-            <sidebar></sidebar>
-            <div ng-controller="newProjectsCtrl">
-                <div class="container-fluid new-project-form">
-                    <div class="row">
-                        <div class="col-md-9">
-                            <form class="editProject">
-                                <h3 class="projectFormTitle">Edit Project</h3>
+    <script src="../scripts/new-ui-scripts/cookieHandler.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="../scripts/new-ui-scripts/angular.ng-modules.js"></script>
+    <script src="../scripts/new-ui-scripts/fetchAllProjects.js"></script>
+
+</head>
+
+<body>
+    <!-- <div ng-module="projectsApp"> -->
+    <div ng-module="newProjects">
+        <header></header>
+        <sidebar></sidebar>
+        <div ng-controller="newProjectsCtrl">
+            <div class="container-fluid new-project-form">
+                <div class="row">
+                    <div class="col-md-9">
+                        <form class="editProject">
+                            <h3 class="projectFormTitle">Edit Project</h3>
+                            <br>
+                            <div class="form-group row">
+                                <div class="editProjectDiv float-right col-sm-9">
+                                    <select class="form-control" id="editProjectDropdown">
+                                        <option value="">
+                                            Select...
+                                        </option>
+                                    </select>
+                                </div>
+                                <button type="button" id="populateFormButton" on-click="populateForm()" class="col-sm-2 btn edit-project-button float-left btn-default">Edit Selected Project</button>
+                            </div>
+                            <div class="form-group row">
+                                <!-- String name -->
+                                <div for="inputName" class="col-sm-2 float-left control-label">New Project Name</div>
+                                <div class="input-div col-sm-9 float-right">
+                                    <input name="name" class="form-control" ng-maxlength="100" ng-minlength="5" id="name" placeholder="Name" ng-model="formData.name">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <!--String Description-->
+                                <div for="inputDescription3" class="col-sm-2 float-left control-label">New Project Description</div>
+                                <div class="input-div col-sm-9 float-right">
+                                    <textarea name="description" class="form-control" rows="5" id="desc" placeholder="Description" ng-maxlength="1000" ng-minlength="50" ng-model="formData.description"></textarea>
+                                </div>
+                            </div>
+                            <!-- Double projectBudget -->
+                            <div class="form-group row">
+                                <div for="inputProjectBudget3" class="control-label col-sm-2 float-left"> New Budget</div>
+                                <div class="input-div col-sm-9 float-right">
+                                    <input name="projectBudget" type="number" class="form-control" id="budget" placeholder="Budget" min="0" ng-model="formData.projectBudget">
+                                </div>
                                 <br>
-                                <div class="form-group row">
-                                    <div class="editProjectDiv float-right col-sm-9">
-                                        <select class="form-control" id="editProjectDropdown">
-                                            <option value="">
-                                                Select...
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <button type="button" id="populateFormButton" on-click="populateForm()" class="col-sm-2 btn edit-project-button float-left btn-default">Edit Selected Project</button>
-                                </div>
-                                <div class="form-group row">
-                                    <!-- String name -->
-                                    <div for="inputName" class="col-sm-2 float-left control-label">New Project Name</div>
-                                    <div class="input-div col-sm-9 float-right">
-                                        <input name="name" class="form-control" ng-maxlength="100" ng-minlength="5" id="name" placeholder="Name" ng-model="formData.name">
+                                <br>
+                                <button type="button" id="submitEditChange" class="btn btn-default float-right edit-project-button">Submit</button>
+                            </div>
+                            <div class="form-group row">
+                                <div for="inputName" class="control-label col-sm-2 float-left">Add New Update</div>
+                                <div class="input-div col-sm-9 float-right">
+                                    <input name="newStatus" class="form-control" ng-maxlength="500" ng-minlength="5" id="newStatus" placeholder="Update" ng-model="formData.newStatus">
+                                    <div>
+                                        <input type="checkbox" id="emailPeople" value="first_checkbox"> Email members of the team
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <!--String Description-->
-                                    <div for="inputDescription3" class="col-sm-2 float-left control-label">New Project Description</div>
-                                    <div class="input-div col-sm-9 float-right">
-                                        <textarea name="description" class="form-control" rows="5" id="desc" placeholder="Description" ng-maxlength="1000" ng-minlength="50" ng-model="formData.description"></textarea>
-                                    </div>
-                                </div>
-                                <!-- Double projectBudget -->
-                                <div class="form-group row">
-                                    <div for="inputProjectBudget3" class="control-label col-sm-2 float-left"> New Budget</div>
-                                    <div class="input-div col-sm-9 float-right">
-                                        <input name="projectBudget" type="number" class="form-control" id="budget" placeholder="Budget" min="0" ng-model="formData.projectBudget">
-                                    </div>
-                                    <br>
-                                    <br>
-                                    <button type="button" id="submitEditChange" class="btn btn-default float-right edit-project-button">Submit</button>
-                                </div>
-                                <div class="form-group row">
-                                    <div for="inputName" class="control-label col-sm-2 float-left">Add New Update</div>
-                                    <div class="input-div col-sm-9 float-right">
-                                        <input name="newStatus" class="form-control" ng-maxlength="500" ng-minlength="5" id="newStatus" placeholder="Update" ng-model="formData.newStatus">
-                                        <div>
-                                            <input type="checkbox" id="emailPeople" value="first_checkbox"> Email members of the team
-                                        </div>
-                                    </div>
-                                    <br><br><br>
-                                    <button type="button" id="addUpdate" class="edit-project-button btn btn-default float-right">Add Update</button>
-                                </div>
-                            </form>
-                        </div>
+                                <br><br><br>
+                                <button type="button" id="addUpdate" class="edit-project-button btn btn-default float-right">Add Update</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
             <footer></footer>
         </div>
-    </body>
+    </div>
+
+    <!-- ANGULAR SCRIPTS -->
+    <script src="../scripts/new-ui-scripts/sidebarDirective.js"></script>
+    <script src="../scripts/new-ui-scripts/headerDirective.js"></script>
+    <script src="../scripts/new-ui-scripts/footerDirective.js"></script>
+    <script src="../scripts/new-ui-scripts/newProjectsController.js"></script>
+    <script src="../scripts/new-ui-scripts/newProjectsApp.js"></script>
+
+</body>
+
+</html>

@@ -307,21 +307,19 @@ function submitButtonHandler(){
     alert(orderId);
 
     $.ajax({
-        url: '../addProductsToOrder',
+        url: '../submitOrderToPIs',
         type: 'POST',
         dataType: 'JSON',
         async: false,
         data: {
-            "CartItems"     : JSON.stringify(productsToAdd),
-            "loggedInUserId": getCookie("clothoId"),
-            "orderId"       : orderToAddTo
+            "orderId": orderId
         },
         success: function (response) {
-            alert("Products Added!");
+            alert("Order Submitted");
             window.location.href = "../html/currentOrders.html";
         },
         error: function (response) {
-            alert("error adding product to order");
+            alert("error submitting order");
         }
     });
 

@@ -21,6 +21,7 @@
         <script src="../scripts/jsBootstrap/js/bootstrap.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
         <script src="../scripts/new-ui-scripts/angular.ng-modules.js"></script>
+        <script src="../scripts/new-ui-scripts/manageRequests.js"></script>
         
         <style>
             
@@ -49,89 +50,92 @@
         <div ng-module="profileApp">
             <div ng-controller="profileCtrl">
                 <header></header>
-                <div class="container" style="margin:100px">
+                <div class="container" id="content" style="margin:100px">
                     <h3>Manage Requests</h3>
                     <br>
+                    <template id="submitted-order-request-template">
+                        <div class="request">
+                            <button type="button" class="btn btn-block request-btn" data-toggle="collapse" data-target=".order-card">
+                                ORDER #57092d1dd4c6de0585088915 &nbsp;'My Order'
+                            </button>
+                            <div class="panel panel-default collapse order-card">
+                                <div class="panel-heading order-heading" style="height:60px">
+                                    <label class="col-xs-2 form-control-label" style="margin-top:10px">Order Name: </label>
+                                    <div class="col-sm-7" style="margin-left:-25px; margin-top:10px">
+                                        <input type="text" class="order-nickname" name="type" disabled/>
+                                    </div>
+                                </div>
+                                <div class="panel-body order-top-panel">
+                                    <br>
+                                    <p>Associated Project:&nbsp;
+                                        <a class="order-project-name" href="" style="color:#1E714A;"></a></p>
+                                    <br>
+                                    <table class="table order-property-table">
+                                        <tr class="order-property-headers">
+                                            <td>ORDER ID #</td>
+                                            <td>CREATED BY</td>
+                                            <td>RECEIVED BY</td>
+                                            <td>APPROVED BY</td>
+                                            <td>ORDER LIMIT</td>
+                                            <td>ORDER BUDGET</td>
+                                        </tr>
+                                        <tr class="order-property-data">
+                                            <td class="order-id"></td>
+                                            <td class="order-created-by"></td>
+                                            <td class="order-received-by"></td>
+                                            <td class="order-approved-by"></td>
+                                            <td class="order-limit"></td>
+                                            <td class="order-budget">$</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <table class="table order-items-table">
+                                    <tr class="order-items-headers">
+                                        <td>ITEM</td>
+                                        <td>QTY.</td>
+                                        <td>UNIT PRICE</td>
+                                        <td>CUSTOM UNIT PRICE</td>
+                                        <td>TOTAL PRICE</td>
+                                    </tr>
+                                </table>
+                                <div class="panel-body order-bottom-panel">
+                                    <div id="order-buttons">
+                                        <div class="btn-group approve-order" role="group">
+                                            <button type="button" class="btn btn-default approve-btn">
+                                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                                &nbsp;Approve
+                                            </button>
+                                        </div>
+                                        <div class="btn-group decline-order" role="group">
+                                            <button type="button" class="btn btn-default decline-btn">
+                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                                &nbsp;Decline
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <table class="table order-totals-table">
+                                        <tr>
+                                            <td>Total before tax:</td>
+                                            <td class="total-before-tax-value"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tax:</td>
+                                            <td class="tax-value"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Grand Total:</td>
+                                            <td class="total-after-tax-value"></td>
+                                        </tr>
+                                    </table>
+                                    <br>
+                                </div>
+                            </div>
 
-                    <div class="request">
-                        <button type="button" class="btn btn-block request-btn" data-toggle="collapse" data-target=".order-card">
-                            ORDER #57092d1dd4c6de0585088915 &nbsp;'My Order'
-                        </button>
-                        <div class="panel panel-default collapse order-card">
-                            <div class="panel-heading order-heading" style="height:60px">
-                                <label class="col-xs-2 form-control-label" style="margin-top:10px">Order Name: </label>
-                                <div class="col-sm-7" style="margin-left:-25px; margin-top:10px">
-                                    <input type="text" class="order-nickname" name="type" disabled/>
-                                </div>
-                            </div>
-                            <div class="panel-body order-top-panel">
-                                <br>
-                                <p>Associated Project:&nbsp;
-                                    <a class="order-project-name" href="" style="color:#1E714A;"></a></p>
-                                <br>
-                                <table class="table order-property-table">
-                                    <tr class="order-property-headers">
-                                        <td>ORDER ID #</td>
-                                        <td>CREATED BY</td>
-                                        <td>RECEIVED BY</td>
-                                        <td>APPROVED BY</td>
-                                        <td>ORDER LIMIT</td>
-                                        <td>ORDER BUDGET</td>
-                                    </tr>
-                                    <tr class="order-property-data">
-                                        <td class="order-id"></td>
-                                        <td class="order-created-by"></td>
-                                        <td class="order-received-by"></td>
-                                        <td class="order-approved-by"></td>
-                                        <td class="order-limit"></td>
-                                        <td class="order-budget">$</td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <table class="table order-items-table">
-                                <tr class="order-items-headers">
-                                    <td>ITEM</td>
-                                    <td>QTY.</td>
-                                    <td>UNIT PRICE</td>
-                                    <td>CUSTOM UNIT PRICE</td>
-                                    <td>TOTAL PRICE</td>
-                                </tr>
-                            </table>
-                            <div class="panel-body order-bottom-panel">
-                                <div id="order-buttons">
-                                    <div class="btn-group" role="group">
-                                        <button type="button" class="btn btn-default approve-btn">
-                                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                                            &nbsp;Approve
-                                        </button>
-                                    </div>
-                                    <div class="btn-group" role="group">
-                                        <button type="button" class="btn btn-default decline-btn">
-                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                            &nbsp;Decline
-                                        </button>
-                                    </div>
-                                </div>
-                                <br>
-                                <table class="table order-totals-table">
-                                    <tr>
-                                        <td>Total before tax:</td>
-                                        <td class="total-before-tax-value"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tax:</td>
-                                        <td class="tax-value"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Grand Total:</td>
-                                        <td class="total-after-tax-value"></td>
-                                    </tr>
-                                </table>
-                                <br>
-                            </div>
                         </div>
-                    </div>
+                    </template>
 
+                    <template id="vendor-creation-request-template">
                     <div class="request">
                         <button type="button" class="btn btn-block request-btn" data-toggle="collapse" data-target=".vendor-card">
                             VENDOR #392dl230s03eo9342dsf &nbsp;'Test Vendor'
@@ -173,7 +177,9 @@
                             </div>
                         </div>
                     </div>
+                    </template>
 
+                    <template id="product-creation-request-template">
                     <div class="request">
                         <button type="button" class="btn btn-block request-btn" data-toggle="collapse" data-target=".product-card">
                             PRODUCT #90kel230s03eo304ksf &nbsp;'6 Piece Pyrex Glass Test Tube Set'
@@ -217,7 +223,9 @@
                             </div>
                         </div>
                     </div>
+                    </template>
 
+                    <template id="friend-request-template">
                     <div class="request">
                         <button type="button" class="btn btn-block request-btn" data-toggle="collapse" data-target=".friend-card">
                             FRIEND REQUEST from &nbsp;<a>Johan Ospina</a>
@@ -241,7 +249,9 @@
                             </div>
                         </div>
                     </div>
+                    </template>
 
+                    <template id="lab-creation-request-template">
                     <div class="request">
                         <button type="button" class="btn btn-block request-btn" data-toggle="collapse" data-target=".lab-card">
                             LAB &nbsp; 'Some Lab Name'
@@ -281,6 +291,7 @@
                             </div>
                         </div>
                     </div>
+                    </template>
 
                 </div>
                 <br> <br>
