@@ -58,6 +58,7 @@ $(document).ready(function () {
                     },
                     success: function (response) {
                         alert("Vendors created");
+                        window.location.href = "../html/vpSubmittedForReview.html";
                     },
                     error: function (response) {
                         alert("Failed to upload");
@@ -87,6 +88,7 @@ $(document).ready(function () {
                     },
                     success: function (response) {
                         alert("Products created");
+                        window.location.href = "../html/vpSubmittedForReview.html";
                     },
                     error: function (response) {
                         alert("Failed to upload");

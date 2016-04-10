@@ -83,6 +83,7 @@ public class loadPhagebookInstitutionsTest {
         loginMap.put("credentials", password);
         clothoObject.login(loginMap);
         
+        /*
         Lab CIDAR = new Lab();
         CIDAR.setDescription("Center for Integrated Design Automation Research");
         CIDAR.setName("CIDAR");
@@ -116,20 +117,24 @@ public class loadPhagebookInstitutionsTest {
         
         ClothoAdapter.createLab(CIDAR, clothoObject);
         ClothoAdapter.createLab(KhalilLab, clothoObject);
+        
         ClothoAdapter.createLab(harvardLab1, clothoObject);
         ClothoAdapter.createLab(harvardLab2, clothoObject);
         ClothoAdapter.createLab(medialLab, clothoObject);
         ClothoAdapter.createLab(mitLab2, clothoObject);
+        
         List<String> PILabs = new ArrayList<>();
         
         PILabs.add(CIDAR.getId());
         PILabs.add(KhalilLab.getId());
+        
         PILabs.add(harvardLab1.getId());
         PILabs.add(harvardLab2.getId());
         PILabs.add(medialLab.getId());
         PILabs.add(mitLab2.getId());
+       
                 
-        
+        */
         Institution bostonUniversity = new Institution();
         bostonUniversity.setName("Boston University");
         bostonUniversity.setDescription("Pick your odyssey." +
@@ -139,8 +144,8 @@ public class loadPhagebookInstitutionsTest {
         bostonUniversity.setPhone("(617) 353-2000");
         bostonUniversity.setUrl("www.bu.edu");
         bostonUniversity.setType(Institution.InstitutionType.University);
-        bostonUniversity.getLabs().add(CIDAR.getId());
-        bostonUniversity.getLabs().add(KhalilLab.getId());
+        //bostonUniversity.getLabs().add(CIDAR.getId());
+        //bostonUniversity.getLabs().add(KhalilLab.getId());
         
         
         Institution MIT              = new Institution();
@@ -149,8 +154,8 @@ public class loadPhagebookInstitutionsTest {
         MIT.setPhone("(617) 253-3400");
         MIT.setUrl("www.mit.edu");
         MIT.setType(Institution.InstitutionType.University);
-        MIT.getLabs().add(medialLab.getId());
-        MIT.getLabs().add(mitLab2.getId());
+        //MIT.getLabs().add(medialLab.getId());
+        //MIT.getLabs().add(mitLab2.getId());
         
         
         Institution harvardUniversity = new Institution();
@@ -159,15 +164,15 @@ public class loadPhagebookInstitutionsTest {
         harvardUniversity.setPhone("(617) 495-1000");
         harvardUniversity.setUrl("www.harvard.edu");
         harvardUniversity.setType(Institution.InstitutionType.University);
-        harvardUniversity.getLabs().add(harvardLab1.getId());
-        harvardUniversity.getLabs().add(harvardLab2.getId());
+        //harvardUniversity.getLabs().add(harvardLab1.getId());
+        //harvardUniversity.getLabs().add(harvardLab2.getId());
         
         ClothoAdapter.createInstiution(MIT, clothoObject);
         ClothoAdapter.createInstiution(bostonUniversity, clothoObject);
         ClothoAdapter.createInstiution(harvardUniversity, clothoObject);
         clothoObject.logout();
         
-        globalPI.setLabs(PILabs);
+        //globalPI.setLabs(PILabs);
         ClothoAdapter.setPerson(globalPI, clothoObject);
         
         

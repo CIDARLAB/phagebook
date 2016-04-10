@@ -95,14 +95,11 @@ $(document).ready(function() {
                         tr.appendChild(discount);
                         table.append(tr);
 
-
-
                     }
 
                 },
                 error: function (response) {
                     alert(response.responseJSON.message);
-
 
                 }
             });
@@ -163,7 +160,6 @@ $(document).ready(function() {
             $('.delete-order-btn').click({user:user},deleteButtonHandler);
             $('.export-csv-btn').click(exportCSVHandler);
             $('.edit-order-btn').click(editButtonHandler);
-
 
         },
         error: function (response) {
@@ -266,8 +262,7 @@ $(document).ready(function() {
 
 
 
-function removeOptions(selectbox)
-{
+function removeOptions(selectbox) {
     var i;
 
     for( i = selectbox.options.length-1 ; i>=0 ; i--)
@@ -300,7 +295,7 @@ function deleteButtonHandler(event){
                 window.location.href = ""; //refreshes page
             }
         });
-    }else {
+    } else {
         //do nothing
     }
 

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 
 <html>
-    
+
 <head>
-    
+
     <title>Current Orders</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,9 +18,9 @@
     <script src="../scripts/new-ui-scripts/cookieHandler.js"></script>
     <script src="../scripts/new-ui-scripts/currentOrders.js"></script>
     <script src="../scripts/new-ui-scripts/orderCardCreator.js"></script>
-    
+
     <style>
-        
+
         #content{
             position: relative;
             margin-left: 26%;
@@ -29,24 +29,25 @@
             overflow-x: hidden;
             z-index: inherit;
         }
-        
+
         label {
             font-family: "Open Sans", sans-serif;
             font-weight: 300;
             font-size: 16px;
         }
-        
+
         .btn-group {
             position: relative;
             float: bottom;
         }
-        
+
     </style>
-    
+
 </head>
 
 <body>
 
+<<<<<<< HEAD
     <div ng-module="currentOrders">
         <div ng-controller="currentOrdersCtrl">
             <header></header>
@@ -78,6 +79,34 @@
                                         <div class="col-sm-4">
                                             <input type="text" class="form-control" id="vendorNameToSearch" placeholder="Vendor name">
                                         </div>
+=======
+<div ng-module="currentOrders">
+    <div ng-controller="currentOrdersCtrl">
+        <header></header>
+        <sidebar></sidebar>
+        <div class="container" id="content" >
+            <div class="container">
+                <h3>Current Orders</h3>
+                <div class="col-sm-9">
+                    <button id="add-items-btn" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal3">
+                        <img alt="Add Items" src="../styles/img/icons/add-items.png" style="height:15px; vertical-align:middle;">
+                        &nbsp;Add Items
+                    </button>
+                </div>
+                <div id="myModal3" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="add-items-btn">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button id="myModal3-close" type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4>Add Items</h4>
+                            </div>
+                            <div class="modal-body" id="add-items-modal">
+                                <p>Search for products by typing their name and select which products you would like to add to a specific order.</p>
+                                <div class="form-group row" id="search-products">
+                                    <label for="productNameToSearch" class="col-sm-2 form-control-label">SEARCH BY</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" id="productNameToSearch" placeholder="Product name">
+>>>>>>> fbb4176c9ec3e70ba447037a00b1b8bc4aaad260
                                     </div>
                                     <br>
                                     <div id="productResults" style="overflow:auto; height:300px; overflow:auto;">
@@ -107,6 +136,10 @@
                         </div>
                     </div>
                 </div>
+<<<<<<< HEAD
+=======
+            </div>
+>>>>>>> fbb4176c9ec3e70ba447037a00b1b8bc4aaad260
             <template id="order-card-template">
                 <div class="col-sm-9" style="margin-top: 20px">
                     <div class="panel panel-default order-card">
@@ -151,6 +184,7 @@
                         </table>
                         <div class="panel-body order-bottom-panel">
                             <div id="order-buttons">
+
                             <div class="btn-group" role="group">
                                 <button type="button" class="btn btn-default export-csv-btn">
                                     <img alt="Export CSV" src="../styles/img/icons/export-csv.png" style="height:15px; vertical-align:middle;">
@@ -198,7 +232,11 @@
     <script src="../scripts/new-ui-scripts/footerDirective.js"></script>
     <script src="../scripts/new-ui-scripts/currentOrdersController.js"></script>
     <script src="../scripts/new-ui-scripts/currentOrdersApp.js"></script>
+<<<<<<< HEAD
     
+=======
+    </div>
+>>>>>>> fbb4176c9ec3e70ba447037a00b1b8bc4aaad260
 </body>
 
 </html>
