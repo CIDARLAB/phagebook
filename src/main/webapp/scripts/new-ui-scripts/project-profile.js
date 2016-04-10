@@ -62,9 +62,28 @@ $(document).ready(function() {
         error: function(response) {
             console.log("project quering failed!");
         }
-    })
+    });
 
-    
+    // following code is for all project updates
+    dataUpd = {
+        "projectId":id
+    };
+
+    $.ajax({
+        url: "../getAllProjectUpdates",
+        type: "GET",
+        dataType: "json",
+        data: dataUpd,
+        success: function(response) {
+            console.log(response);
+            console.log("response!!!");
+            // return checkAddUpdateResponse(response);
+        },
+        error: function(err) {
+            console.log("ERROR!!");
+            console.log(err);
+        }
+    });
 
     // EDIT PROJECT CODE
 
@@ -82,7 +101,7 @@ $(document).ready(function() {
         console.log($("#project-description").text());
         edit();
     });
-    
+
     var edit = function() {
         console.log("in edit function!!");
         var newName = "";
@@ -153,9 +172,9 @@ $(document).ready(function() {
 
     });
 
-    var checkAddUpdateResponse = function(response){
+    var checkAddUpdateResponse = function(response) {
         // if the update was too short -- alerts?
-        if(response["short"] == 1){
+        if (response["short"] == 1) {
             alert("The update was too short! Please input a longer string.");
         }
     }
@@ -169,6 +188,8 @@ $(document).ready(function() {
             "newStatus": newStatus,
             "emailPeople": emailPeople
         }
+
+
 
         $.ajax({
             url: "/addUpdateToProject",

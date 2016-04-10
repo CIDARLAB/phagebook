@@ -119,6 +119,7 @@ public class addUpdateToProject extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
     try (PrintWriter out = response.getWriter()) {
+      JSONObject result = new JSONObject();
 
       ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
       Clotho clothoObject = new Clotho(conn);
@@ -156,7 +157,6 @@ public class addUpdateToProject extends HttpServlet {
         emailPeople =  Boolean.parseBoolean(request.getParameter("emailPeople"));
       }
 
-      JSONObject result = new JSONObject();      
 
       // if there is a status
       if(newStatus.length() != 0){
@@ -165,11 +165,13 @@ public class addUpdateToProject extends HttpServlet {
 
         for (String s : allUpdates)
         {
-            //listString += s + "\t";
             Status update = ClothoAdapter.getStatus(s, clothoObject);
             Map u = new HashMap();
             u.put("date", update.getCreated());
             u.put("userId", update.getUserId());
+            // get a person's first and last name
+            Person p = ClothoAdapter.getPerson(update.getUserId(), clothoObject);
+            u.put("userName", p.getFirstName()+ " " +p.getLastName());
             u.put("text", update.getText());
             listOfUpdates.add(u);
         }

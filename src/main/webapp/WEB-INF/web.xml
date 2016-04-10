@@ -8,6 +8,10 @@
         <servlet-name>exportOrderCSV</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.exportOrderCSV</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>getAllProjectUpdates</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.getAllProjectUpdates</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>exportOrderCSV</servlet-name>
         <url-pattern>/exportOrderCSV</url-pattern>
@@ -208,9 +212,13 @@
         <servlet-name>findMemberForNewProject</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.findMemberForNewProject</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>getAllProjectUpdates</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.getAllProjectUpdates</servlet-class>
+    </servlet>
     <servlet-mapping>
-        <servlet-name>findMemberForNewProject</servlet-name>
-        <url-pattern>/findMemberForNewProject</url-pattern>
+        <servlet-name>getAllProjectUpdates</servlet-name>
+        <url-pattern>/getAllProjectUpdates</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>editProject</servlet-name>
@@ -352,4 +360,11 @@
         <servlet-name>deleteOrder</servlet-name>
         <url-pattern>/deleteOrder</url-pattern>
     </servlet-mapping>
-</web-app>
+    <servlet-mapping>
+        <servlet-name>getAllProjectUpdates</servlet-name>
+        <url-pattern>/getAllProjectUpdates</url-pattern>
+    </servlet-mapping>
+    
+    findMemberForNewProject
+    
+    </web-app>

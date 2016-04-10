@@ -105,7 +105,6 @@ public class processProject extends HttpServlet {
       
       JSONObject result = new JSONObject();
 
-
       Object prName = request.getParameter("name");
       String projectName  = prName != null ? (String) prName : "" ;
         System.out.println("New Project name is:"); 
