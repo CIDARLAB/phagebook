@@ -17,6 +17,13 @@ body{
     line-height: 20px;
 }
 
+.name{    
+	/*margin-bottom: 20px;*/
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 1.4;
+  }
+
 .project-dateCreated-content {
     font-family: 'Open Sans Italic', 'Open Sans';
     font-weight: 400;

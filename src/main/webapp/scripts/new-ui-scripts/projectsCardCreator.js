@@ -1,24 +1,6 @@
 var createTemplateCard = function(projectJSON) {
 
-    /*
-        data:
-            projectId
-            description
-            budget
-            affiliatedLabs
-            projectName
-            updates
-            grant
-            dateCreated
-            membersNames
-            creator  // this is name
-            lead  // this is name
-            creatorId
-            leadId
-            membersIds
-            membersNum
 
-    */
 
     var content = document.getElementById('content');
     var tmpl = document.getElementById('project-card-template').content.cloneNode(true);

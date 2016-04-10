@@ -4,13 +4,13 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="../styles/projectTemplate.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="../scripts/new-ui-scripts/project.js"></script>
 </head>
 
 <body>
-    
-
     <div class="project-card-template">
         <div class="project-name row">
             <div class="col-md-12 project-name-content">Project</div>
@@ -30,7 +30,7 @@
                             <img class="project-people-person-img" alt="Johan Ospina" src="../styles/img/mis/johan-pro-pic.jpg">
                         </div>
                         <div class="project-people-person-text">
-                            <div class="project-people-person-name"><a href="#">Johan Ospina</a></div>
+                            <div class="project-people-person-name"><a class="creator name" href="#">Johan Ospina</a></div>
                             <!-- <div class="project-people-person-lab">CIDAR Lab</div> -->
                             <!-- <div class="project-people-person-institution">Boston University</div> -->
                         </div>
@@ -42,14 +42,14 @@
                         <div class="project-people-person-img">
                             <img class="project-people-person-img" alt="Johan Ospina" src="../styles/img/mis/johan-pro-pic.jpg"></div>
                         <div class="project-people-person-text">
-                            <div class="project-people-person-name"><a href="#">Johan Ospina</a></div>
-                            <div class="project-people-person-lab">CIDAR Lab</div>
-                            <div class="project-people-person-institution">Boston University</div>
+                            <div class="project-people-person-name"><a class="lead name" href="#"></a></div>
+                            <div class="project-people-person-lab"></div>
+                            <div class="project-people-person-institution"></div>
                         </div>
                     </div>
                 </div>
             </div>
-<!--             <div class="row project-people-members">
+            <!--             <div class="row project-people-members">
                 <div class="project-people-heading col-md-12">Team Members:</div>
                 <div class="col-md-3 project-people-person-member">
                     <div class="project-people-person-name"><a href="#">Johan Ospina</a></div>
@@ -78,31 +78,29 @@
         <div class="row project-description">
             <div class="col-md-12">
                 <div class="heading">Description:</div>
-                <div class="roject-description-content">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                <div class="project-description-content" id="desc">
                 </div>
             </div>
         </div>
         <div class="row project-affiliatedLabs">
             <div class="col-md-12">
                 <div class="heading">Labs:</div>
-                <div class="project-affiliatedLabs-content">Lab 1, Lab 2</div>
+                <div class="project-affiliatedLabs-content"></div>
             </div>
         </div>
         <div class="row project-budget">
             <div class="col-md-12">
                 <div class="heading">Budget:</div>
-                <div class="project-budget-content">100 million $$$</div>
+                <div class="project-budget-content"></div>
             </div>
         </div>
         <div class="row project-grant">
             <div class="col-md-12">
                 <div class="heading">Grant:</div>
-                <div class="project-grant-content">Some NSF Grant</div>
+                <div class="project-grant-content"></div>
             </div>
         </div>
     </div>
-    <script src="js/scripts.js"></script>
 </body>
 
 </html>

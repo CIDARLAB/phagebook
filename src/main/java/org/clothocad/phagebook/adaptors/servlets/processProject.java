@@ -296,16 +296,19 @@ public class processProject extends HttpServlet {
       // ** Send the input data as an array.
       // for now assume there is only one organization/lab
       // TODO: add options for a bunch of labs
-      
-      Organization lab = ClothoAdapter.getLab(labId, clothoObject);
-      System.out.println("\n");
-      System.out.println(lab.getName());
-      System.out.println(lab.getDescription());
-      System.out.println("\n");
       List<String> labsList = new ArrayList<String>();
-      labsList.add(lab.getName());
-      System.out.println(labsList);
-       System.out.println("\n");
+      if(labId != ""){
+        System.out.println("Found a lab!");
+        Organization lab = ClothoAdapter.getLab(labId, clothoObject);
+          System.out.println("\n");
+          System.out.println(lab.getName());
+          System.out.println("\n");
+        
+          labsList.add(lab.getName());
+          System.out.println(labsList);
+          System.out.println("\n");
+      }
+      
 
       System.out.println("About to create a new project.");
       // create and set the fields for a new project

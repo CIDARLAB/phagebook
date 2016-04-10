@@ -224,6 +224,11 @@ function newProjectsCtrl($scope, $http) {
 
         // !!!! create a check that pr budget is an int !!!!!!
         console.log(membersArray);
+        // f it
+        if($("#lab_selectDiv option:selected").text() == "Lab Name..." || $("#lab_selectDiv option:selected").val() == "Lab Name..."){
+            $("#lab_selectDiv option:selected").text() = "";
+             $("#lab_selectDiv option:selected").val() = "";
+        }
         var dataSubmit = {
             name: $scope.formData.name,
 
