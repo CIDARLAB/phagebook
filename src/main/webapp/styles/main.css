@@ -23,6 +23,24 @@ a:hover {
     background-color: transparent !important;
 }
 
+#add-colleague-btn {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    background-color: #9E9E9E;
+    color: #FFFFFF;
+    border-radius: 8px;
+    padding-right: 15px;
+    padding-left: 15px;
+    float: right;
+    margin-top: 30px;
+    border: none;
+}
+
+#add-colleague-btn:hover {
+    background-color: #89C176;
+}
+
 #add-colleagues-btn {
     font-family: "Open Sans", sans-serif;
     font-weight: 400;
@@ -245,6 +263,13 @@ body {
 .btn[disabled]:hover {
     background-color: #1E714A;
     border: none;
+}
+
+#colleague {
+    position: absolute;
+    overflow-x: hidden;
+    margin-top: 130px;
+    margin-left: 16%;
 }
 
 #colleagues {
