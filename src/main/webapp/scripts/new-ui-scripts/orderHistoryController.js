@@ -1,6 +1,10 @@
 function orderHistoryCtrl($scope){
     $(document).ready(function () {
 
+
+
+
+
         $.ajax({
             url: "../listOrdersOfPerson",
             type: "GET",
@@ -21,7 +25,7 @@ function orderHistoryCtrl($scope){
             }
         });
 
-
+        $('.export-csv-btn').click(exportCSVbtnHanlder);
 
 
     });
@@ -55,17 +59,21 @@ function generateOrderCard(orderJSON){
     template.querySelector('.order-budget').innerText = orderJSON.budget;
     template.querySelector('.order-limit').innerText = "$" +orderJSON.orderLimit;
     template.querySelector('.order-enum-status').innerText = orderJSON.status;
+    template.querySelector('.export-csv-btn').value = orderJSON.clothoId;
 
     switch (orderJSON.status){
         case "SUBMITTED":
             template.querySelector('.status').className = "received-status";
+            template.querySelector('.order-date').innerText = "Date Created: " + orderJSON.dateCreated;
             break;
         case "DENIED":
             template.querySelector('.status').className = "denied-status";
+            template.querySelector('.order-date').innerText = "Date Created: " + orderJSON.dateCreated;
 
             break;
         case "APPROVED":
             template.querySelector('.status').className = "approved-status";
+            template.querySelector('.order-date').innerText = "Date Approved: " + orderJSON.dateApproved;
 
             break;
         default:
@@ -117,14 +125,14 @@ function generateOrderCard(orderJSON){
             itemQtyCell.innerHTML = itemQty;
             var itemUnitPrice = rowCount.insertCell(2);
             itemUnitPrice.className ="item-unit-price";
-            itemUnitPrice.innerHTML =   "$" + response.itemUnitPrice;
+            itemUnitPrice.innerHTML =   "$" + response.itemUnitPrice.toFixed(2);
 
             var itemCustomPrice = rowCount.insertCell(3);
             itemCustomPrice.className = "item-custom-unit-price";
-            itemCustomPrice.innerHTML = "$" + response.customUnitPrice;
+            itemCustomPrice.innerHTML = "$" + response.customUnitPrice.toFixed(2);
             var itemTotalPrice = rowCount.insertCell(4);
             itemTotalPrice.className = "item-total-price";
-            itemTotalPrice.innerHTML =  "$" +  response.totalPrice;
+            itemTotalPrice.innerHTML =  "$" +  response.totalPrice.toFixed(2);
 
 
             totalBeforeTax += response.totalPrice;
@@ -139,7 +147,7 @@ function generateOrderCard(orderJSON){
 
         orderItemsTable.appendChild(tr);
     }
-    template.querySelector('.total-before-tax-value').innerText = "$" + totalBeforeTax;
+    template.querySelector('.total-before-tax-value').innerText = "$" + totalBeforeTax.toFixed(2);
 
     template.querySelector('.tax-value').innerText = "$"+ ( (TAX - 1) * totalBeforeTax).toFixed(2) ;
     if (orderJSON.Budget < ( (TAX * totalBeforeTax) + totalBeforeTax)){
@@ -189,4 +197,9 @@ function doCartItemAjax(cartItemId){
 
     return responseObject;
 
+}
+
+function exportCSVbtnHanlder(){
+
+    alert(this.value);
 }

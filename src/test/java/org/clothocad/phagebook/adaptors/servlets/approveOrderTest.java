@@ -51,10 +51,10 @@ public class approveOrderTest {
 
     @Test
     public void testApproveOrder(){
-        Object pOrderId =  "5709cae632ea17d8a0190df7";	
+        Object pOrderId =  "570b317932ea3b037dd690d4";	
         String orderId = pOrderId != null ? (String) pOrderId : "";
         
-        Object pUserId = "5709782232ea17d8a0190d1e";
+        Object pUserId = "570b17d732ea3b037dd69093";
         String userId = pUserId != null ? (String) pUserId : "";
         
         boolean isValid = false;
@@ -97,10 +97,12 @@ public class approveOrderTest {
                     List<String> submittedOrders = approver.getSubmittedOrders(); // need to add to approved and remove from submitted..
                     approvedOrder.add(orderToApprove.getId());
                     submittedOrders.remove(orderToApprove.getId());
-                    orderToApprove.setStatus(OrderStatus.APPROVED);
-                    ClothoAdapter.setOrder(orderToApprove, clothoObject);
                     clothoObject.logout();
                     ClothoAdapter.setPerson(approver, clothoObject);
+                    clothoObject.login(loginMap);
+                    orderToApprove.setStatus(OrderStatus.APPROVED);
+                    ClothoAdapter.setOrder(orderToApprove, clothoObject);
+                    
                     
                     
                 }

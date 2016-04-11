@@ -24,6 +24,8 @@ import org.clothocad.phagebook.dom.Status;
  *
  * @author prash
  * @author KatieLewis
+ * @author AllisonDurkan
+ * @author JohanOspina
  */
 public class Person {
     
@@ -40,6 +42,9 @@ public class Person {
     @Getter @Setter private List<String>                colleagues;
     @Getter @Setter private List<String>                notebooks;
     @Getter @Setter private List<String>                statuses;
+    @Getter @Setter private String                      institution;
+    @Getter @Setter private String                      department;
+    @Getter @Setter private String                      title;
     @Getter @Setter private List<String>                institutions;
     @Getter @Setter private List<String>                labs;
     @Getter @Setter private List<String>                projects;
@@ -49,16 +54,14 @@ public class Person {
     @Getter @Setter private List<String>                createdOrders;
     @Getter @Setter private List<String>                submittedOrders;
     @Getter @Setter private List<String>                approvedOrders;
+    @Getter @Setter private String                      profileDescription;
     @Getter @Setter private List<String>                deniedOrders;
     
    
    
     //When sign up -- how do you affiliate position with Organization? e.g. PI at BU but affiliate researcher at berkeley
     //profile pic? text link
-    
-    
-    
-    
+  
 
     public Person(){
         this.id               = "Not Set";
@@ -82,7 +85,12 @@ public class Person {
         this.createdOrders    = new ArrayList<>();
         this.submittedOrders  = new ArrayList<>();
         this.approvedOrders   = new ArrayList<>();
-        
+       
+        this.institution            = "Not Set";
+        this.department             = "Not Set";
+        this.title                  = "Not Set";
+        this.institutions           = new ArrayList<>();
+        this.profileDescription     = "Not Set";
     }
     
     public void addRole(Institution institution, PersonRole role){
@@ -240,11 +248,14 @@ public class Person {
        }
     }
     
-    public void addStatus(String newStatus){
+    /*public void addStatus(String newStatus){
        // Date today = Calendar.getInstance().getTime();
         //Status newStatus = new Status(text, this);
         this.statuses.add(newStatus);
-    }
+    
+        THIS DOESNT WORK DEPRECATED
+    }*/
+    
     public static enum PersonRole{
        MEMBER, PI, LABMANAGER, POSTDOC, GRADSTUDENT, UNDERGRADUATE,LABADMIN, VISITINGRESEARCHER,RAPROFESSOR
     }

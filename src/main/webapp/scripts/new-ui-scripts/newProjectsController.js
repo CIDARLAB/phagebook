@@ -138,7 +138,7 @@ function newProjectsCtrl($scope, $http) {
                 return false;
             }
 
-        }
+        };
 
         var submit = validateForm();
         console.log(submit);

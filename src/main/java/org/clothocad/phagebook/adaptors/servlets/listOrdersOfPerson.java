@@ -88,11 +88,13 @@ public class listOrdersOfPerson extends HttpServlet {
                 List<String> deniedOrderIds   = prashant.getDeniedOrders();
                 JSONArray allOrders = new JSONArray();
                 for (String approved : approvedOrderIds){
+                    System.out.println("APPROVED ID: "+approved);
                     Order approvedOrder = ClothoAdapter.getOrder(approved, clothoObject);
                     
                    
                     JSONObject approvedJSON = new JSONObject();
                     approvedJSON.put("name", approvedOrder.getName());
+                    approvedJSON.put("dateApproved", approvedOrder.getDateApproved());
                     approvedJSON.put("description", approvedOrder.getDescription());
                     approvedJSON.put("clothoId", approvedOrder.getId());
                     approvedJSON.put("dateCreated", approvedOrder.getDateCreated().toString());
@@ -103,6 +105,7 @@ public class listOrdersOfPerson extends HttpServlet {
                     approvedJSON.put("orderLimit", approvedOrder.getMaxOrderSize());
                     approvedJSON.put("taxRate", approvedOrder.getTaxRate());
                     approvedJSON.put("budget", approvedOrder.getBudget());
+                    System.out.println(approvedOrder.getApprovedById());
                     if (!approvedOrder.getApprovedById().equals("") && !approvedOrder.getApprovedById().equals("Not Set") ){
                         approvedJSON.put("approvedById", (ClothoAdapter.getPerson(approvedOrder.getApprovedById(), clothoObject)).getEmailId());
                     }

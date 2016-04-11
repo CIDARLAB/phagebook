@@ -18,6 +18,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
         <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
+        <script src="../scripts/new-ui-scripts/uploadProfilePicture.js"></script>
+
         <script src="../scripts/new-ui-scripts/accountSettings.js"></script>
         
         <style>
@@ -60,72 +62,77 @@
     </head>
     
     <body>
-        <div ng-module="profileApp">
-            <div ng-controller="profileCtrl">
+        <div ng-module="settingsApp">
+            <div ng-controller="settingsCtrl">
                 <header></header>
                 <div class="container" style="margin-top:100px">
-                <button id="edit-info-btn" type="button" class="btn btn-default">Edit Information</button>
+                <button id="edit-info-btn" type="button" class="btn btn-default" value="Edit Information" ng-click="edit = !edit">{{editText}}</button>
                 <h3>General Account Settings</h3>
                 <form id="general-account-settings">
                     <div class="form-group row">
                         <label for="acct-first-name" class="col-sm-2 form-control-label">FIRST NAME</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" id="acct-first-name">
-                        </div>
+                            <input type="text" class="form-control" id="acct-first-name" ng-model="editFirstName" ng-disabled="edit">
+                        </div> 
                         <label for="acct-last-name" class="col-sm-2 form-control-label">LAST NAME</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" id="acct-last-name">
+                            <input type="text" class="form-control" id="acct-last-name" ng-model="editLastName" ng-disabled="edit">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="acct-email" class="col-sm-2 form-control-label">EMAIL</label>
                         <div class="col-sm-8">
-                            <input type="email" class="form-control" id="acct-email">
+                            <input type="email" class="form-control" id="acct-email" ng-model="editEmail" ng-disabled="fixLater">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="acct-password" class="col-sm-2 form-control-label">PASSWORD</label>
                         <div class="col-sm-8">
-                            <input type="password" class="form-control" id="acct-password">
+                            <input type="password" class="form-control" id="acct-password" ng-model="editPassword" ng-disabled="fixLater">
                         </div>
                     </div>
                 </form>
                 <hr><br>
                 <h3>Profile Settings</h3>
                 <form id="profile-account-settings">
+
+
                     <div class="form-group row">
-                        <label for="acct-institution" class="col-sm-2 form-control-label">INSTITUTION</label>
+                        <label for="profile-institution" class="col-sm-2 form-control-label">INSTITUTION</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="acct-institution">
+                            <input type="test" class="form-control" id="profile-institution" ng-model="editInstitution" ng-disabled="fixLater">
                         </div>
                     </div>
+
+
                     <div class="form-group row">
                         <label for="profile-department" class="col-sm-2 form-control-label">DEPARTMENT</label>
                         <div class="col-sm-8">
-                            <input type="email" class="form-control" id="profile-department">
+                            <input type="test" class="form-control" id="profile-department" ng-model="editDepartment" ng-disabled="edit">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="profile-title" class="col-sm-2 form-control-label">TITLE</label>
                         <div class="col-sm-8">
-                            <input type="password" class="form-control" id="profile-title">
+                            <input type="text" class="form-control" id="profile-title" ng-model="editTitle" ng-disabled="edit">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="profile-lab" class="col-sm-2 form-control-label">LAB</label>
                         <div class="col-sm-8">
-                            <input type="password" class="form-control" id="profile-lab">
+                            <input type="text" class="form-control" id="profile-lab" ng-model="editLab" ng-disabled="fixLater">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-2 form-control-label">PROFILE PICTURE</label>
-                        <img alt="densmore-circle-pro-pic" src="../styles/img/mis/densmore-circle-pro-pic.png" id="picture-preview">
-                        <input type="file" id="upload-picture">
+                        <label for="profile-picture" class="col-sm-2 form-control-label">PROFILE PICTURE</label>
+                        <img alt="Upload a Profile Picture" src="{{profilePictureLink}}" id="picture-preview">
+                        <input type="file" id="uploadPicture">
+                        <button class="btn btn-default" type="button" onclick="saveProfilePicture()">Save Picture</button>
                     </div>
                     <div class="form-group row">
                         <label for="profile-desc" class="col-sm-2 form-control-label">DESCRIPTION</label>
                         <div class="col-sm-8">
-                            <textarea class="form-control" rows="4" id="profile-desc" style="resize:none"></textarea>
+                            <textarea class="form-control" rows="4" ng-model="editProfileDescription" ng-disabled="edit"></textarea>
                         </div>
                     </div>
                 </form>
@@ -229,18 +236,7 @@
                                         </div>
                                         <div class = "pi-results" id="pi-remove-results">
                                             <ul class="list-inline list-group pi-full-list" id="pi-remove-list" >
-                                                <template id="person-results-template">
-                                                    <li class="list-group-item col-sm-5">
-                                                        <img alt="Kristel Tan" src="../styles/img/mis/kristel-tan-pro-pic.jpg">
-                                                        <div>
-                                                            <a class ="pi-profile-link" href=""><p class ="pi-name">Kristel Tan</p></a>
-                                                            <p class = "pi-lab-name">CIDAR Lab</p>
-                                                            <p class = "pi-institution-name">Boston University</p>
-                                                        </div>
-                                                        <input class= "pi-id" type="checkbox">
 
-                                                    </li>
-                                                </template>
                                             </ul>
                                         </div>
                                     </div>
@@ -345,8 +341,8 @@
         <script src="../scripts/new-ui-scripts/footerDirective.js"></script>
         <script src="../scripts/new-ui-scripts/sidebarDirective.js"></script>
         <script src="../scripts/new-ui-scripts/headerDirective.js"></script>
-        <script src="../scripts/new-ui-scripts/profileController.js"></script>
-        <script src="../scripts/new-ui-scripts/profileApp.js"></script>
+        <script src="../scripts/new-ui-scripts/settingsController.js"></script>
+        <script src="../scripts/new-ui-scripts/settingsApp.js"></script>
         
     </body>
  

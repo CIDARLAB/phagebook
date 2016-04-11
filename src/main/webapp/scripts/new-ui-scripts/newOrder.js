@@ -108,13 +108,13 @@ $(document).ready(function() {
         }
 
         if (isValid && validatePrice(budget) && validateOrderLimit(orderLimit) && validateTax(taxRate)) {
-            doAjaxCallToCreateOrder(name, createdBy, labId, associatedProjectId, budget, orderLimit);
+            doAjaxCallToCreateOrder(name, createdBy, labId, associatedProjectId, budget, orderLimit, taxRate);
         }
     });
     
 });
 
-function doAjaxCallToCreateOrder(name, createdBy, labId, associatedProjectId, budget, orderLimit) {
+function doAjaxCallToCreateOrder(name, createdBy, labId, associatedProjectId, budget, orderLimit, taxRate) {
     $.ajax({
             url: "../newOrder",
             type: "POST",
@@ -126,7 +126,8 @@ function doAjaxCallToCreateOrder(name, createdBy, labId, associatedProjectId, bu
                 "labId": labId,
                 "associatedProjectId": associatedProjectId,
                 "budget": budget,
-                "orderLimit": orderLimit
+                "orderLimit": orderLimit,
+                "tax": taxRate
             },
             success: function (response) {
                 //alert("order created!");

@@ -75,21 +75,21 @@
 
 <body>
 
-    <div ng-module="profileApp">
-        <div ng-controller="profileCtrl">
+    <div ng-module="colleagueApp">
+        <div ng-controller="colleagueCtrl">
             <header></header>
             <div class="container-fluid" id="colleague">
                 <div class="row" >
                     <div class="panel panel-default">
                         <div class="panel-body" id="profile-overview">
-                            <img alt="densmore-circle-pro-pic" src="../styles/img/mis/densmore-circle-pro-pic.png" id="profile-picture">
+                            <img alt="Profile Picture" src={{profilePictureLink}} id="profile-picture">
                             <button id="add-colleague-btn" type="button" class="btn btn-default">Add Colleague</button>
                             <table class="table" id="profile-header">
-                                <tr id="profile-name">
-                                    <td><h3>Douglas Densmore</h3></td>
+                                <tr>
+                                    <td><h3 id="profile-name"></h3></td>
                                 </tr>
-                                <tr id="profile-description">
-                                    <td><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut hendrerit erat. Quisque vehicula risus nec molestie ultrices.</p></td>
+                                <tr>
+                                    <td><p id ="profile-description"></p></td>
                                 </tr>
                             </table>
                             <div style = "clear:both"></div>
@@ -270,8 +270,8 @@
     <script src="../scripts/new-ui-scripts/headerDirective.js"></script>
     <script src="../scripts/new-ui-scripts/footerDirective.js"></script>
     <script src="../scripts/new-ui-scripts/sidebarDirective.js"></script>
-    <script src="../scripts/new-ui-scripts/profileController.js"></script>
-    <script src="../scripts/new-ui-scripts/profileApp.js"></script>
+    <script src="../scripts/new-ui-scripts/colleagueController.js"></script>
+    <script src="../scripts/new-ui-scripts/colleagueApp.js"></script>
 
 </body>
 
