@@ -909,6 +909,7 @@ h3 {
     position: absolute;
     float: left;
     height: 180px;
+    clip-path: circle(60px at center);
 }
 
 #publications li {

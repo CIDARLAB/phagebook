@@ -91,11 +91,13 @@ function profileCtrl($scope, $http) {
             success: function (response) {
                 var responseAsJSON = angular.fromJson(response);
                 console.log(JSON.stringify(responseAsJSON));
+                
                 var ul = $("#status-list");
                 ul.empty();
                 for (var i = 0; i < response.length; i++) {
                     var tmpl = document.getElementById("status-template").content.cloneNode(true);
-                    tmpl.querySelector(".status-date").innerText = response[i].dateCreated;
+                    var now = new Date(response[i].dateCreated);
+                    tmpl.querySelector(".status-date").innerText = "Created On: " + response[i].dateCreated;
                     //$scope.statusDate = response[i].dateCreated;
                     //console.log(response[i].dateCreated);
                     tmpl.querySelector(".status-text").innerText = response[i].statusText;
