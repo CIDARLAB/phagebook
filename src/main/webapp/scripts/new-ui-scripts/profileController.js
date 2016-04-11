@@ -7,7 +7,7 @@ function profileCtrl($scope, $http) {
     $scope.profilePictureLink = awsPath + fileExt;
 
     $("#createStatusBtn").click(function () {
-        alert("Create New Status Button click" + $("#statusUpdateTextarea")[0].value);
+        //alert("Create New Status Button click" + $("#statusUpdateTextarea")[0].value);
         $http({
             method: 'POST',
             url: '../createStatus',
@@ -64,7 +64,6 @@ function profileCtrl($scope, $http) {
                 },
                 success: function (response) {
                     var ul = $("#search-colleagues-list");
-
                     ul.empty();
 
                     for (var i = 0; i < response.length; i++) {
@@ -72,7 +71,7 @@ function profileCtrl($scope, $http) {
                         tmpl.querySelector(".colleague-name").text = response[i].fullname;
                         tmpl.querySelector(".main-lab").innerHTML = (response[i].labName == null) ? "" : response[i].labName;
                         tmpl.querySelector(".main-institution").innerHTML = response[i].institutionName;
-                        tmpl.querySelector(".colleague-name").href = "../html/colleague.html?user=" + response[i].clothoId;
+                        tmpl.querySelector(".colleague-name").href = "../html/colleague.html?user=" + response[i].clothoId;;
                         ul.append(tmpl);
                     }
                 },
@@ -81,11 +80,8 @@ function profileCtrl($scope, $http) {
             });
             return false;
         });
-    });
-
-    console.log("life hates you");
-    $(document).ready(function () {
-
+        
+     $("#load-more-btn").click(function () {
         $.ajax({
             type: 'GET',
             url: '../loadUserStatuses',
@@ -96,12 +92,14 @@ function profileCtrl($scope, $http) {
                 var responseAsJSON = angular.fromJson(response);
                 console.log(JSON.stringify(responseAsJSON));
                 var ul = $("#status-list");
-
                 ul.empty();
                 for (var i = 0; i < response.length; i++) {
                     var tmpl = document.getElementById("status-template").content.cloneNode(true);
-                    tmpl.querySelector(".status-date").text = response[i].dateCreated;
-                    tmpl.querySelector(".status-text").text = response[i].statusText;
+                    tmpl.querySelector(".status-date").innerText = response[i].dateCreated;
+                    //$scope.statusDate = response[i].dateCreated;
+                    //console.log(response[i].dateCreated);
+                    tmpl.querySelector(".status-text").innerText = response[i].statusText;
+                    //console.log(response[i].statusText);
                     ul.append(tmpl);
                 }
             },
@@ -109,7 +107,7 @@ function profileCtrl($scope, $http) {
                 //console.log("inside GET error");
             }
         });
-
+    });
     });
     $("#edit-profile-btn").click(function () {
 
