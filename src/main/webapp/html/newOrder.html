@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+
 <html>
+
 <head>
+
     <title>New Order</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,9 +26,12 @@ and open the template in the editor.
     <style>
 
         #content{
+            position: relative;
             margin-left: 26%;
-            position: fixed;
             margin-top: 130px;
+            margin-bottom: 150px;
+            overflow-x: hidden;
+            z-index: inherit;
         }
 
         label {
@@ -44,73 +45,99 @@ and open the template in the editor.
 
 <body>
     
-<div ng-module="newOrder">
-    <div ng-controller="newOrderCtrl">
-        <header></header>
-        <sidebar></sidebar>
-        <div class="container" id="content">
-            <div class="container">
-                <h3>New Order</h3>
-                <br>
-                <p>Generate a new order by entering the fields below. Please note that if you do not have administrative access, <br> all orders will need to be submitted for review and approval.</p>
-                <br>
-                <form id="new-order-form">
-                    <div class="form-group row">
-                        <label for="orderNickname" class="col-sm-2 form-control-label">ORDER NICKNAME</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" id="orderNickname">
-                        </div>
+    <div ng-module="newOrder">
+        <div ng-controller="newOrderCtrl">
+            <header></header>
+            <sidebar></sidebar>
+            <div class="container" id="content">
+                <div class="container">
+                    <h3>New Order</h3>
+                    <br>
+                    <p>Generate a new order by entering the fields below. Please note that if you do not have administrative access, <br> all orders will need to be submitted for review and approval.</p>
+                    <p style="font-style:italic;">* indicates all required fields</p>
+                    <br>
+                    <div class="alert alert-danger alert-dismissible col-sm-7" id="invalid-budget-alert" role="alert" style="display:none">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong>Error!</strong> Please enter a valid budget (i.e. $1000.00)
                     </div>
-                    <div class="form-group row">
-                        <label for="lab-name" class="col-sm-2 form-control-label">LAB</label>
-                        <div class="col-sm-5">
-                            <select class="form-control" id="lab-name">
-                                <option value="" >Lab Name...</option>
-                            </select>
-                        </div>
+                    <div class="alert alert-danger alert-dismissible col-sm-7" id="invalid-order-limit-alert" role="alert" style="display:none">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong>Error!</strong> Please enter a valid order limit (must be between 1 and 13 items).
                     </div>
-                    <div class="form-group row">
-                        <label for="projectName" class="col-sm-2 form-control-label">PROJECT NAME SEARCH</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" id="projectName">
-                        </div>
+                    <div class="alert alert-danger alert-dismissible col-sm-7" id="invalid-tax-rate-alert" role="alert" style="display:none">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong>Error!</strong> Please enter a valid tax rate (must be between 1 and 100).
                     </div>
-                    <div class="form-group row">
-                        <label for="projectResults" class="col-sm-2 form-control-label">PROJECTS</label>
-                        <div class="col-sm-5">
-                            <select class="form-control" id="projectResults">
-                            </select>
-                        </div>
+                    <div class="alert alert-danger alert-dismissible col-sm-7" id="order-fields-required-alert" role="alert" style="display:none">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong>Error!</strong> Please fill in the required fields.
                     </div>
-                    <div class="form-group row">
-                        <label for="orderBudget" class="col-sm-2 form-control-label">ORDER BUDGET</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" id="orderBudget">
+                    <form id="new-order-form">
+                        <div class="form-group row" style="clear:both;">
+                            <label for="orderNickname" class="col-sm-2 form-control-label">ORDER NICKNAME*</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="orderNickname">
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="orderLimit" class="col-sm-2 form-control-label">ORDER LIMIT</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" id="orderLimit">
+                        <div class="form-group row">
+                            <label for="lab-name" class="col-sm-2 form-control-label">LAB*</label>
+                            <div class="col-sm-5">
+                                <select class="form-control" id="lab-name">
+                                    <option value="" >Lab Name...</option>
+                                </select>
+                            </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="projectName" class="col-sm-2 form-control-label">PROJECT NAME SEARCH</label>
+                            <div class="form-group has-feedback col-sm-5">
+                                <div class="right-inner-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                    <input type="text" class="form-control" id="projectName">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="projectResults" class="col-sm-2 form-control-label">PROJECTS*</label>
+                            <div class="col-sm-5">
+                                <select class="form-control" id="projectResults">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="orderBudget" class="col-sm-2 form-control-label">ORDER BUDGET*</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="orderBudget" placeholder="i.e. in US dollars">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="orderLimit" class="col-sm-2 form-control-label">ORDER LIMIT*</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="orderLimit" placeholder="i.e. max number of items">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="taxRate" class="col-sm-2 form-control-label">TAX RATE</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="taxRate" placeholder="i.e. a number between 1 and 100 percent">
+                            </div>
+                        </div>
+                    </form>
+                    <br>
+                    <div class="col-sm-7">
+                        <button id="createOrder" type="submit" class="btn btn-default" style="float:right">Create</button>
                     </div>
-                </form>
-                <br>
-                <div class="col-sm-7">
-                    <button id="createOrder" type="submit" class="btn btn-default" style="float:right">Create</button>
                 </div>
             </div>
         </div>
+        <footer></footer>
     </div>
-    <footer></footer>
-</div>
 
-<!-- ANGULAR SCRIPTS -->
-<script src="../scripts/new-ui-scripts/sidebarDirective.js"></script>
-<script src="../scripts/new-ui-scripts/headerDirective.js"></script>
-<script src="../scripts/new-ui-scripts/footerDirective.js"></script>
-<script src="../scripts/new-ui-scripts/newOrderController.js"></script>
-<script src="../scripts/new-ui-scripts/newOrderApp.js"></script>
+    <!-- ANGULAR SCRIPTS -->
+    <script src="../scripts/new-ui-scripts/sidebarDirective.js"></script>
+    <script src="../scripts/new-ui-scripts/headerDirective.js"></script>
+    <script src="../scripts/new-ui-scripts/footerDirective.js"></script>
+    <script src="../scripts/new-ui-scripts/newOrderController.js"></script>
+    <script src="../scripts/new-ui-scripts/newOrderApp.js"></script>
 
 </body>
 

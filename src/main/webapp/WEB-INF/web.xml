@@ -5,20 +5,42 @@
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.uploadVendorCSV</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>createStatus</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.createStatus</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>exportOrderCSV</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.exportOrderCSV</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>getAllProjectUpdates</servlet-name>
-        <servlet-class>org.clothocad.phagebook.adaptors.servlets.getAllProjectUpdates</servlet-class>
+        <servlet-name>loadUserStatuses</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.loadUserStatuses</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>exportOrderCSV</servlet-name>
         <url-pattern>/exportOrderCSV</url-pattern>
     </servlet-mapping>
     <servlet>
+        <servlet-name>findMemberForNewProject</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.findMemberForNewProject</servlet-class>
+    </servlet>
+ 
+    <servlet>
         <servlet-name>deleteOrder</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.deleteOrder</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>removePIFromLab</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.removePIFromLab</servlet-class>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>listOrdersOfPerson</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.listOrdersOfPerson</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>denyOrder</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.denyOrder</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>uploadVendorCSV</servlet-name>
@@ -133,6 +155,10 @@
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.autoCompleteVendors</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>uploadProfilePicture</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.uploadProfilePicture</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>queryFirstLastName</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.queryFirstLastName</servlet-class>
     </servlet>
@@ -176,14 +202,6 @@
         <servlet-name>newOrder</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.newOrder</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>SelectColumns</servlet-name>
-        <servlet-class>org.clothocad.phagebook.adaptors.servlets.SelectColumns</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>SelectColumns</servlet-name>
-        <url-pattern>/SelectColumns</url-pattern>
-    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>newOrder</servlet-name>
         <url-pattern>/newOrder</url-pattern>
@@ -207,10 +225,6 @@
     <servlet>
         <servlet-name>addUpdateToProject</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.addUpdateToProject</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>findMemberForNewProject</servlet-name>
-        <servlet-class>org.clothocad.phagebook.adaptors.servlets.findMemberForNewProject</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>getAllProjectUpdates</servlet-name>
@@ -333,6 +347,10 @@
         <url-pattern>/autoCompleteVendors</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>uploadProfilePicture</servlet-name>
+        <url-pattern>/uploadProfilePicture</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>queryFirstLastName</servlet-name>
         <url-pattern>/queryFirstLastName</url-pattern>
     </servlet-mapping>
@@ -357,14 +375,31 @@
         <url-pattern>/createLab</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>createStatus</servlet-name>
+        <url-pattern>/createStatus</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>deleteOrder</servlet-name>
         <url-pattern>/deleteOrder</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>getAllProjectUpdates</servlet-name>
-        <url-pattern>/getAllProjectUpdates</url-pattern>
+        <servlet-name>removePIFromLab</servlet-name>
+        <url-pattern>/removePIFromLab</url-pattern>
     </servlet-mapping>
-    
-    findMemberForNewProject
-    
-    </web-app>
+    <servlet-mapping>
+        <servlet-name>listOrdersOfPerson</servlet-name>
+        <url-pattern>/listOrdersOfPerson</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>denyOrder</servlet-name>
+        <url-pattern>/denyOrder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>findMemberForNewProject</servlet-name>
+        <url-pattern>/findMemberForNewProject</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>loadUserStatuses</servlet-name>
+        <url-pattern>/loadUserStatuses</url-pattern>
+    </servlet-mapping>
+</web-app>

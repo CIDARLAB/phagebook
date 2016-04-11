@@ -348,7 +348,7 @@ public class ClothoAdapterTest {
     public void testCreateLab(){
         System.out.println("-----CREATE LAB TEST-----");
       
-        Institution testLab = new Institution();
+        Lab testLab = new Lab();
         String idI = "";
         testLab.setId(idI);
         
@@ -963,7 +963,6 @@ public class ClothoAdapterTest {
         lab1.setDescription(description);
         lab1.setPhone(phone);
         lab1.setUrl(url);
-       
         
         
         String labId = ClothoAdapter.createLab(lab1, clothoObject);
@@ -978,7 +977,7 @@ public class ClothoAdapterTest {
         assertEquals(lab1.getPhone(), lab2.getPhone());
         assertEquals(lab1.getUrl(), lab2.getUrl());
         assertEquals(lab1.getId(), lab2.getId());
-     
+
         
                 
         System.out.println("----------");
@@ -1138,6 +1137,10 @@ public class ClothoAdapterTest {
             String firstName = "Doug";
             String lastName = "Densmore";
             String password = "CLOTHO TEST PASSWORD";
+            String institution = "Boston University";
+            String department = "Electrical and Computer Engineering";
+            String title = "Associate Professor";
+            String profileDescription = "This is the default description";
             boolean activated = true;
             String activationString = "CLOTHO TEST ACTIVATION STRING";
             
@@ -1254,6 +1257,7 @@ public class ClothoAdapterTest {
         //
         Person person1 = new Person();
         person1.setSalt(salt);
+        person1.setProfileDescription(profileDescription);
         person1.setSaltedEmailHash(saltedEmailHash);
         person1.setEmailId(emailId);
         person1.setFirstName(firstName);
@@ -1271,7 +1275,9 @@ public class ClothoAdapterTest {
         person1.setCreatedOrders(orders);
         person1.setSubmittedOrders(submittedOrders);
         person1.setApprovedOrders(approvedOrders);
-        
+        person1.setInstitution(institution);
+        person1.setDepartment(department);
+        person1.setTitle(title);
         
         
         
@@ -1291,6 +1297,10 @@ public class ClothoAdapterTest {
         assertEquals(person1.getLastName(), person2.getLastName());
         assertEquals(person1.getPassword(), person2.getPassword());
         assertEquals(person1.isActivated(), person2.isActivated());
+        assertEquals(person1.getInstitution(), person2.getInstitution());
+        assertEquals(person1.getProfileDescription(), person2.getProfileDescription());
+        assertEquals(person1.getDepartment(), person2.getDepartment());
+        assertEquals(person1.getTitle(), person2.getTitle());
         assertEquals(person1.getActivationString(), person2.getActivationString());
         assertEquals(person1.getColleagues().size(), person2.getColleagues().size());
         assertEquals(person1.getColleagues().size(), person2.getColleagues().size());

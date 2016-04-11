@@ -1,26 +1,59 @@
-function profileCtrl($scope, $window) {
-    $("document").ready(function () {
+function profileCtrl($scope, $http) {
+    var clothoId = getCookie("clothoId"); //this will get the clothoId from the cookie
+    $scope.clothoId = clothoId;
+    var fileExt = ".jpg";
+    var awsPath = "http://s3.amazonaws.com/phagebookaws/" + clothoId + "/profilePicture";
+
+    $scope.profilePictureLink = awsPath + fileExt;
+
+    $("#createStatusBtn").click(function () {
+        //alert("Create New Status Button click" + $("#statusUpdateTextarea")[0].value);
+        $http({
+            method: 'POST',
+            url: '../createStatus',
+            params: {
+                "clothoId": clothoId,
+                "status": $("#statusUpdateTextarea")[0].value
+            }
+        }).then(function successCallback(response) {
+            console.log("some success in getPersonById status ajax call");
+            $("#statusUpdateTextarea")[0].value = "";
+            console.log(response.message);
+        }, function errorCallback(response) {
+            console.log("inside getPersonById status ajax error");
+            console.log(JSON.stringify(response));
+        });
+    });
+
+    angular.element(document).ready(function ($scope) {
+        console.log("before ajax but inside page onload.`");
         $.ajax({
-            url: '../getPersonById',
             type: 'GET',
-            async: false,
+            url: '../getPersonById',
             data: {
-                "userId": getCookie("clothoId")
+                "userId": clothoId
             },
             success: function (response) {
-                
+                var responseAsJSON = angular.fromJson(response);
+                console.log(JSON.stringify(responseAsJSON));
+                $("#fullName").text(responseAsJSON.fullname);
+                $("#dept").text(responseAsJSON.department);
+                $("#institution").text(responseAsJSON.institution);
+                $("#title").text(responseAsJSON.title);
+                $("#profileDescription").text(responseAsJSON.profileDescription);
+                //$scope.statuses = responseAsJSON.statuses;
             },
             error: {
+                //console.log("inside GET error");
             }
-
         });
-        
+
+
+        console.log("after ajax");
         $("#search-colleagues-btn").click(function () {
-          
+
             var firstName = $("#search-first-name").val();
-            var lastName  = $("#search-last-name").val();
-            
-            
+            var lastName = $("#search-last-name").val();
             $.ajax({
                 url: '../queryFirstLastName',
                 type: 'GET',
@@ -30,166 +63,64 @@ function profileCtrl($scope, $window) {
                     "lastName": lastName
                 },
                 success: function (response) {
-                    
                     var ul = $("#search-colleagues-list");
-
                     ul.empty();
 
-
-                    for (var i = 0; i < response.length; i++){
+                    for (var i = 0; i < response.length; i++) {
                         var tmpl = document.getElementById("colleague-template").content.cloneNode(true);
                         tmpl.querySelector(".colleague-name").text = response[i].fullname;
-                        tmpl.querySelector(".main-lab").innerHTML  = (response[i].labName == null) ? "" : response[i].labName;
+                        tmpl.querySelector(".main-lab").innerHTML = (response[i].labName == null) ? "" : response[i].labName;
                         tmpl.querySelector(".main-institution").innerHTML = response[i].institutionName;
-                        tmpl.querySelector(".colleague-name").href  = "../html/colleague.html?user=" + response[i].clothoId;
+                        tmpl.querySelector(".colleague-name").href = "../html/colleague.html?user=" + response[i].clothoId;;
                         ul.append(tmpl);
                     }
                 },
                 error: {
                 }
-
             });
             return false;
-            
         });
-
+        
+     $("#load-more-btn").click(function () {
+        $.ajax({
+            type: 'GET',
+            url: '../loadUserStatuses',
+            data: {
+                "clothoId": clothoId
+            },
+            success: function (response) {
+                var responseAsJSON = angular.fromJson(response);
+                console.log(JSON.stringify(responseAsJSON));
+                
+                var ul = $("#status-list");
+                ul.empty();
+                for (var i = 0; i < response.length; i++) {
+                    var tmpl = document.getElementById("status-template").content.cloneNode(true);
+                    var now = new Date(response[i].dateCreated);
+                    tmpl.querySelector(".status-date").innerText = "Created On: " + response[i].dateCreated;
+                    //$scope.statusDate = response[i].dateCreated;
+                    //console.log(response[i].dateCreated);
+                    tmpl.querySelector(".status-text").innerText = response[i].statusText;
+                    //console.log(response[i].statusText);
+                    ul.append(tmpl);
+                }
+            },
+            error: {
+                //console.log("inside GET error");
+            }
+        });
     });
+    });
+    $("#edit-profile-btn").click(function () {
 
-
-
-    /*0: "26205025"
-     1: "23651287"
-     2: "3084710"
-     3: "3317443"
-     the numbers above are pubmedIDs that are Doug's publications used for testing purposes*/
-
-    $scope.editInfo = function () {
-        //this function just turns the boxes into editable text boxes
-        $scope.editBool = true;
-    };
-
-    $scope.readProfilePic = function () {
-        //save the uploaded file to google drive? or whereever we are going to put them
-    };
-
-    $scope.save = function () {
-        //This function needs to make the text boxes not editable
-        //also needs to update the Clotho person object
-        Clotho.get($scope.personID).then(function () {
-            Clotho.set($scope.personObj);
-        });
-        //console.log($scope.personObj);
-        $scope.editBool = false;
-    };
-
-    $scope.cancel = function () {
-        //function makes the text boxes not editable
-        //restores personObj to the latest (NOT SAVED) version of Clotho Obj
-        Clotho.get($scope.personId).then(function (result) {
-            $scope.personObj = result;
-        });
-        $scope.editBool = false;
-    };
-
-    $scope.createStatus = function () {
-        $scope.timeStamp = new Date();
-        $scope.statusObj = {
-            "statusMessage": $scope.newStatus,
-            "timeStamp": $scope.timeStamp
-                    //eventually there could be a location key value pair
-        };
-
-
-        $scope.personObj['statusList'].push($scope.statusObj);
-        Clotho.set($scope.personObj);
-
-
-        $scope.statuses = $scope.personObj['statusList'];
-    };
-
-    $scope.loadFriends = function () {
-
-    };
-
-    $scope.displayPub = function () {
-
-
-        var idArrayLength = $scope.personObj['pubmedIdList'].length;
-        if (idArrayLength == 0)
-        {
-            $scope.personObj['pubmedIdList'].push($scope.pubmedId);
-        } else {
-            for (var i = 0; i < idArrayLength; i++) {
-                var checkExist = false; //ng-repeat will not display the same publicaiton twice, so a check needs to exist
-                if ($scope.pubmedId == $scope.personObj['pubmedIdList'][i]) {
-                    checkExist = true;
-                    window.alert('unable to use same pubmed ID twice!');
-                    console.log('unable to use same pubmedID twice!!')
-                } else {
-                    $scope.personObj['pubmedIdList'].push($scope.pubmedId);
-                }
-            }
-        }
-        //console.log(JSON.stringify($scope.personObj));
-
-
-        pubmed.getCitationsFromIds($scope.personObj['pubmedIdList']).then(function (result) {
-            //console.log(JSON.stringify(result9));
-            $scope.publications = result;
-            $scope.$apply();
-        });
-    };
-
-    $scope.findFriends = function (size) {
-        var myFriendSearch = $modal.open({
-            templateUrl: 'friendFinder.html',
-            controller: 'profileWindowController',
-            size: size,
-            resolve: {
-                items: function () {
-                    //this object will get passed to the modal's controlller
-                    //need to probably send an ajax call to find the person/data stuff
-                    return {myPerson: {name: "Bobby"}, myData: 42};
-                }
-            }
-        });
-        myFriendSearch.result.then(function (items) {
-            Clotho.query(items).then(function (result) {
-                //return foundFriend
-                console.log(JSON.stringify(result));
-            });
-            //do stuff with returned data, like Clotho.set??
-        });
-    };
+        window.location = "../html/accountSettings.html";
+    });
 }
 
-function profileWindowController($scope, $modalInstance) {
-    $scope.colleagueFirstName = "";
-    $scope.colleagueLastName = "";
-    $scope.colleagueEmail = "";
-
-    $scope.ok = function () {
-        //if all fields are blank then an error needs to appear, or a prompt to fill in some of the fields
-        if (($scope.colleagueLastName == null) && ($scope.colleagueEmail == null) && ($scope.colleagueFirstName == null))
-        {
-            alert("Please fill in at least one field");
-        } else {
-            $modalInstance.close({'givenname': $scope.colleagueFirstName,
-                'surname': $scope.colleagueLastName,
-                'email': $scope.colleagueEmail});
-        }
-
-    };
-
-    $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
-    };
-}
-
-function getParameterByName(name)
-{
+function getParameterByName(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
             results = regex.exec(location.search);
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
+

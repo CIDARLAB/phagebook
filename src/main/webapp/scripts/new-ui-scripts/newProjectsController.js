@@ -169,12 +169,14 @@ function newProjectsCtrl($scope, $http) {
         // it gets called in the validateForm function above,
         // if both conditions pass, then we assign the values in the json var to the 
         // 1st and 0eth value in the name leadName array
+        var leadIDDD;
         var leadNameCheck = function() {
 
                 var leadFullName = $scope.formData.leadName;
+                console.log(leadFullName);
                 if (leadFullName != undefined) {
                     var splitName = leadFullName.split(" ");
-                    var leadNameSelected = $("#lead_selectDiv option:selected").text();
+                    var leadNameSelected = $("#lead_Results option:selected").text();
                     console.log(splitName.length);
                     if (splitName.length < 2) {
                         console.log("string not long enough");
@@ -182,7 +184,8 @@ function newProjectsCtrl($scope, $http) {
                     }
                     if (leadFullName != leadNameSelected) {
                         console.log("oopsies!");
-                        $("#lead_selectDiv option:selected").val(0);
+                        $("#lead_Results option:selected").val(0);
+                        leadIDDD = 123;
                     }
                     leadName = splitName;
                     return true;
@@ -217,17 +220,27 @@ function newProjectsCtrl($scope, $http) {
                 return false;
             }
 
-        }
+        };
 
         var submit = validateForm();
         console.log(submit);
+
+        var getLead = function(){
+
+            if($("#lead_Results option:selected").val()!=undefined){
+                console.log("HACKING THIS");
+                leadIDDD = $("#lead_Results option:selected").val();
+            }
+            return leadIDDD;
+        }
 
         // !!!! create a check that pr budget is an int !!!!!!
         console.log(membersArray);
         // f it
         if($("#lab_selectDiv option:selected").text() == "Lab Name..." || $("#lab_selectDiv option:selected").val() == "Lab Name..."){
-            $("#lab_selectDiv option:selected").text() = "";
-             $("#lab_selectDiv option:selected").val() = "";
+            console.log("setting stuff to null!!!");
+            $("#lab_selectDiv option:selected").text("");
+             $("#lab_selectDiv option:selected").val("");
         }
         var dataSubmit = {
             name: $scope.formData.name,
@@ -236,8 +249,8 @@ function newProjectsCtrl($scope, $http) {
             leadLastName: leadName[1],
 
             // get id and name of lead from dropdown
-            leadName: $("#lead_selectDiv option:selected").text(),
-            leadID: $("#lead_selectDiv option:selected").val(),
+            leadName: $("#lead_Results option:selected").text(),
+            leadID: getLead(),
 
             members: $scope.formData.members,
 

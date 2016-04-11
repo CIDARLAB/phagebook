@@ -89,7 +89,7 @@ function createOrderCard(orderJSON) {
                     itemCustomPrice.innerHTML = "$" + response.customUnitPrice;
                 var itemTotalPrice = rowCount.insertCell(4);
                     itemTotalPrice.className = "item-total-price";
-                    itemTotalPrice.innerHTML =  "$" +  response.totalPrice;
+                    itemTotalPrice.innerHTML =  "$" +  response.totalPrice.toFixed(2);
 
 
             totalBeforeTax += response.totalPrice;
@@ -105,13 +105,14 @@ function createOrderCard(orderJSON) {
         orderItemsTable.appendChild(tr);
     }
 
-    tmpl.querySelector('.total-before-tax-value').innerText = "$" + totalBeforeTax;
-    tmpl.querySelector('.tax-value').innerText = "$"+ (TAX * totalBeforeTax) ;
+    tmpl.querySelector('.total-before-tax-value').innerText = "$" + totalBeforeTax.toFixed(2);
+
+    tmpl.querySelector('.tax-value').innerText = "$"+ ( (TAX - 1) * totalBeforeTax).toFixed(2) ;
     if (orderJSON.Budget < ( (TAX * totalBeforeTax) + totalBeforeTax)){
         tmpl.querySelector('.total-after-tax-value').style = "color: red";
         tmpl.querySelector('.submit-order-btn').disabled = true;
     }
-    tmpl.querySelector('.total-after-tax-value').innerText = "$" + ( (TAX * totalBeforeTax) + totalBeforeTax);
+    tmpl.querySelector('.total-after-tax-value').innerText = "$" + (TAX * totalBeforeTax).toFixed(2);
 
 
 
@@ -139,7 +140,7 @@ function doCartItemAjax(cartItemId){
             "cartItem": cartItemId
         },
         success: function (response) {
-            var percentage      = (response.discount / 100.00);
+            var percentage      = 1 - (response.discount / 100.00);
             var itemName        = response.productName;
             var itemUnitPrice   = response.productUnitPrice;
             var customUnitPrice = (percentage * response.productUnitPrice);

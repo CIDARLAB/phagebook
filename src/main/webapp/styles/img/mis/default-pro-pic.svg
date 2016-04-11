@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="191px" height="191px" viewBox="0 0 191 191" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.5.2 (25235) - http://www.bohemiancoding.com/sketch -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Group" sketch:type="MSLayerGroup">
+            <circle id="Oval-1" fill="#FBE6C4" sketch:type="MSShapeGroup" cx="95.5" cy="95.5" r="95.5"></circle>
+            <g id="Fill-17" transform="translate(42.000000, 33.000000)" fill="#1E714A" sketch:type="MSShapeGroup">
+                <path d="M56.8421053,18.7431818 L56.8421053,45.4590909 L40.2669474,28.8909091 C37.152,31.1863636 34.2075789,33.5954545 31.6326316,36.1636364 C10.0326316,57.7488636 10.3509474,75.425 17.0242105,85.2602273 L0,102.277273 L0,119.322727 L26.3804211,92.9534091 C36.6404211,97.3965909 52.6926316,95.4590909 71.8256842,76.3340909 C95.9437895,52.2318182 108,0.00454545455 108,0.00454545455 C108,0.00454545455 80.9886316,6.27159091 56.8421053,18.7431818"></path>
+            </g>
+        </g>
+    </g>
+</svg>

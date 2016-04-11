@@ -99,6 +99,7 @@ public class getAllProjectUpdates extends HttpServlet {
 
         for (String s : allUpdates)
         {
+            clothoObject.logout();
             System.out.println(s);
             Status update = ClothoAdapter.getStatus(s, clothoObject);
             System.out.println(update.getText());
@@ -106,6 +107,7 @@ public class getAllProjectUpdates extends HttpServlet {
             u.put("date", update.getCreated());
             u.put("userId", update.getUserId());
             // get a person's first and last name
+            clothoObject.logout();
             Person p = ClothoAdapter.getPerson(update.getUserId(), clothoObject);
             u.put("userName", p.getFirstName()+ " " +p.getLastName());
             u.put("text", update.getText());

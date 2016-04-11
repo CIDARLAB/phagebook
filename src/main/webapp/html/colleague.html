@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>Profile</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/cssBootstrap/bootstrap.css"/>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="../styles/main.css"/>
+    <link rel="stylesheet" href="../styles/sidebar.css"/>
+    <link rel="icon" href="../styles/img/logos/phagebook-favicon.png" sizes="16x16">
+
+    <script src="../scripts/clotho/clotho3API.js"></script>
+    <script src="../scripts/new-ui-scripts/cookieHandler.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
+    <script src="../scripts/new-ui-scripts/angular.ng-modules.js"></script>
+
+    <script>
+        window.onload = function() {
+            document.getElementById("see-full-list-btn").onclick = function () {changeTab()};
+        };
+        function changeTab() {
+            $('#profile-nav-tabs a[href = "#colleagues-tab"]').tab('show');
+        }
+    </script>
+
+    <style>
+
+        #profile-nav {
+            position: absolute;
+            margin-top: 425px;
+            margin-left: 20%;
+            width: 862px;
+            overflow-x: hidden;
+            background: transparent;
+            border: none;
+        }
+
+        #profile-nav-heading {
+            background: none;
+            border-bottom: none;
+            margin-top: 50px;
+        }
+
+        #profile-nav-tabs {
+            margin-top: 0px;
+        }
+
+        #profile-nav-tabs li {
+            width: 200px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        #profile-nav-tabs li.active {
+            background-color: transparent;
+            border: none;
+        }
+
+        #profile-nav-tabs li.active a {
+            color: #1E714A;
+        }
+
+        h5 {
+            color: #1E714A;
+            font-size: 16px;
+        }
+
+    </style>
+
+<body>
+
+    <div ng-module="colleagueApp">
+        <div ng-controller="colleagueCtrl">
+            <header></header>
+            <div class="container-fluid" id="colleague">
+                <div class="row" >
+                    <div class="panel panel-default">
+                        <div class="panel-body" id="profile-overview">
+                            <img alt="Profile Picture" src={{profilePictureLink}} id="profile-picture">
+                            <button id="add-colleague-btn" type="button" class="btn btn-default">Add Colleague</button>
+                            <table class="table" id="profile-header">
+                                <tr>
+                                    <td><h3 id="profile-name"></h3></td>
+                                </tr>
+                                <tr>
+                                    <td><p id ="profile-description"></p></td>
+                                </tr>
+                            </table>
+                            <div style = "clear:both"></div>
+                            <table class="table" id="profile-info">
+                                <tr>
+                                    <td><p style="color: #1E714A;">Institution</p></td>
+                                    <td id="profile-institution"><p>Boston University</p></td>
+                                </tr>
+                                <tr>
+                                    <td><p style="color: #1E714A;">Department</p></td>
+                                    <td id="profile-dept"><p>Electrical & Computer Engineering</p></td>
+                                </tr>
+                                <tr>
+                                    <td><p style="color: #1E714A;">Title</p></td>
+                                    <td id="profile-title"><p>Associate Professor</p></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel with-nav-tabs panel-default" id="profile-nav">
+                <div class="panel-heading" id="profile-nav-heading">
+                    <ul class="nav nav-tabs" id="profile-nav-tabs">
+                        <li class="active"><a href="#overview" data-toggle="tab">Overview</a></li>
+                        <li><a href="#colleagues-tab" data-toggle="tab">Colleagues</a></li>
+                        <li><a href="#projects" data-toggle="tab">Projects</a></li>
+                        <li><a href="#publications" data-toggle="tab">Publications</a></li>
+                    </ul>
+                </div>
+                <div class="panel-body" id="profile-panel">
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="overview">
+                            <div class="row">
+                                <div class="container-fluid" id="previous-posts">
+                                    <div class="col-sm-12">
+                                        <h4>Previous Posts</h4>
+                                        <br>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">MARCH 19, 2016</div>
+                                            <div class="panel-body">
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam non velit tellus. Quisque rutrum libero ut scelerisque malesuada. Sed a lacus quis sem dapibus malesuada. Cras rutrum et erat nec tempus.
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">MARCH 1, 2016</div>
+                                            <div class="panel-body">
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam non velit tellus. Quisque rutrum libero ut scelerisque malesuada. Sed a lacus quis sem dapibus malesuada. Cras rutrum et erat nec tempus.
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">FEBRUARY 17, 2016</div>
+                                            <div class="panel-body">
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam non velit tellus. Quisque rutrum libero ut scelerisque malesuada. Sed a lacus quis sem dapibus malesuada. Cras rutrum et erat nec tempus.
+                                            </div>
+                                        </div>
+                                        <button id="load-more-btn" type="button" class="btn btn-secondary btn-block">Load More...</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="colleagues-tab">
+                            <div class="col-sm-12">
+                                <h4>All Colleagues</h4>
+                                <div id="myModal1" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="add-colleagues-btn">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button id="myModal1-close" type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                <h4>Add Colleagues</h4>
+                                            </div>
+                                            <div class="modal-body" id="add-colleagues-modal">
+                                                <p>Search for colleagues by entering their first or last name.</p>
+                                                <div class="form-group row" id="search-colleagues">
+                                                    <label for="search-first-name" class="col-sm-2 form-control-label">FIRST NAME</label>
+                                                    <div class="col-sm-3">
+                                                        <input type="text" class="form-control" id="search-first-name">
+                                                    </div>
+                                                    <label for="search-last-name" class="col-sm-2 form-control-label">LAST NAME</label>
+                                                    <div class="col-sm-3">
+                                                        <input type="text" class="form-control" id="search-last-name">
+                                                    </div>
+                                                    <button id="search-colleagues-btn" type="submit" class="btn btn-lg">Search</button>
+                                                </div>
+                                                <br>
+                                                <div id="search-colleagues-results" style="overflow-y:scroll; height:300px;">
+                                                    <ul class="col-sm-12 list-group" id="search-colleagues-list">
+
+
+
+                                                    </ul>
+                                                    <template id="colleague-template">
+                                                        <li class="list-group-item col-sm-5">
+                                                            <img alt="Kristel Tan" src="../styles/img/mis/kristel-tan-pro-pic.jpg">
+                                                            <a href="" class="colleague-name">Kristel Tan</a>
+                                                            <p></p>
+                                                            <p class="main-lab">CIDAR Lab</p>
+                                                            <p class="main-institution">Boston University</p>
+                                                        </li>
+                                                    </template>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br><br>
+                                <div>
+                                    <ul class="list-inline list-group" id="colleagues-full-list">
+                                        <li class="list-group-item col-sm-5">
+                                            <img alt="Kristel Tan" src="../styles/img/mis/kristel-tan-pro-pic.jpg">
+                                            <a href="#">Kristel Tan</a>
+                                            <p></p>
+                                            <p>CIDAR Lab</p>
+                                            <p>Boston University</p>
+                                        </li>
+                                        <li class="list-group-item col-sm-5">
+                                            <img alt="Allison Durkan" src="../styles/img/mis/allison-pro-pic.jpg">
+                                            <a href="#">Allison Durkan</a>
+                                            <p></p>
+                                            <p>CIDAR Lab</p>
+                                            <p>Boston University</p>
+                                        </li>
+                                        <li class="list-group-item col-sm-5">
+                                            <img alt="Johan Ospina" src="../styles/img/mis/johan-pro-pic.jpg">
+                                            <a href="#">Johan Ospina</a>
+                                            <p></p>
+                                            <p>CIDAR Lab</p>
+                                            <p>Boston University</p>
+                                        </li>
+                                        <li class="list-group-item col-sm-5">
+                                            <img alt="Prashant Vaidyanathan" src="../styles/img/mis/prashant-pro-pic.jpg">
+                                            <a href="#">Prashant Vaidyanathan</a>
+                                            <p></p>
+                                            <p>CIDAR Lab</p>
+                                            <p>Boston University</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="projects">Feature coming soon!</div>
+                        <div class="tab-pane fade" id="publications">
+                            <div class="col-sm-12">
+                                <h4>Publications</h4>
+                                <br>
+                                <div>
+                                    <ul class="list-inline list-group" id="publications-list">
+                                        <li class="list-group-item col-sm-12">
+                                            <a href="http://islab.soe.uoguelph.ca/sareibi/TEACHING_dr/ENG6530_RCS_html_dr/outline_W2015/docs/PAPER_REVIEW_dr/HighLevel_HDL_dr/TaxonomyOfESL.pdf"><h5 class="list-group-item-heading">A Platform-based taxonomy for ESL design</h5></a>
+                                            <br>
+                                            <p>D Densmore, R Passerone, A Sangiovanni-Vincentelli</p>
+                                            <p>IEEE Design & Test of Computers, 359-374</p>
+                                        </li>
+                                        <li class="list-group-item col-sm-12">
+                                            <a href="https://www.researchgate.net/publication/228634243_A_next-generation_design_framework_for_platform-based_design"><h5 class="list-group-item-heading">A next-generation design framework for platform-based design</h5></a>
+                                            <br>
+                                            <p>A Davare, D Densmore, T Meyerowitz, A Pinto, A Sangiovanni-Vincentelli, ...</p>
+                                            <p>Conference on using hardware design and verification languages (DVCon) 152</p>
+                                        </li>
+                                        <li class="list-group-item col-sm-12">
+                                            <a href="http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0018882"><h5 class="list-group-item-heading">Eugene–a domain specific language for specifying and constraining synthetic biological parts, devices, and systems</h5></a>
+                                            <br>
+                                            <p>L Bilitchenko, A Liu, S Cheung, E Weeding, B Xia, M Leguia, JC Anderson, ...</p>
+                                            <p>PloS one 6 (4), e18882</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer></footer>
+        </div>
+    </div>
+
+    <!-- ANGULAR SCRIPTS -->
+    <script src="../scripts/new-ui-scripts/headerDirective.js"></script>
+    <script src="../scripts/new-ui-scripts/footerDirective.js"></script>
+    <script src="../scripts/new-ui-scripts/sidebarDirective.js"></script>
+    <script src="../scripts/new-ui-scripts/colleagueController.js"></script>
+    <script src="../scripts/new-ui-scripts/colleagueApp.js"></script>
+
+</body>
+
+</html>

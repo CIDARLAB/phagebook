@@ -42,12 +42,6 @@
             <type>jar</type>
         </dependency>
         <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-io</artifactId>
-            <version>8.1.10.v20130312</version>
-            <type>jar</type>
-        </dependency>
-        <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20140107</version>
@@ -114,7 +108,18 @@
       <version>8.1.10.v20130312</version>
       <type>jar</type>
     </dependency>
-     
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-core</artifactId>
+            <version>1.10.49</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-s3</artifactId>
+            <version>1.10.49</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 
     

@@ -7,6 +7,7 @@ package org.clothocad.phagebook.adaptors.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,10 +71,11 @@ public class approveOrder extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
         Object pOrderId = request.getParameter("orderId");
         String orderId = pOrderId != null ? (String) pOrderId : "";
         
-        Object pUserId = request.getParameter("orderId");
+        Object pUserId = request.getParameter("userId");
         String userId = pUserId != null ? (String) pUserId : "";
         
         boolean isValid = false;
@@ -98,7 +100,7 @@ public class approveOrder extends HttpServlet {
             loginMap.put("credentials", password);
             clothoObject.login(loginMap);
             
-            Order orderToApprove = ClothoAdapter.getOrder(userId, clothoObject);
+            Order orderToApprove = ClothoAdapter.getOrder(orderId, clothoObject);
             List<String> receivedByList = orderToApprove.getReceivedByIds();
             String finalApprover = "";
             String fAEmailId = "";
@@ -116,9 +118,14 @@ public class approveOrder extends HttpServlet {
                     List<String> submittedOrders = approver.getSubmittedOrders(); // need to add to approved and remove from submitted..
                     approvedOrder.add(orderToApprove.getId());
                     submittedOrders.remove(orderToApprove.getId());
-                    orderToApprove.setStatus(OrderStatus.APPROVED);
-                    ClothoAdapter.setOrder(orderToApprove, clothoObject);
+                    clothoObject.logout();
                     ClothoAdapter.setPerson(approver, clothoObject);
+                    clothoObject.login(loginMap);
+                    orderToApprove.setDateApproved(new Date());
+                    
+                    orderToApprove.setStatus(OrderStatus.APPROVED);
+                    orderToApprove.setApprovedById(finalApprover);
+                    ClothoAdapter.setOrder(orderToApprove, clothoObject);
                     
                     
                 }

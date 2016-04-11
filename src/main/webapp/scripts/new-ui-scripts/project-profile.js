@@ -187,10 +187,8 @@ $(document).ready(function() {
             "projectID": projectID,
             "newStatus": newStatus,
             "emailPeople": emailPeople
-        }
-
-
-
+        };
+        console.log(data);
         $.ajax({
             url: "/addUpdateToProject",
             type: "POST",
@@ -201,10 +199,9 @@ $(document).ready(function() {
                 console.log("response!!!");
                 return checkAddUpdateResponse(response);
             },
-            error: function(err) {
-                console.log("ERROR!!");
-                console.log(err);
-            }
+            error: function(xhr, ajaxOptions, thrownError){
+                    alert(xhr.status)
+                }
         });
     }
 

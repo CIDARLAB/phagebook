@@ -162,7 +162,10 @@ public class addUpdateToProject extends HttpServlet {
       if(newStatus.length() != 0){
         List<String> allUpdates = addProjectUpdate(userID, projectID, newStatus, emailPeople, clothoObject);
         List<Map<String, String>> listOfUpdates = new ArrayList<Map<String, String>>();
-
+        Person per = ClothoAdapter.getPerson(userID, clothoObject);
+        System.out.println(per.getEmailId());
+        System.out.println(per.getProjects());
+        
         for (String s : allUpdates)
         {
             Status update = ClothoAdapter.getStatus(s, clothoObject);

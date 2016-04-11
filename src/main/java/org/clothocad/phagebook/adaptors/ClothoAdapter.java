@@ -565,7 +565,7 @@ public class ClothoAdapter {
         }
         
         if (lab.getLeadPIs() != null){
-            if (!lab.getLeadPIs().isEmpty()){
+            
                 JSONArray leadPIs = new JSONArray();
                 for (String leadId : lab.getLeadPIs()){
                     if (leadId != null){
@@ -575,7 +575,7 @@ public class ClothoAdapter {
                     }
                 }
                 map.put("leadPIs", leadPIs);
-            }
+            
         }
         
         
@@ -668,6 +668,10 @@ public class ClothoAdapter {
         {
             map.put("dateCreated", order.getDateCreated().toString());
         }
+        if (order.getDateApproved()!= null)
+        {
+            map.put("dateApproved", order.getDateApproved().toString());
+        }
         
         if (order.getCreatedById()!= null){
             
@@ -687,7 +691,7 @@ public class ClothoAdapter {
                         }
                     }
                 }
-                System.out.println("CART ITEM ID's ARE : "+ cartItemIds.toString());
+               
                 map.put("products", cartItemIds);
             
         }
@@ -715,8 +719,7 @@ public class ClothoAdapter {
         }
         if (order.getReceivedByIds()!= null)
         {
-            if (!order.getReceivedByIds().isEmpty())
-            {
+            
                 JSONArray receivedByIds = new JSONArray();
                 for (String personId : order.getReceivedByIds()){
                     if (personId != null){
@@ -726,7 +729,7 @@ public class ClothoAdapter {
                     }
                 }
                 map.put("receivedByIds", receivedByIds);
-            }
+           
         }
         
         if (order.getStatus() != null)
@@ -825,34 +828,44 @@ public class ClothoAdapter {
            
         }
         
-        if (person.getProjects() != null)
-        {
-            if (!person.getProjects().isEmpty())
-            {
-                JSONArray projects = new JSONArray();
-                for (String project : person.getProjects()){
-                    if (project != null){
-                        if (!project.equals("Not Set") && !project.isEmpty()){
-                            projects.add(project);
-                        }
-                    }
-                }
-                map.put("projects", projects);
-            }
+        if(person.getEmailId() != null){
+            map.put("emailId", person.getEmailId());
+            map.put("name", person.getEmailId()); // so it displays in clotho's nav bar
         }
-       
-        if (person.getStatuses() != null)
+        
+        if (person.getFirstName() !=null)
+            map.put("firstName", person.getFirstName());
+        
+        if (person.getProfileDescription() !=null)
+            map.put("profileDescription", person.getProfileDescription());
+        
+        if(person.getLastName() != null)
+            map.put("lastName", person.getLastName());
+        
+        
+        if(person.getPassword() != null)
+            map.put("password", person.getPassword());
+        
+        //defaults are false and "Not Set" for these two lines in the constructors
+        //SHOULD BE
+        map.put("activated", person.isActivated());
+        map.put("activationString", person.getActivationString());
+        
+        if (person.getColleagues() != null)
         {
-            if (!person.getStatuses().isEmpty()){
-                JSONArray statuses = new JSONArray();
-                for (String status : person.getStatuses()){
-                    if (status != null){
-                        if (!status.equals("Not Set") && !status.isEmpty() ){
-                           statuses.add(status);
+            if (!person.getColleagues().isEmpty())
+            {
+                JSONArray colleagues = new JSONArray();
+                for (String colleague : person.getColleagues())
+                {
+                    if (colleague != null){
+                        if (!colleague.equals("Not Set") && !colleague.isEmpty()){
+                            colleagues.add(colleague);
                         }
                     }
+
                 }
-                map.put("statuses", statuses);
+                map.put("colleagues", colleagues);
             }
         }
         
@@ -869,6 +882,36 @@ public class ClothoAdapter {
                 }
                 map.put("notebooks", notebooks);
             }
+        }
+        
+        if (person.getStatuses() != null)
+        {
+            if (!person.getStatuses().isEmpty()){
+                JSONArray statuses = new JSONArray();
+                for (String status : person.getStatuses()){
+                    if (status != null){
+                        if (!status.equals("Not Set") && !status.isEmpty() ){
+                           statuses.add(status);
+                        }
+                    }
+                }
+                map.put("statuses", statuses);
+            }
+        }
+        
+        if (person.getInstitution() !=null) 
+        {
+           map.put("institution", person.getInstitution());
+        }
+        
+        if (person.getDepartment() !=null)
+        {
+            map.put("department", person.getDepartment());
+        }
+        
+        if (person.getTitle() !=null)
+        {
+            map.put("title", person.getTitle());
         }
         if (person.getInstitutions()!= null)
         {
@@ -918,23 +961,59 @@ public class ClothoAdapter {
                 map.put("roles", rolesMap);
             
         }
-        if (person.getColleagues() != null)
+        
+        
+        if (person.getProjects() != null)
         {
-            
-                JSONArray colleagues = new JSONArray();
-                for (String colleague : person.getColleagues())
-                {
-                    if (colleague != null){
-                        if (!colleague.equals("Not Set") && !colleague.isEmpty()){
+            if (!person.getProjects().isEmpty())
+            {
+                JSONArray projects = new JSONArray();
+                for (String project : person.getProjects()){
+                    if (project != null){
+                        if (!project.equals("Not Set") && !project.isEmpty()){
+                            projects.add(project);
+                        }
+                    }
+                }
+                map.put("projects", projects);
+            }
+        }
+       
+        if (person.getPublications() != null) {
+            //if (!person.getPublications().isEmpty()) {
+            JSONArray publications = new JSONArray();
+            for (String publication : person.getPublications()) {
+                
+                
+                    if (publication != null) {
+                        if (!publication.equals("Not Set") && !publication.isEmpty()) {
+                            publications.add(publication);
+                        }
+                    }
+                }
+                map.put("publications", publications);
+                
+        }
+            //}
+        
+        
+        
+        if (person.getColleagues() != null){
+            JSONArray colleagues = new JSONArray();
+            for (String colleague : person.getColleagues()) {
+                
+                 if (colleague != null) {
+                        if (!colleague.equals("Not Set") && !colleague.isEmpty()) {
                             colleagues.add(colleague);
                         }
                     }
-
-                }
-                map.put("colleagues", colleagues);
             
+            }
+            map.put("colleagues", colleagues);
         }
         
+        
+ 
         if (person.getCreatedOrders() != null)
         {
             
@@ -951,6 +1030,8 @@ public class ClothoAdapter {
                 map.put("orders", orders);
             
         }
+        
+        
         if (person.getSubmittedOrders()!= null)
         {
             
@@ -984,7 +1065,24 @@ public class ClothoAdapter {
                 map.put("approvedOrders", orders);
             
         }
-        
+        if (person.getDeniedOrders()!= null){
+
+            JSONArray orders = new JSONArray();
+            for (String order : person.getDeniedOrders())
+            {
+                if (order!= null)
+                {
+                    if (!order.equals("Not Set") && !order.isEmpty()){
+                        orders.add(order);
+                    }
+                }
+            }
+            
+            map.put("deniedOrders", orders);
+        }
+            
+
+    
         
         if(person.getPublications() != null)
         {
@@ -1052,7 +1150,7 @@ public class ClothoAdapter {
         makePublic(id, clothoObject);
         clothoObject.logout();
         return id;
-        
+
     }
     /**
      * This method is to create a Product object in Clotho but It can also be used a SET method if the object that 
@@ -1587,7 +1685,10 @@ public class ClothoAdapter {
     public static Lab     getLab(String id, Clotho clothoObject)
     {
         Map labMap = (Map) clothoObject.get(id);
-        Lab lab = mapToLab(labMap, clothoObject);
+        Lab lab = new Lab();
+        if (labMap != null) {
+           lab = mapToLab(labMap, clothoObject);
+        }
         return lab;
     }
     /**
@@ -1624,7 +1725,10 @@ public class ClothoAdapter {
     public static Person          getPerson(String id, Clotho clothoObject)
     {
         Map personMap = (Map) clothoObject.get(id);
-        Person person = mapToPerson(personMap, clothoObject);
+        Person person = new Person();
+        if (personMap != null){
+            person = mapToPerson(personMap, clothoObject);
+        }
         return person;
     }
     /**
@@ -2978,6 +3082,7 @@ public class ClothoAdapter {
         String name = "";
         String description = "";
         Date dateCreated = new Date();
+        Date dateApproved = new Date();
         String createdBy = "";
         List<String> products = new ArrayList<>();
         String id = "";
@@ -2998,6 +3103,8 @@ public class ClothoAdapter {
             if (map.containsKey("description")){
                 description = (String) map.get("description");
             }
+            
+            
             if (map.containsKey("dateCreated"))
             {
 
@@ -3007,6 +3114,22 @@ public class ClothoAdapter {
 
                 try {
                     dateCreated = df.parse(dateCreatedText);
+                } catch (ParseException e) {
+
+                }
+            }
+            
+            
+                    
+            if (map.containsKey("dateApproved"))
+            {
+
+                String dateApprovedText = (String) map.get("dateApproved");
+
+                DateFormat df = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy"); 
+
+                try {
+                    dateApproved = df.parse(dateApprovedText);
                 } catch (ParseException e) {
 
                 }
@@ -3174,6 +3297,16 @@ public class ClothoAdapter {
             }
         }
         
+        List<String> deniedOrders = new ArrayList<>();
+        if (map.containsKey("deniedOrders")){
+            JSONArray orderIds = (JSONArray) map.get("deniedOrders");
+            
+            for (int i = 0; i < orderIds.size(); i++){
+                deniedOrders.add(orderIds.getString(i));
+            }
+        }
+        
+        
         List<String> approvedOrders = new ArrayList<>();
         if (map.containsKey("approvedOrders")){
             JSONArray orderIds = (JSONArray) map.get("approvedOrders");
@@ -3192,6 +3325,26 @@ public class ClothoAdapter {
             }
         }
 
+        String institution = "";
+        if ( map.containsKey("institution")){
+            institution = (String) map.get("institution");
+        }
+        
+        String department = "";
+        if ( map.containsKey("department")){
+            department = (String) map.get("department");
+        }
+        
+        String title = "";
+        if ( map.containsKey("title")){
+            title = (String) map.get("title");
+        }
+        
+        String profileDescription = "";
+        if ( map.containsKey("profileDescription")){
+            profileDescription = (String) map.get("profileDescription");
+        }
+        
         String id = "";
         if (map.containsKey("id")){
              id = (String) map.get("id");
@@ -3220,21 +3373,23 @@ public class ClothoAdapter {
         person.setPublications(publications);
         person.setSubmittedOrders(submittedOrders);
         person.setApprovedOrders(approvedOrders);
-        
-        
+        person.setProfileDescription(profileDescription);
+        person.setDeniedOrders(deniedOrders);
+        person.setInstitution(institution);
+        person.setDepartment(department);
+        person.setTitle(title);
         
                 
         person.setFirstName( map.containsKey("firstName") ? (String) map.get("firstName") : "");
         person.setLastName( map.containsKey("lastName") ? (String) map.get("lastName") : "");
-        
-       
+
         person.setEmailId( map.containsKey("emailId") ? (String) map.get("emailId") : "");
         person.setPassword( map.containsKey("password") ? (String) map.get("password"): "");
-       
+        
         person.setActivated( map.containsKey("activated") ? (boolean) map.get("activated") : false);
-        System.out.println("IN MAP TO PERSON: "+ map.toString());
+        
         person.setActivationString( map.containsKey("activationString") ? (String) map.get("activationString") : "Not Set");
-    
+        
         
         person.setSalt(map.containsKey("salt") ? (String) map.get("salt") : "");
         System.out.println("passed the salt");
@@ -3254,10 +3409,6 @@ public class ClothoAdapter {
           
             person.setSaltedEmailHash(dataByte);
         } 
-        
-
-        
-        
             
         
         if ( map.containsKey("roles")){
@@ -3688,6 +3839,9 @@ public class ClothoAdapter {
     public static String setInventory(Inventory inventory, Clotho clothoObject){
         return ClothoAdapter.createInventory(inventory, clothoObject);
     }
+    public static String setLab(Lab lab, Clotho clothoObject){
+        return ClothoAdapter.createLab(lab, clothoObject);
+    }
     public static String setNotebook(Notebook notebook, Clotho clothoObject){
         return ClothoAdapter.createNotebook(notebook, clothoObject);
     }
@@ -3852,10 +4006,9 @@ public class ClothoAdapter {
                 map.put("submittedOrders", orders);
             
         }
-        
         if (person.getApprovedOrders()!= null)
         {
-            
+           
                 JSONArray orders = new JSONArray();
                 for (String order : person.getApprovedOrders())
                 {
@@ -3867,6 +4020,23 @@ public class ClothoAdapter {
                     }
                 }
                 map.put("approvedOrders", orders);
+            
+        }
+        
+        if (person.getDeniedOrders()!= null)
+        {
+           
+                JSONArray orders = new JSONArray();
+                for (String order : person.getDeniedOrders())
+                {
+                    if (order!= null)
+                    {
+                        if (!order.equals("Not Set") && !order.isEmpty()){
+                            orders.add(order);
+                        }
+                    }
+                }
+                map.put("deniedOrders", orders);
             
         }
         
@@ -3892,6 +4062,15 @@ public class ClothoAdapter {
         
         if(person.getLastName() != null)
             map.put("lastName", person.getLastName());
+        
+        if(person.getTitle() != null)
+            map.put("title", person.getTitle());
+        
+        if(person.getDepartment() != null)
+            map.put("department", person.getDepartment());
+        
+        if(person.getProfileDescription() != null)
+            map.put("profileDescription", person.getProfileDescription());
         
         if(person.getEmailId() != null){
             map.put("emailId", person.getEmailId());
@@ -4015,5 +4194,7 @@ public class ClothoAdapter {
     //  </editor-fold>
 
     public static enum QueryMode { STARTSWITH, EXACT }
+
 }
+
 

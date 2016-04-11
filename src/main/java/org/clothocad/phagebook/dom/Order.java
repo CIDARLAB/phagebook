@@ -30,6 +30,7 @@ public class Order {
     @Getter @Setter private String               name; 
     @Getter @Setter private String               description;
     @Getter @Setter private Date                 dateCreated;
+    @Getter @Setter private Date                 dateApproved;
     @Getter @Setter private String               createdById; 
     @Getter @Setter private List<String>         products; //CART ITEM ID
     @Getter @Setter private Double               budget;
@@ -65,6 +66,8 @@ public class Order {
         this.name        = "Not Set";
         this.description = "Not Set";
         this.dateCreated = new Date();
+        this.dateApproved = new Date();
+        
         this.createdById   = "Not Set";
         this.products    = new ArrayList<>();
         this.budget      = 0.0d;
