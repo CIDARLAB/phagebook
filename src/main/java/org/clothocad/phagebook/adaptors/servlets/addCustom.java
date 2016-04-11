@@ -50,18 +50,21 @@ public class addCustom extends HttpServlet {
         
         if (title.indexOf(' ') == 1) {
             temp = title.substring(2, title.length());
-            bibtex += temp.substring(0, temp.indexOf(' ')) + "}, title={";
+            bibtex += temp.substring(0, temp.indexOf(' ')).toLowerCase() + "}, title={";
         } else if(title.indexOf(' ') == 2) {
             temp = title.substring(3, title.length());
-            bibtex += temp.substring(0, temp.indexOf(' ')) + "}, title={";
+            bibtex += temp.substring(0, temp.indexOf(' ')).toLowerCase() + "}, title={";
         }
         else if (title.indexOf(' ') == 3) {
             temp = title.substring(4, title.length());
-            bibtex += temp.substring(0, temp.indexOf(' ')) + "}, title={";
+            bibtex += temp.substring(0, temp.indexOf(' ')).toLowerCase() + "}, title={";
         } else {
-            bibtex += title.substring(0, title.indexOf(' ')) + "}, title={";
+            if (title.replace(" ", "") == title) //if there are no spaces in title
+                bibtex += title.substring(0, title.length()).toLowerCase() + "}, title={";
+            else
+                bibtex += title.substring(0, title.indexOf(' ')).toLowerCase() + "}, title={";
         }
-        
+
         bibtex += title + "}, author{" + authors + "}, other information{" + info + "}}";
         
         
