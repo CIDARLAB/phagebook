@@ -40,6 +40,7 @@ function profileCtrl($scope, $http) {
                 $("#dept").text(responseAsJSON.department);
                 $("#institution").text(responseAsJSON.institution);
                 $("#title").text(responseAsJSON.title);
+                $("#profileDescription").text(responseAsJSON.profileDescription);
             },
             error: {
                 //console.log("inside GET error");
@@ -61,31 +62,22 @@ function profileCtrl($scope, $http) {
                 },
                 success: function (response) {
                     var ul = $("#search-colleagues-list");
+
                     ul.empty();
-                    for (var i = 0; i < response.length; i++) {
-                        var li = document.createElement("li");
-                        var img = $('<img id="dynamic">');
-                        img.attr('src', "../styles/img/mis/johan-pro-pic.jpg");
-                        img.appendTo(li);
-                        var a = document.createElement('a');
-                        a.href = "#";
-                        a.text = response[i].fullname;
-                        li.appendChild(a);
-                        var p1 = document.createElement("p");
-                        li.appendChild(p1);
-                        var p2 = document.createElement("p");
-                        p2.innerHTML = "CIDAR Lab";
-                        li.appendChild(p2);
-                        var p3 = document.createElement("p");
-                        p3.innerHTML = "Boston University";
-                        li.appendChild(p3);
-                        li.setAttribute('class', 'list-group-item');
-                        ul.append(li);
+
+                    for (var i = 0; i < response.length; i++){
+                        var tmpl = document.getElementById("colleague-template").content.cloneNode(true);
+                        tmpl.querySelector(".colleague-name").text = response[i].fullname;
+                        tmpl.querySelector(".main-lab").innerHTML  = (response[i].labName == null) ? "" : response[i].labName;
+                        tmpl.querySelector(".main-institution").innerHTML = response[i].institutionName;
+                        tmpl.querySelector(".colleague-name").href  = "../html/colleague.html?user=" + response[i].clothoId;
+                        ul.append(tmpl);
                     }
                 },
                 error: {
                 }
             });
+            return false;
         });
     });
 

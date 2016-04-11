@@ -63,7 +63,7 @@ function newProjectsCtrl($scope, $http) {
             if (leadNameCheck()) {
                 count++;
             }else{
-                $scope.descriptionRequired = "Format invalid. Please enter as 'James Smith'";
+                $scope.leadNameRequired = "Format invalid. Please enter as 'James Smith'";
             }
             //Condition 4: valid input for members' names: 2 words
             if (membersCheck()) {
@@ -138,7 +138,7 @@ function newProjectsCtrl($scope, $http) {
                 return false;
             }
 
-        }
+        };
 
         var submit = validateForm();
         console.log(submit);

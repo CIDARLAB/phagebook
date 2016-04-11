@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="21px" height="17px" viewBox="0 0 21 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.5.2 (25235) - http://www.bohemiancoding.com/sketch -->
+    <title>Fill 90 + Fill 91 + Fill 92</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Solid-Icons" sketch:type="MSLayerGroup" transform="translate(-240.000000, -151.000000)" fill="#757575">
+            <g id="Fill-90-+-Fill-91-+-Fill-92" transform="translate(240.000000, 151.000000)" sketch:type="MSShapeGroup">
+                <path d="M8,9.0005 C10.206,9.0005 12,7.2065 12,5.0005 C12,2.7945 10.206,1.0005 8,1.0005 C5.794,1.0005 4,2.7945 4,5.0005 C4,7.2065 5.794,9.0005 8,9.0005" id="Fill-90"></path>
+                <path d="M8,10.0005 C3.29,10.0005 0,12.4675 0,16.0005 L0,17.0005 L16,17.0005 L16,16.0005 C16,12.4675 12.71,10.0005 8,10.0005" id="Fill-91"></path>
+                <path d="M21,2 L15,2 L15,0 L21,0 L21,2 Z" id="Fill-92"></path>
+            </g>
+        </g>
+    </g>
+</svg>

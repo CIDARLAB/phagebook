@@ -20,6 +20,7 @@ import org.clothocad.model.Person;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Order;
+import org.clothocad.phagebook.dom.OrderStatus;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -92,6 +93,7 @@ public class listCreatedOrdersOfPerson extends HttpServlet {
                 JSONArray createdOrdersJSON = new JSONArray();
                 for (String created : createdOrders ){
                     Order temp = ClothoAdapter.getOrder(created, clothoObject);
+                    if (temp.getStatus().equals(OrderStatus.INPROGRESS)){
                     JSONObject tempAsJSON = new JSONObject();
                     
                     tempAsJSON.put("name", temp.getName());
@@ -147,6 +149,7 @@ public class listCreatedOrdersOfPerson extends HttpServlet {
                     tempAsJSON.put("affiliatedLabId", (temp.getAffiliatedLabId()));
                     tempAsJSON.put("id", temp.getId());
                     createdOrdersJSON.put(tempAsJSON); // put it in there...
+                    }
                 }
                 
                 response.setContentType("application/json");

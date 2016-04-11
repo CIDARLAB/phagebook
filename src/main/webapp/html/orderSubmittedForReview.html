@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="../styles/cssBootstrap/bootstrap.css"/>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="../styles/main.css"/>
-        <link rel="icon" href="">
+        <link rel="icon" href="../styles/img/logos/phagebook-favicon.png" sizes="16x16">
 
         <script src="scripts/clotho/clotho3API.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
@@ -21,16 +21,6 @@
         <script src="../scripts/new-ui-scripts/angular.ng-modules.js"></script>
 
         <style>
-
-            .btn-default {
-                font-size: 12px;
-                border-radius: 24px;
-                padding: 8px 18px 8px 18px;
-            }
-
-            #wrapper {
-                margin-top: 125px;
-            }
 
             .btn-lg {
                 font-size: 14px;
@@ -45,29 +35,6 @@
                 color: #FFFFFF;
             }
 
-            #alt-link:link {
-                text-decoration: none;
-                color: white;
-                font-family: "Open Sans", sans-serif;
-                font-weight: 300;
-                font-size: 11px;
-            }
-
-            #alt-link:visited {
-                text-decoration: none;
-                color: white;
-                font-family: "Open Sans", sans-serif;
-                font-weight: 300;
-                font-size: 11px;
-            }
-
-            #alt-link:hover {
-                text-decoration: underline;
-                font-family: "Open Sans", sans-serif;
-                font-weight: 300;
-                font-size: 11px;
-            }
-
             h3 {
                 font-weight: 400;
             }
@@ -77,8 +44,8 @@
                 font-weight: 400;
             }
 
-            #footer-content {
-                margin-top: 5px;
+            #content {
+                margin-top: 130px;
             }
 
         </style>
@@ -87,30 +54,30 @@
 
     <body>
 
-        <div ng-module="addVendorsAndProducts">
-            <div ng-controller="addVendorsAndProductsCtrl">
+        <div ng-app="currentOrders">
+            <div ng-controller="currentOrdersCtrl">
                 <header></header>
                 <div class="container" id="content">
-                    <h3>Vendor #156 'Amazon' has been submitted for review.</h3>
-                    <p>You will receive an email when the status of this request has been updated.</p>
+                    <h3>Order #57092d1dd4c6de0585088915 'My Order' has been submitted for review.</h3>
+                    <p>You will receive an email when the status of your order has been updated.</p>
                     <br/>
-                    <a href="addVendorsAndProducts.html">
-                        <button id="backtoVendorsAndProducts" type="submit" class="btn btn-lg">
-                            <img alt="Download CSV" src="../styles/img/icons/vendors-and-products-white.png" style="height:15px; vertical-align:middle;">
-                            &nbsp;&nbsp;Back to Vendors & Products
+                    <a href="currentOrders.html">
+                        <button id="backtocurrentOrders" type="submit" class="btn btn-lg">
+                            <img alt="Download CSV" src="../styles/img/icons/cart.png" style="height:15px; vertical-align:middle;">
+                            &nbsp;&nbsp;Back to Current Orders
                         </button>
                     </a>
                 </div>
                 <footer></footer>
             </div>
         </div>
-        
+
         <!-- ANGULAR SCRIPTS -->
         <script src="../scripts/new-ui-scripts/headerDirective.js"></script>
         <script src="../scripts/new-ui-scripts/sidebarDirective.js"></script>
         <script src="../scripts/new-ui-scripts/footerDirective.js"></script>
-        <script src="../scripts/new-ui-scripts/addVendorsAndProductsController.js"></script>
-        <script src="../scripts/new-ui-scripts/addVendorsAndProductsApp.js"></script>
+        <script src="../scripts/new-ui-scripts/currentOrdersController.js"></script>
+        <script src="../scripts/new-ui-scripts/currentOrdersApp.js"></script>
 
     </body>
 

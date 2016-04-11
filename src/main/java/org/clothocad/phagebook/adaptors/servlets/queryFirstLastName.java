@@ -102,42 +102,18 @@ public class queryFirstLastName extends HttpServlet {
                 retrievedAsJSON.put("lastName", retrieve.getLastName());
                 retrievedAsJSON.put("clothoId", retrieve.getId());
 
-                JSONObject statusList = new JSONObject();
-                if (retrieve.getStatuses() != null){
-                    for (String status:retrieve.getStatuses()){
-                        Status stat = ClothoAdapter.getStatus(status, clothoObject);
-
-                        statusList.put("text", stat.getText());
-                        statusList.put("date", stat.getCreated().toString());
+                String firstInstitutionId = (retrieve.getInstitutions().size() > 0) ? retrieve.getInstitutions().get(0): "None" ;
+                    if (!firstInstitutionId.equals("None")){
+                        retrievedAsJSON.put("institutionName", ClothoAdapter.getInstitution(firstInstitutionId, clothoObject) .getName());
                     }
-                }
-
-                JSONObject publicationList = new JSONObject();
-                if (retrieve.getPublications() != null){
-
-                    for (String publication:retrieve.getPublications()){
-                        Publication pub = ClothoAdapter.getPublication(publication, clothoObject);
-                        publicationList.put("id", pub.getId());
+                    
+                    String firstLabId = (retrieve.getLabs().size() > 0) ? retrieve.getLabs().get(0): "None";
+                    if (!firstLabId.equals("None")) {
+                        retrievedAsJSON.put("labName", ClothoAdapter.getLab(firstLabId, clothoObject).getName());
                     }
-                }
-                /*
-                JSONObject labList = new JSONObject();
-                if (retrieve.getLabs() != null){
-                    for (String lab:retrieve.getLabs()){
-                        Institution inst = ClothoAdapter.getInstitution(lab, clothoObject);
-                        labList.put("name", inst.getName());
-                        Set<Person.PersonRole> rolesAtInstitution = retrieve.getRole(lab);
-                        JSONObject positions = new JSONObject();
-                        Iterator <Person.PersonRole> it = rolesAtInstitution.iterator();
-                        while(it.hasNext()){
-                            positions.put(inst.getName(), it.next());
-                        }
-                        labList.put("roles", positions);
-                    }
-                }
-                */
-                retrievedAsJSON.put("statusList", statusList);
-                retrievedAsJSON.put("publicationList", publicationList);
+
+                
+                
                 //retrievedAsJSON.put("labList", labList);
                 peopleJSONArray.put(retrievedAsJSON);
             }

@@ -57,7 +57,7 @@ public class queryProductByNameTest {
     public void testSearchByName() throws Exception {
            //create a clothoUser and Login to Query
             String searchType = "STARTSWITH";
-            String productName = "Tel";
+            String productName = "Ro";
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
             ClothoAdapter.QueryMode Qmode = ClothoAdapter.QueryMode.valueOf(searchType);

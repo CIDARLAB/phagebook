@@ -57,10 +57,11 @@ $(document).ready(function () {
                         "jsonArray": JSON.stringify(results.data)
                     },
                     success: function (response) {
-                        alert("Uploaded :" + response);
+                        alert("Vendors created");
+                        window.location.href = "../../html/vendorSubmittedForReview.html";
                     },
                     error: function (response) {
-                        alert("Failed horribly");
+                        alert("Failed to upload");
                     }
                 });
             }
@@ -86,10 +87,11 @@ $(document).ready(function () {
                         "jsonArray": JSON.stringify(results.data)
                     },
                     success: function (response) {
-                        alert("Uploaded :" + response);
+                        alert("Products created");
+                        window.location.href = "../../html/productSubmittedForReview.html";
                     },
                     error: function (response) {
-                        alert("Failed horribly");
+                        alert("Failed to upload");
                     }
                 });
             }
@@ -203,4 +205,7 @@ function removeOptions(selectbox)
         selectbox.remove(i);
     }
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8926de7e770820ac4a5d69affaf0aca10869e369

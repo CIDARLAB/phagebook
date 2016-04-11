@@ -70,10 +70,11 @@ public class approveOrder extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
         Object pOrderId = request.getParameter("orderId");
         String orderId = pOrderId != null ? (String) pOrderId : "";
         
-        Object pUserId = request.getParameter("orderId");
+        Object pUserId = request.getParameter("userId");
         String userId = pUserId != null ? (String) pUserId : "";
         
         boolean isValid = false;
@@ -98,7 +99,7 @@ public class approveOrder extends HttpServlet {
             loginMap.put("credentials", password);
             clothoObject.login(loginMap);
             
-            Order orderToApprove = ClothoAdapter.getOrder(userId, clothoObject);
+            Order orderToApprove = ClothoAdapter.getOrder(orderId, clothoObject);
             List<String> receivedByList = orderToApprove.getReceivedByIds();
             String finalApprover = "";
             String fAEmailId = "";
@@ -118,6 +119,7 @@ public class approveOrder extends HttpServlet {
                     submittedOrders.remove(orderToApprove.getId());
                     orderToApprove.setStatus(OrderStatus.APPROVED);
                     ClothoAdapter.setOrder(orderToApprove, clothoObject);
+                    clothoObject.logout();
                     ClothoAdapter.setPerson(approver, clothoObject);
                     
                     

@@ -1,17 +1,12 @@
 $(document).ready(function () {
     
     $('#institution').change( function () {
+
         //this is innefficient... make a servlet to make a call on change instead actually... its easier
         var selectedInstitution =  $('#institution option').filter(':selected').text();
-
         var responseArray = JSON.parse(sessionStorage.getItem("index-institutions"));
-        
-        
         var selectLabs = document.getElementById('lab-name');
-        
-        
         var numberOfInstitutions = responseArray.length;
-        
         
         for (var i = 0; i < numberOfInstitutions; i++) {
            
@@ -25,7 +20,7 @@ $(document).ready(function () {
                    opt2.innerHTML = labsArray[j].labName;
                    selectLabs.appendChild(opt2);
                }
-            } else if ( selectedInstitution === "Institution..."){
+            } else if ( selectedInstitution === "Institution...") {
                 removeOptions(selectLabs);
                 var opt2 = document.createElement('option');
                    opt2.value = "";
@@ -33,27 +28,19 @@ $(document).ready(function () {
                    selectLabs.appendChild(opt2);
                 return;
             }
-           
-             
         }
     });
-    
-        
-        
-   
+
     $.ajax({
         url: "../loadPhagebookInstitutions",
         type: "GET",
         async: false,
-        data:
-                {
-                },
+        data: {},
         success: function (response) {
             var responseArray = response.institutions; //array of JSONObjects with labs attached 
 
             var selectInstitution = document.getElementById('institution');
-            
-            
+
             sessionStorage.setItem("index-institutions", JSON.stringify(responseArray)); // stores in sess stor
             removeOptions(selectInstitution);
             
@@ -66,14 +53,11 @@ $(document).ready(function () {
             var numberOfInstitutions = responseArray.length;
             for (var i = 0; i < numberOfInstitutions; i++) {
                 
-                
                 var opt = document.createElement('option');
                 opt.value = responseArray[i].institutionId;
 
                 opt.innerHTML = responseArray[i].institutionName;
                 selectInstitution.appendChild(opt);
-                
-                
             }
             
         },
@@ -81,23 +65,28 @@ $(document).ready(function () {
             alert("No Institutions To Load");
         }
     });
+
     $('#createProfile').click(function () {
 
         var isValid = 1;
-        var firstName =   document.getElementById("inputFirstName").value;
-        var lastName =    document.getElementById("inputLastName").value;
-        var emailId =     document.getElementById("emailAddress").value;
-        var password =    document.getElementById("password").value;
-        
-        if ((firstName === "") || (lastName === "") || (emailId === "") || (password === ""))
-        {
-            alert("Fields cannot be blank!");
+        var firstName = document.getElementById("inputFirstName").value;
+        var lastName =  document.getElementById("inputLastName").value;
+        var emailId =   document.getElementById("emailAddress").value;
+        var password =  document.getElementById("password").value;
+
+        if ((firstName === "") || (lastName === "") || (emailId === "") || (password === "")) {
+            $("#fields-required-alert").fadeIn();
             isValid = 0;
-            
-            var institution = document.getElementById("institution").value; // selected institution id
-            var lab         = document.getElementById("lab-name").value;
-            
         }
+
+        else if (validateEmail(emailId) == false) {
+            $("#invalid-email-alert").fadeIn();
+            isValid = 0;
+        }
+
+        var institution = document.getElementById("institution").value; // selected institution id
+        var lab         = document.getElementById("lab-name").value;
+
         if (isValid && checkPasswordMatch()) {
             $.ajax({
                 url: "../createPerson",
@@ -111,36 +100,33 @@ $(document).ready(function () {
                     "password": password,
                     "institution": institution,
                     "lab" : lab
-                    
                 },
                 success: function (response) {
-
                     var responseJSON = JSON.parse(response);
                     setCookie("emailId", responseJSON.emailId, 1);
                     setCookie("clothoId", responseJSON.clothoId, 1);
+                    console.log(validateEmail(emailId));
                     window.location.href = '../html/resendEmailVerification.html';
                 },
                 error: function (response) {
-                    //THIS CAN BE DONE BETTER ONCE WE KNOW WHAT WE ARE DOING.
-                    alert("\n" + response.statusText + "!\n" + response.responseText);
-                    window.location.href = '../';
+                    $("#duplicate-user-alert").fadeIn();
                 }
             });
         }
     });
 
     $('#login').click(function () {
+
         var isValid = 1;
         var loginId = document.getElementById("loginEmailAddress").value;
         var password = document.getElementById("loginPassword").value;
-        if ((loginId === "") || (password === ""))
-        {
+
+        if ((loginId === "") || (password === "")) {
+            $("#invalid-combo-alert").modal('show');
             isValid = 0;
         }
 
-
-        if (isValid)
-        {
+        if (isValid) {
             $.ajax({
                 url: "../loginUser",
                 type: "POST",
@@ -155,22 +141,16 @@ $(document).ready(function () {
                     setCookie("clothoId", response.clothoId, 1);
                     setCookie("emailId", response.emailId, 1);
 
-
-
-                    if (response.activated === "false")
-                    {
-                        
-
+                    if (response.activated === "false") {
                         window.location.href = '../html/resendEmailVerification.html';
                     }
-                    else
-                    {
+                    else {
                         window.location.href = '../html/profile.html';
                     }
                 },
                 error: function (response) {
                     var responseText = JSON.parse(response.responseText);
-                    alert(responseText.message);
+                    $("#invalid-combo-alert").modal('show');
                 }
             });
         }
@@ -179,20 +159,16 @@ $(document).ready(function () {
 
 });
 
-
-
-
 function checkPasswordMatch() {
     var password = $("#password").val();
     var confirmPassword = $("#reenterPassword").val();
 
-    if (password !== confirmPassword)
-    {
-        console.log("Passwords do not match");
+    if (password !== confirmPassword) {
+        $("#password-match-alert").fadeIn();
         return false;
     }
-    else
-    {
+    else {
+        $("#password-match-alert").fadeOut();
         console.log("Passwords match");
         return true;
     }
@@ -202,11 +178,14 @@ function isEmpty(el) {
     return !$.trim(el.html());
 }
 
-function removeOptions(selectbox)
-{
+function removeOptions(selectbox) {
     var i;
-    for(i=selectbox.options.length-1;i>=0;i--)
-    {
+    for(i=selectbox.options.length-1;i>=0;i--) {
         selectbox.remove(i);
     }
+}
+
+function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
 }

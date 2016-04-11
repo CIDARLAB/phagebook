@@ -9,7 +9,7 @@ function header($window){
 
                 document.getElementById("signout").onclick = function() {
                     // add code here
-                    alert("clicked");
+                    //alert("clicked");
                     //need to clear the cookie and take the user back to the login screen...
                     clearCredentialsFromCookie();
                     window.location.href = "/";

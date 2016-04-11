@@ -95,22 +95,15 @@ function loadSelectElementOptions() {
     }
 }
 
-// fetches a project to be edited and populates the form with
-// these values
-var editProject = function(){
-    
 
-
+var removeOptions = function(selectbox) {
+    var i;
+    console.log("IN REMOVE OPTIONS");
+    console.log(selectbox);
+    for (i = selectbox.options.length; i >= 0; i--) {
+        console.log(selectbox);
+        console.log("about to remove a box");
+        console.log(selectbox.i);
+        selectbox.remove(i);
+    }
 }
-
-// var removeOptions = function(selectbox) {
-//     var i;
-//     console.log("IN REMOVE OPTIONS");
-//     console.log(selectbox);
-//     for (i = selectbox.options.length; i >= 0; i--) {
-//         console.log(selectbox);
-//         console.log("about to remove a box");
-//         console.log(selectbox.i);
-//         selectbox.remove(i);
-//     }
-// }
