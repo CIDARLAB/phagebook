@@ -54,7 +54,6 @@ function verifyEmail(){
         var emailId = getParameterByName('emailId');
         var salt = getParameterByName('salt');
         
-        
         if (emailId && salt){
             $.ajax({
                 url: '../verifyEmail',
@@ -65,13 +64,11 @@ function verifyEmail(){
                     'salt': salt
                 },
                 success: function (response) {
-                    
-                    alert("email has been validated, show some HTML here or something");
-                    
+
                 },
                 
                 error: function(){
-                    alert("email has not been validated, there was an error. play a sad sound :(" );
+                    alert("An error has occurred with validating your email." );
                     
                 }
             });
