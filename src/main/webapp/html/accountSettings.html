@@ -96,13 +96,11 @@
                 <h3>Profile Settings</h3>
                 <form id="profile-account-settings">
                     <div class="form-group row">
-                        <label for="acct-institution" class="col-sm-2 form-control-label">INSTITUTION</label>
+                        <label for="profile-institution" class="col-sm-2 form-control-label">INSTITUTION</label>
                         <div class="col-sm-8">
-                            <select class="form-control" id="lab-name">
-                                <option>Institution Name...</option>
-                            </select>
+                            <input type="test" class="form-control" id="profile-institution" ng-model="editInstitution" ng-disabled="fixLater">
                         </div>
-                    </div>
+                    </div> 
                     <div class="form-group row">
                         <label for="profile-department" class="col-sm-2 form-control-label">DEPARTMENT</label>
                         <div class="col-sm-8">
@@ -118,7 +116,7 @@
                     <div class="form-group row">
                         <label for="profile-lab" class="col-sm-2 form-control-label">LAB</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="profile-lab" ng-model="editLab" ng-disabled="edit">
+                            <input type="text" class="form-control" id="profile-lab" ng-model="editLab" ng-disabled="fixLater">
                         </div>
                     </div>
                     <div class="form-group row">
