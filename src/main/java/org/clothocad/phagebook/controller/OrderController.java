@@ -306,11 +306,11 @@ public class OrderController {
                         header = header + "UNIT PRICE,";
                         break;
                     case CUSTOM_UNIT_PRICE:
-                        orderString = orderString + product.getCost() * cartItem.getDiscount() + ",";
+                        orderString = orderString + (product.getCost() * cartItem.getDiscount())/100.0d + ",";
                         header = header + "CUSTOM UNIT PRICE,";
                         break;
                     case TOTAL_PRICE: 
-                        orderString = orderString + (product.getCost() *  cartItem.getQuantity()) + ",";
+                        orderString = orderString + (product.getCost() * cartItem.getDiscount())/100.0d *  cartItem.getQuantity() + ",";
                         header = header + "TOTAL PRICE,";
                         break;
                 }
