@@ -12,6 +12,10 @@
         <servlet-name>exportOrderCSV</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.exportOrderCSV</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>loadUserStatuses</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.loadUserStatuses</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>exportOrderCSV</servlet-name>
         <url-pattern>/exportOrderCSV</url-pattern>
@@ -383,9 +387,12 @@
         <servlet-name>denyOrder</servlet-name>
         <url-pattern>/denyOrder</url-pattern>
     </servlet-mapping>
-    
     <servlet-mapping>
         <servlet-name>findMemberForNewProject</servlet-name>
         <url-pattern>/findMemberForNewProject</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>loadUserStatuses</servlet-name>
+        <url-pattern>/loadUserStatuses</url-pattern>
     </servlet-mapping>
 </web-app>

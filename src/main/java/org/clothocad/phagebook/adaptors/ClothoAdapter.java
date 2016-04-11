@@ -3352,24 +3352,21 @@ public class ClothoAdapter {
         person.setApprovedOrders(approvedOrders);
         person.setProfileDescription(profileDescription);
         person.setDeniedOrders(deniedOrders);
-        
-        
+        person.setInstitution(institution);
+        person.setDepartment(department);
+        person.setTitle(title);
         
                 
         person.setFirstName( map.containsKey("firstName") ? (String) map.get("firstName") : "");
         person.setLastName( map.containsKey("lastName") ? (String) map.get("lastName") : "");
-        
-       
+
         person.setEmailId( map.containsKey("emailId") ? (String) map.get("emailId") : "");
         person.setPassword( map.containsKey("password") ? (String) map.get("password"): "");
-       
+        
         person.setActivated( map.containsKey("activated") ? (boolean) map.get("activated") : false);
         
         person.setActivationString( map.containsKey("activationString") ? (String) map.get("activationString") : "Not Set");
         
-        person.setInstitution(institution);
-        person.setDepartment(department);
-        person.setTitle(title);
         
         person.setSalt(map.containsKey("salt") ? (String) map.get("salt") : "");
         System.out.println("passed the salt");
@@ -3389,10 +3386,6 @@ public class ClothoAdapter {
           
             person.setSaltedEmailHash(dataByte);
         } 
-        
-
-        
-        
             
         
         if ( map.containsKey("roles")){
@@ -4046,6 +4039,15 @@ public class ClothoAdapter {
         
         if(person.getLastName() != null)
             map.put("lastName", person.getLastName());
+        
+        if(person.getTitle() != null)
+            map.put("title", person.getTitle());
+        
+        if(person.getDepartment() != null)
+            map.put("department", person.getDepartment());
+        
+        if(person.getProfileDescription() != null)
+            map.put("profileDescription", person.getProfileDescription());
         
         if(person.getEmailId() != null){
             map.put("emailId", person.getEmailId());

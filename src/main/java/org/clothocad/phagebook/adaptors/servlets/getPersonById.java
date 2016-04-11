@@ -87,7 +87,7 @@ public class getPersonById extends HttpServlet {
             //
 
             Person retrieve = ClothoAdapter.getPerson(userId, clothoObject);
-           // JSONObject sucks = (JSONObject) clothoObject.get(retrieve.getInstitution());
+            Institution institute = ClothoAdapter.getInstitution(retrieve.getInstitution(), clothoObject);
             JSONObject retrievedAsJSON = new JSONObject();
             retrievedAsJSON.put("fullname", retrieve.getFirstName() + " " + retrieve.getLastName());
             System.out.println("passed sucks");
@@ -95,7 +95,7 @@ public class getPersonById extends HttpServlet {
             retrievedAsJSON.put("firstName", retrieve.getFirstName());
             retrievedAsJSON.put("lastName", retrieve.getLastName());
             retrievedAsJSON.put("loggedUserId", retrieve.getId());
-            //retrievedAsJSON.put("institution", sucks.get("Name"));
+            retrievedAsJSON.put("institution", institute.getName());
             retrievedAsJSON.put("department", retrieve.getDepartment());
             retrievedAsJSON.put("title", retrieve.getTitle());
             retrievedAsJSON.put("email", retrieve.getEmailId());
@@ -193,7 +193,7 @@ public class getPersonById extends HttpServlet {
         Object pNewLastName = request.getParameter("editLastName");
         String newLastName = pNewLastName != null ? (String) pNewLastName : "";
 
-        /*      Object pNewInstitution = request.getParameter("editInstitution");
+        /*Object pNewInstitution = request.getParameter("editInstitution");
         String newInstitution = pNewInstitution != null ? (String) pNewInstitution: "";
          */
         Object pNewDepartment = request.getParameter("editDepartment");
@@ -211,6 +211,7 @@ public class getPersonById extends HttpServlet {
         Object pProfileDescription = request.getParameter("editProfileDescription");
         String newProfileDescription = pProfileDescription != null ? (String) pProfileDescription : "";
 
+        System.out.println(userId + " " + newFirstName + newLastName + " " + newDepartment + " " + newTitle + " " + newProfileDescription);
         boolean isValid = false; //used only to make sure the person exists in Clotho
         if (!userId.equals("")) {
             isValid = true;
