@@ -883,12 +883,12 @@ h3 {
 
 #profile-header {
     width: 550px;
-    margin-left: 220px;
+    margin-left: 280px;
 }
 
 #profile-info {
     width: 400px;
-    margin-left: 220px;
+    margin-left: 280px;
 }
 
 #profile-info td {
@@ -909,6 +909,7 @@ h3 {
     position: absolute;
     float: left;
     height: 180px;
+    clip-path: circle(60px at center);
 }
 
 #publications li {
