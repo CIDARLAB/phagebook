@@ -668,6 +668,10 @@ public class ClothoAdapter {
         {
             map.put("dateCreated", order.getDateCreated().toString());
         }
+        if (order.getDateApproved()!= null)
+        {
+            map.put("dateApproved", order.getDateApproved().toString());
+        }
         
         if (order.getCreatedById()!= null){
             
@@ -3078,6 +3082,7 @@ public class ClothoAdapter {
         String name = "";
         String description = "";
         Date dateCreated = new Date();
+        Date dateApproved = new Date();
         String createdBy = "";
         List<String> products = new ArrayList<>();
         String id = "";
@@ -3098,6 +3103,8 @@ public class ClothoAdapter {
             if (map.containsKey("description")){
                 description = (String) map.get("description");
             }
+            
+            
             if (map.containsKey("dateCreated"))
             {
 
@@ -3107,6 +3114,22 @@ public class ClothoAdapter {
 
                 try {
                     dateCreated = df.parse(dateCreatedText);
+                } catch (ParseException e) {
+
+                }
+            }
+            
+            
+                    
+            if (map.containsKey("dateApproved"))
+            {
+
+                String dateApprovedText = (String) map.get("dateApproved");
+
+                DateFormat df = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy"); 
+
+                try {
+                    dateApproved = df.parse(dateApprovedText);
                 } catch (ParseException e) {
 
                 }
