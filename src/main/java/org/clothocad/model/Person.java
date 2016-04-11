@@ -54,6 +54,7 @@ public class Person {
     @Getter @Setter private List<String>                submittedOrders;
     @Getter @Setter private List<String>                approvedOrders;
     @Getter @Setter private String                      profileDescription;
+    @Getter @Setter private List<String>                deniedOrders;
     
    
    

@@ -80,19 +80,15 @@ public class removeProductsFromOrder extends HttpServlet {
         Object pUser = request.getParameter("user");
         String user = pUser != null ? (String) pUser: "";
         
-        Object pCartItems = request.getParameter("cartItems");
-        String cartItems = pCartItems != null ? (String) pCartItems: "";
+        Object pCartItems = request.getParameter("cartItem");
+        String cartItem = pCartItems != null ? (String) pCartItems: "";
         
-        //DIRECT ASSUMPTION THAT CART ITEMS IS An ARRAY of JSON OBJECTS
-        //EX
-        // ["ID1", "ID2", "ID3"];
-       
         
         Object pOrderId = request.getParameter("orderId");
         String orderId = pOrderId != null ? (String) pOrderId: "";
         
         boolean isValid = false;
-        if (!user.equals("")&& !cartItems.equals("") && !orderId.equals("")){
+        if (!user.equals("")&& !cartItem.equals("") && !orderId.equals("")){
             isValid = true;
         }
         
@@ -110,41 +106,37 @@ public class removeProductsFromOrder extends HttpServlet {
             Person userP = ClothoAdapter.getPerson(user, clothoObject);
             Order ord = ClothoAdapter.getOrder(orderId, clothoObject);
             List<String> cartItemsInOrder = ord.getProducts(); //CART ITEM ID 
-            String[] cartItemsToRemove = cartItems.split(",");
+           
             if (ord.getCreatedById().equals(userP.getId()) || ord.getReceivedByIds().contains(userP.getId())){
                 
-                for (int i = 0; i < cartItemsToRemove.length; i++)
-                {
+               
                     
-                    
-                    if (cartItemsInOrder.contains(cartItemsToRemove[i])){ //they key exists in the map 
+                    if (cartItemsInOrder.contains(cartItem)){ //they key exists in the map 
+     
                         //remove that specific Cart Item.
-                        CartItem cItem = ClothoAdapter.getCartItem(cartItemsToRemove[i], clothoObject);
+                        CartItem cItem = ClothoAdapter.getCartItem(cartItem, clothoObject);
                         int quantity = cItem.getQuantity();
 
                         Product product = ClothoAdapter.getProduct(cItem.getProductId(), clothoObject);
                         product.increaseInventory(quantity);
 
                         ClothoAdapter.setProduct(product, clothoObject); //increase inventory for that product
-
+                       
                     
                         //DON'T KNOW HOW TO DELETE FROM CLOTHO...
                         //will unlink though from the cart item map...
-                       cartItemsInOrder.remove(cartItemsToRemove[i]);
-
+                        cartItemsInOrder.remove(cartItem);
+                   
+                       
+                        ord.setProducts(cartItemsInOrder); // set the new cart item map with the ones we don't want nixed
+                        ClothoAdapter.setOrder(ord, clothoObject);
 
 
                     }
 
                 }
 
-                ord.setProducts(cartItemsInOrder); // set the new cart item map with the ones we don't want nixed
-                ClothoAdapter.setOrder(ord, clothoObject);
-
-            }
-            
-            
-            
+              
             response.setContentType("application/json");
             response.setStatus(HttpServletResponse.SC_OK);
             JSONObject responseJSON = new JSONObject();

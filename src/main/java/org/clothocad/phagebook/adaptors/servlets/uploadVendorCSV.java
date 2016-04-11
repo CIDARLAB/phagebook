@@ -35,11 +35,8 @@ public class uploadVendorCSV extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         
-       
-        //request.getParameter RETURNS NULL IF IT DOESN'T EXIST!!!
         JSONArray arr = new JSONArray(request.getParameter("jsonArray"));
-        //System.out.println(arr.toString(2));
-        /////////////////Ask Johan
+
         List<String> vendorIds = new ArrayList<String>();
         ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
         Clotho clothoObject = new Clotho(conn);
@@ -56,9 +53,9 @@ public class uploadVendorCSV extends HttpServlet {
         
         PrintWriter writer = response.getWriter();
         
-        writer.println("worked");
-            writer.flush();
-            writer.close();
+        writer.println("created " + vendorIds);
+        writer.flush();
+        writer.close();
     }    
      
 }

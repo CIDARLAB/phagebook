@@ -1,13 +1,9 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+
 <html>
-    
+
 <head>
-    
+
     <title>Current Orders</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,40 +11,42 @@ and open the template in the editor.
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="../styles/main.css"/>
     <link rel="stylesheet" href="../styles/sidebar.css"/>
+    <link rel="icon" href="../styles/img/logos/phagebook-favicon.png" sizes="16x16">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script src="../scripts/new-ui-scripts/cookieHandler.js"></script>
     <script src="../scripts/new-ui-scripts/currentOrders.js"></script>
     <script src="../scripts/new-ui-scripts/orderCardCreator.js"></script>
-    
+
     <style>
-        
+
         #content{
             position: relative;
             margin-left: 26%;
             margin-top: 130px;
             margin-bottom: 150px;
-            overflow-y: scroll;
             overflow-x: hidden;
             z-index: inherit;
         }
-        
+
         label {
             font-family: "Open Sans", sans-serif;
             font-weight: 300;
             font-size: 16px;
         }
-        
+
         .btn-group {
             position: relative;
             float: bottom;
         }
-        
+
     </style>
-    
+
 </head>
+
 <body>
+
 <div ng-module="currentOrders">
     <div ng-controller="currentOrdersCtrl">
         <header></header>
@@ -72,16 +70,26 @@ and open the template in the editor.
                             <div class="modal-body" id="add-items-modal">
                                 <p>Search for products by typing their name and select which products you would like to add to a specific order.</p>
                                 <div class="form-group row" id="search-products">
-                                    <label for="productNameToSearch" class="col-sm-3 form-control-label">PRODUCT SEARCH</label>
+                                    <label for="productNameToSearch" class="col-sm-2 form-control-label">SEARCH BY</label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control" id="productNameToSearch">
+                                        <input type="text" class="form-control" id="productNameToSearch" placeholder="Product name">
                                     </div>
-                                    <button id="search-products-btn" type="submit" class="btn btn-lg">Search</button>
+                                    <div class="col-sm-1" style="font-weight:600;">OR</div>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" id="vendorNameToSearch" placeholder="Vendor name">
+                                    </div>
                                 </div>
                                 <br>
-                                <div id="productResults" style="overflow:auto; height:300px; overflow:auto;"">
+                                <div id="productResults" style="overflow:auto; height:300px; overflow:auto;">
                                     <table class="table" id="product-result-table">
-
+                                        <tr>
+                                            <td>Select</td>
+                                            <td></td>
+                                            <td>Product Name</td>
+                                            <td>Unit Price</td>
+                                            <td>Quantity</td>
+                                            <td>Discount</td>
+                                        </tr>
                                     </table>
                                 </div>
                                 <br><br>
@@ -99,104 +107,99 @@ and open the template in the editor.
                     </div>
                 </div>
             </div>
-        <template id = "order-card-template">
-            <div class="col-sm-9" style="margin-top: 20px">
-                <div class="panel panel-default" class="order-card">
-                    <div class="panel-heading order-heading" style="height:60px">
-                        <label class="col-xs-2 form-control-label" style="margin-top:10px">Order Name: </label>
-                        <div class="col-sm-5" style="margin-left:-25px; margin-top:10px">
-                            <input type="text" class="order-nickname" name="type" disabled="disabled" value="CIDAR Lab Order #1"/>
+            <template id="order-card-template">
+                <div class="col-sm-9" style="margin-top: 20px">
+                    <div class="panel panel-default order-card">
+                        <div class="panel-heading order-heading" style="height:60px">
+                            <label class="col-xs-2 form-control-label" style="margin-top:10px">Order Name: </label>
+                            <div class="col-sm-7" style="margin-left:-25px; margin-top:10px">
+                                <input type="text" class="order-nickname" name="type" disabled/>
+                            </div>
+                            <button type="button" class="btn btn-default edit-order-btn">Edit</button>
                         </div>
-                        <button type="button" class="btn btn-default edit-order-btn">
-                            <img alt="Edit Order" src="../styles/img/icons/white-pencil.png" style="height:20px">
-                        </button>
-                    </div>
-                    <div class="panel-body order-top-panel">
-                        <br>
-                        <p>Associated Project:&nbsp;<a class="order-project-name" href="#" style="color:#1E714A;">Project Name</a></p>
-                        <br>
-                        <table class="table order-property-table">
-                            <tr class="order-property-headers">
-                                <td>ORDER ID #</td>
-                                <td>CREATED BY</td>
-                                <td>RECEIVED BY</td>
-                                <td>APPROVED BY</td>
-                                <td>ORDER LIMIT</td>
-                                <td>ORDER BUDGET</td>
-                            </tr>
-                            <tr class="order-property-data">
-                                <td class="order-id" style="font-size: 9px">123456789</td>
-                                <td class="order-created-by">Douglas Densmore</td>
-                                <td class="order-received-by"></td>
-                                <td class="order-approved-by"></td>
-                                <td class="order-limit"></td>
-                                <td class="order-budget">$</td>
+                        <div class="panel-body order-top-panel">
+                            <br>
+                            <p>Associated Project:&nbsp;<a class="order-project-name" href="" style="color:#1E714A;"></a></p>
+                            <br>
+                            <table class="table order-property-table">
+                                <tr class="order-property-headers">
+                                    <td>ORDER ID #</td>
+                                    <td>CREATED BY</td>
+                                    <td>RECEIVED BY</td>
+                                    <td>APPROVED BY</td>
+                                    <td>ORDER LIMIT</td>
+                                    <td>ORDER BUDGET</td>
+                                </tr>
+                                <tr class="order-property-data">
+                                    <td class="order-id">123456789</td>
+                                    <td class="order-created-by">Douglas Densmore</td>
+                                    <td class="order-received-by"></td>
+                                    <td class="order-approved-by"></td>
+                                    <td class="order-limit"></td>
+                                    <td class="order-budget">$</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <table class="table order-items-table">
+                            <tr class="order-items-headers">
+                                <td>ITEM</td>
+                                <td>QTY.</td>
+                                <td>UNIT PRICE</td>
+                                <td>CUSTOM UNIT PRICE</td>
+                                <td>TOTAL PRICE</td>
                             </tr>
                         </table>
+                        <div class="panel-body order-bottom-panel">
+                            <div id="order-buttons">
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-default export-csv-btn">
+                                        <img alt="Export CSV" src="../styles/img/icons/export-csv.png" style="height:15px; vertical-align:middle;">
+                                        &nbsp;Export CSV
+                                    </button>
+                                </div>
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-default delete-order-btn">
+                                        <img alt="Delete Order" src="../styles/img/icons/delete-order.png" style="height:15px; vertical-align:middle;">
+                                        &nbsp;Delete Order
+                                    </button>
+                                </div>
+                            </div>
+                            <br>
+                            <table class="table order-totals-table">
+                                <tr>
+                                    <td>Total before tax:</td>
+                                    <td class="total-before-tax-value"></td>
+                                </tr>
+                                <tr>
+                                    <td>Tax:</td>
+                                    <td class="tax-value"></td>
+                                </tr>
+                                <tr>
+                                    <td>Grand Total:</td>
+                                    <td class="total-after-tax-value"></td>
+                                </tr>
+                            </table>
+                            <br>
+                        </div>
                     </div>
-                    <table class="table table-bordered order-items-table">
-                        <tr class="order-items-headers">
-                            <td>ITEM</td>
-                            <td>QTY.</td>
-                            <td>UNIT PRICE</td>
-                            <td>CUSTOM UNIT PRICE</td>
-                            <td>TOTAL PRICE</td>
-                        </tr>
-                        <tr>
-
-                        </tr>
-
-                    </table>
-                    <div class="panel-body order-bottom-panel">
-                        <div id="order-buttons">
-                        <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-default export-csv-btn">
-                                <img alt="Export CSV" src="../styles/img/icons/export-csv.png" style="height:15px; vertical-align:middle;">
-                                &nbsp;Export CSV
-                            </button>
-                        </div>
-                        <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-default delete-order-btn">
-                                <img alt="Delete Order" src="../styles/img/icons/delete-order.png" style="height:15px; vertical-align:middle;">
-                                &nbsp;Delete Order
-                            </button>
-                        </div>
-                        </div>
-                        <br>
-                        <table class="table order-totals-table">
-                            <tr>
-                                <td>Total before tax:</td>
-                                <td class="total-before-tax-value">$887.76</td>
-                            </tr>
-                            <tr>
-                                <td>Tax:</td>
-                                <td class="tax-value">$62.14</td>
-                            </tr>
-                            <tr>
-                                <td>Grand Total:</td>
-                                <td class="total-after-tax-value">$949.90</td>
-                            </tr>
-                        </table>
-                        <br>
-                    </div>
+                    <button type="button" class="btn btn-default submit-order-btn">Submit</button>
                 </div>
-                <button type="button" class="btn btn-default submit-order-btn">Submit</button>
-            </div>
-            <br><br>
-        </template>
+                <br><br>
+            </template>
+        </div>
+        <footer></footer>
+        </div>
     </div>
-    <footer></footer>
-</div>
-    
-<!-- ANGULAR SCRIPTS -->
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
-<script src="../scripts/new-ui-scripts/angular.ng-modules.js"></script>
-<script src="../scripts/new-ui-scripts/sidebarDirective.js"></script>
-<script src="../scripts/new-ui-scripts/headerDirective.js"></script>
-<script src="../scripts/new-ui-scripts/footerDirective.js"></script>
-<script src="../scripts/new-ui-scripts/currentOrdersController.js"></script>
-<script src="../scripts/new-ui-scripts/currentOrdersApp.js"></script>
 
+    <!-- ANGULAR SCRIPTS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
+    <script src="../scripts/new-ui-scripts/angular.ng-modules.js"></script>
+    <script src="../scripts/new-ui-scripts/sidebarDirective.js"></script>
+    <script src="../scripts/new-ui-scripts/headerDirective.js"></script>
+    <script src="../scripts/new-ui-scripts/footerDirective.js"></script>
+    <script src="../scripts/new-ui-scripts/currentOrdersController.js"></script>
+    <script src="../scripts/new-ui-scripts/currentOrdersApp.js"></script>
+    </div>
 </body>
 
 </html>

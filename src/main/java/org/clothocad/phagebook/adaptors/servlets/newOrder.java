@@ -50,6 +50,11 @@ public class newOrder extends HttpServlet {
         Object pLabId     = request.getParameter("labId");
         String labId      =  pLabId != null ? (String) pLabId: "" ;
         
+        Object pTaxRate     = request.getParameter("tax");
+        String taxRateString      =  pTaxRate != null ? (String) pTaxRate: "" ;
+        Double taxRate = Double.parseDouble(taxRateString) / 100;
+        
+        
         Object pAssociatedProject  = request.getParameter("associatedProjectId");
         String associatedProjectId = pAssociatedProject != null ? (String) pAssociatedProject: "";
         
@@ -105,6 +110,12 @@ public class newOrder extends HttpServlet {
             order.setDateCreated(date);
             order.setBudget(budget);
             order.setMaxOrderSize(orderLimit);
+            if (!taxRateString.equals("")){
+                order.setTaxRate( (1+taxRate) );
+            } else {
+                order.setTaxRate( 1.07d );
+            }
+            
             order.setAffiliatedLabId(labId);
             order.setRelatedProjectId(associatedProjectId);
             order.setStatus(OrderStatus.INPROGRESS);

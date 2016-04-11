@@ -24,7 +24,6 @@ function profileCtrl($scope, $http) {
         });
     });
     
-
     angular.element(document).ready(function ($scope) {
         console.log("before ajax but inside page onload.`");
         $.ajax({
@@ -40,6 +39,8 @@ function profileCtrl($scope, $http) {
                 $("#dept").text(responseAsJSON.department);
                 $("#institution").text(responseAsJSON.institution);
                 $("#title").text(responseAsJSON.title);
+                $("#profileDescription").text(responseAsJSON.profileDescription);
+                $scope.statuses = responseAsJSON.statuses;
             },
             error: {
                 //console.log("inside GET error");
@@ -61,33 +62,39 @@ function profileCtrl($scope, $http) {
                 },
                 success: function (response) {
                     var ul = $("#search-colleagues-list");
+
                     ul.empty();
-                    for (var i = 0; i < response.length; i++) {
-                        var li = document.createElement("li");
-                        var img = $('<img id="dynamic">');
-                        img.attr('src', "../styles/img/mis/johan-pro-pic.jpg");
-                        img.appendTo(li);
-                        var a = document.createElement('a');
-                        a.href = "#";
-                        a.text = response[i].fullname;
-                        li.appendChild(a);
-                        var p1 = document.createElement("p");
-                        li.appendChild(p1);
-                        var p2 = document.createElement("p");
-                        p2.innerHTML = "CIDAR Lab";
-                        li.appendChild(p2);
-                        var p3 = document.createElement("p");
-                        p3.innerHTML = "Boston University";
-                        li.appendChild(p3);
-                        li.setAttribute('class', 'list-group-item');
-                        ul.append(li);
+
+                    for (var i = 0; i < response.length; i++){
+                        var tmpl = document.getElementById("colleague-template").content.cloneNode(true);
+                        tmpl.querySelector(".colleague-name").text = response[i].fullname;
+                        tmpl.querySelector(".main-lab").innerHTML  = (response[i].labName == null) ? "" : response[i].labName;
+                        tmpl.querySelector(".main-institution").innerHTML = response[i].institutionName;
+                        tmpl.querySelector(".colleague-name").href  = "../html/colleague.html?user=" + response[i].clothoId;
+                        ul.append(tmpl);
                     }
                 },
                 error: {
                 }
             });
+            return false;
         });
     });
+
+    var tmpl = document.getElementById('status-template');
+    document.body.appendChild(tmpl.content.cloneNode(true));
+
+    var statusList = document.getElementById('statuses');
+    var statuses = [{"date":"Sun Apr 10 22:36:48 EDT 2016","text":"hola"},
+            {"date":"Sun Apr 10 22:48:50 EDT 2016","text":"blah blah"}]; 
+    for (var i = 0; i < statuses.length; i++) {
+        var status = statuses[i];
+        var tmpl = document.getElementById('status-template').content.cloneNode(true);
+        tmpl.querySelector('.status-date').innerText = status.date;
+        tmpl.querySelector('.status-text').innerText = status.text;
+        statusList.appendChild(tmpl);
+    }
+ 
 
     $("#edit-profile-btn").click(function () {
         window.location = "../html/accountSettings.html";
@@ -101,6 +108,3 @@ function getParameterByName(name) {
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
-
-//https://github.com/CIDARLAB/phoenix-core/blob/master/phoenix-core/src/main/webapp/javascript/upload.js
-//https://github.com/CIDARLAB/phoenix-core/blob/master/phoenix-core/src/main/java/org/cidarlab/phoenix/core/servlets/ClientServlet.java#L56

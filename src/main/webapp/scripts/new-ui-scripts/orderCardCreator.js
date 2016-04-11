@@ -1,4 +1,6 @@
 function createOrderCard(orderJSON) {
+
+
     var content = document.getElementById('content');
     var tmpl = document.getElementById('order-card-template').content.cloneNode(true);
 
@@ -47,14 +49,33 @@ function createOrderCard(orderJSON) {
 
         for (var i = 0; i < orderJSON.Products.length; i++ ) {
 
-
+                
+                
+                        //<td class="item-name">
+                        //        <a type="button" href="">
+                        //            <img alt="Delete item" src="../styles/img/icons/remove-item.png"/>
+                        //        </a>
+                        //    </td>
                 var response = doCartItemAjax(orderJSON.Products[i]);
                 var itemQty = response.quantity;
                 var rowCount = orderItemsTable.insertRow(i+1);
                 var itemNameCell  = rowCount.insertCell(0);
                     itemNameCell.className = "item-name";
-                    itemNameCell.style= "overflow: hidden; text-overflow: ellipsis";
-                    itemNameCell.innerHTML = response.itemName;
+                    var a = document.createElement('a');
+                    a.type="button";
+                    a.className ="delete-product-button";
+                    a.href ="";
+                    a.name = orderJSON.ClothoId;
+
+                    var img = document.createElement('img');
+                    img.src ="../styles/img/icons/remove-item.png";
+                    img.className="delete-icon";
+                    img.name = orderJSON.Products[i];
+                    a.appendChild(img);
+                    itemNameCell.style = "overflow: hidden; text-overflow: ellipsis";
+                    itemNameCell.appendChild(a);
+                    itemNameCell.innerHTML += response.itemName;
+                    
 
                 var itemQtyCell   = rowCount.insertCell(1);
                     itemQtyCell.className = "item-qty";
@@ -68,7 +89,7 @@ function createOrderCard(orderJSON) {
                     itemCustomPrice.innerHTML = "$" + response.customUnitPrice;
                 var itemTotalPrice = rowCount.insertCell(4);
                     itemTotalPrice.className = "item-total-price";
-                    itemTotalPrice.innerHTML =  "$" +  response.totalPrice;
+                    itemTotalPrice.innerHTML =  "$" +  response.totalPrice.toFixed(2);
 
 
             totalBeforeTax += response.totalPrice;
@@ -79,13 +100,20 @@ function createOrderCard(orderJSON) {
        var tr=  document.createElement('tr');
         tr.innerHTML = "There are currently no items in this order";
         tr.className += "no-items-message";
+        tmpl.querySelector('.submit-order-btn').disabled = true;
 
         orderItemsTable.appendChild(tr);
     }
 
-    tmpl.querySelector('.total-before-tax-value').innerText = "$" + totalBeforeTax;
-    tmpl.querySelector('.tax-value').innerText = "$"+ (TAX * totalBeforeTax) ;
-    tmpl.querySelector('.total-after-tax-value').innerText = "$" + ( (TAX * totalBeforeTax) + totalBeforeTax);
+    tmpl.querySelector('.total-before-tax-value').innerText = "$" + totalBeforeTax.toFixed(2);
+
+    tmpl.querySelector('.tax-value').innerText = "$"+ ( (TAX - 1) * totalBeforeTax).toFixed(2) ;
+    if (orderJSON.Budget < ( (TAX * totalBeforeTax) + totalBeforeTax)){
+        tmpl.querySelector('.total-after-tax-value').style = "color: red";
+        tmpl.querySelector('.submit-order-btn').disabled = true;
+    }
+    tmpl.querySelector('.total-after-tax-value').innerText = "$" + (TAX * totalBeforeTax).toFixed(2);
+
 
 
 
@@ -101,6 +129,7 @@ function createOrderCard(orderJSON) {
 
 function doCartItemAjax(cartItemId){
     var responseObject = {};
+
     $.ajax({
         //do this for projects...
         url: "../parseCartItem",
@@ -111,14 +140,12 @@ function doCartItemAjax(cartItemId){
             "cartItem": cartItemId
         },
         success: function (response) {
-            var percentage      = (response.discount / 100.00);
+            var percentage      = 1 - (response.discount / 100.00);
             var itemName        = response.productName;
             var itemUnitPrice   = response.productUnitPrice;
             var customUnitPrice = (percentage * response.productUnitPrice);
 
             var quantity        = response.quantity;
-
-
             var totalPrice      =  quantity * response.productUnitPrice  * percentage;
 
 

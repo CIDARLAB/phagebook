@@ -99,6 +99,7 @@ public class createPerson extends HttpServlet {
         Object pInstitutionId = request.getParameter("institution");
         String institutionId = pInstitutionId != null ? (String) pInstitutionId : "";
         
+        System.out.println("Passed in instit ID" + institutionId);
         Object pLabId = request.getParameter("lab");
         String labId = pLabId != null ? (String) pLabId : "";
         Person createdPerson = new Person();
@@ -111,6 +112,8 @@ public class createPerson extends HttpServlet {
             List<String> institutions = createdPerson.getInstitutions();
             institutions.add(institutionId);
             createdPerson.setInstitutions(institutions);
+            createdPerson.setInstitution(institutionId);
+            System.out.println("I GOT TO HERE WITH ID " + institutionId);
         }
         
         if (!labId.equals("")){
@@ -138,6 +141,7 @@ public class createPerson extends HttpServlet {
 
         if (isUnique) {
             clothoObject.logout();
+            System.out.println(createdPerson.getInstitutions() + " THE INSTITUTIONS");
             ClothoAdapter.createPerson(createdPerson, clothoObject);
 
             EmailHandler emailer = EmailHandler.getEmailHandler();

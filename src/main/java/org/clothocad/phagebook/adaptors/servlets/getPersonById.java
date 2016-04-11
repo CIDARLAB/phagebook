@@ -87,17 +87,20 @@ public class getPersonById extends HttpServlet {
             //
 
             Person retrieve = ClothoAdapter.getPerson(userId, clothoObject);
-
+           // JSONObject sucks = (JSONObject) clothoObject.get(retrieve.getInstitution());
             JSONObject retrievedAsJSON = new JSONObject();
             retrievedAsJSON.put("fullname", retrieve.getFirstName() + " " + retrieve.getLastName());
+            System.out.println("passed sucks");
             //get position? role?? we will look into this
             retrievedAsJSON.put("firstName", retrieve.getFirstName());
             retrievedAsJSON.put("lastName", retrieve.getLastName());
             retrievedAsJSON.put("loggedUserId", retrieve.getId());
-            retrievedAsJSON.put("institution", retrieve.getInstitution());
+            //retrievedAsJSON.put("institution", sucks.get("Name"));
             retrievedAsJSON.put("department", retrieve.getDepartment());
             retrievedAsJSON.put("title", retrieve.getTitle());
             retrievedAsJSON.put("email", retrieve.getEmailId());
+            retrievedAsJSON.put("profileDescription", retrieve.getProfileDescription());
+            retrievedAsJSON.put("statuses", retrieve.getStatuses());
             String labId = retrieve.getLabs().size() > 0 ? retrieve.getLabs().get(0) : "0";
 
             retrievedAsJSON.put("lab", ClothoAdapter.getLab(labId, clothoObject));
@@ -198,14 +201,14 @@ public class getPersonById extends HttpServlet {
 
         Object pNewTitle = request.getParameter("editTitle");
         String newTitle = pNewTitle != null ? (String) pNewTitle : "";
-
+/*
         Object pNewLab = request.getParameter("editLab");
         String newLab = pNewLab != null ? (String) pNewLab : "";
 
         Object pLabId = request.getParameter("lab");
-        String labId = pLabId != null ? (String) pLabId : "";
+        String labId = pLabId != null ? (String) pLabId : "";*/
 
-        Object pProfileDescription = request.getParameter("profileDescription");
+        Object pProfileDescription = request.getParameter("editProfileDescription");
         String newProfileDescription = pProfileDescription != null ? (String) pProfileDescription : "";
 
         boolean isValid = false; //used only to make sure the person exists in Clotho
@@ -255,10 +258,11 @@ public class getPersonById extends HttpServlet {
                 if (!newTitle.equals("")) {
                     retrieve.setTitle(newTitle);
                 }
-
+                System.out.println("new profile description");
+                System.out.println(newProfileDescription);
                 if (!newProfileDescription.equals("")) {
+                    System.out.println("we are inside set profile desc");
                     retrieve.setProfileDescription(newProfileDescription);
-
                 }
 
                 /*  if (newLab != NULL && !"".equals(newLab)) {
@@ -285,7 +289,7 @@ public class getPersonById extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Allows people to update their profile settings";
     }// </editor-fold>
 
 }

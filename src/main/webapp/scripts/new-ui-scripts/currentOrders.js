@@ -1,8 +1,7 @@
 $(document).ready(function() {
-
+    var user = getCookie("clothoId");
     var timerVal;
     $("#productNameToSearch").keypress( keyPressHandler );
-
 
     function keyPressHandler(){
         clearTimeout(timerVal); // stops previous attempt.
@@ -12,8 +11,7 @@ $(document).ready(function() {
 
     }
 
-    function doAjax()
-    {
+    function doAjax() {
         var name = $("#productNameToSearch").val();
         var searchType = "STARTSWITH"; //USE JQUERY TO FIND FIXES
 
@@ -36,7 +34,7 @@ $(document).ready(function() {
                 success: function (response) {
 
                     var table = $("#product-result-table");
-                    table.empty();
+                    table.find("tr:gt(0)").remove();
 
                     for (var i = 0; i < response.length; i++) {
 
@@ -85,7 +83,14 @@ $(document).ready(function() {
                             quantity.appendChild(quantityTableData);
 
                         tr.appendChild(quantity);
-
+                        var discount = document.createElement("td");
+                            var discountTableData = document.createElement("input");
+                                discountTableData.type = "number";
+                                discountTableData.name = "discount";
+                                discountTableData.placeholder = 1;
+                                discountTableData.value = 1;
+                            discount.appendChild(discountTableData);
+                        tr.appendChild(discount);
                         table.append(tr);
 
                     }
@@ -94,13 +99,12 @@ $(document).ready(function() {
                 error: function (response) {
                     alert(response.responseJSON.message);
 
-
                 }
             });
         }
     }
 
-    var user = getCookie("clothoId");
+
     //clotho ID of logged in user...
 
     $.ajax({
@@ -135,7 +139,6 @@ $(document).ready(function() {
                 values["ClothoId"]          = response[i].id;
                 values["TaxRate"]           = response[i].taxRate;
 
-
                 createOrderCard(values);
 
                 var select = document.getElementById("list-of-orders");
@@ -151,16 +154,47 @@ $(document).ready(function() {
 
             }
             $('.submit-order-btn').click(submitButtonHandler);
-            $('.delete-order-btn').click(deleteButtonHandler);
+            $('.delete-order-btn').click({user:user},deleteButtonHandler);
             $('.export-csv-btn').click(exportCSVHandler);
             $('.edit-order-btn').click(editButtonHandler);
-
 
         },
         error: function (response) {
             alert(response.responseJSON.message);
         }
     });
+
+
+    $(".delete-icon").click( function () {
+
+
+
+        $.ajax({
+            //do this for projects...
+            url: "../removeProductsFromOrder",
+            type: "POST",
+            async: false,
+            data: {
+                "user": user,
+                "cartItem": this.name,
+                "orderId": this.parentNode.name
+            },
+            success: function (response) {
+                alert(response.message);
+                window.location.href = "";
+            },
+            error: function (response) {
+                alert(response.responseJSON.message);
+
+
+            }
+        });
+
+
+        return false;
+
+    });
+
 
 
     $("#add-to-order-btn").click( function (){
@@ -176,13 +210,14 @@ $(document).ready(function() {
             var checkbox  = tableRowKids[0].childNodes[0]; // this is the checkbox
             var unitPrice = tableRowKids[3].innerHTML.slice(12); //removes the UNIT PRICE string
             var quantity  = tableRowKids[4].childNodes[0];
+            var discount  = tableRowKids[5].childNodes[0];
 
             if (checkbox.checked){
 
                 var cartItemJSON = {};
                 cartItemJSON["productId"] = checkbox.value;
                 cartItemJSON["quantity"]  = quantity.value;
-                cartItemJSON["discount"]  = 100;
+                cartItemJSON["discount"]  = discount.value;
                 productsToAdd.push(cartItemJSON);
 
             }
@@ -204,19 +239,13 @@ $(document).ready(function() {
                 "orderId"       : orderToAddTo
             },
             success: function (response) {
-                alert("Products Added!");
+                //alert("Products Added!");
                 window.location.href = "../html/currentOrders.html";
             },
             error: function (response) {
-                alert("error adding product to order");
+                alert("An error occurred with adding the product to this order.");
             }
         });
-
-
-
-
-
-
 
     });
 
@@ -224,8 +253,7 @@ $(document).ready(function() {
 
 
 
-function removeOptions(selectbox)
-{
+function removeOptions(selectbox) {
     var i;
 
     for( i = selectbox.options.length-1 ; i>=0 ; i--)
@@ -234,11 +262,33 @@ function removeOptions(selectbox)
     }
 }
 
-function deleteButtonHandler(){
+function deleteButtonHandler(event){
 
     var orderId = this.value;
 
-    alert(orderId);
+    if (confirm("Are you sure you want to delete this order?")) {
+
+        $.ajax({
+            url: '../deleteOrder',
+            type: 'POST',
+            dataType: 'JSON',
+            async: false,
+            data: {
+                "user": event.data.user,
+                "orderId": orderId
+            },
+            success: function (response) {
+                //alert(response.message);
+                window.location.href = ""; //refreshes page
+            },
+            error: function (response) {
+                alert(response.message);
+                window.location.href = ""; //refreshes page
+            }
+        });
+    } else {
+        //do nothing
+    }
 
 }
 
@@ -248,21 +298,19 @@ function submitButtonHandler(){
     alert(orderId);
 
     $.ajax({
-        url: '../addProductsToOrder',
+        url: '../submitOrderToPIs',
         type: 'POST',
         dataType: 'JSON',
         async: false,
         data: {
-            "CartItems"     : JSON.stringify(productsToAdd),
-            "loggedInUserId": getCookie("clothoId"),
-            "orderId"       : orderToAddTo
+            "orderId": orderId
         },
         success: function (response) {
-            alert("Products Added!");
+            alert("Order Submitted");
             window.location.href = "../html/currentOrders.html";
         },
         error: function (response) {
-            alert("error adding product to order");
+            alert("An error occurred upon submitting this order.");
         }
     });
 
@@ -272,11 +320,54 @@ function submitButtonHandler(){
 function exportCSVHandler(){
 
     var orderId = this.value;
-    alert(orderId);
+    
+    $.ajax({
+        url: "../exportOrderCSV",
+        type: "GET",
+        async: false,
+        data: {
+            "orderId": orderId
+        },
+        success: function (response) {
+            window.open("../resources/OrderSheets/Order_" + orderId + ".csv",'_blank');
+        },
+        error: function (response) {
+            alert("An error occurred with exporting the CSV.");
+        }
+    });
+    
+    
+    
 
 }
 
 function editButtonHandler(){
     var orderId = this.value;
-    alert(orderId);
+    
+    var editBtn = this;
+    var orderCard = this.parentElement.parentElement; //to get to the order card
+    var removeItemIcon = orderCard.querySelector(".item-name img");
+    var items = orderCard.getElementsByClassName('item-name');
+    
+    
+ 
+    if (editBtn.innerText == "Edit") {
+        editBtn.innerText = "Save";
+        editBtn.style.color = "#FFFFFF";
+        for (var i = 0; i < items.length; i++){
+            items[i].querySelector(".delete-icon").style.display = "inline-block";
+        }
+        var orderNickname = orderCard.querySelector(".order-nickname");
+        orderNickname.disabled = false;
+        orderNickname.style.border = "0.25 solid";
+    }
+    else {
+        editBtn.innerText = "Edit";
+        
+        for (var i = 0; i < items.length; i++){
+            items[i].querySelector(".delete-icon").style.display = "none";
+        }
+        var orderNickname = orderCard.querySelector(".order-nickname");
+        orderNickname.disabled = true;
+    }
 }

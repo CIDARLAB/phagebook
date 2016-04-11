@@ -96,14 +96,23 @@ public class addPIToLab extends HttpServlet {
             Lab lab = ClothoAdapter.getLab(labId, clothoObject); //Lab
             //Person person = ClothoAdapter.getPerson(userId, clothoObject); //if we ever wanted to use more props check priviledge maybe?
             List<String> labPIList = lab.getLeadPIs(); // to change
-            labPIList.add(userId);
+            JSONObject responseJSON = new JSONObject();
+            
+            if (!labPIList.contains(pLabId)){
+                labPIList.add(userId);
+                responseJSON.put("message", "new PI added!");
+            }else{
+                responseJSON.put("message", "Person is already a PI!");
+            }
             
             lab.setLeadPIs(labPIList);
             
+            ClothoAdapter.setLab(lab, clothoObject);
+            
+            
             response.setContentType("application/json");
             response.setStatus(HttpServletResponse.SC_OK);
-            JSONObject responseJSON = new JSONObject();
-            responseJSON.put("message", "new PI added!");
+            
             PrintWriter out = response.getWriter();
             out.print(responseJSON);
             out.flush();
