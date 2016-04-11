@@ -102,7 +102,7 @@ public class getProject extends HttpServlet {
             Person lead = ClothoAdapter.getPerson(proj.getLeadId(), clothoObject);
             if(lead.getFirstName() != null && lead.getLastName() != null){
               System.out.println("Getting Lead name, it is:");
-              System.out.println(lead.getFirstName()+lead.getLastName());              
+              System.out.println(lead.getFirstName()+" "+ lead.getLastName());              
               projectObject.put("lead", lead.getFirstName()+" "+lead.getLastName());
             }
             if(lead.getLabs().size()>0){
