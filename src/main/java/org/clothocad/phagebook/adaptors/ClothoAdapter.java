@@ -16,6 +16,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import net.sf.json.JSONArray;
+import org.cidarlab.citationsapi.PhagebookCitation;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.phagebook.dom.Vendor;
@@ -798,6 +799,66 @@ public class ClothoAdapter {
         return id;
     }
     /**
+     * This method is to create a PhagebookCitation object in Clotho but It can also be used a SET method if the object that 
+     * gets passed in has a valid Clotho ID
+     * @param phagebookCitation object to create
+     * @param clothoObject Instance of Clotho being used
+     * @return ID value of the object in the Clotho Database
+     */
+    public static String createPhagebookCitation(PhagebookCitation phagebookCitation, Clotho clothoObject){
+        Map map = new HashMap();
+        map.put("schema", PhagebookCitation.class.getCanonicalName());
+        
+        if (phagebookCitation.getId() != null){
+            if (!phagebookCitation.getId().isEmpty() && !phagebookCitation.getId().equals("Not Set")){
+                map.put("id", phagebookCitation.getId());
+            }
+        }
+        
+        if (phagebookCitation.getUser() != null){
+            if (!phagebookCitation.getUser().isEmpty() && !phagebookCitation.getUser().equals("Not Set")){
+                map.put("user", phagebookCitation.getUser());
+            }
+        }
+        if (phagebookCitation.getTitle() != null){
+            if (!phagebookCitation.getTitle().isEmpty() && !phagebookCitation.getTitle().equals("Not Set")){
+                map.put("title", phagebookCitation.getTitle());
+            }
+        }
+        
+        if (phagebookCitation.getAuthors() != null){
+            if (!phagebookCitation.getAuthors().isEmpty() && !phagebookCitation.getAuthors().equals("Not Set")){
+                map.put("authors", phagebookCitation.getAuthors());
+            }
+        }
+        
+        if (phagebookCitation.getAuthors() != null){
+                map.put("year", phagebookCitation.getYear());
+            
+        }
+        if (phagebookCitation.getOtherInformation() != null){
+            if (!phagebookCitation.getOtherInformation().isEmpty() && !phagebookCitation.getOtherInformation().equals("Not Set")){
+                map.put("otherInformation", phagebookCitation.getOtherInformation());
+            }
+        }
+        
+        if (phagebookCitation.getBibtex() != null){
+            if (!phagebookCitation.getBibtex().isEmpty() && !phagebookCitation.getBibtex().equals("Not Set")){
+                map.put("bibtex", phagebookCitation.getBibtex());
+            }
+        }
+        
+        
+        
+        
+        String id = (String) clothoObject.set(map);
+        makePublic(id, clothoObject);
+        phagebookCitation.setId(id);
+        return id;
+    }
+    
+    
+    /**
      * This method is to create a Person object in Clotho but It can also be used a SET method if the object that 
      * gets passed in has a valid Clotho ID
      * NOTE: You must be LOGGED OUT of Clotho when you call this Method because it logs in that person also you will end LOGGED OUT of Clotho once it returns. 
@@ -824,20 +885,31 @@ public class ClothoAdapter {
            
         }
         
-        if (person.getProjects() != null)
-        {
-            if (!person.getProjects().isEmpty())
-            {
-                JSONArray projects = new JSONArray();
-                for (String project : person.getProjects()){
-                    if (project != null){
-                        if (!project.equals("Not Set") && !project.isEmpty()){
-                            projects.add(project);
-                        }
+        if (person.getProjects() != null) {
+
+            JSONArray projects = new JSONArray();
+            for (String project : person.getProjects()) {
+                if (project != null) {
+                    if (!project.equals("Not Set") && !project.isEmpty()) {
+                        projects.add(project);
                     }
                 }
-                map.put("projects", projects);
             }
+            map.put("projects", projects);
+
+        }
+        if (person.getPhagebookCitations() != null) {
+
+            JSONArray phagebookCitations = new JSONArray();
+            for (String phagebookCitation : person.getPhagebookCitations()) {
+                if (phagebookCitation != null) {
+                    if (!phagebookCitation.equals("Not Set") && !phagebookCitation.isEmpty()) {
+                        phagebookCitations.add(phagebookCitation);
+                    }
+                }
+            }
+            map.put("phagebookCitations", phagebookCitations);
+
         }
        
         if (person.getStatuses() != null)
@@ -1001,8 +1073,7 @@ public class ClothoAdapter {
         
         if(person.getPublications() != null)
         {
-            if (!person.getPublications().isEmpty())
-            {
+            
                 JSONArray publications = new JSONArray();
                 for (String publication : person.getPublications())
                 {
@@ -1014,7 +1085,7 @@ public class ClothoAdapter {
                     
                 }
                 map.put("publications", publications);
-            }
+            
         }
         if (person.getFirstName() !=null)
             map.put("firstName", person.getFirstName());
@@ -1360,6 +1431,13 @@ public class ClothoAdapter {
             }
         }
     
+        
+        if (publication.getId() != null){
+            if (!publication.getId().isEmpty() && !publication.getId().equals("Not Set")){
+                map.put("id", publication.getId());
+            }
+        }
+        
         String id = (String) clothoObject.set(map);
         makePublic(id, clothoObject);
         publication.setId(id);
@@ -1626,6 +1704,22 @@ public class ClothoAdapter {
         Map orderMap = (Map) clothoObject.get(id);
         Order order = mapToOrder(orderMap, clothoObject);
         return order;
+    }
+    /**
+     * This gets a Person object from Clotho if it receives a valid ID, will give default values to properties that were not found. Ergo, if 
+     * it doesn't exist check for an email ID of "". (e.g) emailId.isEmpty();
+     * @param id Clotho ID
+     * @param clothoObject Instance of Clotho being used
+     * @return instance of object.
+     */
+    
+    public static PhagebookCitation getPhagebookCitation(String id, Clotho clothoObject){
+        Map phagebookCitationMap = (Map) clothoObject.get(id);
+        PhagebookCitation phagebookCitation = new PhagebookCitation();
+        if (phagebookCitationMap != null){
+            phagebookCitation = mapToPhagebookCitation(phagebookCitationMap, clothoObject);
+        }
+        return phagebookCitation;
     }
     /**
      * This gets a Person object from Clotho if it receives a valid ID, will give default values to properties that were not found. Ergo, if 
@@ -2169,6 +2263,8 @@ public class ClothoAdapter {
         
         return orders;
     } 
+    // TO DO --- > THIS public static List<PhagebookCitation> queryPhagebookCitation
+    
     public static List<Person>        queryPerson(Map query , Clotho clothoObject, QueryMode mode)
     {
         
@@ -3111,6 +3207,64 @@ public class ClothoAdapter {
         
         return order;
     }   
+    
+    
+    public static PhagebookCitation mapToPhagebookCitation(Map map, Clotho clothoObject)
+    {
+        
+        String id = "";
+        if (map.containsKey("id")){
+             id = (String) map.get("id");
+        }
+        
+        String user = "";
+        if (map.containsKey("user")){
+             user = (String) map.get("user");
+        }
+        
+        String title = "";
+        if (map.containsKey("title")){
+             title = (String) map.get("title");
+        }
+        
+        String authors = "";
+        if (map.containsKey("authors")){
+             authors = (String) map.get("authors");
+        }
+        
+        int year = 1970;
+        if (map.containsKey("year")){
+            year = (int) map.get("year");
+        }
+        
+        String otherInformation = "";
+        if (map.containsKey("otherInformation")){
+             otherInformation = (String) map.get("otherInformation");
+        }
+        
+        String bibtex = "";
+        if (map.containsKey("bibtex")){
+             bibtex = (String) map.get("bibtex");
+        }
+        
+        
+        PhagebookCitation phagebookCitation = new PhagebookCitation();
+        phagebookCitation.setId(id);
+        phagebookCitation.setTitle(title);
+        phagebookCitation.setAuthors(authors);
+        phagebookCitation.setYear(year);
+        phagebookCitation.setOtherInformation(otherInformation);
+        phagebookCitation.setUser(user);
+        phagebookCitation.setBibtex(bibtex);
+        
+        
+        
+        return phagebookCitation;
+        
+    }
+
+    
+    
     public static Person         mapToPerson(Map map, Clotho clothoObject)
     {
         
@@ -3145,7 +3299,17 @@ public class ClothoAdapter {
         }
         //institutions
                 
-                
+        List<String> phagebookCitations = new ArrayList<>() ;
+        
+        if ( map.containsKey("phagebookCitations")){
+            JSONArray phagebookCitationIds = (JSONArray) map.get("phagebookCitations");
+            
+            for (int i = 0; i < phagebookCitationIds.size(); i++){
+                phagebookCitations.add(phagebookCitationIds.getString(i));
+            }
+        }
+        
+        
         List<String> institutions = new ArrayList<>();
         if (map.containsKey("institutions")){
             JSONArray institutionIds = (JSONArray) map.get("institutions");
@@ -3247,6 +3411,7 @@ public class ClothoAdapter {
         person.setSubmittedOrders(submittedOrders);
         person.setApprovedOrders(approvedOrders);
         person.setDeniedOrders(deniedOrders);
+        person.setPhagebookCitations(phagebookCitations);
         
         
         
@@ -3725,6 +3890,10 @@ public class ClothoAdapter {
     public static String setOrder(Order order, Clotho clothoObject){
         return ClothoAdapter.createOrder(order, clothoObject);
     }
+    public static String setPhagebookCitation(PhagebookCitation phagebookCitation, Clotho clothoObject){
+        return ClothoAdapter.createPhagebookCitation(phagebookCitation, clothoObject);
+    }
+    
     public static String setPerson(Person person, Clotho clothoObject){
         /*add logic */ 
          Map map = new HashMap();
@@ -3756,6 +3925,20 @@ public class ClothoAdapter {
                 }
                 map.put("projects", projects);
             
+        }
+        
+        if (person.getPhagebookCitations() != null) {
+
+            JSONArray phagebookCitations = new JSONArray();
+            for (String phagebookCitation : person.getPhagebookCitations()) {
+                if (phagebookCitation != null) {
+                    if (!phagebookCitation.equals("Not Set") && !phagebookCitation.isEmpty()) {
+                        phagebookCitations.add(phagebookCitation);
+                    }
+                }
+            }
+            map.put("phagebookCitations", phagebookCitations);
+
         }
         
         if (person.getInstitutions() != null)

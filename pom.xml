@@ -42,6 +42,11 @@
             <type>jar</type>
         </dependency>
         <dependency>
+            <groupId>org.cidarlab</groupId>
+            <artifactId>citationsAPI</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-io</artifactId>
             <version>8.1.10.v20130312</version>

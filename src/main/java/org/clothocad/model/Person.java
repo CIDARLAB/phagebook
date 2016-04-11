@@ -44,6 +44,7 @@ public class Person {
     @Getter @Setter private List<String>                labs;
     @Getter @Setter private List<String>                projects;
     @Getter @Setter private List<String>                publications;
+    @Getter @Setter private List<String>                phagebookCitations;
     @Getter @Setter private Map<String,Set<PersonRole>> roles;
     @Getter @Setter private List<String>                createdOrders;
     @Getter @Setter private List<String>                submittedOrders;
@@ -76,6 +77,7 @@ public class Person {
         this.labs             = new ArrayList<>();
         this.projects         = new ArrayList<>();
         this.publications     = new ArrayList<>();
+        this.phagebookCitations = new ArrayList<>();
         this.roles            = new HashMap<>();
         this.createdOrders    = new ArrayList<>();
         this.submittedOrders  = new ArrayList<>();
