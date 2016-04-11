@@ -16,6 +16,10 @@
         <servlet-name>loadUserStatuses</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.loadUserStatuses</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>addColleagueRequest</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.addColleagueRequest</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>exportOrderCSV</servlet-name>
         <url-pattern>/exportOrderCSV</url-pattern>
@@ -24,8 +28,6 @@
         <servlet-name>findMemberForNewProject</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.findMemberForNewProject</servlet-class>
     </servlet>
-    
-    
     <servlet>
         <servlet-name>deleteOrder</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.deleteOrder</servlet-class>
@@ -34,7 +36,6 @@
         <servlet-name>removePIFromLab</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.removePIFromLab</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>listOrdersOfPerson</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.listOrdersOfPerson</servlet-class>
@@ -394,5 +395,9 @@
     <servlet-mapping>
         <servlet-name>loadUserStatuses</servlet-name>
         <url-pattern>/loadUserStatuses</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addColleagueRequest</servlet-name>
+        <url-pattern>/addColleagueRequest</url-pattern>
     </servlet-mapping>
 </web-app>

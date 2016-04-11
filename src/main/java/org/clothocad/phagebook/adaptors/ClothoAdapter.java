@@ -47,6 +47,7 @@ import org.json.JSONObject;
 
 /**
  * @author Johan Ospina
+ * @author Allison Durkan
  */
 public class ClothoAdapter {
     // <editor-fold defaultstate="collapsed" desc="Members">
@@ -3279,6 +3280,16 @@ public class ClothoAdapter {
             }
         }
         
+        List<String> colleagueRequests = new ArrayList<>() ;
+        
+        if ( map.containsKey("colleagueRequests")){
+            JSONArray colleagueRequestIds = (JSONArray) map.get("colleagueRequests");
+            
+            for (int i = 0; i < colleagueRequestIds.size(); i++){
+                colleagueRequests.add(colleagueRequestIds.getString(i));
+            }
+        }
+        
         List<String> orders = new ArrayList<>() ;
         if ( map.containsKey("orders")){
             JSONArray orderIds = (JSONArray) map.get("orders");
@@ -3369,6 +3380,7 @@ public class ClothoAdapter {
         person.setInstitutions(institutions);
         person.setLabs(labs);
         person.setColleagues(colleagues);
+        person.setColleagueRequests(colleagueRequests);
         person.setCreatedOrders(orders);
         person.setPublications(publications);
         person.setSubmittedOrders(submittedOrders);
@@ -3971,6 +3983,23 @@ public class ClothoAdapter {
 
                 }
                 map.put("colleagues", colleagues);
+            
+        }
+        
+        if (person.getColleagueRequests()!= null)
+        {
+            
+                JSONArray colleagueRequests = new JSONArray();
+                for (String colleagueRequest : person.getColleagueRequests())
+                {
+                    if (colleagueRequest != null){
+                        if (!colleagueRequest.equals("Not Set") && !colleagueRequest.isEmpty()){
+                            colleagueRequests.add(colleagueRequest);
+                        }
+                    }
+
+                }
+                map.put("colleagueRequests", colleagueRequests);
             
         }
         

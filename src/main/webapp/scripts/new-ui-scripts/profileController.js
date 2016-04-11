@@ -94,14 +94,11 @@ function profileCtrl($scope, $http) {
                 
                 var ul = $("#status-list");
                 ul.empty();
-                for (var i = 0; i < response.length; i++) {
+                for (var i = response.length - 1; i >= 0; i--) {
                     var tmpl = document.getElementById("status-template").content.cloneNode(true);
                     var now = new Date(response[i].dateCreated);
                     tmpl.querySelector(".status-date").innerText = "Created On: " + response[i].dateCreated;
-                    //$scope.statusDate = response[i].dateCreated;
-                    //console.log(response[i].dateCreated);
                     tmpl.querySelector(".status-text").innerText = response[i].statusText;
-                    //console.log(response[i].statusText);
                     ul.append(tmpl);
                 }
             },

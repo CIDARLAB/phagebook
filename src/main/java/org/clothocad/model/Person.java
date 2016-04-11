@@ -55,7 +55,7 @@ public class Person {
     @Getter @Setter private List<String>                approvedOrders;
     @Getter @Setter private String                      profileDescription;
     @Getter @Setter private List<String>                deniedOrders;
-    
+    @Getter @Setter private List<String>                colleagueRequests;
    
    
     //When sign up -- how do you affiliate position with Organization? e.g. PI at BU but affiliate researcher at berkeley
@@ -87,6 +87,7 @@ public class Person {
         this.submittedOrders        = new ArrayList<>();
         this.approvedOrders         = new ArrayList<>();
         this.profileDescription     = "Not Set";
+        this.colleagueRequests      = new ArrayList<>();
     }
     
     public void addRole(Institution institution, PersonRole role){
@@ -169,6 +170,11 @@ public class Person {
         this.statuses.add(newStatus.getId());
     }
     
+    public void addColleagueRequest(String colleagueRequestId){
+       // Date today = Calendar.getInstance().getTime();
+        //Status newStatus = new Status(text, this);
+        this.colleagueRequests.add(colleagueRequestId);
+    }
     
     public void addRole(String institution, PersonRole role){
         if(this.roles.containsKey(institution)){
