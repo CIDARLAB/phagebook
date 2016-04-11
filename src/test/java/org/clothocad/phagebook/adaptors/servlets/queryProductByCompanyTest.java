@@ -67,7 +67,7 @@ public class queryProductByCompanyTest {
     @Test
     public void testDoSearch() throws Exception {
        
-        String companyName = "App";
+        String companyName = "Pra";
         String searchType = "STARTSWITH";
         //create a clothoUser and Login to Query
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);

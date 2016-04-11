@@ -201,5 +201,21 @@ function doCartItemAjax(cartItemId){
 
 function exportCSVbtnHanlder(){
 
-    alert(this.value);
+
+    var orderId = this.value;
+
+    $.ajax({
+        url: "../exportOrderCSV",
+        type: "GET",
+        async: false,
+        data: {
+            "orderId": orderId
+        },
+        success: function (response) {
+            window.open("../resources/OrderSheets/Order_" + orderId + ".csv",'_blank');
+        },
+        error: function (response) {
+            alert("An error occurred with exporting the CSV.");
+        }
+    });
 }
