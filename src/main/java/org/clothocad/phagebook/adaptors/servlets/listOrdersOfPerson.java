@@ -94,6 +94,7 @@ public class listOrdersOfPerson extends HttpServlet {
                    
                     JSONObject approvedJSON = new JSONObject();
                     approvedJSON.put("name", approvedOrder.getName());
+                    approvedJSON.put("dateApproved", approvedOrder.getDateApproved());
                     approvedJSON.put("description", approvedOrder.getDescription());
                     approvedJSON.put("clothoId", approvedOrder.getId());
                     approvedJSON.put("dateCreated", approvedOrder.getDateCreated().toString());

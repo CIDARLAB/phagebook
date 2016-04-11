@@ -1,6 +1,10 @@
 function orderHistoryCtrl($scope){
     $(document).ready(function () {
 
+
+
+
+
         $.ajax({
             url: "../listOrdersOfPerson",
             type: "GET",
@@ -21,7 +25,7 @@ function orderHistoryCtrl($scope){
             }
         });
 
-
+        $('.export-csv-btn').click(exportCSVbtnHanlder);
 
 
     });
@@ -55,17 +59,21 @@ function generateOrderCard(orderJSON){
     template.querySelector('.order-budget').innerText = orderJSON.budget;
     template.querySelector('.order-limit').innerText = "$" +orderJSON.orderLimit;
     template.querySelector('.order-enum-status').innerText = orderJSON.status;
+    template.querySelector('.export-csv-btn').value = orderJSON.clothoId;
 
     switch (orderJSON.status){
         case "SUBMITTED":
             template.querySelector('.status').className = "received-status";
+            template.querySelector('.order-date').innerText = "Date Created: " + orderJSON.dateCreated;
             break;
         case "DENIED":
             template.querySelector('.status').className = "denied-status";
+            template.querySelector('.order-date').innerText = "Date Created: " + orderJSON.dateCreated;
 
             break;
         case "APPROVED":
             template.querySelector('.status').className = "approved-status";
+            template.querySelector('.order-date').innerText = "Date Approved: " + orderJSON.dateApproved;
 
             break;
         default:
@@ -189,4 +197,9 @@ function doCartItemAjax(cartItemId){
 
     return responseObject;
 
+}
+
+function exportCSVbtnHanlder(){
+
+    alert(this.value);
 }
