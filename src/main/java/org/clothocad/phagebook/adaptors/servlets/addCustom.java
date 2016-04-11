@@ -40,6 +40,31 @@ public class addCustom extends HttpServlet {
         String authors = request.getParameter("authors");
         int year = Integer.parseInt(request.getParameter("year"));
         String info = request.getParameter("info");
+        String bibtex = "";
+        
+        bibtex = "@article{" + authors.substring(authors.indexOf(" "), authors.indexOf(",")).toLowerCase()
+                + year;
+        
+        
+        String temp = "";
+        
+        if (title.indexOf(' ') == 1) {
+            temp = title.substring(2, title.length());
+            bibtex += temp.substring(0, temp.indexOf(' ')) + "}, title={";
+        } else if(title.indexOf(' ') == 2) {
+            temp = title.substring(3, title.length());
+            bibtex += temp.substring(0, temp.indexOf(' ')) + "}, title={";
+        }
+        else if (title.indexOf(' ') == 3) {
+            temp = title.substring(4, title.length());
+            bibtex += temp.substring(0, temp.indexOf(' ')) + "}, title={";
+        } else {
+            bibtex += title.substring(0, title.indexOf(' ')) + "}, title={";
+        }
+        
+        bibtex += title + "}, author{" + authors + "}, other information{" + info + "}}";
+        
+        
 
         ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
         Clotho clothoObject = new Clotho(conn);
@@ -49,7 +74,7 @@ public class addCustom extends HttpServlet {
         loginMap.put("credentials", "backend");
         clothoObject.login(loginMap);
 
-        PhagebookCitation pC = new PhagebookCitation(title,authors,year,info,"");
+        PhagebookCitation pC = new PhagebookCitation(title,authors,year,info,bibtex);
                 
         pC.setUser(createdBy);
 
