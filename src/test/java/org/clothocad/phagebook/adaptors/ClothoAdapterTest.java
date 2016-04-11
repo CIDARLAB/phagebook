@@ -348,7 +348,7 @@ public class ClothoAdapterTest {
     public void testCreateLab(){
         System.out.println("-----CREATE LAB TEST-----");
       
-        Institution testLab = new Institution();
+        Lab testLab = new Lab();
         String idI = "";
         testLab.setId(idI);
         
@@ -963,10 +963,6 @@ public class ClothoAdapterTest {
         lab1.setDescription(description);
         lab1.setPhone(phone);
         lab1.setUrl(url);
-<<<<<<< HEAD
-=======
-       
->>>>>>> 8926de7e770820ac4a5d69affaf0aca10869e369
         
         
         String labId = ClothoAdapter.createLab(lab1, clothoObject);
@@ -981,10 +977,7 @@ public class ClothoAdapterTest {
         assertEquals(lab1.getPhone(), lab2.getPhone());
         assertEquals(lab1.getUrl(), lab2.getUrl());
         assertEquals(lab1.getId(), lab2.getId());
-<<<<<<< HEAD
-=======
-     
->>>>>>> 8926de7e770820ac4a5d69affaf0aca10869e369
+
         
                 
         System.out.println("----------");

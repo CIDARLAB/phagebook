@@ -5,21 +5,6 @@
  */
 package org.clothocad.phagebook.controller;
 
-<<<<<<< HEAD
-/**
- *
- * @author azula
- */
-public class Utilities {
-    
-    public static String getFilepath() {
-        String filepath = Utilities.class.getClassLoader().getResource(".").getPath();
-        filepath = filepath.substring(0, filepath.indexOf("/target/"));
-        //System.out.println("\n\nTHIS IS THE FILEPATH: " + filepath + "\n\n");
-        return filepath;
-    }
-    
-=======
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -132,5 +117,4 @@ public class Utilities {
         }
         return false;
     }
->>>>>>> 8926de7e770820ac4a5d69affaf0aca10869e369
 }

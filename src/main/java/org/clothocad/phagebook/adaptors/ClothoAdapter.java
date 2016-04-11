@@ -687,7 +687,7 @@ public class ClothoAdapter {
                         }
                     }
                 }
-                System.out.println("CART ITEM ID's ARE : "+ cartItemIds.toString());
+               
                 map.put("products", cartItemIds);
             
         }
@@ -1682,8 +1682,9 @@ public class ClothoAdapter {
     {
         Map labMap = (Map) clothoObject.get(id);
         Lab lab = new Lab();
-        if (labMap != null)
-            mapToLab(labMap, clothoObject);
+        if (labMap != null) {
+           lab = mapToLab(labMap, clothoObject);
+        }
         return lab;
     }
     /**
@@ -3989,11 +3990,11 @@ public class ClothoAdapter {
                 map.put("submittedOrders", orders);
             
         }
-        if (person.getSubmittedOrders()!= null)
+        if (person.getApprovedOrders()!= null)
         {
            
                 JSONArray orders = new JSONArray();
-                for (String order : person.getSubmittedOrders())
+                for (String order : person.getApprovedOrders())
                 {
                     if (order!= null)
                     {
@@ -4002,7 +4003,7 @@ public class ClothoAdapter {
                         }
                     }
                 }
-                map.put("submittedOrders", orders);
+                map.put("approvedOrders", orders);
             
         }
         

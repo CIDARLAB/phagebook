@@ -17,6 +17,12 @@
         <url-pattern>/exportOrderCSV</url-pattern>
     </servlet-mapping>
     <servlet>
+        <servlet-name>findMemberForNewProject</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.findMemberForNewProject</servlet-class>
+    </servlet>
+    
+    
+    <servlet>
         <servlet-name>deleteOrder</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.deleteOrder</servlet-class>
     </servlet>
@@ -24,6 +30,7 @@
         <servlet-name>removePIFromLab</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.removePIFromLab</servlet-class>
     </servlet>
+    
     <servlet>
         <servlet-name>listOrdersOfPerson</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.listOrdersOfPerson</servlet-class>
@@ -375,5 +382,10 @@
     <servlet-mapping>
         <servlet-name>denyOrder</servlet-name>
         <url-pattern>/denyOrder</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>findMemberForNewProject</servlet-name>
+        <url-pattern>/findMemberForNewProject</url-pattern>
     </servlet-mapping>
 </web-app>

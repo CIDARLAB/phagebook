@@ -117,10 +117,12 @@ public class approveOrder extends HttpServlet {
                     List<String> submittedOrders = approver.getSubmittedOrders(); // need to add to approved and remove from submitted..
                     approvedOrder.add(orderToApprove.getId());
                     submittedOrders.remove(orderToApprove.getId());
-                    orderToApprove.setStatus(OrderStatus.APPROVED);
-                    ClothoAdapter.setOrder(orderToApprove, clothoObject);
                     clothoObject.logout();
                     ClothoAdapter.setPerson(approver, clothoObject);
+                    clothoObject.login(loginMap);
+                    orderToApprove.setStatus(OrderStatus.APPROVED);
+                    orderToApprove.setApprovedById(finalApprover);
+                    ClothoAdapter.setOrder(orderToApprove, clothoObject);
                     
                     
                 }

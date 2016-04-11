@@ -117,14 +117,14 @@ function generateOrderCard(orderJSON){
             itemQtyCell.innerHTML = itemQty;
             var itemUnitPrice = rowCount.insertCell(2);
             itemUnitPrice.className ="item-unit-price";
-            itemUnitPrice.innerHTML =   "$" + response.itemUnitPrice;
+            itemUnitPrice.innerHTML =   "$" + response.itemUnitPrice.toFixed(2);
 
             var itemCustomPrice = rowCount.insertCell(3);
             itemCustomPrice.className = "item-custom-unit-price";
-            itemCustomPrice.innerHTML = "$" + response.customUnitPrice;
+            itemCustomPrice.innerHTML = "$" + response.customUnitPrice.toFixed(2);
             var itemTotalPrice = rowCount.insertCell(4);
             itemTotalPrice.className = "item-total-price";
-            itemTotalPrice.innerHTML =  "$" +  response.totalPrice;
+            itemTotalPrice.innerHTML =  "$" +  response.totalPrice.toFixed(2);
 
 
             totalBeforeTax += response.totalPrice;
@@ -139,7 +139,7 @@ function generateOrderCard(orderJSON){
 
         orderItemsTable.appendChild(tr);
     }
-    template.querySelector('.total-before-tax-value').innerText = "$" + totalBeforeTax;
+    template.querySelector('.total-before-tax-value').innerText = "$" + totalBeforeTax.toFixed(2);
 
     template.querySelector('.tax-value').innerText = "$"+ ( (TAX - 1) * totalBeforeTax).toFixed(2) ;
     if (orderJSON.Budget < ( (TAX * totalBeforeTax) + totalBeforeTax)){
