@@ -95,7 +95,7 @@
                                     <td><h3 id="fullName"></h3></td>
                                 </tr>
                                 <tr id="profileDescription">
-                                    <td><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut hendrerit erat. Quisque vehicula risus nec molestie ultrices.</p></td>
+                                    <td><p>{{profileDescription}}</p></td>
                                 </tr>
                             </table>
                             <div style = "clear:both"></div>
@@ -138,7 +138,7 @@
                                         <textarea class="form-control" rows="5" id="statusUpdateTextarea" placeholder="Write new status here"></textarea>
                                         <br>
                                         <button id="createStatusBtn" type="button" class="btn btn-default">Create Status</button>
-                                    </div>
+                                    </div> 
                                 </div>
                                 <div class="container-fluid" id="colleagues">
                                     <div class="col-sm-2">
@@ -177,25 +177,15 @@
                                     <div class="col-sm-12">
                                         <h4>Previous Posts</h4>
                                         <br>
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">MARCH 19, 2016</div>
-                                            <div class="panel-body">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam non velit tellus. Quisque rutrum libero ut scelerisque malesuada. Sed a lacus quis sem dapibus malesuada. Cras rutrum et erat nec tempus.
-                                            </div>
-                                        </div>
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">MARCH 1, 2016</div>
-                                            <div class="panel-body">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam non velit tellus. Quisque rutrum libero ut scelerisque malesuada. Sed a lacus quis sem dapibus malesuada. Cras rutrum et erat nec tempus.
-                                            </div>
-                                        </div>
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">FEBRUARY 17, 2016</div>
-                                            <div class="panel-body">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam non velit tellus. Quisque rutrum libero ut scelerisque malesuada. Sed a lacus quis sem dapibus malesuada. Cras rutrum et erat nec tempus.
-                                            </div>
-                                        </div>
-                                        <button id="load-more-btn" type="button" class="btn btn-secondary btn-block">Load More...</button>
+                                        <template id="status-template">
+                                            <li class="status">
+                                                <div class = panel panel-default">
+                                                    <div class="panel-heading status-date"></div>
+                                                    <div class="panel-body status-text"></div>
+                                                </div>
+                                            </li>
+                                        </template>
+                                        <button id="load-more-btn" type="button" class="btn btn-secondary btn-block" href>Load More...</button>
                                     </div>
                                 </div>
                             </div>

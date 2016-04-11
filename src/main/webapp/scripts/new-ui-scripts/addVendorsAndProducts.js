@@ -205,7 +205,3 @@ function removeOptions(selectbox)
         selectbox.remove(i);
     }
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> 8926de7e770820ac4a5d69affaf0aca10869e369

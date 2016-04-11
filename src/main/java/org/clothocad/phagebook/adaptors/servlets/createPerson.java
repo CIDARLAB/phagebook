@@ -112,6 +112,7 @@ public class createPerson extends HttpServlet {
             List<String> institutions = createdPerson.getInstitutions();
             institutions.add(institutionId);
             createdPerson.setInstitutions(institutions);
+            createdPerson.setInstitution(institutionId);
             System.out.println("I GOT TO HERE WITH ID " + institutionId);
         }
         

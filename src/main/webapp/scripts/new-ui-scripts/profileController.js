@@ -24,7 +24,6 @@ function profileCtrl($scope, $http) {
         });
     });
     
-
     angular.element(document).ready(function ($scope) {
         console.log("before ajax but inside page onload.`");
         $.ajax({
@@ -41,6 +40,7 @@ function profileCtrl($scope, $http) {
                 $("#institution").text(responseAsJSON.institution);
                 $("#title").text(responseAsJSON.title);
                 $("#profileDescription").text(responseAsJSON.profileDescription);
+                $scope.statuses = responseAsJSON.statuses;
             },
             error: {
                 //console.log("inside GET error");
@@ -81,6 +81,21 @@ function profileCtrl($scope, $http) {
         });
     });
 
+    var tmpl = document.getElementById('status-template');
+    document.body.appendChild(tmpl.content.cloneNode(true));
+
+    var statusList = document.getElementById('statuses');
+    var statuses = [{"date":"Sun Apr 10 22:36:48 EDT 2016","text":"hola"},
+            {"date":"Sun Apr 10 22:48:50 EDT 2016","text":"blah blah"}]; 
+    for (var i = 0; i < statuses.length; i++) {
+        var status = statuses[i];
+        var tmpl = document.getElementById('status-template').content.cloneNode(true);
+        tmpl.querySelector('.status-date').innerText = status.date;
+        tmpl.querySelector('.status-text').innerText = status.text;
+        statusList.appendChild(tmpl);
+    }
+ 
+
     $("#edit-profile-btn").click(function () {
         window.location = "../html/accountSettings.html";
     });
@@ -93,6 +108,3 @@ function getParameterByName(name) {
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
-
-//https://github.com/CIDARLAB/phoenix-core/blob/master/phoenix-core/src/main/webapp/javascript/upload.js
-//https://github.com/CIDARLAB/phoenix-core/blob/master/phoenix-core/src/main/java/org/cidarlab/phoenix/core/servlets/ClientServlet.java#L56

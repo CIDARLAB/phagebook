@@ -26,6 +26,7 @@ function settingsCtrl($scope, $http){
             $scope.editDepartment = response.data.department;
             $scope.editTitle = response.data.title;
             $scope.editLab = response.data.lab;
+            $scope.editProfileDescription = response.data.profileDescription;
         }, function errorCallback(response) {
             console.log("inside GET error");
         });
@@ -52,14 +53,14 @@ function settingsCtrl($scope, $http){
                         //"institution": $scope.newInst,
                         "editFirstName" : $scope.editFirstName,
                         "editLastName" : $scope.editLastName,
-                        "department" : $scope.editDepartment,
-                        "title" : $scope.editTitle,
-                        "lab" : $scope.editLab,
-                        "profileDescription" : $scope.editProfileDescription
+                        "editDepartment" : $scope.editDepartment,
+                        "editTitle" : $scope.editTitle,
+                        //"lab" : $scope.editLab,
+                        "editProfileDescription" : $scope.editProfileDescription
                     }
                 }).then(function successCallback(response) {
                     console.log("some success in setPersonById ajax call");
-                    //location.reload();
+                    location.reload();
                 }, function errorCallback(response) {
                     console.log("inside setPersonById ajax error");
                 });

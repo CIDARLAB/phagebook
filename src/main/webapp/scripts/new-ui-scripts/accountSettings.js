@@ -388,15 +388,6 @@ function addPIBtnHandler(){
 
         }
 
-
-
-
-
     }
 
-
-
-
-
 }
-
