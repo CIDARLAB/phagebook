@@ -148,10 +148,25 @@ public class PhagebookInit {
         harvardUniversity.setType(Institution.InstitutionType.University);
         //harvardUniversity.getLabs().add(harvardLab1.getId());
         //harvardUniversity.getLabs().add(harvardLab2.getId());
+        Map queryMIT = new HashMap();
+        Map queryBU = new HashMap();
+        Map queryHavahd = new HashMap();
         
-        ClothoAdapter.createInstiution(MIT, clothoObject);
-        ClothoAdapter.createInstiution(bostonUniversity, clothoObject);
+        queryMIT.put("name", MIT.getName());
+        List<Institution> MITres    =  ClothoAdapter.queryInstitution(queryMIT, clothoObject, ClothoAdapter.QueryMode.EXACT);
+        List<Institution> BUres     =  ClothoAdapter.queryInstitution(queryBU, clothoObject, ClothoAdapter.QueryMode.EXACT);
+        List<Institution> HAVHADRes =  ClothoAdapter.queryInstitution(queryHavahd, clothoObject, ClothoAdapter.QueryMode.EXACT);
+                
+        if (MITres.isEmpty()){
+            ClothoAdapter.createInstiution(MIT, clothoObject);
+        }
+        if (BUres.isEmpty()){
+            ClothoAdapter.createInstiution(bostonUniversity, clothoObject);
+        }
+        if (HAVHADRes.isEmpty()){
+            
         ClothoAdapter.createInstiution(harvardUniversity, clothoObject);
+        }
         clothoObject.logout();
         
         //globalPI.setLabs(PILabs);
