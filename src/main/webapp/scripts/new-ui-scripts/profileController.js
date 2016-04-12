@@ -30,6 +30,7 @@ function profileCtrl($scope, $http) {
         $.ajax({
             type: 'GET',
             url: '../getPersonById',
+            async:false,
             data: {
                 "userId": clothoId
             },
@@ -42,6 +43,32 @@ function profileCtrl($scope, $http) {
                 $("#title").text(responseAsJSON.title);
                 $("#profileDescription").text(responseAsJSON.profileDescription);
                 //$scope.statuses = responseAsJSON.statuses;
+            },
+            error: {
+                //console.log("inside GET error");
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '../loadUserStatuses',
+            async:true,
+            data: {
+                "clothoId": clothoId
+            },
+            success: function (response) {
+                var responseAsJSON = angular.fromJson(response);
+                console.log(JSON.stringify(responseAsJSON));
+
+                var ul = $("#status-list");
+                ul.empty();
+                for (var i = response.length - 1; i >= 0; i--) {
+                    var tmpl = document.getElementById("status-template").content.cloneNode(true);
+                    var now = new Date(response[i].dateCreated);
+                    tmpl.querySelector(".status-date").innerText = "Created On: " + chooseMonth(now.getUTCMonth()) + " " +now.getUTCDay() +", " + now.getFullYear();
+                    tmpl.querySelector(".status-text").innerText = response[i].statusText;
+                    ul.append(tmpl);
+                }
             },
             error: {
                 //console.log("inside GET error");
@@ -91,13 +118,13 @@ function profileCtrl($scope, $http) {
             success: function (response) {
                 var responseAsJSON = angular.fromJson(response);
                 console.log(JSON.stringify(responseAsJSON));
-                
+
                 var ul = $("#status-list");
                 ul.empty();
                 for (var i = response.length - 1; i >= 0; i--) {
                     var tmpl = document.getElementById("status-template").content.cloneNode(true);
                     var now = new Date(response[i].dateCreated);
-                    tmpl.querySelector(".status-date").innerText = "Created On: " + response[i].dateCreated;
+                    tmpl.querySelector(".status-date").innerText = "Created On: " + chooseMonth(now.getUTCMonth()) + " " +now.getUTCDay() +", " + now.getFullYear() + " " + now.getHours() + ":"+ now.getHours();
                     tmpl.querySelector(".status-text").innerText = response[i].statusText;
                     ul.append(tmpl);
                 }
@@ -153,5 +180,50 @@ function getParameterByName(name) {
     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
             results = regex.exec(location.search);
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
+
+function chooseMonth(number){
+    switch (number){
+        case 1:
+            return "January";
+            break;
+        case 2:
+            return "February";
+            break;
+        case 3:
+            return "March";
+            break;
+        case 4:
+            return "April";
+            break;
+        case 5:
+            return "May";
+            break;
+        case 6:
+            return "June";
+            break;
+        case 7:
+            return "July";
+            break;
+        case 8:
+            return "August";
+            break;
+        case 9:
+            return "September";
+            break;
+        case 10:
+            return "October";
+            break;
+        case 11:
+            return "November";
+            break;
+        case 12:
+            return "December";
+            break;
+        default:
+            return "";
+            break;
+    }
 }
 
