@@ -305,9 +305,6 @@
         <servlet-name>loadUserStatuses</servlet-name>
         <url-pattern>/loadUserStatuses</url-pattern>
     </servlet-mapping>    
-    
-    
-    
     <servlet-mapping>
         <servlet-name>addMemberToProject</servlet-name>
         <url-pattern>/addMemberToProject</url-pattern>

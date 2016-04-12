@@ -249,83 +249,77 @@ $(document).ready(function() {
         });
     }
 
-});
+    function searchBtnHandler() {
+        var firstName = $("#search-first-name").val();
+        var lastName = $("#search-last-name").val();
 
 
-function searchBtnHandler() {
-    var firstName = $("#search-first-name").val();
-    var lastName = $("#search-last-name").val();
+        $.ajax({
+            url: '../queryFirstLastName',
+            type: 'GET',
+            async: false,
+            data: {
+                "firstName": firstName,
+                "lastName": lastName
+            },
+            success: function(response) {
 
 
-    $.ajax({
-        url: '../queryFirstLastName',
-        type: 'GET',
-        async: false,
-        data: {
-            "firstName": firstName,
-            "lastName": lastName
-        },
-        success: function(response) {
+                var ul = $("#pi-add-list");
+
+                ul.empty();
 
 
-            var ul = $("#pi-add-list");
-
-            ul.empty();
-
-
-            for (var i = 0; i < response.length; i++) {
-                var tmpl = document.getElementById('person-results-template').content.cloneNode(true);
+                for (var i = 0; i < response.length; i++) {
+                    var tmpl = document.getElementById('person-results-template').content.cloneNode(true);
 
 
-                tmpl.querySelector('.member-name').innerText = response[i].fullname;
-                tmpl.querySelector('.member-lab-name').innerText = (response[i].labName == null) ? "" : response[i].labName;
-                tmpl.querySelector('.member-institution-name').innerText = response[i].institutionName;
+                    tmpl.querySelector('.member-name').innerText = response[i].fullname;
+                    tmpl.querySelector('.member-lab-name').innerText = (response[i].labName == null) ? "" : response[i].labName;
+                    tmpl.querySelector('.member-institution-name').innerText = response[i].institutionName;
 
-                tmpl.querySelector('.member-profile-link').href = "../html/colleague.html?user=" + response[i].clothoId;
-                tmpl.querySelector('.member-id').value = response[i].clothoId;
-
-
-                ul.append(tmpl);
-            }
-        },
-        error: {}
-
-    });
-    return false;
-}
+                    tmpl.querySelector('.member-profile-link').href = "../html/colleague.html?user=" + response[i].clothoId;
+                    tmpl.querySelector('.member-id').value = response[i].clothoId;
 
 
-var submitMemberButtonHandler = function() {
-    var container = document.getElementById("member-add-results");
-    var peopleBoxes = container.getElementsByClassName("member-id");
+                    ul.append(tmpl);
+                }
+            },
+            error: {}
 
-    for (var i = 0; i < peopleBoxes.length; i++) {
-
-        if (peopleBoxes[i].checked) {
-
-            alert(peopleBoxes[i].value);
-            // $.ajax({
-            //     //do this for projects...
-
-            //     url: "../addPIToLab",
-            //     type: "POST",
-            //     async: false,
-            //     data: {
-            //         "userId": peopleBoxes[i].value
-            //     },
-            //     success: function(response) {
-            //         alert(response.message);
-
-            //     },
-            //     error: function(response) {
-
-            //     }
-            // });
-
-        }
-
+        });
+        return false;
     }
 
 
+    function submitMemberButtonHandler() {
+        console.log("YOOOOOOO");
+        var container = document.getElementById("member-add-results");
+        var peopleBoxes = container.getElementsByClassName("member-id");
 
-}
+        for (var i = 0; i < peopleBoxes.length; i++) {
+
+            if (peopleBoxes[i].checked) {
+
+                alert(peopleBoxes[i].value);
+                $.ajax({
+                    //do this for projects...
+                    url: "../addMemberToProject",
+                    type: "POST",
+                    async: false,
+                    data: {
+                        "memberId": peopleBoxes[i].value,
+                        "projectId": id
+                    },
+                    success: function(response) {
+                        alert(response.message);
+
+                    },
+                    error: function(response) {
+
+                    }
+                });
+            }
+        }
+    }
+});

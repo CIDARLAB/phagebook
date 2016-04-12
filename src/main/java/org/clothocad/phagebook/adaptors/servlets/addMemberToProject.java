@@ -7,10 +7,21 @@ package org.clothocad.phagebook.adaptors.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.clothoapi.clotho3javaapi.Clotho;
+import org.clothoapi.clotho3javaapi.ClothoConnection;
+import org.clothocad.model.Person;
+import org.clothocad.phagebook.adaptors.ClothoAdapter;
+import org.clothocad.phagebook.controller.Args;
+import org.clothocad.phagebook.dom.Project;
+import org.json.JSONObject;
 
 /**
  *
@@ -29,8 +40,55 @@ public class addMemberToProject extends HttpServlet {
    */
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    
-  }
+      ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+      Clotho clothoObject = new Clotho(conn);
+      Map createUserMap = new HashMap();
+      String username = "username";
+      String password = "password";
+
+      createUserMap.put("username", username);
+      createUserMap.put("password", password);
+
+      clothoObject.createUser(createUserMap);
+      Map loginMap = new HashMap();
+      loginMap.put("username", username);
+      loginMap.put("credentials", password);  
+
+      clothoObject.login(loginMap);
+      
+      JSONObject result = new JSONObject();
+      
+      System.out.println("IN ADDMEMBERTOPROJECT!");
+      
+      Object memberObj = request.getParameter("memberId");
+      String memberId  = memberObj != null ? (String) memberObj : "" ;
+      System.out.println(memberId);
+      
+      Object projectObj = request.getParameter("projectId");
+      String projectId  = projectObj != null ? (String) projectObj : "" ;
+      System.out.println(projectId);
+
+      Project project = ClothoAdapter.getProject(projectId, clothoObject);
+      
+      // add project to member
+      List<String> members = project.getMembers();
+      members.add(memberId);
+      ClothoAdapter.setProject(project, clothoObject);
+      clothoObject.logout();
+      // add member to project
+      Person member = ClothoAdapter.getPerson(memberId, clothoObject);
+      List<String> memberProjects = member.getProjects();
+      memberProjects.add(projectId);
+      ClothoAdapter.setPerson(member, clothoObject);
+      
+      result.put("success",1);
+      PrintWriter writer = response.getWriter();
+      writer.println(result);
+      writer.flush();
+      writer.close();
+      }
+
+
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
   /**

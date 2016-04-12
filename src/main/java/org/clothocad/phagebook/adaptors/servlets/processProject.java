@@ -161,6 +161,7 @@ public class processProject extends HttpServlet {
       for(int i=0;i<membersIDs.size();i++){
         System.out.println("The ID "+i+" in membersIDs is: "+ membersIDs.get(i)); 
       }
+      
       System.out.println("Now getting lead!");
       Object leadIdObj = request.getParameter("leadID");
       String leadId  = leadIdObj != null ? (String) leadIdObj : "" ;
