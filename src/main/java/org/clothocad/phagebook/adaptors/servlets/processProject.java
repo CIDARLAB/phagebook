@@ -386,7 +386,7 @@ public class processProject extends HttpServlet {
         result.put("error",1);
         System.out.println("not successful!"); 
       }
-
+      conn.closeConnection();
       PrintWriter writer = response.getWriter();
       writer.println(result);
       writer.flush();

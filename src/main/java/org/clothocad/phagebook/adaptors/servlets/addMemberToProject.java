@@ -104,7 +104,7 @@ public class addMemberToProject extends HttpServlet {
         memberProjects.add(projectId);
       }
       ClothoAdapter.setPerson(member, clothoObject);
-      
+      conn.closeConnection();
       result.put("success",1);
       PrintWriter writer = response.getWriter();
       writer.println(result);

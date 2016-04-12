@@ -81,6 +81,7 @@ public class getAllProjectMembers extends HttpServlet {
         personMap.put("personName",name);
         res.add(personMap);
       }
+      conn.closeConnection();
       System.out.println("About to leave add members to projects");
       System.out.println(res);
      result.put("result",res);
