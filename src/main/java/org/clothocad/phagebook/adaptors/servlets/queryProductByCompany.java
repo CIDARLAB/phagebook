@@ -137,7 +137,7 @@ public class queryProductByCompany extends HttpServlet {
             } else {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             }
-
+            conn.closeConnection();
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }

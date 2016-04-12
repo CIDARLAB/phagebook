@@ -52,7 +52,7 @@ public class uploadVendorCSV extends HttpServlet {
         vendorIds = OrderController.getVendors(arr, clothoObject);
         
         PrintWriter writer = response.getWriter();
-        
+        conn.closeConnection();
         writer.println("created " + vendorIds);
         writer.flush();
         writer.close();

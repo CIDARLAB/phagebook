@@ -141,7 +141,7 @@ public class newOrder extends HttpServlet {
             writer.flush();
             writer.close();
             
-            
+            conn.closeConnection();
         }
         else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

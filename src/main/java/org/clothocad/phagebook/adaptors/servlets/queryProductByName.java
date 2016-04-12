@@ -139,7 +139,7 @@ public class queryProductByName extends HttpServlet {
                 out.print(responseJSON);
                 out.flush();
             }
-            
+            conn.closeConnection();
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }

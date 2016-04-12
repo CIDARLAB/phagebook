@@ -1,6 +1,6 @@
-$(document).ready( documentReady);
+$(document).ready(documentReady);
 
-function documentReady(){
+function documentReady() {
     $("#success-lab-alert").hide();
 
     //$("#remove-pi-btn").click(removePIBtnHandler);
@@ -14,7 +14,6 @@ function documentReady(){
         type: "GET",
         async: false,
         data: {
-
         },
         success: loadPhagebookInstitutions,
         error: function (response) {
@@ -22,14 +21,14 @@ function documentReady(){
         }
     });
 
-    $('.institution-drop-down').change( function () {
+    $('.institution-drop-down').change(function () {
 
 
         var selectedInstitution = this.options[this.selectedIndex].innerHTML;
 
-        var selectInstitutions =  document.getElementsByClassName('institution-drop-down');
+        var selectInstitutions = document.getElementsByClassName('institution-drop-down');
 
-        for (var select =0; select < selectInstitutions.length ; select++ ){
+        for (var select = 0; select < selectInstitutions.length; select++) {
             selectInstitutions[select].selectedIndex = this.selectedIndex;
         }
 
@@ -47,68 +46,68 @@ function documentReady(){
             var labsArray = responseArray[i].labs;
             var labsLength = labsArray.length;
 
-                if (responseArray[i].institutionName == selectedInstitution)
-                    for (var i2 = 0; i2 < selectsLabs.length ; i2++) {
+            if (responseArray[i].institutionName == selectedInstitution)
+                for (var i2 = 0; i2 < selectsLabs.length; i2++) {
 
 
-                        removeOptions(selectsLabs[i2]);
+                    removeOptions(selectsLabs[i2]);
 
-                        for (var j = 0; j < labsLength; j++) {
+                    for (var j = 0; j < labsLength; j++) {
 
-                            var opt2 = document.createElement('option');
-                            opt2.value = labsArray[j].labId;
-
-                            opt2.innerHTML = labsArray[j].labName;
-                            selectsLabs[i2].appendChild(opt2);
-                        }
-                    }
-
-
-            else if ( selectedInstitution == "..."){
-
-
-                    for (var i3 = 0; i3 < selectsLabs.length ; i3++) {
-                        removeOptions(selectsLabs[i3]);
                         var opt2 = document.createElement('option');
-                        opt2.value = "";
-                        opt2.innerHTML = "...";
-                        selectsLabs[i3].appendChild(opt2);
+                        opt2.value = labsArray[j].labId;
 
+                        opt2.innerHTML = labsArray[j].labName;
+                        selectsLabs[i2].appendChild(opt2);
                     }
                 }
+
+
+            else if (selectedInstitution == "...") {
+
+
+                for (var i3 = 0; i3 < selectsLabs.length; i3++) {
+                    removeOptions(selectsLabs[i3]);
+                    var opt2 = document.createElement('option');
+                    opt2.value = "";
+                    opt2.innerHTML = "...";
+                    selectsLabs[i3].appendChild(opt2);
+
+                }
+            }
 
 
 
         }
     });
 
-    $('#load-pis').click(function (){
+    $('#load-pis').click(function () {
         var selectedLab = $('#pi-lab-results option').filter(':selected')[0].value;
-        if (selectedLab != "..."){
+        if (selectedLab != "...") {
             doLabAjaxCall(selectedLab);
         }
 
     });
 
-    $("#submit-lab-btn").click(function (){
+    $("#submit-lab-btn").click(function () {
 
         //WHY IS THIS AN ARRAY .. JQUERY EXPLAIN
-        var name           = document.getElementById("lab-name").value;
-        var description    = document.getElementById("lab-description").value;
-        var phone          = document.getElementById("lab-phone").value;
-        var url            = document.getElementById("lab-website").value;
-        var institutionId  = $("#create-lab-institution").val();
+        var name = document.getElementById("lab-name").value;
+        var description = document.getElementById("lab-description").value;
+        var phone = document.getElementById("lab-phone").value;
+        var url = document.getElementById("lab-website").value;
+        var institutionId = $("#create-lab-institution").val();
         $.ajax({
             //do this for projects...
             url: "../createLab",
             type: "POST",
             async: false,
             data: {
-                "user"       : getCookie("clothoId"),
-                "name"       : name,
+                "user": getCookie("clothoId"),
+                "name": name,
                 "description": description,
-                "phone"      : phone,
-                "url"        : url,
+                "phone": phone,
+                "url": url,
                 "institution": institutionId
 
 
@@ -121,7 +120,6 @@ function documentReady(){
                     type: "GET",
                     async: false,
                     data: {
-
                     },
                     success: loadPhagebookInstitutions,
                     error: function (response) {
@@ -136,7 +134,7 @@ function documentReady(){
 
         })
     });
-    $("#go-btn").click( goBtnHandler);
+    $("#go-btn").click(goBtnHandler);
 }
 
 
@@ -144,13 +142,13 @@ function removeOptions(selectbox)
 {
     var i;
 
-    for( i = selectbox.options.length-1 ; i>=0 ; i--)
+    for (i = selectbox.options.length - 1; i >= 0; i--)
     {
         selectbox.remove(i);
     }
 }
 
-function doLabAjaxCall(labId){
+function doLabAjaxCall(labId) {
     $.ajax({
         //do this for projects...
 
@@ -158,13 +156,13 @@ function doLabAjaxCall(labId){
         type: "GET",
         async: false,
         data: {
-                "lab":labId
+            "lab": labId
         },
         success: function (response) {
 
 
 
-            for (var i =0; i  <  response.length; i++){
+            for (var i = 0; i < response.length; i++) {
                 personResultRectCreate(personJSON);
             }
 
@@ -175,21 +173,21 @@ function doLabAjaxCall(labId){
     });
 }
 
-function loadPhagebookInstitutions(response){
+function loadPhagebookInstitutions(response) {
     // POSSIBLE WAY TO GET THE RESPONSE AGAIN?
     //sessionStorage.setItem("institutions", JSON.stringify(response));
     var selects = document.getElementsByClassName('institution-drop-down');
     sessionStorage.setItem("accountSettings-institutions", JSON.stringify(response.institutions));
     var length = response.institutions.length; //has institutions and labs
-    for (var k=0; k < selects.length ; k++){
+    for (var k = 0; k < selects.length; k++) {
 
         removeOptions(selects[k]);
 
         var opt = document.createElement('option');
-        opt.value ="";
+        opt.value = "";
         opt.innerHTML = "...";
         selects[k].appendChild(opt);
-        for (var i = 0; i < length; i++){
+        for (var i = 0; i < length; i++) {
 
             opt = document.createElement('option');
             opt.value = response.institutions[i].institutionId;
@@ -203,9 +201,9 @@ function loadPhagebookInstitutions(response){
 
 }
 
-function searchBtnHandler(){
+function searchBtnHandler() {
     var firstName = $("#search-first-name").val();
-    var lastName  = $("#search-last-name").val();
+    var lastName = $("#search-last-name").val();
 
 
     $.ajax({
@@ -224,12 +222,12 @@ function searchBtnHandler(){
             ul.empty();
 
 
-            for (var i = 0; i < response.length; i++){
+            for (var i = 0; i < response.length; i++) {
                 var tmpl = document.getElementById('person-results-template').content.cloneNode(true);
 
-
-                tmpl.querySelector('.pi-name').innerText            = response[i].fullname;
-                tmpl.querySelector('.pi-lab-name').innerText        =  (response[i].labName == null) ? "" : response[i].labName;
+                tmpl.querySelector('.pi-profile-pic').src = "http://s3.amazonaws.com/phagebookaws/" + response[i].clothoId + "/profilePicture.jpg";
+                tmpl.querySelector('.pi-name').innerText = response[i].fullname;
+                tmpl.querySelector('.pi-lab-name').innerText = (response[i].labName == null) ? "" : response[i].labName;
                 tmpl.querySelector('.pi-institution-name').innerText = response[i].institutionName;
 
                 tmpl.querySelector('.pi-profile-link').href = "../html/colleague.html?user=" + response[i].clothoId;
@@ -248,7 +246,7 @@ function searchBtnHandler(){
 
 }
 
-function goBtnHandler(){
+function goBtnHandler() {
     var dropdown = document.getElementById("remove-pi-container").querySelector(".lab-drop-down");
     var labId = dropdown.options[dropdown.selectedIndex].value;
     var content = $("#pi-remove-list");
@@ -264,14 +262,14 @@ function goBtnHandler(){
         type: "GET",
         async: false,
         data: {
-            "lab":labId
+            "lab": labId
         },
         success: function (response) {
 
 
-            for (var i =0; i  <  response.length; i++){
-                var name     = response[i].name;
-                var email    = response[i].email;
+            for (var i = 0; i < response.length; i++) {
+                var name = response[i].name;
+                var email = response[i].email;
                 var clothoId = response[i].clothoId;
 
                 personResultRectCreate(response[i]);
@@ -291,12 +289,13 @@ function goBtnHandler(){
 }
 
 
-function personResultRectCreate(personJSON){
+function personResultRectCreate(personJSON) {
     var content = $("#pi-remove-list");
     var tmpl = document.getElementById('person-results-template').content.cloneNode(true);
+    tmpl.querySelector('.pi-profile-pic').src = "http://s3.amazonaws.com/phagebookaws/" + personJSON.clothoId + "/profilePicture.jpg";
 
-    tmpl.querySelector('.pi-name').innerText            = personJSON.name;
-    tmpl.querySelector('.pi-lab-name').innerText        =  (personJSON.labName == null) ? "" : personJSON.labName;
+    tmpl.querySelector('.pi-name').innerText = personJSON.name;
+    tmpl.querySelector('.pi-lab-name').innerText = (personJSON.labName == null) ? "" : personJSON.labName;
     tmpl.querySelector('.pi-institution-name').innerText = personJSON.institutionName;
 
     tmpl.querySelector('.pi-profile-link').href = "../html/colleague.html?user=" + personJSON.clothoId;
@@ -307,7 +306,7 @@ function personResultRectCreate(personJSON){
 
 }
 
-function removePIBtnHandler(){
+function removePIBtnHandler() {
     var container = document.getElementById("pi-remove-results");
     var peopleBoxes = container.getElementsByClassName("pi-id");
 
@@ -315,10 +314,10 @@ function removePIBtnHandler(){
     var labId = dropdown.options[dropdown.selectedIndex].value;
     event.preventDefault();
 
-    for (var i = 0; i < peopleBoxes.length; i++){
+    for (var i = 0; i < peopleBoxes.length; i++) {
 
 
-        if (peopleBoxes[i].checked){
+        if (peopleBoxes[i].checked) {
             $.ajax({
                 //do this for projects...
 
@@ -350,7 +349,7 @@ function removePIBtnHandler(){
 
 }
 
-function addPIBtnHandler(){
+function addPIBtnHandler() {
     var container = document.getElementById("pi-add-results");
     var peopleBoxes = container.getElementsByClassName("pi-id");
 
@@ -360,7 +359,7 @@ function addPIBtnHandler(){
 
 
 
-    for (var i = 0; i < peopleBoxes.length ; i++){
+    for (var i = 0; i < peopleBoxes.length; i++) {
 
 
         if (peopleBoxes[i].checked) {

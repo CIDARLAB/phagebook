@@ -151,7 +151,7 @@ public class getPersonById extends HttpServlet {
             out.print(retrievedAsJSON);
             out.flush();
             out.close();
-
+            conn.closeConnection();
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 
