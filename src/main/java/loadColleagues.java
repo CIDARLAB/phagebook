@@ -18,6 +18,7 @@ import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.model.Person;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
+import org.clothocad.phagebook.dom.Institution;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -91,10 +92,10 @@ public class loadColleagues extends HttpServlet {
                 
                 for (String humanId :humanConnections ){
                     JSONObject humanJSON = new JSONObject();
-                    Person human  = ClothoAdapter.getPerson(humanId, clothoObject) ;
-                    humanJSON.put("firstName", human.getFirstName());
-                    humanJSON.put("lastName", human.getLastName());
-                    humanJSON.put("institution", human.getInstitution());
+                    Person human  = ClothoAdapter.getPerson(humanId, clothoObject);
+                    String institutionId = human.getInstitution();
+                    humanJSON.put("institutionName", ClothoAdapter.getInstitution(institutionId, clothoObject).getName());
+                    humanJSON.put("fullname", human.getFirstName() + " " + human.getLastName());
                     humanJSON.put("clothoId", human.getId());
                     
                     humans.put(humanJSON);

@@ -199,12 +199,10 @@
                                                     </div>
                                                     <br>
                                                     <div id="search-colleagues-results" style="overflow-y:scroll; height:300px;">
-                                                        <ul class="col-sm-12 list-group" id="search-colleagues-list">
-
-                                                        </ul>
+                                                        <ul class="col-sm-12 list-group" id="search-colleagues-list"></ul>
                                                         <template id="colleague-template">
                                                             <li class="list-group-item col-sm-5">
-                                                                <img alt="Kristel Tan">
+                                                                <img alt="Kristel Tan" class="main-link">
                                                                 <a href="" class="colleague-name">Kristel Tan</a>
                                                                 <p></p>
                                                                 <p class="main-lab">CIDAR Lab</p>
@@ -219,13 +217,13 @@
                                     <br><br>
                                     <div>
                                         <ul class="list-inline list-group" id="colleagues-full-list"></ul>
-                                        <template class="colleague-display-template">
+                                        <template id="colleague-display-template">
                                             <li class="list-group-item col-sm-5">
                                                 <img class="colleague-page-picLink">
-                                                <a href="#" class="colleague-page-name"></a>
+                                                <a href="#" class="colleague-display-fullname"></a>
                                                 <p></p>
-                                                <p class="colleague-page-lab"></p>
-                                                <p class="colleague-page-institution"></p>
+                                                <p class="colleague-display-lab"></p>
+                                                <p class="colleague-display-institution"></p>
                                             </li>
                                         </template>
                                     </div>

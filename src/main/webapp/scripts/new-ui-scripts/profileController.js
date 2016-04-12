@@ -57,19 +57,34 @@ function profileCtrl($scope, $http) {
                 "userId": clothoId
             },
             success: function (response) {
-                var ul = $("#list-colleagues");
+                var ul = $("#colleagues-full-list");
                 ul.empty();
-                console.log(response);
+                console.log(JSON.stringify(response));
                 for (var i = 0; i < response.length; i++) {
                     var tmpl = document.getElementById("colleague-display-template").content.cloneNode(true);
-                    var othertmpl = document.getElementById("colleague-page-template").content.cloneNode(true);
-                    tmpl.querySelector(".colleague-display-picture-link").src = "http://s3.amazonaws.com/phagebookaws/" + response[i].clothoId + "/profilePicture.jpg";
+                   // var othertmpl = document.getElementById("colleague-page-template").content.cloneNode(true);
                     tmpl.querySelector(".colleague-page-picLink").src = "http://s3.amazonaws.com/phagebookaws/" + response[i].clothoId + "/profilePicture.jpg";
-                    //tmpl.querySelector(".colleague-display-fullname").text = response[i].fullname;
-                    //tmpl.querySelector(".colleague-display-lab").innerHTML = (response[i].labName == null) ? "" : response[i].labName;
-                    //tmpl.querySelector(".colleague-display-institution").innerHTML = response[i].institutionName;
-                    //tmpl.querySelector(".colleague-display-fullname").href = "../html/colleague.html?user=" + response[i].clothoId;
+                    tmpl.querySelector(".colleague-page-picLink").alt = response[i].fullname;
+                    tmpl.querySelector(".colleague-display-fullname").text = response[i].fullname;
+                    tmpl.querySelector(".colleague-display-lab").innerHTML = (response[i].labName == null) ? "" : response[i].labName;
+                    tmpl.querySelector(".colleague-display-institution").innerHTML = response[i].institutionName;
+                    tmpl.querySelector(".colleague-display-fullname").href = "../html/colleague.html?user=" + response[i].clothoId;
                     ul.append(tmpl);
+                }
+                
+                var ul2 = $("#list-colleagues");
+                ul2.empty();
+                console.log(JSON.stringify(response));
+                for (var i = 0; i < response.length; i++) {
+                    var tmpl = document.getElementById("colleague-display-template").content.cloneNode(true);
+                   // var othertmpl = document.getElementById("colleague-page-template").content.cloneNode(true);
+                    tmpl.querySelector(".colleague-page-picLink").src = "http://s3.amazonaws.com/phagebookaws/" + response[i].clothoId + "/profilePicture.jpg";
+                    tmpl.querySelector(".colleague-page-picLink").alt = response[i].fullname;
+                    tmpl.querySelector(".colleague-display-fullname").text = response[i].fullname;
+                    tmpl.querySelector(".colleague-display-lab").innerHTML = (response[i].labName == null) ? "" : response[i].labName;
+                    tmpl.querySelector(".colleague-display-institution").innerHTML = response[i].institutionName;
+                    tmpl.querySelector(".colleague-display-fullname").href = "../html/colleague.html?user=" + response[i].clothoId;
+                    ul2.append(tmpl);
                 }
             },
             error: {
@@ -120,13 +135,13 @@ function profileCtrl($scope, $http) {
                 var ul = $("#search-colleagues-list");
                 ul.empty();
                 for (var i = 0; i < response.length; i++) {
-
                     var tmpl = document.getElementById("colleague-template").content.cloneNode(true);
                     tmpl.querySelector(".colleague-name").innerHTML = response[i].fullname;
+                    tmpl.querySelector(".main-link").alt = response[i].fullname;
                     tmpl.querySelector(".main-lab").innerHTML = (response[i].labName == null) ? "" : response[i].labName;
                     tmpl.querySelector(".main-institution").innerHTML = response[i].institutionName;
                     tmpl.querySelector(".colleague-name").href = "../html/colleague.html?user=" + response[i].clothoId;
-
+                    tmpl.querySelector(".main-link").src = "http://s3.amazonaws.com/phagebookaws/" + response[i].clothoId + "/profilePicture.jpg";
                     ul.append(tmpl);
                 }
 
