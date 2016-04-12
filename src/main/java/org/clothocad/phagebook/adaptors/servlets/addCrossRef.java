@@ -81,7 +81,7 @@ Object pCreatedBy = request.getParameter("createdBy");
         json.append("authors", pC.getAuthors());
         json.append("otherInformation", pC.getOtherInformation());
         json.append("bibtex", pC.getBibtex());
-
+        conn.closeConnection();
         writer.println(json.toString(2));
         writer.flush();
         writer.close();

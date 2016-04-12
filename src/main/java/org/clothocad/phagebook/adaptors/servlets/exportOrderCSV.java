@@ -97,5 +97,6 @@ public class exportOrderCSV extends HttpServlet{
         writer.println(order.getId());
         writer.flush();
         writer.close();
+        conn.closeConnection();
     }    
 }

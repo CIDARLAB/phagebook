@@ -87,7 +87,7 @@ public class autoComplete extends HttpServlet {
 
        
             JSONArray replies = (JSONArray) clothoObject.autocomplete(query);
-       
+            conn.closeConnection();
             response.setStatus(HttpServletResponse.SC_ACCEPTED);
             response.setContentType("application/json");
             PrintWriter out = response.getWriter();

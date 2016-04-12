@@ -236,6 +236,7 @@ public class editProject extends HttpServlet {
       writer.println(json);
       writer.flush();
       writer.close();
+      conn.closeConnection();
     }
      
   }

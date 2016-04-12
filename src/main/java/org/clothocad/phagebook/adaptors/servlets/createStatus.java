@@ -119,6 +119,8 @@ public class createStatus extends HttpServlet {
                 out.print(responseJSON);
                 out.flush();
                 out.close();
+                
+                conn.closeConnection();
             }
         } else {
             response.setContentType("application/json");

@@ -107,6 +107,7 @@ public class autoCompleteProjects extends HttpServlet {
             out.close();
             
             clothoObject.logout();
+            conn.closeConnection();
            
        }
        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

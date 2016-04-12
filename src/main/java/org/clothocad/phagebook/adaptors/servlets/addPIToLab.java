@@ -112,7 +112,7 @@ public class addPIToLab extends HttpServlet {
             
             response.setContentType("application/json");
             response.setStatus(HttpServletResponse.SC_OK);
-            
+            conn.closeConnection();
             PrintWriter out = response.getWriter();
             out.print(responseJSON);
             out.flush();

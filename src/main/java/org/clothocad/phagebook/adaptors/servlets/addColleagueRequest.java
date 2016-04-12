@@ -104,6 +104,8 @@ public class addColleagueRequest extends HttpServlet {
                 clothoObject.logout();
                 ClothoAdapter.setPerson(receivesRequest, clothoObject);
             }
+            
+            conn.closeConnection();
 
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

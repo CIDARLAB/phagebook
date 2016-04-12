@@ -102,7 +102,7 @@ public class denyColleagueRequest extends HttpServlet {
             clothoObject.logout();
             ClothoAdapter.setPerson(user, clothoObject);
             
-            
+            conn.closeConnection();
             
         }
         else {
