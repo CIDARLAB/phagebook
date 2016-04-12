@@ -22,31 +22,35 @@
         <script src="../scripts/new-ui-scripts/angular.ng-modules.js"></script>
 
 
-    <script>
-        window.onload = function() {
-           
-            //Find out where you get the user information from clotho after logging in. There, you need to have a function that:
-            //Gets each citation from the list of citations
-            //This code is to remove elements from a list:
-            $("publication-list").empty();
-            
-        };
-        function changeTab() {
-            $('#profile-nav-tabs a[href = "#colleagues-tab"]').tab('show');
-        }
-    </script>
+        <script>
+            window.onload = function () {
+
+                document.getElementById("see-full-list-btn").onclick = function () {
+                    changeTab();
+                };
+
+                //Find out where you get the user information from clotho after logging in. There, you need to have a function that:
+                //Gets each citation from the list of citations
+                //This code is to remove elements from a list:
+                $("publication-list").empty();
+
+            };
+            function changeTab() {
+                $('#profile-nav-tabs a[href = "#colleagues-tab"]').tab('show');
+            }
+        </script>
 
         <style>
 
-        #profile-nav {
-            position: absolute;
-            margin-top: 425px;
-            margin-left: 420px;
-            width: 862px;
-            overflow-x: hidden;
-            background: transparent;
-            border: none;
-        }
+            #profile-nav {
+                position: absolute;
+                margin-top: 425px;
+                margin-left: 420px;
+                width: 862px;
+                overflow-x: hidden;
+                background: transparent;
+                border: none;
+            }
 
             #profile-nav-heading {
                 background: none;
@@ -245,7 +249,7 @@
                                             <div class="panel-heading pub-bibtex"></div>
                                         </div>
                                     </template>
-                                    
+
                                     <button id="load-more-pub-btn" type="button" class="btn btn-secondary btn-block">Load Publications</button>
                                     <br><br>
                                     <button id="add-publication-btn" type="button" class="btn btn-default" data-toggle="modal" data-target="#add-publication-modal">Add Publication</button>
@@ -358,13 +362,13 @@
 
         </div>
 
-    <!-- ANGULAR SCRIPTS -->
-    <script src="../scripts/new-ui-scripts/headerDirective.js"></script>
-    <script src="../scripts/new-ui-scripts/footerDirective.js"></script>
-    <script src="../scripts/new-ui-scripts/sidebarDirective.js"></script>
-    <script src="../scripts/new-ui-scripts/profileController.js"></script>
-    <script src="../scripts/new-ui-scripts/profile.js"></script>
-    <script src="../scripts/new-ui-scripts/profileApp.js"></script>
+        <!-- ANGULAR SCRIPTS -->
+        <script src="../scripts/new-ui-scripts/headerDirective.js"></script>
+        <script src="../scripts/new-ui-scripts/footerDirective.js"></script>
+        <script src="../scripts/new-ui-scripts/sidebarDirective.js"></script>
+        <script src="../scripts/new-ui-scripts/profileController.js"></script>
+        <script src="../scripts/new-ui-scripts/profile.js"></script>
+        <script src="../scripts/new-ui-scripts/profileApp.js"></script>
 
     </body>
 </html>

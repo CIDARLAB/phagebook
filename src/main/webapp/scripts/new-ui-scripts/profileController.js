@@ -75,7 +75,7 @@ function profileCtrl($scope, $http) {
                 var ul2 = $("#list-colleagues");
                 ul2.empty();
                 console.log(JSON.stringify(response));
-                for (var i = 0; i < response.length; i++) {
+                for (var i = 0; i < 1; i++) { //change bounds when we can figure out css 
                     var tmpl = document.getElementById("colleague-display-template").content.cloneNode(true);
                    // var othertmpl = document.getElementById("colleague-page-template").content.cloneNode(true);
                     tmpl.querySelector(".colleague-page-picLink").src = "http://s3.amazonaws.com/phagebookaws/" + response[i].clothoId + "/profilePicture.jpg";
