@@ -48,6 +48,7 @@ function colleagueCtrl($scope, $http) {
                     
                 }
             });
+
         }); 
         
         

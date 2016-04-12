@@ -852,23 +852,6 @@ public class ClothoAdapter {
         map.put("activated", person.isActivated());
         map.put("activationString", person.getActivationString());
         
-        if (person.getColleagues() != null)
-        {
-            if (!person.getColleagues().isEmpty())
-            {
-                JSONArray colleagues = new JSONArray();
-                for (String colleague : person.getColleagues())
-                {
-                    if (colleague != null){
-                        if (!colleague.equals("Not Set") && !colleague.isEmpty()){
-                            colleagues.add(colleague);
-                        }
-                    }
-
-                }
-                map.put("colleagues", colleagues);
-            }
-        }
         
         if (person.getNotebooks() != null)
         {
@@ -925,7 +908,6 @@ public class ClothoAdapter {
                     }
                 }
                 map.put("institutions", institutions);
-            System.out.println("INSTITS: " + institutions.toString());
         }
         
         if (person.getLabs() != null)
@@ -1011,6 +993,23 @@ public class ClothoAdapter {
             
             }
             map.put("colleagues", colleagues);
+        }
+        
+        if (person.getColleagueRequests()!= null)
+        {
+            
+                JSONArray colleagueRequests = new JSONArray();
+                for (String colleagueRequest : person.getColleagueRequests())
+                {
+                    if (colleagueRequest != null){
+                        if (!colleagueRequest.equals("Not Set") && !colleagueRequest.isEmpty()){
+                            colleagueRequests.add(colleagueRequest);
+                        }
+                    }
+
+                }
+                map.put("colleagueRequests", colleagueRequests);
+            
         }
         
         

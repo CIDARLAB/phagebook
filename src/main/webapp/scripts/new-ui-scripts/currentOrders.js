@@ -34,7 +34,7 @@ $(document).ready(function() {
                 break;
         }
 
-        alert(name);
+
         var searchType = "STARTSWITH"; //USE JQUERY TO FIND FIXES
 
         var isValid = 0;
@@ -247,7 +247,6 @@ $(document).ready(function() {
             tableRow = document.getElementById("product"+i);
         }
 
-        alert(JSON.stringify(productsToAdd));
 
 
         $.ajax({
@@ -317,7 +316,7 @@ function deleteButtonHandler(event){
 function submitButtonHandler(){
 
     var orderId = this.value;
-    alert(orderId);
+
 
     $.ajax({
         url: '../submitOrderToPIs',

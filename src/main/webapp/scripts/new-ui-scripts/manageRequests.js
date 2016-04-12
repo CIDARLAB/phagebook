@@ -27,13 +27,54 @@ function documentReady(){
         }
     });
 
-    $(".decline-btn").click(declineOrderBtnHandler);
-    $(".approve-btn").click(approveOrderBtnHandler);
+    $(".decline-order-btn").click(declineOrderBtnHandler);
+    $(".approve-order-btn").click(approveOrderBtnHandler);
+
+
+    $.ajax({
+        //do this for projects...
+
+        url: "../listColleagueRequests",
+        type: "GET",
+        async: false,
+        data: {
+            "userId": getCookie("clothoId")
+        },
+        success: function (response) {
+
+            for (var i=0; i < response.length; i++){
+                parseColleagueRequest(response[i]);
+            }
+
+
+        },
+        error: function (response) {
+
+        }
+    });
+
+
+    $(".decline-colleague-btn").click(declineColleagueBtnHandler);
+    $(".approve-colleague-btn").click(approveColleagueBtnHandler);
+
+}
+
+function parseColleagueRequest(colleagueJSON){
+
+    var content = $("#content");
+    var template = document.getElementById('friend-request-template').content.cloneNode(true);
+    template.querySelector('.colleague-name').text  = colleagueJSON.firstName + " " + colleagueJSON.lastName;
+    template.querySelector('.colleague-name').href  =  "../html/colleague.html?user=" + colleagueJSON.clothoId;
+    template.querySelector('.approve-colleague-btn').value = colleagueJSON.clothoId;
+    template.querySelector('.decline-colleague-btn').value = colleagueJSON.clothoId;
+
+    content.append(template);
+
+
 
 }
 
 function parseOrderRequest(orderJSON){
-    console.log(orderJSON);
     var content = $("#content");
     var template = document.getElementById('submitted-order-request-template').content.cloneNode(true);
     template.querySelector('.request-btn').innerHTML=  "ORDER #" + orderJSON.clothoId + "&nbsp; ' " + orderJSON.name + "'";
@@ -137,8 +178,8 @@ function parseOrderRequest(orderJSON){
 
 
 
-    template.querySelector('.approve-btn').value = orderJSON.clothoId;
-    template.querySelector('.decline-btn').value = orderJSON.clothoId;
+    template.querySelector('.approve-order-btn').value = orderJSON.clothoId;
+    template.querySelector('.decline-order-btn').value = orderJSON.clothoId;
 
 
 
@@ -185,7 +226,6 @@ function doCartItemAjax(cartItemId){
 }
 
 function approveOrderBtnHandler(){
-    alert(this.value);
 
     $.ajax({
         //do this for projects...
@@ -239,4 +279,56 @@ function declineOrderBtnHandler(){
 
 
 }
+
+
+function approveColleagueBtnHandler(){
+    alert(this.value);
+    $.ajax({
+        //do this for projects...
+        url: "../approveColleagueRequest",
+        type: "POST",
+        async: false,
+        data: {
+            "userId": getCookie("clothoId"),
+            "orderId": this.value
+        },
+        success: function (response) {
+            alert("order approved");
+            window.location.href="";
+        },
+        error: function (response){
+            window.location.href="";
+        }
+    });
+}
+
+function declineColleagueBtnHandler(){
+    if (confirm("Really deny this request?")){
+        $.ajax({
+            //do this for projects...
+            url: "../denyColleagueRequest",
+            type: "POST",
+            async: false,
+            data: {
+                "userId": getCookie("clothoId"),
+                "colleagueId": this.value
+            },
+            success: function (response) {
+
+                window.location.href="";
+
+            },
+            error: function (response){
+                window.location.href="";
+            }
+        });
+
+    }
+    else {
+
+    }
+
+}
+
+
 

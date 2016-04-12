@@ -8,6 +8,7 @@ package org.clothocad.phagebook.adaptors.servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,12 +19,13 @@ import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.model.Person;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
+import org.json.JSONObject;
 
 /**
  *
- * @author azula
+ * @author Herb
  */
-public class addColleagueRequest extends HttpServlet {
+public class approveColleagueRequest extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,7 +38,7 @@ public class addColleagueRequest extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -66,15 +68,14 @@ public class addColleagueRequest extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        Object pColleagueId = request.getParameter("colleagueId");
+        String colleagueId = pColleagueId != null ? (String) pColleagueId : "";
 
-        Object pUserId = request.getParameter("loggedInClothoId");
+        Object pUserId = request.getParameter("userId");
         String userId = pUserId != null ? (String) pUserId : "";
-
-        Object pRequestId = request.getParameter("colleagueClothoId");
-        String requestId = pRequestId != null ? (String) pRequestId : "";
-
+        
         boolean isValid = false; //used only to make sure the person exists in Clotho
-        if (!userId.equals("")) {
+        if (!colleagueId.equals("") && !userId.equals("")) {
             isValid = true;
         }
 
@@ -89,23 +90,47 @@ public class addColleagueRequest extends HttpServlet {
             loginMap.put("credentials", password);
             clothoObject.login(loginMap);
             //
-
-            Person retrieve = ClothoAdapter.getPerson(userId, clothoObject);
-            if (!requestId.equals(userId)) {
-                if (!retrieve.getId().equals("")) {
-                    if (!requestId.equals("") && !retrieve.getColleagues().contains(requestId) && !retrieve.getColleagueRequests().contains(requestId)) {
-
-                        retrieve.addColleagueRequest(requestId);
-                    }
-
-                }
-                clothoObject.logout();
-                ClothoAdapter.setPerson(retrieve, clothoObject);
+            Person user = ClothoAdapter.getPerson(userId, clothoObject);
+            List<String> colleagueRequests = user.getColleagueRequests();
+            if (colleagueRequests.contains(colleagueId)){
+                colleagueRequests.remove(colleagueId);
+                user.setColleagueRequests(colleagueRequests);
+                
             }
-
+            
+            Person colleague = ClothoAdapter.getPerson(colleagueId, clothoObject);
+            List<String> colleaguesUser = user.getColleagues();
+            List<String> colleaguesColleague = colleague.getColleagues();
+            if (!colleaguesUser.contains(colleague.getId())){
+                if (!colleaguesColleague.contains(user.getId())){
+                    colleaguesUser.add(colleague.getId());
+                    colleaguesColleague.add(user.getId());
+                    colleague.setColleagues(colleaguesColleague);
+                    user.setColleagues(colleaguesUser);
+                    
+                }
+            }
+            clothoObject.logout();
+            ClothoAdapter.setPerson(user, clothoObject);
+            ClothoAdapter.setPerson(colleague, clothoObject);
+            
+            response.setContentType("application/json");
+            response.setStatus(HttpServletResponse.SC_OK);
+            JSONObject responseJSON = new JSONObject();
+            responseJSON.put("message", "Colleague Request Accepted!");
+            PrintWriter out = response.getWriter();
+            out.print(responseJSON);
+            out.flush();
+            
+            
         } else {
+            response.setContentType("application/json");
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-
+            JSONObject responseJSON = new JSONObject();
+            responseJSON.put("message", "missing parameters for ajax");
+            PrintWriter out = response.getWriter();
+            out.print(responseJSON);
+            out.flush();
         }
     }
 
@@ -116,7 +141,7 @@ public class addColleagueRequest extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "this servlet adds the userId of the logged in user to the requests of the person";
+        return "Short description";
     }// </editor-fold>
 
 }

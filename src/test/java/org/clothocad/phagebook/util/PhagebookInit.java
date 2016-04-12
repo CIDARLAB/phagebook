@@ -162,6 +162,8 @@ public class PhagebookInit {
         
         //globalPI.setLabs(PILabs);
         ClothoAdapter.setPerson(globalPI, clothoObject);
+        conn.closeConnection();
+        
         
     }
 
