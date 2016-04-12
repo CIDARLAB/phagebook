@@ -5,7 +5,6 @@ $(document).ready(function() {
     // "description":"This is a project description for an awesome project named \"Project\"!",
     // "projectName":"Project","updates":[],"grant":"5709a9bad4c60ab7f5242f02",
     // "lead":"Anna Goncharova","budget":12345}
-
     $("#submit-member-btn").click(submitMemberButtonHandler);
 
 
@@ -291,6 +290,47 @@ $(document).ready(function() {
         return false;
     }
 
+    var data = {
+        "projectId": id
+    }
+    console.log(data);
+
+    var ul = $("#member-link-list");
+    console.log(ul);
+    var getAllMembers = function() {
+        console.log("in getAllMembers function");
+        $.ajax({
+            url: "../getAllProjectMembers",
+            type: "GET",
+            dataType: "json",
+            data: data,
+            success: function(response) {
+                // response is the array of projects
+                // response = JSON.parse(response);
+                // console.log(typeof(response));
+                console.log(response);
+
+                for (var i = 0; i < response.result.length; i++) {
+                    link = "./profile.html?id=" + response.result[i].personId;
+                    var a = document.createElement('a');
+                    $(a).attr('href', link).text(response.result[i].personName);
+                    console.log(a);
+                    var tmpl = document.getElementById("member-template").content.cloneNode(true);
+                    tmpl.querySelector(".project-link").appendChild(a);
+                    console.log(tmpl);
+                    ul.append(tmpl);
+
+                }
+
+            },
+            error: function(err) {
+                console.log("ERROR!!");
+                console.log(err);
+            }
+        });
+    }
+
+
 
     function submitMemberButtonHandler() {
         console.log("YOOOOOOO");
@@ -312,7 +352,8 @@ $(document).ready(function() {
                         "projectId": id
                     },
                     success: function(response) {
-                        alert(response.message);
+                        console.log(response);
+                        alert("Successfully added a member to the project!");
 
                     },
                     error: function(response) {
@@ -322,4 +363,7 @@ $(document).ready(function() {
             }
         }
     }
+    // get all members here!
+    getAllMembers();
+
 });

@@ -154,6 +154,10 @@
         <servlet-name>addMemberToProject</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.addMemberToProject</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>getAllProjectMembers</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.getAllProjectMembers</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>exportOrderCSV</servlet-name>
         <url-pattern>/exportOrderCSV</url-pattern>
@@ -308,5 +312,9 @@
     <servlet-mapping>
         <servlet-name>addMemberToProject</servlet-name>
         <url-pattern>/addMemberToProject</url-pattern>
+    </servlet-mapping>    
+    <servlet-mapping>
+        <servlet-name>getAllProjectMembers</servlet-name>
+        <url-pattern>/getAllProjectMembers</url-pattern>
     </servlet-mapping>
     </web-app>
