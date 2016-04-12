@@ -56,7 +56,7 @@
     </servlet>
     <servlet>
         <servlet-name>loadColleagues</servlet-name>
-        <servlet-class>loadColleagues</servlet-class>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.loadColleagues</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>loadPublications</servlet-name>
