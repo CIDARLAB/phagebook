@@ -144,7 +144,7 @@ public class removeProductsFromOrder extends HttpServlet {
             PrintWriter out = response.getWriter();
             out.print(responseJSON);
             out.flush();
-            
+            conn.closeConnection();
         }else 
         {
             response.setContentType("application/json");

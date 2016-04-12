@@ -147,6 +147,7 @@ public class submitOrderToPIs extends HttpServlet {
                 JSONObject responseJSON = new JSONObject();
                 responseJSON.put("message", "Success! Order and PI's should be changed.");
                 writer.println(responseJSON.toString());
+                conn.closeConnection();
                 writer.flush();
                 writer.close();
             }

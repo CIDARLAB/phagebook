@@ -150,6 +150,7 @@ public class loginUser extends HttpServlet {
                 out.close();
             
             }
+            conn.closeConnection();
         }
     }
 

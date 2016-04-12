@@ -127,7 +127,7 @@ public class getProject extends HttpServlet {
         System.out.println(projectObject);
         String project = projectObject.toString();
         System.out.println("stringified :: " + project);
-         conn.closeConnection();
+        conn.closeConnection();
         writer.println(project); //Send back stringified JSON object
         writer.flush();
         writer.close();

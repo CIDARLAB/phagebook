@@ -111,7 +111,7 @@ public class loadColleagues extends HttpServlet {
             PrintWriter out = response.getWriter();
             out.print(humans);
             out.flush();
-
+            conn.closeConnection();
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 

@@ -114,6 +114,7 @@ public class removePIFromLab extends HttpServlet {
             PrintWriter out = response.getWriter();
             out.print(responseJSON);
             out.flush();
+            conn.closeConnection();
             
             
         } else{

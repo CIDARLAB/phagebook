@@ -143,6 +143,7 @@ public class sendOrderForApproval extends HttpServlet {
                 writer.flush();
                 writer.close();
             }
+            conn.closeConnection();
         }
         else
         {
