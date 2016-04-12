@@ -122,7 +122,7 @@ public class sendEmails {
     System.out.println(projectId);
     Project project = ClothoAdapter.getProject(projectId, clothoObject);
 
-    // get the project name from proejct id to be used in the email
+    // get the project name from project id to be used in the email
     String projectName= project.getName();
     
     // get the list of people associate with the project
@@ -130,14 +130,26 @@ public class sendEmails {
     // create a hashmap of people and add members that are not in the list of members
     Person creator = ClothoAdapter.getPerson(project.getCreatorId(), clothoObject);
     Person lead = ClothoAdapter.getPerson(project.getLeadId(), clothoObject);
+    System.out.println("In sendEmails, person lead is "+lead.getFirstName() + ' ' + lead.getLastName());
+    System.out.println("In sendEmails, lead's email is "+lead.getEmailId());
     Map people = new HashMap();
-    people.put(creator.getEmailId(), creator.getFirstName() + ' ' + creator.getLastName());
-    people.put(lead.getEmailId(), lead.getFirstName() + ' ' + lead.getLastName());
+    
+    if(!(creator.getEmailId().equals("Not set"))){
+      System.out.println("I will be sending an email to creator!");
+      people.put(creator.getEmailId(), creator.getFirstName() + ' ' + creator.getLastName());
+    }
+    if(!(lead.getEmailId().equals("Not set"))){
+      System.out.println("I will be sending an email to lead!");
+      people.put(lead.getEmailId(), lead.getFirstName() + ' ' + lead.getLastName());
+    }
     // go through the list of members to add them to the hashmap
     for(int i = 0; i<members.size(); i++){
       String personId = members.get(i);
       Person member = ClothoAdapter.getPerson(personId, clothoObject);
       String memberEmail = member.getEmailId();
+      if(memberEmail.equals("Not set")){
+        break;
+      }
       String memberName = member.getFirstName() + ' ' + member.getLastName();
 //      System.out.println("/n");
 //      System.out.println(memberName);

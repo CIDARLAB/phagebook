@@ -28,16 +28,13 @@
     <servlet>
         <servlet-name>uploadVendorCSV</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.uploadVendorCSV</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>createStatus</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.createStatus</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>exportOrderCSV</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.exportOrderCSV</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>loadUserStatuses</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.loadUserStatuses</servlet-class>
     </servlet>
@@ -73,374 +70,304 @@
         <servlet-name>findMemberForNewProject</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.findMemberForNewProject</servlet-class>
     </servlet>
+   
     <servlet>
         <servlet-name>deleteOrder</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.deleteOrder</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>removePIFromLab</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.removePIFromLab</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>listOrdersOfPerson</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.listOrdersOfPerson</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>denyOrder</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.denyOrder</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>uploadVendorCSV</servlet-name>
-        <url-pattern>/uploadVendorCSV</url-pattern>
-    </servlet-mapping>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>uploadProductCSV</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.uploadProductCSV</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>uploadProductCSV</servlet-name>
-        <url-pattern>/uploadProductCSV</url-pattern>
-    </servlet-mapping>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>processProject</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.processProject</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>processOrder</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.processOrder</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>verifyEmail</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.verifyEmail</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>resendVerification</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.resendVerification</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>loginUser</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.loginUser</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>queryProductByName</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.queryProductByName</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>queryProductByCompany</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.queryProductByCompany</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>getProductById</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.getProductById</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>createOrderWithIdArray</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.createOrderWithIdArray</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>getPersonById</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.getPersonById</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>createProduct</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.createProduct</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>createVendor</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.createVendor</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>listCreatedOrdersOfPerson</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.listCreatedOrdersOfPerson</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>autoComplete</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.autoComplete</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>addProductsToOrder</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.addProductsToOrder</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>listSubmittedOrdersOfPerson</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.listSubmittedOrdersOfPerson</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>submitOrderToPIs</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.submitOrderToPIs</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>sendOrderForApproval</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.sendOrderForApproval</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>markOrderAsReceived</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.markOrderAsReceived</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>approveOrder</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.approveOrder</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>removeProductsFromOrder</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.removeProductsFromOrder</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>listApprovedOrdersOfPerson</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.listApprovedOrdersOfPerson</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>loadPhagebookInstitutions</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.loadPhagebookInstitutions</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>autoCompleteProjects</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.autoCompleteProjects</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>autoCompleteVendors</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.autoCompleteVendors</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>uploadProfilePicture</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.uploadProfilePicture</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>queryFirstLastName</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.queryFirstLastName</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>loadUserData</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.loadUserData</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>parseCartItem</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.parseCartItem</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>listPIsOfLab</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.listPIsOfLab</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>addPIToLab</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.addPIToLab</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>createLab</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.createLab</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>getAllProjects</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.getAllProjects</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>getAllProjects</servlet-name>
-        <url-pattern>/getAllProjects</url-pattern>
-    </servlet-mapping>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>addProducts</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.AddProducts</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>addProducts</servlet-name>
-        <url-pattern>/addProducts</url-pattern>
-    </servlet-mapping>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>newOrder</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.newOrder</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>newOrder</servlet-name>
-        <url-pattern>/newOrder</url-pattern>
-    </servlet-mapping>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>getProject</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.getProject</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>getProject</servlet-name>
-        <url-pattern>/getProject</url-pattern>
-    </servlet-mapping>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>createPerson</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.createPerson</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>editProject</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.editProject</servlet-class>
-    </servlet>
-    <servlet>
+    </servlet><servlet>
         <servlet-name>addUpdateToProject</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.addUpdateToProject</servlet-class>
+    </servlet><servlet>
+        <servlet-name>getAllProjectUpdates</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.getAllProjectUpdates</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>addMemberToProject</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.addMemberToProject</servlet-class>
     </servlet>
     <servlet-mapping>
+        <servlet-name>exportOrderCSV</servlet-name>
+        <url-pattern>/exportOrderCSV</url-pattern>
+    </servlet-mapping><servlet-mapping>
+        <servlet-name>uploadVendorCSV</servlet-name>
+        <url-pattern>/uploadVendorCSV</url-pattern>
+    </servlet-mapping><servlet-mapping>
+        <servlet-name>uploadProductCSV</servlet-name>
+        <url-pattern>/uploadProductCSV</url-pattern>
+    </servlet-mapping><servlet-mapping>
+        <servlet-name>getAllProjects</servlet-name>
+        <url-pattern>/getAllProjects</url-pattern>
+    </servlet-mapping><servlet-mapping>
+        <servlet-name>addProducts</servlet-name>
+        <url-pattern>/addProducts</url-pattern>
+    </servlet-mapping><servlet-mapping>
+        <servlet-name>newOrder</servlet-name>
+        <url-pattern>/newOrder</url-pattern>
+    </servlet-mapping><servlet-mapping>
+        <servlet-name>getProject</servlet-name>
+        <url-pattern>/getProject</url-pattern>
+    </servlet-mapping><servlet-mapping>
+        <servlet-name>getAllProjectUpdates</servlet-name>
+        <url-pattern>/getAllProjectUpdates</url-pattern>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>editProject</servlet-name>
         <url-pattern>/editProject</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>addUpdateToProject</servlet-name>
         <url-pattern>/addUpdateToProject</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>processProject</servlet-name>
         <url-pattern>/processProject</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>processOrder</servlet-name>
         <url-pattern>/processOrder</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>createPerson</servlet-name>
         <url-pattern>/createPerson</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>verifyEmail</servlet-name>
         <url-pattern>/verifyEmail</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>resendVerification</servlet-name>
         <url-pattern>/resendVerification</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>loginUser</servlet-name>
         <url-pattern>/loginUser</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>queryProductByName</servlet-name>
         <url-pattern>/queryProductByName</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>queryProductByCompany</servlet-name>
         <url-pattern>/queryProductByCompany</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>getProductById</servlet-name>
         <url-pattern>/getProductById</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>createOrderWithIdArray</servlet-name>
         <url-pattern>/createOrderWithIdArray</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>getPersonById</servlet-name>
         <url-pattern>/getPersonById</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>createProduct</servlet-name>
         <url-pattern>/createProduct</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>createVendor</servlet-name>
         <url-pattern>/createVendor</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>listCreatedOrdersOfPerson</servlet-name>
         <url-pattern>/listCreatedOrdersOfPerson</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>autoComplete</servlet-name>
         <url-pattern>/autoComplete</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>addProductsToOrder</servlet-name>
         <url-pattern>/addProductsToOrder</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>listSubmittedOrdersOfPerson</servlet-name>
         <url-pattern>/listSubmittedOrdersOfPerson</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>submitOrderToPIs</servlet-name>
         <url-pattern>/submitOrderToPIs</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>sendOrderForApproval</servlet-name>
         <url-pattern>/sendOrderForApproval</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>markOrderAsReceived</servlet-name>
         <url-pattern>/markOrderAsReceived</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>approveOrder</servlet-name>
         <url-pattern>/approveOrder</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>removeProductsFromOrder</servlet-name>
         <url-pattern>/removeProductsFromOrder</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>listApprovedOrdersOfPerson</servlet-name>
         <url-pattern>/listApprovedOrdersOfPerson</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>loadPhagebookInstitutions</servlet-name>
         <url-pattern>/loadPhagebookInstitutions</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>autoCompleteProjects</servlet-name>
         <url-pattern>/autoCompleteProjects</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>autoCompleteVendors</servlet-name>
         <url-pattern>/autoCompleteVendors</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>uploadProfilePicture</servlet-name>
         <url-pattern>/uploadProfilePicture</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>queryFirstLastName</servlet-name>
         <url-pattern>/queryFirstLastName</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>loadUserData</servlet-name>
         <url-pattern>/loadUserData</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>parseCartItem</servlet-name>
         <url-pattern>/parseCartItem</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>listPIsOfLab</servlet-name>
         <url-pattern>/listPIsOfLab</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>addPIToLab</servlet-name>
         <url-pattern>/addPIToLab</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>createLab</servlet-name>
         <url-pattern>/createLab</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>createStatus</servlet-name>
         <url-pattern>/createStatus</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>deleteOrder</servlet-name>
         <url-pattern>/deleteOrder</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>removePIFromLab</servlet-name>
         <url-pattern>/removePIFromLab</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>listOrdersOfPerson</servlet-name>
         <url-pattern>/listOrdersOfPerson</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>denyOrder</servlet-name>
         <url-pattern>/denyOrder</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>findMemberForNewProject</servlet-name>
         <url-pattern>/findMemberForNewProject</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+    </servlet-mapping><servlet-mapping>
         <servlet-name>loadUserStatuses</servlet-name>
         <url-pattern>/loadUserStatuses</url-pattern>
+    </servlet-mapping>    
+    
+    <servlet-mapping>
+        <servlet-name>addMemberToProject</servlet-name>
+        <url-pattern>/addMemberToProject</url-pattern>
     </servlet-mapping>
+    
     <servlet-mapping>
         <servlet-name>addColleagueRequest</servlet-name>
         <url-pattern>/addColleagueRequest</url-pattern>
