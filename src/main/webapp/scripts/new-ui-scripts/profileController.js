@@ -120,12 +120,17 @@ function profileCtrl($scope, $http) {
                 var ul = $("#search-colleagues-list");
                 ul.empty();
                 for (var i = 0; i < response.length; i++) {
+
                     var tmpl = document.getElementById("colleague-template").content.cloneNode(true);
-                    tmpl.querySelector(".colleague-name").text = response[i].fullname;
+                    tmpl.querySelector(".colleague-name").innerHTML = response[i].fullname;
                     tmpl.querySelector(".main-lab").innerHTML = (response[i].labName == null) ? "" : response[i].labName;
                     tmpl.querySelector(".main-institution").innerHTML = response[i].institutionName;
                     tmpl.querySelector(".colleague-name").href = "../html/colleague.html?user=" + response[i].clothoId;
+
+                    ul.append(tmpl);
                 }
+
+
             },
             error: function (response) {
 

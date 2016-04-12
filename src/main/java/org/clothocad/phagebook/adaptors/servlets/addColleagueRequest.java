@@ -89,18 +89,20 @@ public class addColleagueRequest extends HttpServlet {
             loginMap.put("credentials", password);
             clothoObject.login(loginMap);
             //
-
-            Person retrieve = ClothoAdapter.getPerson(requestId, clothoObject);
+            //userID = person logged into phagebook
+            //requestId = person not logged in... receives request
+            Person receivesRequest = ClothoAdapter.getPerson(requestId, clothoObject);
             if (!requestId.equals(userId)) {
-                if (!retrieve.getId().equals("")) {
-                    if (!requestId.equals("") && !retrieve.getColleagues().contains(userId) && !retrieve.getColleagueRequests().contains(requestId)) {
+                if (!receivesRequest.getId().equals("") && !userId.equals("")) {
+                    if (!receivesRequest.getColleagues().contains(userId) && !receivesRequest.getColleagueRequests().contains(userId)) {
 
-                        retrieve.addColleagueRequest(userId);
+                        receivesRequest.addColleagueRequest(userId);
                     }
 
                 }
+                
                 clothoObject.logout();
-                ClothoAdapter.setPerson(retrieve, clothoObject);
+                ClothoAdapter.setPerson(receivesRequest, clothoObject);
             }
 
         } else {
