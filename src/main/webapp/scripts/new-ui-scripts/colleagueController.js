@@ -82,6 +82,34 @@ function colleagueCtrl($scope, $http) {
                 //console.log("inside GET error");
             }
         });
+        
+            $("#load-more-pub-btn").click(function () {
+                $.ajax({
+                    type: 'GET',
+                    url: '../loadPublications',
+                    async: false,
+                    data: {
+                        "clothoId": clothoId
+                    },
+                    success: function (response) {
+
+                        var ul = $("#publications-list");
+                        ul.empty();
+
+                        for (var i = 0; i < response.length; i++) {
+                            var tmpl = document.getElementById("publication-template").content.cloneNode(true);
+                            tmpl.querySelector(".publication-year").innerText = "Year : " + response[i].pubYear;
+                            tmpl.querySelector(".publication-title").innerText = "Title : " + response[i].pubTitle;
+                            tmpl.querySelector(".publication-author").innerText = "Authors : " + response[i].pubAuthors;
+                            tmpl.querySelector(".publication-information").innerText = "Other Information : " + response[i].pubInfo;
+                            tmpl.querySelector(".publication-bibtex").innerText = "Bibtex : " + response[i].pubBibtex;
+                            ul.append(tmpl);
+                        }
+                    },
+                    error: {
+                    }
+                });
+            });
 
     });
 
