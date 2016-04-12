@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package org.clothocad.phagebook.adaptors;
-import com.sun.media.jfxmedia.logging.Logger;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

@@ -3,7 +3,7 @@ function profileCtrl($scope, $http) {
     $scope.clothoId = clothoId;
     var fileExt = ".jpg";
     var awsPath = "http://s3.amazonaws.com/phagebookaws/" + clothoId + "/profilePicture";
-
+    //alert("dumb" + clothoId);
     $scope.profilePictureLink = awsPath + fileExt;
 
     $("#createStatusBtn").click(function () {
@@ -62,7 +62,7 @@ function profileCtrl($scope, $http) {
                 console.log(JSON.stringify(response));
                 for (var i = 0; i < response.length; i++) {
                     var tmpl = document.getElementById("colleague-display-template").content.cloneNode(true);
-                   // var othertmpl = document.getElementById("colleague-page-template").content.cloneNode(true);
+                    // var othertmpl = document.getElementById("colleague-page-template").content.cloneNode(true);
                     tmpl.querySelector(".colleague-page-picLink").src = "http://s3.amazonaws.com/phagebookaws/" + response[i].clothoId + "/profilePicture.jpg";
                     tmpl.querySelector(".colleague-page-picLink").alt = response[i].fullname;
                     tmpl.querySelector(".colleague-display-fullname").text = response[i].fullname;
@@ -71,20 +71,23 @@ function profileCtrl($scope, $http) {
                     tmpl.querySelector(".colleague-display-fullname").href = "../html/colleague.html?user=" + response[i].clothoId;
                     ul.append(tmpl);
                 }
-                
+
                 var ul2 = $("#list-colleagues");
                 ul2.empty();
-                console.log(JSON.stringify(response));
-                for (var i = 0; i < 1; i++) { //change bounds when we can figure out css 
-                    var tmpl = document.getElementById("colleague-display-template").content.cloneNode(true);
-                   // var othertmpl = document.getElementById("colleague-page-template").content.cloneNode(true);
-                    tmpl.querySelector(".colleague-page-picLink").src = "http://s3.amazonaws.com/phagebookaws/" + response[i].clothoId + "/profilePicture.jpg";
-                    tmpl.querySelector(".colleague-page-picLink").alt = response[i].fullname;
-                    tmpl.querySelector(".colleague-display-fullname").text = response[i].fullname;
-                    tmpl.querySelector(".colleague-display-lab").innerHTML = (response[i].labName == null) ? "" : response[i].labName;
-                    tmpl.querySelector(".colleague-display-institution").innerHTML = response[i].institutionName;
-                    tmpl.querySelector(".colleague-display-fullname").href = "../html/colleague.html?user=" + response[i].clothoId;
-                    ul2.append(tmpl);
+                console.log("hihihi: " + JSON.stringify(response));
+                if (response.length > 0) {
+                    for (var i = 0; i < 1; i++) { //change bounds when we can figure out css 
+                        var tmpl = document.getElementById("colleague-display-template").content.cloneNode(true);
+                        //alert("response: " + response[i]);
+                        // var othertmpl = document.getElementById("colleague-page-template").content.cloneNode(true);
+                        tmpl.querySelector(".colleague-page-picLink").src = "http://s3.amazonaws.com/phagebookaws/" + response[i].clothoId + "/profilePicture.jpg";
+                        tmpl.querySelector(".colleague-page-picLink").alt = response[i].fullname;
+                        tmpl.querySelector(".colleague-display-fullname").text = response[i].fullname;
+                        tmpl.querySelector(".colleague-display-lab").innerHTML = (response[i].labName == null) ? "" : response[i].labName;
+                        tmpl.querySelector(".colleague-display-institution").innerHTML = response[i].institutionName;
+                        tmpl.querySelector(".colleague-display-fullname").href = "../html/colleague.html?user=" + response[i].clothoId;
+                        ul2.append(tmpl);
+                    }
                 }
             },
             error: {
@@ -101,14 +104,14 @@ function profileCtrl($scope, $http) {
             },
             success: function (response) {
                 var responseAsJSON = angular.fromJson(response);
-                console.log(JSON.stringify(responseAsJSON));
+                //console.log("statuses: " + JSON.stringify(responseAsJSON));
 
                 var ul = $("#status-list");
                 ul.empty();
                 for (var i = response.length - 1; i >= 0; i--) {
                     var tmpl = document.getElementById("status-template").content.cloneNode(true);
                     var now = new Date(response[i].dateCreated);
-                    tmpl.querySelector(".status-date").innerText = "Created On: " + chooseMonth(now.getUTCMonth()) + " " +now.getUTCDay() +", " + now.getFullYear() + " " + now.getHours() + ":"+ now.getHours();
+                    tmpl.querySelector(".status-date").innerText = "Created On: " + chooseMonth(now.getUTCMonth()) + " " + now.getUTCDay() + ", " + now.getFullYear() + " " + now.getHours() + ":" + now.getMinutes();
                     tmpl.querySelector(".status-text").innerText = response[i].statusText;
                     ul.append(tmpl);
                 }
@@ -186,7 +189,7 @@ function profileCtrl($scope, $http) {
             }
         });
     });
-    
+
     $("#load-more-btn").click(function () {
         location.reload();
     });
@@ -204,8 +207,8 @@ function getParameterByName(name) {
 }
 
 
-function chooseMonth(number){
-    switch (number){
+function chooseMonth(number) {
+    switch (number) {
         case 1:
             return "January";
             break;
@@ -247,4 +250,3 @@ function chooseMonth(number){
             break;
     }
 }
-
