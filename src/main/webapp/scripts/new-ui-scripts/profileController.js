@@ -62,7 +62,9 @@ function profileCtrl($scope, $http) {
                 console.log(response);
                 for (var i = 0; i < response.length; i++) {
                     var tmpl = document.getElementById("colleague-display-template").content.cloneNode(true);
-                    //tmpl.querySelector(".colleague-display-picture-link").src = "http://s3.amazonaws.com/phagebookaws/" + response[i].clothoId + "/profilePicture.jpg";
+                    var othertmpl = document.getElementById("colleague-page-template").content.cloneNode(true);
+                    tmpl.querySelector(".colleague-display-picture-link").src = "http://s3.amazonaws.com/phagebookaws/" + response[i].clothoId + "/profilePicture.jpg";
+                    tmpl.querySelector(".colleague-page-picLink").src = "http://s3.amazonaws.com/phagebookaws/" + response[i].clothoId + "/profilePicture.jpg";
                     //tmpl.querySelector(".colleague-display-fullname").text = response[i].fullname;
                     //tmpl.querySelector(".colleague-display-lab").innerHTML = (response[i].labName == null) ? "" : response[i].labName;
                     //tmpl.querySelector(".colleague-display-institution").innerHTML = response[i].institutionName;
