@@ -27,7 +27,7 @@ $(document).ready(function() {
             console.log(response);
            
             for (var i = 0; i < response.length; i++) {
-                 link = "./project-profile.html?id=" + response[i].projectId;
+                 link = "./project.html?id=" + response[i].projectId;
                 var a = document.createElement('a');
                 $(a).attr('href', link).text(response[i].projectName);
                 console.log(a);
