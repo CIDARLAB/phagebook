@@ -178,10 +178,6 @@ function profileCtrl($scope, $http) {
                     tmpl.querySelector(".publication-author").innerText = "Authors : " + response[i].pubAuthors;
                     tmpl.querySelector(".publication-information").innerText = "Other Information : " + response[i].pubInfo;
                     tmpl.querySelector(".publication-bibtex").innerText = "Bibtex : " + response[i].pubBibtex;
-                    //$scope.statusDate = response[i].dateCreated;
-                    //console.log(response[i].dateCreated);
-                    //tmpl.querySelector(".pub-text").innerText = response[i].statusText;
-                    //console.log(response[i].statusText);
                     ul.append(tmpl);
                 }
             },
