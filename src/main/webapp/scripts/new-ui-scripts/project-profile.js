@@ -1,11 +1,86 @@
 $(document).ready(function() {
 
-
     // after we get the queried project, we edit the html 
     // {"creator":"Anna Goncharova","dateCreated":"Apr 09 2016",
     // "description":"This is a project description for an awesome project named \"Project\"!",
     // "projectName":"Project","updates":[],"grant":"5709a9bad4c60ab7f5242f02",
     // "lead":"Anna Goncharova","budget":12345}
+    var params = location.search;
+
+    var qs = (function(a) {
+        if (a == "") return {};
+        var b = {};
+        for (var i = 0; i < a.length; ++i) {
+            var p = a[i].split('=', 2);
+            if (p.length == 1)
+                b[p[0]] = "";
+            else
+                b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+        }
+        return b;
+    })(window.location.search.substr(1).split('&'));
+
+    var id = qs["id"];
+    console.log(id);
+
+   var constructHTML = function(name, date, status){
+    var update = "<div class='update'> <div class='panel panel-default'> <div class='panel-heading'>" +"Name: "  + name + " Date: " + date + "</div> " +
+        "<div class='panel-body'>" + status+  " </div> </div> </div>";
+    return update;
+   }
+
+
+    var appendUpdate = function(updates){
+        console.log("appendUpdate");
+        for(var i = 0; i<updates.length;i++){
+            var u = constructHTML(updates.person, updates.date, updates.status);
+            console.log(u);
+            $("#previous-posts-append").append(updates);
+        }
+    }
+    $("#load-project-statuses").click(function () {
+        console.log("button clicked")
+        var ul = $("#project-status-list");
+        ul.empty();
+        $.ajax({
+            type: 'GET',
+            url: '../getAllProjectUpdates',
+            data: {
+                "projectId": id
+            },
+            success: function (response) {
+                // var responseAsJSON = angular.fromJson(response);
+                // console.log(JSON.stringify(response));                                
+                // console.log(JSON.parse(response));
+                console.log("response is");
+                console.log(typeof(response));
+                response = JSON.parse(response);
+                console.log(typeof(response));
+                console.log(response);
+                updates =response.updates;
+                if(updates.length==0){
+                    alert("This project has no statuses!");
+                }
+                for (var i = 0; i < updates.length; i++) {
+                    var tmpl = document.getElementById("status-template").content.cloneNode(true);
+                    var now = new Date(updates[i].date);
+                    tmpl.querySelector(".status-date").innerText = "Created On: " + updates[i].date;
+                    tmpl.querySelector(".status-person").innerText = "Created By: " + updates[i].userName;
+                    //$scope.statusDate = response[i].dateCreated;
+                    //console.log(response[i].dateCreated);
+                    tmpl.querySelector(".status-text").innerText = updates[i].text;
+                    //console.log(response[i].statusText);
+                    ul.append(tmpl);
+                }
+            },
+            error: {
+                //console.log("inside GET error");
+            }
+        });
+    });
+
+    // updates = [{"person":"Allie", "date":"03/10","status":"ABC"}];
+    // appendUpdate(updates);
     var editHtml = function(data) {
         data = JSON.parse(data);
         console.log(data);
@@ -28,24 +103,6 @@ $(document).ready(function() {
         // $(".project-description-content").text(data["description"]);
     }
 
-    var params = location.search;
-
-    var qs = (function(a) {
-        if (a == "") return {};
-        var b = {};
-        for (var i = 0; i < a.length; ++i) {
-            var p = a[i].split('=', 2);
-            if (p.length == 1)
-                b[p[0]] = "";
-            else
-                b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
-        }
-        return b;
-    })(window.location.search.substr(1).split('&'));
-
-    var id = qs["id"];
-    console.log(id);
-
     $.ajax({
         //do this for projects...
         url: "../getProject",
@@ -64,27 +121,7 @@ $(document).ready(function() {
         }
     });
 
-    // following code is for all project updates
-    dataUpd = {
-        "projectId":id
-    };
-
-    $.ajax({
-        url: "../getAllProjectUpdates",
-        type: "GET",
-        dataType: "json",
-        data: dataUpd,
-        success: function(response) {
-            console.log(response);
-            console.log("response!!!");
-            // return checkAddUpdateResponse(response);
-        },
-        error: function(err) {
-            console.log("ERROR!!");
-            console.log(err);
-        }
-    });
-
+    
     // EDIT PROJECT CODE
 
     $("#edit-project-btn").click(function() {

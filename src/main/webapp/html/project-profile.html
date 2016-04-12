@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Profile</title>
+    <title>Project</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/cssBootstrap/bootstrap.css" />
@@ -87,7 +87,7 @@
                                     </tr>
                                 </table>
                                 <div style="clear:both"></div>
-                                <table class="table" id="profile-info">                                    
+                                <table class="table" id="profile-info">
                                     <tr>
                                         <td>
                                             <div class="form-group">
@@ -139,7 +139,7 @@
                     </div>
                     <div class="panel-body" id="profile-panel">
                         <div class="tab-content">
-                            <div class="tab-pane fade in active" id="overview">
+                            <div class="tab-pane  fade in active" id="overview">
                                 <div class="row">
                                     <div class="container-fluid" id="status-update">
                                         <div class="col-sm-12" id="status-updates">
@@ -149,17 +149,27 @@
                                             <textarea class="form-control" rows="5" id="status-update-textarea" placeholder="Write new status here" style="resize:none"></textarea>
                                             <br>
                                             <div>
-                                            <input type="checkbox" id="emailPeople" value="first_checkbox"> Email members of the team
+                                                <input type="checkbox" id="emailPeople" value="first_checkbox"> Email members of the team
                                             </div>
                                             <button id="create-status-btn" type="button" class="btn btn-default">Create Status</button>
                                         </div>
                                     </div>
                                 </div>
-                                <br>
                                 <div class="row">
-                                    <div class="container-fluid" id="previous-posts">
+                                    <div class="container-fluid">
                                         <div class="col-sm-12">
-                                            <h4>Previous Posts</h4>
+                                            <div class=" heading-prev-posts">
+                                                <h4>Previous Posts</h4>
+                                            </div>
+                                            <ul id="project-status-list"> </ul>
+                                            <template id="status-template">
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading status-date" style= "background-color: #588F75;"></div>
+                                                    <div class="panel-heading status-person"></div>
+                                                    <div class="panel-body status-text"></div>
+                                                </div>
+                                            </template>
+                                            <button id="load-project-statuses" type="button" class="btn btn-secondary btn-block">Load All Statuses...</button>
                                         </div>
                                     </div>
                                 </div>

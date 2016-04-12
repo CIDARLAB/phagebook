@@ -7,18 +7,18 @@ $(document).ready(function() {
 	// "lead":"Anna Goncharova","budget":12345}
 	var editHtml = function(data){
 		console.log("in editHtml");
+		console.log(typeof(data));
 		data = JSON.parse(data)
-
+		console.log(typeof(data));
+		console.log(data["lead"]);
+		$(".project-dateCreated-content").innerHTML = 
 		$(".project-dateCreated-content").text(data["dateCreated"]);
-		$(".creator-name ").text(data["creator"]);
-		$(".lead-name").text(data["lead"]);
-
-
-		$(".project-people-person-lead-lab").text(data["leadLabs"])
-		$(".project-people-person-creator-lab").text(data["creatorLabs"])
-		$(".project-description-content").text(data["description"]);
-		$(".project-grant-content").val(data["grantName"]);
-		$(".project-affiliatedLabs-content").val(data["affiliatedLabs"]);
+		$(".creator").text(data["creator"]);
+		$(".lead").text(data["lead"]);
+		$("#desc").text(data["description"]);
+		console.log($(".heading").text());
+		$(".project-grant-content").text(data["grantName"]);
+		$()
 	}
 
     alert("hello!")

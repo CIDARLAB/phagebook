@@ -70,7 +70,7 @@ public class getAllProjectUpdates extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    
+      System.out.println("in the doGet of getAllProjectUpdates!!");
       Object projectIdObj = request.getParameter("projectId");
       String projectId  = projectIdObj != null ? (String) projectIdObj : "" ;
       System.out.println(projectId);
@@ -99,7 +99,8 @@ public class getAllProjectUpdates extends HttpServlet {
 
         for (String s : allUpdates)
         {
-            clothoObject.logout();
+//            clothoObject.logout();
+            System.out.println("in the loop!");
             System.out.println(s);
             Status update = ClothoAdapter.getStatus(s, clothoObject);
             System.out.println(update.getText());
@@ -113,8 +114,16 @@ public class getAllProjectUpdates extends HttpServlet {
             u.put("text", update.getText());
             listOfUpdates.add(u);
         }
+        System.out.println("");
+        
         result.put("success",1);
         result.put("updates",listOfUpdates);
+        System.out.println(result);
+        
+        PrintWriter writer = response.getWriter();
+        writer.println(result);
+        writer.flush();
+        writer.close();
   }
 
   /**

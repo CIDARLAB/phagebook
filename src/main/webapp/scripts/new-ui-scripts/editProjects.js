@@ -64,51 +64,7 @@ $(document).ready(function() {
         edit();
     });
 
-    $("#addUpdate").click(function() {
-        console.log("clicked on addUpdate")
-
-        var userID = getCookie("clothoId");
-        var projectID = getCookie("projectId");
-        var newStatus = $("#newStatus").val();
-        console.log(newStatus);
-        var emailPeople = document.getElementById("emailPeople").checked;
-        console.log(emailPeople);
-        if (projectID != null && userID != null && newStatus != null) {
-            console.log("about to add update");
-            addUpdate(projectID, userID, newStatus, emailPeople);
-        } else {
-            //alert("Something is missing!");
-        }
-
-    });
-
-    var addUpdate = function(projectID, userID, newStatus, emailPeople) {
-
-        console.log("in add update function");
-        var data = {
-            "userID": userID,
-            "projectID": projectID,
-            "newStatus": newStatus,
-            "emailPeople": emailPeople
-        }
-
-        $.ajax({
-            url: "/addUpdateToProject",
-            type: "POST",
-            dataType: "json",
-            data: data,
-            success: function(response) {
-                //console.log(dataSubmit);
-                console.log(response);
-                // alert(response.updates);
-                console.log("response!!!");
-            },
-            error: function(err) {
-                console.log("ERROR!!");
-                console.log(err);
-            }
-        });
-    }
+    
 
 
     var editProject = function() {
@@ -159,53 +115,5 @@ $(document).ready(function() {
         });
     }
 
-    var edit = function() {
-        console.log("in edit function!!");
-        var newName = "";
-        var newDesc = "";
-        var newBudget = "";
-        var userID = getCookie("clothoId");
-        var projectID = getCookie("projectId");
-        
-        if ($("#name").val() != null) {
-            newName = $("#name").val()
-        };
-        if ($("#desc").val() != null) {
-            newDesc = $("#desc").val();
-        };
-        if ($("#budget").val() != null) {
-            newBudget = $("#budget").val();
-        };
-        console.log(projectID);
-        console.log(userID);
-        console.log(newDesc);
-        console.log(newName);
-        console.log(newBudget);
 
-        var data = {
-            "userID": userID,
-            "projectID": projectID,
-            "description": newDesc,
-            "name": newName,
-            "budget": newBudget
-        }
-
-        $.ajax({
-            url: "/editProject",
-            type: "POST",
-            dataType: "json",
-            data: data,
-            success: function(response) {
-                //console.log(dataSubmit);
-                console.log(response);
-                console.log("response!!!");
-                // this reloads the window
-                //return location.reload();
-            },
-            error: function(err) {
-                console.log("ERROR!!");
-                console.log(err);
-            }
-        });
-    }
 });

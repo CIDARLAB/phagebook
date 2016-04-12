@@ -61,14 +61,17 @@ public class getAllProjects extends HttpServlet {
       loginMap.put("credentials", password);  
 
       clothoObject.login(loginMap);
+    System.out.println("in getAllProjects!");
     
     // get userId from the cookie
     Object userIDC = request.getParameter("userID");
     String userID  = userIDC != null ? (String) userIDC : "" ;
     System.out.println(userID);
     
+    
     // get person 
     Person user = ClothoAdapter.getPerson(userID, clothoObject);
+    System.out.println("user is");
     System.out.println(user.getFirstName() + " "+user.getLastName());
     
     // get the projects array
