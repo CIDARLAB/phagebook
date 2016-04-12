@@ -44,54 +44,49 @@ function profileCtrl($scope, $http) {
                 //$scope.statuses = responseAsJSON.statuses;
             },
             error: {
+                //console.log("inside GET error");  
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '../loadColleagues',
+            async: false,
+            data: {
+                "userId": clothoId
+            },
+            success: function (response) {
+                var responseSucks = angular.fromJson(response);
+                var ul = $("#list-colleagues");
+                ul.empty();
+                console.log(JSON.stringify(responseSucks));
+                for (var i = 0; i < response.length; i++) {
+                    var tmpl = document.getElementById("colleague-display-template").content.cloneNode(true);
+                    //tmpl.querySelector(".colleague-display-picture-link").src = "http://s3.amazonaws.com/phagebookaws/" + response[i].clothoId + "/profilePicture.jpg";
+                    //tmpl.querySelector(".colleague-display-fullname").text = response[i].fullname;
+                    //tmpl.querySelector(".colleague-display-lab").innerHTML = (response[i].labName == null) ? "" : response[i].labName;
+                    //tmpl.querySelector(".colleague-display-institution").innerHTML = response[i].institutionName;
+                    //tmpl.querySelector(".colleague-display-fullname").href = "../html/colleague.html?user=" + response[i].clothoId;
+
+                    ul.append(tmpl);
+                }
+            },
+            error: {
                 //console.log("inside GET error");
             }
         });
 
-
-        console.log("after ajax");
-        $("#search-colleagues-btn").click(function () {
-
-            var firstName = $("#search-first-name").val();
-            var lastName = $("#search-last-name").val();
-            $.ajax({
-                url: '../queryFirstLastName',
-                type: 'GET',
-                async: false,
-                data: {
-                    "firstName": firstName,
-                    "lastName": lastName
-                },
-                success: function (response) {
-                    var ul = $("#search-colleagues-list");
-                    ul.empty();
-
-                    for (var i = 0; i < response.length; i++) {
-                        var tmpl = document.getElementById("colleague-template").content.cloneNode(true);
-                        tmpl.querySelector(".colleague-name").text = response[i].fullname;
-                        tmpl.querySelector(".main-lab").innerHTML = (response[i].labName == null) ? "" : response[i].labName;
-                        tmpl.querySelector(".main-institution").innerHTML = response[i].institutionName;
-                        tmpl.querySelector(".colleague-name").href = "../html/colleague.html?user=" + response[i].clothoId;;
-                        ul.append(tmpl);
-                    }
-                },
-                error: {
-                }
-            });
-            return false;
-        });
-        
-     $("#load-more-btn").click(function () {
         $.ajax({
             type: 'GET',
             url: '../loadUserStatuses',
+            async: false,
             data: {
                 "clothoId": clothoId
             },
             success: function (response) {
                 var responseAsJSON = angular.fromJson(response);
                 console.log(JSON.stringify(responseAsJSON));
-                
+
                 var ul = $("#status-list");
                 ul.empty();
                 for (var i = response.length - 1; i >= 0; i--) {
@@ -107,7 +102,38 @@ function profileCtrl($scope, $http) {
             }
         });
     });
+
+    $("#search-colleagues-btn").click(function () {
+
+        var firstName = $("#search-first-name").val();
+        var lastName = $("#search-last-name").val();
+        $.ajax({
+            url: '../queryFirstLastName',
+            type: 'GET',
+            async: false,
+            data: {
+                "firstName": firstName,
+                "lastName": lastName
+            },
+            success: function (response) {
+                var ul = $("#search-colleagues-list");
+                ul.empty();
+                for (var i = 0; i < response.length; i++) {
+                    var tmpl = document.getElementById("colleague-template").content.cloneNode(true);
+                    tmpl.querySelector(".colleague-name").text = response[i].fullname;
+                    tmpl.querySelector(".main-lab").innerHTML = (response[i].labName == null) ? "" : response[i].labName;
+                    tmpl.querySelector(".main-institution").innerHTML = response[i].institutionName;
+                    tmpl.querySelector(".colleague-name").href = "../html/colleague.html?user=" + response[i].clothoId;
+                    ;
+                    ul.append(tmpl);
+                }
+            },
+            error: {
+            }
+        });
+        return false;
     });
+
     $("#edit-profile-btn").click(function () {
 
         window.location = "../html/accountSettings.html";

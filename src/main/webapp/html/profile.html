@@ -146,29 +146,16 @@
                                         <div class="col-sm-2">
                                             <h4>Colleagues</h4>
                                             <br>
-                                            <ul class="list-group" id="list-colleagues">
+                                            <ul class="list-group" id="list-colleagues"></ul>
+                                            <template id="colleague-display-template">
                                                 <li class="list-group-item">
-                                                    <img alt="Kristel Tan" src="../styles/img/mis/kristel-tan-pro-pic.jpg">
-                                                    <a href="#">Kristel Tan</a>
+                                                    <img class="colleague-display-picture-link">
+                                                    <a href="#" class="colleague-display-fullname"></a>
                                                     <p></p>
-                                                    <p>CIDAR Lab</p>
-                                                    <p>Boston University</p>
+                                                    <p class="colleage-display-lab"></p>
+                                                    <p class="colleague-display-institution"></p>
                                                 </li>
-                                                <li class="list-group-item">
-                                                    <img alt="Johan Ospina" src="../styles/img/mis/johan-pro-pic.jpg">
-                                                    <a href="#">Johan Ospina</a>
-                                                    <p></p>
-                                                    <p>CIDAR Lab</p>
-                                                    <p>Boston University</p>
-                                                </li>
-                                                <li class="list-group-item">
-                                                    <img alt="Allison Durkan" src="../styles/img/mis/allison-pro-pic.jpg">
-                                                    <a href="#">Allison Durkan</a>
-                                                    <p></p>
-                                                    <p>CIDAR Lab</p>
-                                                    <p>Boston University</p>
-                                                </li>
-                                            </ul>
+                                            </template>
                                             <button id="see-full-list-btn" type="button" class="btn btn-secondary btn-block">See Full List...</button>
                                         </div>
                                     </div>
@@ -182,7 +169,6 @@
                                             <ul id="status-list"></ul>
                                             <template id="status-template">
                                                 <div class = "panel panel-default">
-
                                                     <div class="panel-heading status-date"></div>
                                                     <div class="panel-body status-text"></div>
                                                 </div>

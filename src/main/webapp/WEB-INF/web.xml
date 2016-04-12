@@ -32,6 +32,10 @@
         <servlet-name>denyColleagueRequest</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.denyColleagueRequest</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>loadColleagues</servlet-name>
+        <servlet-class>loadColleagues</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>exportOrderCSV</servlet-name>
         <url-pattern>/exportOrderCSV</url-pattern>
@@ -423,5 +427,9 @@
     <servlet-mapping>
         <servlet-name>denyColleagueRequest</servlet-name>
         <url-pattern>/denyColleagueRequest</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>loadColleagues</servlet-name>
+        <url-pattern>/loadColleagues</url-pattern>
     </servlet-mapping>
 </web-app>

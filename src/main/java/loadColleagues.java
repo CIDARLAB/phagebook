@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.clothocad.phagebook.adaptors.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,12 +18,14 @@ import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.model.Person;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  *
  * @author azula
  */
-public class addColleagueRequest extends HttpServlet {
+public class loadColleagues extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,7 +38,7 @@ public class addColleagueRequest extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -52,6 +54,65 @@ public class addColleagueRequest extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
+        System.out.println("reached doGet");
+
+        Object pUserId = request.getParameter("userId");
+        String userId = pUserId != null ? (String) pUserId : "";
+
+        
+        System.out.println(userId);
+        boolean isValid = false;
+        if (userId != null && userId != "") {
+            isValid = true;
+        }
+
+        if (isValid) {
+            //ESTABLISH CONNECTION
+            ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+            Clotho clothoObject = new Clotho(conn);
+            Map createUserMap = new HashMap();
+            String username = "test" + System.currentTimeMillis();
+            createUserMap.put("username", username);
+            createUserMap.put("password", "password");
+            clothoObject.createUser(createUserMap);
+            Map loginMap = new HashMap();
+            loginMap.put("username", username);
+            loginMap.put("credentials", "password");
+            clothoObject.login(loginMap);
+            //
+
+            Person retrieve = ClothoAdapter.getPerson(userId, clothoObject);
+            JSONArray humans = new JSONArray();
+            if (!retrieve.getId().equals("")){
+                //valid human ;)
+                
+                List<String> humanConnections = retrieve.getColleagues();
+                
+                for (String humanId :humanConnections ){
+                    JSONObject humanJSON = new JSONObject();
+                    Person human  = ClothoAdapter.getPerson(humanId, clothoObject) ;
+                    humanJSON.put("firstName", human.getFirstName());
+                    humanJSON.put("lastName", human.getLastName());
+                    humanJSON.put("institution", human.getInstitution());
+                    humanJSON.put("clothoId", human.getId());
+                    
+                    humans.put(humanJSON);
+                    
+                }
+                
+                
+            }
+            response.setContentType("application/json");
+            response.setStatus(HttpServletResponse.SC_OK);
+            PrintWriter out = response.getWriter();
+            out.print(humans);
+            out.flush();
+
+        } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+
+        }
     }
 
     /**
@@ -66,47 +127,6 @@ public class addColleagueRequest extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-
-        Object pUserId = request.getParameter("loggedInClothoId");
-        String userId = pUserId != null ? (String) pUserId : "";
-
-        Object pRequestId = request.getParameter("colleagueClothoId");
-        String requestId = pRequestId != null ? (String) pRequestId : "";
-
-        boolean isValid = false; //used only to make sure the person exists in Clotho
-        if (!userId.equals("")) {
-            isValid = true;
-        }
-
-        if (isValid) {
-            //ESTABLISH CONNECTION
-            ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
-            Clotho clothoObject = new Clotho(conn);
-            String username = "phagebook";
-            String password = "backend";
-            Map loginMap = new HashMap();
-            loginMap.put("username", username);
-            loginMap.put("credentials", password);
-            clothoObject.login(loginMap);
-            //
-
-            Person retrieve = ClothoAdapter.getPerson(requestId, clothoObject);
-            if (!requestId.equals(userId)) {
-                if (!retrieve.getId().equals("")) {
-                    if (!requestId.equals("") && !retrieve.getColleagues().contains(userId) && !retrieve.getColleagueRequests().contains(requestId)) {
-
-                        retrieve.addColleagueRequest(userId);
-                    }
-
-                }
-                clothoObject.logout();
-                ClothoAdapter.setPerson(retrieve, clothoObject);
-            }
-
-        } else {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-
-        }
     }
 
     /**
@@ -116,7 +136,7 @@ public class addColleagueRequest extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "this servlet adds the userId of the logged in user to the requests of the person";
+        return "used on profile to load friends dynamically";
     }// </editor-fold>
 
 }
