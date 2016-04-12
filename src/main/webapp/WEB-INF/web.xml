@@ -58,13 +58,12 @@
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.denyColleagueRequest</servlet-class>
     </servlet>
     <servlet>
-<<<<<<< HEAD
         <servlet-name>loadColleagues</servlet-name>
         <servlet-class>loadColleagues</servlet-class>
-=======
+    </servlet>
+    <servlet>
         <servlet-name>loadPublications</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.loadPublications</servlet-class>
->>>>>>> 3bd20be745b3273f51b64da265c441d5172a4f1c
     </servlet>
     <servlet-mapping>
         <servlet-name>exportOrderCSV</servlet-name>
@@ -459,14 +458,11 @@
         <url-pattern>/denyColleagueRequest</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-<<<<<<< HEAD
         <servlet-name>loadColleagues</servlet-name>
         <url-pattern>/loadColleagues</url-pattern>
     </servlet-mapping>
-=======
+    <servlet-mapping>
         <servlet-name>loadPublications</servlet-name>
         <url-pattern>/loadPublications</url-pattern>
     </servlet-mapping>
-    
->>>>>>> 3bd20be745b3273f51b64da265c441d5172a4f1c
 </web-app>

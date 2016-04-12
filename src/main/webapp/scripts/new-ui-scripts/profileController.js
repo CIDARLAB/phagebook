@@ -30,6 +30,7 @@ function profileCtrl($scope, $http) {
         $.ajax({
             type: 'GET',
             url: '../getPersonById',
+            async: false,
             data: {
                 "userId": clothoId
             },
@@ -56,10 +57,9 @@ function profileCtrl($scope, $http) {
                 "userId": clothoId
             },
             success: function (response) {
-                var responseSucks = angular.fromJson(response);
                 var ul = $("#list-colleagues");
                 ul.empty();
-                console.log(JSON.stringify(responseSucks));
+                console.log(response);
                 for (var i = 0; i < response.length; i++) {
                     var tmpl = document.getElementById("colleague-display-template").content.cloneNode(true);
                     //tmpl.querySelector(".colleague-display-picture-link").src = "http://s3.amazonaws.com/phagebookaws/" + response[i].clothoId + "/profilePicture.jpg";
@@ -138,6 +138,7 @@ function profileCtrl($scope, $http) {
         $.ajax({
             type: 'GET',
             url: '../loadPublications',
+            async: false,
             data: {
                 "clothoId": clothoId
             },
@@ -164,10 +165,12 @@ function profileCtrl($scope, $http) {
             }
         });
     });
-
+    
+    $("#load-more-btn").click(function () {
+        location.reload();
+    });
 
     $("#edit-profile-btn").click(function () {
-
         window.location = "../html/accountSettings.html";
     });
 }
