@@ -293,7 +293,7 @@ function approveColleagueBtnHandler(){
             "colleagueId": this.value
         },
         success: function (response) {
-            alert("order approved");
+            alert("Colleague Added!");
             window.location.href="";
         },
         error: function (response){

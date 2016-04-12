@@ -124,15 +124,47 @@ function profileCtrl($scope, $http) {
                     tmpl.querySelector(".main-lab").innerHTML = (response[i].labName == null) ? "" : response[i].labName;
                     tmpl.querySelector(".main-institution").innerHTML = response[i].institutionName;
                     tmpl.querySelector(".colleague-name").href = "../html/colleague.html?user=" + response[i].clothoId;
-                    ;
+                }
+            },
+            error: function (response) {
+
+                return false;
+                //console.log("inside GET error");
+            }
+        });
+    });
+
+    $("#load-more-pub-btn").click(function () {
+        $.ajax({
+            type: 'GET',
+            url: '../loadPublications',
+            data: {
+                "clothoId": clothoId
+            },
+            success: function (response) {
+
+                var ul = $("#publications-list");
+                ul.empty();
+
+                for (var i = 0; i < response.length; i++) {
+                    var tmpl = document.getElementById("publication-template").content.cloneNode(true);
+                    tmpl.querySelector(".publication-year").innerText = "Year : " + response[i].pubYear;
+                    tmpl.querySelector(".publication-title").innerText = "Title : " + response[i].pubTitle;
+                    tmpl.querySelector(".publication-author").innerText = "Authors : " + response[i].pubAuthors;
+                    tmpl.querySelector(".publication-information").innerText = "Other Information : " + response[i].pubInfo;
+                    tmpl.querySelector(".publication-bibtex").innerText = "Bibtex : " + response[i].pubBibtex;
+                    //$scope.statusDate = response[i].dateCreated;
+                    //console.log(response[i].dateCreated);
+                    //tmpl.querySelector(".pub-text").innerText = response[i].statusText;
+                    //console.log(response[i].statusText);
                     ul.append(tmpl);
                 }
             },
             error: {
             }
         });
-        return false;
     });
+
 
     $("#edit-profile-btn").click(function () {
 

@@ -49,6 +49,7 @@ public class Person {
     @Getter @Setter private List<String>                labs;
     @Getter @Setter private List<String>                projects;
     @Getter @Setter private List<String>                publications;
+    @Getter @Setter private List<String>                phagebookCitations;
     @Getter @Setter private Map<String,Set<PersonRole>> roles;
     @Getter @Setter private List<String>                createdOrders;
     @Getter @Setter private List<String>                submittedOrders;
@@ -63,29 +64,32 @@ public class Person {
   
 
     public Person(){
-        this.id                     = "Not Set";
-        this.salt                   = "Not Set";
-        this.saltedEmailHash        =  new byte[1];
-        this.emailId                = "Not set";
-        this.firstName              = "Jane";
-        this.lastName               = "Doe";
-        this.password               = "Not Set";
-        this.activated              = false;
-        this.activationString       = "Not Set";
-        this.colleagues             = new ArrayList<>();
-        this.notebooks              = new ArrayList<>();
-        this.statuses               = new ArrayList<>();
+        this.id               = "Not Set";
+        this.salt             = "Not Set";
+        this.saltedEmailHash  =  new byte[1];
+        this.emailId          = "Not set";
+        this.firstName        = "Jane";
+        this.lastName         = "Doe";
+        this.password         = "Not Set";
+        this.activated        = false;
+        this.activationString = "Not Set";
+        this.colleagues       = new ArrayList<>();
+        this.notebooks        = new ArrayList<>();
+        this.statuses         = new ArrayList<>();
+        this.institutions     = new ArrayList<>();
+        this.labs             = new ArrayList<>();
+        this.projects         = new ArrayList<>();
+        this.publications     = new ArrayList<>();
+        this.phagebookCitations = new ArrayList<>();
+        this.roles            = new HashMap<>();
+        this.createdOrders    = new ArrayList<>();
+        this.submittedOrders  = new ArrayList<>();
+        this.approvedOrders   = new ArrayList<>();
+       
         this.institution            = "Not Set";
         this.department             = "Not Set";
         this.title                  = "Not Set";
         this.institutions           = new ArrayList<>();
-        this.labs                   = new ArrayList<>();
-        this.projects               = new ArrayList<>();
-        this.publications           = new ArrayList<>();
-        this.roles                  = new HashMap<>();
-        this.createdOrders          = new ArrayList<>();
-        this.submittedOrders        = new ArrayList<>();
-        this.approvedOrders         = new ArrayList<>();
         this.profileDescription     = "Not Set";
         this.colleagueRequests      = new ArrayList<>();
     }

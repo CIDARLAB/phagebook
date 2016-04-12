@@ -6,6 +6,9 @@
 package org.clothocad.phagebook.util;
 
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
+import org.cidarlab.citationsapi.PhagebookCitation;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.model.Person;
@@ -76,4 +79,56 @@ public class CreatePersonInClotho {
 
 
     }
+       
+       
+       
+//       @Test
+//       public void hotTestForInna() throws UnsupportedEncodingException {
+//           
+//           
+//            ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+//            Clotho clothoObject = new Clotho(conn);
+//            Map loginMap = new HashMap();
+//            
+//            loginMap.put("username", "phagebook");
+//            loginMap.put("credentials", "backend");  
+//            clothoObject.login(loginMap);
+//            
+//            PhagebookCitation pC= new PhagebookCitation();
+//            pC.setTitle("Kill ME");
+//            pC.setOtherInformation("I want to skip rope");
+//            pC.setYear(1990);
+//            pC.setAuthors("The Nineties called, they want their shirt back");
+//            pC.setBibtex("AY HABIBI");
+//            pC.setUser("HABI");
+//            
+//            
+//           
+//            
+//            
+//            
+//            ClothoAdapter.createPhagebookCitation(pC, clothoObject);
+//            
+//            
+//            String queryID = pC.getId();
+//            
+//            
+//            
+//            System.out.println("no");
+//            
+//            
+//            
+//            PhagebookCitation returs = ClothoAdapter.getPhagebookCitation(queryID, clothoObject);
+//            
+//            
+//            System.out.println("Please work");
+//            
+//            
+//            
+//             
+//             
+//            
+//           
+//           
+//       }
 }

@@ -21,16 +21,20 @@
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
         <script src="../scripts/new-ui-scripts/angular.ng-modules.js"></script>
 
-        <script>
-            window.onload = function () {
-                document.getElementById("see-full-list-btn").onclick = function () {
-                    changeTab()
-                };
-            };
-            function changeTab() {
-                $('#profile-nav-tabs a[href = "#colleagues-tab"]').tab('show');
-            }
-        </script>
+
+    <script>
+        window.onload = function() {
+            document.getElementById("see-full-list-btn").onclick = function () {changeTab()};
+            //Find out where you get the user information from clotho after logging in. There, you need to have a function that:
+            //Gets each citation from the list of citations
+            //This code is to remove elements from a list:
+            $("publication-list").empty();
+            
+        };
+        function changeTab() {
+            $('#profile-nav-tabs a[href = "#colleagues-tab"]').tab('show');
+        }
+    </script>
 
         <style>
 
@@ -260,6 +264,21 @@
                             <div class="tab-pane fade" id="publications">
                                 <div class="col-sm-12">
                                     <h4>Publications</h4>
+
+                                    <ul id="pub-list"></ul>
+                                    <template id="pub-template">
+                                        <div class = "panel panel-default">
+
+                                            <div class="panel-heading pub-title"></div>
+                                            <div class="panel-heading pub-authors"></div>
+                                            <div class="panel-heading pub-year"></div>
+                                            <div class="panel-heading pub-info"></div>
+                                            <div class="panel-heading pub-bibtex"></div>
+                                        </div>
+                                    </template>
+                                    
+                                    <button id="load-more-pub-btn" type="button" class="btn btn-secondary btn-block">Load Publications</button>
+                                    <br><br>
                                     <button id="add-publication-btn" type="button" class="btn btn-default" data-toggle="modal" data-target="#add-publication-modal">Add Publication</button>
                                     <div id="add-publication-modal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="add-publication-btn">
                                         <div class="modal-dialog modal-lg">
@@ -343,27 +362,21 @@
                                     <br>
                                     <div>
                                         <ul class="list-inline list-group" id="publications-list">
-                                            <li class="list-group-item col-sm-12">
-                                                <a href="http://islab.soe.uoguelph.ca/sareibi/TEACHING_dr/ENG6530_RCS_html_dr/outline_W2015/docs/PAPER_REVIEW_dr/HighLevel_HDL_dr/TaxonomyOfESL.pdf"><h5 class="list-group-item-heading">A Platform-based taxonomy for ESL design</h5></a>
-                                                <br>
-                                                <p>D Densmore, R Passerone, A Sangiovanni-Vincentelli</p>
-                                                <p>IEEE Design & Test of Computers, 359-374</p>
-                                            </li>
-                                            <li class="list-group-item col-sm-12">
-                                                <a href="https://www.researchgate.net/publication/228634243_A_next-generation_design_framework_for_platform-based_design"><h5 class="list-group-item-heading">A next-generation design framework for platform-based design</h5></a>
-                                                <br>
-                                                <p>A Davare, D Densmore, T Meyerowitz, A Pinto, A Sangiovanni-Vincentelli, ...</p>
-                                                <p>Conference on using hardware design and verification languages (DVCon) 152</p>
-                                            </li>
-                                            <li class="list-group-item col-sm-12">
-                                                <a href="http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0018882"><h5 class="list-group-item-heading">Eugene–a domain specific language for specifying and constraining synthetic biological parts, devices, and systems</h5></a>
-                                                <br>
-                                                <p>L Bilitchenko, A Liu, S Cheung, E Weeding, B Xia, M Leguia, JC Anderson, ...</p>
-                                                <p>PloS one 6 (4), e18882</p>
-                                            </li>
+
                                         </ul>
+
                                     </div>
                                 </div>
+                                <template id="publication-template">
+                                    <li class="list-group-item col-sm-12">
+                                        <a href="" onclick="return false;"><h5 class="list-group-item-heading publication-title">A Platform-based taxonomy for ESL design</h5></a>
+                                        <br>
+                                        <p class="publication-author">D Densmore, R Passerone, A Sangiovanni-Vincentelli</p>
+                                        <p class="publication-year"></p>
+                                        <p class="publication-information">Other Information:</p>
+                                        <p class="publication-bibtex" style="line-height:150%">Bibtex: </p>
+                                    </li>
+                                </template>
                             </div>
                         </div>
                     </div>
@@ -374,12 +387,13 @@
 
         </div>
 
-        <!-- ANGULAR SCRIPTS -->
-        <script src="../scripts/new-ui-scripts/headerDirective.js"></script>
-        <script src="../scripts/new-ui-scripts/footerDirective.js"></script>
-        <script src="../scripts/new-ui-scripts/sidebarDirective.js"></script>
-        <script src="../scripts/new-ui-scripts/profileController.js"></script>
-        <script src="../scripts/new-ui-scripts/profileApp.js"></script>
+    <!-- ANGULAR SCRIPTS -->
+    <script src="../scripts/new-ui-scripts/headerDirective.js"></script>
+    <script src="../scripts/new-ui-scripts/footerDirective.js"></script>
+    <script src="../scripts/new-ui-scripts/sidebarDirective.js"></script>
+    <script src="../scripts/new-ui-scripts/profileController.js"></script>
+    <script src="../scripts/new-ui-scripts/profile.js"></script>
+    <script src="../scripts/new-ui-scripts/profileApp.js"></script>
 
     </body>
 </html>

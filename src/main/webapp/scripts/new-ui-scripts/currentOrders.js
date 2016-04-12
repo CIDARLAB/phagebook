@@ -357,9 +357,6 @@ function exportCSVHandler(){
         }
     });
     
-    
-    
-
 }
 
 function editButtonHandler(){
