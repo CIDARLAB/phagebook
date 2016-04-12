@@ -238,7 +238,7 @@ public class OrderController {
         
         List<String> orders = new ArrayList<String>();
         String header = "";
-        int headerCount = 0;
+        int headerCount = 0; //to make sure the header only appears once
         
         //System.out.println("HERE IN ORDERFORM");
         int count = 1;       
@@ -311,6 +311,7 @@ public class OrderController {
                         break;
                     case TOTAL_PRICE: 
                         orderString = orderString + (product.getCost() * cartItem.getDiscount())/100.0d *  cartItem.getQuantity() + ",";
+
                         header = header + "TOTAL PRICE,";
                         break;
                 }

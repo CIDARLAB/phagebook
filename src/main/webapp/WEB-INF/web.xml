@@ -1,5 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+    
+    <servlet>
+        <servlet-name>addPubMed</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.addPubMed</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>addPubMed</servlet-name>
+        <url-pattern>/addPubMed</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>addCrossRef</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.addCrossRef</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>addCrossRef</servlet-name>
+        <url-pattern>/addCrossRef</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>addCustom</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.addCustom</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>addCustom</servlet-name>
+        <url-pattern>/addCustom</url-pattern>
+    </servlet-mapping>
     <servlet>
         <servlet-name>uploadVendorCSV</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.uploadVendorCSV</servlet-class>
@@ -31,6 +56,10 @@
     <servlet>
         <servlet-name>denyColleagueRequest</servlet-name>
         <servlet-class>org.clothocad.phagebook.adaptors.servlets.denyColleagueRequest</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>loadPublications</servlet-name>
+        <servlet-class>org.clothocad.phagebook.adaptors.servlets.loadPublications</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>exportOrderCSV</servlet-name>
@@ -424,4 +453,9 @@
         <servlet-name>denyColleagueRequest</servlet-name>
         <url-pattern>/denyColleagueRequest</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>loadPublications</servlet-name>
+        <url-pattern>/loadPublications</url-pattern>
+    </servlet-mapping>
+    
 </web-app>

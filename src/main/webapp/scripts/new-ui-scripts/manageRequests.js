@@ -290,10 +290,10 @@ function approveColleagueBtnHandler(){
         async: false,
         data: {
             "userId": getCookie("clothoId"),
-            "orderId": this.value
+            "colleagueId": this.value
         },
         success: function (response) {
-            alert("order approved");
+            alert("Colleague Added!");
             window.location.href="";
         },
         error: function (response){

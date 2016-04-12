@@ -62,7 +62,7 @@ public class exportOrderCSV extends HttpServlet{
         
         for(String cartItem : CList){
             
-            switch (cartItem){
+            switch (cartItem){ //can add all of them for a customizable form
                 case "ITEM":
                     ColumnList.add(OrderColumns.PRODUCT_NAME);
                     break;
