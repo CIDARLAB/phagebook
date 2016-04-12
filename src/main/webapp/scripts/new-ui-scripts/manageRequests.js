@@ -282,7 +282,7 @@ function declineOrderBtnHandler(){
 
 
 function approveColleagueBtnHandler(){
-    alert(this.value);
+    //alert(this.value);
     $.ajax({
         //do this for projects...
         url: "../approveColleagueRequest",
