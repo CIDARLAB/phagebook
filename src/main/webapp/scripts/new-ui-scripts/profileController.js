@@ -121,12 +121,12 @@ function profileCtrl($scope, $http) {
                 ul.empty();
                 
                 for (var i = 0; i < response.length; i++) {
-                    var tmpl = document.getElementById("pub-template").content.cloneNode(true);
-                    tmpl.querySelector(".pub-year").innerText = "Year : " + response[i].pubYear;
-                    tmpl.querySelector(".pub-title").innerText = "Title : " + response[i].pubTitle;
-                    tmpl.querySelector(".pub-authors").innerText = "Authors : " + response[i].pubAuthors;
-                    tmpl.querySelector(".pub-info").innerText = "Other Information : " + response[i].pubInfo;
-                    tmpl.querySelector(".pub-bibtex").innerText = "Bibtex : " + response[i].pubBibtex;
+                    var tmpl = document.getElementById("publication-template").content.cloneNode(true);
+                    tmpl.querySelector(".publication-year").innerText = "Year : " + response[i].pubYear;
+                    tmpl.querySelector(".publication-title").innerText = "Title : " + response[i].pubTitle;
+                    tmpl.querySelector(".publication-author").innerText = "Authors : " + response[i].pubAuthors;
+                    tmpl.querySelector(".publication-information").innerText = "Other Information : " + response[i].pubInfo;
+                    tmpl.querySelector(".publication-bibtex").innerText = "Bibtex : " + response[i].pubBibtex;
                     //$scope.statusDate = response[i].dateCreated;
                     //console.log(response[i].dateCreated);
                     //tmpl.querySelector(".pub-text").innerText = response[i].statusText;

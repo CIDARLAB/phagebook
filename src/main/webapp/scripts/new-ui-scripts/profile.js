@@ -14,7 +14,7 @@ $(document).ready(function () {
             },
             success: function (response) {
                alert("The PubMed publication has been added");
-               alert(response);
+
             },
             error: function (response) {
                 alert("An error occurred with adding a publication.");
@@ -35,7 +35,7 @@ $(document).ready(function () {
             },
             success: function (response) {
                alert("The CrossRef publication has been added");
-               alert(response);
+
             },
             error: function (response) {
                 alert("An error occurred with adding a publication.");
@@ -62,7 +62,7 @@ $(document).ready(function () {
             },
             success: function (response) {
                alert("The custom publication has been added");
-               alert(response);
+
             },
             error: function (response) {
                 alert("An error occurred with adding a publication.");
