@@ -67,7 +67,6 @@ function profileCtrl($scope, $http) {
                     //tmpl.querySelector(".colleague-display-lab").innerHTML = (response[i].labName == null) ? "" : response[i].labName;
                     //tmpl.querySelector(".colleague-display-institution").innerHTML = response[i].institutionName;
                     //tmpl.querySelector(".colleague-display-fullname").href = "../html/colleague.html?user=" + response[i].clothoId;
-
                     ul.append(tmpl);
                 }
             },
@@ -92,7 +91,7 @@ function profileCtrl($scope, $http) {
                 for (var i = response.length - 1; i >= 0; i--) {
                     var tmpl = document.getElementById("status-template").content.cloneNode(true);
                     var now = new Date(response[i].dateCreated);
-                    tmpl.querySelector(".status-date").innerText = "Created On: " + response[i].dateCreated;
+                    tmpl.querySelector(".status-date").innerText = "Created On: " + chooseMonth(now.getUTCMonth()) + " " +now.getUTCDay() +", " + now.getFullYear() + " " + now.getHours() + ":"+ now.getHours();
                     tmpl.querySelector(".status-text").innerText = response[i].statusText;
                     ul.append(tmpl);
                 }
@@ -180,5 +179,50 @@ function getParameterByName(name) {
     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
             results = regex.exec(location.search);
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
+
+function chooseMonth(number){
+    switch (number){
+        case 1:
+            return "January";
+            break;
+        case 2:
+            return "February";
+            break;
+        case 3:
+            return "March";
+            break;
+        case 4:
+            return "April";
+            break;
+        case 5:
+            return "May";
+            break;
+        case 6:
+            return "June";
+            break;
+        case 7:
+            return "July";
+            break;
+        case 8:
+            return "August";
+            break;
+        case 9:
+            return "September";
+            break;
+        case 10:
+            return "October";
+            break;
+        case 11:
+            return "November";
+            break;
+        case 12:
+            return "December";
+            break;
+        default:
+            return "";
+            break;
+    }
 }
 

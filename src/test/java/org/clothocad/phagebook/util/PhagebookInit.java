@@ -33,6 +33,7 @@ public class PhagebookInit {
         
         ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
         Clotho clothoObject = new Clotho(conn);
+        
         Person doug1 = new Person();
         String emailId = "phagebook"; // it is also the name in clotho but doens't have a name property
         doug1.setEmailId(emailId);
@@ -62,6 +63,7 @@ public class PhagebookInit {
         globalPI.setEmailId("globalPI@test.com");
         globalPI.setFirstName("Global");
         globalPI.setLastName("PI");
+        globalPI.setPassword("phagebook");
         ClothoAdapter.createPerson(globalPI, clothoObject);
         
         List<String> PIs = new ArrayList<>();
