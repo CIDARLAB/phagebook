@@ -5,6 +5,11 @@ $(document).ready(function() {
     // "description":"This is a project description for an awesome project named \"Project\"!",
     // "projectName":"Project","updates":[],"grant":"5709a9bad4c60ab7f5242f02",
     // "lead":"Anna Goncharova","budget":12345}
+
+    $("#submit-member-btn").click(submitMemberButtonHandler);
+
+
+
     var params = location.search;
 
     var qs = (function(a) {
@@ -23,22 +28,22 @@ $(document).ready(function() {
     var id = qs["id"];
     console.log(id);
 
-   var constructHTML = function(name, date, status){
-    var update = "<div class='update'> <div class='panel panel-default'> <div class='panel-heading'>" +"Name: "  + name + " Date: " + date + "</div> " +
-        "<div class='panel-body'>" + status+  " </div> </div> </div>";
-    return update;
-   }
+    var constructHTML = function(name, date, status) {
+        var update = "<div class='update'> <div class='panel panel-default'> <div class='panel-heading'>" + "Name: " + name + " Date: " + date + "</div> " +
+            "<div class='panel-body'>" + status + " </div> </div> </div>";
+        return update;
+    }
 
 
-    var appendUpdate = function(updates){
+    var appendUpdate = function(updates) {
         console.log("appendUpdate");
-        for(var i = 0; i<updates.length;i++){
+        for (var i = 0; i < updates.length; i++) {
             var u = constructHTML(updates.person, updates.date, updates.status);
             console.log(u);
             $("#previous-posts-append").append(updates);
         }
     }
-    $("#load-project-statuses").click(function () {
+    $("#load-project-statuses").click(function() {
         console.log("button clicked")
         var ul = $("#project-status-list");
         ul.empty();
@@ -48,7 +53,7 @@ $(document).ready(function() {
             data: {
                 "projectId": id
             },
-            success: function (response) {
+            success: function(response) {
                 // var responseAsJSON = angular.fromJson(response);
                 // console.log(JSON.stringify(response));                                
                 // console.log(JSON.parse(response));
@@ -57,8 +62,8 @@ $(document).ready(function() {
                 response = JSON.parse(response);
                 console.log(typeof(response));
                 console.log(response);
-                updates =response.updates;
-                if(updates.length==0){
+                updates = response.updates;
+                if (updates.length == 0) {
                     alert("This project has no statuses!");
                 }
                 for (var i = 0; i < updates.length; i++) {
@@ -121,7 +126,7 @@ $(document).ready(function() {
         }
     });
 
-    
+
     // EDIT PROJECT CODE
 
     $("#edit-project-btn").click(function() {
@@ -130,6 +135,8 @@ $(document).ready(function() {
         $('#submit-project-btn').show();
 
     });
+
+    $("#search-colleagues-btn").click(searchBtnHandler);
 
     // after user edits the areas, and clicks on the submit button, send the ajax 
     // call and refresh the page
@@ -236,10 +243,89 @@ $(document).ready(function() {
                 console.log("response!!!");
                 return checkAddUpdateResponse(response);
             },
-            error: function(xhr, ajaxOptions, thrownError){
-                    alert(xhr.status)
-                }
+            error: function(xhr, ajaxOptions, thrownError) {
+                alert(xhr.status)
+            }
         });
     }
 
 });
+
+
+function searchBtnHandler() {
+    var firstName = $("#search-first-name").val();
+    var lastName = $("#search-last-name").val();
+
+
+    $.ajax({
+        url: '../queryFirstLastName',
+        type: 'GET',
+        async: false,
+        data: {
+            "firstName": firstName,
+            "lastName": lastName
+        },
+        success: function(response) {
+
+
+            var ul = $("#pi-add-list");
+
+            ul.empty();
+
+
+            for (var i = 0; i < response.length; i++) {
+                var tmpl = document.getElementById('person-results-template').content.cloneNode(true);
+
+
+                tmpl.querySelector('.member-name').innerText = response[i].fullname;
+                tmpl.querySelector('.member-lab-name').innerText = (response[i].labName == null) ? "" : response[i].labName;
+                tmpl.querySelector('.member-institution-name').innerText = response[i].institutionName;
+
+                tmpl.querySelector('.member-profile-link').href = "../html/colleague.html?user=" + response[i].clothoId;
+                tmpl.querySelector('.member-id').value = response[i].clothoId;
+
+
+                ul.append(tmpl);
+            }
+        },
+        error: {}
+
+    });
+    return false;
+}
+
+
+var submitMemberButtonHandler = function() {
+    var container = document.getElementById("member-add-results");
+    var peopleBoxes = container.getElementsByClassName("member-id");
+
+    for (var i = 0; i < peopleBoxes.length; i++) {
+
+        if (peopleBoxes[i].checked) {
+
+            alert(peopleBoxes[i].value);
+            // $.ajax({
+            //     //do this for projects...
+
+            //     url: "../addPIToLab",
+            //     type: "POST",
+            //     async: false,
+            //     data: {
+            //         "userId": peopleBoxes[i].value
+            //     },
+            //     success: function(response) {
+            //         alert(response.message);
+
+            //     },
+            //     error: function(response) {
+
+            //     }
+            // });
+
+        }
+
+    }
+
+
+
+}

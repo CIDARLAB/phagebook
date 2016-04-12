@@ -164,7 +164,7 @@
                                             <ul id="project-status-list"> </ul>
                                             <template id="status-template">
                                                 <div class="panel panel-default">
-                                                    <div class="panel-heading status-date" style= "background-color: #588F75;"></div>
+                                                    <div class="panel-heading status-date" style="background-color: #588F75;"></div>
                                                     <div class="panel-heading status-person"></div>
                                                     <div class="panel-body status-text"></div>
                                                 </div>
@@ -185,8 +185,10 @@
                                                     <button id="myModal1-close" type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                                                     <h4>Add Colleagues</h4>
                                                 </div>
-                                                <div class="modal-body" id="add-colleagues-modal">
-                                                    <p>Search for colleagues by entering their first or last name.</p>
+                                                <div class="modal-body">
+                                                    <br>
+                                                    <p>Search for users by entering their first or last name and select the individuals you'd like to add to a lab.</p>
+                                                    <br>
                                                     <div class="form-group row" id="search-colleagues">
                                                         <label for="search-first-name" class="col-sm-2 form-control-label">FIRST NAME</label>
                                                         <div class="col-sm-3">
@@ -199,19 +201,26 @@
                                                         <button id="search-colleagues-btn" type="submit" class="btn btn-lg">Search</button>
                                                     </div>
                                                     <br>
-                                                    <div id="search-colleagues-results" style="overflow-y:scroll; height:300px;">
-                                                        <ul class="col-sm-12 list-group" id="search-colleagues-list">
-                                                        </ul>
-                                                        <template id="colleague-template">
-                                                            <li class="list-group-item col-sm-5">
+                                                    <div class="member-results" id="member-add-results">
+                                                        <ul class="list-inline list-group member-full-list" id="pi-add-list"></ul>
+                                                        <template id="person-results-template">
+                                                            <li class="listsubmit-lab-btn-group-item col-sm-5">
                                                                 <img alt="Kristel Tan" src="../styles/img/mis/kristel-tan-pro-pic.jpg">
-                                                                <a href="" class="colleague-name">Kristel Tan</a>
-                                                                <p></p>
-                                                                <p class="main-lab">CIDAR Lab</p>
-                                                                <p class="main-institution">Boston University</p>
+                                                                <div>
+                                                                    <a class="member-profile-link" href="">
+                                                                        <p class="member-name">Kristel Tan</p>
+                                                                    </a>
+                                                                    <p class="member-lab-name">CIDAR Lab</p>
+                                                                    <p class="member-institution-name">Boston University</p>
+                                                                </div>
+                                                                <input class="member-id" type="checkbox">
                                                             </li>
                                                         </template>
                                                     </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    
+                                                    <button id="submit-member-btn" type="button" class="btn btn-primary">Add Member</button>
                                                 </div>
                                             </div>
                                         </div>
