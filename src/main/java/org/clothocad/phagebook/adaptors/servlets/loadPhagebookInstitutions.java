@@ -111,7 +111,7 @@ public class loadPhagebookInstitutions extends HttpServlet {
         out.print(obj);
         out.flush();
         out.close();
-        
+        conn.closeConnection();
     }
 
     /**

@@ -172,6 +172,7 @@ public class createPerson extends HttpServlet {
             out.flush();
             out.close();
         }
+        conn.closeConnection();
 
         processRequest(request, response);
 

@@ -106,6 +106,7 @@ public class autoCompleteVendors extends HttpServlet {
             out.close();
             
             clothoObject.logout();
+            conn.closeConnection();
            
        }
        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

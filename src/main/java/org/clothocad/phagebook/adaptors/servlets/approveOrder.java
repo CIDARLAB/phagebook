@@ -138,6 +138,7 @@ public class approveOrder extends HttpServlet {
             responseJSON.put("message", "Order has been approved!");
             responseJSON.put("approvedBy", finalApprover);
             responseJSON.put("approvedByEmail", fAEmailId);
+            conn.closeConnection();
             PrintWriter out = response.getWriter();
             out.print(responseJSON);
             out.flush();

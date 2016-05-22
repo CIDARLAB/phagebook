@@ -2,17 +2,39 @@ $(document).ready(function() {
     var user = getCookie("clothoId");
     var timerVal;
     $("#productNameToSearch").keypress( keyPressHandler );
+    $("#vendorNameToSearch").keypress(keyPressHandler);
 
     function keyPressHandler(){
+
         clearTimeout(timerVal); // stops previous attempt.
-        timerVal = setTimeout(doAjax, 500);//after a second of no input flip the flag.
+        timerVal = setTimeout(doAjax(this.id), 500);//after a second of no input flip the flag.
 
         //add a little clear button
 
     }
 
-    function doAjax() {
-        var name = $("#productNameToSearch").val();
+
+
+
+
+    function doAjax(id) {
+
+        var name;
+        var url;
+        switch (id){
+            case "productNameToSearch":
+                name = $("#productNameToSearch").val();
+                url = "../queryProductByName";
+                break;
+            case "vendorNameToSearch":
+                name = $("#vendorNameToSearch").val();
+                url = "../queryProductByCompany";
+                break;
+            default:
+                break;
+        }
+
+
         var searchType = "STARTSWITH"; //USE JQUERY TO FIND FIXES
 
         var isValid = 0;
@@ -23,7 +45,7 @@ $(document).ready(function() {
         if (isValid){
             $.ajax({
                 //do this for projects...
-                url: "../queryProductByName",
+                url: url,
                 type: "GET",
                 async: false,
                 data: {
@@ -225,7 +247,6 @@ $(document).ready(function() {
             tableRow = document.getElementById("product"+i);
         }
 
-        alert(JSON.stringify(productsToAdd));
 
 
         $.ajax({
@@ -295,7 +316,7 @@ function deleteButtonHandler(event){
 function submitButtonHandler(){
 
     var orderId = this.value;
-    alert(orderId);
+
 
     $.ajax({
         url: '../submitOrderToPIs',
@@ -336,9 +357,6 @@ function exportCSVHandler(){
         }
     });
     
-    
-    
-
 }
 
 function editButtonHandler(){

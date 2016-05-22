@@ -185,7 +185,7 @@ public class addUpdateToProject extends HttpServlet {
 
         result.put("short",1);
       }
-      
+      conn.closeConnection();
       PrintWriter writer = response.getWriter();
       writer.println(result);
       writer.flush();

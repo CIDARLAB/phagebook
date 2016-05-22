@@ -124,7 +124,7 @@ public class createVendor extends HttpServlet {
             ClothoAdapter.createVendor(vendor, clothoObject);
             JSONObject vendorJSON = new JSONObject();
             vendorJSON.put("id", vendor.getId());
-            
+            conn.closeConnection();
             response.setStatus(HttpServletResponse.SC_CREATED);
             response.setContentType("application/json");
                 PrintWriter out = response.getWriter();

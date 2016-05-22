@@ -127,7 +127,7 @@ public class denyOrder extends HttpServlet {
             clothoObject.logout();
             ClothoAdapter.setPerson(creator, clothoObject);
             
-            
+            conn.closeConnection();
             
             
                 

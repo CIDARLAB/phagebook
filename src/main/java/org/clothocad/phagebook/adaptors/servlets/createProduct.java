@@ -122,6 +122,7 @@ public class createProduct extends HttpServlet {
                 out.flush();
                 out.close();
                 clothoObject.logout();
+                
                 return;
             }
         }
@@ -150,6 +151,7 @@ public class createProduct extends HttpServlet {
                 out.close();
                 
             clothoObject.logout();
+            conn.closeConnection();
             
                     
             

@@ -31,7 +31,7 @@ $(document).ready(function() {
         var update = "<div class='update'> <div class='panel panel-default'> <div class='panel-heading'>" + "Name: " + name + " Date: " + date + "</div> " +
             "<div class='panel-body'>" + status + " </div> </div> </div>";
         return update;
-    }
+    };
 
 
     var appendUpdate = function(updates) {
@@ -41,8 +41,8 @@ $(document).ready(function() {
             console.log(u);
             $("#previous-posts-append").append(updates);
         }
-    }
-    $("#load-project-statuses").click(function() {
+    };
+    var loadStatuses = function(){
         console.log("button clicked")
         var ul = $("#project-status-list");
         ul.empty();
@@ -54,7 +54,7 @@ $(document).ready(function() {
             },
             success: function(response) {
                 // var responseAsJSON = angular.fromJson(response);
-                // console.log(JSON.stringify(response));                                
+                // console.log(JSON.stringify(response));
                 // console.log(JSON.parse(response));
                 console.log("response is");
                 console.log(typeof(response));
@@ -81,6 +81,10 @@ $(document).ready(function() {
                 //console.log("inside GET error");
             }
         });
+
+    };
+    $("#load-project-statuses").click(function() {
+        loadStatuses();
     });
 
     // updates = [{"person":"Allie", "date":"03/10","status":"ABC"}];
@@ -198,7 +202,7 @@ $(document).ready(function() {
     }
 
     $("#create-status-btn").click(function() {
-        console.log("clicked on addUpdate")
+        console.log("clicked on addUpdate");
 
         var userID = getCookie("clothoId");
         var projectID = id;
@@ -220,6 +224,7 @@ $(document).ready(function() {
         if (response["short"] == 1) {
             alert("The update was too short! Please input a longer string.");
         }
+        loadStatuses();
     }
 
     var addUpdate = function(projectID, userID, newStatus, emailPeople) {

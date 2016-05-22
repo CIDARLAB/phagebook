@@ -115,7 +115,7 @@ public class listPIsOfLab extends HttpServlet {
                 
             }
             
-            
+           conn.closeConnection(); 
         }
         else
         {

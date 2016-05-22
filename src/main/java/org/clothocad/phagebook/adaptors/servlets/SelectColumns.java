@@ -124,6 +124,8 @@ public class SelectColumns extends HttpServlet{
             filepath = filepath.substring(0, filepath.indexOf("/target/"));
             System.out.println("\nTHIS IS THE FILEPATH: " + filepath);
             
+            
+            
             String filepathOrderForm = filepath + "/orderForm.csv";
             File file = new File(filepathOrderForm);
             
@@ -141,6 +143,7 @@ public class SelectColumns extends HttpServlet{
             reponseWriter.println(filepathOrderForm);
             reponseWriter.flush();
             reponseWriter.close();
+            conn.closeConnection();
        }
        else
        {

@@ -137,7 +137,7 @@ public class listSubmittedOrdersOfPerson extends HttpServlet {
                 out.flush();
             }
             
-            
+            conn.closeConnection();
         } else {
             response.setContentType("application/json");
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

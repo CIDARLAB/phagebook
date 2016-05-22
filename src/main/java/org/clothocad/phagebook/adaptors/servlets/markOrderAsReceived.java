@@ -128,7 +128,7 @@ public class markOrderAsReceived extends HttpServlet {
             writer.println(responseJSON.toString());
             writer.flush();
             writer.close();
-            
+            conn.closeConnection();
         }
         else{
                 response.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);

@@ -391,6 +391,7 @@ public class processProject extends HttpServlet {
       writer.println(result);
       writer.flush();
       writer.close();
+      conn.closeConnection();
     }
     /**
      * Returns a short description of the servlet.

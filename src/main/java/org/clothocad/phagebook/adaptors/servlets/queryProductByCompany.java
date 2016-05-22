@@ -41,7 +41,7 @@ public class queryProductByCompany extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -57,89 +57,78 @@ public class queryProductByCompany extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
+
         Object pCompanyName = request.getParameter("name");
         String companyName = pCompanyName != null ? (String) pCompanyName : "";
-        
+
         Object pSearchType = request.getParameter("searchType");
-        String searchType = pSearchType != null ? (String) pSearchType: "";
-        
-        
+        String searchType = pSearchType != null ? (String) pSearchType : "";
+
         boolean isValidRequest = false;
-        if (!companyName.equals("") && !searchType.equals("")){
-            
+        if (!companyName.equals("") && !searchType.equals("")) {
+
             isValidRequest = true;
         }
-        
-        if (isValidRequest){
+
+        if (isValidRequest) {
             //create a clothoUser and Login to Query
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
             ClothoAdapter.QueryMode Qmode = ClothoAdapter.QueryMode.valueOf(searchType);
-            
+
             Map loginMap = new HashMap();
-            
-            loginMap.put("username",    "phagebook");
+
+            loginMap.put("username", "phagebook");
             loginMap.put("credentials", "backend");
             clothoObject.login(loginMap);
             //Query for the company
-            
+
             Map query = new HashMap();
-            
-            switch (Qmode){
+
+            switch (Qmode) {
                 case EXACT:
                     query.put("name", companyName);
                     break;
                 case STARTSWITH:
-                     query.put("query", companyName); // the value for which we are querying.
-                     query.put("key", "name"); // the key of the object we are querying
-       
+                    query.put("query", companyName); // the value for which we are querying.
+                    query.put("key", "name"); // the key of the object we are querying
+
                     break;
                 default:
                     break;
-                    
+
             }
-            
-            
+
             List<Vendor> queryCompanyResults = ClothoAdapter.queryVendor(query, clothoObject, ClothoAdapter.QueryMode.valueOf(searchType));
-            
-            
+
             //To get Vendor Name and ID to query for products with that company...
-            
             List<String> companyIDs = new LinkedList<>();
-            for (Vendor company : queryCompanyResults ){
+            for (Vendor company : queryCompanyResults) {
                 companyIDs.add(company.getId());
             }
-            
-            
-            
+
             JSONArray results = new JSONArray();
-            for (String companyID : companyIDs)
-            {
+            for (String companyID : companyIDs) {
                 Map queryForClotho = new HashMap();
                 queryForClotho.put("company", companyID);
                 List<Product> queryProductResults = ClothoAdapter.queryProduct(queryForClotho, clothoObject, ClothoAdapter.QueryMode.EXACT);
-            
-                for (Product product : queryProductResults){
+
+                for (Product product : queryProductResults) {
                     JSONObject productAsJson = new JSONObject();
-                    productAsJson.put("cost", product.getCost());
                     productAsJson.put("clothoID", product.getId());
+                    productAsJson.put("unitPrice", product.getCost());
                     productAsJson.put("productURL", (product.getProductURL() != null) ? product.getProductURL() : "");
-                    productAsJson.put("goodType", (product.getGoodType() != null) ? product.getGoodType() : "");
+                    productAsJson.put("goodType", product.getGoodType());
                     productAsJson.put("inventory", product.getInventory());
                     productAsJson.put("name", product.getName());
                     productAsJson.put("description", product.getDescription());
-                    productAsJson.put("vendor", ClothoAdapter.getVendor(product.getCompanyId(),clothoObject).getName());
-
+                    productAsJson.put("vendor", ClothoAdapter.getVendor(product.getCompanyId(), clothoObject));
                     results.add(productAsJson);
                 }
             }
-            
-            
-            
-            if (!results.isEmpty()){
-                
-                
+
+            if (!results.isEmpty()) {
+
                 response.setContentType("application/json");
                 response.setStatus(HttpServletResponse.SC_OK);
                 PrintWriter out = response.getWriter();
@@ -148,11 +137,11 @@ public class queryProductByCompany extends HttpServlet {
             } else {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             }
-            
+            conn.closeConnection();
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
-        
+
     }
 
     /**

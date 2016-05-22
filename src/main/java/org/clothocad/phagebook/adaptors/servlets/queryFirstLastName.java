@@ -125,7 +125,7 @@ public class queryFirstLastName extends HttpServlet {
             PrintWriter out = response.getWriter();
             out.print(peopleJSONArray);
             out.flush();
-            
+            conn.closeConnection();
         }
         else
         {

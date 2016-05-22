@@ -129,8 +129,7 @@ public class getProductById extends HttpServlet {
             } else {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             }
-            
-         conn.closeConnection();  
+        conn.closeConnection();  
        }
        
        

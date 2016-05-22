@@ -207,8 +207,8 @@ public class PhagebookSocket
                         Project project = new Project();
                         project = ClothoAdapter.getProject(projectids.get(i), clothoObject);
                         
-                        projectsMap.put("orderId",project.getId());
-                        projectsMap.put("orderName",project.getName());
+                        projectsMap.put("projectId",project.getId());
+                        projectsMap.put("projectName",project.getName());
                         allProjects.add(projectsMap);
                     }
                     

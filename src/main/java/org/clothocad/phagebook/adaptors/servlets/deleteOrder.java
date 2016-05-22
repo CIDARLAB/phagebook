@@ -113,6 +113,7 @@ public class deleteOrder extends HttpServlet {
                 PrintWriter out = response.getWriter();
                 out.print(responseJSON);
                 out.flush();
+                
             } else{
             
             response.setContentType("application/json");
@@ -123,6 +124,8 @@ public class deleteOrder extends HttpServlet {
             out.print(responseJSON);
             out.flush();
             }
+            
+            conn.closeConnection();
             
         } else {
             response.setContentType("application/json");

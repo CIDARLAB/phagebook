@@ -117,6 +117,8 @@ public class findMemberForNewProject extends HttpServlet {
             out.print(peopleJSONArray);
             out.flush();
             
+            conn.closeConnection();
+            
         }
         else
         {
