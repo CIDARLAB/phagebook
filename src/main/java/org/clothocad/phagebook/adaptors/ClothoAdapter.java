@@ -15,7 +15,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import net.sf.json.JSONArray;
-import org.cidarlab.citationsapi.PhagebookCitation;
+//import org.cidarlab.citationsapi.PhagebookCitation;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.phagebook.dom.Vendor;
@@ -809,57 +809,57 @@ public class ClothoAdapter {
      * @param clothoObject Instance of Clotho being used
      * @return ID value of the object in the Clotho Database
      */
-    public static String createPhagebookCitation(PhagebookCitation phagebookCitation, Clotho clothoObject){
-        Map map = new HashMap();
-        map.put("schema", PhagebookCitation.class.getCanonicalName());
-        
-        if (phagebookCitation.getId() != null){
-            if (!phagebookCitation.getId().isEmpty() && !phagebookCitation.getId().equals("Not Set")){
-                map.put("id", phagebookCitation.getId());
-            }
-        }
-        
-        if (phagebookCitation.getUser() != null){
-            if (!phagebookCitation.getUser().isEmpty() && !phagebookCitation.getUser().equals("Not Set")){
-                map.put("user", phagebookCitation.getUser());
-            }
-        }
-        if (phagebookCitation.getTitle() != null){
-            if (!phagebookCitation.getTitle().isEmpty() && !phagebookCitation.getTitle().equals("Not Set")){
-                map.put("title", phagebookCitation.getTitle());
-            }
-        }
-        
-        if (phagebookCitation.getAuthors() != null){
-            if (!phagebookCitation.getAuthors().isEmpty() && !phagebookCitation.getAuthors().equals("Not Set")){
-                map.put("authors", phagebookCitation.getAuthors());
-            }
-        }
-        
-        if (phagebookCitation.getAuthors() != null){
-                map.put("year", phagebookCitation.getYear());
-            
-        }
-        if (phagebookCitation.getOtherInformation() != null){
-            if (!phagebookCitation.getOtherInformation().isEmpty() && !phagebookCitation.getOtherInformation().equals("Not Set")){
-                map.put("otherInformation", phagebookCitation.getOtherInformation());
-            }
-        }
-        
-        if (phagebookCitation.getBibtex() != null){
-            if (!phagebookCitation.getBibtex().isEmpty() && !phagebookCitation.getBibtex().equals("Not Set")){
-                map.put("bibtex", phagebookCitation.getBibtex());
-            }
-        }
-        
-        
-        
-        
-        String id = (String) clothoObject.set(map);
-        makePublic(id, clothoObject);
-        phagebookCitation.setId(id);
-        return id;
-    }
+//    public static String createPhagebookCitation(PhagebookCitation phagebookCitation, Clotho clothoObject){
+//        Map map = new HashMap();
+//        map.put("schema", PhagebookCitation.class.getCanonicalName());
+//        
+//        if (phagebookCitation.getId() != null){
+//            if (!phagebookCitation.getId().isEmpty() && !phagebookCitation.getId().equals("Not Set")){
+//                map.put("id", phagebookCitation.getId());
+//            }
+//        }
+//        
+//        if (phagebookCitation.getUser() != null){
+//            if (!phagebookCitation.getUser().isEmpty() && !phagebookCitation.getUser().equals("Not Set")){
+//                map.put("user", phagebookCitation.getUser());
+//            }
+//        }
+//        if (phagebookCitation.getTitle() != null){
+//            if (!phagebookCitation.getTitle().isEmpty() && !phagebookCitation.getTitle().equals("Not Set")){
+//                map.put("title", phagebookCitation.getTitle());
+//            }
+//        }
+//        
+//        if (phagebookCitation.getAuthors() != null){
+//            if (!phagebookCitation.getAuthors().isEmpty() && !phagebookCitation.getAuthors().equals("Not Set")){
+//                map.put("authors", phagebookCitation.getAuthors());
+//            }
+//        }
+//        
+//        if (phagebookCitation.getAuthors() != null){
+//                map.put("year", phagebookCitation.getYear());
+//            
+//        }
+//        if (phagebookCitation.getOtherInformation() != null){
+//            if (!phagebookCitation.getOtherInformation().isEmpty() && !phagebookCitation.getOtherInformation().equals("Not Set")){
+//                map.put("otherInformation", phagebookCitation.getOtherInformation());
+//            }
+//        }
+//        
+//        if (phagebookCitation.getBibtex() != null){
+//            if (!phagebookCitation.getBibtex().isEmpty() && !phagebookCitation.getBibtex().equals("Not Set")){
+//                map.put("bibtex", phagebookCitation.getBibtex());
+//            }
+//        }
+//        
+//        
+//        
+//        
+//        String id = (String) clothoObject.set(map);
+//        makePublic(id, clothoObject);
+//        phagebookCitation.setId(id);
+//        return id;
+//    }
     
     
     /**
@@ -1836,14 +1836,14 @@ public class ClothoAdapter {
      * @return instance of object.
      */
     
-    public static PhagebookCitation getPhagebookCitation(String id, Clotho clothoObject){
-        Map phagebookCitationMap = (Map) clothoObject.get(id);
-        PhagebookCitation phagebookCitation = new PhagebookCitation();
-        if (phagebookCitationMap != null){
-            phagebookCitation = mapToPhagebookCitation(phagebookCitationMap, clothoObject);
-        }
-        return phagebookCitation;
-    }
+//    public static PhagebookCitation getPhagebookCitation(String id, Clotho clothoObject){
+//        Map phagebookCitationMap = (Map) clothoObject.get(id);
+//        PhagebookCitation phagebookCitation = new PhagebookCitation();
+//        if (phagebookCitationMap != null){
+//            phagebookCitation = mapToPhagebookCitation(phagebookCitationMap, clothoObject);
+//        }
+//        return phagebookCitation;
+//    }
     /**
      * This gets a Person object from Clotho if it receives a valid ID, will give default values to properties that were not found. Ergo, if 
      * it doesn't exist check for an email ID of "". (e.g) emailId.isEmpty();
@@ -3351,59 +3351,59 @@ public class ClothoAdapter {
     }   
     
     
-    public static PhagebookCitation mapToPhagebookCitation(Map map, Clotho clothoObject)
-    {
-        
-        String id = "";
-        if (map.containsKey("id")){
-             id = (String) map.get("id");
-        }
-        
-        String user = "";
-        if (map.containsKey("user")){
-             user = (String) map.get("user");
-        }
-        
-        String title = "";
-        if (map.containsKey("title")){
-             title = (String) map.get("title");
-        }
-        
-        String authors = "";
-        if (map.containsKey("authors")){
-             authors = (String) map.get("authors");
-        }
-        
-        int year = 1970;
-        if (map.containsKey("year")){
-            year = (int) map.get("year");
-        }
-        
-        String otherInformation = "";
-        if (map.containsKey("otherInformation")){
-             otherInformation = (String) map.get("otherInformation");
-        }
-        
-        String bibtex = "";
-        if (map.containsKey("bibtex")){
-             bibtex = (String) map.get("bibtex");
-        }
-        
-        
-        PhagebookCitation phagebookCitation = new PhagebookCitation();
-        phagebookCitation.setId(id);
-        phagebookCitation.setTitle(title);
-        phagebookCitation.setAuthors(authors);
-        phagebookCitation.setYear(year);
-        phagebookCitation.setOtherInformation(otherInformation);
-        phagebookCitation.setUser(user);
-        phagebookCitation.setBibtex(bibtex);
-        
-        
-        
-        return phagebookCitation;
-        
-    }
+//    public static PhagebookCitation mapToPhagebookCitation(Map map, Clotho clothoObject)
+//    {
+//        
+//        String id = "";
+//        if (map.containsKey("id")){
+//             id = (String) map.get("id");
+//        }
+//        
+//        String user = "";
+//        if (map.containsKey("user")){
+//             user = (String) map.get("user");
+//        }
+//        
+//        String title = "";
+//        if (map.containsKey("title")){
+//             title = (String) map.get("title");
+//        }
+//        
+//        String authors = "";
+//        if (map.containsKey("authors")){
+//             authors = (String) map.get("authors");
+//        }
+//        
+//        int year = 1970;
+//        if (map.containsKey("year")){
+//            year = (int) map.get("year");
+//        }
+//        
+//        String otherInformation = "";
+//        if (map.containsKey("otherInformation")){
+//             otherInformation = (String) map.get("otherInformation");
+//        }
+//        
+//        String bibtex = "";
+//        if (map.containsKey("bibtex")){
+//             bibtex = (String) map.get("bibtex");
+//        }
+//        
+//        
+//        PhagebookCitation phagebookCitation = new PhagebookCitation();
+//        phagebookCitation.setId(id);
+//        phagebookCitation.setTitle(title);
+//        phagebookCitation.setAuthors(authors);
+//        phagebookCitation.setYear(year);
+//        phagebookCitation.setOtherInformation(otherInformation);
+//        phagebookCitation.setUser(user);
+//        phagebookCitation.setBibtex(bibtex);
+//        
+//        
+//        
+//        return phagebookCitation;
+//        
+//    }
 
     
     
@@ -4058,9 +4058,9 @@ public class ClothoAdapter {
     public static String setOrder(Order order, Clotho clothoObject){
         return ClothoAdapter.createOrder(order, clothoObject);
     }
-    public static String setPhagebookCitation(PhagebookCitation phagebookCitation, Clotho clothoObject){
-        return ClothoAdapter.createPhagebookCitation(phagebookCitation, clothoObject);
-    }
+//    public static String setPhagebookCitation(PhagebookCitation phagebookCitation, Clotho clothoObject){
+//        return ClothoAdapter.createPhagebookCitation(phagebookCitation, clothoObject);
+//    }
     
     public static String setPerson(Person person, Clotho clothoObject){
         /*add logic */ 
