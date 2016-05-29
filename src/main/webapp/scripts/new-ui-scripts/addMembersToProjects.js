@@ -4,33 +4,58 @@ CIDAR Lab, Boston University
 This file is responsible for looking up Phagebook's members to be added to the project.
 */
 
+
+
+
+function loadSelectElementOptions() {
+    var min = 12,
+        max = 100,
+        select = document.getElementById('lab-name');
+
+    for (var i = min; i <= max; i++) {
+        
+
+        var opt = document.createElement('option');
+        opt.value = i;
+        opt.innerHTML = i;
+        opt.type = "checkbox";
+        console.log(opt);
+        select.appendChild(opt);
+    }
+}
+
+var removeOptions = function(selectbox) {
+    var i;
+    console.log("IN REMOVE OPTIONS");
+    console.log(selectbox);
+    for (i = selectbox.options.length; i >= 0; i--) {
+        console.log(selectbox);
+        console.log("about to remove a box");
+        console.log(selectbox.i);
+        selectbox.remove(i);
+    }
+}
+
 $(document).ready(function() {
 
-
-
-
-    var keyPressHandler = function() {
-        console.log("IN ADD MEMBERS TO PROJECTS");
-        clearTimeout(timerVal); // stops previous attempt.
-        timerVal = setTimeout(doAjax(this.id), 500); //after a second of no input flip the flag.
-    }
-
     var timerVal;
-
-    // add handlers for keypresses on first names of people
-    // every time the keypress event gets triggered, we send an 
-    // ajax call to the server with the values in the fields
-
-    $("#inputLeadName").keypress(keyPressHandler);
-
     var firstName = "";
     var lastName = "";
+    
+    var keyPressHandler = function() {
+        console.log("IN ADD MEMBERS TO PROJECTS");
+        clearTimeout(timerVal); // stops previous attempt
+        timerVal = setTimeout(doAjax(this.id), 250); // send continuoius ajax requests using doAjax function
+    }
 
+    // /*
+    // input: ontype events in lead search or member search forms
+    // output: array of person names and attached institutions
+    // */
     var doAjax = function(id) {
+        console.log(id);
 
-        var output = "lead";
-
-        fullName = $("#inputLeadName").val();
+        var fullName = $("#"+id).val();
         console.log(fullName);
         firstName = fullName;
         if (fullName.indexOf(' ') >= 0) {
@@ -43,6 +68,7 @@ $(document).ready(function() {
             "firstName": firstName,
             "lastName": lastName
         }
+
         console.log(data);
 
         var isValid = 0;
@@ -61,10 +87,11 @@ $(document).ready(function() {
                 success: function(response) {
 
                     if (response.length > 0) {
-                        var select = document.getElementById(output + "_Results");
-                        removeOptions(select);
+                        var select = document.getElementById(id + "_Results");
+                        // removeOptions(select);
 
                         for (var i = 0; i < response.length; i++) {
+                            // loop through the response to create the array of people
                             var opt = document.createElement('option');
                             console.log(response[i].fullname);
                             opt.value = response[i].clothoId;
@@ -82,30 +109,7 @@ $(document).ready(function() {
     }
 
 
+    // add handlers for keypresses in inputs for member and lead forms
+    $("#inputLeadName").keypress(keyPressHandler);
+    $("#inputMemberName").keypress(keyPressHandler);
 });
-
-function loadSelectElementOptions() {
-    var min = 12,
-        max = 100,
-        select = document.getElementById('lab-name');
-
-    for (var i = min; i <= max; i++) {
-        var opt = document.createElement('option');
-        opt.value = i;
-        opt.innerHTML = i;
-        select.appendChild(opt);
-    }
-}
-
-
-var removeOptions = function(selectbox) {
-    var i;
-    console.log("IN REMOVE OPTIONS");
-    console.log(selectbox);
-    for (i = selectbox.options.length; i >= 0; i--) {
-        console.log(selectbox);
-        console.log("about to remove a box");
-        console.log(selectbox.i);
-        selectbox.remove(i);
-    }
-}

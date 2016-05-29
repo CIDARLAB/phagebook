@@ -12,6 +12,7 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="../styles/main.css" />
     <link rel="stylesheet" href="../styles/sidebar.css" />
+    <link rel="stylesheet" href="../styles/projectsDropdown.css" />
     <link rel="icon" href="../styles/img/logos/phagebook-favicon.png" sizes="16x16">
 
 
@@ -65,7 +66,7 @@
                                 <span class="error" ng-show="submitProject.name.$error.maxlength">Maximum length is 100 characters.</span>
                             </div>
                         </div>
-                         <div class="form-group row">
+<!--                          <div class="form-group row">
                                     <!~~ Organization lab ~~>
                                     <div class="col-sm-2  float-left form-control-label">
                                         <label>
@@ -86,7 +87,7 @@
                                         </div>
                                     </div>
                                     <span ng-show="labsRequired">{{labsRequired}}</span>
-                        </div>
+                        </div> -->
                         <div class="form-group row">
                             <label for="inputDescription3" class="col-sm-2 form-control-label">DESCRIPTION*</label>
                             <div class="col-sm-5">
@@ -97,7 +98,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="inputLeadName" class="col-sm-2 form-control-label">PROJECT LEAD NAME* SEARCH</label>
+                            <label for="inputLeadName" class="col-sm-2 form-control-label">SEARCH FOR LEAD</label>
                             <div class="form-group has-feedback col-sm-5">
                                 <div class="right-inner-addon">
                                     <i class="glyphicon glyphicon-search"></i>
@@ -109,9 +110,9 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="lead_Results" class="col-sm-2 form-control-label">SELECT LEAD</label>
+                            <label for="lead_Results" class="col-sm-2 form-control-label">SELECT LEAD*</label>
                             <div class="col-sm-5">
-                                <select class="form-control" id="lead_Results">
+                                <select class="form-control" id="inputLeadName_Results">
                                     <option value="">
                                         Select...
                                     </option>
@@ -133,13 +134,57 @@
                                 <span ng-show="projectGrantRequired">{{projectGrantRequired}}</span>
                             </div>
                         </div>
+
                         <div class="form-group row">
+                            <label for="inputMemberName" class="col-sm-2 form-control-label">SEARCH FOR MEMBERS</label>
+                            <div class="form-group has-feedback col-sm-5">
+                                <div class="right-inner-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                    <input name="memberName" class="form-control newProject-input memberForm memberName" id="inputMemberName" placeholder="i.e. John Smith" ng-model="formData.memberName">
+                                    <div class="memberError">
+                                        <span ng-show="membersNameRequired">{{membersRequired}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            
+                            <label for="member_Results" class="col-sm-2 form-control-label">SELECT MEMBER*</label>
+                            <div class="col-sm-5">
+                                <dl class="dropdown"> 
+                                <dt>
+                                    <a href="#">
+                                        <span class="form-control hida">Select...</span>    
+                                        <div class="multiSel"></div>  
+                                    </a>
+                                </dt>
+                                <dd class="dd_dropdown">
+                                    <div class="multiSelect">
+                                    <ul id="inputMemberName_Results">
+                                    <li class="members_li"><input type="checkbox" value="12345" />Bob Smith</li> 
+                                    <li class="members_li"><input type="checkbox" value="23456" />Betty Bop</li>  
+                                    <li class="members_li"><input type="checkbox" value="34567" />Claire Pupkin</li>                             
+                                    </ul>
+                                    </div>
+                                </dd>
+                                </dl>
+
+<!--                                 <select class="form-control" id="inputMemberName_Results">
+                                    <option value="">
+                                        Select...
+                                    </option>
+                                </select> -->
+                            </div>
+                        </div>
+
+<!--                         <div class="form-group row">
                             <label for="inputMemberFirstName3" class="col-sm-2 form-control-label">TEAM MEMBERS*</label>
                             <div class="col-sm-5">
                                 <input name="memberFirstName" class="form-control newProject-input memberForm firstName" id="inputMemberFirstName3" placeholder="i.e. John Smith, Jane Doe, ..." ng-model="formData.members">
                                 <span ng-show="membersRequired">{{membersRequired}}</span>
                             </div>
-                        </div>
+                        </div> -->
+                    
                     </form>
                     <div class="col-sm-7">
                         <button id="create-project-btn" type="submit" ng-click="saveData()" class="btn btn-default" style="float:right;">Create</button>

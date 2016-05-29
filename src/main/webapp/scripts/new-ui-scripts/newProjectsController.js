@@ -2,91 +2,92 @@
 Author: Anna Goncharova
 CIDAR Lab, Boston University
 This file is responsible for processing and checking the data from new projects form.
+To look at search and querying functions go to addMembersToProjects.js file.
 */
 
 function newProjectsCtrl($scope, $http) {
+    $scope.membersIds;
+    $scope.personId = getCookie("clothoId"); //retrieves the user id from session storage
 
-    $.ajax({
-        url: "../loadPhagebookInstitutions",
-        type: "GET",
-        async: false,
-        data: {},
-        success: function(response) {
-            var responseArray = response.institutions; //array of JSONObjects with labs attached 
-            console.log(responseArray);
-            var selectInstitution = document.getElementById('institution');
-
-
-            sessionStorage.setItem("index-institutions", JSON.stringify(responseArray)); // stores in sess stor
-            // removeOptions1(selectInstitution);
-
-            var opt = document.createElement('option');
-            opt.value = "";
-
-            opt.innerHTML = "Institution...";
-            selectInstitution.appendChild(opt);
-
-            var numberOfInstitutions = responseArray.length;
-            for (var i = 0; i < numberOfInstitutions; i++) {
+    // $.ajax({
+    //     url: "../loadPhagebookInstitutions",
+    //     type: "GET",
+    //     async: false,
+    //     data: {},
+    //     success: function(response) {
+    //         var responseArray = response.institutions; //array of JSONObjects with labs attached 
+    //         console.log(responseArray);
+    //         var selectInstitution = document.getElementById('institution');
 
 
-                var opt = document.createElement('option');
-                opt.value = responseArray[i].institutionId;
+    //         sessionStorage.setItem("index-institutions", JSON.stringify(responseArray)); // stores in sess stor
+    //         // removeOptions1(selectInstitution);
 
-                opt.innerHTML = responseArray[i].institutionName;
-                selectInstitution.appendChild(opt);
+    //         var opt = document.createElement('option');
+    //         opt.value = "";
 
+    //         opt.innerHTML = "Institution...";
+    //         selectInstitution.appendChild(opt);
 
-            }
-
-        },
-        error: function(response) {
-            alert("No Institutions To Load");
-        }
-    });
-
-    $('#institution').change(function() {
-        //this is innefficient... make a servlet to make a call on change instead actually... its easier
-        var selectedInstitution = $('#institution option').filter(':selected').text();
-
-        var responseArray = JSON.parse(sessionStorage.getItem("index-institutions"));
+    //         var numberOfInstitutions = responseArray.length;
+    //         for (var i = 0; i < numberOfInstitutions; i++) {
 
 
-        var selectLabs = document.getElementById('lab-name');
+    //             var opt = document.createElement('option');
+    //             opt.value = responseArray[i].institutionId;
+
+    //             opt.innerHTML = responseArray[i].institutionName;
+    //             selectInstitution.appendChild(opt);
 
 
-        var numberOfInstitutions = responseArray.length;
+    //         }
+
+    //     },
+    //     error: function(response) {
+    //         alert("No Institutions To Load");
+    //     }
+    // });
+
+    // $('#institution').change(function() {
+    //     //this is innefficient... make a servlet to make a call on change instead actually... its easier
+    //     var selectedInstitution = $('#institution option').filter(':selected').text();
+
+    //     var responseArray = JSON.parse(sessionStorage.getItem("index-institutions"));
 
 
-        for (var i = 0; i < numberOfInstitutions; i++) {
-
-            if (responseArray[i].institutionName === selectedInstitution) {
-                removeOptions(selectLabs);
-                var labsArray = responseArray[i].labs;
-                var labsLength = labsArray.length;
-                for (var j = 0; j < labsLength; j++) {
-                    var opt2 = document.createElement('option');
-                    opt2.value = labsArray[j].labId;
-                    opt2.innerHTML = labsArray[j].labName;
-                    selectLabs.appendChild(opt2);
-                }
-            } else if (selectedInstitution === "Institution...") {
-                removeOptions(selectLabs);
-                var opt2 = document.createElement('option');
-                opt2.value = "";
-                opt2.innerHTML = "Lab Name...";
-                selectLabs.appendChild(opt2);
-                return;
-            }
+    //     var selectLabs = document.getElementById('lab-name');
 
 
-        }
-    });
+    //     var numberOfInstitutions = responseArray.length;
+
+
+    //     for (var i = 0; i < numberOfInstitutions; i++) {
+
+    //         if (responseArray[i].institutionName === selectedInstitution) {
+    //             removeOptions(selectLabs);
+    //             var labsArray = responseArray[i].labs;
+    //             var labsLength = labsArray.length;
+    //             for (var j = 0; j < labsLength; j++) {
+    //                 var opt2 = document.createElement('option');
+    //                 opt2.value = labsArray[j].labId;
+    //                 opt2.innerHTML = labsArray[j].labName;
+    //                 selectLabs.appendChild(opt2);
+    //             }
+    //         } else if (selectedInstitution === "Institution...") {
+    //             removeOptions(selectLabs);
+    //             var opt2 = document.createElement('option');
+    //             opt2.value = "";
+    //             opt2.innerHTML = "Lab Name...";
+    //             selectLabs.appendChild(opt2);
+    //             return;
+    //         }
+
+
+    //     }
+    // });
 
 
     console.log("loaded");
-
-    $scope.personId = getCookie("clothoId"); //retrieves the user id from session storage
 
     // form data object -- here are the results from the form are stored
     $scope.formData = {};
@@ -152,7 +153,6 @@ function newProjectsCtrl($scope, $http) {
                 console.log("Members names invalid.");
             }
 
-
             // check if lead doesn't have either first OR last name
 
             if (count >= 4) {
@@ -176,29 +176,32 @@ function newProjectsCtrl($scope, $http) {
                 console.log(leadFullName);
                 if (leadFullName != undefined) {
                     var splitName = leadFullName.split(" ");
-                    var leadNameSelected = $("#lead_Results option:selected").text();
+                    var leadNameSelected = $("#inputLeadName_Results option:selected").text();
                     console.log(splitName.length);
                     if (splitName.length < 2) {
                         console.log("string not long enough");
                         return false;
                     }
+                    // why does the name in the search box have to match the name selected?
                     if (leadFullName != leadNameSelected) {
                         console.log("oopsies!");
-                        $("#lead_Results option:selected").val(0);
+                        $("#inputLeadName_Results option:selected").val(0);
                         leadIDDD = 123;
                     }
                     leadName = splitName;
                     return true;
                 }
-
             }
-            // splits by comma and makes sure the vals are separated by spaces
+        
+   
+        // splits by comma and makes sure the vals are separated by spaces
         var membersCheck = function() {
 
             var members = $scope.formData.members;
             console.log("members******");
             console.log(members);
             console.log("members******");
+
             var membersArr;
             if (members != undefined) {
 
@@ -216,11 +219,14 @@ function newProjectsCtrl($scope, $http) {
                 console.log(membersArray);
                 return true;
             } else {
-                $scope.membersRequired = "Please enters members' names.";
+                $scope.membersRequired = "Please enter members' names.";
                 return false;
             }
 
         };
+
+        // add search for team members like for the leads
+
 
         var submit = validateForm();
         console.log(submit);
@@ -236,17 +242,15 @@ function newProjectsCtrl($scope, $http) {
 
         // !!!! create a check that pr budget is an int !!!!!!
         console.log(membersArray);
-        // f it
+
         if($("#lab_selectDiv option:selected").text() == "Lab Name..." || $("#lab_selectDiv option:selected").val() == "Lab Name..."){
             console.log("setting stuff to null!!!");
             $("#lab_selectDiv option:selected").text("");
              $("#lab_selectDiv option:selected").val("");
         }
+
         var dataSubmit = {
             name: $scope.formData.name,
-
-            leadFirstName: leadName[0],
-            leadLastName: leadName[1],
 
             // get id and name of lead from dropdown
             leadName: $("#lead_Results option:selected").text(),
@@ -294,5 +298,78 @@ function newProjectsCtrl($scope, $http) {
             });
         }
     };
+
+    var arr = [];
+    var title = "";
+    $(".dropdown dt a").on('click', function() {
+        if(arr.length>0){
+            $(".hida").hide();
+            $('.multiSel').show();
+        }else{
+            $('.multiSel').hide();
+            $(".hida").show();
+
+        }
+        $(".dropdown dd ul").slideToggle('fast');
+      return false;
+    });
+
+    var updateSpan = function(arr){
+        $('.multiSel').html('<span title="' + arr + '">' + arr + '</span>');
+    }
+
+    $(".dropdown dd ul li a").on('click', function() {
+        console.log("closing??? 2");
+      $(".dropdown dd ul").hide();
+
+      return false;
+    });
+
+    function getSelectedValue(id) {
+      return $("#" + id).find("dt a span.value").html();
+    }
+
+    function isInArray(value, array) {
+        console.log(array.indexOf(value) > -1);
+      return array.indexOf(value) > -1;
+    }
+
+    $('.multiSelect input[type="checkbox"]').on('click', function() {
+        var checkbox = $(this);
+      
+      if (checkbox.is(':checked')) {
+        console.log("checked");
+        var id = checkbox.val();
+        if(!isInArray(id,arr)){
+            arr.push(id);
+        }
+        console.log(arr);
+        $('.multiSel').show();
+        updateSpan(arr);
+        $(".hida").hide();
+
+      } else {
+        console.log(checkbox.val());
+        console.log("unchecked");
+
+        // remove from array if it is unchecked
+        var index = arr.indexOf(checkbox.val());
+        console.log(index);
+        if (index != -1) {
+            arr.splice(index, 1);
+        }
+        console.log(arr);
+        updateSpan(arr);
+        // title = arr;
+
+                
+      //   // $('.multiSel').hide();
+      //   // $(".hida").show();
+      //   // $('span[title="' + title + '"]').remove();
+      //   // var ret = $(".hida");
+      //   // $('.dropdown dt a').append(ret);
+
+      }
+    });
 
 };
