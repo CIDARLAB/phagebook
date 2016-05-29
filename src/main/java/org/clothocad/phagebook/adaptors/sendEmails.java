@@ -164,16 +164,6 @@ public class sendEmails {
       
     }
   
-//  public static void main(String[] args) {
-//    
-//    HashMap test = new HashMap();
-//    test.put("agonchar@bu.edu", "Anna Goncharova");
-//    test.put("anna@goncharova.com", "Anna");
-//    test.put("prash@bu.edu", "Prashant");
-//
-//    sendMessagesTo(test, " These changes were minor.");
-//
-//  }
 }
 
 
