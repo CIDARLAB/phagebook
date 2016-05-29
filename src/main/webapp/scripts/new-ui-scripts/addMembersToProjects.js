@@ -32,6 +32,7 @@ var removeOptions = function(selectbox) {
         console.log(selectbox);
         console.log("about to remove a box");
         console.log(selectbox.i);
+        console.log(selectbox);
         selectbox.remove(i);
     }
 }
@@ -88,7 +89,7 @@ $(document).ready(function() {
 
                     if (response.length > 0) {
                         var select = document.getElementById(id + "_Results");
-                        // removeOptions(select);
+                        removeOptions(select);
 
                         for (var i = 0; i < response.length; i++) {
                             // loop through the response to create the array of people

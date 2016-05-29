@@ -5,6 +5,18 @@ This file is responsible for processing and checking the data from new projects 
 To look at search and querying functions go to addMembersToProjects.js file.
 */
 
+/*
+ ** HELPERS
+ */
+function isInArray(value, array) {
+    console.log(array.indexOf(value) > -1);
+    return array.indexOf(value) > -1;
+}
+
+/*
+ ** HELPERS
+ */
+
 function newProjectsCtrl($scope, $http) {
     $scope.membersIds;
     $scope.personId = getCookie("clothoId"); //retrieves the user id from session storage
@@ -92,12 +104,33 @@ function newProjectsCtrl($scope, $http) {
     // form data object -- here are the results from the form are stored
     $scope.formData = {};
 
+    /*
+    loops through the list of members and only saves the options that have been selected
+    */
+    $scope.getMembers = function() {
+        var listBox = document.getElementById('membersList');
+        var listItem = listBox.getElementsByTagName("li");
+        var membersArr = [];
+
+        for (var i = 0; i < listItem.length; i++) {
+            if ($(listItem[i]).find('input').is(':checked')) {
+                var option = $(listItem[i]).find('input');
+                console.log(option.text());
+                var obj = {
+                    'memberName': $(listItem[i]).text(),
+                    'memberId': option.val()
+                };
+                membersArr.push(obj);
+            }
+        }
+        console.log(membersArr);
+    }
+
     $scope.saveData = function() {
 
         var createdDate = new Date().toJSON().slice(0, 10);
         var leadName = [];
         var membersArray = [];
-
 
         $scope.formData.date = createdDate;
 
@@ -172,68 +205,33 @@ function newProjectsCtrl($scope, $http) {
         var leadIDDD;
         var leadNameCheck = function() {
 
-                var leadFullName = $scope.formData.leadName;
-                console.log(leadFullName);
-                if (leadFullName != undefined) {
-                    var splitName = leadFullName.split(" ");
-                    var leadNameSelected = $("#inputLeadName_Results option:selected").text();
-                    console.log(splitName.length);
-                    if (splitName.length < 2) {
-                        console.log("string not long enough");
-                        return false;
-                    }
-                    // why does the name in the search box have to match the name selected?
-                    if (leadFullName != leadNameSelected) {
-                        console.log("oopsies!");
-                        $("#inputLeadName_Results option:selected").val(0);
-                        leadIDDD = 123;
-                    }
-                    leadName = splitName;
-                    return true;
+            var leadFullName = $scope.formData.leadName;
+            console.log(leadFullName);
+            if (leadFullName != undefined) {
+                var splitName = leadFullName.split(" ");
+                var leadNameSelected = $("#inputLeadName_Results option:selected").text();
+                console.log(splitName.length);
+                if (splitName.length < 2) {
+                    console.log("string not long enough");
+                    return false;
                 }
-            }
-        
-   
-        // splits by comma and makes sure the vals are separated by spaces
-        var membersCheck = function() {
-
-            var members = $scope.formData.members;
-            console.log("members******");
-            console.log(members);
-            console.log("members******");
-
-            var membersArr;
-            if (members != undefined) {
-
-                membersArr = members.split(", ");
-                console.log(membersArr);
-                for (var i = 0; i < membersArr.length; i++) {
-                    console.log(membersArr[i]);
-                    if (membersArr[i].split(" ").length != 2) {
-                        $scope.membersRequired = "Please reenter the members' names in a valid format";
-                        return false;
-                    }
+                // why does the name in the search box have to match the name selected?
+                if (leadFullName != leadNameSelected) {
+                    console.log("oopsies!");
+                    $("#inputLeadName_Results option:selected").val(0);
+                    leadIDDD = 123;
                 }
-                membersArray = membersArr;
-                console.log("about to return membersArray");
-                console.log(membersArray);
+                leadName = splitName;
                 return true;
-            } else {
-                $scope.membersRequired = "Please enter members' names.";
-                return false;
             }
-
-        };
-
-        // add search for team members like for the leads
-
+        }
 
         var submit = validateForm();
         console.log(submit);
 
-        var getLead = function(){
+        var getLead = function() {
 
-            if($("#lead_Results option:selected").val()!=undefined){
+            if ($("#lead_Results option:selected").val() != undefined) {
                 console.log("HACKING THIS");
                 leadIDDD = $("#lead_Results option:selected").val();
             }
@@ -243,10 +241,10 @@ function newProjectsCtrl($scope, $http) {
         // !!!! create a check that pr budget is an int !!!!!!
         console.log(membersArray);
 
-        if($("#lab_selectDiv option:selected").text() == "Lab Name..." || $("#lab_selectDiv option:selected").val() == "Lab Name..."){
+        if ($("#lab_selectDiv option:selected").text() == "Lab Name..." || $("#lab_selectDiv option:selected").val() == "Lab Name...") {
             console.log("setting stuff to null!!!");
             $("#lab_selectDiv option:selected").text("");
-             $("#lab_selectDiv option:selected").val("");
+            $("#lab_selectDiv option:selected").val("");
         }
 
         var dataSubmit = {
@@ -299,77 +297,30 @@ function newProjectsCtrl($scope, $http) {
         }
     };
 
-    var arr = [];
-    var title = "";
-    $(".dropdown dt a").on('click', function() {
-        if(arr.length>0){
-            $(".hida").hide();
-            $('.multiSel').show();
-        }else{
-            $('.multiSel').hide();
-            $(".hida").show();
-
+    var nameArr = [];
+    var idArr = [];
+    /*
+    allows to select a member from the search result bar and add it into an array
+    */
+    $("#inputMemberName_Results").on('click', function() {
+        var memberNameSelected = $("#inputMemberName_Results option:selected").text();
+        var memberIdSelected = $("#inputMemberName_Results option:selected").val();
+        if (!(memberIdSelected == 'default')) {
+            if (nameArr.length + idArr.length == 0) {
+                $(".dropdown dd ul").slideToggle('fast');
+            }
+            if (!isInArray(memberNameSelected, nameArr) && !isInArray(memberIdSelected, idArr)) {
+                idArr.push(memberIdSelected);
+                nameArr.push(memberNameSelected);
+                var html = '<li class="members_li"> <input type="checkbox" value="' + memberIdSelected + '" />' + memberNameSelected + '</li>';
+                $("#membersList").append(html);
+            }
         }
-        $(".dropdown dd ul").slideToggle('fast');
-      return false;
+
     });
 
-    var updateSpan = function(arr){
+    var updateSpan = function(arr) {
         $('.multiSel').html('<span title="' + arr + '">' + arr + '</span>');
     }
-
-    $(".dropdown dd ul li a").on('click', function() {
-        console.log("closing??? 2");
-      $(".dropdown dd ul").hide();
-
-      return false;
-    });
-
-    function getSelectedValue(id) {
-      return $("#" + id).find("dt a span.value").html();
-    }
-
-    function isInArray(value, array) {
-        console.log(array.indexOf(value) > -1);
-      return array.indexOf(value) > -1;
-    }
-
-    $('.multiSelect input[type="checkbox"]').on('click', function() {
-        var checkbox = $(this);
-      
-      if (checkbox.is(':checked')) {
-        console.log("checked");
-        var id = checkbox.val();
-        if(!isInArray(id,arr)){
-            arr.push(id);
-        }
-        console.log(arr);
-        $('.multiSel').show();
-        updateSpan(arr);
-        $(".hida").hide();
-
-      } else {
-        console.log(checkbox.val());
-        console.log("unchecked");
-
-        // remove from array if it is unchecked
-        var index = arr.indexOf(checkbox.val());
-        console.log(index);
-        if (index != -1) {
-            arr.splice(index, 1);
-        }
-        console.log(arr);
-        updateSpan(arr);
-        // title = arr;
-
-                
-      //   // $('.multiSel').hide();
-      //   // $(".hida").show();
-      //   // $('span[title="' + title + '"]').remove();
-      //   // var ret = $(".hida");
-      //   // $('.dropdown dt a').append(ret);
-
-      }
-    });
 
 };
