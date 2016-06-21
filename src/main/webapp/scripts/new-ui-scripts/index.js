@@ -32,7 +32,7 @@ $(document).ready(function () {
     });
 
     $.ajax({
-        url: "../loadPhagebookInstitutions",
+        url: "loadPhagebookInstitutions",
         type: "GET",
         async: false,
         data: {},
@@ -121,14 +121,14 @@ $(document).ready(function () {
         var loginId = document.getElementById("loginEmailAddress").value;
         var password = document.getElementById("loginPassword").value;
 
-        if ((loginId === "") || (password === "")) {
-            $("#invalid-combo-alert").modal('show');
-            isValid = 0;
-        }
+//        if ((loginId === "") || (password === "")) {
+//            $("#invalid-combo-alert").modal('show');
+//            isValid = 0;
+//        }
 
         if (isValid) {
             $.ajax({
-                url: "../loginUser",
+                url: "login",
                 type: "POST",
                 async: false,
                 data: {
@@ -148,10 +148,10 @@ $(document).ready(function () {
                         window.location.href = '../html/profile.html';
                     }
                 },
-                error: function (response) {
-                    var responseText = JSON.parse(response.responseText);
-                    $("#invalid-combo-alert").modal('show');
-                }
+//                error: function (response) {
+//                    var responseText = JSON.parse(response.responseText);
+//                    $("#invalid-combo-alert").modal('show');
+//                }
             });
         }
     });
