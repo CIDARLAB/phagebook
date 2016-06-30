@@ -131,6 +131,13 @@
       <version>8.1.10.v20130312</version>
       <type>jar</type>
     </dependency>
+    
+    <dependency>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-util</artifactId>
+        <version>${jetty-version}</version>
+    </dependency>
+
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk-core</artifactId>
@@ -143,6 +150,7 @@
             <version>1.10.49</version>
             <type>jar</type>
         </dependency>
+        
     </dependencies>
 
     

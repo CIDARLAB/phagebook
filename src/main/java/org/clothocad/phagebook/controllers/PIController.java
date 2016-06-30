@@ -31,6 +31,7 @@ import org.json.JSONObject;
  * @author jacob
  */
 @Controller
+@RequestMapping(value="/PI")
 public class PIController {
     
     @RequestMapping(value="addPIToLab", method=RequestMethod.POST)
