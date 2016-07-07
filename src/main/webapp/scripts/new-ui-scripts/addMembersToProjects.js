@@ -54,7 +54,7 @@ $(document).ready(function() {
             console.log("about to send ajax req");
             $.ajax({
                 //do this for projects...
-                url: "../findMemberForNewProject",
+                url: "findMemberForNewProject",
                 type: "GET",
                 async: false,
                 data: data,

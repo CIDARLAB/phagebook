@@ -7,7 +7,7 @@ This file is responsible for processing and checking the data from new projects 
 function newProjectsCtrl($scope, $http) {
 
     $.ajax({
-        url: "../loadPhagebookInstitutions",
+        url: "loadPhagebookInstitutions",
         type: "GET",
         async: false,
         data: {},

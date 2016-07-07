@@ -10,7 +10,7 @@ function documentReady() {
 
     $.ajax({
         //do this for projects...
-        url: "../loadPhagebookInstitutions",
+        url: "loadPhagebookInstitutions",
         type: "GET",
         async: false,
         data: {
@@ -99,7 +99,7 @@ function documentReady() {
         var institutionId = $("#create-lab-institution").val();
         $.ajax({
             //do this for projects...
-            url: "../createLab",
+            url: "createLab",
             type: "POST",
             async: false,
             data: {
@@ -116,7 +116,7 @@ function documentReady() {
                 $("#success-lab-alert").fadeIn();
                 $.ajax({
                     //do this for projects...
-                    url: "../loadPhagebookInstitutions",
+                    url: "loadPhagebookInstitutions",
                     type: "GET",
                     async: false,
                     data: {
@@ -152,7 +152,7 @@ function doLabAjaxCall(labId) {
     $.ajax({
         //do this for projects...
 
-        url: "../listPIsOfLab",
+        url: "listPIsOfLab",
         type: "GET",
         async: false,
         data: {
@@ -207,7 +207,7 @@ function searchBtnHandler() {
 
 
     $.ajax({
-        url: '../queryFirstLastName',
+        url: 'queryFirstLastName',
         type: 'GET',
         async: false,
         data: {
@@ -230,7 +230,7 @@ function searchBtnHandler() {
                 tmpl.querySelector('.pi-lab-name').innerText = (response[i].labName == null) ? "" : response[i].labName;
                 tmpl.querySelector('.pi-institution-name').innerText = response[i].institutionName;
 
-                tmpl.querySelector('.pi-profile-link').href = "../html/colleague.html?user=" + response[i].clothoId;
+                tmpl.querySelector('.pi-profile-link').href = "html/colleague.html?user=" + response[i].clothoId;
                 tmpl.querySelector('.pi-id').value = response[i].clothoId;
 
 
@@ -258,7 +258,7 @@ function goBtnHandler() {
     $.ajax({
         //do this for projects...
 
-        url: "../listPIsOfLab",
+        url: "listPIsOfLab",
         type: "GET",
         async: false,
         data: {
@@ -298,7 +298,7 @@ function personResultRectCreate(personJSON) {
     tmpl.querySelector('.pi-lab-name').innerText = (personJSON.labName == null) ? "" : personJSON.labName;
     tmpl.querySelector('.pi-institution-name').innerText = personJSON.institutionName;
 
-    tmpl.querySelector('.pi-profile-link').href = "../html/colleague.html?user=" + personJSON.clothoId;
+    tmpl.querySelector('.pi-profile-link').href = "html/colleague.html?user=" + personJSON.clothoId;
     tmpl.querySelector('.pi-id').value = personJSON.clothoId;
 
     content.append(tmpl);
@@ -321,7 +321,7 @@ function removePIBtnHandler() {
             $.ajax({
                 //do this for projects...
 
-                url: "../removePIFromLab",
+                url: "removePIFromLab",
                 type: "POST",
                 async: false,
                 data: {
@@ -369,7 +369,7 @@ function addPIBtnHandler() {
             $.ajax({
                 //do this for projects...
 
-                url: "../addPIToLab",
+                url: "addPIToLab",
                 type: "POST",
                 async: false,
                 data: {

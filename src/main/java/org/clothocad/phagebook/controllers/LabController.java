@@ -32,7 +32,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping(value="/Lab")
 public class LabController {
 
     @RequestMapping(value = "addPIToLab", method = RequestMethod.POST)
@@ -95,6 +94,7 @@ public class LabController {
             out.flush();
         }
     }
+    
 
     @RequestMapping(value = "createLab", method = RequestMethod.POST)
     protected void createLab(@RequestParam Map<String, String> params, HttpServletResponse response)

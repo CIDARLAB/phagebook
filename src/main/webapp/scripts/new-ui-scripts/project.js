@@ -49,7 +49,7 @@ $(document).ready(function() {
         ul.empty();
         $.ajax({
             type: 'GET',
-            url: '../getAllProjectUpdates',
+            url: 'getAllProjectUpdates',
             data: {
                 "projectId": id
             },
@@ -114,7 +114,7 @@ $(document).ready(function() {
 
     $.ajax({
         //do this for projects...
-        url: "../getProject",
+        url: "getProject",
         type: "POST",
         async: false,
         data: {
@@ -263,7 +263,7 @@ function searchBtnHandler() {
 
 
     $.ajax({
-        url: '../queryFirstLastName',
+        url: 'queryFirstLastName',
         type: 'GET',
         async: false,
         data: {
@@ -286,7 +286,7 @@ function searchBtnHandler() {
                 tmpl.querySelector('.member-lab-name').innerText = (response[i].labName == null) ? "" : response[i].labName;
                 tmpl.querySelector('.member-institution-name').innerText = response[i].institutionName;
 
-                tmpl.querySelector('.member-profile-link').href = "../html/colleague.html?user=" + response[i].clothoId;
+                tmpl.querySelector('.member-profile-link').href = "html/colleague.html?user=" + response[i].clothoId;
                 tmpl.querySelector('.member-id').value = response[i].clothoId;
 
 
@@ -312,7 +312,7 @@ var submitMemberButtonHandler = function() {
             // $.ajax({
             //     //do this for projects...
 
-            //     url: "../addPIToLab",
+            //     url: "addPIToLab",
             //     type: "POST",
             //     async: false,
             //     data: {

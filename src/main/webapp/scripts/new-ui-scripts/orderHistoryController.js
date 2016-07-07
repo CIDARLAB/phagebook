@@ -6,7 +6,7 @@ function orderHistoryCtrl($scope){
 
 
         $.ajax({
-            url: "../listOrdersOfPerson",
+            url: "listOrdersOfPerson",
             type: "GET",
             async: false,
             data: {
@@ -96,7 +96,7 @@ function generateOrderCard(orderJSON){
 
             //<td class="item-name">
             //        <a type="button" href="">
-            //            <img alt="Delete item" src="../styles/img/icons/remove-item.png"/>
+            //            <img alt="Delete item" src="styles/img/icons/remove-item.png"/>
             //        </a>
             //    </td>
             var response = doCartItemAjax(orderJSON.products[i]);
@@ -111,7 +111,7 @@ function generateOrderCard(orderJSON){
             a.name = orderJSON.ClothoId;
 
             var img = document.createElement('img');
-            img.src ="../styles/img/icons/remove-item.png";
+            img.src ="styles/img/icons/remove-item.png";
             img.className="delete-icon";
             img.name = orderJSON.products[i];
             a.appendChild(img);
@@ -165,7 +165,7 @@ function doCartItemAjax(cartItemId){
 
     $.ajax({
         //do this for projects...
-        url: "../parseCartItem",
+        url: "parseCartItem",
         type: "GET",
         async: false,
         data: {
@@ -205,14 +205,14 @@ function exportCSVbtnHanlder(){
     var orderId = this.value;
 
     $.ajax({
-        url: "../exportOrderCSV",
+        url: "exportOrderCSV",
         type: "GET",
         async: false,
         data: {
             "orderId": orderId
         },
         success: function (response) {
-            window.open("../resources/OrderSheets/Order_" + orderId + ".csv",'_blank');
+            window.open("resources/OrderSheets/Order_" + orderId + ".csv",'_blank');
         },
         error: function (response) {
             alert("An error occurred with exporting the CSV.");

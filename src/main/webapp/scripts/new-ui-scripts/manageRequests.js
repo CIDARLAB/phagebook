@@ -8,7 +8,7 @@ function documentReady(){
     $.ajax({
         //do this for projects...
 
-        url: "../listSubmittedOrdersOfPerson",
+        url: "listSubmittedOrdersOfPerson",
         type: "GET",
         async: false,
         data: {
@@ -34,7 +34,7 @@ function documentReady(){
     $.ajax({
         //do this for projects...
 
-        url: "../listColleagueRequests",
+        url: "listColleagueRequests",
         type: "GET",
         async: false,
         data: {
@@ -64,7 +64,7 @@ function parseColleagueRequest(colleagueJSON){
     var content = $("#content");
     var template = document.getElementById('friend-request-template').content.cloneNode(true);
     template.querySelector('.colleague-name').text  = colleagueJSON.firstName + " " + colleagueJSON.lastName;
-    template.querySelector('.colleague-name').href  =  "../html/colleague.html?user=" + colleagueJSON.clothoId;
+    template.querySelector('.colleague-name').href  =  "html/colleague.html?user=" + colleagueJSON.clothoId;
     template.querySelector('.approve-colleague-btn').value = colleagueJSON.clothoId;
     template.querySelector('.decline-colleague-btn').value = colleagueJSON.clothoId;
 
@@ -114,7 +114,7 @@ function parseOrderRequest(orderJSON){
 
             //<td class="item-name">
             //        <a type="button" href="">
-            //            <img alt="Delete item" src="../styles/img/icons/remove-item.png"/>
+            //            <img alt="Delete item" src="styles/img/icons/remove-item.png"/>
             //        </a>
             //    </td>
             var response = doCartItemAjax(orderJSON.products[i]);
@@ -129,7 +129,7 @@ function parseOrderRequest(orderJSON){
             a.name = orderJSON.ClothoId;
 
             var img = document.createElement('img');
-            img.src ="../styles/img/icons/remove-item.png";
+            img.src ="styles/img/icons/remove-item.png";
             img.className="delete-icon";
             img.name = orderJSON.products[i];
             a.appendChild(img);
@@ -191,7 +191,7 @@ function doCartItemAjax(cartItemId){
 
     $.ajax({
         //do this for projects...
-        url: "../parseCartItem",
+        url: "parseCartItem",
         type: "GET",
         async: false,
         data: {
@@ -229,7 +229,7 @@ function approveOrderBtnHandler(){
 
     $.ajax({
         //do this for projects...
-        url: "../approveOrder",
+        url: "approveOrder",
         type: "POST",
         async: false,
         data: {
@@ -255,7 +255,7 @@ function declineOrderBtnHandler(){
 
         $.ajax({
             //do this for projects...
-            url: "../denyOrder",
+            url: "denyOrder",
             type: "POST",
             async: false,
             data: {
@@ -285,7 +285,7 @@ function approveColleagueBtnHandler(){
     //alert(this.value);
     $.ajax({
         //do this for projects...
-        url: "../approveColleagueRequest",
+        url: "approveColleagueRequest",
         type: "POST",
         async: false,
         data: {
@@ -306,7 +306,7 @@ function declineColleagueBtnHandler(){
     if (confirm("Really deny this request?")){
         $.ajax({
             //do this for projects...
-            url: "../denyColleagueRequest",
+            url: "denyColleagueRequest",
             type: "POST",
             async: false,
             data: {

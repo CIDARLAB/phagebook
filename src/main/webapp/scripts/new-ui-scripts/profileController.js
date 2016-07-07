@@ -10,7 +10,7 @@ function profileCtrl($scope, $http) {
         //alert("Create New Status Button click" + $("#statusUpdateTextarea")[0].value);
         $http({
             method: 'POST',
-            url: '../createStatus',
+            url: 'createStatus',
             params: {
                 "clothoId": clothoId,
                 "status": $("#statusUpdateTextarea")[0].value
@@ -29,7 +29,7 @@ function profileCtrl($scope, $http) {
         console.log("before ajax but inside page onload.`");
         $.ajax({
             type: 'GET',
-            url: '../getPersonById',
+            url: 'getPersonById',
             async: false,
             data: {
                 "userId": clothoId
@@ -51,7 +51,7 @@ function profileCtrl($scope, $http) {
 
         $.ajax({
             type: 'GET',
-            url: '../loadColleagues',
+            url: 'loadColleagues',
             async: false,
             data: {
                 "userId": clothoId
@@ -68,7 +68,7 @@ function profileCtrl($scope, $http) {
                     tmpl.querySelector(".colleague-display-fullname").text = response[i].fullname;
                     tmpl.querySelector(".colleague-display-lab").innerHTML = (response[i].labName == null) ? "" : response[i].labName;
                     tmpl.querySelector(".colleague-display-institution").innerHTML = response[i].institutionName;
-                    tmpl.querySelector(".colleague-display-fullname").href = "../html/colleague.html?user=" + response[i].clothoId;
+                    tmpl.querySelector(".colleague-display-fullname").href = "html/colleague.html?user=" + response[i].clothoId;
                     ul.append(tmpl);
                 }
 
@@ -85,7 +85,7 @@ function profileCtrl($scope, $http) {
                         tmpl.querySelector(".colleague-display-fullname").text = response[i].fullname;
                         tmpl.querySelector(".colleague-display-lab").innerHTML = (response[i].labName == null) ? "" : response[i].labName;
                         tmpl.querySelector(".colleague-display-institution").innerHTML = response[i].institutionName;
-                        tmpl.querySelector(".colleague-display-fullname").href = "../html/colleague.html?user=" + response[i].clothoId;
+                        tmpl.querySelector(".colleague-display-fullname").href = "html/colleague.html?user=" + response[i].clothoId;
                         ul2.append(tmpl);
                     }
                 }
@@ -97,7 +97,7 @@ function profileCtrl($scope, $http) {
 
         $.ajax({
             type: 'GET',
-            url: '../loadUserStatuses',
+            url: 'loadUserStatuses',
             async: false,
             data: {
                 "clothoId": clothoId
@@ -127,7 +127,7 @@ function profileCtrl($scope, $http) {
         var firstName = $("#search-first-name").val();
         var lastName = $("#search-last-name").val();
         $.ajax({
-            url: '../queryFirstLastName',
+            url: 'queryFirstLastName',
             type: 'GET',
             async: false,
             data: {
@@ -143,7 +143,7 @@ function profileCtrl($scope, $http) {
                     tmpl.querySelector(".main-link").alt = response[i].fullname;
                     tmpl.querySelector(".main-lab").innerHTML = (response[i].labName == null) ? "" : response[i].labName;
                     tmpl.querySelector(".main-institution").innerHTML = response[i].institutionName;
-                    tmpl.querySelector(".colleague-name").href = "../html/colleague.html?user=" + response[i].clothoId;
+                    tmpl.querySelector(".colleague-name").href = "html/colleague.html?user=" + response[i].clothoId;
                     tmpl.querySelector(".main-link").src = "http://s3.amazonaws.com/phagebookaws/" + response[i].clothoId + "/profilePicture.jpg";
                     ul.append(tmpl);
                 }
@@ -161,7 +161,7 @@ function profileCtrl($scope, $http) {
     $("#load-more-pub-btn").click(function () {
         $.ajax({
             type: 'GET',
-            url: '../loadPublications',
+            url: 'loadPublications',
             async: false,
             data: {
                 "clothoId": clothoId
@@ -191,7 +191,7 @@ function profileCtrl($scope, $http) {
     });
 
     $("#edit-profile-btn").click(function () {
-        window.location = "../html/accountSettings.html";
+        window.location = "html/accountSettings.html";
     });
 }
 

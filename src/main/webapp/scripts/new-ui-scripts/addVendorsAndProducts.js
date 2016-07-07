@@ -30,11 +30,11 @@ $(document).ready(function () {
     $("#companyName").keypress(keyPressHandler);
 
     $("#dl-csv-vendor-btn").click(function () {
-        window.open("../orderTemplates/VendorTemplateBlank.csv", '_blank');
+        window.open("orderTemplates/VendorTemplateBlank.csv", '_blank');
     });
 
     $("#dl-csv-product-btn").click(function () {
-        window.open("../orderTemplates/ProductTemplateBlank.csv", '_blank');
+        window.open("orderTemplates/ProductTemplateBlank.csv", '_blank');
     });
 
    
@@ -50,7 +50,7 @@ $(document).ready(function () {
                 alert(JSON.stringify(results.data));
                 $.ajax({
                     //do this for projects...
-                    url: "../uploadVendorCSV",
+                    url: "uploadVendorCSV",
                     type: "POST",
                     async: false,
                     data: {
@@ -58,7 +58,7 @@ $(document).ready(function () {
                     },
                     success: function (response) {
                         alert("Vendors created");
-                        window.location.href = "../../html/vendorSubmittedForReview.html";
+                        window.location.href = "html/vendorSubmittedForReview.html";
                     },
                     error: function (response) {
                         alert("Failed to upload");
@@ -80,7 +80,7 @@ $(document).ready(function () {
                 //var objRes = JSON.stringify(results.data);
                 $.ajax({
                     //do this for projects...
-                    url: "../uploadProductCSV",
+                    url: "uploadProductCSV",
                     type: "POST",
                     async: false,
                     data: {
@@ -88,7 +88,7 @@ $(document).ready(function () {
                     },
                     success: function (response) {
                         alert("Products created");
-                        window.location.href = "../../html/productSubmittedForReview.html";
+                        window.location.href = "html/productSubmittedForReview.html";
                     },
                     error: function (response) {
                         alert("Failed to upload");
@@ -116,7 +116,7 @@ $(document).ready(function () {
         if (isValid) {
             $.ajax({
                 //do this for projects...
-                url: "../autoCompleteVendors",
+                url: "autoCompleteVendors",
                 type: "GET",
                 async: false,
                 data: {
@@ -149,7 +149,7 @@ $(document).ready(function () {
 function createVendorAjax(name, description, contact, phone, url) {
     $.ajax({
         //do this for projects...
-        url: "../createVendor",
+        url: "createVendor",
         type: "POST",
         async: false,
         data: {
@@ -172,7 +172,7 @@ function createVendorAjax(name, description, contact, phone, url) {
 function createProductAjax(productUrl, company, goodType, cost, quantity, name, description) {
     $.ajax({
         //do this for projects...
-        url: "../createProduct",
+        url: "createProduct",
         type: "POST",
         async: false,
         data: {

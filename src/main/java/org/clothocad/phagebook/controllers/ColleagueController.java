@@ -32,7 +32,6 @@ import org.json.JSONObject;
  * @author jacob
  */
 @Controller
-@RequestMapping(value="/Colleague")
 public class ColleagueController {
     
     @RequestMapping(value="addColleagueRequest", method=RequestMethod.POST)

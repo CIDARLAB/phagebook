@@ -89,7 +89,7 @@ $(document).ready(function () {
 
         if (isValid && checkPasswordMatch()) {
             $.ajax({
-                url: "../createPerson",
+                url: "createPerson",
                 type: "POST",
                 async: false,
                 data: {
@@ -106,7 +106,7 @@ $(document).ready(function () {
                     setCookie("emailId", responseJSON.emailId, 1);
                     setCookie("clothoId", responseJSON.clothoId, 1);
                     console.log(validateEmail(emailId));
-                    window.location.href = '../html/resendEmailVerification.html';
+                    window.location.href = 'html/resendEmailVerification.html';
                 },
                 error: function (response) {
                     $("#duplicate-user-alert").fadeIn();
@@ -128,7 +128,7 @@ $(document).ready(function () {
 
         if (isValid) {
             $.ajax({
-                url: "login",
+                url: "loginUser",
                 type: "POST",
                 async: false,
                 data: {
@@ -142,10 +142,10 @@ $(document).ready(function () {
                     setCookie("emailId", response.emailId, 1);
 
                     if (response.activated === "false") {
-                        window.location.href = '../html/resendEmailVerification.html';
+                        window.location.href = 'html/resendEmailVerification.html';
                     }
                     else {
-                        window.location.href = '../html/profile.html';
+                        window.location.href = 'html/profile.html';
                     }
                 },
 //                error: function (response) {

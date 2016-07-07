@@ -36,7 +36,6 @@ import org.springframework.web.bind.annotation.*;
  * @author jacob
  */
 @Controller
-@RequestMapping(value="/Person")
 public class PersonController {
     
     @RequestMapping(value="/listApprovedOrdersOfPerson", method=RequestMethod.GET)

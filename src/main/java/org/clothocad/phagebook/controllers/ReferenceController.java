@@ -33,7 +33,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping(value = "/reference")
 public class ReferenceController {
 
     @RequestMapping(value = "/addCrossRef", method = RequestMethod.POST)
