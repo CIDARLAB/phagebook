@@ -30,7 +30,6 @@ public class PhagebookSocketServer {
             }
         };
         
-        
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.setContextPath("/");
         
