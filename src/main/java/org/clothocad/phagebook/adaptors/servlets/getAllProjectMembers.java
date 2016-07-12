@@ -27,7 +27,7 @@ import org.json.JSONObject;
  *
  * @author anna_g
  */
-public class addMemberToProject extends HttpServlet {
+public class getAllProjectMembers extends HttpServlet {
 
   /**
    * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,6 +40,8 @@ public class addMemberToProject extends HttpServlet {
    */
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
+    response.setContentType("text/html;charset=UTF-8");
+    try (PrintWriter out = response.getWriter()) {      
       ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
       Clotho clothoObject = new Clotho(conn);
       Map createUserMap = new HashMap();
@@ -55,64 +57,38 @@ public class addMemberToProject extends HttpServlet {
       loginMap.put("credentials", password);  
 
       clothoObject.login(loginMap);
-      
+      System.out.println("in Process Request function");  
       JSONObject result = new JSONObject();
-      
-      System.out.println("IN ADDMEMBERTOPROJECT!");
-      
-      Object memberObj = request.getParameter("memberId");
-      String memberId  = memberObj != null ? (String) memberObj : "" ;
-      System.out.println(memberId);
-      
-      Object projectObj = request.getParameter("projectId");
-      String projectId  = projectObj != null ? (String) projectObj : "" ;
-      System.out.println(projectId);
-
+      Object prId = request.getParameter("projectId");
+      String projectId  = prId != null ? (String) prId : "" ;
+        System.out.println("The name of the project is:");         
+        System.out.println(projectId);  
+        
       Project project = ClothoAdapter.getProject(projectId, clothoObject);
-       System.out.println("about to get projects' members");
-      // add project to member
       List<String> members = project.getMembers();
-      boolean containsInMembers = false;
-      for(int i =0;i<members.size();i++){
-        if(members.get(i).equals(memberId)){
-          containsInMembers = true;        
-        }
-      }
-      if(!containsInMembers){
-        members.add(memberId);
-      }
-     
-      System.out.println("***");
-      System.out.println("IN ADDMEMBERTOPROJECT!");
       System.out.println(members);
-      System.out.println("***");      
-      ClothoAdapter.setProject(project, clothoObject);
       
-
-      
-      clothoObject.logout();
-      // add member to project
-      Person member = ClothoAdapter.getPerson(memberId, clothoObject);
-      List<String> memberProjects = member.getProjects();
-      boolean containsInProjects = false;
-      for(int i =0;i<memberProjects.size();i++){
-        if(memberProjects.get(i).equals(projectId)){
-          containsInProjects = true;        
-        }
+      List res = new ArrayList();
+      for(int i=0;i<members.size();i++){
+        
+        String personId = members.get(i);
+        // get each member and grab their name
+        Person member = ClothoAdapter.getPerson(personId, clothoObject);
+        String name = member.getFirstName() +" "+member.getLastName();
+        System.out.println(name);
+        HashMap personMap = new HashMap();
+        personMap.put("personId",personId);
+        personMap.put("personName",name);
+        res.add(personMap);
       }
-      if(!containsInProjects){
-        memberProjects.add(projectId);
-      }
-      ClothoAdapter.setPerson(member, clothoObject);
       conn.closeConnection();
-      result.put("success",1);
-      PrintWriter writer = response.getWriter();
-      writer.println(result);
-      writer.flush();
-      writer.close();
-      }
-
-
+      System.out.println("About to leave add members to projects");
+      System.out.println(res);
+     result.put("result",res);
+     out.print(result);
+     out.flush();
+    }
+  }
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
   /**
