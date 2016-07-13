@@ -90,8 +90,7 @@ public class PhagebookSocket
                     loginMap.put("username",createStatusMap.get("username"));
                     loginMap.put("credentials",createStatusMap.get("password"));
                     
-                    Map loginResult = new HashMap();
-                    loginResult = (Map)clothoObject.login(loginMap);
+                    clothoObject.login(loginMap);
                     
                     Map queryMap = new HashMap();
                     queryMap.put("emailId",createStatusMap.get("username"));

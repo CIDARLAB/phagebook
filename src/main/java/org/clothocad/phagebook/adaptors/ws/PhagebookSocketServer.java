@@ -37,7 +37,6 @@ public class PhagebookSocketServer {
         fileUploadServletHolder.getRegistration().setMultipartConfig(new MultipartConfigElement("data/tmp"));
         context.addServlet(fileUploadServletHolder, "/uploadProfilePicture");
         
-        
         ServletHolder holderEvents = new ServletHolder("ws-events", PhagebookServlet.class);
         context.addServlet(new ServletHolder(wsServlet), "/websocket/");        
         
