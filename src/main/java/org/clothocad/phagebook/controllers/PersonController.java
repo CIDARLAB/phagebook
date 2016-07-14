@@ -872,7 +872,7 @@ public class PersonController {
     public void loginUser(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws Exception {
         //
-        
+        System.out.println("login");
         //changed gettting params
         String email = params.get("email");
         String password = params.get("password");
