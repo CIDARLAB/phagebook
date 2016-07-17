@@ -110,8 +110,9 @@ function profileCtrl($scope, $http) {
                 ul.empty();
                 for (var i = response.length - 1; i >= 0; i--) {
                     var tmpl = document.getElementById("status-template").content.cloneNode(true);
-                    var now = new Date(response[i].dateCreated);
-                    tmpl.querySelector(".status-date").innerText = "Created On: " + chooseMonth(now.getUTCMonth()) + " " + now.getUTCDay() + ", " + now.getFullYear() + " " + now.getHours() + ":" + now.getMinutes();
+                    var now = response[i].dateCreated;
+                    tmpl.querySelector(".status-date").innerText = "Created On: " + response[i].dateCreated;
+                    //tmpl.querySelector(".status-date").innerText = "Created On: " + chooseMonth(now.getUTCMonth()) + " " + now.getUTCDay() + ", " + now.getFullYear() + " " + now.getHours() + ":" + now.getMinutes();
                     tmpl.querySelector(".status-text").innerText = response[i].statusText;
                     ul.append(tmpl);
                 }

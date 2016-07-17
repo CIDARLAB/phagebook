@@ -30,7 +30,7 @@ public class Status{
 //    }
 //    
     public Status()
-    {
+    { 
         this.id       = "Not Set";
         this.text     = "Not Set"; 
         this.userId   = "Not Set";
