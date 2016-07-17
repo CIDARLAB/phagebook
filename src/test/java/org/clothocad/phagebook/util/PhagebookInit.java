@@ -16,12 +16,7 @@ import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Institution;
 import org.clothocad.phagebook.security.EmailSaltHasher;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.clothocad.phagebook.dom.Lab;
 
 /**
  *
@@ -34,37 +29,46 @@ public class PhagebookInit {
         ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
         Clotho clothoObject = new Clotho(conn);
         
-        Person doug1 = new Person();
+        Person backendUser = new Person();
         String emailId = "phagebook"; // it is also the name in clotho but doens't have a name property
-        doug1.setEmailId(emailId);
-        doug1.setActivated(true);
-        doug1.setFirstName("Phagebook");
-        doug1.setLastName("Backend");
-        doug1.setPassword("backend");
+        backendUser.setEmailId(emailId);
+        backendUser.setActivated(true);
+        backendUser.setFirstName("Phagebook");
+        backendUser.setLastName("Backend");
+        backendUser.setPassword("backend");
         EmailSaltHasher salty = EmailSaltHasher.getEmailSaltHasher();
         String salt = EmailSaltHasher.csRandomAlphaNumericString();
-        doug1.setSalt(salt);
+        backendUser.setSalt(salt);
 
-        byte[] SaltedHashedEmail = salty.hash(doug1.getEmailId().toCharArray(), salt.getBytes("UTF-8"));
+        byte[] SaltedHashedEmail = salty.hash(backendUser.getEmailId().toCharArray(), salt.getBytes("UTF-8"));
 
-        doug1.setSaltedEmailHash(SaltedHashedEmail);
-        ClothoAdapter.createPerson(doug1, clothoObject);
+        backendUser.setSaltedEmailHash(SaltedHashedEmail);
         
+        Map backendUserQueryMap = new HashMap();
+        backendUserQueryMap.put("emailId", emailId);
+        List<Person> backendUsers = ClothoAdapter.queryPerson(backendUserQueryMap, clothoObject, ClothoAdapter.QueryMode.EXACT);
+        if (backendUsers.isEmpty()){
+            ClothoAdapter.createPerson(backendUser, clothoObject);
+        }
 
         String username = "phagebook";
         String password = "backend";
         /*
-
             DIRECT ASSUMPTION THAT USER: phagebook exists and their 
                                PASSWORD: backend
         */
-        
         Person globalPI = new Person();
         globalPI.setEmailId("globalPI@test.com");
         globalPI.setFirstName("Global");
         globalPI.setLastName("PI");
         globalPI.setPassword("phagebook");
-        ClothoAdapter.createPerson(globalPI, clothoObject);
+        
+        Map globalPIQueryMap = new HashMap();
+        globalPIQueryMap.put("emailId", globalPI.getEmailId());
+        List<Person> piUsers = ClothoAdapter.queryPerson(globalPIQueryMap, clothoObject, ClothoAdapter.QueryMode.EXACT);
+        if (piUsers.isEmpty()){
+            ClothoAdapter.createPerson(globalPI, clothoObject);
+        }
         
         List<String> PIs = new ArrayList<>();
         PIs.add(globalPI.getId());
@@ -73,58 +77,38 @@ public class PhagebookInit {
         loginMap.put("credentials", password);
         clothoObject.login(loginMap);
         
-        /*
         Lab CIDAR = new Lab();
         CIDAR.setDescription("Center for Integrated Design Automation Research");
         CIDAR.setName("CIDAR");
         CIDAR.setUrl("www.cidar.com");
         CIDAR.setLeadPIs(PIs);
         
-        
         Lab KhalilLab = new Lab();
         KhalilLab.setDescription("Khalil Lab Description");
         KhalilLab.setName("Khalil Lab");
         KhalilLab.setLeadPIs(PIs);
         
-        Lab harvardLab1 = new Lab();
-        harvardLab1.setName("The Laboratory at Harvard");
-        harvardLab1.setLeadPIs(PIs);
+        Map cidarLabMap = new HashMap();
+        cidarLabMap.put("name", "CIDAR");
+        List<Lab> cidarLabs = ClothoAdapter.queryLab(cidarLabMap, clothoObject, ClothoAdapter.QueryMode.EXACT);
+        if (cidarLabs.isEmpty()){
+            ClothoAdapter.createLab(CIDAR, clothoObject);
+        }
         
-        Lab harvardLab2 = new Lab();
-        harvardLab2.setName("Harvard Library Innovation Lab");
-        harvardLab2.setLeadPIs(PIs);
-        
-        Lab medialLab = new Lab();
-        medialLab.setName("Media Lab");
-        medialLab.setLeadPIs(PIs);
-        
-        Lab mitLab2 = new Lab();
-        mitLab2.setName("MIT Lab 2");
-        medialLab.setLeadPIs(PIs);
-        
-        
-        
-        
-        ClothoAdapter.createLab(CIDAR, clothoObject);
-        ClothoAdapter.createLab(KhalilLab, clothoObject);
-        
-        ClothoAdapter.createLab(harvardLab1, clothoObject);
-        ClothoAdapter.createLab(harvardLab2, clothoObject);
-        ClothoAdapter.createLab(medialLab, clothoObject);
-        ClothoAdapter.createLab(mitLab2, clothoObject);
-        
+        Map khalilLabMap = new HashMap();
+        khalilLabMap.put("name", "Khalil Lab");
+        List<Lab> khalilLabs = ClothoAdapter.queryLab(khalilLabMap, clothoObject, ClothoAdapter.QueryMode.EXACT);
+        if (khalilLabs.isEmpty()){
+            ClothoAdapter.createLab(KhalilLab, clothoObject);
+        }
+    
         List<String> PILabs = new ArrayList<>();
         
         PILabs.add(CIDAR.getId());
         PILabs.add(KhalilLab.getId());
-        
-        PILabs.add(harvardLab1.getId());
-        PILabs.add(harvardLab2.getId());
-        PILabs.add(medialLab.getId());
-        PILabs.add(mitLab2.getId());
        
                 
-        */
+      
         Institution bostonUniversity = new Institution();
         bostonUniversity.setName("Boston University");
         bostonUniversity.setDescription("Pick your odyssey." +
@@ -134,8 +118,8 @@ public class PhagebookInit {
         bostonUniversity.setPhone("(617) 353-2000");
         bostonUniversity.setUrl("www.bu.edu");
         bostonUniversity.setType(Institution.InstitutionType.University);
-        //bostonUniversity.getLabs().add(CIDAR.getId());
-        //bostonUniversity.getLabs().add(KhalilLab.getId());
+        bostonUniversity.getLabs().add(CIDAR.getId());
+        bostonUniversity.getLabs().add(KhalilLab.getId());
         
         
         Institution MIT              = new Institution();
@@ -144,8 +128,6 @@ public class PhagebookInit {
         MIT.setPhone("(617) 253-3400");
         MIT.setUrl("www.mit.edu");
         MIT.setType(Institution.InstitutionType.University);
-        //MIT.getLabs().add(medialLab.getId());
-        //MIT.getLabs().add(mitLab2.getId());
         
         
         Institution harvardUniversity = new Institution();
@@ -154,16 +136,33 @@ public class PhagebookInit {
         harvardUniversity.setPhone("(617) 495-1000");
         harvardUniversity.setUrl("www.harvard.edu");
         harvardUniversity.setType(Institution.InstitutionType.University);
-        //harvardUniversity.getLabs().add(harvardLab1.getId());
-        //harvardUniversity.getLabs().add(harvardLab2.getId());
         
-        ClothoAdapter.createInstiution(MIT, clothoObject);
-        ClothoAdapter.createInstiution(bostonUniversity, clothoObject);
-        ClothoAdapter.createInstiution(harvardUniversity, clothoObject);
+        Map mitQueryMap = new HashMap();
+        mitQueryMap.put("name", "Massachusetts Institute of Technology");
+        List<Institution> mitInstituions = ClothoAdapter.queryInstitution(mitQueryMap, clothoObject, ClothoAdapter.QueryMode.EXACT);
+        if (mitInstituions.isEmpty()){
+            ClothoAdapter.createInstiution(MIT, clothoObject);
+        }
+        
+        Map buQueryMap = new HashMap();
+        buQueryMap.put("name", "Boston University");
+        List<Institution> buInsitutions = ClothoAdapter.queryInstitution(buQueryMap, clothoObject, ClothoAdapter.QueryMode.EXACT);
+        if (buInsitutions.isEmpty()){
+            ClothoAdapter.createInstiution(bostonUniversity, clothoObject);
+        }
+        
+        Map harvardQueryMap = new HashMap();
+        harvardQueryMap.put("name", "Harvard University");
+        List<Institution> harvardInstituions = ClothoAdapter.queryInstitution(harvardQueryMap, clothoObject, ClothoAdapter.QueryMode.EXACT);
+        if (harvardInstituions.isEmpty()){
+            ClothoAdapter.createInstiution(harvardUniversity, clothoObject);
+        }
+        
         clothoObject.logout();
-        
-        //globalPI.setLabs(PILabs);
-        ClothoAdapter.setPerson(globalPI, clothoObject);
+        globalPI.setLabs(PILabs);
+        if (!globalPI.getId().equals("") && !globalPI.getId().equals("Not Set")){
+            ClothoAdapter.setPerson(globalPI, clothoObject);
+        }
         conn.closeConnection();
         
         
