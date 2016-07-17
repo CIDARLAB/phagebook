@@ -538,8 +538,8 @@ angular.module("clotho.clothoDirectives", ["clotho.core", "clotho.utils"]), angu
                 function() {}
             ],
             link: function(b, e, g) {
-                //console.log("directive linked"), b.$watch("id", function(l) {
-                    l && (//console.log(l), e.addClass("clothoWidget"), a.when(k(b.id)).then(function(a) {
+                console.log("directive linked"), b.$watch("id", function(l) {
+                    l && (console.log(l), e.addClass("clothoWidget"), a.when(k(b.id)).then(function(a) {
                         return i.downloadViewDependencies(a)
                     }).then(function(a) {
                         if (a.dictionary = angular.extend({}, a.dictionary, a.importedViews), a.dictionary.id = a.id, a.bootstrap) {
@@ -729,7 +729,7 @@ angular.module("clotho.clothoDirectives", ["clotho.core", "clotho.utils"]), angu
                 add: angular.noop,
                 del: angular.noop
             };
-            return //console.log(e.has("hotkeys"), j),
+            return console.log(e.has("hotkeys"), j),
                 function(e, k) {
                     k = angular.extend({}, d, k);
                     var l = g.find("body"),
