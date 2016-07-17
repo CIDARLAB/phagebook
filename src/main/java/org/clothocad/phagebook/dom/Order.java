@@ -111,4 +111,31 @@ public class Order implements ClothoBaseObject {
     public String idForObject() {
         return this.id;
     }
+
+    public enum OrderStatus {
+        INPROGRESS,
+        APPROVED,
+        SUBMITTED,
+        DENIED,
+        RECEIVED
+    }
+
+    public enum OrderColumns {
+        SERIAL_NUMBER,
+        PRODUCT_NAME,
+        PRODUCT_ID,
+        PRODUCT_URL,
+        PRODUCT_DESCRIPTION,
+        QUANTITY,
+        COMPANY_NAME,
+        COMPANY_ID,
+        COMPANY_URL,
+        COMPANY_DESCRIPTION,
+        COMPANY_CONTACT,
+        COMPANY_PHONE,
+        UNIT_PRICE,
+        CUSTOM_UNIT_PRICE,
+        TOTAL_PRICE
+    }
+
 }

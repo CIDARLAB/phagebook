@@ -33,7 +33,7 @@ import org.clothocad.model.Person.PersonRole;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.CartItem;
 import org.clothocad.phagebook.dom.Lab;
-import org.clothocad.phagebook.dom.OrderStatus;
+import org.clothocad.phagebook.dom.Order.OrderStatus;
 import org.clothocad.phagebook.dom.Product;
 import org.clothocad.phagebook.dom.Project;
 import org.clothocad.phagebook.dom.Publication;
