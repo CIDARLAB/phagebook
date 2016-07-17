@@ -14,17 +14,32 @@ import lombok.Setter;
  *
  * @author innaturshudzhyan
  */
-public class Inventory{
-    
-    @Getter @Setter private List<String>      samples;
-    @Getter @Setter private List<String>      instruments;
-    @Getter @Setter private String            id;
-    
-    public Inventory()
-    {
-        this.samples     = new ArrayList<>();
+public class Inventory implements ClothoBaseObject {
+
+    @Getter
+    @Setter
+    private List<String> samples;
+    @Getter
+    @Setter
+    private List<String> instruments;
+    @Getter
+    @Setter
+    private String id;
+
+    public Inventory() {
+        this.samples = new ArrayList<>();
         this.instruments = new ArrayList<>();
-        this.id          = "Not Set";
+        this.id = "Not Set";
     }
-    
+
+    @Override
+    public String schemaForObject(Object self) {
+        return Inventory.class.getCanonicalName();
+    }
+
+    @Override
+    public String idForObject() {
+        return this.id;
+    }
+
 }

@@ -13,84 +13,94 @@ import lombok.Setter;
  *
  * @author innaturshudzhyan
  */
-public class Product extends Good{
-    
-    @Getter @Setter private String   productURL;
-    @Getter @Setter private String   companyId;
-    
-    @Getter @Setter private GoodType goodType;
-    @Getter @Setter private Double   cost;
-    //Look into a static member of this class that each instance can access..
-    //best way...
-    
-    @Getter @Setter private Integer  inventory;
-    @Getter @Setter private Double   unitPrice;
-    @Getter @Setter private Integer  quantity;
+public class Product extends Good implements ClothoBaseObject {
 
-    
-    public Product(){
+    @Getter
+    @Setter
+    private String productURL;
+    @Getter
+    @Setter
+    private String companyId;
+    @Getter
+    @Setter
+    private GoodType goodType;
+    @Getter
+    @Setter
+    private Double cost;
+    @Getter
+    @Setter
+    private Integer inventory;
+    @Getter
+    @Setter
+    private Double unitPrice;
+    @Getter
+    @Setter
+    private Integer quantity;
+
+    public Product() {
         super();
         this.productURL = "Not Set";
-        this.companyId  = "Not Set";
-        this.goodType   = GoodType.INSTRUMENT;
-        this.cost       = 0.0d;
-        this.inventory  = 0;
-        this.quantity   = 0;
-        this.unitPrice  = 0.0d;
+        this.companyId = "Not Set";
+        this.goodType = GoodType.INSTRUMENT;
+        this.cost = 0.0d;
+        this.inventory = 0;
+        this.quantity = 0;
+        this.unitPrice = 0.0d;
     }
+
     /**
      *
      * @param name
      * @param company
      * @param cost
      */
-    public Product(String name, String company,double cost){
-        super(name,"");
+    public Product(String name, String company, double cost) {
+        super(name, "");
         this.companyId = company;
         this.cost = cost;
     }
-    
-    public Product(String name, String company,GoodType goodType, double cost){
-        super(name,"");
+
+    public Product(String name, String company, GoodType goodType, double cost) {
+        super(name, "");
         this.companyId = company;
         this.goodType = goodType;
         this.cost = cost;
-   
-        
+
     }
-    public int decreaseInventory(){
+
+    public int decreaseInventory() {
         this.inventory--;
         return this.inventory;
     }
-    
-    public int decreaseInventory(int n){
+
+    public int decreaseInventory(int n) {
         this.inventory = this.inventory - n;
         return this.inventory;
     }
-    
-    public int increaseInventory(){
+
+    public int increaseInventory() {
         this.inventory++;
         return this.inventory;
     }
-    public int increaseInventory(int n){
+
+    public int increaseInventory(int n) {
         this.inventory = this.inventory + n;
         return this.inventory;
     }
-//    @Override
-//    public boolean equals(Object other){
-//    if (other == null) return false;
-//    if (other == this) return true;
-//    if (!(other instanceof Product))return false;
-//    Product product = (Product) other;
-//    return product.getId().equals(this.getId());
-//    }
+
     @Override
-    public boolean equals(Object o){
-      if (o == null) return false;
-      if (o == this) return true;
-      if (! (o instanceof Product))return false;
-      Product product = (Product) o;
-      return product.getId().equals(this.getId());
+    public boolean equals(Object o) {
+        if (o == null) {
+            return false;
+        }
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof Product)) {
+            return false;
+        }
+        Product product = (Product) o;
+        return product.getId().equals(this.getId());
     }
 
     @Override
@@ -103,11 +113,14 @@ public class Product extends Good{
         hash = 97 * hash + this.inventory;
         return hash;
     }
-    
-    
-    
-   
-    
-    
-    
+
+    @Override
+    public String schemaForObject(Object self) {
+        return Product.class.getCanonicalName();
+    }
+
+    @Override
+    public String idForObject() {
+        return this.id;
+    }
 }
