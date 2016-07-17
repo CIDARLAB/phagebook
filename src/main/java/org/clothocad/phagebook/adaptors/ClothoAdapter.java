@@ -4423,8 +4423,13 @@ public class ClothoAdapter {
        
     }
     
-    public static void setUpRandomUser(){
-       ClothoAdapter.conn = new ClothoConnection(Args.clothoLocation);
+    public static void setUpRandomUser(boolean isLocal){
+       if (isLocal){
+           ClothoAdapter.conn = new ClothoConnection(Args.clothoLocation);
+       } else {
+           ClothoAdapter.conn = new ClothoConnection(Args.clothoLocationLocal);
+       }
+       
        ClothoAdapter.clothoObject = new Clotho(conn);
        
        ClothoAdapter.username = randomUsername();

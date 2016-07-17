@@ -49,6 +49,7 @@ import org.junit.Test;
 /**
  *
  * @author Herb
+ * These test will run on your local instance of Clotho
  */
 public class ClothoAdapterTest {
     public Clotho clothoObject;
@@ -92,7 +93,7 @@ public class ClothoAdapterTest {
     
     @Before
     public void setUp() {
-       this.conn = new ClothoConnection(Args.clothoLocation);
+       this.conn = new ClothoConnection(Args.clothoLocationLocal);
        this.clothoObject = new Clotho(conn);
        
        this.username = randomUsername();
