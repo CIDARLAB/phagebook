@@ -15,7 +15,7 @@ import org.junit.Test;
  */
 public class EmailCredsTest {
   
-   @Test
+//   @Test
    public void testEmailStuff() throws Exception {
      ArrayList<String> emailAdr = new ArrayList();
      emailAdr.add("agonchar@bu.edu");
@@ -24,7 +24,7 @@ public class EmailCredsTest {
      
       String subject = "Testing the new emailing class";
       String body = "<i>Testing HTML properties</i><br><b>This should be bold!</b>";      
-      EmailCredentials.logInAndSendMessage(body,subject, emailAdr);     
+//      EmailCredentials.logInAndSendMessage(body,subject, emailAdr);     
      
    }
   

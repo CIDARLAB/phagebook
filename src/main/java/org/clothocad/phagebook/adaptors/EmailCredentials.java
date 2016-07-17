@@ -44,7 +44,7 @@ public class EmailCredentials {
     * 
     */
     public static boolean logInAndSendMessage(String messageBody, String messageSubject, 
-            ArrayList<String> sendTo){
+            String sendTo){
       Properties props = new Properties();
 
       props.put("mail.smtp.host", "smtp.gmail.com");
@@ -68,13 +68,10 @@ public class EmailCredentials {
         message.setFrom(new InternetAddress(SENDER_DOMAIN_NAME));
         message.setSubject(messageSubject);
         message.setContent(messageBody,"text/html");
-        
-        for(int i = 0;i<sendTo.size();i++){
-          String recepient = sendTo.get(i);
-          message.addRecipient(Message.RecipientType.TO, new InternetAddress(recepient));
-          // Send message
-          Transport.send(message);
-        }
+               
+        message.addRecipient(Message.RecipientType.TO, new InternetAddress(sendTo));
+        // Send message
+        Transport.send(message);       
 
         return true;
       }catch (MessagingException mex) {

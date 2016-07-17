@@ -97,7 +97,7 @@ public class editProjectTest {
         person3.setFirstName("Person");
         person3.setLastName("Lead");
         person3.setId(idP3);
-        person3.setEmailId("angonchar@bu.edu");
+        person3.setEmailId("agonchar@bu.edu");
         person3.setPassword("person3");
         
         String person3ID = ClothoAdapter.createPerson(person3, clothoObject);
@@ -168,7 +168,7 @@ public class editProjectTest {
     ** Checks if changes passed in were null. If they were null old values 
     ** should not change.
     */
-    @Test
+//    @Test
     public void testIfNull()
     {
       System.out.println("Test # 1");
@@ -257,7 +257,7 @@ public class editProjectTest {
 
       assertEquals(newSize,3);
 
-      //addUpdateToProject.addProjectUpdate(userID, projectID, , clothoObject);
+//      addUpdateToProject.addProjectUpdate(userID, projectID, , clothoObject);
     }
     
     @Test
