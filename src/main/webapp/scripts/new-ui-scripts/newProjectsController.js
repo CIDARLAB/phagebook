@@ -10,7 +10,9 @@ function newProjectsCtrl($scope, $http) {
         url: "loadPhagebookInstitutions",
         type: "GET",
         async: false,
-        data: {},
+        data: {
+            
+        },
         success: function(response) {
             var responseArray = response.institutions; //array of JSONObjects with labs attached 
             console.log(responseArray);
@@ -41,7 +43,7 @@ function newProjectsCtrl($scope, $http) {
 
         },
         error: function(response) {
-            alert("No Institutions To Load");
+            alert("No Institutions");
         }
     });
 

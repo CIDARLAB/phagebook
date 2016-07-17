@@ -37,9 +37,10 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class ProductController {
     
-    @RequestMapping(value="addProduct", method=RequestMethod.POST)
-    public void addProduct(@RequestParam Map<String, String> params, HttpServletResponse response) throws IOException, ServletException {
+    @RequestMapping(value="addProducts", method=RequestMethod.GET)
+    public void addProducts(@RequestParam Map<String, String> params, HttpServletResponse response) throws IOException, ServletException {
         PrintWriter writer = response.getWriter();
+        System.out.println("addProducts");
         
         String companyName = params.get("CompanyName");
         

@@ -235,10 +235,10 @@ public class LabController {
         }
     }
 
-    @RequestMapping(value = "listPIsOfLab", method = RequestMethod.POST)
+    @RequestMapping(value = "listPIsOfLab", method = RequestMethod.GET)
     protected void listPIsOfLab(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
-
+        System.out.println("listPIS");
         Object pLabId = params.get("lab");
         String labId = pLabId != null ? (String) pLabId : "";
 

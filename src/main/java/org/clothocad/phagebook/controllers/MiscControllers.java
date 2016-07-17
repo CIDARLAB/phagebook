@@ -216,6 +216,7 @@ public class MiscControllers {
         boolean hasValidParameters = false;
         salt = params.get("salt");
         emailId = params.get("emailId");
+        System.out.println("salt: " + salt + "  email" + emailId);
         if (!salt.isEmpty() && !emailId.isEmpty()){
             hasValidParameters = true;
         }
@@ -277,6 +278,7 @@ public class MiscControllers {
         
         //always valid 
         //login
+        System.out.println("loadphagebook");
         ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
         Clotho clothoObject = new Clotho(conn);
         String username = "phagebook";
