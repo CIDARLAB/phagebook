@@ -283,7 +283,7 @@ angular.module("clotho.core", ["clotho.angularAdditions"]), angular.module("clot
                 };
                 j.emit("show", c)
             }, G = function() {
-                console.log("need to set up share")
+                //console.log("need to set up share")
             }, H = function(a) {
                 j.emit("log", a)
             }, I = function(a, b) {

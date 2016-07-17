@@ -5,8 +5,8 @@ function saveProfilePicture() {
         formData.append('profilePicture', selectedFile);
         formData.append('profilePictureName', selectedFile.name);
         formData.append('clothoId', clothoId);
-        console.log(selectedFile);
-        console.log(selectedFile.name);
+        //console.log(selectedFile);
+        //console.log(selectedFile.name);
 
         $.ajax({
             type: 'POST',
@@ -16,12 +16,12 @@ function saveProfilePicture() {
             contentType: false,
             processData: false,
             success: function (response) {
-                console.log("inside ajax post uploadProfPic success");
-                console.log(response);
+                //console.log("inside ajax post uploadProfPic success");
+                //console.log(response);
                 location.reload();
             },
             error: function (response) {
-                console.log("inside ajax post uploadProfPic error");
+                //console.log("inside ajax post uploadProfPic error");
             }
         });
 };

@@ -13,7 +13,7 @@ function newProjectsCtrl($scope, $http) {
         data: {},
         success: function(response) {
             var responseArray = response.institutions; //array of JSONObjects with labs attached 
-            console.log(responseArray);
+            //console.log(responseArray);
             var selectInstitution = document.getElementById('institution');
 
 
@@ -84,7 +84,7 @@ function newProjectsCtrl($scope, $http) {
     });
 
 
-    console.log("loaded");
+    //console.log("loaded");
 
     $scope.personId = getCookie("clothoId"); //retrieves the user id from session storage
 
@@ -123,7 +123,7 @@ function newProjectsCtrl($scope, $http) {
             // membersCheck();
             // Condition 1: a new project has to have a name.
             if (!$scope.formData.name) {
-                console.log("No name.");
+                //console.log("No name.");
                 $scope.nameRequired = 'Please provide a valid title for your new project.';
             } else {
                 count++;
@@ -131,11 +131,11 @@ function newProjectsCtrl($scope, $http) {
 
             // Condition 2: a new project has to have a description.
             if (!$scope.formData.description) {
-                console.log("No description.");
-                //console.log($scope.formData.description);
+                //console.log("No description.");
+                ////console.log($scope.formData.description);
                 $scope.descriptionRequired = 'Please provide a valid description.';
             } else {
-                console.log($scope.formData.description);
+                //console.log($scope.formData.description);
                 count++;
             }
             // Condition 3: valid input for lead's name: 2 words
@@ -146,17 +146,17 @@ function newProjectsCtrl($scope, $http) {
             }
             //Condition 4: valid input for members' names: 2 words
             if (membersCheck()) {
-                console.log("adding 1!")
+                //console.log("adding 1!")
                 count++;
             } else {
-                console.log("Members names invalid.");
+                //console.log("Members names invalid.");
             }
 
 
             // check if lead doesn't have either first OR last name
 
             if (count >= 4) {
-                console.log("All conditions are met.");
+                //console.log("All conditions are met.");
                 return true;
             } else {
                 return false;
@@ -173,17 +173,17 @@ function newProjectsCtrl($scope, $http) {
         var leadNameCheck = function() {
 
                 var leadFullName = $scope.formData.leadName;
-                console.log(leadFullName);
+                //console.log(leadFullName);
                 if (leadFullName != undefined) {
                     var splitName = leadFullName.split(" ");
                     var leadNameSelected = $("#lead_Results option:selected").text();
-                    console.log(splitName.length);
+                    //console.log(splitName.length);
                     if (splitName.length < 2) {
-                        console.log("string not long enough");
+                        //console.log("string not long enough");
                         return false;
                     }
                     if (leadFullName != leadNameSelected) {
-                        console.log("oopsies!");
+                        //console.log("oopsies!");
                         $("#lead_Results option:selected").val(0);
                         leadIDDD = 123;
                     }
@@ -196,24 +196,24 @@ function newProjectsCtrl($scope, $http) {
         var membersCheck = function() {
 
             var members = $scope.formData.members;
-            console.log("members******");
-            console.log(members);
-            console.log("members******");
+            //console.log("members******");
+            //console.log(members);
+            //console.log("members******");
             var membersArr;
             if (members != undefined) {
 
                 membersArr = members.split(", ");
-                console.log(membersArr);
+                //console.log(membersArr);
                 for (var i = 0; i < membersArr.length; i++) {
-                    console.log(membersArr[i]);
+                    //console.log(membersArr[i]);
                     if (membersArr[i].split(" ").length != 2) {
                         $scope.membersRequired = "Please reenter the members' names in a valid format";
                         return false;
                     }
                 }
                 membersArray = membersArr;
-                console.log("about to return membersArray");
-                console.log(membersArray);
+                //console.log("about to return membersArray");
+                //console.log(membersArray);
                 return true;
             } else {
                 $scope.membersRequired = "Please enters members' names.";
@@ -223,22 +223,22 @@ function newProjectsCtrl($scope, $http) {
         };
 
         var submit = validateForm();
-        console.log(submit);
+        //console.log(submit);
 
         var getLead = function(){
 
             if($("#lead_Results option:selected").val()!=undefined){
-                console.log("HACKING THIS");
+                //console.log("HACKING THIS");
                 leadIDDD = $("#lead_Results option:selected").val();
             }
             return leadIDDD;
         }
 
         // !!!! create a check that pr budget is an int !!!!!!
-        console.log(membersArray);
+        //console.log(membersArray);
         // f it
         if($("#lab_selectDiv option:selected").text() == "Lab Name..." || $("#lab_selectDiv option:selected").val() == "Lab Name..."){
-            console.log("setting stuff to null!!!");
+            //console.log("setting stuff to null!!!");
             $("#lab_selectDiv option:selected").text("");
              $("#lab_selectDiv option:selected").val("");
         }
@@ -267,7 +267,7 @@ function newProjectsCtrl($scope, $http) {
         if (submit) {
             // checkData(dataSubmit);
             //dataSubmit = JSON.stringify(dataSubmit);
-            console.log(dataSubmit);
+            //console.log(dataSubmit);
             $.ajax({
                 url: "/processProject",
                 type: "POST",
@@ -276,19 +276,19 @@ function newProjectsCtrl($scope, $http) {
                 data: dataSubmit,
                 success: function(response) {
 
-                    console.log(dataSubmit);
-                    console.log(response);
-                    console.log("response!!!");
+                    //console.log(dataSubmit);
+                    //console.log(response);
+                    //console.log("response!!!");
                     setCookie("projectId", response.projectId, 10);
-                    console.log(document.cookie);
+                    //console.log(document.cookie);
                     alert("A new project has been created!");
                     //location.assign("./html/displayProjects.html");
 
                 },
                 error: function(err) {
 
-                    console.log("Error!");
-                    console.log(err);
+                    //console.log("Error!");
+                    //console.log(err);
 
                 }
             });
