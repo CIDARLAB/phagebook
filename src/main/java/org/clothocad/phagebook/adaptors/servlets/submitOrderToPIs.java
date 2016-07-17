@@ -22,7 +22,7 @@ import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Lab;
 import org.clothocad.phagebook.dom.Order;
-import org.clothocad.phagebook.dom.OrderStatus;
+import org.clothocad.phagebook.dom.Order.OrderStatus;
 import org.json.JSONObject;
 
 /**
