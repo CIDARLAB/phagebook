@@ -1,7 +1,7 @@
 // make a dummy project here
 var constructAString = function(project){
-    console.log("in Construct A string");
-    console.log(project);
+    //console.log("in Construct A string");
+    //console.log(project);
     
     var projectStr = "Creator is: " + project.creator + 
     ". Date of Creation is:  " + project.dateCreated +
@@ -10,7 +10,7 @@ var constructAString = function(project){
     ". Budget is: " + project.budget +
     ". Grant ID is: "  + project.grant +
     ". Lead is: " + project.lead +".";
-    console.log(projectStr);
+    //console.log(projectStr);
     alert(projectStr);
     // this fills in the form with values
     $('#name').val(project.projectName);
@@ -22,13 +22,13 @@ var appendRow = function() {
     var userID = getCookie("clothoID");
     var projectID = getCookie("projectId");
     var project;
-    console.log(userID);
-    console.log(projectID);
+    //console.log(userID);
+    //console.log(projectID);
     
     var data = {
         "projectID": projectID
     }
-    console.log(data);
+    //console.log(data);
     // an ajax request to get the project that has project id
     $.ajax({
         url: "/getProject",
@@ -36,16 +36,16 @@ var appendRow = function() {
         dataType: "json",
         data: data,
         success: function(response) {
-            //console.log(dataSubmit);
-            console.log(response);
+            ////console.log(dataSubmit);
+            //console.log(response);
             project = response;
-            console.log("response!!!");
+            //console.log("response!!!");
             // use the following function to alert with data from the servler
             return constructAString(project);
         },
         error: function(err) {
-            console.log("ERROR!!");
-            console.log(err);
+            //console.log("ERROR!!");
+            //console.log(err);
         }
     });
 }
@@ -68,7 +68,7 @@ $(document).ready(function() {
 
 
     var editProject = function() {
-        console.log("in editProject");
+        //console.log("in editProject");
         // var name = "Phagebook";
         // var leadFirstName = "Awesome";
         // var leadLastName = "Ugrads"
@@ -80,14 +80,14 @@ $(document).ready(function() {
         // var date = new Date("October 13, 2014 11:13:00");
 
 
-        console.log("in addStatus function!!");
+        //console.log("in addStatus function!!");
         var newStatus = "";
 
         if ($("#status").val() != null) {
             newStatus = $("#status").val();
         };
 
-        console.log(newStatus);
+        //console.log(newStatus);
         // how new projects should be passed in
         var data = {
             name: name,
@@ -102,15 +102,15 @@ $(document).ready(function() {
             data: data,
             async: true,
             success: function(response) {
-                console.log(response);
+                //console.log(response);
                 projectID = response.projectID;
                 userID = response.userID
                 $('#projectID').html(projectID + " " + userID);
                 return edit(projectID, userID);
             },
             error: function(err) {
-                console.log("ERROR!!");
-                console.log(err);
+                //console.log("ERROR!!");
+                //console.log(err);
             }
         });
     }

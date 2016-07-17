@@ -5,8 +5,6 @@ This file is responsible for looking up Phagebook's members to be added to the p
 */
 
 
-
-
 function loadSelectElementOptions() {
     var min = 12,
         max = 100,
@@ -19,20 +17,20 @@ function loadSelectElementOptions() {
         opt.value = i;
         opt.innerHTML = i;
         opt.type = "checkbox";
-        console.log(opt);
+        // console.log(opt);
         select.appendChild(opt);
     }
 }
 
 var removeOptions = function(selectbox) {
     var i;
-    console.log("IN REMOVE OPTIONS");
-    console.log(selectbox);
+    // console.log("IN REMOVE OPTIONS");
+    // console.log(selectbox);
     for (i = selectbox.options.length; i >= 0; i--) {
-        console.log(selectbox);
-        console.log("about to remove a box");
-        console.log(selectbox.i);
-        console.log(selectbox);
+        // console.log(selectbox);
+        // console.log("about to remove a box");
+        // console.log(selectbox.i);
+        // console.log(selectbox);
         selectbox.remove(i);
     }
 }
@@ -44,7 +42,7 @@ $(document).ready(function() {
     var lastName = "";
     
     var keyPressHandler = function() {
-        console.log("IN ADD MEMBERS TO PROJECTS");
+        // console.log("IN ADD MEMBERS TO PROJECTS");
         clearTimeout(timerVal); // stops previous attempt
         timerVal = setTimeout(doAjax(this.id), 250); // send continuoius ajax requests using doAjax function
     }
@@ -54,10 +52,10 @@ $(document).ready(function() {
     // output: array of person names and attached institutions
     // */
     var doAjax = function(id) {
-        console.log(id);
+        // console.log(id);
 
         var fullName = $("#"+id).val();
-        console.log(fullName);
+        // console.log(fullName);
         firstName = fullName;
         if (fullName.indexOf(' ') >= 0) {
             fullNameArr = fullName.split(" ");
@@ -70,7 +68,7 @@ $(document).ready(function() {
             "lastName": lastName
         }
 
-        console.log(data);
+        // console.log(data);
 
         var isValid = 0;
         if (firstName !== '' || lastName !== '') {
@@ -78,7 +76,7 @@ $(document).ready(function() {
         }
 
         if (isValid) {
-            console.log("about to send ajax req");
+            // console.log("about to send ajax req");
             $.ajax({
                 //do this for projects...
                 url: "../findMemberForNewProject",
@@ -94,16 +92,16 @@ $(document).ready(function() {
                         for (var i = 0; i < response.length; i++) {
                             // loop through the response to create the array of people
                             var opt = document.createElement('option');
-                            console.log(response[i].fullname);
+                            // console.log(response[i].fullname);
                             opt.value = response[i].clothoId;
                             opt.innerHTML = response[i].fullname;
-                            console.log(opt);
+                            // console.log(opt);
                             select.appendChild(opt);
                         }
                     }
                 },
                 error: function(res) {
-                    console.log("unable to find anything");
+                    // console.log("unable to find anything");
                 }
             });
         }

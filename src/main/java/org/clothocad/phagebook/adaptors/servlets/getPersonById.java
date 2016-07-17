@@ -80,12 +80,13 @@ public class getPersonById extends HttpServlet {
             createUserMap.put("username", username);
             createUserMap.put("password", "password");
             clothoObject.createUser(createUserMap);
+            clothoObject.logout();
             Map loginMap = new HashMap();
             loginMap.put("username", username);
             loginMap.put("credentials", "password");
             clothoObject.login(loginMap);
             //
-
+            System.out.println("Simon says :: Login Complete");
             Person retrieve = ClothoAdapter.getPerson(userId, clothoObject);
             Institution institute = ClothoAdapter.getInstitution(retrieve.getInstitution(), clothoObject);
             JSONObject retrievedAsJSON = new JSONObject();
@@ -101,8 +102,9 @@ public class getPersonById extends HttpServlet {
             retrievedAsJSON.put("email", retrieve.getEmailId());
             retrievedAsJSON.put("profileDescription", retrieve.getProfileDescription());
             retrievedAsJSON.put("statuses", retrieve.getStatuses());
+            retrievedAsJSON.put("listColleagueRequests", retrieve.getColleagueRequests());
             String labId = retrieve.getLabs().size() > 0 ? retrieve.getLabs().get(0) : "0";
-
+         
             retrievedAsJSON.put("lab", ClothoAdapter.getLab(labId, clothoObject));
             System.out.println("this is our JSON obj");
             System.out.println(retrievedAsJSON);

@@ -9,7 +9,7 @@ To look at search and querying functions go to addMembersToProjects.js file.
  ** HELPERS
  */
 function isInArray(value, array) {
-    console.log(array.indexOf(value) > -1);
+    // console.log(array.indexOf(value) > -1);
     return array.indexOf(value) > -1;
 }
 
@@ -99,7 +99,7 @@ function newProjectsCtrl($scope, $http) {
     // });
 
 
-    console.log("loaded");
+    // console.log("loaded");
 
     // form data object -- here are the results from the form are stored
     $scope.formData = {};
@@ -115,7 +115,7 @@ function newProjectsCtrl($scope, $http) {
         for (var i = 0; i < listItem.length; i++) {
             if ($(listItem[i]).find('input').is(':checked')) {
                 var option = $(listItem[i]).find('input');
-                console.log(option.text());
+                // console.log(option.text());
                 var obj = {
                     'memberName': $(listItem[i]).text(),
                     'memberId': option.val()
@@ -123,7 +123,7 @@ function newProjectsCtrl($scope, $http) {
                 membersArr.push(obj);
             }
         }
-        console.log(membersArr);
+        // console.log(membersArr);
     }
 
     $scope.saveData = function() {
@@ -157,7 +157,7 @@ function newProjectsCtrl($scope, $http) {
             // membersCheck();
             // Condition 1: a new project has to have a name.
             if (!$scope.formData.name) {
-                console.log("No name.");
+                // console.log("No name.");
                 $scope.nameRequired = 'Please provide a valid title for your new project.';
             } else {
                 count++;
@@ -165,11 +165,11 @@ function newProjectsCtrl($scope, $http) {
 
             // Condition 2: a new project has to have a description.
             if (!$scope.formData.description) {
-                console.log("No description.");
+                // console.log("No description.");
                 //console.log($scope.formData.description);
                 $scope.descriptionRequired = 'Please provide a valid description.';
             } else {
-                console.log($scope.formData.description);
+                // console.log($scope.formData.description);
                 count++;
             }
             // Condition 3: valid input for lead's name: 2 words
@@ -180,16 +180,16 @@ function newProjectsCtrl($scope, $http) {
             }
             //Condition 4: valid input for members' names: 2 words
             if (membersCheck()) {
-                console.log("adding 1!")
+                // console.log("adding 1!")
                 count++;
             } else {
-                console.log("Members names invalid.");
+                // console.log("Members names invalid.");
             }
 
             // check if lead doesn't have either first OR last name
 
             if (count >= 4) {
-                console.log("All conditions are met.");
+                // console.log("All conditions are met.");
                 return true;
             } else {
                 return false;
@@ -206,18 +206,18 @@ function newProjectsCtrl($scope, $http) {
         var leadNameCheck = function() {
 
             var leadFullName = $scope.formData.leadName;
-            console.log(leadFullName);
+            // console.log(leadFullName);
             if (leadFullName != undefined) {
                 var splitName = leadFullName.split(" ");
                 var leadNameSelected = $("#inputLeadName_Results option:selected").text();
-                console.log(splitName.length);
+                // console.log(splitName.length);
                 if (splitName.length < 2) {
-                    console.log("string not long enough");
+                    // console.log("string not long enough");
                     return false;
                 }
                 // why does the name in the search box have to match the name selected?
                 if (leadFullName != leadNameSelected) {
-                    console.log("oopsies!");
+                    // console.log("oopsies!");
                     $("#inputLeadName_Results option:selected").val(0);
                     leadIDDD = 123;
                 }
@@ -227,7 +227,7 @@ function newProjectsCtrl($scope, $http) {
         }
 
         var submit = validateForm();
-        console.log(submit);
+        // console.log(submit);
 
         var getLead = function() {
 
@@ -239,10 +239,10 @@ function newProjectsCtrl($scope, $http) {
         }
 
         // !!!! create a check that pr budget is an int !!!!!!
-        console.log(membersArray);
+        // console.log(membersArray);
 
         if ($("#lab_selectDiv option:selected").text() == "Lab Name..." || $("#lab_selectDiv option:selected").val() == "Lab Name...") {
-            console.log("setting stuff to null!!!");
+            // console.log("setting stuff to null!!!");
             $("#lab_selectDiv option:selected").text("");
             $("#lab_selectDiv option:selected").val("");
         }
@@ -269,7 +269,7 @@ function newProjectsCtrl($scope, $http) {
         if (submit) {
             // checkData(dataSubmit);
             //dataSubmit = JSON.stringify(dataSubmit);
-            console.log(dataSubmit);
+            // console.log(dataSubmit);
             $.ajax({
                 url: "/processProject",
                 type: "POST",
@@ -278,11 +278,11 @@ function newProjectsCtrl($scope, $http) {
                 data: dataSubmit,
                 success: function(response) {
 
-                    console.log(dataSubmit);
-                    console.log(response);
-                    console.log("response!!!");
+                    // console.log(dataSubmit);
+                    // console.log(response);
+                    // console.log("response!!!");
                     setCookie("projectId", response.projectId, 10);
-                    console.log(document.cookie);
+                    // console.log(document.cookie);
                     alert("A new project has been created!");
                     //location.assign("./html/displayProjects.html");
 

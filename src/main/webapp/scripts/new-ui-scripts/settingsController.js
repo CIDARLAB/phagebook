@@ -7,7 +7,7 @@ function settingsCtrl($scope, $http){
     
     angular.element(document).ready(function () {
         
-    console.log("this is the settings controller");
+    //console.log("this is the settings controller");
         $http({
             method: 'GET',
             url: '../getPersonById',
@@ -15,9 +15,9 @@ function settingsCtrl($scope, $http){
                 "userId": clothoId
             }
         }).then(function successCallback(response) {
-            console.log("inside successCall of get person GET");
+            //console.log("inside successCall of get person GET");
             var responseAsJSON = angular.fromJson(response);
-            console.log(JSON.stringify(responseAsJSON));
+            //console.log(JSON.stringify(responseAsJSON));
             $scope.editFirstName = response.data.firstName;
             $scope.editLastName = response.data.lastName;
             $scope.editEmail = response.data.email;
@@ -28,7 +28,7 @@ function settingsCtrl($scope, $http){
             $scope.editLab = response.data.lab;
             $scope.editProfileDescription = response.data.profileDescription;
         }, function errorCallback(response) {
-            console.log("inside GET error");
+            //console.log("inside GET error");
         });
     });
 
@@ -36,7 +36,7 @@ function settingsCtrl($scope, $http){
     var awsPath = "http://s3.amazonaws.com/phagebookaws/" + clothoId + "/profilePicture";
 
     $scope.profilePictureLink = awsPath + fileExt;
-    console.log(awsPath + fileExt);
+    //console.log(awsPath + fileExt);
 
     var save = false;
     $scope.edit = true;
@@ -59,10 +59,10 @@ function settingsCtrl($scope, $http){
                         "editProfileDescription" : $scope.editProfileDescription
                     }
                 }).then(function successCallback(response) {
-                    console.log("some success in setPersonById ajax call");
+                    //console.log("some success in setPersonById ajax call");
                     location.reload();
                 }, function errorCallback(response) {
-                    console.log("inside setPersonById ajax error");
+                    //console.log("inside setPersonById ajax error");
                 });
             }
             save = false;

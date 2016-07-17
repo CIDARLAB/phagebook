@@ -217,7 +217,7 @@ function doCartItemAjax(cartItemId){
 
         },
         error: function (response){
-            console.log("cart item querying failed");
+            //console.log("cart item querying failed");
         }
     });
 

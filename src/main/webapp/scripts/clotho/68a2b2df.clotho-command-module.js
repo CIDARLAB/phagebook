@@ -415,7 +415,7 @@ angular.module("clotho.tokenizer", []), angular.module("clotho.commandbar", ["cl
                         a.length && b.addToken(a)
                     })
                 }, b.select = function(a) {
-                    console.log("selecting ", a);
+                    //console.log("selecting ", a);
                     var c = a > -1 ? b.autocompletions[a] : b.query;
                     c && t(b, {
                         $item: c,

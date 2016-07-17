@@ -24,8 +24,7 @@ import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.controller.OrderController;
 import org.clothocad.phagebook.controller.Utilities;
 import org.clothocad.phagebook.dom.Order;
-import org.clothocad.phagebook.dom.OrderColumns;
-import org.json.JSONArray;
+import org.clothocad.phagebook.dom.Order.OrderColumns;
 
 /**
  *
