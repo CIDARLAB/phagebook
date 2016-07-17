@@ -46,6 +46,13 @@ body {
     background: #084500;
 }
 
+.badge-notify{
+   background:red;
+   position:relative;
+   top: -20px;
+   left: -35px;
+}
+
 .container {
 	width: 90%;
 	overflow: hidden;  

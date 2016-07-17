@@ -1250,3 +1250,10 @@ td {
 .vendor-property-data td {
     padding: 0px 0px 0px 0px;
 }
+
+.badge-notify{
+   background:red;
+   position:relative;
+   top: -20px;
+   left: -35px;
+}

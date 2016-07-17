@@ -40,6 +40,7 @@ function header($window){
             };
 
             $scope.appendToEl = angular.element(document.querySelector('#dropdown-long-content'));
+            $scope.friendRequests = 3; // hardcoded requests
         }
     };
 }
