@@ -7,15 +7,9 @@ package org.clothocad.phagebook.dom;
 
 /**
  *
- * @author innaturshudzhyan
+ * @author Herb - Johan - This is for testing purposes
  */
-public class Instrument extends Good{
-
-    public Instrument(String name)
-    {
-        super(name);
-    }
-    
-    public Instrument(){ super(); }
-    
+public interface ClothoBaseObject {
+    public String schemaForObject(Object self);
+    public String idForObject();
 }

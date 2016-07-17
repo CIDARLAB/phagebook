@@ -12,18 +12,39 @@ import lombok.Setter;
  *
  * @author KatieLewis
  */
-public class Publication 
-{
-    @Getter @Setter private String  id;
-    @Getter @Setter private String  title;
-    @Getter @Setter private String  authors;
-    @Getter @Setter private int     year;
-    @Getter @Setter private String  info;
-    @Getter @Setter private String  bibtex;
-    
-    public Publication()
-    {
+public class Publication implements ClothoBaseObject{
+
+    @Getter
+    @Setter
+    private String id;
+    @Getter
+    @Setter
+    private String title;
+    @Getter
+    @Setter
+    private String authors;
+    @Getter
+    @Setter
+    private int year;
+    @Getter
+    @Setter
+    private String info;
+    @Getter
+    @Setter
+    private String bibtex;
+
+    public Publication() {
         this.id = "Not Set";
         this.title = "Not Set";
+    }
+
+    @Override
+    public String schemaForObject(Object self) {
+        return Publication.class.getCanonicalName();
+    }
+
+    @Override
+    public String idForObject() {
+        return this.id;
     }
 }

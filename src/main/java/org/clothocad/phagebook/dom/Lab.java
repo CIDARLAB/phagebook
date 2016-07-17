@@ -14,19 +14,34 @@ import lombok.Setter;
  *
  * @author Herb
  */
-public class Lab extends Organization {
-    @Getter @Setter List<String> leadPIs;
-    @Getter @Setter String       institution;
+public class Lab extends Organization implements ClothoBaseObject {
+
+    @Getter
+    @Setter
+    List<String> leadPIs;
+    @Getter
+    @Setter
+    String institution;
     //TODO ADD MEMBERS
-    
+
     //@Getter @Setter List<String> members;
-    public Lab(String name){
-       super(name);
+    public Lab(String name) {
+        super(name);
     }
-    
-    public Lab(){
+
+    public Lab() {
         super();
         this.leadPIs = new ArrayList<>();
         //this.members = new ArrayList<>();
+    }
+
+    @Override
+    public String schemaForObject(Object self) {
+        return Lab.class.getCanonicalName();
+    }
+
+    @Override
+    public String idForObject() {
+        return this.id;
     }
 }
