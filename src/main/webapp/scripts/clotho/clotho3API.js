@@ -15,7 +15,7 @@
     socket.messageCache = [];
 
     socket.onopen = function() {
-        console.log("websocket opened!");
+        //console.log("websocket opened!");
         ///Remember JS is single-threaded so the WebSocket will not reach readystate=1 until 
         ///the entire library finishes loading. In the off chance the user writes a script that calls
         ///a Clotho function immediately upon completion of dependencies loading, the socket will not 
@@ -46,7 +46,7 @@
             socket.send(message);
         }
         else {
-            console.log("caching " + message);
+            //console.log("caching " + message);
             socket.messageCache.push(message);
         }
     }

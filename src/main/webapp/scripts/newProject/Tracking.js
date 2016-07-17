@@ -21,11 +21,11 @@ angular.module('LabOrdering').service('Tracking', function (Clotho, PubSub) {
 
 	//an event triggered by the Ordering Service
 	PubSub.on('LabOrdering.orderPlaced', function (orderParams) {
-		console.log('order was placed! tracking it', orderParams);
+		//console.log('order was placed! tracking it', orderParams);
 	});
 
 	PubSub.on('LabOrdering.orderSuccess', function (result) {
-		console.log('order was placed successfully! result: ', result);
+		//console.log('order was placed successfully! result: ', result);
 	});
 
 	PubSub.on('LabOrdering.orderFailure', function (err) {
@@ -42,11 +42,11 @@ angular.module('LabOrdering').service('Tracking', function (Clotho, PubSub) {
 	//Listen for internal messages
 	PubSub.on('LabOrdering.internalMessage', function (result) {
 		//or create your own listener logic here. Check ORdering.js for another one.
-		console.log('Tracking.js message received', result);
+		//console.log('Tracking.js message received', result);
 	});
 
 	this.trackReset = function (partialOrder) {
-		console.log('order cancelled', partialOrder);
+		//console.log('order cancelled', partialOrder);
 	}
 
 });

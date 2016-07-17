@@ -44,7 +44,7 @@ function profileCtrl($scope, $modal) {
         Clotho.get($scope.personID).then(function () {
             Clotho.set($scope.personObj);
         });
-        //console.log($scope.personObj);
+        ////console.log($scope.personObj);
         $scope.editBool = false;
     };
 
@@ -90,17 +90,17 @@ function profileCtrl($scope, $modal) {
                 if ($scope.pubmedId == $scope.personObj['pubmedIdList'][i]) {
                     checkExist = true;
                     window.alert('unable to use same pubmed ID twice!');
-                    console.log('unable to use same pubmedID twice!!')
+                    //console.log('unable to use same pubmedID twice!!')
                 } else {
                     $scope.personObj['pubmedIdList'].push($scope.pubmedId);
                 }
             }
         }
-        //console.log(JSON.stringify($scope.personObj));
+        ////console.log(JSON.stringify($scope.personObj));
 
 
         pubmed.getCitationsFromIds($scope.personObj['pubmedIdList']).then(function (result) {
-            //console.log(JSON.stringify(result9));
+            ////console.log(JSON.stringify(result9));
             $scope.publications = result;
             $scope.$apply();
         });
@@ -122,7 +122,7 @@ function profileCtrl($scope, $modal) {
         myFriendSearch.result.then(function (items) {
             Clotho.query(items).then(function (result) {
                 //return foundFriend
-                console.log(JSON.stringify(result));
+                //console.log(JSON.stringify(result));
             });
             //do stuff with returned data, like Clotho.set??
         });

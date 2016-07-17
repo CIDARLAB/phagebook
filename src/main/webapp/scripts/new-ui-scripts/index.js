@@ -105,7 +105,7 @@ $(document).ready(function () {
                     var responseJSON = JSON.parse(response);
                     setCookie("emailId", responseJSON.emailId, 1);
                     setCookie("clothoId", responseJSON.clothoId, 1);
-                    console.log(validateEmail(emailId));
+                    //console.log(validateEmail(emailId));
                     window.location.href = '../html/resendEmailVerification.html';
                 },
                 error: function (response) {
@@ -169,7 +169,7 @@ function checkPasswordMatch() {
     }
     else {
         $("#password-match-alert").fadeOut();
-        console.log("Passwords match");
+        //console.log("Passwords match");
         return true;
     }
 }

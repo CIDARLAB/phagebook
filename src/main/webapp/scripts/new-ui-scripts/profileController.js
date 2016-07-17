@@ -16,17 +16,17 @@ function profileCtrl($scope, $http) {
                 "status": $("#statusUpdateTextarea")[0].value
             }
         }).then(function successCallback(response) {
-            console.log("some success in getPersonById status ajax call");
+            //console.log("some success in getPersonById status ajax call");
             $("#statusUpdateTextarea")[0].value = "";
-            console.log(response.message);
+            //console.log(response.message);
         }, function errorCallback(response) {
-            console.log("inside getPersonById status ajax error");
-            console.log(JSON.stringify(response));
+            //console.log("inside getPersonById status ajax error");
+            //console.log(JSON.stringify(response));
         });
     });
 
     angular.element(document).ready(function ($scope) {
-        console.log("before ajax but inside page onload.`");
+        //console.log("before ajax but inside page onload.`");
         $.ajax({
             type: 'GET',
             url: '../getPersonById',
@@ -36,7 +36,7 @@ function profileCtrl($scope, $http) {
             },
             success: function (response) {
                 var responseAsJSON = angular.fromJson(response);
-                console.log(JSON.stringify(responseAsJSON));
+                //console.log(JSON.stringify(responseAsJSON));
                 $("#fullName").text(responseAsJSON.fullname);
                 $("#dept").text(responseAsJSON.department);
                 $("#institution").text(responseAsJSON.institution);
@@ -45,7 +45,7 @@ function profileCtrl($scope, $http) {
                 //$scope.statuses = responseAsJSON.statuses;
             },
             error: {
-                //console.log("inside GET error");  
+                ////console.log("inside GET error");  
             }
         });
 
@@ -59,7 +59,7 @@ function profileCtrl($scope, $http) {
             success: function (response) {
                 var ul = $("#colleagues-full-list");
                 ul.empty();
-                console.log(JSON.stringify(response));
+                //console.log(JSON.stringify(response));
                 for (var i = 0; i < response.length; i++) {
                     var tmpl = document.getElementById("colleague-display-template").content.cloneNode(true);
                     // var othertmpl = document.getElementById("colleague-page-template").content.cloneNode(true);
@@ -74,7 +74,7 @@ function profileCtrl($scope, $http) {
 
                 var ul2 = $("#list-colleagues");
                 ul2.empty();
-                console.log("hihihi: " + JSON.stringify(response));
+                //console.log("hihihi: " + JSON.stringify(response));
                 if (response.length > 0) {
                     for (var i = 0; i < 1; i++) { //change bounds when we can figure out css 
                         var tmpl = document.getElementById("colleague-display-template").content.cloneNode(true);
@@ -91,7 +91,7 @@ function profileCtrl($scope, $http) {
                 }
             },
             error: {
-                //console.log("inside GET error");
+                ////console.log("inside GET error");
             }
         });
 
@@ -104,7 +104,7 @@ function profileCtrl($scope, $http) {
             },
             success: function (response) {
                 var responseAsJSON = angular.fromJson(response);
-                //console.log("statuses: " + JSON.stringify(responseAsJSON));
+                ////console.log("statuses: " + JSON.stringify(responseAsJSON));
 
                 var ul = $("#status-list");
                 ul.empty();
@@ -118,7 +118,7 @@ function profileCtrl($scope, $http) {
                 }
             },
             error: {
-                //console.log("inside GET error");
+                ////console.log("inside GET error");
             }
         });
     });
@@ -154,7 +154,7 @@ function profileCtrl($scope, $http) {
             error: function (response) {
 
                 return false;
-                //console.log("inside GET error");
+                ////console.log("inside GET error");
             }
         });
     });

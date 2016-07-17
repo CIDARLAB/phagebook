@@ -7,7 +7,7 @@ function orderingSettingsController($scope){
         var results = Papa.parse(file, {
                 //header: true,
                 complete: function(companyJSON) {
-                    console.log(JSON.stringify(companyJSON));
+                    //console.log(JSON.stringify(companyJSON));
                     $.ajax({
                         url: "inputCompany",
                         type: "POST",
@@ -33,7 +33,7 @@ function orderingSettingsController($scope){
         var results = Papa.parse(file, {
             //header: true,
             complete: function(productJSON) {
-                console.log(JSON.stringify(productJSON));
+                //console.log(JSON.stringify(productJSON));
                 $.ajax({
                     url: "inputProduct",
                     type: "POST",

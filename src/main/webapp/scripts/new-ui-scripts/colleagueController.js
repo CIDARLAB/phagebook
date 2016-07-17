@@ -1,7 +1,7 @@
 function colleagueCtrl($scope, $http) {
     // var clothoId = getCookie("clothoId"); //this will get the clothoId from the cookie
     var clothoId = getParameterByName("user");
-    console.log(clothoId);
+    //console.log(clothoId);
     $scope.clothoId = clothoId;
     var fileExt = ".jpg";
     var awsPath = "http://s3.amazonaws.com/phagebookaws/" + clothoId + "/profilePicture";
@@ -11,7 +11,7 @@ function colleagueCtrl($scope, $http) {
     angular.element(document).ready(function ($scope) {
 
         $("#add-colleague-btn").click(function () {
-            console.log(this.value);
+            //console.log(this.value);
             $.ajax({
                 type: 'POST',
                 url: '../addColleagueRequest',
@@ -39,7 +39,7 @@ function colleagueCtrl($scope, $http) {
             success: function (response) {
                 var ul = $("#colleagues-full-list");
                 ul.empty();
-                console.log(JSON.stringify(response));
+                //console.log(JSON.stringify(response));
                 for (var i = 0; i < response.length; i++) {
                     var tmpl = document.getElementById("colleague-display-template").content.cloneNode(true);
                     // var othertmpl = document.getElementById("colleague-page-template").content.cloneNode(true);
@@ -53,7 +53,7 @@ function colleagueCtrl($scope, $http) {
                 }
             },
             error: {
-                //console.log("inside GET error");
+                ////console.log("inside GET error");
             }
         });
 
@@ -66,7 +66,7 @@ function colleagueCtrl($scope, $http) {
             },
             success: function (response) {
                 var responseAsJSON = angular.fromJson(response);
-                console.log(JSON.stringify(responseAsJSON));
+                //console.log(JSON.stringify(responseAsJSON));
 
                 var ul = $("#status-list");
                 ul.empty();
@@ -79,7 +79,7 @@ function colleagueCtrl($scope, $http) {
                 }
             },
             error: {
-                //console.log("inside GET error");
+                ////console.log("inside GET error");
             }
         });
         
@@ -115,7 +115,7 @@ function colleagueCtrl($scope, $http) {
 
 $(document).ready(function () {
     var clothoId = getParameterByName("user");
-    console.log("before ajax but inside page onload.`");
+    //console.log("before ajax but inside page onload.`");
     $.ajax({
         type: 'GET',
         url: '../getPersonById',
@@ -124,7 +124,7 @@ $(document).ready(function () {
         },
         success: function (response) {
             var responseAsJSON = angular.fromJson(response);
-            console.log(JSON.stringify(responseAsJSON));
+            //console.log(JSON.stringify(responseAsJSON));
             $("#profile-name").text(responseAsJSON.fullname);
             $("#profile-dept").text(responseAsJSON.department);
             $("#profile-institution").text(responseAsJSON.institution);
@@ -134,7 +134,7 @@ $(document).ready(function () {
             //$scope.statuses = responseAsJSON.statuses;
         },
         error: {
-            //console.log("inside GET error");
+            ////console.log("inside GET error");
         }
     });
 });

@@ -4,7 +4,7 @@ var addProductModule = angular.module('addProductApp', ['clothoRoot', 'ui.bootst
 
 addProductModule.controller('addProductController',function($scope, Clotho, $modal){
     $scope.addCompany = function(){
-        //console.log($scope.CompanyName);
+        ////console.log($scope.CompanyName);
         $.ajax({
             url: "addProducts",
             type: "POST",

@@ -33,7 +33,7 @@ function orderHistoryCtrl($scope){
 }
 
 function generateOrderCard(orderJSON){
-    console.log(orderJSON);
+    //console.log(orderJSON);
     var content = $("#content");
     var template = document.getElementById('order-card-history-template').content.cloneNode(true);
 
@@ -191,7 +191,7 @@ function doCartItemAjax(cartItemId){
 
         },
         error: function (response){
-            console.log("cart item querying failed");
+            //console.log("cart item querying failed");
         }
     });
 

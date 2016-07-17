@@ -293,7 +293,7 @@ angular.module("clotho.tokenizer", []), angular.module("clotho.commandbar", ["cl
             password: ""
         }, a.login = function() {
             c.login(a.cred.username, a.cred.password).then(function(b) {
-                console.log("run login", b), b ? a.notification = {
+                //console.log("run login", b), b ? a.notification = {
                     "class": "alert-success",
                     message: "Log in Success"
                 } : (a.notification = {
@@ -415,7 +415,7 @@ angular.module("clotho.tokenizer", []), angular.module("clotho.commandbar", ["cl
                         a.length && b.addToken(a)
                     })
                 }, b.select = function(a) {
-                    console.log("selecting ", a);
+                    //console.log("selecting ", a);
                     var c = a > -1 ? b.autocompletions[a] : b.query;
                     c && t(b, {
                         $item: c,
@@ -443,7 +443,7 @@ angular.module("clotho.tokenizer", []), angular.module("clotho.commandbar", ["cl
                         } else if (39 === a.which) {
                             if (!angular.isDefined(b.tokenCollection) || !b.tokenCollection.isActive()) return;
                             b.tokenCollection.isLastActive() ? b.tokenCollection.unsetActive() : b.tokenCollection.setNextActive(), b.$digest()
-                        } else 13 === a.which || 9 === a.which ? (console.log("hit enter", b.activeIdx), b.activeIdx >= 0 ? b.$apply(function() {
+                        } else 13 === a.which || 9 === a.which ? (//console.log("hit enter", b.activeIdx), b.activeIdx >= 0 ? b.$apply(function() {
                             b.select(b.activeIdx)
                         }) : (b.query.length && b.$apply(function() {
                             b.select()

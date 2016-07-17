@@ -27,7 +27,7 @@ function tabsController($scope) {
 
 
     var getProject = function(id){
-        console.log("getProject" + id);
+        //console.log("getProject" + id);
         $.ajax({
             url: "getProject",
             type: "POST",
@@ -36,11 +36,11 @@ function tabsController($scope) {
             },
             success: function (response) {
                alert(response);
-                console.log(response);
+                //console.log(response);
                 var object = JSON.parse(response);
-                console.log("object");
-                console.log(object.projectName);
-                console.log(object.description);
+                //console.log("object");
+                //console.log(object.projectName);
+                //console.log(object.description);
                 $scope.$apply(function(){ //necessary to $apply the changes
                     if(object.projectName != undefined){
                         $scope.projectName = object.projectName;
@@ -68,9 +68,9 @@ function tabsController($scope) {
         });
     };
     $scope.getcookie = function(){
-        console.log("Get Project ajax call");
+        //console.log("Get Project ajax call");
         var id = getCookie("projectID");
-        console.log("inget cookie" + id);
+        //console.log("inget cookie" + id);
         if(id != undefined){
             getProject(id);
         }

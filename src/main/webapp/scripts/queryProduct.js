@@ -9,7 +9,7 @@
 
 $("document").ready(function () {
     var productQueryName = getParameterByName("Name");
-    console.log("ready");
+    //console.log("ready");
     $.ajax({
         url: 'queryProductByName',
         type: 'GET',
@@ -75,7 +75,7 @@ function sortProductsFromResponse(response) {
 
 function populateSortedOrderCookies(ids) {
     var idString = ids[0];
-    console.log("populate");
+    //console.log("populate");
 
     for (var i = 1; i < ids.length; i++) {
 
@@ -88,7 +88,7 @@ function populateSortedOrderCookies(ids) {
 
 function selectProducts() {
     var numberOfCheckBoxes = totalNumberOfCheckBoxesWithName('productCheck');
-    console.log("selectProducts");
+    //console.log("selectProducts");
     var OrderIds = []; // create an empty array
     var loadedOrderString = getCookie("LoadedOrders");
     var loadedOrdersOnPage = loadedOrderString.split(',');

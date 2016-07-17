@@ -94,22 +94,22 @@
 //        };
 //    }]);
 
-    console.log('loads!');
-    console.log("loads@222");
+    //console.log('loads!');
+    //console.log("loads@222");
     var testObject = {
         "name": "name_input",
         "labs": ["CIDAR","HYNESS"],
         "description": "project description"
     };
-    console.log(testObject);
+    //console.log(testObject);
     
 
     $("#submitProject").click(function(){
-       console.log("button clicked!!!!");
+       //console.log("button clicked!!!!");
        var name = $("#projectName").val();
        var description = $("#description").val();
-       console.log(name);
-       console.log(description);
+       //console.log(name);
+       //console.log(description);
        
        $.ajax({
             url: "processProject",
@@ -121,7 +121,7 @@
                 "description": description
             },
             success: function (response) {
-                console.log(response);
+                //console.log(response);
             },
             error: function () {
                 alert("ERROR!!");

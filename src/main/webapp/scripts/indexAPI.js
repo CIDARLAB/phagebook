@@ -1,6 +1,6 @@
 angular.module('Index', ['clotho.foundation'])
     .run(function () {
-        console.log('running');
+        //console.log('running');
     });
 
 //we need to manually bootstrap - only one ng-app allowed for each page

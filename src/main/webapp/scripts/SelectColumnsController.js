@@ -2,7 +2,7 @@ var SelectColumnsModule = angular.module('SelectColumnsApp', ['clothoRoot', 'ui.
 
 SelectColumnsModule.controller('SelectColumnsController',function($scope, Clotho, $modal){
     $scope.CreateSelectedColumns = function(){
-        console.log($scope.serialNumber+" :: "+$scope.productName+" :: "+$scope.productId
+        //console.log($scope.serialNumber+" :: "+$scope.productName+" :: "+$scope.productId
                +" :: "+$scope.productUrl+" :: "+$scope.productDescription+" :: "+$scope.quantity
                +" :: "+$scope.companyName+" :: "+$scope.companyId+" :: "+$scope.companyUrl
                +" :: "+$scope.companyDescription+" :: "+$scope.companyContact+" :: "+$scope.companyPhone
