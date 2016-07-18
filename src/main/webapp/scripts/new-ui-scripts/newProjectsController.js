@@ -99,18 +99,24 @@ function newProjectsCtrl($scope, $http) {
                 console.log("lead not null");
                 count += 1;
             } else {
-                console.log("lead null");
-            }
-            var checkMembers = validateMembers();
-            if (checkMembers != null) {
-                console.log("members not null");
-                count += 1;
-            } else {
-                console.log("members null");
+                $scope.leadNameRequired = 'Please select an option.';
             }
 
-            if (count >= 3) {
-                // console.log("All conditions are met.");
+            var checkMembers = validateMembers();
+            var membersList = processMemberSelections();
+            console.log(membersList);
+            if (checkMembers != null) {
+                console.log("members not null");
+                if(membersList !=undefined && membersList.length != 0){
+                    count += 1;
+                }else{
+                    $scope.membersNameRequired = 'Please select an option.';
+                }
+            } else {
+                $scope.membersNameRequired = 'Please select an option.';
+            }
+
+            if (count >= 4) {
                 return true;
             } else {
                 return false;
@@ -195,7 +201,7 @@ function newProjectsCtrl($scope, $http) {
             var dataSubmit = {
                 name: $scope.formData.name,
 
-                leadID: $("#LeadName_Results option:selected").val(),
+                leadID: $("#inputLeadName_Results option:selected").val(),
 
                 members: processMemberSelections(),
                 projectBudget: $scope.formData.projectBudget,
@@ -204,7 +210,7 @@ function newProjectsCtrl($scope, $http) {
                 date: $scope.formData.date,
                 emailID: $scope.personId
             };
-            
+            console.log(dataSubmit);
             // dataSubmit = JSON.stringify(dataSubmit);
             // console.log(dataSubmit);
             // $.ajax({

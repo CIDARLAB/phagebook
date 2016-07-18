@@ -93,7 +93,7 @@
                             <div class="form-group has-feedback col-sm-5">
                                 <div class="right-inner-addon">
                                     <i class="glyphicon glyphicon-search"></i>
-                                    <input name="leadName" class="form-control newProject-input leadForm leadName" id="inputLeadName" ng-model="formData.leadName">                                    
+                                    <input name="leadName" class="form-control newProject-input leadForm leadName" id="inputLeadName" ng-model="formData.leadName">
                                 </div>
                             </div>
                         </div>
@@ -133,7 +133,7 @@
                             <div class="form-group has-feedback col-sm-5">
                                 <div class="right-inner-addon">
                                     <i class="glyphicon glyphicon-search"></i>
-                                    <input name="memberName" class="form-control newProject-input memberForm memberName" id="inputMemberName" placeholder="i.e. John Smith" ng-model="formData.memberName">                                    
+                                    <input name="memberName" class="form-control newProject-input memberForm memberName" id="inputMemberName" placeholder="i.e. John Smith" ng-model="formData.memberName">
                                 </div>
                             </div>
                         </div>
@@ -152,13 +152,17 @@
                                     </option>
                                 </select>
                                 <div class="memberError">
-                                        <span ng-show="membersNameRequired">{{membersNameRequired}}</span>
+                                    <span ng-show="membersNameRequired">{{membersNameRequired}}</span>
                                 </div>
                                 <dl class="dropdown">
                                     <dd class="dd_dropdown">
                                         <div class="multiSelect">
                                             <ul id="membersList">
-                                                <div><span>Selected members will be added to the project:</span></div>
+                                                <div><span>Selected members will be added to the project:</span>
+                                                    <option value="0">
+                                                        Could not find member.
+                                                    </option>
+                                                </div>
                                             </ul>
                                         </div>
                                     </dd>
