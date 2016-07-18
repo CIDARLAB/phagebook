@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.clothocad.phagebook.adaptors.servlets;
 
 import java.io.IOException;
@@ -85,11 +80,7 @@ public class addProductsToOrder extends HttpServlet {
        
         Object pCartItems = request.getParameter("CartItems");
         String cartItems = pCartItems != null ? (String) pCartItems : "";
-
-      
-        
-        
-        
+    
         Object pUser = request.getParameter("loggedInUserId");
         String user = pUser != null ? (String) pUser : "";
         
@@ -134,17 +125,14 @@ public class addProductsToOrder extends HttpServlet {
                 
                 JSONObject obj = (JSONObject) cartItemsJSONArray.get(i);
                 Product product = ClothoAdapter.getProduct(obj.getString("productId"), clothoObject);
-                product.decreaseInventory(obj.getInt("quantity"));
-                
+                product.decreaseInventory(obj.getInt("quantity"));              
                 
                 CartItem item = new CartItem();
                 item.setDateCreated(date);
                 item.setProductId(obj.getString("productId"));
                 item.setDiscount( obj.getDouble("discount"));
                 item.setQuantity(obj.getInt("quantity"));
-                
-                
-                
+
                 ClothoAdapter.createCartItem(item, clothoObject);
                 ClothoAdapter.setProduct(product, clothoObject);
                 
@@ -152,8 +140,7 @@ public class addProductsToOrder extends HttpServlet {
                 
             }
             //now have a CART ITEM OBJECT all with ID's 
-            
-            
+                    
             editableOrder.setProducts(items);
             
             ClothoAdapter.setOrder(editableOrder, clothoObject);
@@ -176,9 +163,7 @@ public class addProductsToOrder extends HttpServlet {
             out.print(responseJSON);
             out.flush();
         }
-        
-        
-        
+       
     }
 
     /**

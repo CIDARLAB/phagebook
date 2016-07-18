@@ -93,10 +93,7 @@
                             <div class="form-group has-feedback col-sm-5">
                                 <div class="right-inner-addon">
                                     <i class="glyphicon glyphicon-search"></i>
-                                    <input name="leadName" class="form-control newProject-input leadForm leadName" id="inputLeadName" placeholder="i.e. John Smith" ng-model="formData.leadName">
-                                    <div class="leadError">
-                                        <span ng-show="leadNameRequired">{{leadNameRequired}}</span>
-                                    </div>
+                                    <input name="leadName" class="form-control newProject-input leadForm leadName" id="inputLeadName" ng-model="formData.leadName">                                    
                                 </div>
                             </div>
                         </div>
@@ -107,7 +104,13 @@
                                     <option value="">
                                         Select...
                                     </option>
+                                    <option value="0">
+                                        Could not find lead.
+                                    </option>
                                 </select>
+                                <div class="leadError">
+                                    <span ng-show="leadNameRequired">{{leadNameRequired}}</span>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -130,10 +133,7 @@
                             <div class="form-group has-feedback col-sm-5">
                                 <div class="right-inner-addon">
                                     <i class="glyphicon glyphicon-search"></i>
-                                    <input name="memberName" class="form-control newProject-input memberForm memberName" id="inputMemberName" placeholder="i.e. John Smith" ng-model="formData.memberName">
-                                    <div class="memberError">
-                                        <span ng-show="membersNameRequired">{{membersRequired}}</span>
-                                    </div>
+                                    <input name="memberName" class="form-control newProject-input memberForm memberName" id="inputMemberName" placeholder="i.e. John Smith" ng-model="formData.memberName">                                    
                                 </div>
                             </div>
                         </div>
@@ -144,7 +144,16 @@
                                     <option value="default">
                                         Select...
                                     </option>
+                                    <option value="0">
+                                        Could not find member.
+                                    </option>
+                                    <option value="123">
+                                        Could not find 123.
+                                    </option>
                                 </select>
+                                <div class="memberError">
+                                        <span ng-show="membersNameRequired">{{membersNameRequired}}</span>
+                                </div>
                                 <dl class="dropdown">
                                     <dd class="dd_dropdown">
                                         <div class="multiSelect">
@@ -158,7 +167,7 @@
                         </div>
                     </form>
                     <div class="col-sm-7">
-                        <button id="create-project-btn" type="submit" ng-click="getMembers()" class="btn btn-default" style="float:right;">Create</button>
+                        <button id="create-project-btn" type="submit" ng-click="saveData()" class="btn btn-default" style="float:right;">Create</button>
                     </div>
                 </div>
             </div>

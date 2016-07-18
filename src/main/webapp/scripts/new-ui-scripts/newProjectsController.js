@@ -9,7 +9,7 @@ To look at search and querying functions go to addMembersToProjects.js file.
  ** HELPERS
  */
 function isInArray(value, array) {
-    // console.log(array.indexOf(value) > -1);
+    console.log(array.indexOf(value) > -1);
     return array.indexOf(value) > -1;
 }
 
@@ -21,92 +21,13 @@ function newProjectsCtrl($scope, $http) {
     $scope.membersIds;
     $scope.personId = getCookie("clothoId"); //retrieves the user id from session storage
 
-    // $.ajax({
-    //     url: "../loadPhagebookInstitutions",
-    //     type: "GET",
-    //     async: false,
-    //     data: {},
-    //     success: function(response) {
-    //         var responseArray = response.institutions; //array of JSONObjects with labs attached 
-    //         console.log(responseArray);
-    //         var selectInstitution = document.getElementById('institution');
-
-
-    //         sessionStorage.setItem("index-institutions", JSON.stringify(responseArray)); // stores in sess stor
-    //         // removeOptions1(selectInstitution);
-
-    //         var opt = document.createElement('option');
-    //         opt.value = "";
-
-    //         opt.innerHTML = "Institution...";
-    //         selectInstitution.appendChild(opt);
-
-    //         var numberOfInstitutions = responseArray.length;
-    //         for (var i = 0; i < numberOfInstitutions; i++) {
-
-
-    //             var opt = document.createElement('option');
-    //             opt.value = responseArray[i].institutionId;
-
-    //             opt.innerHTML = responseArray[i].institutionName;
-    //             selectInstitution.appendChild(opt);
-
-
-    //         }
-
-    //     },
-    //     error: function(response) {
-    //         alert("No Institutions To Load");
-    //     }
-    // });
-
-    // $('#institution').change(function() {
-    //     //this is innefficient... make a servlet to make a call on change instead actually... its easier
-    //     var selectedInstitution = $('#institution option').filter(':selected').text();
-
-    //     var responseArray = JSON.parse(sessionStorage.getItem("index-institutions"));
-
-
-    //     var selectLabs = document.getElementById('lab-name');
-
-
-    //     var numberOfInstitutions = responseArray.length;
-
-
-    //     for (var i = 0; i < numberOfInstitutions; i++) {
-
-    //         if (responseArray[i].institutionName === selectedInstitution) {
-    //             removeOptions(selectLabs);
-    //             var labsArray = responseArray[i].labs;
-    //             var labsLength = labsArray.length;
-    //             for (var j = 0; j < labsLength; j++) {
-    //                 var opt2 = document.createElement('option');
-    //                 opt2.value = labsArray[j].labId;
-    //                 opt2.innerHTML = labsArray[j].labName;
-    //                 selectLabs.appendChild(opt2);
-    //             }
-    //         } else if (selectedInstitution === "Institution...") {
-    //             removeOptions(selectLabs);
-    //             var opt2 = document.createElement('option');
-    //             opt2.value = "";
-    //             opt2.innerHTML = "Lab Name...";
-    //             selectLabs.appendChild(opt2);
-    //             return;
-    //         }
-
-
-    //     }
-    // });
-
-
-    // console.log("loaded");
-
     // form data object -- here are the results from the form are stored
     $scope.formData = {};
 
     /*
-    loops through the list of members and only saves the options that have been selected
-    */
+     ** Loops through the list of members and 
+     ** only saves the options that have been selected.
+     */
     $scope.getMembers = function() {
         var listBox = document.getElementById('membersList');
         var listItem = listBox.getElementsByTagName("li");
@@ -115,7 +36,7 @@ function newProjectsCtrl($scope, $http) {
         for (var i = 0; i < listItem.length; i++) {
             if ($(listItem[i]).find('input').is(':checked')) {
                 var option = $(listItem[i]).find('input');
-                // console.log(option.text());
+                console.log(option.text());
                 var obj = {
                     'memberName': $(listItem[i]).text(),
                     'memberId': option.val()
@@ -123,14 +44,16 @@ function newProjectsCtrl($scope, $http) {
                 membersArr.push(obj);
             }
         }
-        // console.log(membersArr);
+        console.log(membersArr);
     }
 
+    /*
+     ** This function gets called when the user clicks on the submit 
+     ** project button.
+     */
     $scope.saveData = function() {
 
         var createdDate = new Date().toJSON().slice(0, 10);
-        var leadName = [];
-        var membersArray = [];
 
         $scope.formData.date = createdDate;
 
@@ -142,7 +65,7 @@ function newProjectsCtrl($scope, $http) {
         $scope.projectGrantRequired = '';
         $scope.descriptionRequired = '';
         $scope.passwordRequired = '';
-        $scope.membersRequired = '';
+        $scope.membersNameRequired = '';
 
         /** 
          *
@@ -154,10 +77,10 @@ function newProjectsCtrl($scope, $http) {
         var validateForm = function() {
 
             var count = 0;
-            // membersCheck();
+
             // Condition 1: a new project has to have a name.
             if (!$scope.formData.name) {
-                // console.log("No name.");
+                console.log("No name.");
                 $scope.nameRequired = 'Please provide a valid title for your new project.';
             } else {
                 count++;
@@ -165,30 +88,28 @@ function newProjectsCtrl($scope, $http) {
 
             // Condition 2: a new project has to have a description.
             if (!$scope.formData.description) {
-                // console.log("No description.");
-                //console.log($scope.formData.description);
                 $scope.descriptionRequired = 'Please provide a valid description.';
             } else {
                 // console.log($scope.formData.description);
                 count++;
             }
-            // Condition 3: valid input for lead's name: 2 words
-            if (leadNameCheck()) {
-                count++;
+            var checkLead = validateLead();
+            console.log(checkLead);
+            if (validateLead != null) {
+                console.log("lead not null");
+                count += 1;
             } else {
-                $scope.leadNameRequired = "Format invalid. Please enter as 'James Smith'";
+                console.log("lead null");
             }
-            //Condition 4: valid input for members' names: 2 words
-            if (membersCheck()) {
-                // console.log("adding 1!")
-                count++;
+            var checkMembers = validateMembers();
+            if (checkMembers != null) {
+                console.log("members not null");
+                count += 1;
             } else {
-                // console.log("Members names invalid.");
+                console.log("members null");
             }
 
-            // check if lead doesn't have either first OR last name
-
-            if (count >= 4) {
+            if (count >= 3) {
                 // console.log("All conditions are met.");
                 return true;
             } else {
@@ -197,103 +118,119 @@ function newProjectsCtrl($scope, $http) {
 
         }
 
-        // come up with this workaround for the issue with populating a drop down menu
-        // in case if the lead's name in the form doesn't match the lead's name in the drop down
-        // it gets called in the validateForm function above,
-        // if both conditions pass, then we assign the values in the json var to the 
-        // 1st and 0eth value in the name leadName array
-        var leadIDDD;
-        var leadNameCheck = function() {
 
-            var leadFullName = $scope.formData.leadName;
-            // console.log(leadFullName);
-            if (leadFullName != undefined) {
-                var splitName = leadFullName.split(" ");
-                var leadNameSelected = $("#inputLeadName_Results option:selected").text();
-                // console.log(splitName.length);
-                if (splitName.length < 2) {
-                    // console.log("string not long enough");
-                    return false;
+        /*
+         ** Validates the lead search bar and select box.
+         ** If the user does not select lead, prompt to 
+         ** search and select lead. 
+         ** If the user does not find lead, prompt to
+         ** invite lead to Phagebook.
+         ** TODO: add support for inviting po
+         */
+        var validateLead = function() {
+
+            var leadId = null;
+
+            if ($("#inputLeadName_Results option:selected").val() != "") {
+                leadId = $("#inputLeadName_Results option:selected").val();
+                // if (leadId == 0) {
+                //     // what should be return value?
+                //     alert("No lead is in there!");
+                // }
+            } else {
+                $scope.leadNameRequired = 'Please select an option.';
+            }
+            console.log(leadId);
+            return leadId;
+        }
+        validateLead();
+
+        /*
+         ** Validates the members options and select box.
+         */
+        var validateMembers = function() {
+
+            var memberVal = null;
+
+            if ($("#inputMemberName_Results option:selected").val() != "") {
+                if ($("#inputMemberName_Results option:selected").val().localeCompare("default") == 0) {
+                    $scope.membersNameRequired = 'Please select an option.';
+                } else {
+                    memberVal = $("#inputMemberName_Results option:selected").val();
                 }
-                // why does the name in the search box have to match the name selected?
-                if (leadFullName != leadNameSelected) {
-                    // console.log("oopsies!");
-                    $("#inputLeadName_Results option:selected").val(0);
-                    leadIDDD = 123;
+            } else {
+                $scope.membersNameRequired = 'Please select an option.';
+            }
+            console.log(memberVal);
+            return memberVal;
+        }
+
+        /*
+         ** Loops over the list of input selections and and returns an array of 
+         ** selected members' ids. If none selected displays a reminder to make
+         ** selections.
+         */
+        var processMemberSelections = function() {
+            var selectedMembers = []
+            var listItems = $("#membersList li");
+            listItems.each(function(idx, li) {
+                var input = $(li).children('input').eq(0);
+
+                if (input.is(':checked')) {
+                    var memberId = input.val();
+                    selectedMembers.push(memberId);
                 }
-                leadName = splitName;
-                return true;
+            });
+            if (selectedMembers.length == 0) {
+                $scope.membersNameRequired = 'Please select an option.';
+            } else {
+                return selectedMembers;
             }
         }
 
         var submit = validateForm();
-        // console.log(submit);
-
-        var getLead = function() {
-
-            if ($("#lead_Results option:selected").val() != undefined) {
-                console.log("HACKING THIS");
-                leadIDDD = $("#lead_Results option:selected").val();
-            }
-            return leadIDDD;
-        }
-
-        // !!!! create a check that pr budget is an int !!!!!!
-        // console.log(membersArray);
-
-        if ($("#lab_selectDiv option:selected").text() == "Lab Name..." || $("#lab_selectDiv option:selected").val() == "Lab Name...") {
-            // console.log("setting stuff to null!!!");
-            $("#lab_selectDiv option:selected").text("");
-            $("#lab_selectDiv option:selected").val("");
-        }
-
-        var dataSubmit = {
-            name: $scope.formData.name,
-
-            // get id and name of lead from dropdown
-            leadName: $("#lead_Results option:selected").text(),
-            leadID: getLead(),
-
-            members: $scope.formData.members,
-
-            lab: $("#lab_selectDiv option:selected").text(),
-            labID: $("#lab_selectDiv option:selected").val(),
-
-            projectBudget: $scope.formData.projectBudget,
-            grant: $scope.formData.grant,
-            description: $scope.formData.description,
-            date: $scope.formData.date,
-            emailID: $scope.personId
-        };
-
         if (submit) {
-            // checkData(dataSubmit);
-            //dataSubmit = JSON.stringify(dataSubmit);
+
+            // The form has been validated -- ok to get values.  
+            var dataSubmit = {
+                name: $scope.formData.name,
+
+                leadID: $("#LeadName_Results option:selected").val(),
+
+                members: processMemberSelections(),
+                projectBudget: $scope.formData.projectBudget,
+                grant: $scope.formData.grant,
+                description: $scope.formData.description,
+                date: $scope.formData.date,
+                emailID: $scope.personId
+            };
+            
+            // dataSubmit = JSON.stringify(dataSubmit);
             // console.log(dataSubmit);
-            $.ajax({
-                url: "/processProject",
-                type: "POST",
-                dataType: "json",
-                async: false,
-                data: dataSubmit,
-                success: function(response) {
+            // $.ajax({
+            //     url: "/createNewProject",
+            //     type: "POST",
+            //     dataType: "json",
+            //     async: false,
+            //     data: dataSubmit,
+            //     success: function(response) {
 
-                    // console.log(dataSubmit);
-                    // console.log(response);
-                    // console.log("response!!!");
-                    setCookie("projectId", response.projectId, 10);
-                    // console.log(document.cookie);
-                    alert("A new project has been created!");
-                    //location.assign("./html/displayProjects.html");
+            //         // console.log(dataSubmit);
+            //         // console.log(response);
+            //         // console.log("response!!!");
+            //         setCookie("projectId", response.projectId, 10);
+            //         // console.log(document.cookie);
+            //         alert("A new project has been created!");
+            //         //location.assign("./html/displayProjects.html");
 
-                },
-                error: function(err) {
+            //     },
+            //     error: function(err) {
 
-                    console.log("Error!");
-                    console.log(err);
+            //         console.log("Error!");
+            //         console.log(err);
 
-                }
-            });
+            //     }
+            // });
         }
     };
 

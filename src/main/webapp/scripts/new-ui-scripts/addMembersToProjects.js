@@ -1,7 +1,8 @@
 /*
 Author: Anna Goncharova
 CIDAR Lab, Boston University
-This file is responsible for looking up Phagebook's members to be added to the project.
+Query Phagebook backend for people to be added to the project. 
+Lead and members forms
 */
 
 
@@ -11,27 +12,22 @@ function loadSelectElementOptions() {
         select = document.getElementById('lab-name');
 
     for (var i = min; i <= max; i++) {
-        
 
         var opt = document.createElement('option');
         opt.value = i;
         opt.innerHTML = i;
         opt.type = "checkbox";
-        // console.log(opt);
         select.appendChild(opt);
     }
 }
 
 var removeOptions = function(selectbox) {
     var i;
-    // console.log("IN REMOVE OPTIONS");
-    // console.log(selectbox);
     for (i = selectbox.options.length; i >= 0; i--) {
-        // console.log(selectbox);
-        // console.log("about to remove a box");
-        // console.log(selectbox.i);
-        // console.log(selectbox);
-        selectbox.remove(i);
+        if(! ($( selectbox[i] ).val() == 0 )){
+            selectbox.remove(i);  
+        };
+             
     }
 }
 
@@ -40,7 +36,7 @@ $(document).ready(function() {
     var timerVal;
     var firstName = "";
     var lastName = "";
-    
+
     var keyPressHandler = function() {
         // console.log("IN ADD MEMBERS TO PROJECTS");
         clearTimeout(timerVal); // stops previous attempt
@@ -54,7 +50,7 @@ $(document).ready(function() {
     var doAjax = function(id) {
         // console.log(id);
 
-        var fullName = $("#"+id).val();
+        var fullName = $("#" + id).val();
         // console.log(fullName);
         firstName = fullName;
         if (fullName.indexOf(' ') >= 0) {
@@ -68,8 +64,6 @@ $(document).ready(function() {
             "lastName": lastName
         }
 
-        // console.log(data);
-
         var isValid = 0;
         if (firstName !== '' || lastName !== '') {
             isValid = 1;
@@ -78,7 +72,6 @@ $(document).ready(function() {
         if (isValid) {
             // console.log("about to send ajax req");
             $.ajax({
-                //do this for projects...
                 url: "../findMemberForNewProject",
                 type: "GET",
                 async: false,
@@ -92,10 +85,8 @@ $(document).ready(function() {
                         for (var i = 0; i < response.length; i++) {
                             // loop through the response to create the array of people
                             var opt = document.createElement('option');
-                            // console.log(response[i].fullname);
                             opt.value = response[i].clothoId;
-                            opt.innerHTML = response[i].fullname;
-                            // console.log(opt);
+                            opt.innerHTML = response[i].fullname + " - " + response[i].institution;
                             select.appendChild(opt);
                         }
                     }
@@ -106,7 +97,6 @@ $(document).ready(function() {
             });
         }
     }
-
 
     // add handlers for keypresses in inputs for member and lead forms
     $("#inputLeadName").keypress(keyPressHandler);

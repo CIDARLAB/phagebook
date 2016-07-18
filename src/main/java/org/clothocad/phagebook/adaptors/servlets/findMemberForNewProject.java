@@ -100,10 +100,11 @@ public class findMemberForNewProject extends HttpServlet {
                 JSONObject retrievedAsJSON = new JSONObject();
                 retrievedAsJSON.put("fullname", retrieve.getFirstName() + " " + retrieve.getLastName());
                 //get position? role?? we will look into this
-                retrievedAsJSON.put("firstName", retrieve.getFirstName());
+                retrievedAsJSON.put("firstName", retrieve.getFirstName());                
                 retrievedAsJSON.put("lastName", retrieve.getLastName());
                 retrievedAsJSON.put("email", retrieve.getEmailId());
                 retrievedAsJSON.put("clothoId", retrieve.getId());
+                retrievedAsJSON.put("institution", retrieve.getInstitution());
                 System.out.println(retrieve.getFirstName());
                 System.out.println(retrieve.getLastName());
                 peopleJSONArray.put(retrievedAsJSON);

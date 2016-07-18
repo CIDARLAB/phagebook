@@ -37,7 +37,7 @@ import sun.misc.IOUtils;
  *
  * @author anna_g
  */
-public class processProject extends HttpServlet {
+public class CreateNewProject extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

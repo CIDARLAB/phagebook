@@ -88,8 +88,6 @@ public class addMemberToProject extends HttpServlet {
       System.out.println("***");      
       ClothoAdapter.setProject(project, clothoObject);
       
-
-      
       clothoObject.logout();
       // add member to project
       Person member = ClothoAdapter.getPerson(memberId, clothoObject);
