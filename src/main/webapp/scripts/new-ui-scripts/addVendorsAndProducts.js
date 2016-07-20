@@ -50,7 +50,7 @@ $(document).ready(function () {
                 alert(JSON.stringify(results.data));
                 $.ajax({
                     //do this for projects...
-                    url: "uploadVendorCSV",
+                    url: "../uploadVendorCSV",
                     type: "POST",
                     async: false,
                     data: {
@@ -80,7 +80,7 @@ $(document).ready(function () {
                 //var objRes = JSON.stringify(results.data);
                 $.ajax({
                     //do this for projects...
-                    url: "uploadProductCSV",
+                    url: "../uploadProductCSV",
                     type: "POST",
                     async: false,
                     data: {
@@ -116,7 +116,7 @@ $(document).ready(function () {
         if (isValid) {
             $.ajax({
                 //do this for projects...
-                url: "autoCompleteVendors",
+                url: "../autoCompleteVendors",
                 type: "GET",
                 async: false,
                 data: {
@@ -149,7 +149,7 @@ $(document).ready(function () {
 function createVendorAjax(name, description, contact, phone, url) {
     $.ajax({
         //do this for projects...
-        url: "createVendor",
+        url: "../createVendor",
         type: "POST",
         async: false,
         data: {
@@ -172,7 +172,7 @@ function createVendorAjax(name, description, contact, phone, url) {
 function createProductAjax(productUrl, company, goodType, cost, quantity, name, description) {
     $.ajax({
         //do this for projects...
-        url: "createProduct",
+        url: "../createProduct",
         type: "POST",
         async: false,
         data: {

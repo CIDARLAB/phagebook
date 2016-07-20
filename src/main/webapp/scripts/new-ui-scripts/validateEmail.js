@@ -12,7 +12,7 @@ $(document).ready(function() {
         if (isValid)
         {
             $.ajax({
-                    url: "loginUser",
+                    url: "../loginUser",
                     type: "POST",
                     async: false,
                     data: {
@@ -56,7 +56,7 @@ function verifyEmail(){
         
         if (emailId && salt){
             $.ajax({
-                url: 'verifyEmail',
+                url: '../verifyEmail',
                 type: 'POST',
                 async: false,
                 data: {

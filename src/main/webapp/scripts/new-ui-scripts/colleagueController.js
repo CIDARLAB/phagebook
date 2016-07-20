@@ -14,7 +14,7 @@ function colleagueCtrl($scope, $http) {
             console.log(this.value);
             $.ajax({
                 type: 'POST',
-                url: 'addColleagueRequest',
+                url: '../addColleagueRequest',
                 data: {
                     "colleagueClothoId": this.value,
                     "loggedInClothoId": getCookie("clothoId")
@@ -31,7 +31,7 @@ function colleagueCtrl($scope, $http) {
 
         $.ajax({
             type: 'GET',
-            url: 'loadColleagues',
+            url: '../loadColleagues',
             async: false,
             data: {
                 "userId": clothoId
@@ -59,7 +59,7 @@ function colleagueCtrl($scope, $http) {
 
         $.ajax({
             type: 'GET',
-            url: 'loadUserStatuses',
+            url: '../loadUserStatuses',
             async: false,
             data: {
                 "clothoId": clothoId
@@ -86,7 +86,7 @@ function colleagueCtrl($scope, $http) {
             $("#load-more-pub-btn").click(function () {
                 $.ajax({
                     type: 'GET',
-                    url: 'loadPublications',
+                    url: '../loadPublications',
                     async: false,
                     data: {
                         "clothoId": clothoId
@@ -118,7 +118,7 @@ $(document).ready(function () {
     console.log("before ajax but inside page onload.`");
     $.ajax({
         type: 'GET',
-        url: 'getPersonById',
+        url: '../getPersonById',
         data: {
             "userId": clothoId
         },

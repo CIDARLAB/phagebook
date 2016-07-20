@@ -10,7 +10,7 @@ function documentReady() {
 
     $.ajax({
         //do this for projects...
-        url: "loadPhagebookInstitutions",
+        url: "../loadPhagebookInstitutions",
         type: "GET",
         async: false,
         data: {
@@ -99,7 +99,7 @@ function documentReady() {
         var institutionId = $("#create-lab-institution").val();
         $.ajax({
             //do this for projects...
-            url: "createLab",
+            url: "../createLab",
             type: "POST",
             async: false,
             data: {
@@ -116,7 +116,7 @@ function documentReady() {
                 $("#success-lab-alert").fadeIn();
                 $.ajax({
                     //do this for projects...
-                    url: "loadPhagebookInstitutions",
+                    url: "../loadPhagebookInstitutions",
                     type: "GET",
                     async: false,
                     data: {
@@ -152,7 +152,7 @@ function doLabAjaxCall(labId) {
     $.ajax({
         //do this for projects...
 
-        url: "listPIsOfLab",
+        url: "../listPIsOfLab",
         type: "GET",
         async: false,
         data: {
@@ -207,7 +207,7 @@ function searchBtnHandler() {
 
 
     $.ajax({
-        url: 'queryFirstLastName',
+        url: '../queryFirstLastName',
         type: 'GET',
         async: false,
         data: {
@@ -258,7 +258,7 @@ function goBtnHandler() {
     $.ajax({
         //do this for projects...
 
-        url: "listPIsOfLab",
+        url: "../listPIsOfLab",
         type: "GET",
         async: false,
         data: {
@@ -321,7 +321,7 @@ function removePIBtnHandler() {
             $.ajax({
                 //do this for projects...
 
-                url: "removePIFromLab",
+                url: "../removePIFromLab",
                 type: "POST",
                 async: false,
                 data: {
@@ -369,7 +369,7 @@ function addPIBtnHandler() {
             $.ajax({
                 //do this for projects...
 
-                url: "addPIToLab",
+                url: "../addPIToLab",
                 type: "POST",
                 async: false,
                 data: {

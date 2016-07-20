@@ -10,7 +10,7 @@ function settingsCtrl($scope, $http){
     console.log("this is the settings controller");
         $http({
             method: 'GET',
-            url: 'getPersonById',
+            url: '../getPersonById',
             params: {
                 "userId": clothoId
             }
@@ -47,7 +47,7 @@ function settingsCtrl($scope, $http){
             if (save) {
                 $http({
                     method: 'POST',
-                    url: 'getPersonById',
+                    url: '../getPersonById',
                     params: {
                         "clothoId": clothoId,
                         //"institution": $scope.newInst,

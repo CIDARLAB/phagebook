@@ -133,7 +133,7 @@ function doCartItemAjax(cartItemId){
 
     $.ajax({
         //do this for projects...
-        url: "parseCartItem",
+        url: "../parseCartItem",
         type: "GET",
         async: false,
         data: {

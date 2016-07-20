@@ -37,7 +37,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class ProjectController {
 
-    @RequestMapping(value = "getAllProjectsGet", method = RequestMethod.GET)
+    @RequestMapping(value = "getAllProjects", method = RequestMethod.GET)
     protected void getAllProjectsGet(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -186,7 +186,7 @@ public class ProjectController {
 
     }
 
-    @RequestMapping(value = "getAllProjectsPost", method = RequestMethod.POST)
+    @RequestMapping(value = "getAllProjects", method = RequestMethod.POST)
     protected void getAllProjectsPost(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");

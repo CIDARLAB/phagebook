@@ -10,7 +10,7 @@ function saveProfilePicture() {
 
         $.ajax({
             type: 'POST',
-            url: "uploadProfilePicture",
+            url: "../uploadProfilePicture",
             data: formData,
             cache: false,
             contentType: false,

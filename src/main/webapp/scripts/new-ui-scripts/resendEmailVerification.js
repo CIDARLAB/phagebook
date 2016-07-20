@@ -3,7 +3,7 @@ $(document).ready(function() {
        $("#resendVerification").click( function() {
         
         $.ajax({
-                    url: "resendVerification",
+                    url: "../resendVerification",
                     type: "GET",
                     async: false,
                     data: {

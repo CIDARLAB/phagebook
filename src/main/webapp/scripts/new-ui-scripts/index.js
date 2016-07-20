@@ -32,7 +32,7 @@ $(document).ready(function () {
     });
 
     $.ajax({
-        url: "loadPhagebookInstitutions",
+        url: "../loadPhagebookInstitutions",
         type: "GET",
         async: false,
         data: {},
@@ -89,7 +89,7 @@ $(document).ready(function () {
 
         if (isValid && checkPasswordMatch()) {
             $.ajax({
-                url: "createPerson",
+                url: "../createPerson",
                 type: "POST",
                 async: false,
                 data: {
@@ -128,7 +128,7 @@ $(document).ready(function () {
 
         if (isValid) {
             $.ajax({
-                url: "loginUser",
+                url: "../loginUser",
                 type: "POST",
                 async: false,
                 data: {

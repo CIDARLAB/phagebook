@@ -49,7 +49,7 @@ $(document).ready(function() {
         ul.empty();
         $.ajax({
             type: 'GET',
-            url: 'getAllProjectUpdates',
+            url: '../getAllProjectUpdates',
             data: {
                 "projectId": id
             },
@@ -114,7 +114,7 @@ $(document).ready(function() {
 
     $.ajax({
         //do this for projects...
-        url: "getProject",
+        url: "../getProject",
         type: "POST",
         async: false,
         data: {
@@ -184,7 +184,7 @@ $(document).ready(function() {
         }
         console.log(data);
         $.ajax({
-            url: "/editProject",
+            url: "../editProject",
             type: "POST",
             dataType: "json",
             data: data,
@@ -239,7 +239,7 @@ $(document).ready(function() {
         };
         console.log(data);
         $.ajax({
-            url: "/addUpdateToProject",
+            url: "../addUpdateToProject",
             type: "POST",
             dataType: "json",
             data: data,
@@ -263,7 +263,7 @@ function searchBtnHandler() {
 
 
     $.ajax({
-        url: 'queryFirstLastName',
+        url: '../queryFirstLastName',
         type: 'GET',
         async: false,
         data: {
@@ -312,7 +312,7 @@ var submitMemberButtonHandler = function() {
             // $.ajax({
             //     //do this for projects...
 
-            //     url: "addPIToLab",
+            //     url: "../addPIToLab",
             //     type: "POST",
             //     async: false,
             //     data: {

@@ -5,7 +5,7 @@ $(document).ready(function () {
         //alert(PMID);
 
         $.ajax({
-            url: "addPubMed",
+            url: "../addPubMed",
             type: "POST",
             async: false,
             data: {
@@ -26,7 +26,7 @@ $(document).ready(function () {
         var DOI = $("#doi-input").val();
         var createdBy = getCookie("clothoId");
         $.ajax({
-            url: "addCrossRef",
+            url: "../addCrossRef",
             type: "POST",
             async: false,
             data: {
@@ -50,7 +50,7 @@ $(document).ready(function () {
         var info = $("#pub-info").val();
         var createdBy = getCookie("clothoId");
         $.ajax({
-            url: "addCustom",
+            url: "../addCustom",
             type: "POST",
             async: false,
             data: {

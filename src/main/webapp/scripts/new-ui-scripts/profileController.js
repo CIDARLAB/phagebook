@@ -10,7 +10,7 @@ function profileCtrl($scope, $http) {
         //alert("Create New Status Button click" + $("#statusUpdateTextarea")[0].value);
         $http({
             method: 'POST',
-            url: 'createStatus',
+            url: '../createStatus',
             params: {
                 "clothoId": clothoId,
                 "status": $("#statusUpdateTextarea")[0].value
@@ -29,7 +29,7 @@ function profileCtrl($scope, $http) {
         console.log("before ajax but inside page onload.`");
         $.ajax({
             type: 'GET',
-            url: 'getPersonById',
+            url: '../../getPersonById',
             async: false,
             data: {
                 "userId": clothoId
@@ -51,7 +51,7 @@ function profileCtrl($scope, $http) {
 
         $.ajax({
             type: 'GET',
-            url: 'loadColleagues',
+            url: '../loadColleagues',
             async: false,
             data: {
                 "userId": clothoId
@@ -97,7 +97,7 @@ function profileCtrl($scope, $http) {
 
         $.ajax({
             type: 'GET',
-            url: 'loadUserStatuses',
+            url: '../loadUserStatuses',
             async: false,
             data: {
                 "clothoId": clothoId
@@ -127,7 +127,7 @@ function profileCtrl($scope, $http) {
         var firstName = $("#search-first-name").val();
         var lastName = $("#search-last-name").val();
         $.ajax({
-            url: 'queryFirstLastName',
+            url: '../queryFirstLastName',
             type: 'GET',
             async: false,
             data: {
@@ -161,7 +161,7 @@ function profileCtrl($scope, $http) {
     $("#load-more-pub-btn").click(function () {
         $.ajax({
             type: 'GET',
-            url: 'loadPublications',
+            url: '../loadPublications',
             async: false,
             data: {
                 "clothoId": clothoId

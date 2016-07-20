@@ -131,7 +131,7 @@ $(document).ready(function() {
 
     $.ajax({
         //do this for projects...
-        url: "listCreatedOrdersOfPerson",
+        url: "../listCreatedOrdersOfPerson",
         type: "GET",
         async: false,
         data: {
@@ -193,7 +193,7 @@ $(document).ready(function() {
 
         $.ajax({
             //do this for projects...
-            url: "removeProductsFromOrder",
+            url: "../removeProductsFromOrder",
             type: "POST",
             async: false,
             data: {
@@ -250,7 +250,7 @@ $(document).ready(function() {
 
 
         $.ajax({
-            url: 'addProductsToOrder',
+            url: '../addProductsToOrder',
             type: 'POST',
             dataType: 'JSON',
             async: false,
@@ -290,7 +290,7 @@ function deleteButtonHandler(event){
     if (confirm("Are you sure you want to delete this order?")) {
 
         $.ajax({
-            url: 'deleteOrder',
+            url: '../deleteOrder',
             type: 'POST',
             dataType: 'JSON',
             async: false,
@@ -319,7 +319,7 @@ function submitButtonHandler(){
 
 
     $.ajax({
-        url: 'submitOrderToPIs',
+        url: '../submitOrderToPIs',
         type: 'POST',
         dataType: 'JSON',
         async: false,
@@ -343,7 +343,7 @@ function exportCSVHandler(){
     var orderId = this.value;
     
     $.ajax({
-        url: "exportOrderCSV",
+        url: "../exportOrderCSV",
         type: "GET",
         async: false,
         data: {

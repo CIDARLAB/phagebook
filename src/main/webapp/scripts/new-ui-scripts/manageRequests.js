@@ -8,7 +8,7 @@ function documentReady(){
     $.ajax({
         //do this for projects...
 
-        url: "listSubmittedOrdersOfPerson",
+        url: "../listSubmittedOrdersOfPerson",
         type: "GET",
         async: false,
         data: {
@@ -34,7 +34,7 @@ function documentReady(){
     $.ajax({
         //do this for projects...
 
-        url: "listColleagueRequests",
+        url: "../listColleagueRequests",
         type: "GET",
         async: false,
         data: {
@@ -191,7 +191,7 @@ function doCartItemAjax(cartItemId){
 
     $.ajax({
         //do this for projects...
-        url: "parseCartItem",
+        url: "../parseCartItem",
         type: "GET",
         async: false,
         data: {
@@ -229,7 +229,7 @@ function approveOrderBtnHandler(){
 
     $.ajax({
         //do this for projects...
-        url: "approveOrder",
+        url: "../approveOrder",
         type: "POST",
         async: false,
         data: {
@@ -255,7 +255,7 @@ function declineOrderBtnHandler(){
 
         $.ajax({
             //do this for projects...
-            url: "denyOrder",
+            url: "../denyOrder",
             type: "POST",
             async: false,
             data: {
@@ -285,7 +285,7 @@ function approveColleagueBtnHandler(){
     //alert(this.value);
     $.ajax({
         //do this for projects...
-        url: "approveColleagueRequest",
+        url: "../approveColleagueRequest",
         type: "POST",
         async: false,
         data: {
@@ -306,7 +306,7 @@ function declineColleagueBtnHandler(){
     if (confirm("Really deny this request?")){
         $.ajax({
             //do this for projects...
-            url: "denyColleagueRequest",
+            url: "../denyColleagueRequest",
             type: "POST",
             async: false,
             data: {

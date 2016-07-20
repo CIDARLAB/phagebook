@@ -19,7 +19,7 @@ $(document).ready(function() {
         if (isValid){
             $.ajax({
                //do this for projects...
-               url: "autoCompleteProjects",
+               url: "../autoCompleteProjects",
                type: "GET",
                async: false,
                data: {
@@ -47,7 +47,7 @@ $(document).ready(function() {
 
     $.ajax({
         //do this for projects...
-        url: "loadPhagebookInstitutions",
+        url: "../loadPhagebookInstitutions",
         type: "GET",
         async: false,
         data: {
@@ -116,7 +116,7 @@ $(document).ready(function() {
 
 function doAjaxCallToCreateOrder(name, createdBy, labId, associatedProjectId, budget, orderLimit, taxRate) {
     $.ajax({
-            url: "newOrder",
+            url: "../newOrder",
             type: "POST",
             async: false,
             data: {
