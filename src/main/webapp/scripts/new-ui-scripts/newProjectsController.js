@@ -190,7 +190,7 @@ function newProjectsCtrl($scope, $http) {
             if (selectedMembers.length == 0) {
                 $scope.membersNameRequired = 'Please select an option.';
             } else {
-                return selectedMembers;
+                return selectedMembers.toString();
             }
         }
 
@@ -211,8 +211,8 @@ function newProjectsCtrl($scope, $http) {
                 emailID: $scope.personId
             };
             console.log(dataSubmit);
-            dataSubmit = JSON.stringify(dataSubmit);
-            console.log(dataSubmit);
+            // dataSubmit = JSON.stringify(dataSubmit);
+            // console.log(dataSubmit);
             $.ajax({
                 url: "../processProject",
                 type: "POST",
