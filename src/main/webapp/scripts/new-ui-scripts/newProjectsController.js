@@ -95,7 +95,7 @@ function newProjectsCtrl($scope, $http) {
             }
             var checkLead = validateLead();
             console.log(checkLead);
-            if (validateLead != null) {
+            if (checkLead != null) {
                 console.log("lead not null");
                 count += 1;
             } else {
@@ -213,30 +213,30 @@ function newProjectsCtrl($scope, $http) {
             console.log(dataSubmit);
             // dataSubmit = JSON.stringify(dataSubmit);
             // console.log(dataSubmit);
-            // $.ajax({
-            //     url: "/createNewProject",
-            //     type: "POST",
-            //     dataType: "json",
-            //     async: false,
-            //     data: dataSubmit,
-            //     success: function(response) {
+            $.ajax({
+                url: "../processProject",
+                type: "POST",
+                dataType: "json",
+                async: true,
+                data: dataSubmit,
+                success: function(response) {
 
-            //         // console.log(dataSubmit);
-            //         // console.log(response);
-            //         // console.log("response!!!");
-            //         setCookie("projectId", response.projectId, 10);
-            //         // console.log(document.cookie);
-            //         alert("A new project has been created!");
-            //         //location.assign("./html/displayProjects.html");
+                    console.log(dataSubmit);
+                    // console.log(response);
+                    // console.log("response!!!");
+                    setCookie("projectId", response.projectId, 10);
+                    // console.log(document.cookie);
+                    alert("A new project has been created!");
+                    //location.assign("./html/displayProjects.html");
 
-            //     },
-            //     error: function(err) {
+                },
+                error: function(err) {
+                    console.log(dataSubmit);
+                    console.log("Error!");
+                    console.log(err);
 
-            //         console.log("Error!");
-            //         console.log(err);
-
-            //     }
-            // });
+                }
+            });
         }
     };
 
