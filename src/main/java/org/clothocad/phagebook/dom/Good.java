@@ -12,7 +12,7 @@ import lombok.Setter;
  *
  * @author prash,innaturshudzhyan
  */
-public abstract class Good {
+public abstract class Good implements ClothoBaseObject{
     @Getter @Setter protected String name;
     @Getter @Setter protected String description;
     @Getter @Setter protected String id;

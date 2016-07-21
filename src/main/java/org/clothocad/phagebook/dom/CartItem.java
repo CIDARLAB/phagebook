@@ -6,15 +6,13 @@
 package org.clothocad.phagebook.dom;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
 /**
  *
  * @author Herb
  */
-public class CartItem {
+public class CartItem implements ClothoBaseObject {
     @Getter @Setter private Double discount; //ID of a PRODUCT
     @Getter @Setter private String id;
     @Getter @Setter private Date dateCreated;
@@ -23,12 +21,21 @@ public class CartItem {
     
     public CartItem()
     {
-    
         this.id = "Not Set"; 
         this.productId = "Not Set";
         this.dateCreated = new Date();
         this.discount = 1d;
         this.quantity = 0;
+    }
+
+    @Override
+    public String schemaForObject(Object self){
+        return CartItem.class.getCanonicalName();
+    }
+
+    @Override
+    public String idForObject() {
+        return this.id;
     }
     
 }

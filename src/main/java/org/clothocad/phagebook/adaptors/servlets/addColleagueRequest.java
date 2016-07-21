@@ -95,7 +95,7 @@ public class addColleagueRequest extends HttpServlet {
             if (!requestId.equals(userId)) {
                 if (!receivesRequest.getId().equals("") && !userId.equals("")) {
                     if (!receivesRequest.getColleagues().contains(userId) && !receivesRequest.getColleagueRequests().contains(userId)) {
-
+                        
                         receivesRequest.addColleagueRequest(userId);
                     }
 

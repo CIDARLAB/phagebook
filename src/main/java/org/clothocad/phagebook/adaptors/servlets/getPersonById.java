@@ -1,33 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.clothocad.phagebook.adaptors.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import static javax.xml.bind.JAXBIntrospector.getValue;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.model.Person;
-import org.clothocad.model.Person.PersonRole;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Institution;
 import org.clothocad.phagebook.dom.Publication;
 import org.clothocad.phagebook.dom.Status;
 import org.json.JSONObject;
-import static org.json.JSONObject.NULL;
 
 /**
  *
@@ -80,12 +69,13 @@ public class getPersonById extends HttpServlet {
             createUserMap.put("username", username);
             createUserMap.put("password", "password");
             clothoObject.createUser(createUserMap);
+            clothoObject.logout();
             Map loginMap = new HashMap();
             loginMap.put("username", username);
             loginMap.put("credentials", "password");
             clothoObject.login(loginMap);
             //
-
+            System.out.println("Simon says :: Login Complete");
             Person retrieve = ClothoAdapter.getPerson(userId, clothoObject);
             Institution institute = ClothoAdapter.getInstitution(retrieve.getInstitution(), clothoObject);
             JSONObject retrievedAsJSON = new JSONObject();
@@ -101,8 +91,9 @@ public class getPersonById extends HttpServlet {
             retrievedAsJSON.put("email", retrieve.getEmailId());
             retrievedAsJSON.put("profileDescription", retrieve.getProfileDescription());
             retrievedAsJSON.put("statuses", retrieve.getStatuses());
+            retrievedAsJSON.put("listColleagueRequests", retrieve.getColleagueRequests());
             String labId = retrieve.getLabs().size() > 0 ? retrieve.getLabs().get(0) : "0";
-
+         
             retrievedAsJSON.put("lab", ClothoAdapter.getLab(labId, clothoObject));
             System.out.println("this is our JSON obj");
             System.out.println(retrievedAsJSON);

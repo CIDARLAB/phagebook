@@ -909,7 +909,7 @@ h3 {
     position: absolute;
     float: left;
     height: 180px;
-    clip-path: circle(60px at center);
+    width: 180px;
 }
 
 #publications li {
@@ -1249,4 +1249,9 @@ td {
 
 .vendor-property-data td {
     padding: 0px 0px 0px 0px;
+}
+
+.badge-notify{
+   background:red;
+   position:relative;
 }

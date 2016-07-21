@@ -16,35 +16,67 @@ import lombok.Setter;
  *
  * @author KatieLewis
  */
-public class Grant {
-    @Getter @Setter private String         name;
-    @Getter @Setter private String         leadPI;
-    @Getter @Setter private List<String>   coPIs;
-    @Getter @Setter private String         programManagerId;
-    @Getter @Setter private Date           startDate;
-    @Getter @Setter private Date           endDate;
-    @Getter @Setter private Double         budget;
-    @Getter @Setter private Double         amountSpent;
-    @Getter @Setter private List<String>   projects;
-    @Getter @Setter private String         description;
-    @Getter @Setter private String         id;
-    
-    public Grant(String name){
-        this.name = name;    
+public class Grant implements ClothoBaseObject {
+
+    @Getter
+    @Setter
+    private String name;
+    @Getter
+    @Setter
+    private String leadPI;
+    @Getter
+    @Setter
+    private List<String> coPIs;
+    @Getter
+    @Setter
+    private String programManagerId;
+    @Getter
+    @Setter
+    private Date startDate;
+    @Getter
+    @Setter
+    private Date endDate;
+    @Getter
+    @Setter
+    private Double budget;
+    @Getter
+    @Setter
+    private Double amountSpent;
+    @Getter
+    @Setter
+    private List<String> projects;
+    @Getter
+    @Setter
+    private String description;
+    @Getter
+    @Setter
+    private String id;
+
+    public Grant(String name) {
+        this.name = name;
     }
-    
-    public Grant()
-    {
-        this.name             = "Not Set";
-        this.leadPI           = "Not Set";
-        this.coPIs            = new ArrayList<>();
+
+    public Grant() {
+        this.name = "Not Set";
+        this.leadPI = "Not Set";
+        this.coPIs = new ArrayList<>();
         this.programManagerId = "Not Set";
-        this.startDate        = new Date();
-        this.endDate          = new Date();
-        this.budget           = 0.0d;
-        this.amountSpent      = 0.0d;
-        this.projects         = new ArrayList<>();
-        this.description      = "Not Set";
-        this.id               = "Not Set";
+        this.startDate = new Date();
+        this.endDate = new Date();
+        this.budget = 0.0d;
+        this.amountSpent = 0.0d;
+        this.projects = new ArrayList<>();
+        this.description = "Not Set";
+        this.id = "Not Set";
+    }
+
+    @Override
+    public String schemaForObject(Object self) {
+        return Grant.class.getCanonicalName();
+    }
+
+    @Override
+    public String idForObject() {
+        return this.id;
     }
 }

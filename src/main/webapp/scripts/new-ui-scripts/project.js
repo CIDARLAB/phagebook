@@ -25,7 +25,7 @@ $(document).ready(function() {
     })(window.location.search.substr(1).split('&'));
 
     var id = qs["id"];
-    console.log(id);
+    //console.log(id);
 
     var constructHTML = function(name, date, status) {
         var update = "<div class='update'> <div class='panel panel-default'> <div class='panel-heading'>" + "Name: " + name + " Date: " + date + "</div> " +
@@ -35,15 +35,15 @@ $(document).ready(function() {
 
 
     var appendUpdate = function(updates) {
-        console.log("appendUpdate");
+        //console.log("appendUpdate");
         for (var i = 0; i < updates.length; i++) {
             var u = constructHTML(updates.person, updates.date, updates.status);
-            console.log(u);
+            //console.log(u);
             $("#previous-posts-append").append(updates);
         }
     };
     var loadStatuses = function(){
-        console.log("button clicked")
+        //console.log("button clicked")
         var ul = $("#project-status-list");
         ul.empty();
         $.ajax({
@@ -54,13 +54,13 @@ $(document).ready(function() {
             },
             success: function(response) {
                 // var responseAsJSON = angular.fromJson(response);
-                // console.log(JSON.stringify(response));
-                // console.log(JSON.parse(response));
-                console.log("response is");
-                console.log(typeof(response));
+                // //console.log(JSON.stringify(response));
+                // //console.log(JSON.parse(response));
+                //console.log("response is");
+                //console.log(typeof(response));
                 response = JSON.parse(response);
-                console.log(typeof(response));
-                console.log(response);
+                //console.log(typeof(response));
+                //console.log(response);
                 updates = response.updates;
                 if (updates.length == 0) {
                     alert("This project has no statuses!");
@@ -71,14 +71,14 @@ $(document).ready(function() {
                     tmpl.querySelector(".status-date").innerText = "Created On: " + updates[i].date;
                     tmpl.querySelector(".status-person").innerText = "Created By: " + updates[i].userName;
                     //$scope.statusDate = response[i].dateCreated;
-                    //console.log(response[i].dateCreated);
+                    ////console.log(response[i].dateCreated);
                     tmpl.querySelector(".status-text").innerText = updates[i].text;
-                    //console.log(response[i].statusText);
+                    ////console.log(response[i].statusText);
                     ul.append(tmpl);
                 }
             },
             error: {
-                //console.log("inside GET error");
+                ////console.log("inside GET error");
             }
         });
 
@@ -91,7 +91,7 @@ $(document).ready(function() {
     // appendUpdate(updates);
     var editHtml = function(data) {
         data = JSON.parse(data);
-        console.log(data);
+        //console.log(data);
 
         // porting code here    
         $("#project-name").val(data["projectName"]);
@@ -120,12 +120,12 @@ $(document).ready(function() {
             "projectID": id
         },
         success: function(response) {
-            console.log("response!")
-            console.log(response);
+            //console.log("response!")
+            //console.log(response);
             return editHtml(response);
         },
         error: function(response) {
-            console.log("project quering failed!");
+            //console.log("project quering failed!");
         }
     });
 
@@ -133,7 +133,7 @@ $(document).ready(function() {
     // EDIT PROJECT CODE
 
     $("#edit-project-btn").click(function() {
-        console.log("click!");
+        //console.log("click!");
         $(".edit").prop('readonly', false);
         $('#submit-project-btn').show();
 
@@ -145,12 +145,12 @@ $(document).ready(function() {
     // call and refresh the page
 
     $("#submit-project-btn").click(function() {
-        console.log($("#project-description").text());
+        //console.log($("#project-description").text());
         edit();
     });
 
     var edit = function() {
-        console.log("in edit function!!");
+        //console.log("in edit function!!");
         var newName = "";
         var newDesc = "";
         var newBudget = "";
@@ -166,13 +166,13 @@ $(document).ready(function() {
         if ($("#project-budget").val() != null) {
             newBudget = $("#project-budget").val();
         };
-        console.log("Project ID");
-        console.log(id);
-        console.log("User ID");
-        console.log(userID);
-        console.log(newDesc);
-        console.log(newName);
-        console.log(newBudget);
+        //console.log("Project ID");
+        //console.log(id);
+        //console.log("User ID");
+        //console.log(userID);
+        //console.log(newDesc);
+        //console.log(newName);
+        //console.log(newBudget);
 
         var data = {
             "userID": userID,
@@ -181,37 +181,37 @@ $(document).ready(function() {
             "name": newName,
             "budget": newBudget
         }
-        console.log(data);
+        //console.log(data);
         $.ajax({
             url: "/editProject",
             type: "POST",
             dataType: "json",
             data: data,
             success: function(response) {
-                //console.log(dataSubmit);
-                console.log(response);
-                console.log("response!!!");
+                ////console.log(dataSubmit);
+                //console.log(response);
+                //console.log("response!!!");
                 // this reloads the window
                 return location.reload();
             },
             error: function(err) {
-                console.log("ERROR!!");
-                console.log(err);
+                //console.log("ERROR!!");
+                //console.log(err);
             }
         });
     }
 
     $("#create-status-btn").click(function() {
-        console.log("clicked on addUpdate");
+        //console.log("clicked on addUpdate");
 
         var userID = getCookie("clothoId");
         var projectID = id;
         var newStatus = $("#status-update-textarea").val();
-        console.log(newStatus);
+        //console.log(newStatus);
         var emailPeople = document.getElementById("emailPeople").checked;
-        console.log(emailPeople);
+        //console.log(emailPeople);
         if (projectID != null && userID != null && newStatus != null) {
-            console.log("about to add update");
+            //console.log("about to add update");
             addUpdate(projectID, userID, newStatus, emailPeople);
         } else {
             //alert("Something is missing!");
@@ -229,22 +229,22 @@ $(document).ready(function() {
 
     var addUpdate = function(projectID, userID, newStatus, emailPeople) {
 
-        console.log("in add update function");
+        //console.log("in add update function");
         var data = {
             "userID": userID,
             "projectID": projectID,
             "newStatus": newStatus,
             "emailPeople": emailPeople
         };
-        console.log(data);
+        //console.log(data);
         $.ajax({
             url: "/addUpdateToProject",
             type: "POST",
             dataType: "json",
             data: data,
             success: function(response) {
-                console.log(response);
-                console.log("response!!!");
+                //console.log(response);
+                //console.log("response!!!");
                 return checkAddUpdateResponse(response);
             },
             error: function(xhr, ajaxOptions, thrownError) {

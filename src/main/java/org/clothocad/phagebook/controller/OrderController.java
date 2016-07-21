@@ -21,7 +21,6 @@ import org.clothocad.phagebook.dom.CartItem;
 import org.clothocad.phagebook.dom.Vendor;
 import org.clothocad.phagebook.dom.GoodType;
 import org.clothocad.phagebook.dom.Order;
-import org.clothocad.phagebook.dom.OrderColumns;
 import org.clothocad.phagebook.dom.Product;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -234,7 +233,7 @@ public class OrderController {
 
     //inputs: order and list of enums
     //return a list of strings
-    public static List<String> createOrderForm(Order order, List<OrderColumns> ColumnList) {
+    public static List<String> createOrderForm(Order order, List<Order.OrderColumns> ColumnList) {
         
         List<String> orders = new ArrayList<String>();
         String header = "";
@@ -258,7 +257,7 @@ public class OrderController {
             Product product = ClothoAdapter.getProduct(cartItem.getProductId(), clothoObject);
             Vendor vendor = ClothoAdapter.getVendor(product.getCompanyId(), clothoObject);
             
-            for (OrderColumns clist1 : ColumnList) {
+            for (Order.OrderColumns clist1 : ColumnList) {
                 switch (clist1) {
                     case SERIAL_NUMBER:
                         orderString = orderString + count + ",";

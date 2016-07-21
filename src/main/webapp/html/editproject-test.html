@@ -53,7 +53,7 @@
   var p2id = '56ed827ed4c6d585aa42456d';
 	
   var edit = function(){
-  	console.log("in edit function!!");
+  	//console.log("in edit function!!");
   	var newName = "";
   	var newDesc = "";
   	var newBudget = "";
@@ -68,9 +68,9 @@
   		newBudget = $("#budget").val();
   	}
   	
-  	console.log(newDesc);
-  	console.log(newName);
-  	console.log(newName);
+  	//console.log(newDesc);
+  	//console.log(newName);
+  	//console.log(newName);
   	var data = {
   		"userID": p3id,
   		"projectID": projectID,
@@ -86,13 +86,13 @@
 			dataType: "json",
 			data: data,
 			success: function (response) {
-			  console.log(dataSubmit); 
-			  console.log(response);
-			  console.log("response!!!");
+			  //console.log(dataSubmit); 
+			  //console.log(response);
+			  //console.log("response!!!");
 			},
 			error: function (err) {
-			  console.log("ERROR!!");
-			  console.log(err);
+			  //console.log("ERROR!!");
+			  //console.log(err);
 			}
 		}); 
   }
