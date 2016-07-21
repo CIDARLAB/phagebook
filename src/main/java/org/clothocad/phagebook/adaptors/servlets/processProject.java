@@ -97,7 +97,7 @@ public class processProject extends HttpServlet {
       clothoObject.createUser(createUserMap);
       clothoObject.logout();
       Map loginMap = new HashMap();
-      loginMap.put("username", "test1468902986260");
+      loginMap.put("username", username);
       loginMap.put("credentials", "password");
       clothoObject.login(loginMap);
       
@@ -183,10 +183,9 @@ public class processProject extends HttpServlet {
       grant.setName(grantStr);
       String grantId = ClothoAdapter.createGrant(grant, clothoObject);
       project.setGrantId(grantId);
-            
-      ClothoAdapter.setProject(project,clothoObject);
-      
-      
+          
+      clothoObject.login(loginMap);
+      ClothoAdapter.setProject(project,clothoObject);      
 
       PrintWriter writer = response.getWriter();
       writer.println(result);
