@@ -13,8 +13,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
@@ -24,10 +27,12 @@ import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.model.Person;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
+import org.clothocad.phagebook.adaptors.sendEmails;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Grant;
 import org.clothocad.phagebook.dom.Organization;
 import org.clothocad.phagebook.dom.Project;
+import org.clothocad.phagebook.dom.Status;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -848,5 +853,365 @@ public class ProjectController {
             out.flush();
         }
 
+    }
+
+    @RequestMapping(value = "editProject", method = RequestMethod.POST)
+    protected void editProject(@RequestParam Map<String, String> params, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+
+            ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+            Clotho clothoObject = new Clotho(conn);
+            Map createUserMap = new HashMap();
+            String username = "username";
+            String password = "password";
+
+            createUserMap.put("username", username);
+            createUserMap.put("password", password);
+
+            clothoObject.createUser(createUserMap);
+            Map loginMap = new HashMap();
+            loginMap.put("username", username);
+            loginMap.put("credentials", password);
+
+            clothoObject.login(loginMap);
+            System.out.println("got request in EditProject");
+
+            System.out.println(params);
+
+            // these will be in a cookie?
+            String userID = params.get("userID");
+            String projectID = params.get("projectID");
+
+            Person editor = ClothoAdapter.getPerson(userID, clothoObject);
+            Project project = ClothoAdapter.getProject(projectID, clothoObject);
+
+            System.out.println(editor.getEmailId());
+            System.out.println(project.getName());
+
+            // get all of the parameters in the request
+            List<String> l = new ArrayList<String>(params.keySet());
+            Enumeration e = Collections.enumeration(l);
+
+            // loop through the enumeration to get values from the request and add to
+            // the hashmap
+            HashMap reqHashMap = new HashMap();
+            while (e.hasMoreElements()) {
+                String key = (String) e.nextElement();
+                String value = params.get(key);
+                reqHashMap.put(key, value);
+            }
+            Map result = editProjectHelper(project, reqHashMap, clothoObject);
+            System.out.println("resulting map is: " + result);
+            System.out.println(result);
+            // create a result object and send it to the frontend
+            JSONObject json = new JSONObject(result);
+//      System.out.printf( "JSON: %s", json.toString(2) );
+
+            if ((int) result.get("success") == 1) {
+                json.put("success", 1);
+            } else if ((int) result.get("success") == 0) {
+                json.put("success", 0);
+            }
+
+            PrintWriter writer = response.getWriter();
+            writer.println(json);
+            writer.flush();
+            writer.close();
+            conn.closeConnection();
+        }
+
+    }
+
+    static Map<String, Object> editProjectHelper(Project project, HashMap params, Clotho clothoObject) {
+
+        // params is the hashmap of new values
+        System.out.println("In Edit Project function");
+
+        Iterator entries = params.entrySet().iterator();
+        // result hashmap would let the user know whether there have
+        // been unedited values.
+        Map result = new HashMap();
+
+        while (entries.hasNext()) {
+            // reset the value if it is diff from the one in the project object
+            Map.Entry entry = (Map.Entry) entries.next();
+            String key = (String) entry.getKey();
+            String value = (String) entry.getValue();
+            System.out.println("Key = " + key + ", Value = " + value);
+
+            String[] keyValue = new String[4];
+            keyValue[0] = key; // type of new value (like "description")
+            keyValue[1] = value; // the actual new value (like "This is a new desciption")
+
+            if (key.equals("editorId")) {
+                Person editor = ClothoAdapter.getPerson(value, clothoObject);
+                System.out.println();
+            }
+            if (key.equals("description")) {
+                keyValue[2] = "description";
+                keyValue[3] = project.getDescription();
+                //helperMsg(project.getDescription(), value);
+                if (value != "") {
+                    project.setDescription(value);
+                    result.put("desc", 1);
+                } else {
+                    result.put("desc", 0);
+                }
+
+            }
+            if (key.equals("name")) {
+                keyValue[2] = "name";
+                keyValue[3] = project.getName();
+                //helperMsg(project.getName(), value);
+                if (value != "") {
+                    project.setName(value);
+                    result.put("name", 1);
+                } else {
+                    result.put("name", 0);
+                }
+
+            }
+            if (key.equals("leadId")) {
+                //helperMsg(project.getLeadId(), value);
+                System.out.println("Can't edit lead yet, sorry!");
+                // TODO: add lead editing capabilities
+            }
+            if (key.equals("budget")) {
+                keyValue[2] = "budget";
+                keyValue[3] = project.getBudget().toString();
+                //helperMsg(Double.toString(project.getBudget()), value);
+                if (value != "") {
+                    project.setBudget(Double.parseDouble(value));
+                    result.put("budget", 1);
+                } else {
+                    result.put("budget", 0);
+                }
+            }
+            if (key.equals("projectGrant")) {
+                if (value != "") {
+                    String oldGrantId = project.getGrantId();
+                    Grant newGrant = new Grant(value);
+                    String newGrantId = ClothoAdapter.createGrant(newGrant, clothoObject);
+                    keyValue[2] = "projectGrant";
+                    keyValue[3] = oldGrantId;
+
+                    project.setGrantId(newGrantId);
+                    result.put("grant", 1);
+                } else {
+                    result.put("grant", 0);
+                }
+            }
+        }
+        String projectID = project.getId();
+        System.out.println("in Edit Project Function Project ID is");
+        System.out.println(projectID);
+        System.out.println(clothoObject);
+        String foo = ClothoAdapter.setProject(project, clothoObject);
+        System.out.println(foo);
+
+        // FOR TESTING -- prints the result hashmap    
+//      Iterator iterator = result.keySet().iterator();
+//      while (iterator.hasNext()) {
+//         String key = iterator.next().toString();
+//         Integer value = (Integer)result.get(key);
+//
+//         System.out.println(key + " " + value);
+//      }
+        //
+        System.out.println("got here!");
+        if (projectID.length() > 0) {
+            result.put("success", 1);
+            return result;
+        } else {
+            result.put("success", 0);
+            return result;
+        }
+        //sendEmails(request);
+    }
+
+    @RequestMapping(value = "getAllProjectUpdates", method = RequestMethod.GET)
+    protected void getAllProjectUpdates(@RequestParam Map<String, String> params, HttpServletResponse response)
+            throws ServletException, IOException {
+        System.out.println("in the doGet of getAllProjectUpdates!!");
+        Object projectIdObj = params.get("projectId");
+        String projectId = projectIdObj != null ? (String) projectIdObj : "";
+        System.out.println(projectId);
+
+        ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+        Clotho clothoObject = new Clotho(conn);
+        Map createUserMap = new HashMap();
+        String username = "username";
+        String password = "password";
+
+        createUserMap.put("username", username);
+        createUserMap.put("password", password);
+
+        clothoObject.createUser(createUserMap);
+        Map loginMap = new HashMap();
+        loginMap.put("username", username);
+        loginMap.put("credentials", password);
+
+        clothoObject.login(loginMap);
+
+        // get this project
+        Project pr = ClothoAdapter.getProject(projectId, clothoObject);
+        List<String> allUpdates = pr.getUpdates();
+        List<Map<String, String>> listOfUpdates = new ArrayList<Map<String, String>>();
+        JSONObject result = new JSONObject();
+
+        for (String s : allUpdates) {
+//            clothoObject.logout();
+            System.out.println("in the loop!");
+            System.out.println(s);
+            Status update = ClothoAdapter.getStatus(s, clothoObject);
+            System.out.println(update.getText());
+            Map u = new HashMap();
+            u.put("date", update.getCreated());
+            u.put("userId", update.getUserId());
+            // get a person's first and last name
+            clothoObject.logout();
+            Person p = ClothoAdapter.getPerson(update.getUserId(), clothoObject);
+            u.put("userName", p.getFirstName() + " " + p.getLastName());
+            u.put("text", update.getText());
+            listOfUpdates.add(u);
+        }
+        System.out.println("");
+
+        result.put("success", 1);
+        result.put("updates", listOfUpdates);
+        System.out.println(result);
+
+        PrintWriter writer = response.getWriter();
+        writer.println(result);
+        writer.flush();
+        writer.close();
+    }
+
+    @RequestMapping(value = "addUpdateToProject", method = RequestMethod.POST)
+    protected void addUpdateToProject(@RequestParam Map<String, String> params, HttpServletResponse response)
+            throws ServletException, IOException {
+        try (PrintWriter out = response.getWriter()) {
+            JSONObject result = new JSONObject();
+
+            ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+            Clotho clothoObject = new Clotho(conn);
+            Map createUserMap = new HashMap();
+            String username = "username";
+            String password = "password";
+
+            createUserMap.put("username", username);
+            createUserMap.put("password", password);
+
+            clothoObject.createUser(createUserMap);
+            Map loginMap = new HashMap();
+            loginMap.put("username", username);
+            loginMap.put("credentials", password);
+
+            clothoObject.login(loginMap);
+            System.err.println("Got a new Update request in addUpdateToProject ");
+            // New Update will be a string.
+            // declare these here 
+            String userID = "";
+            String projectID = "";
+            String newStatus = "";
+            boolean emailPeople = false;
+            if (params.get("userID") != null) {
+                userID = params.get("userID");
+            }
+            if (params.get("projectID") != null) {
+                projectID = params.get("projectID");
+            }
+            if (params.get("newStatus") != null) {
+                newStatus = params.get("newStatus");
+            }
+            if (params.get("emailPeople") != null) {
+                // what if it is not a boolean?
+                emailPeople = Boolean.parseBoolean(params.get("emailPeople"));
+            }
+
+            // if there is a status
+            if (newStatus.length() != 0) {
+                List<String> allUpdates = addUpdateToProjectHelper(userID, projectID, newStatus, emailPeople, clothoObject);
+                List<Map<String, String>> listOfUpdates = new ArrayList<Map<String, String>>();
+                Person per = ClothoAdapter.getPerson(userID, clothoObject);
+                System.out.println(per.getEmailId());
+                System.out.println(per.getProjects());
+
+                for (String s : allUpdates) {
+                    Status update = ClothoAdapter.getStatus(s, clothoObject);
+                    Map u = new HashMap();
+                    u.put("date", update.getCreated());
+                    u.put("userId", update.getUserId());
+                    // get a person's first and last name
+                    Person p = ClothoAdapter.getPerson(update.getUserId(), clothoObject);
+                    u.put("userName", p.getFirstName() + " " + p.getLastName());
+                    u.put("text", update.getText());
+                    listOfUpdates.add(u);
+                }
+                result.put("success", 1);
+                result.put("updates", listOfUpdates);
+            } else {
+                System.out.println("Update was too short -- letting the user know!");
+
+                result.put("short", 1);
+            }
+            conn.closeConnection();
+            PrintWriter writer = response.getWriter();
+            writer.println(result);
+            writer.flush();
+            writer.close();
+
+        }
+    }
+
+    protected static List<String> addUpdateToProjectHelper(String userID, String projectID, String newStatus, boolean emailPeople, Clotho clothoObject) {
+
+        // create a new status object
+        Status newUpdate = new Status();
+        newUpdate.setText(newStatus);
+        newUpdate.setUserId(userID);
+        System.out.println(newUpdate);
+        System.out.println("About to create a Status in Clotho");
+        String statusID = ClothoAdapter.createStatus(newUpdate, clothoObject);
+
+        System.out.println("Status has been created in Clotho and ID is: " + statusID);
+
+        // get the objects associated with the passed in IDS from clotho
+        Person editor = ClothoAdapter.getPerson(userID, clothoObject);
+        System.out.println("User Id is: ");
+        System.out.println(userID);
+
+        Project project = ClothoAdapter.getProject(projectID, clothoObject);
+        System.out.println("Project Id is: ");
+        System.out.println(projectID);
+
+        String editorName = editor.getFirstName() + " " + editor.getLastName();
+        System.out.println(editorName);
+        System.out.println(project.getName());
+
+        // get the existing list of project updates and add the id of the  new update
+        List<String> projectUpdates = project.getUpdates();
+        projectUpdates.add(statusID);
+
+        // update the update lists in the project object
+        project.setUpdates(projectUpdates);
+
+        List<String> allUpdates = project.getUpdates();
+        // change the project in clotho
+        String foo = ClothoAdapter.setProject(project, clothoObject);
+        System.out.println("In addProjectUpdate function projectID is:");
+        System.out.println(foo);
+        // TODO: email the peeps associate with the project what update was added
+        if (emailPeople) {
+            System.out.println();
+            System.out.println("I will email the people now");
+            System.out.println();
+            sendEmails.sendEmails(foo, editorName, clothoObject);
+        }
+
+        return allUpdates;
     }
 }

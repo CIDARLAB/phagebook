@@ -5,20 +5,31 @@
  */
 package org.clothocad.phagebook.controllers;
 
-
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.model.Person;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.adaptors.EmailHandler;
+import org.clothocad.phagebook.adaptors.S3Adapter;
+import org.clothocad.phagebook.adaptors.servlets.uploadProfilePicture;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Institution;
 import org.clothocad.phagebook.dom.Order;
@@ -31,51 +42,51 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 /**
  *
  * @author jacob
  */
 @Controller
 public class PersonController {
-    
-    @RequestMapping(value="/listApprovedOrdersOfPerson", method=RequestMethod.GET)
+
+    @RequestMapping(value = "/listApprovedOrdersOfPerson", method = RequestMethod.GET)
     protected void listApprovedOrdersOfPerson(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
-        
-         //I AM ASSUMING THAT 
+
+        //I AM ASSUMING THAT 
         /* ID is passed in of person
        
-        */
-        
+         */
         Object pUser = params.get("user");
-        String user = pUser != null ? (String) pUser: "";
+        String user = pUser != null ? (String) pUser : "";
         boolean isValid = false;
-        
-        if (!user.equals("")){
+
+        if (!user.equals("")) {
             isValid = true;
         }
-        
-        if (isValid){
+
+        if (isValid) {
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
             String username = "phagebook";
             String password = "backend";
             Map loginMap = new HashMap();
             loginMap.put("username", username);
-            loginMap.put("credentials", password);     
+            loginMap.put("credentials", password);
             clothoObject.login(loginMap);
             // able to query now. 
-            
+
             Person prashant = ClothoAdapter.getPerson(user, clothoObject);
             boolean exists = true;
-            if (prashant.getId().equals("")){
+            if (prashant.getId().equals("")) {
                 System.out.println("Person does not exist in list open orders of person");
                 exists = false;
-            } 
-            if (exists){
+            }
+            if (exists) {
                 List<String> approvedOrders = prashant.getApprovedOrders();
                 JSONArray approvedOrdersJSON = new JSONArray();
-                for (String approved : approvedOrders ){
+                for (String approved : approvedOrders) {
                     Order temp = ClothoAdapter.getOrder(approved, clothoObject);
                     JSONObject tempAsJSON = new JSONObject();
                     tempAsJSON.put("name", temp.getName());
@@ -87,9 +98,9 @@ public class PersonController {
                     tempAsJSON.put("approvedById", (ClothoAdapter.getPerson(temp.getApprovedById(), clothoObject)).getEmailId());
                     JSONArray receivedByIds = new JSONArray();
                     List<String> receivedBys = temp.getReceivedByIds();
-                    for (int i = 0; i< receivedBys.size() ; i++){
+                    for (int i = 0; i < receivedBys.size(); i++) {
                         JSONObject receivedByJSON = new JSONObject();
-                        receivedByJSON.put("user "+ i , (ClothoAdapter.getPerson(receivedBys.get(i), clothoObject)).getEmailId());
+                        receivedByJSON.put("user " + i, (ClothoAdapter.getPerson(receivedBys.get(i), clothoObject)).getEmailId());
                         receivedByIds.put(receivedByJSON);
                     }
                     tempAsJSON.put("receivedByIds", receivedByIds);
@@ -98,14 +109,13 @@ public class PersonController {
                     tempAsJSON.put("affiliatedLabId", (ClothoAdapter.getLab(temp.getAffiliatedLabId(), clothoObject)));
                     approvedOrdersJSON.put(tempAsJSON); // put it in there...
                 }
-                
+
                 response.setContentType("application/json");
                 response.setStatus(HttpServletResponse.SC_OK);
                 PrintWriter out = response.getWriter();
                 out.print(approvedOrdersJSON);
                 out.flush();
-                
-                
+
             } else {
                 response.setContentType("application/json");
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -115,7 +125,7 @@ public class PersonController {
                 out.print(responseJSON);
                 out.flush();
             }
-            
+
             conn.closeConnection();
         } else {
             response.setContentType("application/json");
@@ -127,113 +137,109 @@ public class PersonController {
             out.flush();
         }
     }
-    
-    @RequestMapping(value="/listCreatedOrdersOfPerson", method=RequestMethod.GET)
+
+    @RequestMapping(value = "/listCreatedOrdersOfPerson", method = RequestMethod.GET)
     protected void listCreatedOrdersOfPerson(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
-         //I AM ASSUMING THAT 
+
+        //I AM ASSUMING THAT 
         /* ID is passed in of person
        
-        */
-        
+         */
         Object pUser = params.get("user");
-        String user = pUser != null ? (String) pUser: "";
+        String user = pUser != null ? (String) pUser : "";
         boolean isValid = false;
-        
-        if (!user.equals("")){
+
+        if (!user.equals("")) {
             isValid = true;
         }
-        
-        if (isValid){
+
+        if (isValid) {
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
             String username = "phagebook";
             String password = "backend";
             Map loginMap = new HashMap();
             loginMap.put("username", username);
-            loginMap.put("credentials", password);     
+            loginMap.put("credentials", password);
             clothoObject.login(loginMap);
             // able to query now. 
-            
+
             Person prashant = ClothoAdapter.getPerson(user, clothoObject);
             boolean exists = true;
-            if (prashant.getId().equals("")){
+            if (prashant.getId().equals("")) {
                 System.out.println("Person does not exist in list open orders of person");
                 exists = false;
-            } 
-            if (exists){
+            }
+            if (exists) {
                 List<String> createdOrders = prashant.getCreatedOrders();
                 JSONArray createdOrdersJSON = new JSONArray();
-                for (String created : createdOrders ){
+                for (String created : createdOrders) {
                     Order temp = ClothoAdapter.getOrder(created, clothoObject);
-                    if (temp.getStatus().equals(OrderStatus.INPROGRESS)){
-                    JSONObject tempAsJSON = new JSONObject();
-                    
-                    tempAsJSON.put("name", temp.getName());
-                    
-                    tempAsJSON.put("description", temp.getDescription());
-                    tempAsJSON.put("taxRate", temp.getTaxRate());
-                    
-                    tempAsJSON.put("dateCreated", temp.getDateCreated().toString());
-                    
-                    Person createdById = ClothoAdapter.getPerson(temp.getCreatedById(), clothoObject);
-                    tempAsJSON.put("createdById", createdById.getEmailId());
-                    
-                    tempAsJSON.put("creatorName", createdById.getFirstName() + " " + createdById.getLastName());
-                  
-                    tempAsJSON.put("products", new JSONArray(temp.getProducts())); //cart item ids and quantity
-                    
-                    
-                    tempAsJSON.put("budget", temp.getBudget());
-                    String approvedByEmail = "";
-                    String approvedByName = "";
-                    if (!temp.getApprovedById().equals("") && temp.getApprovedById().equals("Not Set")){
-                        Person approver = ClothoAdapter.getPerson(temp.getApprovedById(), clothoObject);
-                        approvedByEmail = (approver).getEmailId();
-                        approvedByName  = approver.getFirstName() + " " + approver.getLastName();
-                    }
-                    tempAsJSON.put("approvedById", approvedByEmail);
-                    tempAsJSON.put("approvedByName", approvedByName);
-                    
-                    JSONArray receivedByIds = new JSONArray();
-                    List<String> receivedBys = temp.getReceivedByIds();
-                    for (int i = 0; i< receivedBys.size() ; i++){
-                        String receivedByID = "";
-                        String receivedByFullName= "";
-                        JSONObject receiverJSON = new JSONObject();
-                        if (!receivedBys.get(i).equals("") && !receivedBys.get(i).equals("Not Set")){
-                            Person receiver = ClothoAdapter.getPerson(receivedBys.get(i), clothoObject);
-                            
-                            receivedByID = receiver.getEmailId();
-                            receivedByFullName = receiver.getFirstName() + " " + receiver.getLastName();
-                            receiverJSON.put("receiverId", receivedByID);
-                            receiverJSON.put("receiverName",receivedByFullName);
-                          
+                    if (temp.getStatus().equals(OrderStatus.INPROGRESS)) {
+                        JSONObject tempAsJSON = new JSONObject();
+
+                        tempAsJSON.put("name", temp.getName());
+
+                        tempAsJSON.put("description", temp.getDescription());
+                        tempAsJSON.put("taxRate", temp.getTaxRate());
+
+                        tempAsJSON.put("dateCreated", temp.getDateCreated().toString());
+
+                        Person createdById = ClothoAdapter.getPerson(temp.getCreatedById(), clothoObject);
+                        tempAsJSON.put("createdById", createdById.getEmailId());
+
+                        tempAsJSON.put("creatorName", createdById.getFirstName() + " " + createdById.getLastName());
+
+                        tempAsJSON.put("products", new JSONArray(temp.getProducts())); //cart item ids and quantity
+
+                        tempAsJSON.put("budget", temp.getBudget());
+                        String approvedByEmail = "";
+                        String approvedByName = "";
+                        if (!temp.getApprovedById().equals("") && temp.getApprovedById().equals("Not Set")) {
+                            Person approver = ClothoAdapter.getPerson(temp.getApprovedById(), clothoObject);
+                            approvedByEmail = (approver).getEmailId();
+                            approvedByName = approver.getFirstName() + " " + approver.getLastName();
                         }
-                        receivedByIds.put(receiverJSON);
-                    }
-                    tempAsJSON.put("limit", temp.getMaxOrderSize());
-                    tempAsJSON.put("receivedByIds", receivedByIds);
-                    tempAsJSON.put("relatedProjectId", temp.getRelatedProjectId());
-                    tempAsJSON.put("relatedProjectName", (ClothoAdapter.getProject(temp.getRelatedProjectId(), clothoObject)).getName());
-                    tempAsJSON.put("status", temp.getStatus());
-                    //this one should never be not set 
-                    tempAsJSON.put("affiliatedLabName", (ClothoAdapter.getLab(temp.getAffiliatedLabId(), clothoObject)).getName());
-                    tempAsJSON.put("affiliatedLabId", (temp.getAffiliatedLabId()));
-                    tempAsJSON.put("id", temp.getId());
-                    createdOrdersJSON.put(tempAsJSON); // put it in there...
+                        tempAsJSON.put("approvedById", approvedByEmail);
+                        tempAsJSON.put("approvedByName", approvedByName);
+
+                        JSONArray receivedByIds = new JSONArray();
+                        List<String> receivedBys = temp.getReceivedByIds();
+                        for (int i = 0; i < receivedBys.size(); i++) {
+                            String receivedByID = "";
+                            String receivedByFullName = "";
+                            JSONObject receiverJSON = new JSONObject();
+                            if (!receivedBys.get(i).equals("") && !receivedBys.get(i).equals("Not Set")) {
+                                Person receiver = ClothoAdapter.getPerson(receivedBys.get(i), clothoObject);
+
+                                receivedByID = receiver.getEmailId();
+                                receivedByFullName = receiver.getFirstName() + " " + receiver.getLastName();
+                                receiverJSON.put("receiverId", receivedByID);
+                                receiverJSON.put("receiverName", receivedByFullName);
+
+                            }
+                            receivedByIds.put(receiverJSON);
+                        }
+                        tempAsJSON.put("limit", temp.getMaxOrderSize());
+                        tempAsJSON.put("receivedByIds", receivedByIds);
+                        tempAsJSON.put("relatedProjectId", temp.getRelatedProjectId());
+                        tempAsJSON.put("relatedProjectName", (ClothoAdapter.getProject(temp.getRelatedProjectId(), clothoObject)).getName());
+                        tempAsJSON.put("status", temp.getStatus());
+                        //this one should never be not set 
+                        tempAsJSON.put("affiliatedLabName", (ClothoAdapter.getLab(temp.getAffiliatedLabId(), clothoObject)).getName());
+                        tempAsJSON.put("affiliatedLabId", (temp.getAffiliatedLabId()));
+                        tempAsJSON.put("id", temp.getId());
+                        createdOrdersJSON.put(tempAsJSON); // put it in there...
                     }
                 }
-                
+
                 response.setContentType("application/json");
                 response.setStatus(HttpServletResponse.SC_OK);
                 PrintWriter out = response.getWriter();
                 out.print(createdOrdersJSON);
                 out.flush();
-                
-                
+
             } else {
                 response.setContentType("application/json");
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -243,7 +249,7 @@ public class PersonController {
                 out.print(responseJSON);
                 out.flush();
             }
-            
+
             conn.closeConnection();
         } else {
             response.setContentType("application/json");
@@ -255,47 +261,45 @@ public class PersonController {
             out.flush();
         }
     }
-    
-    @RequestMapping(value="/listOrdersOfPerson", method=RequestMethod.GET)
+
+    @RequestMapping(value = "/listOrdersOfPerson", method = RequestMethod.GET)
     protected void listOrdersOfPerson(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
+
         Object pUser = params.get("user");
-        String user = pUser != null ? (String) pUser: "";
+        String user = pUser != null ? (String) pUser : "";
         boolean isValid = false;
-        
-        if (!user.equals("")){
+
+        if (!user.equals("")) {
             isValid = true;
         }
-        
-        if (isValid){
+
+        if (isValid) {
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
             String username = "phagebook";
             String password = "backend";
             Map loginMap = new HashMap();
             loginMap.put("username", username);
-            loginMap.put("credentials", password);     
+            loginMap.put("credentials", password);
             clothoObject.login(loginMap);
             // able to query now. 
-            
+
             Person prashant = ClothoAdapter.getPerson(user, clothoObject);
             boolean exists = true;
-            if (prashant.getId().equals("")){
+            if (prashant.getId().equals("")) {
                 System.out.println("Person does not exist in list open orders of person");
                 exists = false;
-            } 
-            if (exists){
-                
+            }
+            if (exists) {
+
                 List<String> approvedOrderIds = prashant.getApprovedOrders();
-                List<String> deniedOrderIds   = prashant.getDeniedOrders();
+                List<String> deniedOrderIds = prashant.getDeniedOrders();
                 JSONArray allOrders = new JSONArray();
-                for (String approved : approvedOrderIds){
-                    System.out.println("APPROVED ID: "+approved);
+                for (String approved : approvedOrderIds) {
+                    System.out.println("APPROVED ID: " + approved);
                     Order approvedOrder = ClothoAdapter.getOrder(approved, clothoObject);
-                    
-                   
+
                     JSONObject approvedJSON = new JSONObject();
                     approvedJSON.put("name", approvedOrder.getName());
                     approvedJSON.put("dateApproved", approvedOrder.getDateApproved());
@@ -304,36 +308,35 @@ public class PersonController {
                     approvedJSON.put("dateCreated", approvedOrder.getDateCreated().toString());
                     Person creator = ClothoAdapter.getPerson(approvedOrder.getCreatedById(), clothoObject);
                     approvedJSON.put("createdById", creator.getEmailId());
-                    approvedJSON.put("createdByName", creator.getFirstName() + " " +creator.getLastName());
+                    approvedJSON.put("createdByName", creator.getFirstName() + " " + creator.getLastName());
                     approvedJSON.put("products", approvedOrder.getProducts());
                     approvedJSON.put("orderLimit", approvedOrder.getMaxOrderSize());
                     approvedJSON.put("taxRate", approvedOrder.getTaxRate());
                     approvedJSON.put("budget", approvedOrder.getBudget());
                     System.out.println(approvedOrder.getApprovedById());
-                    if (!approvedOrder.getApprovedById().equals("") && !approvedOrder.getApprovedById().equals("Not Set") ){
+                    if (!approvedOrder.getApprovedById().equals("") && !approvedOrder.getApprovedById().equals("Not Set")) {
                         approvedJSON.put("approvedById", (ClothoAdapter.getPerson(approvedOrder.getApprovedById(), clothoObject)).getEmailId());
                     }
                     JSONArray receivedByIds = new JSONArray();
                     List<String> receivedBys = approvedOrder.getReceivedByIds();
-                    for (int i = 0; i< receivedBys.size() ; i++){
-                        if (!receivedBys.get(i).equals("") && !receivedBys.get(i).equals("Not Set")){
-                        JSONObject receivedByJSON = new JSONObject();
-                        receivedByJSON.put( ""+ i , (ClothoAdapter.getPerson(receivedBys.get(i), clothoObject)).getEmailId());
-                        receivedByIds.put(receivedByJSON);
+                    for (int i = 0; i < receivedBys.size(); i++) {
+                        if (!receivedBys.get(i).equals("") && !receivedBys.get(i).equals("Not Set")) {
+                            JSONObject receivedByJSON = new JSONObject();
+                            receivedByJSON.put("" + i, (ClothoAdapter.getPerson(receivedBys.get(i), clothoObject)).getEmailId());
+                            receivedByIds.put(receivedByJSON);
                         }
                     }
                     approvedJSON.put("receivedByIds", receivedByIds);
                     approvedJSON.put("relatedProjectName", (ClothoAdapter.getProject(approvedOrder.getRelatedProjectId(), clothoObject)).getName());
                     approvedJSON.put("status", approvedOrder.getStatus());
                     approvedJSON.put("affiliatedLabId", approvedOrder.getAffiliatedLabId());
-                    
-                    
+
                     allOrders.put(approvedJSON);
                 }
-                
-                for (String denied : deniedOrderIds){
+
+                for (String denied : deniedOrderIds) {
                     Order deniedOrder = ClothoAdapter.getOrder(denied, clothoObject);
-                    
+
                     JSONObject deniedJSON = new JSONObject();
                     deniedJSON.put("name", deniedOrder.getName());
                     deniedJSON.put("description", deniedOrder.getDescription());
@@ -341,133 +344,37 @@ public class PersonController {
                     deniedJSON.put("dateCreated", deniedOrder.getDateCreated().toString());
                     Person creator = ClothoAdapter.getPerson(deniedOrder.getCreatedById(), clothoObject);
                     deniedJSON.put("createdById", creator.getEmailId());
-                    deniedJSON.put("createdByName", creator.getFirstName() + " " +creator.getLastName());
+                    deniedJSON.put("createdByName", creator.getFirstName() + " " + creator.getLastName());
                     deniedJSON.put("products", deniedOrder.getProducts());
                     deniedJSON.put("orderLimit", deniedOrder.getMaxOrderSize());
                     deniedJSON.put("taxRate", deniedOrder.getTaxRate());
                     deniedJSON.put("budget", deniedOrder.getBudget());
-                    if (!deniedOrder.getApprovedById().equals("") && !deniedOrder.getApprovedById().equals("Not Set") ){
+                    if (!deniedOrder.getApprovedById().equals("") && !deniedOrder.getApprovedById().equals("Not Set")) {
                         deniedJSON.put("approvedById", (ClothoAdapter.getPerson(deniedOrder.getApprovedById(), clothoObject)).getEmailId());
                     }
                     JSONArray receivedByIds = new JSONArray();
                     List<String> receivedBys = deniedOrder.getReceivedByIds();
-                    for (int i = 0; i< receivedBys.size() ; i++){
-                        if (!receivedBys.get(i).equals("") && !receivedBys.get(i).equals("Not Set")){
-                        JSONObject receivedByJSON = new JSONObject();
-                        receivedByJSON.put( ""+ i , (ClothoAdapter.getPerson(receivedBys.get(i), clothoObject)).getEmailId());
-                        receivedByIds.put(receivedByJSON);
+                    for (int i = 0; i < receivedBys.size(); i++) {
+                        if (!receivedBys.get(i).equals("") && !receivedBys.get(i).equals("Not Set")) {
+                            JSONObject receivedByJSON = new JSONObject();
+                            receivedByJSON.put("" + i, (ClothoAdapter.getPerson(receivedBys.get(i), clothoObject)).getEmailId());
+                            receivedByIds.put(receivedByJSON);
                         }
                     }
                     deniedJSON.put("receivedByIds", receivedByIds);
                     deniedJSON.put("relatedProjectName", (ClothoAdapter.getProject(deniedOrder.getRelatedProjectId(), clothoObject)).getName());
                     deniedJSON.put("status", deniedOrder.getStatus());
                     deniedJSON.put("affiliatedLabId", deniedOrder.getAffiliatedLabId());
-                    
-                    
+
                     allOrders.put(deniedJSON);
                 }
-                
+
                 response.setContentType("application/json");
                 response.setStatus(HttpServletResponse.SC_OK);
                 PrintWriter out = response.getWriter();
                 out.print(allOrders);
                 out.flush();
-                        
-            }else {
-                response.setContentType("application/json");
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                JSONObject responseJSON = new JSONObject();
-                responseJSON.put("message", "id provided does not exist");
-                PrintWriter out = response.getWriter();
-                out.print(responseJSON);
-                out.flush();
-            }
-            conn.closeConnection();
-        } else {
-            response.setContentType("application/json");
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            JSONObject responseJSON = new JSONObject();
-            responseJSON.put("message", "missing an id to query with");
-            PrintWriter out = response.getWriter();
-            out.print(responseJSON);
-            out.flush();
-        }
-    }
-    
-    @RequestMapping(value="/listSubmittedOrdersOfPerson", method=RequestMethod.GET)
-    protected void listSubmittedOrdersOfPerson(@RequestParam Map<String, String> params, HttpServletResponse response)
-            throws ServletException, IOException {
-        
-        
-        
-        Object pUser = params.get("user");
-        String user = pUser != null ? (String) pUser: "";
-        boolean isValid = false;
-        
-        if (!user.equals("")){
-            isValid = true;
-        }
-        
-        if (isValid){
-            ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
-            Clotho clothoObject = new Clotho(conn);
-            String username = "phagebook";
-            String password = "backend";
-            Map loginMap = new HashMap();
-            loginMap.put("username", username);
-            loginMap.put("credentials", password);     
-            clothoObject.login(loginMap);
-            // able to query now. 
-            
-            Person prashant = ClothoAdapter.getPerson(user, clothoObject);
-            boolean exists = true;
-            if (prashant.getId().equals("")){
-                System.out.println("Person does not exist in list submitted orders of person");
-                exists = false;
-            } 
-            if (exists){
-                List<String> submittedOrders = prashant.getSubmittedOrders();
-                JSONArray createdOrdersJSON = new JSONArray();
-                for (String created : submittedOrders ){
-                    Order temp = ClothoAdapter.getOrder(created, clothoObject);
-                    JSONObject tempAsJSON = new JSONObject();
-                    tempAsJSON.put("name", temp.getName());
-                    tempAsJSON.put("description", temp.getDescription());
-                    tempAsJSON.put("clothoId", temp.getId());
-                    tempAsJSON.put("dateCreated", temp.getDateCreated().toString());
-                    Person creator = ClothoAdapter.getPerson(temp.getCreatedById(), clothoObject);
-                    tempAsJSON.put("createdById", creator.getEmailId());
-                    tempAsJSON.put("createdByName", creator.getFirstName() + " " +creator.getLastName());
-                    tempAsJSON.put("products", temp.getProducts());
-                    tempAsJSON.put("orderLimit", temp.getMaxOrderSize());
-                    tempAsJSON.put("taxRate", temp.getTaxRate());
-                    tempAsJSON.put("budget", temp.getBudget());
-                    if (!temp.getApprovedById().equals("") && !temp.getApprovedById().equals("Not Set") ){
-                        tempAsJSON.put("approvedById", (ClothoAdapter.getPerson(temp.getApprovedById(), clothoObject)).getEmailId());
-                    }
-                    JSONArray receivedByIds = new JSONArray();
-                    List<String> receivedBys = temp.getReceivedByIds();
-                    for (int i = 0; i< receivedBys.size() ; i++){
-                        if (!receivedBys.get(i).equals("") && !receivedBys.get(i).equals("Not Set")){
-                        JSONObject receivedByJSON = new JSONObject();
-                        receivedByJSON.put( ""+ i , (ClothoAdapter.getPerson(receivedBys.get(i), clothoObject)).getEmailId());
-                        receivedByIds.put(receivedByJSON);
-                        }
-                    }
-                    tempAsJSON.put("receivedByIds", receivedByIds);
-                    tempAsJSON.put("relatedProjectName", (ClothoAdapter.getProject(temp.getRelatedProjectId(), clothoObject)).getName());
-                    tempAsJSON.put("status", temp.getStatus());
-                    tempAsJSON.put("affiliatedLabId", temp.getAffiliatedLabId());
-                    createdOrdersJSON.put(tempAsJSON); // put it in there...
-                }
-                
-                response.setContentType("application/json");
-                response.setStatus(HttpServletResponse.SC_OK);
-                PrintWriter out = response.getWriter();
-                out.print(createdOrdersJSON);
-                out.flush();
-                
-                
+
             } else {
                 response.setContentType("application/json");
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -477,7 +384,6 @@ public class PersonController {
                 out.print(responseJSON);
                 out.flush();
             }
-            
             conn.closeConnection();
         } else {
             response.setContentType("application/json");
@@ -489,23 +395,115 @@ public class PersonController {
             out.flush();
         }
     }
-    
-    @RequestMapping(value="/createPerson", method=RequestMethod.POST)
+
+    @RequestMapping(value = "/listSubmittedOrdersOfPerson", method = RequestMethod.GET)
+    protected void listSubmittedOrdersOfPerson(@RequestParam Map<String, String> params, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        Object pUser = params.get("user");
+        String user = pUser != null ? (String) pUser : "";
+        boolean isValid = false;
+
+        if (!user.equals("")) {
+            isValid = true;
+        }
+
+        if (isValid) {
+            ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+            Clotho clothoObject = new Clotho(conn);
+            String username = "phagebook";
+            String password = "backend";
+            Map loginMap = new HashMap();
+            loginMap.put("username", username);
+            loginMap.put("credentials", password);
+            clothoObject.login(loginMap);
+            // able to query now. 
+
+            Person prashant = ClothoAdapter.getPerson(user, clothoObject);
+            boolean exists = true;
+            if (prashant.getId().equals("")) {
+                System.out.println("Person does not exist in list submitted orders of person");
+                exists = false;
+            }
+            if (exists) {
+                List<String> submittedOrders = prashant.getSubmittedOrders();
+                JSONArray createdOrdersJSON = new JSONArray();
+                for (String created : submittedOrders) {
+                    Order temp = ClothoAdapter.getOrder(created, clothoObject);
+                    JSONObject tempAsJSON = new JSONObject();
+                    tempAsJSON.put("name", temp.getName());
+                    tempAsJSON.put("description", temp.getDescription());
+                    tempAsJSON.put("clothoId", temp.getId());
+                    tempAsJSON.put("dateCreated", temp.getDateCreated().toString());
+                    Person creator = ClothoAdapter.getPerson(temp.getCreatedById(), clothoObject);
+                    tempAsJSON.put("createdById", creator.getEmailId());
+                    tempAsJSON.put("createdByName", creator.getFirstName() + " " + creator.getLastName());
+                    tempAsJSON.put("products", temp.getProducts());
+                    tempAsJSON.put("orderLimit", temp.getMaxOrderSize());
+                    tempAsJSON.put("taxRate", temp.getTaxRate());
+                    tempAsJSON.put("budget", temp.getBudget());
+                    if (!temp.getApprovedById().equals("") && !temp.getApprovedById().equals("Not Set")) {
+                        tempAsJSON.put("approvedById", (ClothoAdapter.getPerson(temp.getApprovedById(), clothoObject)).getEmailId());
+                    }
+                    JSONArray receivedByIds = new JSONArray();
+                    List<String> receivedBys = temp.getReceivedByIds();
+                    for (int i = 0; i < receivedBys.size(); i++) {
+                        if (!receivedBys.get(i).equals("") && !receivedBys.get(i).equals("Not Set")) {
+                            JSONObject receivedByJSON = new JSONObject();
+                            receivedByJSON.put("" + i, (ClothoAdapter.getPerson(receivedBys.get(i), clothoObject)).getEmailId());
+                            receivedByIds.put(receivedByJSON);
+                        }
+                    }
+                    tempAsJSON.put("receivedByIds", receivedByIds);
+                    tempAsJSON.put("relatedProjectName", (ClothoAdapter.getProject(temp.getRelatedProjectId(), clothoObject)).getName());
+                    tempAsJSON.put("status", temp.getStatus());
+                    tempAsJSON.put("affiliatedLabId", temp.getAffiliatedLabId());
+                    createdOrdersJSON.put(tempAsJSON); // put it in there...
+                }
+
+                response.setContentType("application/json");
+                response.setStatus(HttpServletResponse.SC_OK);
+                PrintWriter out = response.getWriter();
+                out.print(createdOrdersJSON);
+                out.flush();
+
+            } else {
+                response.setContentType("application/json");
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                JSONObject responseJSON = new JSONObject();
+                responseJSON.put("message", "id provided does not exist");
+                PrintWriter out = response.getWriter();
+                out.print(responseJSON);
+                out.flush();
+            }
+
+            conn.closeConnection();
+        } else {
+            response.setContentType("application/json");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            JSONObject responseJSON = new JSONObject();
+            responseJSON.put("message", "missing an id to query with");
+            PrintWriter out = response.getWriter();
+            out.print(responseJSON);
+            out.flush();
+        }
+    }
+
+    @RequestMapping(value = "/createPerson", method = RequestMethod.POST)
     protected void createPerson(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
 
         ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
         Clotho clothoObject = new Clotho(conn);
 
-        String firstName     = params.get("firstName");
-        String lastName      = params.get("lastName");
-        String password      = params.get("password");
-        String emailId       = params.get("emailId");
-        
-        
+        String firstName = params.get("firstName");
+        String lastName = params.get("lastName");
+        String password = params.get("password");
+        String emailId = params.get("emailId");
+
         Object pInstitutionId = params.get("institution");
         String institutionId = pInstitutionId != null ? (String) pInstitutionId : "";
-        
+
         System.out.println("Passed in instit ID" + institutionId);
         Object pLabId = params.get("lab");
         String labId = pLabId != null ? (String) pLabId : "";
@@ -515,15 +513,15 @@ public class PersonController {
         createdPerson.setEmailId(emailId);
         createdPerson.setPassword(password);
 
-        if (!institutionId.equals("")){
+        if (!institutionId.equals("")) {
             List<String> institutions = createdPerson.getInstitutions();
             institutions.add(institutionId);
             createdPerson.setInstitutions(institutions);
             createdPerson.setInstitution(institutionId);
             System.out.println("I GOT TO HERE WITH ID " + institutionId);
         }
-        
-        if (!labId.equals("")){
+
+        if (!labId.equals("")) {
             List<String> labs = createdPerson.getLabs();
             labs.add(labId);
 
@@ -553,9 +551,9 @@ public class PersonController {
 
             EmailHandler emailer = EmailHandler.getEmailHandler();
 
-            String link = Args.phagebookBaseURL + "/html/validateEmail.html?emailId=" + createdPerson.getEmailId() + "&salt=" + createdPerson.getSalt() ;
+            String link = Args.phagebookBaseURL + "/html/validateEmail.html?emailId=" + createdPerson.getEmailId() + "&salt=" + createdPerson.getSalt();
             System.out.println(link);
-            
+
             emailer.sendEmailVerification(createdPerson, link);
             response.setStatus(HttpServletResponse.SC_OK);
             response.setContentType("application/JSON");
@@ -581,11 +579,9 @@ public class PersonController {
         }
         conn.closeConnection();
 
-        
-
     }
-    
-    @RequestMapping(value="/getPersonByIdGET", method=RequestMethod.GET)
+
+    @RequestMapping(value = "/getPersonById", method = RequestMethod.GET)
     protected void getPersonByIdGET(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -694,11 +690,10 @@ public class PersonController {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @RequestMapping(value="/getPersonByIdPOST", method=RequestMethod.POST)
+    @RequestMapping(value = "/getPersonById", method = RequestMethod.POST)
     protected void getPersonByIdPOST(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
         //
-        
 
         System.out.println("reached doPost");
         /* Map myMap = params.getMap();
@@ -728,7 +723,7 @@ public class PersonController {
 
         Object pNewTitle = params.get("editTitle");
         String newTitle = pNewTitle != null ? (String) pNewTitle : "";
-/*
+        /*
         Object pNewLab = params.get("editLab");
         String newLab = pNewLab != null ? (String) pNewLab : "";
 
@@ -809,21 +804,20 @@ public class PersonController {
         }
 
     }
-    
-    @RequestMapping(value="/loadUserStatuses", method=RequestMethod.GET)
+
+    @RequestMapping(value = "/loadUserStatuses", method = RequestMethod.GET)
     protected void loadUserStatuses(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
+
         System.out.println("reached doGet inside loadUserStatuses");
 
         String clothoId = (String) params.get("clothoId");
-        
+
         boolean isValid = false;
         if (clothoId != null && clothoId != "") {
             isValid = true;
         }
-        
+
         if (isValid) {
             //ESTABLISH CONNECTION
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
@@ -838,24 +832,24 @@ public class PersonController {
             loginMap.put("credentials", "password");
             clothoObject.login(loginMap);
             //          
-            
+
             Person retrieve = ClothoAdapter.getPerson(clothoId, clothoObject);
-            
+
             JSONObject statusesAsJSON = new JSONObject();
-        
+
             statusesAsJSON.put("statusIdJSON", retrieve.getStatuses());
             JSONArray statuses = new JSONArray();
-            for ( String statId : retrieve.getStatuses()){
+            for (String statId : retrieve.getStatuses()) {
                 Status tempStat = ClothoAdapter.getStatus(statId, clothoObject);
-                
+
                 JSONObject statJSON = new JSONObject();
-                
+
                 statJSON.put("statusText", tempStat.getText());
                 statJSON.put("dateCreated", tempStat.getCreated().toString());
-                
+
                 statuses.put(statJSON);
             }
-            
+
             response.setContentType("application/json");
             PrintWriter out = response.getWriter();
             out.print(statuses);
@@ -867,8 +861,8 @@ public class PersonController {
 
         }
     }
-    
-    @RequestMapping(value="/loginUser", method=RequestMethod.POST)
+
+    @RequestMapping(value = "/loginUser", method = RequestMethod.POST)
     public void loginUser(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws Exception {
         //
@@ -876,17 +870,14 @@ public class PersonController {
         //changed gettting params
         String email = params.get("email");
         String password = params.get("password");
-                
+
         boolean isValidRequest = false;
-        if((!email.isEmpty()) && (!password.isEmpty())){
+        if ((!email.isEmpty()) && (!password.isEmpty())) {
             isValidRequest = true;
-        }
-        
-        
-        else{
+        } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
-        if(isValidRequest){
+        if (isValidRequest) {
             //ESTABLISH CONNECTION
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
@@ -896,39 +887,32 @@ public class PersonController {
             clothoObject.logout();
             //should have been successful its null if not successful.
             Object NULL = null;
-            
-            
+
             boolean isLoggedIn = false;
-            
-            if(clothoObject.login(loginMap).equals(NULL)){
+
+            if (clothoObject.login(loginMap).equals(NULL)) {
                 System.out.println("Null OBJECT!!");
                 isLoggedIn = false;
-            }
-            else{
+            } else {
                 System.out.println("Reached here..");
                 isLoggedIn = true;
             }
-           
+
             System.out.println("abcd");
-            
-            
+
             Map clothoQuery = new HashMap();
             clothoQuery.put("emailId", email);
             Person loggedInPerson = null;
-            if (isLoggedIn){
+            if (isLoggedIn) {
                 System.out.println("is logged in");
                 loggedInPerson = ClothoAdapter.queryPerson(clothoQuery, clothoObject, ClothoAdapter.QueryMode.EXACT).get(0);
             }
 
-            
-            if ( isLoggedIn && !loggedInPerson.equals(NULL))
-            {
-                if (loggedInPerson.isActivated())
-                {
+            if (isLoggedIn && !loggedInPerson.equals(NULL)) {
+                if (loggedInPerson.isActivated()) {
 
                     //return success, this means its a valid request
                     //response.setStatus(HttpServletResponse.SC_OK);
-
                     String idVal = (String) loggedInPerson.getId();
                     JSONObject responseJSON = new JSONObject();
                     responseJSON.put("clothoId", idVal);
@@ -939,9 +923,7 @@ public class PersonController {
                     out.print(responseJSON);
                     out.flush();
                     out.close();
-                }
-                else
-                {
+                } else {
                     //person is not activated in need to go to the email verification page
                     String idVal = (String) loggedInPerson.getId();
                     JSONObject responseJSON = new JSONObject();
@@ -953,9 +935,9 @@ public class PersonController {
                     out.print(responseJSON);
                     out.flush();
                     out.close();
-                    
+
                 }
-            }else {
+            } else {
                 //user did not make clotho return a login response...
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                 response.setContentType("application/json");
@@ -966,16 +948,15 @@ public class PersonController {
                 out.print(obj);
                 out.flush();
                 out.close();
-            
+
             }
             conn.closeConnection();
         }
     }
-    
-    @RequestMapping(value="/createStatus", method=RequestMethod.POST)
+
+    @RequestMapping(value = "/createStatus", method = RequestMethod.POST)
     protected void createStatus(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
-        
 
         System.out.println("inside create status post");
 
@@ -1006,17 +987,17 @@ public class PersonController {
 
             Person retrieve = ClothoAdapter.getPerson(userId, clothoObject);
             if (!retrieve.getId().equals("")) {
-                
+
                 if (!newStatus.equals("")) {
                     Status newStatusThing = new Status();
-                    
+
                     newStatusThing.setText(newStatus);
                     newStatusThing.setUserId(retrieve.getId());
                     ClothoAdapter.createStatus(newStatusThing, clothoObject);
-                    
+
                     retrieve.addStatus(newStatusThing);
                 }
-                
+
                 clothoObject.logout();
                 ClothoAdapter.setPerson(retrieve, clothoObject);
                 response.setContentType("application/json");
@@ -1027,7 +1008,7 @@ public class PersonController {
                 out.print(responseJSON);
                 out.flush();
                 out.close();
-                
+
                 conn.closeConnection();
             }
         } else {
@@ -1042,45 +1023,44 @@ public class PersonController {
         }
 
     }
-    
-    @RequestMapping(value="/queryFirstLastName", method=RequestMethod.GET)
+
+    @RequestMapping(value = "/queryFirstLastName", method = RequestMethod.GET)
     protected void queryFirstLastName(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         Object pFirstName = params.get("firstName");
-        String firstName = pFirstName != null ? (String) pFirstName: "";
-        
+        String firstName = pFirstName != null ? (String) pFirstName : "";
+
         Object pLastName = params.get("lastName");
-        String lastName = pLastName != null ? (String) pLastName: "";
-        
+        String lastName = pLastName != null ? (String) pLastName : "";
+
         boolean isValid = false;
-        if (!firstName.equals("") || !lastName.equals("")){
+        if (!firstName.equals("") || !lastName.equals("")) {
             isValid = true;
         }
-        
-        if (isValid){
+
+        if (isValid) {
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
             String username = "phagebook";
             String password = "backend";
             Map loginMap = new HashMap();
             loginMap.put("username", username);
-            loginMap.put("credentials", password);     
+            loginMap.put("credentials", password);
             clothoObject.login(loginMap);
             // able to query now. 
             Map query = new HashMap();
-            if (!firstName.equals("")){
+            if (!firstName.equals("")) {
                 query.put("firstName", firstName); // the value for which we are querying.
             }
-            if (!lastName.equals("")){
+            if (!lastName.equals("")) {
                 query.put("lastName", lastName); // the key of the object we are querying
-            }       
-            
-           
+            }
+
             List<Person> people = ClothoAdapter.queryPerson(query, clothoObject, ClothoAdapter.QueryMode.EXACT);
             JSONArray peopleJSONArray = new JSONArray();
-            
-            for (Person retrieve : people){
+
+            for (Person retrieve : people) {
                 JSONObject retrievedAsJSON = new JSONObject();
                 retrievedAsJSON.put("fullname", retrieve.getFirstName() + " " + retrieve.getLastName());
                 //get position? role?? we will look into this
@@ -1088,33 +1068,28 @@ public class PersonController {
                 retrievedAsJSON.put("lastName", retrieve.getLastName());
                 retrievedAsJSON.put("clothoId", retrieve.getId());
 
-                String firstInstitutionId = (retrieve.getInstitutions().size() > 0) ? retrieve.getInstitutions().get(0): "None" ;
-                    if (!firstInstitutionId.equals("None")){
-                        retrievedAsJSON.put("institutionName", ClothoAdapter.getInstitution(firstInstitutionId, clothoObject) .getName());
-                    }
-                    
-                    String firstLabId = (retrieve.getLabs().size() > 0) ? retrieve.getLabs().get(0): "None";
-                    if (!firstLabId.equals("None")) {
-                        retrievedAsJSON.put("labName", ClothoAdapter.getLab(firstLabId, clothoObject).getName());
-                    }
+                String firstInstitutionId = (retrieve.getInstitutions().size() > 0) ? retrieve.getInstitutions().get(0) : "None";
+                if (!firstInstitutionId.equals("None")) {
+                    retrievedAsJSON.put("institutionName", ClothoAdapter.getInstitution(firstInstitutionId, clothoObject).getName());
+                }
 
-                
-                
+                String firstLabId = (retrieve.getLabs().size() > 0) ? retrieve.getLabs().get(0) : "None";
+                if (!firstLabId.equals("None")) {
+                    retrievedAsJSON.put("labName", ClothoAdapter.getLab(firstLabId, clothoObject).getName());
+                }
+
                 //retrievedAsJSON.put("labList", labList);
                 peopleJSONArray.put(retrievedAsJSON);
             }
-            
-            
+
             response.setContentType("application/json");
             response.setStatus(HttpServletResponse.SC_OK);
-            
+
             PrintWriter out = response.getWriter();
             out.print(peopleJSONArray);
             out.flush();
             conn.closeConnection();
-        }
-        else
-        {
+        } else {
             response.setContentType("application/json");
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             JSONObject responseJSON = new JSONObject();
@@ -1123,6 +1098,97 @@ public class PersonController {
             out.print(responseJSON);
             out.flush();
         }
+
+    }
+    
+    @RequestMapping(value = "/uploadProfilePicture", method = RequestMethod.POST)        
+    protected void uploadProfilePicture(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            processPostRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(uploadProfilePicture.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    /*
+    Temp. Will Change. -Jacob 
+    */
+    private static String getValue(Part part) throws IOException {
+        System.out.println("Reached get Value");
+        BufferedReader reader = new BufferedReader(new InputStreamReader(part.getInputStream(), "UTF-8"));
+        StringBuilder value = new StringBuilder();
+        char[] buffer = new char[1024];
+        for (int length = 0; (length = reader.read(buffer)) > 0;) {
+            System.out.print(".");
+            value.append(buffer, 0, length);
+        }
+        System.out.println("Value :: " + value.toString());
+        return value.toString();
+    }
+    
+     public static String getFilepath()
+    {
+        String filepath = uploadProfilePicture.class.getClassLoader().getResource(".").getPath();
+        System.out.println("File path " + filepath);
+        if(filepath.contains("WEB-INF/classes/")){
+            filepath = filepath.substring(0,filepath.indexOf("WEB-INF/classes/"));
+        }
+        else if(filepath.contains("target/classes/"))
+        {
+            filepath = filepath.substring(0,filepath.indexOf("target/classes/"));
+        }
+        filepath += "upload/";
+        return filepath;
+    }
+    
+    public File partConverter(Part part, String fileName) throws IOException {
+        String pathAndName = getFilepath() + fileName;
         
-    }     
+        OutputStream out = null;
+        InputStream filecontent = null;
+        
+        try {
+            out = new FileOutputStream(new File(pathAndName));
+            filecontent = part.getInputStream();
+
+            int read;
+            final byte[] bytes = new byte[1024];
+
+            while ((read = filecontent.read(bytes)) != -1) {
+                out.write(bytes, 0, read);
+            }
+        } catch (FileNotFoundException fne) {
+            Logger.getLogger(uploadProfilePicture.class.getName()).log(Level.SEVERE, null, fne);
+        }
+        
+        return new File(pathAndName);
+    }
+    
+    
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    
+
+    protected void processPostRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, Exception {
+        // Disable the cache once and for all
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+        response.setHeader("Pragma", "no-cache");                                   // HTTP 1.0.
+        response.setDateHeader("Expires", 0);
+        System.out.println("Reached the Do post part.. Wohhoo");
+        String filename = getValue(request.getPart("profilePictureName"));
+        File profilePic = partConverter(request.getPart("profilePicture"),filename);
+        String clothoId = getValue(request.getPart("clothoId"));
+        S3Adapter.uploadProfilePicture(clothoId, profilePic);
+        
+        System.out.println(filename);
+    
+    }
 }
