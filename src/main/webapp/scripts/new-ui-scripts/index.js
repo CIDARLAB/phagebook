@@ -105,8 +105,8 @@ $(document).ready(function () {
                     var responseJSON = JSON.parse(response);
                     setCookie("emailId", responseJSON.emailId, 1);
                     setCookie("clothoId", responseJSON.clothoId, 1);
-                    console.log(validateEmail(emailId));
-                    window.location.href = 'html/resendEmailVerification.html';
+                    //console.log(validateEmail(emailId));
+                    window.location.href = '../html/resendEmailVerification.html';
                 },
                 error: function (response) {
                     $("#duplicate-user-alert").fadeIn();
@@ -121,10 +121,10 @@ $(document).ready(function () {
         var loginId = document.getElementById("loginEmailAddress").value;
         var password = document.getElementById("loginPassword").value;
 
-//        if ((loginId === "") || (password === "")) {
-//            $("#invalid-combo-alert").modal('show');
-//            isValid = 0;
-//        }
+        if ((loginId === "") || (password === "")) {
+            $("#invalid-combo-alert").modal('show');
+            isValid = 0;
+        }
 
         if (isValid) {
             $.ajax({
@@ -142,16 +142,16 @@ $(document).ready(function () {
                     setCookie("emailId", response.emailId, 1);
 
                     if (response.activated === "false") {
-                        window.location.href = 'html/resendEmailVerification.html';
+                        window.location.href = '../html/resendEmailVerification.html';
                     }
                     else {
-                        window.location.href = 'html/profile.html';
+                        window.location.href = '../html/profile.html';
                     }
                 },
-//                error: function (response) {
-//                    var responseText = JSON.parse(response.responseText);
-//                    $("#invalid-combo-alert").modal('show');
-//                }
+                error: function (response) {
+                    var responseText = JSON.parse(response.responseText);
+                    $("#invalid-combo-alert").modal('show');
+                }
             });
         }
     });
@@ -169,7 +169,7 @@ function checkPasswordMatch() {
     }
     else {
         $("#password-match-alert").fadeOut();
-        console.log("Passwords match");
+        //console.log("Passwords match");
         return true;
     }
 }

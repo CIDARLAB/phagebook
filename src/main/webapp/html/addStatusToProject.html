@@ -22,14 +22,14 @@
 	var p2id = '56ed827ed4c6d585aa42456d';
 
 	var addStatus = function() {
-	    console.log("in addStatus function!!");
+	    //console.log("in addStatus function!!");
 	    var newStatus = "";
 
 	    if ($("#status").val() != null) {
 	        newStatus = $("#status").val()
 	    };
 
-	    console.log(newStatus);
+	    //console.log(newStatus);
 
 	    var data = {
 	        "userID": p3id,
@@ -43,19 +43,19 @@
 	        dataType: "json",
 	        data: data,
 	        success: function(response) {
-	            console.log(response);
+	            //console.log(response);
 	            if (response.success == 1) {
-	                console.log("success!!!");
+	                //console.log("success!!!");
 	            } else if (response.short == 1) {
-	                console.log("too short!!!");
+	                //console.log("too short!!!");
 	            } else {
-	            		console.log(response);
-	                console.log("nope!!!");
+	            		//console.log(response);
+	                //console.log("nope!!!");
 	            }
 	        },
 	        error: function(err) {
-	            console.log("ERROR!!");
-	            console.log(err);
+	            //console.log("ERROR!!");
+	            //console.log(err);
 	        }
 	    });
 	}

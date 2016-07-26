@@ -53,7 +53,7 @@ function createOrderCard(orderJSON) {
                 
                         //<td class="item-name">
                         //        <a type="button" href="">
-                        //            <img alt="Delete item" src="styles/img/icons/remove-item.png"/>
+                        //            <img alt="Delete item" src="../styles/img/icons/remove-item.png"/>
                         //        </a>
                         //    </td>
                 var response = doCartItemAjax(orderJSON.Products[i]);
@@ -68,7 +68,7 @@ function createOrderCard(orderJSON) {
                     a.name = orderJSON.ClothoId;
 
                     var img = document.createElement('img');
-                    img.src ="styles/img/icons/remove-item.png";
+                    img.src ="../styles/img/icons/remove-item.png";
                     img.className="delete-icon";
                     img.name = orderJSON.Products[i];
                     a.appendChild(img);
@@ -159,7 +159,7 @@ function doCartItemAjax(cartItemId){
 
         },
         error: function (response){
-            console.log("cart item querying failed");
+            //console.log("cart item querying failed");
         }
     });
 

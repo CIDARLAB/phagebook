@@ -34,11 +34,11 @@ $(document).ready(function() {
                             setCookie("clothoId", response.clothoId , 1);
                             setCookie("emailId",  response.emailId  , 1);
                             
-                            window.location.href = 'html/resendEmailVerification.html';
+                            window.location.href = '../html/resendEmailVerification.html';
                         }
                         else 
                         {
-                            window.location.href = 'html/profile.html?user=' + response.clothoId;
+                            window.location.href = '../html/profile.html?user=' + response.clothoId;
                         }
                     },
                     error: function (response) {

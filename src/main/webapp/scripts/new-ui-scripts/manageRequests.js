@@ -64,7 +64,7 @@ function parseColleagueRequest(colleagueJSON){
     var content = $("#content");
     var template = document.getElementById('friend-request-template').content.cloneNode(true);
     template.querySelector('.colleague-name').text  = colleagueJSON.firstName + " " + colleagueJSON.lastName;
-    template.querySelector('.colleague-name').href  =  "html/colleague.html?user=" + colleagueJSON.clothoId;
+    template.querySelector('.colleague-name').href  =  "../html/colleague.html?user=" + colleagueJSON.clothoId;
     template.querySelector('.approve-colleague-btn').value = colleagueJSON.clothoId;
     template.querySelector('.decline-colleague-btn').value = colleagueJSON.clothoId;
 
@@ -114,7 +114,7 @@ function parseOrderRequest(orderJSON){
 
             //<td class="item-name">
             //        <a type="button" href="">
-            //            <img alt="Delete item" src="styles/img/icons/remove-item.png"/>
+            //            <img alt="Delete item" src="../styles/img/icons/remove-item.png"/>
             //        </a>
             //    </td>
             var response = doCartItemAjax(orderJSON.products[i]);
@@ -129,7 +129,7 @@ function parseOrderRequest(orderJSON){
             a.name = orderJSON.ClothoId;
 
             var img = document.createElement('img');
-            img.src ="styles/img/icons/remove-item.png";
+            img.src ="../styles/img/icons/remove-item.png";
             img.className="delete-icon";
             img.name = orderJSON.products[i];
             a.appendChild(img);
@@ -217,7 +217,7 @@ function doCartItemAjax(cartItemId){
 
         },
         error: function (response){
-            console.log("cart item querying failed");
+            //console.log("cart item querying failed");
         }
     });
 

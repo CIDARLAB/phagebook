@@ -33,7 +33,7 @@ import org.clothocad.phagebook.adaptors.servlets.uploadProfilePicture;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Institution;
 import org.clothocad.phagebook.dom.Order;
-import org.clothocad.phagebook.dom.OrderStatus;
+import org.clothocad.phagebook.dom.Order.OrderStatus;
 import org.clothocad.phagebook.dom.Publication;
 import org.clothocad.phagebook.dom.Status;
 import org.clothocad.phagebook.security.EmailSaltHasher;
@@ -603,6 +603,7 @@ public class PersonController {
             createUserMap.put("username", username);
             createUserMap.put("password", "password");
             clothoObject.createUser(createUserMap);
+            clothoObject.logout();
             Map loginMap = new HashMap();
             loginMap.put("username", username);
             loginMap.put("credentials", "password");
@@ -624,6 +625,7 @@ public class PersonController {
             retrievedAsJSON.put("email", retrieve.getEmailId());
             retrievedAsJSON.put("profileDescription", retrieve.getProfileDescription());
             retrievedAsJSON.put("statuses", retrieve.getStatuses());
+            retrievedAsJSON.put("listColleagueRequests", retrieve.getColleagueRequests());
             String labId = retrieve.getLabs().size() > 0 ? retrieve.getLabs().get(0) : "0";
 
             retrievedAsJSON.put("lab", ClothoAdapter.getLab(labId, clothoObject));
@@ -796,7 +798,7 @@ public class PersonController {
             }*/
                 clothoObject.logout();
                 ClothoAdapter.setPerson(retrieve, clothoObject);
-
+                conn.closeConnection();
             }
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

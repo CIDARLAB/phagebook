@@ -6,6 +6,9 @@
 package org.clothocad.phagebook.controllers;
 
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -22,9 +25,13 @@ import org.clothocad.model.Person;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.adaptors.EmailHandler;
 import org.clothocad.phagebook.adaptors.S3Adapter;
+import org.clothocad.phagebook.adaptors.servlets.SelectColumns;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Institution;
 import org.clothocad.phagebook.dom.Lab;
+import org.clothocad.phagebook.dom.Order;
+import org.clothocad.phagebook.dom.Order.OrderColumns;
+import static org.clothocad.phagebook.controller.OrderController.createOrderForm;
 import org.clothocad.phagebook.dom.Vendor;
 import org.clothocad.phagebook.security.EmailSaltHasher;
 import org.json.JSONArray;
@@ -257,7 +264,7 @@ public class MiscControllers {
                 clothoObject.logout();
                 ClothoAdapter.setPerson(pers, clothoObject);  
                 System.out.println("HERE AT VERIFY EMAIL: "+ ClothoAdapter.getPerson(pers.getId(), clothoObject).isActivated());
-                S3Adapter.initializeUserFolder(pers);//queryPersons.get(0).getId()
+//                S3Adapter.initializeUserFolder(pers);//queryPersons.get(0).getId()
                 
                 
                 
@@ -336,5 +343,124 @@ public class MiscControllers {
         out.flush();
         out.close();
         conn.closeConnection();
+    }
+    
+    @RequestMapping(value="selectColumns", method=RequestMethod.POST)
+    public void selectColumns(@RequestParam Map<String, String> params, HttpServletResponse response) throws IOException, ServletException {
+    /*
+        String SERIAL_NUMBER = params.get("serialNumber");
+        String PRODUCT_NAME = params.get("productName");
+        String PRODUCT_URL = params.get("productUrl");
+        String PRODUCT_DESCRIPTION = params.get("productDescription");
+        String QUANTITY = params.get("quantity");
+        String COMPANY_NAME = params.get("companyName");
+        String COMPANY_URL = params.get("companyUrl");
+        String COMPANY_DESCRIPTION = params.get("companyDescription");
+        String COMPANY_CONTACT = params.get("companyContact");
+        String COMPANY_PHONE = params.get("companyPhone");
+        String UNIT_PRICE = params.get("unitPrice");
+        String TOTAL_PRICE = params.get("totalPrice");
+    */
+       System.out.println("Reached doPost");
+       String id = params.get("orderId");
+       System.out.println(id);
+       if ((id!=null) && (!id.equals("")))
+       {    
+            System.out.println("ID is not null");
+            List<OrderColumns> orderColumns = new ArrayList<>();
+            System.out.println("Serial Number " + params.get("serialNumber"));
+            System.out.println("Product Name :: " +params.get("productName"));
+            if("true".equals(params.get("serialNumber")))
+                
+            {
+                orderColumns.add(OrderColumns.SERIAL_NUMBER);
+            }
+            
+            if("true".equals(params.get("productName"))){
+                orderColumns.add(OrderColumns.PRODUCT_NAME);
+            }
+            if("true".equals(params.get("productUrl"))){
+                orderColumns.add(OrderColumns.PRODUCT_URL);
+            }
+            if("true".equals(params.get("productDescription"))){
+                orderColumns.add(OrderColumns.PRODUCT_DESCRIPTION);
+            }
+            if("true".equals(params.get("quantity"))){
+                orderColumns.add(OrderColumns.QUANTITY);
+            }
+            if("true".equals(params.get("companyName"))){
+                orderColumns.add(OrderColumns.COMPANY_NAME);
+            }
+            if("true".equals(params.get("companyUrl"))){
+                orderColumns.add(OrderColumns.COMPANY_URL);
+            }
+            if("true".equals(params.get("companyDescription"))){
+                orderColumns.add(OrderColumns.COMPANY_DESCRIPTION);
+            }
+            if("true".equals(params.get("companyContact"))){
+                orderColumns.add(OrderColumns.COMPANY_CONTACT);
+            }
+            if("true".equals(params.get("companyPhone"))){
+                orderColumns.add(OrderColumns.COMPANY_PHONE);
+            }
+            if("true".equals(params.get("unitPrice"))){
+                orderColumns.add(OrderColumns.UNIT_PRICE);
+            }
+            if("true".equals(params.get("totalPrice"))){
+                orderColumns.add(OrderColumns.TOTAL_PRICE);
+            }   
+            
+            System.out.println("Order Columns " + orderColumns);
+            
+            ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+            Clotho clothoObject = new Clotho(conn);
+            Map createUserMap = new HashMap();
+            String username = "phagebook";
+            createUserMap.put("username", username);
+            createUserMap.put("password", "password");
+
+            clothoObject.createUser(createUserMap);
+            Map loginMap = new HashMap();
+            loginMap.put("username", username);
+            loginMap.put("credentials", "password");
+
+            clothoObject.login(loginMap);
+            System.out.println("HERE AT SELECT 1");
+            Order order = ClothoAdapter.getOrder(id, clothoObject);
+            System.out.println("HERE AT SELECT 2");
+            List<String> orderFormLines = createOrderForm(order,orderColumns);
+            System.out.println(orderFormLines);
+            
+            String filepath = SelectColumns.class.getClassLoader().getResource(".").getPath();
+            System.out.println("File path ::" + filepath);
+            filepath = filepath.substring(0, filepath.indexOf("/target/"));
+            System.out.println("\nTHIS IS THE FILEPATH: " + filepath);
+            
+            
+            
+            String filepathOrderForm = filepath + "/orderForm.csv";
+            File file = new File(filepathOrderForm);
+            
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            for(String line : orderFormLines)
+            {
+                writer.write(line);
+                writer.newLine();
+            }
+            
+            writer.flush();
+            writer.close();
+            
+            PrintWriter reponseWriter = response.getWriter();
+            reponseWriter.println(filepathOrderForm);
+            reponseWriter.flush();
+            reponseWriter.close();
+            conn.closeConnection();
+       }
+       else
+       {
+           response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+       }
+                        
     }
 }

@@ -34,8 +34,8 @@ import org.clothocad.phagebook.controller.Utilities;
 import org.clothocad.phagebook.dom.CartItem;
 import org.clothocad.phagebook.dom.Lab;
 import org.clothocad.phagebook.dom.Order;
-import org.clothocad.phagebook.dom.OrderColumns;
-import org.clothocad.phagebook.dom.OrderStatus;
+import org.clothocad.phagebook.dom.Order.OrderColumns;
+import org.clothocad.phagebook.dom.Order.OrderStatus;
 import org.clothocad.phagebook.dom.Product;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -46,7 +46,7 @@ import org.json.JSONObject;
  * @author jacob
  */
 @Controller
-public class OrderController {
+public class OrdersController {
     
     @RequestMapping(value="addProductsToOrder", method=RequestMethod.POST)
     protected void addProductsToOrder(@RequestParam Map<String, String> params, HttpServletResponse response)

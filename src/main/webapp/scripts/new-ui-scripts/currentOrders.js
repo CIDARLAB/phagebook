@@ -24,11 +24,11 @@ $(document).ready(function() {
         switch (id){
             case "productNameToSearch":
                 name = $("#productNameToSearch").val();
-                url = "queryProductByName";
+                url = "../queryProductByName";
                 break;
             case "vendorNameToSearch":
                 name = $("#vendorNameToSearch").val();
-                url = "queryProductByCompany";
+                url = "../queryProductByCompany";
                 break;
             default:
                 break;
@@ -74,7 +74,7 @@ $(document).ready(function() {
 
                         var image = document.createElement("td");
                         var imageTableData = $('<img id="dynamic">');
-                        imageTableData.attr('src', "styles/img/mis/test-item.jpg");
+                        imageTableData.attr('src', "../styles/img/mis/test-item.jpg");
                         imageTableData.appendTo(image);
                         imageTableData.attr('style', 'height:70px;');
                         tr.appendChild(image);
@@ -261,7 +261,7 @@ $(document).ready(function() {
             },
             success: function (response) {
                 //alert("Products Added!");
-                window.location.href = "html/currentOrders.html";
+                window.location.href = "../html/currentOrders.html";
             },
             error: function (response) {
                 alert("An error occurred with adding the product to this order.");
@@ -328,7 +328,7 @@ function submitButtonHandler(){
         },
         success: function (response) {
             alert("Order Submitted");
-            window.location.href = "html/currentOrders.html";
+            window.location.href = "../html/currentOrders.html";
         },
         error: function (response) {
             alert("An error occurred upon submitting this order.");
@@ -350,7 +350,7 @@ function exportCSVHandler(){
             "orderId": orderId
         },
         success: function (response) {
-            window.open("resources/OrderSheets/Order_" + orderId + ".csv",'_blank');
+            window.open("../resources/OrderSheets/Order_" + orderId + ".csv",'_blank');
         },
         error: function (response) {
             alert("An error occurred with exporting the CSV.");

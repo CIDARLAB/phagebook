@@ -1,9 +1,7 @@
 <!DOCTYPE html>
-
 <html>
 
 <head lang="en">
-
     <meta charset="UTF-8">
     <title>New Project</title>
     <meta charset="UTF-8">
@@ -12,40 +10,34 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="../styles/main.css" />
     <link rel="stylesheet" href="../styles/sidebar.css" />
+    <link rel="stylesheet" href="../styles/projectsDropdown.css" />
     <link rel="icon" href="../styles/img/logos/phagebook-favicon.png" sizes="16x16">
-
-
     <script src="../scripts/new-ui-scripts/cookieHandler.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script src="../scripts/new-ui-scripts/angular.ng-modules.js"></script>
     <script src="../scripts/new-ui-scripts/addMembersToProjects.js"></script>
-
     <style>
-
-        #content{
-            position: relative;
-            margin-left: 26%;
-            margin-top: 130px;
-            margin-bottom: 150px;
-            overflow-x: hidden;
-            z-index: inherit;
-        }
-
-        label {
-            font-weight: 400;
-            color: #1E714A;
-        }
-
+    #content {
+        position: relative;
+        margin-left: 26%;
+        margin-top: 130px;
+        margin-bottom: 150px;
+        overflow-x: hidden;
+        z-index: inherit;
+    }
+    
+    label {
+        font-weight: 400;
+        color: #1E714A;
+    }
     </style>
-
 </head>
 
 <body>
-
     <div ng-module="newProjects">
-        <div ng-controller="newProjectsCtrl">
+        <div ng-controller="newProjectsCtrl" ng-cloak>
             <header></header>
             <sidebar></sidebar>
             <div class="container" id="content">
@@ -65,7 +57,7 @@
                                 <span class="error" ng-show="submitProject.name.$error.maxlength">Maximum length is 100 characters.</span>
                             </div>
                         </div>
-                         <div class="form-group row">
+                        <!--                          <div class="form-group row">
                                     <!~~ Organization lab ~~>
                                     <div class="col-sm-2  float-left form-control-label">
                                         <label>
@@ -86,7 +78,7 @@
                                         </div>
                                     </div>
                                     <span ng-show="labsRequired">{{labsRequired}}</span>
-                        </div>
+                        </div> -->
                         <div class="form-group row">
                             <label for="inputDescription3" class="col-sm-2 form-control-label">DESCRIPTION*</label>
                             <div class="col-sm-5">
@@ -97,25 +89,28 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="inputLeadName" class="col-sm-2 form-control-label">PROJECT LEAD NAME* SEARCH</label>
+                            <label for="inputLeadName" class="col-sm-2 form-control-label">SEARCH FOR LEAD</label>
                             <div class="form-group has-feedback col-sm-5">
                                 <div class="right-inner-addon">
                                     <i class="glyphicon glyphicon-search"></i>
-                                    <input name="leadName" class="form-control newProject-input leadForm leadName" id="inputLeadName" placeholder="i.e. John Smith" ng-model="formData.leadName">
-                                    <div class="leadError">
-                                        <span ng-show="leadNameRequired">{{leadNameRequired}}</span>
-                                    </div>
+                                    <input name="leadName" class="form-control newProject-input leadForm leadName" id="inputLeadName" ng-model="formData.leadName">
                                 </div>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="lead_Results" class="col-sm-2 form-control-label">SELECT LEAD</label>
+                            <label for="lead_Results" class="col-sm-2 form-control-label">SELECT LEAD*</label>
                             <div class="col-sm-5">
-                                <select class="form-control" id="lead_Results">
+                                <select class="form-control" id="inputLeadName_Results">
                                     <option value="">
                                         Select...
                                     </option>
+                                    <option value="0">
+                                        Could not find lead.
+                                    </option>
                                 </select>
+                                <div class="leadError">
+                                    <span ng-show="leadNameRequired">{{leadNameRequired}}</span>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -134,10 +129,44 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="inputMemberFirstName3" class="col-sm-2 form-control-label">TEAM MEMBERS*</label>
+                            <label for="inputMemberName" class="col-sm-2 form-control-label">SEARCH FOR MEMBERS</label>
+                            <div class="form-group has-feedback col-sm-5">
+                                <div class="right-inner-addon">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                    <input name="memberName" class="form-control newProject-input memberForm memberName" id="inputMemberName" placeholder="i.e. John Smith" ng-model="formData.memberName">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="member_Results" class="col-sm-2 form-control-label">SELECT MEMBER*</label>
                             <div class="col-sm-5">
-                                <input name="memberFirstName" class="form-control newProject-input memberForm firstName" id="inputMemberFirstName3" placeholder="i.e. John Smith, Jane Doe, ..." ng-model="formData.members">
-                                <span ng-show="membersRequired">{{membersRequired}}</span>
+                                <select class="form-control" id="inputMemberName_Results">
+                                    <option value="default">
+                                        Select...
+                                    </option>
+                                    <option value="0">
+                                        Could not find member.
+                                    </option>
+                                    <option value="123">
+                                        Could not find 123.
+                                    </option>
+                                </select>
+                                <div class="memberError">
+                                    <span ng-show="membersNameRequired">{{membersNameRequired}}</span>
+                                </div>
+                                <dl class="dropdown">
+                                    <dd class="dd_dropdown">
+                                        <div class="multiSelect">
+                                            <ul id="membersList">
+                                                <div><span>Selected members will be added to the project:</span>
+                                                    <option value="0">
+                                                        Could not find member.
+                                                    </option>
+                                                </div>
+                                            </ul>
+                                        </div>
+                                    </dd>
+                                </dl>
                             </div>
                         </div>
                     </form>
@@ -147,17 +176,16 @@
                 </div>
             </div>
         </div>
-        <br><br>
+        <br>
+        <br>
         <footer></footer>
     </div>
-
     <!-- ANGULAR SCRIPTS -->
     <script src="../scripts/new-ui-scripts/sidebarDirective.js"></script>
     <script src="../scripts/new-ui-scripts/headerDirective.js"></script>
     <script src="../scripts/new-ui-scripts/footerDirective.js"></script>
     <script src="../scripts/new-ui-scripts/newProjectsController.js"></script>
     <script src="../scripts/new-ui-scripts/newProjectsApp.js"></script>
-
 </body>
 
 </html>

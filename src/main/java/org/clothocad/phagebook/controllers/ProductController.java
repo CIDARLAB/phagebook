@@ -68,10 +68,7 @@ public class ProductController {
         if (!ClothoAdapter.queryVendor(companyMap, clothoObject, ClothoAdapter.QueryMode.EXACT).isEmpty()) {
             writer.println(companyName);
         }
-//        else{
-//            writer.println("The company does not exist");
-//        }
-        //System.out.println("reached this part!!");
+
         conn.closeConnection();
 
         writer.flush();

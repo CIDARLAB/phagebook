@@ -230,7 +230,7 @@ function searchBtnHandler() {
                 tmpl.querySelector('.pi-lab-name').innerText = (response[i].labName == null) ? "" : response[i].labName;
                 tmpl.querySelector('.pi-institution-name').innerText = response[i].institutionName;
 
-                tmpl.querySelector('.pi-profile-link').href = "html/colleague.html?user=" + response[i].clothoId;
+                tmpl.querySelector('.pi-profile-link').href = "../html/colleague.html?user=" + response[i].clothoId;
                 tmpl.querySelector('.pi-id').value = response[i].clothoId;
 
 
@@ -298,7 +298,7 @@ function personResultRectCreate(personJSON) {
     tmpl.querySelector('.pi-lab-name').innerText = (personJSON.labName == null) ? "" : personJSON.labName;
     tmpl.querySelector('.pi-institution-name').innerText = personJSON.institutionName;
 
-    tmpl.querySelector('.pi-profile-link').href = "html/colleague.html?user=" + personJSON.clothoId;
+    tmpl.querySelector('.pi-profile-link').href = "../html/colleague.html?user=" + personJSON.clothoId;
     tmpl.querySelector('.pi-id').value = personJSON.clothoId;
 
     content.append(tmpl);

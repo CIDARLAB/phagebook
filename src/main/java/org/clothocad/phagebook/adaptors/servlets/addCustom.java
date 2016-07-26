@@ -1,22 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.clothocad.phagebook.adaptors.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.cidarlab.citationsapi.PhagebookCitation;
-import org.cidarlab.citationsapi.Pubmed;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.model.Person;
@@ -66,8 +58,6 @@ public class addCustom extends HttpServlet {
         }
 
         bibtex += title + "}, author{" + authors + "}, other information{" + info + "}}";
-        
-        
 
         ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
         Clotho clothoObject = new Clotho(conn);

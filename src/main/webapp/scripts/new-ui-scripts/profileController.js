@@ -16,27 +16,27 @@ function profileCtrl($scope, $http) {
                 "status": $("#statusUpdateTextarea")[0].value
             }
         }).then(function successCallback(response) {
-            console.log("some success in getPersonById status ajax call");
+            //console.log("some success in getPersonById status ajax call");
             $("#statusUpdateTextarea")[0].value = "";
-            console.log(response.message);
+            //console.log(response.message);
         }, function errorCallback(response) {
-            console.log("inside getPersonById status ajax error");
-            console.log(JSON.stringify(response));
+            //console.log("inside getPersonById status ajax error");
+            //console.log(JSON.stringify(response));
         });
     });
 
     angular.element(document).ready(function ($scope) {
-        console.log("before ajax but inside page onload.`");
+        //console.log("before ajax but inside page onload.`");
         $.ajax({
             type: 'GET',
-            url: '../../getPersonById',
+            url: '../getPersonById',
             async: false,
             data: {
                 "userId": clothoId
             },
             success: function (response) {
                 var responseAsJSON = angular.fromJson(response);
-                console.log(JSON.stringify(responseAsJSON));
+                //console.log(JSON.stringify(responseAsJSON));
                 $("#fullName").text(responseAsJSON.fullname);
                 $("#dept").text(responseAsJSON.department);
                 $("#institution").text(responseAsJSON.institution);
@@ -45,7 +45,7 @@ function profileCtrl($scope, $http) {
                 //$scope.statuses = responseAsJSON.statuses;
             },
             error: {
-                //console.log("inside GET error");  
+                ////console.log("inside GET error");  
             }
         });
 
@@ -59,7 +59,7 @@ function profileCtrl($scope, $http) {
             success: function (response) {
                 var ul = $("#colleagues-full-list");
                 ul.empty();
-                console.log(JSON.stringify(response));
+                //console.log(JSON.stringify(response));
                 for (var i = 0; i < response.length; i++) {
                     var tmpl = document.getElementById("colleague-display-template").content.cloneNode(true);
                     // var othertmpl = document.getElementById("colleague-page-template").content.cloneNode(true);
@@ -68,13 +68,13 @@ function profileCtrl($scope, $http) {
                     tmpl.querySelector(".colleague-display-fullname").text = response[i].fullname;
                     tmpl.querySelector(".colleague-display-lab").innerHTML = (response[i].labName == null) ? "" : response[i].labName;
                     tmpl.querySelector(".colleague-display-institution").innerHTML = response[i].institutionName;
-                    tmpl.querySelector(".colleague-display-fullname").href = "html/colleague.html?user=" + response[i].clothoId;
+                    tmpl.querySelector(".colleague-display-fullname").href = "../html/colleague.html?user=" + response[i].clothoId;
                     ul.append(tmpl);
                 }
 
                 var ul2 = $("#list-colleagues");
                 ul2.empty();
-                console.log("hihihi: " + JSON.stringify(response));
+                //console.log("hihihi: " + JSON.stringify(response));
                 if (response.length > 0) {
                     for (var i = 0; i < 1; i++) { //change bounds when we can figure out css 
                         var tmpl = document.getElementById("colleague-display-template").content.cloneNode(true);
@@ -85,13 +85,13 @@ function profileCtrl($scope, $http) {
                         tmpl.querySelector(".colleague-display-fullname").text = response[i].fullname;
                         tmpl.querySelector(".colleague-display-lab").innerHTML = (response[i].labName == null) ? "" : response[i].labName;
                         tmpl.querySelector(".colleague-display-institution").innerHTML = response[i].institutionName;
-                        tmpl.querySelector(".colleague-display-fullname").href = "html/colleague.html?user=" + response[i].clothoId;
+                        tmpl.querySelector(".colleague-display-fullname").href = "../html/colleague.html?user=" + response[i].clothoId;
                         ul2.append(tmpl);
                     }
                 }
             },
             error: {
-                //console.log("inside GET error");
+                ////console.log("inside GET error");
             }
         });
 
@@ -104,20 +104,21 @@ function profileCtrl($scope, $http) {
             },
             success: function (response) {
                 var responseAsJSON = angular.fromJson(response);
-                //console.log("statuses: " + JSON.stringify(responseAsJSON));
+                ////console.log("statuses: " + JSON.stringify(responseAsJSON));
 
                 var ul = $("#status-list");
                 ul.empty();
                 for (var i = response.length - 1; i >= 0; i--) {
                     var tmpl = document.getElementById("status-template").content.cloneNode(true);
-                    var now = new Date(response[i].dateCreated);
-                    tmpl.querySelector(".status-date").innerText = "Created On: " + chooseMonth(now.getUTCMonth()) + " " + now.getUTCDay() + ", " + now.getFullYear() + " " + now.getHours() + ":" + now.getMinutes();
+                    var now = response[i].dateCreated;
+                    tmpl.querySelector(".status-date").innerText = "Created On: " + response[i].dateCreated;
+                    //tmpl.querySelector(".status-date").innerText = "Created On: " + chooseMonth(now.getUTCMonth()) + " " + now.getUTCDay() + ", " + now.getFullYear() + " " + now.getHours() + ":" + now.getMinutes();
                     tmpl.querySelector(".status-text").innerText = response[i].statusText;
                     ul.append(tmpl);
                 }
             },
             error: {
-                //console.log("inside GET error");
+                ////console.log("inside GET error");
             }
         });
     });
@@ -143,7 +144,7 @@ function profileCtrl($scope, $http) {
                     tmpl.querySelector(".main-link").alt = response[i].fullname;
                     tmpl.querySelector(".main-lab").innerHTML = (response[i].labName == null) ? "" : response[i].labName;
                     tmpl.querySelector(".main-institution").innerHTML = response[i].institutionName;
-                    tmpl.querySelector(".colleague-name").href = "html/colleague.html?user=" + response[i].clothoId;
+                    tmpl.querySelector(".colleague-name").href = "../html/colleague.html?user=" + response[i].clothoId;
                     tmpl.querySelector(".main-link").src = "http://s3.amazonaws.com/phagebookaws/" + response[i].clothoId + "/profilePicture.jpg";
                     ul.append(tmpl);
                 }
@@ -153,7 +154,7 @@ function profileCtrl($scope, $http) {
             error: function (response) {
 
                 return false;
-                //console.log("inside GET error");
+                ////console.log("inside GET error");
             }
         });
     });
@@ -191,7 +192,7 @@ function profileCtrl($scope, $http) {
     });
 
     $("#edit-profile-btn").click(function () {
-        window.location = "html/accountSettings.html";
+        window.location = "../html/accountSettings.html";
     });
 }
 

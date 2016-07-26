@@ -1,15 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.clothocad.phagebook.adaptors.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.cidarlab.citationsapi.CrossRef;
 import org.cidarlab.citationsapi.PhagebookCitation;
-import org.cidarlab.citationsapi.Pubmed;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.model.Person;
@@ -57,13 +49,6 @@ Object pCreatedBy = request.getParameter("createdBy");
 
         user.getPhagebookCitations().add(pC.getId());
 
-        ///////////ADD SORT BY YEAR FUNCTIONALITY
-//        int numberOfPC = user.getPhagebookCitations().size();
-//        for (int i = 0; i<numberOfPC; i++)
-//        {
-//            
-//        }
-        
         clothoObject.logout();
         ClothoAdapter.setPerson(user, clothoObject);
         clothoObject.login(loginMap);

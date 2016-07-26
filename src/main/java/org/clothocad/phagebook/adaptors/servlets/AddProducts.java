@@ -1,17 +1,8 @@
 package org.clothocad.phagebook.adaptors.servlets;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -21,12 +12,6 @@ import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
-import org.clothocad.phagebook.controller.OrderController;
-import org.clothocad.phagebook.dom.Vendor;
-import org.clothocad.phagebook.dom.Order;
-import org.clothocad.phagebook.dom.Product;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 /**
  *
@@ -65,13 +50,8 @@ public class AddProducts extends HttpServlet {
         if (!ClothoAdapter.queryVendor(companyMap,clothoObject, ClothoAdapter.QueryMode.EXACT).isEmpty()){
            writer.println(companyName);
         }
-//        else{
-//            writer.println("The company does not exist");
-//        }
-        //System.out.println("reached this part!!");
         conn.closeConnection();
-        
-        
+         
         writer.flush();
         writer.close();
         

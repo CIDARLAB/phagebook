@@ -131,7 +131,7 @@ function doAjaxCallToCreateOrder(name, createdBy, labId, associatedProjectId, bu
             },
             success: function (response) {
                 //alert("order created!");
-                window.location.href = "html/currentOrders.html";
+                window.location.href = "../html/currentOrders.html";
             },
             error: function (response) {
                 alert(response.message);

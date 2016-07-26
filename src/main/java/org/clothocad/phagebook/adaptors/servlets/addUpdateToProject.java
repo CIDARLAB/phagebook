@@ -19,7 +19,7 @@ import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.model.Person;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
-import org.clothocad.phagebook.adaptors.sendEmails;
+import org.clothocad.phagebook.adaptors.EmailCredentials;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Project;
 import org.clothocad.phagebook.dom.Status;
@@ -51,46 +51,79 @@ public class addUpdateToProject extends HttpServlet {
     Status newUpdate = new Status();
     newUpdate.setText(newStatus);
     newUpdate.setUserId(userID);
-    System.out.println(newUpdate);
-    System.out.println("About to create a Status in Clotho");
     String statusID = ClothoAdapter.createStatus(newUpdate, clothoObject);
-    
-    System.out.println("Status has been created in Clotho and ID is: "+statusID);
+
+//    System.out.println(newUpdate);
+//    System.out.println("About to create a Status in Clotho");    
+//    System.out.println("Status has been created in Clotho and ID is: "+statusID);
     
     // get the objects associated with the passed in IDS from clotho
     Person editor = ClothoAdapter.getPerson(userID, clothoObject);
-    System.out.println("User Id is: ");
-    System.out.println(userID);
+//    System.out.println("User Id is: ");
+//    System.out.println(userID);
     
-    Project project = ClothoAdapter.getProject(projectID, clothoObject);  
-    System.out.println("Project Id is: ");
-    System.out.println(projectID);
+    Project project = ClothoAdapter.getProject(projectID, clothoObject);
+    String projectName = project.getName();
+//    System.out.println("Project Id is: ");
+//    System.out.println(projectID);
     
     String editorName = editor.getFirstName() + " " +editor.getLastName();
-    System.out.println(editorName);
-    System.out.println(project.getName());
+//    System.out.println(editorName);
+//    System.out.println(project.getName());
      
     // get the existing list of project updates and add the id of the  new update
     List<String> projectUpdates = project.getUpdates();
-    projectUpdates.add(statusID);
-    
+    projectUpdates.add(statusID);    
     // update the update lists in the project object
     project.setUpdates(projectUpdates);
+       
+    // change the project in clotho (no use for return string)
+    String prId = ClothoAdapter.setProject(project, clothoObject);
     
-    List<String> allUpdates= project.getUpdates();
-    // change the project in clotho
-    String foo = ClothoAdapter.setProject(project, clothoObject);
-    System.out.println("In addProjectUpdate function projectID is:");
-    System.out.println(foo);
-    // TODO: email the peeps associate with the project what update was added
     if(emailPeople){
-      System.out.println();
-      System.out.println("I will email the people now");
-      System.out.println();
-      sendEmails.sendEmails(foo, editorName, clothoObject);
-    }
+      
+      Person creator = ClothoAdapter.getPerson(project.getCreatorId(), clothoObject);
+      Person lead = ClothoAdapter.getPerson(project.getLeadId(), clothoObject);
+      String leadName = lead.getFirstName() + " " + lead.getLastName();
+      String leadEmail = lead.getEmailId();
+      List<String> members = project.getMembers();
+      String m = concatBody(leadName, editorName, projectName, newStatus);
+      String messageSubject = "New Update added to" + projectName + " by "+ editorName;
+      
+      EmailCredentials.logInAndSendMessage(m, messageSubject, leadEmail);
 
+      // loop through the list and call the emailing function
+      for(int i = 0; i<members.size(); i++){
+          String personId = members.get(i);
+          Person member = ClothoAdapter.getPerson(personId, clothoObject);
+          String memberEmail = member.getEmailId();
+          if(memberEmail.equals("Not set")){
+            break;
+          }
+          String memberName = member.getFirstName() + ' ' + member.getLastName();          
+          String messageBody = concatBody(memberName, editorName, projectName, newStatus);
+          System.out.println("in addUpdateToProject about to send emails");          
+          EmailCredentials.logInAndSendMessage(messageBody, messageSubject, memberEmail);
+        }
+      }    
+
+    List<String> allUpdates= project.getUpdates();
     return allUpdates;
+  }
+  
+  private static String concatBody(String memberName, String editorName, String projectName, String newStatus){
+    String imgSource = "http://cidarlab.org/wp-content/uploads/2015/09/phagebook_AWH.png" ;
+
+    String messageBody = "<img height=\"50\" width=\"200\" src=\""+ imgSource+ "\">" + 
+            "<p>Hi " + memberName +",</p>" +
+            " <p>A new update was added to project " + projectName + 
+            " by " + editorName + ".</p>" +
+            " <p>The update is: " +"<i>"  +
+            newStatus
+            + "</i>"+"</p>" +
+            " <p>Have a great day,</p>"   +
+            " <p>The Phagebook Team</p>"  ;
+    return messageBody;
   }
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

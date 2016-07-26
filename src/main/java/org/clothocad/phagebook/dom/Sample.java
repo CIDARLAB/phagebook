@@ -9,7 +9,7 @@ package org.clothocad.phagebook.dom;
  *
  * @author innaturshudzhyan
  */
-public class Sample extends Good{
+public class Sample extends Good implements ClothoBaseObject{
     
     public Sample(String name)
     {
@@ -17,4 +17,14 @@ public class Sample extends Good{
     }
     
     public Sample(){ super(); }
+
+    @Override
+    public String schemaForObject(Object self) {
+        return Sample.class.getCanonicalName();
+    }
+
+    @Override
+    public String idForObject() {
+        return this.id;
+    }
 }

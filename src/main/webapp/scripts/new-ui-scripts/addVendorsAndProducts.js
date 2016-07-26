@@ -30,11 +30,11 @@ $(document).ready(function () {
     $("#companyName").keypress(keyPressHandler);
 
     $("#dl-csv-vendor-btn").click(function () {
-        window.open("orderTemplates/VendorTemplateBlank.csv", '_blank');
+        window.open("../orderTemplates/VendorTemplateBlank.csv", '_blank');
     });
 
     $("#dl-csv-product-btn").click(function () {
-        window.open("orderTemplates/ProductTemplateBlank.csv", '_blank');
+        window.open("../orderTemplates/ProductTemplateBlank.csv", '_blank');
     });
 
    
@@ -58,7 +58,7 @@ $(document).ready(function () {
                     },
                     success: function (response) {
                         alert("Vendors created");
-                        window.location.href = "html/vendorSubmittedForReview.html";
+                        window.location.href = "../../html/vendorSubmittedForReview.html";
                     },
                     error: function (response) {
                         alert("Failed to upload");
@@ -88,7 +88,7 @@ $(document).ready(function () {
                     },
                     success: function (response) {
                         alert("Products created");
-                        window.location.href = "html/productSubmittedForReview.html";
+                        window.location.href = "../../html/productSubmittedForReview.html";
                     },
                     error: function (response) {
                         alert("Failed to upload");
