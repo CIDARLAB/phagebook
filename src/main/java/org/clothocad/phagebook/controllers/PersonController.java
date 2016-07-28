@@ -29,7 +29,6 @@ import org.clothocad.model.Person;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.adaptors.EmailHandler;
 import org.clothocad.phagebook.adaptors.S3Adapter;
-import org.clothocad.phagebook.adaptors.servlets.uploadProfilePicture;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Institution;
 import org.clothocad.phagebook.dom.Order;
@@ -1104,12 +1103,12 @@ public class PersonController {
     }
     
     @RequestMapping(value = "/uploadProfilePicture", method = RequestMethod.POST)        
-    protected void uploadProfilePicture(HttpServletRequest request, HttpServletResponse response)
+    public void uploadProfilePicture(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             processPostRequest(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(uploadProfilePicture.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(uploadProfilePicture.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -1131,8 +1130,7 @@ public class PersonController {
     
      public static String getFilepath()
     {
-        String filepath = uploadProfilePicture.class.getClassLoader().getResource(".").getPath();
-        System.out.println("File path " + filepath);
+        String filepath = PersonController.class.getClassLoader().getResource(".").getPath();
         if(filepath.contains("WEB-INF/classes/")){
             filepath = filepath.substring(0,filepath.indexOf("WEB-INF/classes/"));
         }
@@ -1161,22 +1159,11 @@ public class PersonController {
                 out.write(bytes, 0, read);
             }
         } catch (FileNotFoundException fne) {
-            Logger.getLogger(uploadProfilePicture.class.getName()).log(Level.SEVERE, null, fne);
+//            Logger.getLogger(uploadProfilePicture.class.getName()).log(Level.SEVERE, null, fne);
         }
         
         return new File(pathAndName);
     }
-    
-    
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    
 
     protected void processPostRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
@@ -1187,6 +1174,7 @@ public class PersonController {
         System.out.println("Reached the Do post part.. Wohhoo");
         String filename = getValue(request.getPart("profilePictureName"));
         File profilePic = partConverter(request.getPart("profilePicture"),filename);
+        
         String clothoId = getValue(request.getPart("clothoId"));
         S3Adapter.uploadProfilePicture(clothoId, profilePic);
         

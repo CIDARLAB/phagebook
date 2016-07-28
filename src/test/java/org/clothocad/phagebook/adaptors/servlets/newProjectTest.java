@@ -14,7 +14,7 @@ import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.model.Person;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
-import static org.clothocad.phagebook.adaptors.servlets.editProjectTest.clothoObject;
+//import static org.clothocad.phagebook.adaptors.servlets.editProjectTest.clothoObject;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Grant;
 import org.clothocad.phagebook.dom.Organization;

@@ -16,7 +16,7 @@ $(document).ready(function() {
     //console.log(data);
     var ul = $("#project-link-list");
     $.ajax({
-        url: "/getAllProjects",
+        url: "../getAllProjects",
         type: "POST",
         dataType: "json",
         data: data,
@@ -83,7 +83,7 @@ $(document).ready(function() {
     //         }
     //         // an ajax request to get the project that has project id
     //     $.ajax({
-    //         url: "/getProject",
+    //         url: "../getProject",
     //         type: "POST",
     //         dataType: "json",
     //         data: data,
@@ -137,7 +137,7 @@ $(document).ready(function() {
     //             "budget": newBudget
     //         }
     //         $.ajax({
-    //             url: "/editProject",
+    //             url: "../editProject",
     //             type: "POST",
     //             dataType: "json",
     //             data: data,
@@ -176,7 +176,7 @@ $(document).ready(function() {
     //             //console.log(data);
 
     //             $.ajax({
-    //                 url: "/addUpdateToProject",
+    //                 url: "../addUpdateToProject",
     //                 type: "POST",
     //                 dataType: "json",
     //                 data: data,

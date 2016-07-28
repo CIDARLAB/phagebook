@@ -43,7 +43,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class ProjectController {
 
-    @RequestMapping(value = "getAllProjects", method = RequestMethod.GET)
+    @RequestMapping(value = "/getAllProjects", method = RequestMethod.GET)
     protected void getAllProjectsGet(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -192,7 +192,7 @@ public class ProjectController {
 
     }
 
-    @RequestMapping(value = "getAllProjects", method = RequestMethod.POST)
+    @RequestMapping(value = "/getAllProjects", method = RequestMethod.POST)
     protected void getAllProjectsPost(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -341,7 +341,7 @@ public class ProjectController {
 
     }
 
-    @RequestMapping(value = "getProject", method = RequestMethod.POST)
+    @RequestMapping(value = "/getProject", method = RequestMethod.POST)
     public void getProject(@RequestParam Map<String, String> params, HttpServletResponse response) throws IOException, ServletException {
         PrintWriter writer = response.getWriter();
 
@@ -445,7 +445,7 @@ public class ProjectController {
         writer.close();
     }
 
-    @RequestMapping(value = "createNewProject", method = RequestMethod.POST)
+    @RequestMapping(value = "/createNewProject", method = RequestMethod.POST)
     protected void createNewProject(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
         ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
@@ -745,7 +745,7 @@ public class ProjectController {
         conn.closeConnection();
     }
 
-    @RequestMapping(value = "findMembersForNewProject", method = RequestMethod.GET)
+    @RequestMapping(value = "/findMembersForNewProject", method = RequestMethod.GET)
     protected void findMembersForNewProject(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println("in doGet of findMemberForNewProject");
@@ -823,7 +823,7 @@ public class ProjectController {
         
     }
 
-    @RequestMapping(value = "editProject", method = RequestMethod.POST)
+    @RequestMapping(value = "/editProject", method = RequestMethod.POST)
     protected void editProject(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -1000,7 +1000,7 @@ public class ProjectController {
         //sendEmails(request);
     }
 
-    @RequestMapping(value = "getAllProjectUpdates", method = RequestMethod.GET)
+    @RequestMapping(value = "/getAllProjectUpdates", method = RequestMethod.GET)
     protected void getAllProjectUpdates(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println("in the doGet of getAllProjectUpdates!!");
@@ -1058,7 +1058,7 @@ public class ProjectController {
         writer.close();
     }
 
-    @RequestMapping(value = "addUpdateToProject", method = RequestMethod.POST)
+    @RequestMapping(value = "/addUpdateToProject", method = RequestMethod.POST)
     protected void addUpdateToProject(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
         try (PrintWriter out = response.getWriter()) {
@@ -1216,7 +1216,7 @@ public class ProjectController {
         return messageBody;
     }
 
-    @RequestMapping(value = "addMemberToProject", method = RequestMethod.POST)
+    @RequestMapping(value = "/addMemberToProject", method = RequestMethod.POST)
     protected void addMemberToProjectPost(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
         ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
@@ -1289,7 +1289,7 @@ public class ProjectController {
         writer.close();
     }
 
-    @RequestMapping(value = "addMemberToProject", method = RequestMethod.GET)
+    @RequestMapping(value = "/addMemberToProject", method = RequestMethod.GET)
     protected void addMemberToProjectGet(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
         ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
@@ -1362,7 +1362,7 @@ public class ProjectController {
         writer.close();
     }
     
-    @RequestMapping(value = "getAllProjectMembers", method = RequestMethod.GET)
+    @RequestMapping(value = "/getAllProjectMembers", method = RequestMethod.GET)
     protected void getAllProjectMembers(@RequestParam Map<String, String> params, HttpServletResponse response)
           throws ServletException, IOException {
     response.setContentType("text/html;charset=UTF-8");

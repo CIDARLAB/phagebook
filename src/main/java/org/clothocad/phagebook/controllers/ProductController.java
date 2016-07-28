@@ -41,7 +41,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class ProductController {
 
-    @RequestMapping(value = "addProducts", method = RequestMethod.GET)
+    @RequestMapping(value = "/addProducts", method = RequestMethod.GET)
     public void addProducts(@RequestParam Map<String, String> params, HttpServletResponse response) throws IOException, ServletException {
         PrintWriter writer = response.getWriter();
         System.out.println("addProducts");
@@ -76,7 +76,7 @@ public class ProductController {
 
     }
 
-    @RequestMapping(value = "createProduct", method = RequestMethod.POST)
+    @RequestMapping(value = "/createProduct", method = RequestMethod.POST)
     protected void createProduct(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -165,7 +165,7 @@ public class ProductController {
         }
     }
 
-    @RequestMapping(value = "uploadProductCSV", method = RequestMethod.POST)
+    @RequestMapping(value = "/uploadProductCSV", method = RequestMethod.POST)
     public void uploadProductCSV(@RequestParam Map<String, String> params, HttpServletResponse response) throws IOException, ServletException {
 
         JSONArray arr = new JSONArray(params.get("jsonArray"));
@@ -192,7 +192,7 @@ public class ProductController {
 
     }
 
-    @RequestMapping(value = "getProductById", method = RequestMethod.GET)
+    @RequestMapping(value = "/getProductById", method = RequestMethod.GET)
     protected void doGetgetProductById(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -265,7 +265,7 @@ public class ProductController {
 
     }
 
-    @RequestMapping(value = "queryProductByCompany", method = RequestMethod.GET)
+    @RequestMapping(value = "/queryProductByCompany", method = RequestMethod.GET)
     protected void queryProductByCompany(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -355,7 +355,7 @@ public class ProductController {
 
     }
 
-    @RequestMapping(value = "queryProductByName", method = RequestMethod.POST)
+    @RequestMapping(value = "/queryProductByName", method = RequestMethod.POST)
     protected void doGet(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
 

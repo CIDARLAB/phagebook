@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class AutoCompleteController {
     
-    @RequestMapping(value="autoComplete", method=RequestMethod.GET)
+    @RequestMapping(value="/autoComplete", method=RequestMethod.GET)
     protected void autoComplete(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
         
@@ -91,7 +91,7 @@ public class AutoCompleteController {
            
     }
     
-    @RequestMapping(value="autoCompleteProjects", method=RequestMethod.GET)
+    @RequestMapping(value="/autoCompleteProjects", method=RequestMethod.GET)
     protected void autoCompleteProjects(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
         
@@ -159,7 +159,7 @@ public class AutoCompleteController {
        out.close();
     }
     
-    @RequestMapping(value="autoCompleteVendors", method=RequestMethod.GET)
+    @RequestMapping(value="/autoCompleteVendors", method=RequestMethod.GET)
     protected void autoCompleteVendors(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
          //I WILL RETURN THE MAP AS A JSON OBJECT.. it is client side's issue to parse all data for what they need!

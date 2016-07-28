@@ -214,7 +214,7 @@ function newProjectsCtrl($scope, $http) {
             // dataSubmit = JSON.stringify(dataSubmit);
             // console.log(dataSubmit);
             // $.ajax({
-            //     url: "/createNewProject",
+            //     url: "../createNewProject",
             //     type: "POST",
             //     dataType: "json",
             //     async: false,

@@ -43,15 +43,15 @@ public class createPersonTest {
      * Test of processRequest method, of class createPerson.
      */
     //@Test
-    public void testProcessRequest() throws Exception {
-        System.out.println("processRequest");
-        HttpServletRequest request = null;
-        HttpServletResponse response = null;
-        createPerson instance = new createPerson();
-        instance.processRequest(request, response);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+//    public void testProcessRequest() throws Exception {
+//        System.out.println("processRequest");
+//        HttpServletRequest request = null;
+//        HttpServletResponse response = null;
+//        createPerson instance = new createPerson();
+//        instance.processRequest(request, response);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
     /**
      * Test of doGet method, of class createPerson.
      */

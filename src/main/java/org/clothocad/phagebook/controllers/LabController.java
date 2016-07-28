@@ -34,7 +34,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class LabController {
 
-    @RequestMapping(value = "addPIToLab", method = RequestMethod.POST)
+    @RequestMapping(value = "/addPIToLab", method = RequestMethod.POST)
     protected void addPIToLab(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -96,7 +96,7 @@ public class LabController {
     }
     
 
-    @RequestMapping(value = "createLab", method = RequestMethod.POST)
+    @RequestMapping(value = "/createLab", method = RequestMethod.POST)
     protected void createLab(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -174,7 +174,7 @@ public class LabController {
         }
     }
 
-    @RequestMapping(value = "removePIFromLab", method = RequestMethod.POST)
+    @RequestMapping(value = "/removePIFromLab", method = RequestMethod.POST)
     protected void removePIFromLab(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -235,7 +235,7 @@ public class LabController {
         }
     }
 
-    @RequestMapping(value = "listPIsOfLab", method = RequestMethod.GET)
+    @RequestMapping(value = "/listPIsOfLab", method = RequestMethod.GET)
     protected void listPIsOfLab(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println("listPIS");

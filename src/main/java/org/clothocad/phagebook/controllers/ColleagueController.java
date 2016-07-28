@@ -34,7 +34,7 @@ import org.json.JSONObject;
 @Controller
 public class ColleagueController {
     
-    @RequestMapping(value="addColleagueRequest", method=RequestMethod.POST)
+    @RequestMapping(value="/addColleagueRequest", method=RequestMethod.POST)
     public void addColleagueRequest(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -84,7 +84,7 @@ public class ColleagueController {
         }
     }
     
-    @RequestMapping(value="approveColleagueRequest", method=RequestMethod.POST)
+    @RequestMapping(value="/approveColleagueRequest", method=RequestMethod.POST)
     public void approveColleagueRequest(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -155,7 +155,7 @@ public class ColleagueController {
         }
     }
     
-    @RequestMapping(value="denyColleagueRequest", method=RequestMethod.POST)    
+    @RequestMapping(value="/denyColleagueRequest", method=RequestMethod.POST)    
     public void denyColleagueRequest(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
         
@@ -206,7 +206,7 @@ public class ColleagueController {
         }
     }
     
-    @RequestMapping(value="listColleagueRequest", method=RequestMethod.GET)    
+    @RequestMapping(value="/listColleagueRequest", method=RequestMethod.GET)    
     public void listColleagueRequest(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -274,7 +274,7 @@ public class ColleagueController {
         }
     }
     
-    @RequestMapping(value="loadColleagues", method=RequestMethod.GET)    
+    @RequestMapping(value="/loadColleagues", method=RequestMethod.GET)    
     public void loadColleagues(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
         

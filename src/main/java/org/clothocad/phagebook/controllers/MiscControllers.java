@@ -25,7 +25,6 @@ import org.clothocad.model.Person;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.adaptors.EmailHandler;
 import org.clothocad.phagebook.adaptors.S3Adapter;
-import org.clothocad.phagebook.adaptors.servlets.SelectColumns;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Institution;
 import org.clothocad.phagebook.dom.Lab;
@@ -47,7 +46,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class MiscControllers {
-    @RequestMapping(value = "createVendor", method = RequestMethod.POST)
+    @RequestMapping(value = "/createVendor", method = RequestMethod.POST)
     protected void createVendor(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
         
@@ -133,7 +132,7 @@ public class MiscControllers {
         
     }
     
-    @RequestMapping(value = "resendVerification", method = RequestMethod.GET)
+    @RequestMapping(value = "/resendVerification", method = RequestMethod.GET)
     protected void resendVerification(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
         
@@ -188,7 +187,7 @@ public class MiscControllers {
         
     }
     
-    @RequestMapping(value = "uploadVendorCSV", method = RequestMethod.POST)
+    @RequestMapping(value = "/uploadVendorCSV", method = RequestMethod.POST)
     public void uploadVendorCSV(@RequestParam Map<String, String> params, HttpServletResponse response) throws IOException, ServletException {
         
         JSONArray arr = new JSONArray(params.get("jsonArray"));
@@ -214,7 +213,7 @@ public class MiscControllers {
         writer.close();
     } 
     
-    @RequestMapping(value = "verifyEmail", method = RequestMethod.POST)
+    @RequestMapping(value = "/verifyEmail", method = RequestMethod.POST)
     protected void doPost(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
         
@@ -345,7 +344,7 @@ public class MiscControllers {
         conn.closeConnection();
     }
     
-    @RequestMapping(value="selectColumns", method=RequestMethod.POST)
+    @RequestMapping(value="/selectColumns", method=RequestMethod.POST)
     public void selectColumns(@RequestParam Map<String, String> params, HttpServletResponse response) throws IOException, ServletException {
     /*
         String SERIAL_NUMBER = params.get("serialNumber");
@@ -431,7 +430,8 @@ public class MiscControllers {
             List<String> orderFormLines = createOrderForm(order,orderColumns);
             System.out.println(orderFormLines);
             
-            String filepath = SelectColumns.class.getClassLoader().getResource(".").getPath();
+            
+            String filepath = MiscControllers.class.getClassLoader().getResource(".").getPath();
             System.out.println("File path ::" + filepath);
             filepath = filepath.substring(0, filepath.indexOf("/target/"));
             System.out.println("\nTHIS IS THE FILEPATH: " + filepath);

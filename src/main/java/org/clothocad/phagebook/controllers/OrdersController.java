@@ -48,7 +48,7 @@ import org.json.JSONObject;
 @Controller
 public class OrdersController {
     
-    @RequestMapping(value="addProductsToOrder", method=RequestMethod.POST)
+    @RequestMapping(value="/addProductsToOrder", method=RequestMethod.POST)
     protected void addProductsToOrder(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
         /*Add products to an order...
@@ -155,7 +155,7 @@ public class OrdersController {
         }
     }
 
-    @RequestMapping(value="approveOrder", method=RequestMethod.POST)
+    @RequestMapping(value="/approveOrder", method=RequestMethod.POST)
     public void approveOrder(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
         
@@ -245,12 +245,12 @@ public class OrdersController {
         }
     }
     
-    @RequestMapping(value="createOrderWithIdArray", method=RequestMethod.POST)
+    @RequestMapping(value="/createOrderWithIdArray", method=RequestMethod.POST)
     public void createOrderWithIdArray(){
         System.out.println("createOrderWithIdArray: no functionality");
     }
     
-    @RequestMapping(value="deleteOrder", method=RequestMethod.POST)
+    @RequestMapping(value="/deleteOrder", method=RequestMethod.POST)
     public void deleteOrder(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
         
@@ -322,7 +322,7 @@ public class OrdersController {
         }
     }
     
-    @RequestMapping(value="denyOrder", method=RequestMethod.POST)
+    @RequestMapping(value="/denyOrder", method=RequestMethod.POST)
     public void denyOrder(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
         
@@ -391,7 +391,7 @@ public class OrdersController {
             }
     }
 
-    @RequestMapping(value="exportOrderCSV", method=RequestMethod.GET)
+    @RequestMapping(value="/exportOrderCSV", method=RequestMethod.GET)
     public void exportOrderCSV(@RequestParam Map<String, String> params, HttpServletResponse response) throws IOException, ServletException {
        
         ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
@@ -459,7 +459,7 @@ public class OrdersController {
         conn.closeConnection();
     } 
 
-    @RequestMapping(value="markOrderAsReceived", method=RequestMethod.POST)
+    @RequestMapping(value="/markOrderAsReceived", method=RequestMethod.POST)
     public void markOrderAsReceived(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
         
@@ -535,7 +535,7 @@ public class OrdersController {
         }
     }
     
-    @RequestMapping(value="newOrder", method=RequestMethod.POST)
+    @RequestMapping(value="/newOrder", method=RequestMethod.POST)
     public void newOrder(@RequestParam Map<String, String> params, HttpServletResponse response) throws IOException, ServletException {
         
        
@@ -657,7 +657,7 @@ public class OrdersController {
     }
     
     //TODO
-    @RequestMapping(value="processOrder")
+    @RequestMapping(value="/processOrder")
     protected void processRequest(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
             response.setContentType("text/html;charset=UTF-8");
@@ -681,7 +681,7 @@ public class OrdersController {
             }
     }
     
-    @RequestMapping(value="sendOrderForApproval", method=RequestMethod.POST)
+    @RequestMapping(value="/sendOrderForApproval", method=RequestMethod.POST)
     public void sendOrderForApproval(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
         
@@ -775,7 +775,7 @@ public class OrdersController {
         
     }
     
-    @RequestMapping(value="submitOrderToPIs", method=RequestMethod.POST)
+    @RequestMapping(value="/submitOrderToPIs", method=RequestMethod.POST)
     public void submitOrderToPIs(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
         
@@ -884,7 +884,7 @@ public class OrdersController {
         }
     }
     
-    @RequestMapping(value="removeProductsFromOrder", method=RequestMethod.POST)
+    @RequestMapping(value="/removeProductsFromOrder", method=RequestMethod.POST)
     protected void removeProductsFromOrder(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
         
@@ -973,7 +973,7 @@ public class OrdersController {
         }
     }
     
-    @RequestMapping(value="parseCartItem", method=RequestMethod.GET)
+    @RequestMapping(value="/parseCartItem", method=RequestMethod.GET)
     protected void parseCartItem(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
         
