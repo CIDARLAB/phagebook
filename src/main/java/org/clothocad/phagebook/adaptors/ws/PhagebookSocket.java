@@ -90,20 +90,30 @@ public class PhagebookSocket
                     loginMap.put("username",createStatusMap.get("username"));
                     loginMap.put("credentials",createStatusMap.get("password"));
                     
-                    Map loginResult = new HashMap();
-                    loginResult = (Map)clothoObject.login(loginMap);
+                    clothoObject.login(loginMap);
                     
                     Map queryMap = new HashMap();
                     queryMap.put("emailId",createStatusMap.get("username"));
                     
+                    // This is where it accesses Clotho and updates status
                     List<Person> person = ClothoAdapter.queryPerson(queryMap, clothoObject, ClothoAdapter.QueryMode.EXACT);
+                    List<String> statuses = person.get(0).getStatuses();
+                    if(statuses == null){
+                        statuses = new ArrayList<String>();
+                    }
                     
-                    List<String> statuses = new ArrayList<String>();
-                    statuses.add((String)createStatusMap.get("status"));
+                    Status newStatus = new Status();
+                    newStatus.setText((String)createStatusMap.get("status"));
+                    newStatus.setUserId(person.get(0).getId());
+                    //String statusId = ClothoAdapter.createStatus(newStatus, clothoObject);
                     
+                    statuses.add(ClothoAdapter.createStatus(newStatus, clothoObject));
+                    clothoObject.logout();
                     person.get(0).setStatuses(statuses);
+                    ClothoAdapter.setPerson(person.get(0), clothoObject);
                     
                     System.out.println("person status  -------" + person.get(0).getStatuses());
+                    // Status updated
                     
                     result.put("data", "Status created successfully.");
 
