@@ -91,14 +91,14 @@ public class processProject extends HttpServlet {
       ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
       Clotho clothoObject = new Clotho(conn);
       Map createUserMap = new HashMap();
-      String username = "test" + System.currentTimeMillis();
+      String username = "username";
+      String password = "password";
       createUserMap.put("username", username);
-      createUserMap.put("password", "password");
+      createUserMap.put("password", password);
       clothoObject.createUser(createUserMap);
-      clothoObject.logout();
       Map loginMap = new HashMap();
       loginMap.put("username", username);
-      loginMap.put("credentials", "password");
+      loginMap.put("credentials", password);  
       clothoObject.login(loginMap);
       
       // create project first to modify as progress 
@@ -123,7 +123,14 @@ public class processProject extends HttpServlet {
       String creatorIdStr  = creatorId != null ? (String) creatorId : "" ;
         System.out.println("Creator's ID is:"); 
         System.out.println(creatorIdStr);      
+      
+      Object prDescription = request.getParameter("description");
+      String prDescriptionStr  = prDescription != null ? (String) prDescription : "" ;
+        System.out.println("New Project description is:"); 
+        System.out.println(prDescriptionStr);
         
+      project.setDescription(prDescriptionStr);
+      
       Object leadId = request.getParameter("leadID");
       String leadIdStr  = leadId != null ? (String) leadId : "" ;
         System.out.println("Lead's ID is:"); 
@@ -169,21 +176,24 @@ public class processProject extends HttpServlet {
       }
             
       Object projectBudget = request.getParameter("projectBudget");
-      String projectBudgetStr  = projectBudget != null ? (String) projectBudget : "" ;
+      String projectBudgetStr  = projectBudget != null ? (String) projectBudget :"0" ;
         System.out.println("Project's budget is:"); 
         System.out.println(projectBudgetStr);
       project.setBudget(Double.parseDouble(projectBudgetStr));
         
       Object grantObj = request.getParameter("grant");
-      String grantStr  = projectBudget != null ? (String) projectBudget : "" ;
-        System.out.println("Project's budget is:"); 
-        System.out.println(projectBudgetStr);
-      // TODO: add option for searching grants
-      Grant grant = new Grant();
-      grant.setName(grantStr);
-      String grantId = ClothoAdapter.createGrant(grant, clothoObject);
-      project.setGrantId(grantId);
-          
+      String grantStr  = grantObj != null ? (String) grantObj : "" ;
+        System.out.println("Grant is:"); 
+        System.out.println(grantStr);
+      
+    // TODO: add option for searching grants
+      if(!grantStr.equals("")){
+        Grant grant = new Grant();      
+        grant.setName(grantStr);
+        String grantId = ClothoAdapter.createGrant(grant, clothoObject);
+        project.setGrantId(grantId);
+      }
+               
       clothoObject.login(loginMap);
       ClothoAdapter.setProject(project,clothoObject);      
 
