@@ -45,8 +45,10 @@ public class getAllProjects extends HttpServlet {
           throws ServletException, IOException {    
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter writer = response.getWriter();
-
-      ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+    
+    System.out.println("Get all projects servlet!");
+    
+    ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
       Clotho clothoObject = new Clotho(conn);
       Map createUserMap = new HashMap();
       String username = "username";
@@ -66,64 +68,55 @@ public class getAllProjects extends HttpServlet {
     // get userId from the cookie
     Object userIDC = request.getParameter("userID");
     String userID  = userIDC != null ? (String) userIDC : "" ;
-    System.out.println(userID);
-    
+    System.out.println(userID);    
     
     // get person 
     Person user = ClothoAdapter.getPerson(userID, clothoObject);
-    System.out.println("user is");
-    System.out.println(user.getFirstName() + " "+user.getLastName());
+    System.out.println("Main user is " +user.getFirstName() + " "+user.getLastName());
     
     // get the projects array
-    
-    List<String> projectsList  =user.getProjects();
+    List<String> projectsList  = user.getProjects();
     System.out.println(projectsList);
     JSONArray listOfProjects = new JSONArray();
 
     // get and add each project to the response
     if(projectsList.size()>0){
-
+      
       for (int i = 0; i <projectsList.size(); i++){
         JSONObject projectObject = new JSONObject();
 
-          System.out.println("Person has a bunch of projects");
+        System.out.println("Person has more than 0 projects");
         String projectId = projectsList.get(i);
 
         Project proj =  ClothoAdapter.getProject(projectId, clothoObject);
         projectObject.put("projectId",projectId);
         
         projectObject.put("description", proj.getDescription());
-          System.out.println("\n");
-          System.out.println("Description is: \n" +  proj.getDescription());
+        System.out.println("Description is: " +  proj.getDescription());
         
         projectObject.put("budget", proj.getBudget());
-          System.out.println("\n");
-          System.out.println( "budget is " + proj.getBudget());
+          System.out.println("Budget is " + proj.getBudget());
         
         projectObject.put("affiliatedLabs", proj.getAffiliatedLabs());
         List<String> afflLabs = proj.getAffiliatedLabs();
         for(int k = 0; k<proj.getAffiliatedLabs().size(); k++){
           System.out.println("\n");
           System.out.println(afflLabs.get(k));
-        }
-        
+        }        
        
         projectObject.put("projectName", proj.getName());
-          System.out.println("\n");
-          System.out.println( "projectName is " + proj.getName());
+          System.out.println( "Project name is " + proj.getName());
           
-        //projectObject.put("notebooks", proj.getNotebooks());
-        System.out.println("\n");
         projectObject.put("updates", proj.getUpdates());
-          System.out.println("\n");
-          System.out.println( "updates are " + proj.getUpdates());
+          System.out.println("Updates are " + proj.getUpdates());
         
-        Grant grant = ClothoAdapter.getGrant(proj.getGrantId(), clothoObject);
-        projectObject.put("grant", grant.getId());
-          System.out.println("\n");
-          System.out.println( "grant is " + grant.getId());
+        if(!proj.getGrantId().equals("")){
+          Grant grant = ClothoAdapter.getGrant(proj.getGrantId(), clothoObject);
+          projectObject.put("grant", grant.getId());
+          System.out.println("Grant is " + grant.getId());
+        }
         
-
+        
         if(proj.getDateCreated() != null){
           String delims = "[ ]+";
           String stringDate = proj.getDateCreated().toString();
@@ -132,6 +125,7 @@ public class getAllProjects extends HttpServlet {
           String[] tokens = stringDate.split(delims);
           projectObject.put("dateCreated", tokens[1] + " " + tokens[2] + " " + tokens[5]);
         }
+        
         if(proj.getMembers() != null){
           // just return the size of the array
           int membersSize = proj.getMembers().size();
@@ -146,11 +140,11 @@ public class getAllProjects extends HttpServlet {
           projectObject.put("membersNum", membersSize);
           projectObject.put("membersIds", members);
             System.out.println("\n");
-            System.out.println( "membersNum is " + membersSize);
-            System.out.println( "membersNames is " + members);
+            System.out.println("membersNum is " + membersSize);
+            System.out.println("membersNames is " + members);
             System.out.println("members are: "+members);
-
         }
+        
         if(!(proj.getCreatorId().equals(""))){
           System.out.println("CREATOR ID ISN'T NULL!");
           Person creator = ClothoAdapter.getPerson(proj.getCreatorId(), clothoObject);
@@ -161,8 +155,7 @@ public class getAllProjects extends HttpServlet {
         //projectObject.put("members", proj.getMembers());
 
         if(!(proj.getLeadId().equals(""))){
-          System.out.println("LEAD ID ISN'T NULL!");
-          System.out.println("getting lead");
+          System.out.println("LEAD ID ISN'T NULL");
           String leadtId = proj.getLeadId();
             System.out.println(leadtId);
           Person lead = ClothoAdapter.getPerson(proj.getLeadId(), clothoObject);
@@ -172,25 +165,28 @@ public class getAllProjects extends HttpServlet {
             System.out.println(lead.getFirstName()+" "+ lead.getLastName());
             projectObject.put("leadId", proj.getLeadId());
             projectObject.put("lead", lead.getFirstName()+" "+lead.getLastName());
-          }
-          // add the project to the json object of all projects
-          listOfProjects.put(projectObject);
+          }          
          }
-      System.out.println("***");
-      System.out.println("RESULT IS:");
-      System.out.println(listOfProjects);
-      System.out.println("***");      
+        System.out.println("project object is:");
+          System.out.println(projectObject);
+          
+      // add the project to the json object of all projects
+      listOfProjects.put(projectObject);
+           
       //projectMap = (Map) ClothoAdapter.getProject(id, clothoObject);
       System.out.println("after getProject");
       System.out.println(projectObject);
       }
     }
-        conn.closeConnection();
-
+        System.out.println("***");
+        System.out.println("RESULT IS:");
+        System.out.println(listOfProjects);
+        System.out.println("***"); 
+                
         writer.println(listOfProjects); //Send back stringified JSON object
         writer.flush();
-        writer.close(); 
-     
+        writer.close();  
+        conn.closeConnection();
 
   }
   
@@ -220,13 +216,8 @@ public class getAllProjects extends HttpServlet {
    */
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
-          throws ServletException, IOException {
-    
-    
-    processRequest(request, response);
-    
-    
-    
+          throws ServletException, IOException {        
+    processRequest(request, response);            
   }
 
   /**
