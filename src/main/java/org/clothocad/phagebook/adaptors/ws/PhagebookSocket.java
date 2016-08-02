@@ -124,12 +124,12 @@ public class PhagebookSocket
                     Map getOrderMap = new HashMap();
                     getOrderMap = (Map)messageObject.get("data");
                     
-                    Map loginMap = new HashMap();
-                    loginMap.put("username",getOrderMap.get("username"));
-                    loginMap.put("credentials",getOrderMap.get("password"));
-                  
-                    Map loginResult = new HashMap();
-                    loginResult = (Map)clothoObject.login(loginMap);
+//                    Map loginMap = new HashMap();
+//                    loginMap.put("username",getOrderMap.get("username"));
+//                    loginMap.put("credentials",getOrderMap.get("password"));
+//                  
+//                    Map loginResult = new HashMap();
+//                    loginResult = (Map)clothoObject.login(loginMap);
                     
                     System.out.println("in Phagebook Socket, right before get Order ");
                     Order order = ClothoAdapter.getOrder(getOrderMap.get("id").toString(), clothoObject);
@@ -151,19 +151,18 @@ public class PhagebookSocket
                     Map getProjectMap = new HashMap();
                     getProjectMap = (Map)messageObject.get("data");
                     
-                    Map loginMap = new HashMap();
-                    loginMap.put("username",getProjectMap.get("username"));
-                    loginMap.put("credentials",getProjectMap.get("password"));
-                    
-                    Map loginResult = new HashMap();
-                    loginResult = (Map)clothoObject.login(loginMap);
-                    
-                    Map queryMap = new HashMap();
-                    queryMap.put("emailId",getProjectMap.get("username"));
-                    
-                    List<Person> person = ClothoAdapter.queryPerson(queryMap, clothoObject, ClothoAdapter.QueryMode.EXACT);
-                    
-                    List<String> projectids = person.get(0).getProjects();
+//                    Map loginMap = new HashMap();
+//                    loginMap.put("username",getProjectMap.get("username"));
+//                    loginMap.put("credentials",getProjectMap.get("password"));
+//                    
+//                    Map loginResult = new HashMap();
+//                    loginResult = (Map)clothoObject.login(loginMap);
+//                    
+//                    Map queryMap = new HashMap();
+//                    queryMap.put("emailId",getProjectMap.get("username"));
+//                    
+//                    List<Person> person = ClothoAdapter.queryPerson(queryMap, clothoObject, ClothoAdapter.QueryMode.EXACT);
+//                    List<String> projectids = person.get(0).getProjects();
                     
                     Project project = ClothoAdapter.getProject(getProjectMap.get("id").toString(), clothoObject);
                     
