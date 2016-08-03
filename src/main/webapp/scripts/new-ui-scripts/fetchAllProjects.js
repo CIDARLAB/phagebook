@@ -2,17 +2,15 @@
 // Author: Anna Goncharova (agonchar@bu.edu)
 
 $(document).ready(function() {
-
-
-
-
+    console.log("loaded document!");
     // LEGACY CODE BELOW!
 
     var userID = getCookie("clothoId");
 
     var data = {
         "userID": userID,
-    }
+    };
+
     //console.log(data);
     var ul = $("#project-link-list");
     $.ajax({
@@ -20,11 +18,13 @@ $(document).ready(function() {
         type: "POST",
         dataType: "json",
         data: data,
+        async: false,
         success: function(response) {
             // response is the array of projects
             // response = JSON.parse(response);
             // //console.log(typeof(response));
-            //console.log(response);
+            console.log("Loaded");
+            console.log(response);
            
             for (var i = 0; i < response.length; i++) {
                  link = "./project.html?id=" + response[i].projectId;
@@ -39,8 +39,8 @@ $(document).ready(function() {
 
         },
         error: function(err) {
-            //console.log("ERROR!!");
-            //console.log(err);
+            console.log("ERROR!!");
+            console.log(err);
         }
     });
 
@@ -83,7 +83,7 @@ $(document).ready(function() {
     //         }
     //         // an ajax request to get the project that has project id
     //     $.ajax({
-    //         url: "../getProject",
+    //         url: "/getProject",
     //         type: "POST",
     //         dataType: "json",
     //         data: data,
@@ -137,7 +137,7 @@ $(document).ready(function() {
     //             "budget": newBudget
     //         }
     //         $.ajax({
-    //             url: "../editProject",
+    //             url: "/editProject",
     //             type: "POST",
     //             dataType: "json",
     //             data: data,
@@ -176,7 +176,7 @@ $(document).ready(function() {
     //             //console.log(data);
 
     //             $.ajax({
-    //                 url: "../addUpdateToProject",
+    //                 url: "/addUpdateToProject",
     //                 type: "POST",
     //                 dataType: "json",
     //                 data: data,

@@ -253,7 +253,7 @@ public class ColleagueController {
                 
             }
             
-            
+            clothoObject.logout();
             response.setContentType("application/json");
             response.setStatus(HttpServletResponse.SC_OK);
             PrintWriter out = response.getWriter();
@@ -326,6 +326,8 @@ public class ColleagueController {
                 
                 
             }
+            
+            clothoObject.logout();
             response.setContentType("application/json");
             response.setStatus(HttpServletResponse.SC_OK);
             PrintWriter out = response.getWriter();

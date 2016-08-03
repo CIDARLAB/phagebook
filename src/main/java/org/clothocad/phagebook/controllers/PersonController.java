@@ -264,7 +264,8 @@ public class PersonController {
     @RequestMapping(value = "/listOrdersOfPerson", method = RequestMethod.GET)
     protected void listOrdersOfPerson(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
+        System.out.println("listing Orders");
         Object pUser = params.get("user");
         String user = pUser != null ? (String) pUser : "";
         boolean isValid = false;

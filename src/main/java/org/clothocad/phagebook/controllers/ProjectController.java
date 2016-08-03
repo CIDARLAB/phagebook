@@ -27,8 +27,8 @@ import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.model.Person;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
-import org.clothocad.phagebook.adaptors.EmailCredentials;
-//import org.clothocad.phagebook.adaptors.sendEmails;
+//import org.clothocad.phagebook.adaptors.se;
+import org.clothocad.phagebook.adaptors.sendEmails;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Grant;
 import org.clothocad.phagebook.dom.Organization;
@@ -43,26 +43,23 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class ProjectController {
 
-    @RequestMapping(value = "/getAllProjects", method = RequestMethod.GET)
-    protected void getAllProjectsGet(@RequestParam Map<String, String> params, HttpServletResponse response)
+    @RequestMapping(value = "/getAllProjects", method = {RequestMethod.GET, RequestMethod.POST})
+    protected void getAllProjects(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter writer = response.getWriter();
 
+        System.out.println("Get all projects servlet!");
+
         ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
         Clotho clothoObject = new Clotho(conn);
-        Map createUserMap = new HashMap();
-        String username = "username";
-        String password = "password";
-
-        createUserMap.put("username", username);
-        createUserMap.put("password", password);
-
-        clothoObject.createUser(createUserMap);
+        
         Map loginMap = new HashMap();
-        loginMap.put("username", username);
-        loginMap.put("credentials", password);
+        loginMap.put("username", "phagebook");
+        loginMap.put("credentials", "backend");
 
+
+        
         clothoObject.login(loginMap);
         System.out.println("in getAllProjects!");
 
@@ -73,8 +70,7 @@ public class ProjectController {
 
         // get person 
         Person user = ClothoAdapter.getPerson(userID, clothoObject);
-        System.out.println("user is");
-        System.out.println(user.getFirstName() + " " + user.getLastName());
+        System.out.println("Main user is " + user.getFirstName() + " " + user.getLastName());
 
         // get the projects array
         List<String> projectsList = user.getProjects();
@@ -87,19 +83,17 @@ public class ProjectController {
             for (int i = 0; i < projectsList.size(); i++) {
                 JSONObject projectObject = new JSONObject();
 
-                System.out.println("Person has a bunch of projects");
+                System.out.println("Person has more than 0 projects");
                 String projectId = projectsList.get(i);
 
                 Project proj = ClothoAdapter.getProject(projectId, clothoObject);
                 projectObject.put("projectId", projectId);
 
                 projectObject.put("description", proj.getDescription());
-                System.out.println("\n");
-                System.out.println("Description is: \n" + proj.getDescription());
+                System.out.println("Description is: " + proj.getDescription());
 
                 projectObject.put("budget", proj.getBudget());
-                System.out.println("\n");
-                System.out.println("budget is " + proj.getBudget());
+                System.out.println("Budget is " + proj.getBudget());
 
                 projectObject.put("affiliatedLabs", proj.getAffiliatedLabs());
                 List<String> afflLabs = proj.getAffiliatedLabs();
@@ -109,19 +103,16 @@ public class ProjectController {
                 }
 
                 projectObject.put("projectName", proj.getName());
-                System.out.println("\n");
-                System.out.println("projectName is " + proj.getName());
+                System.out.println("Project name is " + proj.getName());
 
-                //projectObject.put("notebooks", proj.getNotebooks());
-                System.out.println("\n");
                 projectObject.put("updates", proj.getUpdates());
-                System.out.println("\n");
-                System.out.println("updates are " + proj.getUpdates());
+                System.out.println("Updates are " + proj.getUpdates());
 
-                Grant grant = ClothoAdapter.getGrant(proj.getGrantId(), clothoObject);
-                projectObject.put("grant", grant.getId());
-                System.out.println("\n");
-                System.out.println("grant is " + grant.getId());
+                if (!proj.getGrantId().equals("")) {
+                    Grant grant = ClothoAdapter.getGrant(proj.getGrantId(), clothoObject);
+                    projectObject.put("grant", grant.getId());
+                    System.out.println("Grant is " + grant.getId());
+                }
 
                 if (proj.getDateCreated() != null) {
                     String delims = "[ ]+";
@@ -131,6 +122,7 @@ public class ProjectController {
                     String[] tokens = stringDate.split(delims);
                     projectObject.put("dateCreated", tokens[1] + " " + tokens[2] + " " + tokens[5]);
                 }
+
                 if (proj.getMembers() != null) {
                     // just return the size of the array
                     int membersSize = proj.getMembers().size();
@@ -148,8 +140,8 @@ public class ProjectController {
                     System.out.println("membersNum is " + membersSize);
                     System.out.println("membersNames is " + members);
                     System.out.println("members are: " + members);
-
                 }
+
                 if (!(proj.getCreatorId().equals(""))) {
                     System.out.println("CREATOR ID ISN'T NULL!");
                     Person creator = ClothoAdapter.getPerson(proj.getCreatorId(), clothoObject);
@@ -160,8 +152,7 @@ public class ProjectController {
                 //projectObject.put("members", proj.getMembers());
 
                 if (!(proj.getLeadId().equals(""))) {
-                    System.out.println("LEAD ID ISN'T NULL!");
-                    System.out.println("getting lead");
+                    System.out.println("LEAD ID ISN'T NULL");
                     String leadtId = proj.getLeadId();
                     System.out.println(leadtId);
                     Person lead = ClothoAdapter.getPerson(proj.getLeadId(), clothoObject);
@@ -172,173 +163,28 @@ public class ProjectController {
                         projectObject.put("leadId", proj.getLeadId());
                         projectObject.put("lead", lead.getFirstName() + " " + lead.getLastName());
                     }
-                    // add the project to the json object of all projects
-                    listOfProjects.put(projectObject);
                 }
-                System.out.println("***");
-                System.out.println("RESULT IS:");
-                System.out.println(listOfProjects);
-                System.out.println("***");
+                System.out.println("project object is:");
+                System.out.println(projectObject);
+
+                // add the project to the json object of all projects
+                listOfProjects.put(projectObject);
+
                 //projectMap = (Map) ClothoAdapter.getProject(id, clothoObject);
                 System.out.println("after getProject");
                 System.out.println(projectObject);
             }
         }
-        conn.closeConnection();
+        System.out.println("***");
+        System.out.println("RESULT IS:");
+        System.out.println(listOfProjects);
+        System.out.println("***");
 
         writer.println(listOfProjects); //Send back stringified JSON object
         writer.flush();
         writer.close();
-
-    }
-
-    @RequestMapping(value = "/getAllProjects", method = RequestMethod.POST)
-    protected void getAllProjectsPost(@RequestParam Map<String, String> params, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter writer = response.getWriter();
-
-        ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
-        Clotho clothoObject = new Clotho(conn);
-        Map createUserMap = new HashMap();
-        String username = "username";
-        String password = "password";
-
-        createUserMap.put("username", username);
-        createUserMap.put("password", password);
-
-        clothoObject.createUser(createUserMap);
-        Map loginMap = new HashMap();
-        loginMap.put("username", username);
-        loginMap.put("credentials", password);
-
-        clothoObject.login(loginMap);
-        System.out.println("in getAllProjects!");
-
-        // get userId from the cookie
-        Object userIDC = params.get("userID");
-        String userID = userIDC != null ? (String) userIDC : "";
-        System.out.println(userID);
-
-        // get person 
-        Person user = ClothoAdapter.getPerson(userID, clothoObject);
-        System.out.println("user is");
-        System.out.println(user.getFirstName() + " " + user.getLastName());
-
-        // get the projects array
-        List<String> projectsList = user.getProjects();
-        System.out.println(projectsList);
-        JSONArray listOfProjects = new JSONArray();
-
-        // get and add each project to the response
-        if (projectsList.size() > 0) {
-
-            for (int i = 0; i < projectsList.size(); i++) {
-                JSONObject projectObject = new JSONObject();
-
-                System.out.println("Person has a bunch of projects");
-                String projectId = projectsList.get(i);
-
-                Project proj = ClothoAdapter.getProject(projectId, clothoObject);
-                projectObject.put("projectId", projectId);
-
-                projectObject.put("description", proj.getDescription());
-                System.out.println("\n");
-                System.out.println("Description is: \n" + proj.getDescription());
-
-                projectObject.put("budget", proj.getBudget());
-                System.out.println("\n");
-                System.out.println("budget is " + proj.getBudget());
-
-                projectObject.put("affiliatedLabs", proj.getAffiliatedLabs());
-                List<String> afflLabs = proj.getAffiliatedLabs();
-                for (int k = 0; k < proj.getAffiliatedLabs().size(); k++) {
-                    System.out.println("\n");
-                    System.out.println(afflLabs.get(k));
-                }
-
-                projectObject.put("projectName", proj.getName());
-                System.out.println("\n");
-                System.out.println("projectName is " + proj.getName());
-
-                //projectObject.put("notebooks", proj.getNotebooks());
-                System.out.println("\n");
-                projectObject.put("updates", proj.getUpdates());
-                System.out.println("\n");
-                System.out.println("updates are " + proj.getUpdates());
-
-                Grant grant = ClothoAdapter.getGrant(proj.getGrantId(), clothoObject);
-                projectObject.put("grant", grant.getId());
-                System.out.println("\n");
-                System.out.println("grant is " + grant.getId());
-
-                if (proj.getDateCreated() != null) {
-                    String delims = "[ ]+";
-                    String stringDate = proj.getDateCreated().toString();
-                    System.out.println("\n");
-                    System.out.println(stringDate);
-                    String[] tokens = stringDate.split(delims);
-                    projectObject.put("dateCreated", tokens[1] + " " + tokens[2] + " " + tokens[5]);
-                }
-                if (proj.getMembers() != null) {
-                    // just return the size of the array
-                    int membersSize = proj.getMembers().size();
-                    List<String> members = proj.getMembers();
-                    List<String> membersNames = new ArrayList<String>();
-                    // get members' names
-                    for (int j = 0; j < members.size(); j++) {
-                        Person member = ClothoAdapter.getPerson(members.get(j), clothoObject);
-                        membersNames.add(member.getFirstName() + " " + member.getLastName());
-                    }
-                    projectObject.put("membersNames", membersNames);
-                    projectObject.put("membersNum", membersSize);
-                    projectObject.put("membersIds", members);
-                    System.out.println("\n");
-                    System.out.println("membersNum is " + membersSize);
-                    System.out.println("membersNames is " + members);
-                    System.out.println("members are: " + members);
-
-                }
-                if (!(proj.getCreatorId().equals(""))) {
-                    System.out.println("CREATOR ID ISN'T NULL!");
-                    Person creator = ClothoAdapter.getPerson(proj.getCreatorId(), clothoObject);
-                    System.out.println(creator.getFirstName() + " " + creator.getLastName());
-                    projectObject.put("creatorId", proj.getCreatorId());
-                    projectObject.put("creator", creator.getFirstName() + " " + creator.getLastName());
-                }
-                //projectObject.put("members", proj.getMembers());
-
-                if (!(proj.getLeadId().equals(""))) {
-                    System.out.println("LEAD ID ISN'T NULL!");
-                    System.out.println("getting lead");
-                    String leadtId = proj.getLeadId();
-                    System.out.println(leadtId);
-                    Person lead = ClothoAdapter.getPerson(proj.getLeadId(), clothoObject);
-
-                    if (lead.getFirstName() != null && lead.getLastName() != null) {
-                        System.out.println("LEAD'S NAME IS:");
-                        System.out.println(lead.getFirstName() + " " + lead.getLastName());
-                        projectObject.put("leadId", proj.getLeadId());
-                        projectObject.put("lead", lead.getFirstName() + " " + lead.getLastName());
-                    }
-                    // add the project to the json object of all projects
-                    listOfProjects.put(projectObject);
-                }
-                System.out.println("***");
-                System.out.println("RESULT IS:");
-                System.out.println(listOfProjects);
-                System.out.println("***");
-                //projectMap = (Map) ClothoAdapter.getProject(id, clothoObject);
-                System.out.println("after getProject");
-                System.out.println(projectObject);
-            }
-        }
+        clothoObject.logout();
         conn.closeConnection();
-
-        writer.println(listOfProjects); //Send back stringified JSON object
-        writer.flush();
-        writer.close();
-
     }
 
     @RequestMapping(value = "/getProject", method = RequestMethod.POST)
@@ -439,6 +285,7 @@ public class ProjectController {
         System.out.println(projectObject);
         String project = projectObject.toString();
         System.out.println("stringified :: " + project);
+        clothoObject.logout();
         conn.closeConnection();
         writer.println(project); //Send back stringified JSON object
         writer.flush();
@@ -745,51 +592,51 @@ public class ProjectController {
         conn.closeConnection();
     }
 
-    @RequestMapping(value = "/findMembersForNewProject", method = RequestMethod.GET)
-    protected void findMembersForNewProject(@RequestParam Map<String, String> params, HttpServletResponse response)
+    @RequestMapping(value = "/findMemberForNewProject", method = RequestMethod.GET)
+    protected void findMemberForNewProject(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println("in doGet of findMemberForNewProject");
         Object pFirstName = params.get("firstName");
-        String firstName = pFirstName != null ? (String) pFirstName: "";
-        
+        String firstName = pFirstName != null ? (String) pFirstName : "";
+
         Object pLastName = params.get("lastName");
-        String lastName = pLastName != null ? (String) pLastName: "";
-        
+        String lastName = pLastName != null ? (String) pLastName : "";
+
         boolean isValid = false;
-        if (!firstName.equals("") || !lastName.equals("")){
+        if (!firstName.equals("") || !lastName.equals("")) {
             isValid = true;
         }
-        
-        if (isValid){
+
+        if (isValid) {
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
             String username = "phagebook";
             String password = "backend";
             Map loginMap = new HashMap();
             loginMap.put("username", username);
-            loginMap.put("credentials", password);     
+            loginMap.put("credentials", password);
             clothoObject.login(loginMap);
             // able to query now. 
             Map query = new HashMap();
-            if (!firstName.equals("")){
+            if (!firstName.equals("")) {
                 System.out.println("in query first name is:");
                 System.out.println(firstName);
                 query.put("firstName", firstName); // the value for which we are querying.
             }
-            if (!lastName.equals("")){
+            if (!lastName.equals("")) {
                 System.out.println("in query last name is:");
                 System.out.println(lastName);
                 query.put("lastName", lastName); // the key of the object we are querying
-            } 
-           
+            }
+
             List<Person> people = ClothoAdapter.queryPerson(query, clothoObject, ClothoAdapter.QueryMode.EXACT);
             JSONArray peopleJSONArray = new JSONArray();
-            
-            for (Person retrieve : people){
+
+            for (Person retrieve : people) {
                 JSONObject retrievedAsJSON = new JSONObject();
                 retrievedAsJSON.put("fullname", retrieve.getFirstName() + " " + retrieve.getLastName());
                 //get position? role?? we will look into this
-                retrievedAsJSON.put("firstName", retrieve.getFirstName());                
+                retrievedAsJSON.put("firstName", retrieve.getFirstName());
                 retrievedAsJSON.put("lastName", retrieve.getLastName());
                 retrievedAsJSON.put("email", retrieve.getEmailId());
                 retrievedAsJSON.put("clothoId", retrieve.getId());
@@ -798,20 +645,17 @@ public class ProjectController {
                 System.out.println(retrieve.getLastName());
                 peopleJSONArray.put(retrievedAsJSON);
             }
-            
-            
+
             response.setContentType("application/json");
             response.setStatus(HttpServletResponse.SC_OK);
-            
+
             PrintWriter out = response.getWriter();
             out.print(peopleJSONArray);
             out.flush();
-            
+            clothoObject.logout();
             conn.closeConnection();
-            
-        }
-        else
-        {
+
+        } else {
             response.setContentType("application/json");
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             JSONObject responseJSON = new JSONObject();
@@ -820,7 +664,7 @@ public class ProjectController {
             out.print(responseJSON);
             out.flush();
         }
-        
+
     }
 
     @RequestMapping(value = "/editProject", method = RequestMethod.POST)
@@ -888,6 +732,7 @@ public class ProjectController {
             writer.println(json);
             writer.flush();
             writer.close();
+            clothoObject.logout();
             conn.closeConnection();
         }
 
@@ -1061,6 +906,7 @@ public class ProjectController {
     @RequestMapping(value = "/addUpdateToProject", method = RequestMethod.POST)
     protected void addUpdateToProject(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
+
         try (PrintWriter out = response.getWriter()) {
             JSONObject result = new JSONObject();
 
@@ -1126,6 +972,7 @@ public class ProjectController {
 
                 result.put("short", 1);
             }
+            clothoObject.logout();
             conn.closeConnection();
             PrintWriter writer = response.getWriter();
             writer.println(result);
@@ -1142,78 +989,46 @@ public class ProjectController {
         Status newUpdate = new Status();
         newUpdate.setText(newStatus);
         newUpdate.setUserId(userID);
+        System.out.println(newUpdate);
+        System.out.println("About to create a Status in Clotho");
         String statusID = ClothoAdapter.createStatus(newUpdate, clothoObject);
 
-//    System.out.println(newUpdate);
-//    System.out.println("About to create a Status in Clotho");    
-//    System.out.println("Status has been created in Clotho and ID is: "+statusID);
+        System.out.println("Status has been created in Clotho and ID is: " + statusID);
+
         // get the objects associated with the passed in IDS from clotho
         Person editor = ClothoAdapter.getPerson(userID, clothoObject);
-//    System.out.println("User Id is: ");
-//    System.out.println(userID);
+        System.out.println("User Id is: ");
+        System.out.println(userID);
 
         Project project = ClothoAdapter.getProject(projectID, clothoObject);
-        String projectName = project.getName();
-//    System.out.println("Project Id is: ");
-//    System.out.println(projectID);
+        System.out.println("Project Id is: ");
+        System.out.println(projectID);
 
         String editorName = editor.getFirstName() + " " + editor.getLastName();
-//    System.out.println(editorName);
-//    System.out.println(project.getName());
+        System.out.println(editorName);
+        System.out.println(project.getName());
 
         // get the existing list of project updates and add the id of the  new update
         List<String> projectUpdates = project.getUpdates();
         projectUpdates.add(statusID);
+
         // update the update lists in the project object
         project.setUpdates(projectUpdates);
 
-        // change the project in clotho (no use for return string)
-        String prId = ClothoAdapter.setProject(project, clothoObject);
-
+        List<String> allUpdates = project.getUpdates();
+        // change the project in clotho
+        String foo = ClothoAdapter.setProject(project, clothoObject);
+        System.out.println("In addProjectUpdate function projectID is:");
+        System.out.println(foo);
+        // TODO: email the peeps associate with the project what update was added
         if (emailPeople) {
-
-            Person creator = ClothoAdapter.getPerson(project.getCreatorId(), clothoObject);
-            Person lead = ClothoAdapter.getPerson(project.getLeadId(), clothoObject);
-            String leadName = lead.getFirstName() + " " + lead.getLastName();
-            String leadEmail = lead.getEmailId();
-            List<String> members = project.getMembers();
-            String m = concatBody(leadName, editorName, projectName, newStatus);
-            String messageSubject = "New Update added to" + projectName + " by " + editorName;
-
-            EmailCredentials.logInAndSendMessage(m, messageSubject, leadEmail);
-
-            // loop through the list and call the emailing function
-            for (int i = 0; i < members.size(); i++) {
-                String personId = members.get(i);
-                Person member = ClothoAdapter.getPerson(personId, clothoObject);
-                String memberEmail = member.getEmailId();
-                if (memberEmail.equals("Not set")) {
-                    break;
-                }
-                String memberName = member.getFirstName() + ' ' + member.getLastName();
-                String messageBody = concatBody(memberName, editorName, projectName, newStatus);
-                System.out.println("in addUpdateToProject about to send emails");
-                EmailCredentials.logInAndSendMessage(messageBody, messageSubject, memberEmail);
-            }
+            System.out.println();
+            System.out.println("I will email the people now");
+            System.out.println();
+            sendEmails.sendEmails(foo, editorName, clothoObject);
         }
 
-        List<String> allUpdates = project.getUpdates();
         return allUpdates;
-    }
-    
-    private static String concatBody(String memberName, String editorName, String projectName, String newStatus) {
-        String imgSource = "http://cidarlab.org/wp-content/uploads/2015/09/phagebook_AWH.png";
-
-        String messageBody = "<img height=\"50\" width=\"200\" src=\"" + imgSource + "\">"
-                + "<p>Hi " + memberName + ",</p>"
-                + " <p>A new update was added to project " + projectName
-                + " by " + editorName + ".</p>"
-                + " <p>The update is: " + "<i>"
-                + newStatus
-                + "</i>" + "</p>"
-                + " <p>Have a great day,</p>"
-                + " <p>The Phagebook Team</p>";
-        return messageBody;
     }
 
     @RequestMapping(value = "/addMemberToProject", method = RequestMethod.POST)
@@ -1361,57 +1176,177 @@ public class ProjectController {
         writer.flush();
         writer.close();
     }
-    
+
     @RequestMapping(value = "/getAllProjectMembers", method = RequestMethod.GET)
     protected void getAllProjectMembers(@RequestParam Map<String, String> params, HttpServletResponse response)
-          throws ServletException, IOException {
-    response.setContentType("text/html;charset=UTF-8");
-    try (PrintWriter out = response.getWriter()) {      
-      ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
-      Clotho clothoObject = new Clotho(conn);
-      Map createUserMap = new HashMap();
-      String username = "username";
-      String password = "password";
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+            Clotho clothoObject = new Clotho(conn);
+            Map createUserMap = new HashMap();
+            String username = "username";
+            String password = "password";
 
-      createUserMap.put("username", username);
-      createUserMap.put("password", password);
+            createUserMap.put("username", username);
+            createUserMap.put("password", password);
 
-      clothoObject.createUser(createUserMap);
-      Map loginMap = new HashMap();
-      loginMap.put("username", username);
-      loginMap.put("credentials", password);  
+            clothoObject.createUser(createUserMap);
+            Map loginMap = new HashMap();
+            loginMap.put("username", username);
+            loginMap.put("credentials", password);
 
-      clothoObject.login(loginMap);
-      System.out.println("in Process Request function");  
-      JSONObject result = new JSONObject();
-      Object prId = params.get("projectId");
-      String projectId  = prId != null ? (String) prId : "" ;
-        System.out.println("The name of the project is:");         
-        System.out.println(projectId);  
-        
-      Project project = ClothoAdapter.getProject(projectId, clothoObject);
-      List<String> members = project.getMembers();
-      System.out.println(members);
-      
-      List res = new ArrayList();
-      for(int i=0;i<members.size();i++){
-        
-        String personId = members.get(i);
-        // get each member and grab their name
-        Person member = ClothoAdapter.getPerson(personId, clothoObject);
-        String name = member.getFirstName() +" "+member.getLastName();
-        System.out.println(name);
-        HashMap personMap = new HashMap();
-        personMap.put("personId",personId);
-        personMap.put("personName",name);
-        res.add(personMap);
-      }
-      conn.closeConnection();
-      System.out.println("About to leave add members to projects");
-      System.out.println(res);
-     result.put("result",res);
-     out.print(result);
-     out.flush();
+            clothoObject.login(loginMap);
+            System.out.println("in Process Request function");
+            JSONObject result = new JSONObject();
+            Object prId = params.get("projectId");
+            String projectId = prId != null ? (String) prId : "";
+            System.out.println("The name of the project is:");
+            System.out.println(projectId);
+
+            Project project = ClothoAdapter.getProject(projectId, clothoObject);
+            List<String> members = project.getMembers();
+            System.out.println(members);
+
+            List res = new ArrayList();
+            for (int i = 0; i < members.size(); i++) {
+
+                String personId = members.get(i);
+                // get each member and grab their name
+                Person member = ClothoAdapter.getPerson(personId, clothoObject);
+                String name = member.getFirstName() + " " + member.getLastName();
+                System.out.println(name);
+                HashMap personMap = new HashMap();
+                personMap.put("personId", personId);
+                personMap.put("personName", name);
+                res.add(personMap);
+            }
+            clothoObject.logout();
+            conn.closeConnection();
+            System.out.println("About to leave add members to projects");
+            System.out.println(res);
+            result.put("result", res);
+            out.print(result);
+            out.flush();
+        }
     }
-  }
+
+    @RequestMapping(value = "/processProject", method = RequestMethod.POST)
+    protected void processProject(@RequestParam Map<String, String> params, HttpServletResponse response)
+            throws ServletException, IOException {
+        System.out.println("Processing");
+        //ESTABLISH CONNECTION
+        ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+        Clotho clothoObject = new Clotho(conn);
+        Map createUserMap = new HashMap();
+        String username = "phagebook";
+        String password = "backend";
+        createUserMap.put("username", username);
+        createUserMap.put("password", password);
+        clothoObject.createUser(createUserMap);
+        Map loginMap = new HashMap();
+        loginMap.put("username", username);
+        loginMap.put("credentials", password);
+        clothoObject.login(loginMap);
+
+        // create project first to modify as progress 
+        // through the server
+        Project project = new Project();
+        String projectId = ClothoAdapter.createProject(project, clothoObject);
+        clothoObject.logout();
+
+        System.out.println("in processProject servlet");
+
+        JSONObject result = new JSONObject();
+
+        Object prName = params.get("name");
+        String projectName = prName != null ? (String) prName : "";
+        System.out.println("New Project name is:");
+        System.out.println(projectName);
+
+        project.setName(projectName);
+
+        Object creatorId = params.get("emailID");
+        String creatorIdStr = creatorId != null ? (String) creatorId : "";
+        System.out.println("Creator's ID is:");
+        System.out.println(creatorIdStr);
+
+        Object prDescription = params.get("description");
+        String prDescriptionStr = prDescription != null ? (String) prDescription : "";
+        System.out.println("New Project description is:");
+        System.out.println(prDescriptionStr);
+
+        project.setDescription(prDescriptionStr);
+
+        Object leadId = params.get("leadID");
+        String leadIdStr = leadId != null ? (String) leadId : "";
+        System.out.println("Lead's ID is:");
+        System.out.println(leadIdStr);
+
+        Person creator = ClothoAdapter.getPerson(creatorIdStr, clothoObject);
+        System.out.println("Creator is " + creator.getFirstName() + " "
+                + creator.getLastName());
+        List<String> projectsCreator = creator.getProjects();
+        projectsCreator.add(projectId);
+        project.setCreatorId(creatorIdStr);
+        ClothoAdapter.setPerson(creator, clothoObject);
+        System.out.println("Successfully set creator.");
+
+        if (leadIdStr.compareTo("0") != 0) {
+            Person lead = ClothoAdapter.getPerson(leadIdStr, clothoObject);
+            System.out.println("Lead is " + lead.getFirstName() + " "
+                    + lead.getLastName());
+            List<String> projectsLead = lead.getProjects();
+            projectsLead.add(projectId);
+            project.setLeadId(leadIdStr);
+            ClothoAdapter.setPerson(lead, clothoObject);
+            System.out.println("Successfully set lead.");
+        }
+
+        Object members = params.get("members");
+        String membersStr = members != null ? (String) members : "";
+        if (membersStr.compareTo("") != 0) {
+            String[] membersArr = membersStr.split(",");
+            for (int i = 0; i < membersArr.length; i++) {
+
+                System.out.println(membersArr[i]);
+                if (membersArr[i].compareTo("0") != 0) {
+                    Person member = ClothoAdapter.getPerson(membersArr[i], clothoObject);
+                    List<String> projectsMember = member.getProjects();
+                    projectsMember.add(projectId);
+                    List<String> projectMembers = project.getMembers();
+                    projectMembers.add(membersArr[i]);
+                    ClothoAdapter.setPerson(member, clothoObject);
+                }
+            }
+        }
+
+        Object projectBudget = params.get("projectBudget");
+        String projectBudgetStr = projectBudget != null ? (String) projectBudget : "0";
+        System.out.println("Project's budget is:");
+        System.out.println(projectBudgetStr);
+        project.setBudget(Double.parseDouble(projectBudgetStr));
+
+        Object grantObj = params.get("grant");
+        String grantStr = grantObj != null ? (String) grantObj : "";
+        System.out.println("Grant is:");
+        System.out.println(grantStr);
+
+        // TODO: add option for searching grants
+        if (!grantStr.equals("")) {
+            Grant grant = new Grant();
+            grant.setName(grantStr);
+            String grantId = ClothoAdapter.createGrant(grant, clothoObject);
+            project.setGrantId(grantId);
+        }
+
+        clothoObject.login(loginMap);
+        ClothoAdapter.setProject(project, clothoObject);
+        PrintWriter writer = response.getWriter();
+        writer.println(result);
+        writer.flush();
+        writer.close();
+        clothoObject.logout();
+        conn.closeConnection();
+    }
 }

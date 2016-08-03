@@ -11,7 +11,7 @@
     //                                              WebSocket                                                //
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    var socket = new WebSocket("wss://clothocad.org:8443/websocket");
+    var socket = new WebSocket("wss://localhost:8443/websocket");
     socket.messageCache = [];
 
     socket.onopen = function() {

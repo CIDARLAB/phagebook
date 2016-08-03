@@ -14,6 +14,7 @@ function orderHistoryCtrl($scope){
             },
             success: function(response)
             {
+                console.log(response.length);
                 for(var i =0; i < response.length; i++){
                     generateOrderCard(response[i]);
                 }
@@ -21,7 +22,7 @@ function orderHistoryCtrl($scope){
             },
             error: function(response)
             {
-
+                console.log("error");
             }
         });
 

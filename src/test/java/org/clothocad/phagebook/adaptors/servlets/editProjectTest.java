@@ -5,7 +5,7 @@
 // */
 //package org.clothocad.phagebook.adaptors.servlets;
 //
-//import org.clothocad.phagebook.adaptors.servlets.editProject;
+//import org.clothocad.phagebook.controllers.ProjectController;
 //
 //import java.util.ArrayList;
 //import java.util.Arrays;
@@ -17,6 +17,7 @@
 //import org.clothocad.model.Person;
 //import org.clothocad.phagebook.adaptors.ClothoAdapter;
 //import static org.clothocad.phagebook.adaptors.ClothoAdapter.clothoObject;
+//import org.clothocad.phagebook.adaptors.sendEmails;
 //import org.clothocad.phagebook.controller.Args;
 //import org.clothocad.phagebook.dom.Grant;
 //import org.clothocad.phagebook.dom.Organization;
@@ -96,7 +97,7 @@
 //        person3.setFirstName("Person");
 //        person3.setLastName("Lead");
 //        person3.setId(idP3);
-//        person3.setEmailId("agonchar@bu.edu");
+//        person3.setEmailId("angonchar@bu.edu");
 //        person3.setPassword("person3");
 //        
 //        String person3ID = ClothoAdapter.createPerson(person3, clothoObject);
@@ -167,7 +168,7 @@
 //    ** Checks if changes passed in were null. If they were null old values 
 //    ** should not change.
 //    */
-////    @Test
+//    @Test
 //    public void testIfNull()
 //    {
 //      System.out.println("Test # 1");
@@ -184,8 +185,8 @@
 //      params.put("name", "");
 //      params.put("budget", "");
 //      params.put("description", "");
-//      
-//      editProject.editProjectFunction(project, params, clothoObject);
+//              
+//      ProjectController.editProjectHelper(project, params, clothoObject);
 //      
 //      Project project1 = ClothoAdapter.getProject(prID, clothoObject);
 //      String newName = project1.getName();
@@ -256,7 +257,7 @@
 //
 //      assertEquals(newSize,3);
 //
-////      addUpdateToProject.addProjectUpdate(userID, projectID, , clothoObject);
+//      //addUpdateToProject.addProjectUpdate(userID, projectID, , clothoObject);
 //    }
 //    
 //    @Test

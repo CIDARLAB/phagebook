@@ -183,13 +183,13 @@
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <button id="myModal1-close" type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                                    <h4>Add Members</h4>
+                                                    <h4>Add Colleagues</h4>
                                                 </div>
                                                 <div class="modal-body">
                                                     <br>
-                                                    <p>Search for users by entering their first or last name and select the individuals you'd like to add to this project.</p>
+                                                    <p>Search for users by entering their first or last name and select the individuals you'd like to add to a lab.</p>
                                                     <br>
-                                                    <div class="form-group row" id="search-members">
+                                                    <div class="form-group row" id="search-colleagues">
                                                         <label for="search-first-name" class="col-sm-2 form-control-label">FIRST NAME</label>
                                                         <div class="col-sm-3">
                                                             <input type="text" class="form-control" id="search-first-name">
@@ -219,6 +219,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
+                                                    
                                                     <button id="submit-member-btn" type="button" class="btn btn-primary">Add Member</button>
                                                 </div>
                                             </div>
@@ -230,8 +231,6 @@
                                         <ul class="list-inline list-group" id="colleagues-full-list">
                                             <li class="list-group-item col-sm-5">
                                                 <img alt="Kristel Tan" src="../styles/img/mis/no-face.jpg">
-                                                <span>Lead</span>
-                                                <br>
                                                 <a href="#" id="lead-name"></a>
                                                 <p></p>
                                                 <p id="project-people-person-lead-lab"></p>
@@ -239,22 +238,12 @@
                                             </li>
                                             <li class="list-group-item col-sm-5">
                                                 <img alt="Allison Durkan" src="../styles/img/mis/no-face.jpg">
-                                                <span>Creator</span>
-                                                <br>
                                                 <a href="#" id="creator-name"></a>
                                                 <p></p>
                                                 <p id="project-people-person-creator-lab"></p>
                                                 <!-- <p>Boston University</p> -->
                                             </li>
                                         </ul>
-                                        <div class="members-list">
-                                            <ul class ="member-link-list" id="member-link-list"> </ul>
-                                            <template id="member-template" class="col-sm-5">
-                                                <div class="panel panel-default">
-                                                    <div class="panel-body project-link"></div>
-                                                </div>
-                                            </template>
-                                        </div>
                                     </div>
                                 </div>
                             </div>

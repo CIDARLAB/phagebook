@@ -355,7 +355,7 @@ public class ProductController {
 
     }
 
-    @RequestMapping(value = "/queryProductByName", method = RequestMethod.POST)
+    @RequestMapping(value = "/queryProductByName", method = RequestMethod.GET)
     protected void doGet(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
 

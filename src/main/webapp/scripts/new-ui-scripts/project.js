@@ -5,6 +5,7 @@ $(document).ready(function() {
     // "description":"This is a project description for an awesome project named \"Project\"!",
     // "projectName":"Project","updates":[],"grant":"5709a9bad4c60ab7f5242f02",
     // "lead":"Anna Goncharova","budget":12345}
+
     $("#submit-member-btn").click(submitMemberButtonHandler);
 
 
@@ -253,122 +254,83 @@ $(document).ready(function() {
         });
     }
 
-    function searchBtnHandler() {
-        var firstName = $("#search-first-name").val();
-        var lastName = $("#search-last-name").val();
-
-
-        $.ajax({
-            url: '../queryFirstLastName',
-            type: 'GET',
-            async: false,
-            data: {
-                "firstName": firstName,
-                "lastName": lastName
-            },
-            success: function(response) {
-
-
-                var ul = $("#pi-add-list");
-
-                ul.empty();
-
-
-                for (var i = 0; i < response.length; i++) {
-                    var tmpl = document.getElementById('person-results-template').content.cloneNode(true);
-
-
-                    tmpl.querySelector('.member-name').innerText = response[i].fullname;
-                    tmpl.querySelector('.member-lab-name').innerText = (response[i].labName == null) ? "" : response[i].labName;
-                    tmpl.querySelector('.member-institution-name').innerText = response[i].institutionName;
-
-                    tmpl.querySelector('.member-profile-link').href = "../html/colleague.html?user=" + response[i].clothoId;
-                    tmpl.querySelector('.member-id').value = response[i].clothoId;
-
-
-                    ul.append(tmpl);
-                }
-            },
-            error: {}
-
-        });
-        return false;
-    }
-
-    var data = {
-        "projectId": id
-    }
-    console.log(data);
-
-    var ul = $("#member-link-list");
-    console.log(ul);
-    var getAllMembers = function() {
-        console.log("in getAllMembers function");
-        $.ajax({
-            url: "../getAllProjectMembers",
-            type: "GET",
-            dataType: "json",
-            data: data,
-            success: function(response) {
-                // response is the array of projects
-                // response = JSON.parse(response);
-                // console.log(typeof(response));
-                console.log(response);
-
-                for (var i = 0; i < response.result.length; i++) {
-                    link = "./profile.html?id=" + response.result[i].personId;
-                    var a = document.createElement('a');
-                    $(a).attr('href', link).text(response.result[i].personName);
-                    console.log(a);
-                    var tmpl = document.getElementById("member-template").content.cloneNode(true);
-                    tmpl.querySelector(".project-link").appendChild(a);
-                    console.log(tmpl);
-                    ul.append(tmpl);
-
-                }
-
-            },
-            error: function(err) {
-                console.log("ERROR!!");
-                console.log(err);
-            }
-        });
-    }
-
-
-
-    function submitMemberButtonHandler() {
-        console.log("YOOOOOOO");
-        var container = document.getElementById("member-add-results");
-        var peopleBoxes = container.getElementsByClassName("member-id");
-
-        for (var i = 0; i < peopleBoxes.length; i++) {
-
-            if (peopleBoxes[i].checked) {
-
-                alert(peopleBoxes[i].value);
-                $.ajax({
-                    //do this for projects...
-                    url: "../addMemberToProject",
-                    type: "POST",
-                    async: false,
-                    data: {
-                        "memberId": peopleBoxes[i].value,
-                        "projectId": id
-                    },
-                    success: function(response) {
-                        console.log(response);
-                        alert("Successfully added a member to the project!");
-
-                    },
-                    error: function(response) {
-
-                    }
-                });
-            }
-        }
-    }
-    // get all members here!
-    getAllMembers();
-
 });
+
+
+function searchBtnHandler() {
+    var firstName = $("#search-first-name").val();
+    var lastName = $("#search-last-name").val();
+
+
+    $.ajax({
+        url: '../queryFirstLastName',
+        type: 'GET',
+        async: false,
+        data: {
+            "firstName": firstName,
+            "lastName": lastName
+        },
+        success: function(response) {
+
+
+            var ul = $("#pi-add-list");
+
+            ul.empty();
+
+
+            for (var i = 0; i < response.length; i++) {
+                var tmpl = document.getElementById('person-results-template').content.cloneNode(true);
+
+
+                tmpl.querySelector('.member-name').innerText = response[i].fullname;
+                tmpl.querySelector('.member-lab-name').innerText = (response[i].labName == null) ? "" : response[i].labName;
+                tmpl.querySelector('.member-institution-name').innerText = response[i].institutionName;
+
+                tmpl.querySelector('.member-profile-link').href = "../html/colleague.html?user=" + response[i].clothoId;
+                tmpl.querySelector('.member-id').value = response[i].clothoId;
+
+
+                ul.append(tmpl);
+            }
+        },
+        error: {}
+
+    });
+    return false;
+}
+
+
+var submitMemberButtonHandler = function() {
+    var container = document.getElementById("member-add-results");
+    var peopleBoxes = container.getElementsByClassName("member-id");
+
+    for (var i = 0; i < peopleBoxes.length; i++) {
+
+        if (peopleBoxes[i].checked) {
+
+            alert(peopleBoxes[i].value);
+            // $.ajax({
+            //     //do this for projects...
+
+            //     url: "../addPIToLab",
+            //     type: "POST",
+            //     async: false,
+            //     data: {
+            //         "userId": peopleBoxes[i].value
+            //     },
+            //     success: function(response) {
+            //         alert(response.message);
+
+            //     },
+            //     error: function(response) {
+
+            //     }
+            // });
+
+        }
+
+    }
+
+
+
+}

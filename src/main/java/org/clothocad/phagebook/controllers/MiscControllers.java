@@ -170,6 +170,7 @@ public class MiscControllers {
                 out.flush();
                 out.close();
             } 
+            clothoObject.logout();
             conn.closeConnection();
         }
         else {
@@ -341,6 +342,7 @@ public class MiscControllers {
         out.print(obj);
         out.flush();
         out.close();
+        clothoObject.logout();
         conn.closeConnection();
     }
     
@@ -455,6 +457,7 @@ public class MiscControllers {
             reponseWriter.println(filepathOrderForm);
             reponseWriter.flush();
             reponseWriter.close();
+            clothoObject.logout();
             conn.closeConnection();
        }
        else
