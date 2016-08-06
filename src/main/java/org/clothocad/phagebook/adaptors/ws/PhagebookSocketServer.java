@@ -28,7 +28,7 @@ public class PhagebookSocketServer {
             public WebSocket doWebSocketConnect(HttpServletRequest request, String protocol) {
                 return new PhagebookSocket(); 
             }
-        };
+        }; 
         
         
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
