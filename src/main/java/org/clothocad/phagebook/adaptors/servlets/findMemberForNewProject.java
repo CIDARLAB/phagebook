@@ -100,13 +100,49 @@ public class findMemberForNewProject extends HttpServlet {
                 JSONObject retrievedAsJSON = new JSONObject();
                 retrievedAsJSON.put("fullname", retrieve.getFirstName() + " " + retrieve.getLastName());
                 //get position? role?? we will look into this
-                retrievedAsJSON.put("firstName", retrieve.getFirstName());                
+                retrievedAsJSON.put("firstName", retrieve.getFirstName());
                 retrievedAsJSON.put("lastName", retrieve.getLastName());
                 retrievedAsJSON.put("email", retrieve.getEmailId());
                 retrievedAsJSON.put("clothoId", retrieve.getId());
-                retrievedAsJSON.put("institution", retrieve.getInstitution());
                 System.out.println(retrieve.getFirstName());
                 System.out.println(retrieve.getLastName());
+//                JSONObject statusList = new JSONObject();
+//                if (retrieve.getStatuses() != null){
+//                    for (String status:retrieve.getStatuses()){
+//                        Status stat = ClothoAdapter.getStatus(status, clothoObject);
+//
+//                        statusList.put("text", stat.getText());
+//                        statusList.put("date", stat.getCreated().toString());
+//                    }
+//                }
+
+//                JSONObject publicationList = new JSONObject();
+//                if (retrieve.getPublications() != null){
+//
+//                    for (String publication:retrieve.getPublications()){
+//                        Publication pub = ClothoAdapter.getPublication(publication, clothoObject);
+//                        publicationList.put("id", pub.getId());
+//                    }
+//                }
+                /*
+                JSONObject labList = new JSONObject();
+                if (retrieve.getLabs() != null){
+                    for (String lab:retrieve.getLabs()){
+                        Institution inst = ClothoAdapter.getInstitution(lab, clothoObject);
+                        labList.put("name", inst.getName());
+                        Set<Person.PersonRole> rolesAtInstitution = retrieve.getRole(lab);
+                        JSONObject positions = new JSONObject();
+                        Iterator <Person.PersonRole> it = rolesAtInstitution.iterator();
+                        while(it.hasNext()){
+                            positions.put(inst.getName(), it.next());
+                        }
+                        labList.put("roles", positions);
+                    }
+                }
+                */
+//                retrievedAsJSON.put("statusList", statusList);
+//                retrievedAsJSON.put("publicationList", publicationList);
+                //retrievedAsJSON.put("labList", labList);
                 peopleJSONArray.put(retrievedAsJSON);
             }
             

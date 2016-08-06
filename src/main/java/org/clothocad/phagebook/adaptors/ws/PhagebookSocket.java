@@ -56,12 +56,12 @@ public class PhagebookSocket
         connection.setMaxIdleTime(7 * 24 * 3600000);
         connection.setMaxBinaryMessageSize(999999);
         connection.setMaxTextMessageSize(999999);
-        System.out.println("New Serverside Connection opened :: " + connection.getProtocol());
+        System.out.println("New Connection opened :: " + connection.getProtocol());
     }
 
     @Override
     public void onClose(int closeCode, String message) {
-        System.out.println("Serverside connection Closed");
+        System.out.println("Connection Closed");
     }
 
     private JSONObject handleIncomingMessage(String message) {

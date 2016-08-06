@@ -12,6 +12,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,16 +24,20 @@ import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Grant;
+import org.clothocad.phagebook.dom.Organization;
 import org.clothocad.model.Person;
 import org.clothocad.phagebook.dom.Project;
+import org.json.JSONArray;
 import org.json.JSONObject;
+import sun.misc.IOUtils;
 
+// IMPORT PROJECT FILE HERE
 
 /**
  *
  * @author anna_g
  */
-public class CreateNewProject extends HttpServlet {
+public class processProject extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -99,6 +107,8 @@ public class CreateNewProject extends HttpServlet {
       String projectId = ClothoAdapter.createProject(project, clothoObject); 
       clothoObject.logout();
       
+      System.out.println("in processProject servlet");
+
       
       JSONObject result = new JSONObject();
 

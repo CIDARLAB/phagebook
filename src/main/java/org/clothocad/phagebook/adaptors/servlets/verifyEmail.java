@@ -28,7 +28,7 @@ import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.model.Person;
-//import org.clothocad.phagebook.adaptors.S3Adapter;
+import org.clothocad.phagebook.adaptors.S3Adapter;
 import org.clothocad.phagebook.security.EmailSaltHasher;
 
 /**
@@ -124,7 +124,7 @@ public class verifyEmail extends HttpServlet {
                 clothoObject.logout();
                 ClothoAdapter.setPerson(pers, clothoObject);  
                 System.out.println("HERE AT VERIFY EMAIL: "+ ClothoAdapter.getPerson(pers.getId(), clothoObject).isActivated());
-//                S3Adapter.initializeUserFolder(pers);//queryPersons.get(0).getId()
+                S3Adapter.initializeUserFolder(pers);//queryPersons.get(0).getId()
                 
                 
                 
