@@ -190,7 +190,7 @@ function newProjectsCtrl($scope, $http) {
             if (selectedMembers.length == 0) {
                 $scope.membersNameRequired = 'Please select an option.';
             } else {
-                return selectedMembers.toString();
+                return selectedMembers;
             }
         }
 
