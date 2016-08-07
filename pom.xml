@@ -5,6 +5,7 @@
     <artifactId>Phagebook</artifactId>
     <version>1.0</version>
     <packaging>war</packaging>
+    <name>Phagebook_Spring</name>
     <build>
         <plugins>
             <plugin>
@@ -16,49 +17,61 @@
                     <target>1.7</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
         </plugins>
     </build>
-    
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-parent</artifactId>
+                <version>${spring.boot.version}</version>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
         <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-util</artifactId>
-            <version>8.1.10.v20130312</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>4.3.0.RELEASE</version>
         </dependency>
         <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-io</artifactId>
-            <version>8.1.10.v20130312</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>1.3.5.RELEASE</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-webapp</artifactId>
-            <version>8.1.10.v20130312</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jetty</artifactId>
+            <version>1.3.5.RELEASE</version>
         </dependency>
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-server</artifactId>
-            <version>8.1.10.v20130312</version>
-            <type>jar</type>
-        </dependency>
+        
+        
         <dependency>
             <groupId>org.cidarlab</groupId>
             <artifactId>citationsAPI</artifactId>
             <version>1.0</version>
         </dependency>
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-io</artifactId>
-            <version>8.1.10.v20130312</version>
-            <type>jar</type>
-        </dependency>
+       
+        
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20140107</version>
             <type>jar</type>
         </dependency>
-     
         <dependency>
 		<groupId>org.projectlombok</groupId>
 		<artifactId>lombok</artifactId>
@@ -113,12 +126,24 @@
     </dependency>
     
     <dependency>
-       
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-websocket</artifactId>
       <version>8.1.10.v20130312</version>
       <type>jar</type>
     </dependency>
+    
+    <dependency>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-io</artifactId>
+        <version>${jetty-version}</version>
+    </dependency>
+    
+    <dependency>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-util</artifactId>
+        <version>${jetty-version}</version>
+    </dependency>
+
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk-core</artifactId>
@@ -131,6 +156,26 @@
             <version>1.10.49</version>
             <type>jar</type>
         </dependency>
+        
+        <!-- To write basic javax.websocket against -->
+        <dependency>
+            <groupId>javax.websocket</groupId>
+            <artifactId>javax.websocket-api</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <!-- To run javax.websocket in embedded server -->
+        <dependency>
+            <groupId>org.eclipse.jetty.websocket</groupId>
+            <artifactId>javax-websocket-server-impl</artifactId>
+            <version>9.3.10.v20160621</version>
+        </dependency>
+        <!-- To run javax.websocket client -->
+        <dependency>
+            <groupId>org.eclipse.jetty.websocket</groupId>
+            <artifactId>javax-websocket-client-impl</artifactId>
+            <version>9.3.10.v20160621</version>
+        </dependency>
+        
     </dependencies>
 
     
@@ -139,6 +184,6 @@
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
         <!-- ONLY FOR THE API, SERVER, AND CLIENT, WE use jetty 8.1.10 for anything else -->
-        <jetty-version>9.2.7.v20150116</jetty-version>
+        <jetty-version>9.3.10.v20160621</jetty-version>
     </properties>
 </project>

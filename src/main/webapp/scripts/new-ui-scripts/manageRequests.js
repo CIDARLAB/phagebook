@@ -49,7 +49,6 @@ function documentReady(){
 
         },
         error: function (response) {
-
         }
     });
 

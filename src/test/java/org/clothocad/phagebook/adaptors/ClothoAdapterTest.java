@@ -98,11 +98,14 @@ public class ClothoAdapterTest {
         clothoLogin(this.username, this.password);
     }
 
+    /*
+        Change "destroy" then uncomment
+    */
     @After
     public void tearDown() {
         if (currentWorkingObject != null){
             if (currentWorkingObject.idForObject() != null && !currentWorkingObject.idForObject().equals("Not Set") && !currentWorkingObject.idForObject().equals("") ){
-                clothoObject.destroy(currentWorkingObject.idForObject());
+                //clothoObject.destroy(currentWorkingObject.idForObject());
                 currentWorkingObject = null;
             }
         }
