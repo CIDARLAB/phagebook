@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
@@ -35,13 +36,13 @@ import org.json.JSONObject;
 public class ColleagueController {
     
     @RequestMapping(value="/addColleagueRequest", method=RequestMethod.POST)
-    public void addColleagueRequest(@RequestParam Map<String, String> params, HttpServletResponse response)
+    public void addColleagueRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        Object pUserId = params.get("loggedInClothoId");
+        Object pUserId = request.getParameter("loggedInClothoId");
         String userId = pUserId != null ? (String) pUserId : "";
 
-        Object pRequestId = params.get("colleagueClothoId");
+        Object pRequestId = request.getParameter("colleagueClothoId");
         String requestId = pRequestId != null ? (String) pRequestId : "";
 
         boolean isValid = false; //used only to make sure the person exists in Clotho
@@ -206,13 +207,13 @@ public class ColleagueController {
         }
     }
     
-    @RequestMapping(value="/listColleagueRequest", method=RequestMethod.GET)    
-    public void listColleagueRequest(@RequestParam Map<String, String> params, HttpServletResponse response)
+    @RequestMapping(value="/listColleagueRequests", method=RequestMethod.GET)    
+    public void listColleagueRequests(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
 
         Object pUserId = params.get("userId");
         String userId = pUserId != null ? (String) pUserId : "";
-
+        System.out.println("In listColleagueRequest");
 
         boolean isValid = false; //used only to make sure the person exists in Clotho
         if (!userId.equals("")) {

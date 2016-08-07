@@ -23,7 +23,8 @@ function colleagueCtrl($scope, $http) {
 
                 },
                 error: function (response) {
-
+                    console.log("Failed");
+                    console.log(response);
                 }
             });
 
