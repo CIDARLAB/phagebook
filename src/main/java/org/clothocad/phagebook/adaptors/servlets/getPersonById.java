@@ -265,6 +265,7 @@ public class getPersonById extends HttpServlet {
             }*/
                 clothoObject.logout();
                 ClothoAdapter.setPerson(retrieve, clothoObject);
+                conn.closeConnection();
 
             }
         } else {

@@ -31,13 +31,12 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import sun.misc.IOUtils;
 
-// IMPORT PROJECT FILE HERE
 
 /**
  *
  * @author anna_g
  */
-public class processProject extends HttpServlet {
+public class CreateNewProject extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -161,6 +160,7 @@ public class processProject extends HttpServlet {
       for(int i=0;i<membersIDs.size();i++){
         System.out.println("The ID "+i+" in membersIDs is: "+ membersIDs.get(i)); 
       }
+      
       System.out.println("Now getting lead!");
       Object leadIdObj = request.getParameter("leadID");
       String leadId  = leadIdObj != null ? (String) leadIdObj : "" ;
@@ -385,7 +385,7 @@ public class processProject extends HttpServlet {
         result.put("error",1);
         System.out.println("not successful!"); 
       }
-
+      conn.closeConnection();
       PrintWriter writer = response.getWriter();
       writer.println(result);
       writer.flush();

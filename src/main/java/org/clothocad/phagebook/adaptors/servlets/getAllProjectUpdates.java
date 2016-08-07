@@ -115,7 +115,7 @@ public class getAllProjectUpdates extends HttpServlet {
             listOfUpdates.add(u);
         }
         System.out.println("");
-        
+        conn.closeConnection();
         result.put("success",1);
         result.put("updates",listOfUpdates);
         System.out.println(result);
