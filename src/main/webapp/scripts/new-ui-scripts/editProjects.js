@@ -31,7 +31,7 @@ var appendRow = function() {
     //console.log(data);
     // an ajax request to get the project that has project id
     $.ajax({
-        url: "../getProject",
+        url: "/getProject",
         type: "POST",
         dataType: "json",
         data: data,
@@ -96,7 +96,7 @@ $(document).ready(function() {
         };
 
         $.ajax({
-            url: "../processProject",
+            url: "/processProject",
             type: "POST",
             dataType: "json",
             data: data,

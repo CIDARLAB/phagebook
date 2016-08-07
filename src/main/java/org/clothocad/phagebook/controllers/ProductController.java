@@ -82,15 +82,17 @@ public class ProductController {
 
         ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
         Clotho clothoObject = new Clotho(conn);
-        //TODO: we need to have an authentication token at some point
-
-        String username = "phagebook";
-        String password = "backend";
+        Map createUserMap = new HashMap();
+        String username = "test" + System.currentTimeMillis();
+        createUserMap.put("username", username);
+        createUserMap.put("password", "password");
+        clothoObject.createUser(createUserMap);
+        clothoObject.logout();
         Map loginMap = new HashMap();
         loginMap.put("username", username);
-        loginMap.put("credentials", password);
-
+        loginMap.put("credentials", "password");
         clothoObject.login(loginMap);
+        //
 
         Object pProductUrl = params.get("productUrl");
         String productUrl = pProductUrl != null ? (String) pProductUrl : "";
@@ -440,9 +442,4 @@ public class ProductController {
         }
     }
 
-    
-    
-    
-
-    
 }

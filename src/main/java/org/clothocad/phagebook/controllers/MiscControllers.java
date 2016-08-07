@@ -264,7 +264,7 @@ public class MiscControllers {
                 clothoObject.logout();
                 ClothoAdapter.setPerson(pers, clothoObject);  
                 System.out.println("HERE AT VERIFY EMAIL: "+ ClothoAdapter.getPerson(pers.getId(), clothoObject).isActivated());
-//                S3Adapter.initializeUserFolder(pers);//queryPersons.get(0).getId()
+                S3Adapter.initializeUserFolder(pers);//queryPersons.get(0).getId()
                 
                 
                 

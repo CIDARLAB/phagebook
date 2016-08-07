@@ -220,6 +220,7 @@ function newProjectsCtrl($scope, $http) {
                 async: true,
                 data: dataSubmit,
                 success: function(response) {
+
                     console.log(dataSubmit);
                     // console.log(response);
                     // console.log("response!!!");
@@ -230,7 +231,6 @@ function newProjectsCtrl($scope, $http) {
 
                 },
                 error: function(err) {
-                    alert("error");
                     console.log(dataSubmit);
                     console.log("Error!");
                     console.log(err);

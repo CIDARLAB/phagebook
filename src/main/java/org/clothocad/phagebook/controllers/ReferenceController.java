@@ -94,39 +94,35 @@ public class ReferenceController {
 
         Object pCreatedBy = params.get("createdBy");
         String createdBy = pCreatedBy != null ? (String) pCreatedBy : "";
-        
+
         String title = params.get("title");
         String authors = params.get("authors");
         int year = Integer.parseInt(params.get("year"));
         String info = params.get("info");
         String bibtex = "";
-        
+
         bibtex = "@article{" + authors.substring(authors.indexOf(" "), authors.indexOf(",")).toLowerCase()
                 + year;
-        
-        
+
         String temp = "";
-        
+
         if (title.indexOf(' ') == 1) {
             temp = title.substring(2, title.length());
             bibtex += temp.substring(0, temp.indexOf(' ')).toLowerCase() + "}, title={";
-        } else if(title.indexOf(' ') == 2) {
+        } else if (title.indexOf(' ') == 2) {
             temp = title.substring(3, title.length());
             bibtex += temp.substring(0, temp.indexOf(' ')).toLowerCase() + "}, title={";
-        }
-        else if (title.indexOf(' ') == 3) {
+        } else if (title.indexOf(' ') == 3) {
             temp = title.substring(4, title.length());
             bibtex += temp.substring(0, temp.indexOf(' ')).toLowerCase() + "}, title={";
+        } else if (title.replace(" ", "") == title) //if there are no spaces in title
+        {
+            bibtex += title.substring(0, title.length()).toLowerCase() + "}, title={";
         } else {
-            if (title.replace(" ", "") == title) //if there are no spaces in title
-                bibtex += title.substring(0, title.length()).toLowerCase() + "}, title={";
-            else
-                bibtex += title.substring(0, title.indexOf(' ')).toLowerCase() + "}, title={";
+            bibtex += title.substring(0, title.indexOf(' ')).toLowerCase() + "}, title={";
         }
 
         bibtex += title + "}, author{" + authors + "}, other information{" + info + "}}";
-        
-        
 
         ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
         Clotho clothoObject = new Clotho(conn);
@@ -136,8 +132,8 @@ public class ReferenceController {
         loginMap.put("credentials", "backend");
         clothoObject.login(loginMap);
 
-        PhagebookCitation pC = new PhagebookCitation(title,authors,year,info,bibtex);
-                
+        PhagebookCitation pC = new PhagebookCitation(title, authors, year, info, bibtex);
+
         pC.setUser(createdBy);
 
         ClothoAdapter.createPhagebookCitation(pC, clothoObject);
@@ -146,14 +142,13 @@ public class ReferenceController {
         Person user = ClothoAdapter.getPerson(pC.getUser(), clothoObject);
 
         user.getPhagebookCitations().add(pC.getId());
-        
+
         clothoObject.logout();
         ClothoAdapter.setPerson(user, clothoObject);
         clothoObject.login(loginMap);
-        
+
         user = ClothoAdapter.getPerson(user.getId(), clothoObject);
-        
-        
+
         System.out.println("The id of ph citations " + pC.getTitle() + " " + user.getPhagebookCitations());
 
         PrintWriter writer = response.getWriter();
@@ -169,13 +164,13 @@ public class ReferenceController {
         writer.flush();
         writer.close();
     }
-    
+
     @RequestMapping(value = "/addPubMed", method = RequestMethod.POST)
     public void addPubMed(@RequestParam Map<String, String> params, HttpServletResponse response) throws IOException, ServletException {
 
         Object pCreatedBy = params.get("createdBy");
         String createdBy = pCreatedBy != null ? (String) pCreatedBy : "";
-        
+
         String id = params.get("PMID");
 
         ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
@@ -195,14 +190,13 @@ public class ReferenceController {
         Person user = ClothoAdapter.getPerson(pC.getUser(), clothoObject);
 
         user.getPhagebookCitations().add(pC.getId());
-        
+
         clothoObject.logout();
         ClothoAdapter.setPerson(user, clothoObject);
         clothoObject.login(loginMap);
-        
+
         user = ClothoAdapter.getPerson(user.getId(), clothoObject);
-        
-        
+
         System.out.println("The id of ph citations " + pC.getTitle() + " " + user.getPhagebookCitations());
 
         PrintWriter writer = response.getWriter();
@@ -213,9 +207,9 @@ public class ReferenceController {
         json.append("authors", pC.getAuthors());
         json.append("otherInformation", pC.getOtherInformation());
         json.append("bibtex", pC.getBibtex());
-        
+
         conn.closeConnection();
-        
+
         writer.println(json.toString(2));
         writer.flush();
         writer.close();
@@ -233,10 +227,7 @@ public class ReferenceController {
         }
 
         if (isValid) {
-        
 
-            
-            
 //            //ESTABLISH CONNECTION
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
@@ -251,23 +242,22 @@ public class ReferenceController {
             clothoObject.login(loginMap);
 
             Person person = ClothoAdapter.getPerson(clothoId, clothoObject);
-            
+
             JSONObject phagebookCitationsAsJSON = new JSONObject();
             phagebookCitationsAsJSON.put("phagebookCitationIdJSON", person.getPhagebookCitations());
-            
+
             JSONArray citations = new JSONArray();
-            
-            Map<Integer,List<PhagebookCitation>> yearCitationsMap = new HashMap<Integer,List<PhagebookCitation>>();
+
+            Map<Integer, List<PhagebookCitation>> yearCitationsMap = new HashMap<Integer, List<PhagebookCitation>>();
             List<Integer> years = new ArrayList<Integer>();
-            for (String pubId : person.getPhagebookCitations())
-            {
+            for (String pubId : person.getPhagebookCitations()) {
                 PhagebookCitation pC = ClothoAdapter.getPhagebookCitation(pubId, clothoObject);
-                if(!years.contains(pC.getYear())){
+                if (!years.contains(pC.getYear())) {
                     years.add(pC.getYear());
                 }
-                if(!yearCitationsMap.containsKey(pC.getYear())){
+                if (!yearCitationsMap.containsKey(pC.getYear())) {
                     yearCitationsMap.put(pC.getYear(), new ArrayList<PhagebookCitation>());
-                    
+
                 }
                 yearCitationsMap.get(pC.getYear()).add(pC);
                 /*JSONObject pubJSON = new JSONObject();
@@ -278,27 +268,27 @@ public class ReferenceController {
                 pubJSON.put("pubInfo", pC.getOtherInformation());
                 pubJSON.put("pubBibtex", pC.getBibtex());
                 citations.put(pubJSON);
-                */
+                 */
             }
-            
-            for(int i=0;i<years.size();i++){
-                for(int j=0;j<years.size();j++){
-                    if(years.get(i) > years.get(j)){
+
+            for (int i = 0; i < years.size(); i++) {
+                for (int j = 0; j < years.size(); j++) {
+                    if (years.get(i) > years.get(j)) {
                         int temp = years.get(i);
-                        years.set(i,years.get(j));
-                        years.set(j,temp);
+                        years.set(i, years.get(j));
+                        years.set(j, temp);
                     }
                 }
             }
-            
+
             List<PhagebookCitation> allCitations = new ArrayList<PhagebookCitation>();
-            for(int i=0;i<years.size();i++){
+            for (int i = 0; i < years.size(); i++) {
                 allCitations.addAll(yearCitationsMap.get(years.get(i)));
             }
-            
-            for(PhagebookCitation pC:allCitations){
+
+            for (PhagebookCitation pC : allCitations) {
                 JSONObject pubJSON = new JSONObject();
-                
+
                 pubJSON.put("pubTitle", pC.getTitle());
                 pubJSON.put("pubAuthors", pC.getAuthors());
                 pubJSON.put("pubYear", pC.getYear());
@@ -306,21 +296,19 @@ public class ReferenceController {
                 pubJSON.put("pubBibtex", pC.getBibtex());
                 citations.put(pubJSON);
             }
-            
-            
-            
+
             response.setContentType("application/json");
 //            
 //            String id = person.getPhagebookCitations().get(0);
 //            
 //            PhagebookCitation p = ClothoAdapter.getPhagebookCitation(id, clothoObject);
-            
+
             PrintWriter writer = response.getWriter();
-        
+
             writer.println(citations);
             writer.flush();
             writer.close();
-            
+
 //            Person retrieve = ClothoAdapter.getPerson(clothoId, clothoObject);
 //            
 //            JSONObject statusesAsJSON = new JSONObject();
@@ -342,7 +330,7 @@ public class ReferenceController {
 //            out.print(statuses);
 //            out.flush();
 //            out.close();
-                conn.closeConnection();
+            conn.closeConnection();
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 

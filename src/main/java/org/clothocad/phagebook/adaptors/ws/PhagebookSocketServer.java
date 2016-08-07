@@ -6,7 +6,7 @@
 package org.clothocad.phagebook.adaptors.ws;
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.http.HttpServletRequest;
-//import org.clothocad.phagebook.controllers.PersonController.uploadProfilePicture;
+import org.clothocad.phagebook.adaptors.servlets.uploadProfilePicture;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
 
@@ -28,15 +28,15 @@ public class PhagebookSocketServer {
             public WebSocket doWebSocketConnect(HttpServletRequest request, String protocol) {
                 return new PhagebookSocket(); 
             }
-        };
+        }; 
         
         
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.setContextPath("/");
         
-//        ServletHolder fileUploadServletHolder = new ServletHolder(new uploadProfilePicture());
-//        fileUploadServletHolder.getRegistration().setMultipartConfig(new MultipartConfigElement("data/tmp"));
-//        context.addServlet(fileUploadServletHolder, "/uploadProfilePicture");
+        ServletHolder fileUploadServletHolder = new ServletHolder(new uploadProfilePicture());
+        fileUploadServletHolder.getRegistration().setMultipartConfig(new MultipartConfigElement("data/tmp"));
+        context.addServlet(fileUploadServletHolder, "/uploadProfilePicture");
         
         
         ServletHolder holderEvents = new ServletHolder("ws-events", PhagebookServlet.class);

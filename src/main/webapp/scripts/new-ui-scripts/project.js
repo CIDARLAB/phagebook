@@ -184,7 +184,7 @@ $(document).ready(function() {
         }
         //console.log(data);
         $.ajax({
-            url: "../editProject",
+            url: "/editProject",
             type: "POST",
             dataType: "json",
             data: data,
@@ -239,7 +239,7 @@ $(document).ready(function() {
         };
         //console.log(data);
         $.ajax({
-            url: "../addUpdateToProject",
+            url: "/addUpdateToProject",
             type: "POST",
             dataType: "json",
             data: data,
