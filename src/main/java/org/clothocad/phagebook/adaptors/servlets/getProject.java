@@ -29,87 +29,83 @@ public class getProject extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         PrintWriter writer = response.getWriter();
         
-        
-        Object projectIdObj = request.getParameter("projectID");
-        String projectId  = projectIdObj != null ? (String) projectIdObj : "" ;
-          System.out.println("projectId is:"); 
-          System.out.println(projectId);
-          System.out.println("inside Get Project");
-        
-        // possibly do not need this here
-        // *****
-          Map createUserMap = new HashMap();
-          String username = "username";
-          String password = "password";
+      Object projectIdObj = request.getParameter("projectID");
+      String projectId  = projectIdObj != null ? (String) projectIdObj : "" ;
+      System.out.println("projectId is:"); 
+      System.out.println(projectId);
+      System.out.println("inside Get Project");
 
-          ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
-          Clotho clothoObject = new Clotho(conn);
-          createUserMap.put("username", username);
-          createUserMap.put("password", password);
-
-          clothoObject.createUser(createUserMap);
-          Map loginMap = new HashMap();
-          loginMap.put("username", username);
-          loginMap.put("credentials", password);  
-
-          clothoObject.login(loginMap);
-        // *****
-        // possibly take the code above out
+      //ESTABLISH CONNECTION
+      ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+      Clotho clothoObject = new Clotho(conn);
+      Map createUserMap = new HashMap();
+      String username = "username";
+      String password = "password";
+      createUserMap.put("username", username);
+      createUserMap.put("password", password);
+      clothoObject.createUser(createUserMap);
+      Map loginMap = new HashMap();
+      loginMap.put("username", username);
+      loginMap.put("credentials", password);  
+      clothoObject.login(loginMap);
+      
+      System.out.println("getting project from Clotho");
         
-        JSONObject projectObject = new JSONObject();
-          System.out.println("before getProject");
-        Project proj =  ClothoAdapter.getProject(projectId, clothoObject);
-          System.out.println("After Clotho Adapter get project");
+      JSONObject projectObject = new JSONObject();
+      Project proj =  ClothoAdapter.getProject(projectId, clothoObject);
+      
+      System.out.println("Got project from Clotho");
+                
+      String desc = proj.getDescription();
+      System.out.println("Description is: " + desc);
+      
+      Grant grant;      
+      if(!proj.getGrantId().equals("")){
+        System.out.println(proj.getGrantId());
+        grant = ClothoAdapter.getGrant(proj.getGrantId(), clothoObject);
+        projectObject.put("grantName", grant.getName());
+        projectObject.put("grant", grant.getId());
+      }
         
+      if(proj.getDateCreated() != null){
+          String delims = "[ ]+";
+          String stringDate = proj.getDateCreated().toString();
+          System.out.println(stringDate);
+          String[] tokens = stringDate.split(delims);
+          projectObject.put("dateCreated", tokens[1] + " " + tokens[2] + " " + tokens[5]);
+      }
+      
+      if(proj.getMembers() != null){
         
-        String desc = proj.getDescription();
-          System.out.println("Description is:");
-          System.out.println(desc);
+      
+      }
         
-        Grant grant = ClothoAdapter.getGrant(proj.getGrantId(), clothoObject);
-
-       
-
-        if(proj.getDateCreated() != null){
-            String delims = "[ ]+";
-            String stringDate = proj.getDateCreated().toString();
-            System.out.println(stringDate);
-            String[] tokens = stringDate.split(delims);
-            projectObject.put("dateCreated", tokens[1] + " " + tokens[2] + " " + tokens[5]);
-        }
-        if(proj.getMembers() != null){
-        
-        }
-        if(!(proj.getCreatorId().equals(""))){
-            Person creator = ClothoAdapter.getPerson(proj.getCreatorId(), clothoObject);
-            System.out.println( creator.getFirstName()+" " +creator.getLastName());
-            projectObject.put("creator", creator.getFirstName()+" " +creator.getLastName());
-            projectObject.put("creatorId", proj.getCreatorId());
-             if(creator.getLabs().size()>0){
-              // if a person has labs - get 'em!
-               System.out.println("creator has more than 0 labs");
-               projectObject.put("creatorLabs", creator.getLabs());
-              
-            }
-        }
+      if(!(proj.getCreatorId().equals(""))){
+          Person creator = ClothoAdapter.getPerson(proj.getCreatorId(), clothoObject);
+          System.out.println( creator.getFirstName()+" " +creator.getLastName());
+          projectObject.put("creator", creator.getFirstName()+" " +creator.getLastName());
+          projectObject.put("creatorId", proj.getCreatorId());
+           if(creator.getLabs().size()>0){
+            // if a person has labs - get 'em!
+             System.out.println("creator has more than 0 labs");
+             projectObject.put("creatorLabs", creator.getLabs());
+          }
+      }
 
         if(!(proj.getLeadId().equals(""))){
-            System.out.println("Getting Lead person");
-            System.out.println("Lead Id is");
+            System.out.println("Getting Lead person");            
             String leadId = proj.getLeadId();
+            System.out.println("Lead Id is "+leadId);
             projectObject.put("leadId", leadId);
-            System.out.println(leadId);
             Person lead = ClothoAdapter.getPerson(proj.getLeadId(), clothoObject);
             if(lead.getFirstName() != null && lead.getLastName() != null){
-              System.out.println("Getting Lead name, it is:");
-              System.out.println(lead.getFirstName()+" "+ lead.getLastName());              
+              System.out.println("Getting Lead name: "+lead.getFirstName()+" "+ lead.getLastName());
               projectObject.put("lead", lead.getFirstName()+" "+lead.getLastName());
             }
             if(lead.getLabs().size()>0){
               System.out.println("lead has more than 0 labs");
               // if a person has labs - get 'em!
-               projectObject.put("leadLabs", lead.getLabs());
-              
+               projectObject.put("leadLabs", lead.getLabs());              
             }
         }
         
@@ -119,14 +115,14 @@ public class getProject extends HttpServlet {
         projectObject.put("projectName", proj.getName());
         //projectObject.put("notebooks", proj.getNotebooks());
         projectObject.put("updates", proj.getUpdates());
-        projectObject.put("grantName", grant.getName());
-        projectObject.put("grant", grant.getId());
+
         //projectMap = (Map) ClothoAdapter.getProject(id, clothoObject);
-       
-        System.out.println("after getProject");
-        System.out.println(projectObject);
+               
         String project = projectObject.toString();
+       
+        System.out.println("after getProject");       
         System.out.println("stringified :: " + project);
+        
         conn.closeConnection();
         writer.println(project); //Send back stringified JSON object
         writer.flush();
