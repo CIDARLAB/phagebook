@@ -292,10 +292,44 @@ public class PersonController {
                 exists = false;
             }
             if (exists) {
-
+                List<String> createdOrders = prashant.getCreatedOrders();
                 List<String> approvedOrderIds = prashant.getApprovedOrders();
                 List<String> deniedOrderIds = prashant.getDeniedOrders();
                 JSONArray allOrders = new JSONArray();
+                
+                for (String created : createdOrders ){
+                    Order temp = ClothoAdapter.getOrder(created, clothoObject);
+                    JSONObject tempAsJSON = new JSONObject();
+                    tempAsJSON.put("name", temp.getName());
+                    tempAsJSON.put("description", temp.getDescription());
+                    tempAsJSON.put("clothoId", temp.getId());
+                    tempAsJSON.put("dateCreated", temp.getDateCreated().toString());
+                    Person creator = ClothoAdapter.getPerson(temp.getCreatedById(), clothoObject);
+                    tempAsJSON.put("createdById", creator.getEmailId());
+                    tempAsJSON.put("createdByName", creator.getFirstName() + " " +creator.getLastName());
+                    tempAsJSON.put("products", temp.getProducts());
+                    tempAsJSON.put("orderLimit", temp.getMaxOrderSize());
+                    tempAsJSON.put("taxRate", temp.getTaxRate());
+                    tempAsJSON.put("budget", temp.getBudget());
+                    if (!temp.getApprovedById().equals("") && !temp.getApprovedById().equals("Not Set") ){
+                        tempAsJSON.put("approvedById", (ClothoAdapter.getPerson(temp.getApprovedById(), clothoObject)).getEmailId());
+                    }
+                    JSONArray receivedByIds = new JSONArray();
+                    List<String> receivedBys = temp.getReceivedByIds();
+                    for (int i = 0; i< receivedBys.size() ; i++){
+                        if (!receivedBys.get(i).equals("") && !receivedBys.get(i).equals("Not Set")){
+                        JSONObject receivedByJSON = new JSONObject();
+                        receivedByJSON.put( ""+ i , (ClothoAdapter.getPerson(receivedBys.get(i), clothoObject)).getEmailId());
+                        receivedByIds.put(receivedByJSON);
+                        }
+                    }
+                    tempAsJSON.put("receivedByIds", receivedByIds);
+                    tempAsJSON.put("relatedProjectName", (ClothoAdapter.getProject(temp.getRelatedProjectId(), clothoObject)).getName());
+                    tempAsJSON.put("status", temp.getStatus());
+                    tempAsJSON.put("affiliatedLabId", temp.getAffiliatedLabId());
+                    allOrders.put(tempAsJSON); // put it in there...
+                }
+                
                 for (String approved : approvedOrderIds) {
                     System.out.println("APPROVED ID: " + approved);
                     Order approvedOrder = ClothoAdapter.getOrder(approved, clothoObject);

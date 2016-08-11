@@ -1239,7 +1239,6 @@ public class ClothoAdapter {
         project.setId(id);
         makePublic(id, clothoObject);
 
-        System.out.println("In CREate Project clotho id is");
         System.out.println(id);
         return id;
     }
@@ -2817,7 +2816,6 @@ public class ClothoAdapter {
         person.setActivationString(map.containsKey("activationString") ? (String) map.get("activationString") : "Not Set");
 
         person.setSalt(map.containsKey("salt") ? (String) map.get("salt") : "");
-        System.out.println("passed the salt");
 
         if (map.containsKey("saltedEmailHash")) {
             JSONArray byteArrayAsJSONArray = (JSONArray) map.get("saltedEmailHash");

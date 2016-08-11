@@ -57,10 +57,9 @@ public class EmailHandler {
                         });
                 try {
 
-                    
                     Message message = createMessage(SENDER_DOMAIN_NAME, pers, session, link);
                     Transport.send(message);
-                    System.out.println("Done");
+                    System.out.println("An Email Was Sent");
 
                 } catch (MessagingException e) {
                 //if you can't send it from the info stored in the person class then

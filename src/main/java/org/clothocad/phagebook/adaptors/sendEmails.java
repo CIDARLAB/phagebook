@@ -97,7 +97,6 @@ public class sendEmails {
       String imgSource = "http://cidarlab.org/wp-content/uploads/2015/09/phagebook_AWH.png" ;
       System.out.println(imgSource);
       String foo ="src= \""+ imgSource+ "\">";
-            System.out.println(foo);
 
       String messageTxt = "<img height=\"50\" width=\"200\" src=\""+ imgSource+ "\">" + 
                 "<p>Hi " + pers +",</p>" + " <p>A new update was added to project " + projectName + 
