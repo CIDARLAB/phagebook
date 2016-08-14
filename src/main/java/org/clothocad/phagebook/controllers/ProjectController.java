@@ -30,6 +30,7 @@ import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.adaptors.sendEmails;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Grant;
+import org.clothocad.phagebook.dom.Institution;
 import org.clothocad.phagebook.dom.Organization;
 import org.clothocad.phagebook.dom.Project;
 import org.clothocad.phagebook.dom.Status;
@@ -469,12 +470,16 @@ public class ProjectController {
       JSONArray peopleJSONArray = new JSONArray();
 
       for (Person retrieve : people) {
+        String institutionId = retrieve.getInstitution();
+        Institution institution = ClothoAdapter.getInstitution(institutionId, clothoObject);
+        
         JSONObject retrievedAsJSON = new JSONObject();
         retrievedAsJSON.put("fullname", retrieve.getFirstName() + " " + retrieve.getLastName());
         //get position? role?? we will look into this
         retrievedAsJSON.put("firstName", retrieve.getFirstName());
         retrievedAsJSON.put("lastName", retrieve.getLastName());
         retrievedAsJSON.put("email", retrieve.getEmailId());
+        retrievedAsJSON.put("institution", institution.getName());
         retrievedAsJSON.put("clothoId", retrieve.getId());
         System.out.println(retrieve.getFirstName());
         System.out.println(retrieve.getLastName());
