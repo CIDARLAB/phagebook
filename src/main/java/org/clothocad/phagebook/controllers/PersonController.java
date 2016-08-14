@@ -48,7 +48,9 @@ import org.springframework.web.bind.annotation.*;
  */
 @Controller
 public class PersonController {
-
+    private final String backendPhagebookUser = Args.defaultPhagebookUsername;
+    private final String backendPhagebookPassword = Args.defaultPhagebookPassword;
+          
     @RequestMapping(value = "/listApprovedOrdersOfPerson", method = RequestMethod.GET)
     protected void listApprovedOrdersOfPerson(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
@@ -68,8 +70,8 @@ public class PersonController {
         if (isValid) {
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
-            String username = "phagebook";
-            String password = "backend";
+            String username = this.backendPhagebookUser;
+            String password = this.backendPhagebookPassword;
             Map loginMap = new HashMap();
             loginMap.put("username", username);
             loginMap.put("credentials", password);
@@ -156,8 +158,8 @@ public class PersonController {
         if (isValid) {
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
-            String username = "phagebook";
-            String password = "backend";
+            String username = this.backendPhagebookUser;
+            String password = this.backendPhagebookPassword;
             Map loginMap = new HashMap();
             loginMap.put("username", username);
             loginMap.put("credentials", password);
@@ -277,8 +279,8 @@ public class PersonController {
         if (isValid) {
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
-            String username = "phagebook";
-            String password = "backend";
+            String username = this.backendPhagebookUser;
+            String password = this.backendPhagebookPassword;
             Map loginMap = new HashMap();
             loginMap.put("username", username);
             loginMap.put("credentials", password);
@@ -445,8 +447,8 @@ public class PersonController {
         if (isValid) {
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
-            String username = "phagebook";
-            String password = "backend";
+            String username = this.backendPhagebookUser;
+            String password = this.backendPhagebookPassword;
             Map loginMap = new HashMap();
             loginMap.put("username", username);
             loginMap.put("credentials", password);
@@ -779,8 +781,8 @@ public class PersonController {
             //ESTABLISH CONNECTION
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
-            String username = "phagebook";
-            String password = "backend";
+            String username = this.backendPhagebookUser;
+            String password = this.backendPhagebookPassword;
             Map loginMap = new HashMap();
             loginMap.put("username", username);
             loginMap.put("credentials", password);
@@ -1013,8 +1015,8 @@ public class PersonController {
             //ESTABLISH CONNECTION
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
-            String username = "phagebook";
-            String password = "backend";
+            String username = this.backendPhagebookUser;
+            String password = this.backendPhagebookPassword;
             Map loginMap = new HashMap();
             loginMap.put("username", username);
             loginMap.put("credentials", password);
@@ -1078,8 +1080,8 @@ public class PersonController {
         if (isValid) {
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
-            String username = "phagebook";
-            String password = "backend";
+            String username = this.backendPhagebookUser;
+            String password = this.backendPhagebookPassword;
             Map loginMap = new HashMap();
             loginMap.put("username", username);
             loginMap.put("credentials", password);

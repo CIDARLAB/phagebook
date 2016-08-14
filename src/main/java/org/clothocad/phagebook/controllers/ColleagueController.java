@@ -5,12 +5,9 @@
  */
 package org.clothocad.phagebook.controllers;
 
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -34,8 +31,11 @@ import org.json.JSONObject;
  */
 @Controller
 public class ColleagueController {
-    
-    @RequestMapping(value="/addColleagueRequest", method=RequestMethod.POST)
+
+    private final String backendPhagebookUser = Args.defaultPhagebookUsername;
+    private final String backendPhagebookPassword = Args.defaultPhagebookPassword;
+
+    @RequestMapping(value = "/addColleagueRequest", method = RequestMethod.POST)
     public void addColleagueRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -54,8 +54,8 @@ public class ColleagueController {
             //ESTABLISH CONNECTION
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
-            String username = "phagebook";
-            String password = "backend";
+            String username = this.backendPhagebookUser;
+            String password = this.backendPhagebookPassword;
             Map loginMap = new HashMap();
             loginMap.put("username", username);
             loginMap.put("credentials", password);
@@ -72,11 +72,11 @@ public class ColleagueController {
                     }
 
                 }
-                
+
                 clothoObject.logout();
                 ClothoAdapter.setPerson(receivesRequest, clothoObject);
             }
-            
+
             conn.closeConnection();
 
         } else {
@@ -84,8 +84,8 @@ public class ColleagueController {
 
         }
     }
-    
-    @RequestMapping(value="/approveColleagueRequest", method=RequestMethod.POST)
+
+    @RequestMapping(value = "/approveColleagueRequest", method = RequestMethod.POST)
     public void approveColleagueRequest(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -94,7 +94,7 @@ public class ColleagueController {
 
         Object pUserId = params.get("userId");
         String userId = pUserId != null ? (String) pUserId : "";
-        
+
         boolean isValid = false; //used only to make sure the person exists in Clotho
         if (!colleagueId.equals("") && !userId.equals("")) {
             isValid = true;
@@ -104,8 +104,8 @@ public class ColleagueController {
             //ESTABLISH CONNECTION
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
-            String username = "phagebook";
-            String password = "backend";
+            String username = this.backendPhagebookUser;
+            String password = this.backendPhagebookPassword;
             Map loginMap = new HashMap();
             loginMap.put("username", username);
             loginMap.put("credentials", password);
@@ -113,28 +113,28 @@ public class ColleagueController {
             //
             Person user = ClothoAdapter.getPerson(userId, clothoObject);
             List<String> colleagueRequests = user.getColleagueRequests();
-            if (colleagueRequests.contains(colleagueId)){
+            if (colleagueRequests.contains(colleagueId)) {
                 colleagueRequests.remove(colleagueId);
                 user.setColleagueRequests(colleagueRequests);
-                
+
             }
-            
+
             Person colleague = ClothoAdapter.getPerson(colleagueId, clothoObject);
             List<String> colleaguesUser = user.getColleagues();
             List<String> colleaguesColleague = colleague.getColleagues();
-            if (!colleaguesUser.contains(colleague.getId())){
-                if (!colleaguesColleague.contains(user.getId())){
+            if (!colleaguesUser.contains(colleague.getId())) {
+                if (!colleaguesColleague.contains(user.getId())) {
                     colleaguesUser.add(colleague.getId());
                     colleaguesColleague.add(user.getId());
                     colleague.setColleagues(colleaguesColleague);
                     user.setColleagues(colleaguesUser);
-                    
+
                 }
             }
             clothoObject.logout();
             ClothoAdapter.setPerson(user, clothoObject);
             ClothoAdapter.setPerson(colleague, clothoObject);
-            
+
             response.setContentType("application/json");
             response.setStatus(HttpServletResponse.SC_OK);
             JSONObject responseJSON = new JSONObject();
@@ -143,8 +143,7 @@ public class ColleagueController {
             out.print(responseJSON);
             out.flush();
             conn.closeConnection();
-            
-            
+
         } else {
             response.setContentType("application/json");
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -155,17 +154,17 @@ public class ColleagueController {
             out.flush();
         }
     }
-    
-    @RequestMapping(value="/denyColleagueRequest", method=RequestMethod.POST)    
+
+    @RequestMapping(value = "/denyColleagueRequest", method = RequestMethod.POST)
     public void denyColleagueRequest(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         Object pColleagueId = params.get("colleagueId");
         String colleagueId = pColleagueId != null ? (String) pColleagueId : "";
 
         Object pUserId = params.get("userId");
         String userId = pUserId != null ? (String) pUserId : "";
-        
+
         boolean isValid = false; //used only to make sure the person exists in Clotho
         if (!colleagueId.equals("") && !userId.equals("")) {
             isValid = true;
@@ -175,28 +174,27 @@ public class ColleagueController {
             //ESTABLISH CONNECTION
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
-            String username = "phagebook";
-            String password = "backend";
+            String username = this.backendPhagebookUser;
+            String password = this.backendPhagebookPassword;
             Map loginMap = new HashMap();
             loginMap.put("username", username);
             loginMap.put("credentials", password);
             clothoObject.login(loginMap);
             //
-            
+
             Person user = ClothoAdapter.getPerson(userId, clothoObject);
             List<String> colleagueRequests = user.getColleagueRequests();
-            if (colleagueRequests.contains(colleagueId)){
+            if (colleagueRequests.contains(colleagueId)) {
                 colleagueRequests.remove(colleagueId);
                 user.setColleagueRequests(colleagueRequests);
-                
+
             }
             clothoObject.logout();
             ClothoAdapter.setPerson(user, clothoObject);
-            
+
             conn.closeConnection();
-            
-        }
-        else {
+
+        } else {
             response.setContentType("application/json");
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             JSONObject responseJSON = new JSONObject();
@@ -206,8 +204,8 @@ public class ColleagueController {
             out.flush();
         }
     }
-    
-    @RequestMapping(value="/listColleagueRequests", method=RequestMethod.GET)    
+
+    @RequestMapping(value = "/listColleagueRequests", method = RequestMethod.GET)
     public void listColleagueRequests(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -224,36 +222,34 @@ public class ColleagueController {
             //ESTABLISH CONNECTION
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
-            String username = "phagebook";
-            String password = "backend";
+            String username = this.backendPhagebookUser;
+            String password = this.backendPhagebookPassword;
             Map loginMap = new HashMap();
             loginMap.put("username", username);
             loginMap.put("credentials", password);
             clothoObject.login(loginMap);
             //
-            
-            
+
             Person retrieve = ClothoAdapter.getPerson(userId, clothoObject);
             JSONArray humans = new JSONArray();
-            if (!retrieve.getId().equals("")){
+            if (!retrieve.getId().equals("")) {
                 //valid human ;)
-                
+
                 List<String> humanConnectionRequests = retrieve.getColleagueRequests();
-                
-                for (String humanId :humanConnectionRequests ){
+
+                for (String humanId : humanConnectionRequests) {
                     JSONObject humanJSON = new JSONObject();
-                    Person human  = ClothoAdapter.getPerson(humanId, clothoObject) ;
+                    Person human = ClothoAdapter.getPerson(humanId, clothoObject);
                     humanJSON.put("firstName", human.getFirstName());
                     humanJSON.put("lastName", human.getLastName());
                     humanJSON.put("clothoId", human.getId());
-                    
+
                     humans.put(humanJSON);
-                    
+
                 }
-                
-                
+
             }
-            
+
             clothoObject.logout();
             response.setContentType("application/json");
             response.setStatus(HttpServletResponse.SC_OK);
@@ -263,8 +259,7 @@ public class ColleagueController {
             conn.closeConnection();
 
         } else {
-            
-            
+
             response.setContentType("application/json");
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             JSONObject responseJSON = new JSONObject();
@@ -274,17 +269,16 @@ public class ColleagueController {
             out.flush();
         }
     }
-    
-    @RequestMapping(value="/loadColleagues", method=RequestMethod.GET)    
+
+    @RequestMapping(value = "/loadColleagues", method = RequestMethod.GET)
     public void loadColleagues(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         System.out.println("reached doGet");
 
         Object pUserId = params.get("userId");
         String userId = pUserId != null ? (String) pUserId : "";
 
-        
         System.out.println(userId);
         boolean isValid = false;
         if (userId != null && userId != "") {
@@ -308,26 +302,25 @@ public class ColleagueController {
 
             Person retrieve = ClothoAdapter.getPerson(userId, clothoObject);
             JSONArray humans = new JSONArray();
-            if (!retrieve.getId().equals("")){
+            if (!retrieve.getId().equals("")) {
                 //valid human ;)
-                
+
                 List<String> humanConnections = retrieve.getColleagues();
-                
-                for (String humanId :humanConnections ){
+
+                for (String humanId : humanConnections) {
                     JSONObject humanJSON = new JSONObject();
-                    Person human  = ClothoAdapter.getPerson(humanId, clothoObject);
+                    Person human = ClothoAdapter.getPerson(humanId, clothoObject);
                     String institutionId = human.getInstitution();
                     humanJSON.put("institutionName", ClothoAdapter.getInstitution(institutionId, clothoObject).getName());
                     humanJSON.put("fullname", human.getFirstName() + " " + human.getLastName());
                     humanJSON.put("clothoId", human.getId());
-                    
+
                     humans.put(humanJSON);
-                    
+
                 }
-                
-                
+
             }
-            
+
             clothoObject.logout();
             response.setContentType("application/json");
             response.setStatus(HttpServletResponse.SC_OK);
@@ -340,6 +333,5 @@ public class ColleagueController {
 
         }
     }
-    
-    
+
 }

@@ -45,6 +45,9 @@ import org.json.JSONObject;
 @Controller
 public class OrdersController {
 
+    private final String backendPhagebookUser = Args.defaultPhagebookUsername;
+    private final String backendPhagebookPassword = Args.defaultPhagebookPassword;
+
     @RequestMapping(value = "/addProductsToOrder", method = RequestMethod.POST)
     protected void addProductsToOrder(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
@@ -73,7 +76,7 @@ public class OrdersController {
 
         //should now have something like this parsed.
         /*
-          [{"productId": "<ID>" , "quantity": "5", "discount": "100" }, {"productId": "<ID> ,.. etc"}];  
+         [{"productId": "<ID>" , "quantity": "5", "discount": "100" }, {"productId": "<ID> ,.. etc"}];  
         
         
          */
@@ -82,8 +85,8 @@ public class OrdersController {
 
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
-            String username = "phagebook";
-            String password = "backend";
+            String username = this.backendPhagebookUser;
+            String password = this.backendPhagebookPassword;
             Map loginMap = new HashMap();
             loginMap.put("username", username);
             loginMap.put("credentials", password);
@@ -163,12 +166,12 @@ public class OrdersController {
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
 
-            String username = "phagebook";
-            String password = "backend";
+            String username = this.backendPhagebookUser;
+            String password = this.backendPhagebookPassword;
+
             /*
-            
-                DIRECT ASSUMPTION THAT USER: phagebook exists and their 
-                                   PASSWORD: backend
+             DIRECT ASSUMPTION THAT USER: phagebook exists and their 
+             PASSWORD: backend
              */
             Map loginMap = new HashMap();
             loginMap.put("username", username);
@@ -251,8 +254,8 @@ public class OrdersController {
         if (isValid) {
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
-            String username = "phagebook";
-            String password = "backend";
+            String username = this.backendPhagebookUser;
+            String password = this.backendPhagebookPassword;
             Map loginMap = new HashMap();
             loginMap.put("username", username);
             loginMap.put("credentials", password);
@@ -319,13 +322,12 @@ public class OrdersController {
             //login
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
-
-            String username = "phagebook";
-            String password = "backend";
+            String username = this.backendPhagebookUser;
+            String password = this.backendPhagebookPassword;
             /*
             
-                DIRECT ASSUMPTION THAT USER: phagebook exists and their 
-                                   PASSWORD: backend
+             DIRECT ASSUMPTION THAT USER: phagebook exists and their 
+             PASSWORD: backend
              */
             Map loginMap = new HashMap();
             loginMap.put("username", username);
@@ -367,9 +369,8 @@ public class OrdersController {
 
         ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
         Clotho clothoObject = new Clotho(conn);
-
-        String username = "phagebook";
-        String password = "backend";
+        String username = this.backendPhagebookUser;
+        String password = this.backendPhagebookPassword;
         Map loginMap = new HashMap();
         loginMap.put("username", username);
         loginMap.put("credentials", password);
@@ -447,13 +448,12 @@ public class OrdersController {
             //login
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
-
-            String username = "phagebook";
-            String password = "backend";
+            String username = this.backendPhagebookUser;
+            String password = this.backendPhagebookPassword;
             /*
             
-                DIRECT ASSUMPTION THAT USER: phagebook exists and their 
-                                   PASSWORD: backend
+             DIRECT ASSUMPTION THAT USER: phagebook exists and their 
+             PASSWORD: backend
              */
             Map loginMap = new HashMap();
             loginMap.put("username", username);
@@ -546,13 +546,12 @@ public class OrdersController {
             //login
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
-
-            String username = "phagebook";
-            String password = "backend";
+            String username = this.backendPhagebookUser;
+            String password = this.backendPhagebookPassword;
             /*
             
-                DIRECT ASSUMPTION THAT USER: phagebook exists and their 
-                                   PASSWORD: backend
+             DIRECT ASSUMPTION THAT USER: phagebook exists and their 
+             PASSWORD: backend
              */
             Map loginMap = new HashMap();
             loginMap.put("username", username);
@@ -656,12 +655,12 @@ public class OrdersController {
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
 
-            String username = "phagebook";
-            String password = "backend";
+            String username = this.backendPhagebookUser;
+            String password = this.backendPhagebookPassword;
             /*
             
-                DIRECT ASSUMPTION THAT USER: phagebook exists and their 
-                                   PASSWORD: backend
+             DIRECT ASSUMPTION THAT USER: phagebook exists and their 
+             PASSWORD: backend
              */
             Map loginMap = new HashMap();
             loginMap.put("username", username);
@@ -738,13 +737,12 @@ public class OrdersController {
             //login
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
-
-            String username = "phagebook";
-            String password = "backend";
+            String username = this.backendPhagebookUser;
+            String password = this.backendPhagebookPassword;
             /*
             
-                DIRECT ASSUMPTION THAT USER: phagebook exists and their 
-                                   PASSWORD: backend
+             DIRECT ASSUMPTION THAT USER: phagebook exists and their 
+             PASSWORD: backend
              */
             Map loginMap = new HashMap();
             loginMap.put("username", username);
@@ -840,8 +838,8 @@ public class OrdersController {
 
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
-            String username = "phagebook";
-            String password = "backend";
+            String username = this.backendPhagebookUser;
+            String password = this.backendPhagebookPassword;
             Map loginMap = new HashMap();
             loginMap.put("username", username);
             loginMap.put("credentials", password);
@@ -912,8 +910,8 @@ public class OrdersController {
         if (isValid) {
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
-            String username = "phagebook";
-            String password = "backend";
+            String username = this.backendPhagebookUser;
+            String password = this.backendPhagebookPassword;
             Map loginMap = new HashMap();
             loginMap.put("username", username);
             loginMap.put("credentials", password);

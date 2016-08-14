@@ -41,6 +41,8 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class ProjectController {
+    private final String backendPhagebookUser = Args.defaultPhagebookUsername;
+    private final String backendPhagebookPassword = Args.defaultPhagebookPassword;
 
     @RequestMapping(value = "/getAllProjects", method = {RequestMethod.GET, RequestMethod.POST})
     protected void getAllProjects(@RequestParam Map<String, String> params, HttpServletResponse response)
@@ -52,14 +54,8 @@ public class ProjectController {
 
         ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
         Clotho clothoObject = new Clotho(conn);
-        Map createUserMap = new HashMap();
-        String username = "username";
-        String password = "password";
-
-        createUserMap.put("username", username);
-        createUserMap.put("password", password);
-
-        clothoObject.createUser(createUserMap);
+        String username = this.backendPhagebookUser;
+        String password = this.backendPhagebookPassword;
         Map loginMap = new HashMap();
         loginMap.put("username", username);
         loginMap.put("credentials", password);
@@ -205,8 +201,8 @@ public class ProjectController {
         ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
         Clotho clothoObject = new Clotho(conn);
         Map createUserMap = new HashMap();
-        String username = "username";
-        String password = "password";
+        String username = this.backendPhagebookUser;
+        String password = this.backendPhagebookPassword;
         createUserMap.put("username", username);
         createUserMap.put("password", password);
         clothoObject.createUser(createUserMap);
@@ -299,8 +295,8 @@ public class ProjectController {
         ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
         Clotho clothoObject = new Clotho(conn);
         Map createUserMap = new HashMap();
-        String username = "username";
-        String password = "password";
+        String username = this.backendPhagebookUser;
+        String password = this.backendPhagebookPassword;
 
         createUserMap.put("username", username);
         createUserMap.put("password", password);
@@ -611,8 +607,8 @@ public class ProjectController {
         if (isValid) {
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
-            String username = "phagebook";
-            String password = "backend";
+        String username = this.backendPhagebookUser;
+        String password = this.backendPhagebookPassword;
             Map loginMap = new HashMap();
             loginMap.put("username", username);
             loginMap.put("credentials", password);
@@ -677,8 +673,8 @@ public class ProjectController {
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
             Map createUserMap = new HashMap();
-            String username = "username";
-            String password = "password";
+        String username = this.backendPhagebookUser;
+        String password = this.backendPhagebookPassword;
 
             createUserMap.put("username", username);
             createUserMap.put("password", password);
@@ -856,8 +852,8 @@ public class ProjectController {
         ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
         Clotho clothoObject = new Clotho(conn);
         Map createUserMap = new HashMap();
-        String username = "username";
-        String password = "password";
+        String username = this.backendPhagebookUser;
+        String password = this.backendPhagebookPassword;
 
         createUserMap.put("username", username);
         createUserMap.put("password", password);
@@ -913,8 +909,8 @@ public class ProjectController {
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
             Map createUserMap = new HashMap();
-            String username = "username";
-            String password = "password";
+        String username = this.backendPhagebookUser;
+        String password = this.backendPhagebookPassword;
 
             createUserMap.put("username", username);
             createUserMap.put("password", password);
@@ -1039,8 +1035,8 @@ public class ProjectController {
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
             Map createUserMap = new HashMap();
-            String username = "username";
-            String password = "password";
+        String username = this.backendPhagebookUser;
+        String password = this.backendPhagebookPassword;
 
             createUserMap.put("username", username);
             createUserMap.put("password", password);
@@ -1091,8 +1087,8 @@ public class ProjectController {
         ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
         Clotho clothoObject = new Clotho(conn);
         Map createUserMap = new HashMap();
-        String username = "username";
-        String password = "password";
+        String username = this.backendPhagebookUser;
+        String password = this.backendPhagebookPassword;
         createUserMap.put("username", username);
         createUserMap.put("password", password);
         clothoObject.createUser(createUserMap);

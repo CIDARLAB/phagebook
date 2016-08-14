@@ -41,6 +41,9 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class ProductController {
 
+    private final String backendPhagebookUser = Args.defaultPhagebookUsername;
+    private final String backendPhagebookPassword = Args.defaultPhagebookPassword;
+
     @RequestMapping(value = "/addProducts", method = RequestMethod.GET)
     public void addProducts(@RequestParam Map<String, String> params, HttpServletResponse response) throws IOException, ServletException {
         PrintWriter writer = response.getWriter();
@@ -51,15 +54,13 @@ public class ProductController {
         ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
         Clotho clothoObject = new Clotho(conn);
         Map createUserMap = new HashMap();
-        String username = "phagebook";
-        createUserMap.put("username", username);
-        createUserMap.put("password", "password");
+        String username = this.backendPhagebookUser;
+        String password = this.backendPhagebookPassword;
 
         clothoObject.createUser(createUserMap);
         Map loginMap = new HashMap();
         loginMap.put("username", username);
-        loginMap.put("credentials", "password");
-
+        loginMap.put("credentials", password);
         clothoObject.login(loginMap);
 
         Map companyMap = new HashMap();
@@ -175,9 +176,8 @@ public class ProductController {
         List<String> productIds = new ArrayList<String>();
         ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
         Clotho clothoObject = new Clotho(conn);
-
-        String username = "phagebook";
-        String password = "backend";
+        String username = this.backendPhagebookUser;
+        String password = this.backendPhagebookPassword;
         Map loginMap = new HashMap();
         loginMap.put("username", username);
         loginMap.put("credentials", password);
