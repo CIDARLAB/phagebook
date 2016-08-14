@@ -95,7 +95,7 @@ function newProjectsCtrl($scope, $http) {
             }
             var checkLead = validateLead();
             console.log(checkLead);
-            if (validateLead != null) {
+            if (checkLead != null) {
                 console.log("lead not null");
                 count += 1;
             } else {

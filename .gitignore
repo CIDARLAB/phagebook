@@ -14,5 +14,6 @@ credentialsAWS.txt
 src/main/java/org/clothocad/phagebook/adaptors/S3Credentials.java
 */src/main/java/org/clothocad/phagebook/adaptors/S3Credentials.java
 **/src/main/java/org/clothocad/phagebook/adaptors/S3Credentials.java
-
+src/main/webapp/resources/OrderSheets/*
+upload/*
 /nbproject/

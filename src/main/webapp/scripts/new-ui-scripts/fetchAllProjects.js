@@ -14,16 +14,16 @@ $(document).ready(function() {
     //console.log(data);
     var ul = $("#project-link-list");
     $.ajax({
-        url: "/getAllProjects",
+        url: "../getAllProjects",
         type: "POST",
         dataType: "json",
         data: data,
+        async: false,
         success: function(response) {
             // response is the array of projects
             // response = JSON.parse(response);
             // //console.log(typeof(response));
             console.log(response);
-
             for (var i = 0; i < response.length; i++) {
                 link = "./project.html?id=" + response[i].projectId;
                 var a = document.createElement('a');
