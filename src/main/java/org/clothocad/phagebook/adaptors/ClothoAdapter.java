@@ -3456,7 +3456,7 @@ public class ClothoAdapter {
                 map.put("id", person.getId());
             }
         }
-
+        
         Map loginResult = (Map) (clothoObject.login(loginUserMap));
 
         String id = "Not Set";

@@ -34,6 +34,8 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class ReferenceController {
+    private final String backendPhagebookUser = Args.defaultPhagebookUsername;
+    private final String backendPhagebookPassword = Args.defaultPhagebookPassword;
 
     @RequestMapping(value = "/addCrossRef", method = RequestMethod.POST)
     public void addCrossRef(@RequestParam Map<String, String> params, HttpServletResponse response) throws IOException, ServletException {
@@ -47,8 +49,11 @@ public class ReferenceController {
         Clotho clothoObject = new Clotho(conn);
         Map loginMap = new HashMap();
 
-        loginMap.put("username", "phagebook");
-        loginMap.put("credentials", "backend");
+        String username = this.backendPhagebookUser;
+        String password = this.backendPhagebookPassword;
+        
+        loginMap.put("username", username);
+        loginMap.put("credentials", password);
         clothoObject.login(loginMap);
 
         PhagebookCitation pC = CrossRef.getPhagebookCitation(id);
@@ -127,9 +132,10 @@ public class ReferenceController {
         ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
         Clotho clothoObject = new Clotho(conn);
         Map loginMap = new HashMap();
-
-        loginMap.put("username", "phagebook");
-        loginMap.put("credentials", "backend");
+        String username = this.backendPhagebookUser;
+        String password = this.backendPhagebookPassword;
+        loginMap.put("username", username);
+        loginMap.put("credentials", password);
         clothoObject.login(loginMap);
 
         PhagebookCitation pC = new PhagebookCitation(title, authors, year, info, bibtex);
@@ -148,8 +154,6 @@ public class ReferenceController {
         clothoObject.login(loginMap);
 
         user = ClothoAdapter.getPerson(user.getId(), clothoObject);
-
-        System.out.println("The id of ph citations " + pC.getTitle() + " " + user.getPhagebookCitations());
 
         PrintWriter writer = response.getWriter();
 
@@ -176,9 +180,11 @@ public class ReferenceController {
         ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
         Clotho clothoObject = new Clotho(conn);
         Map loginMap = new HashMap();
-
-        loginMap.put("username", "phagebook");
-        loginMap.put("credentials", "backend");
+        
+        String username = this.backendPhagebookUser;
+        String password = this.backendPhagebookPassword;
+        loginMap.put("username", username);
+        loginMap.put("credentials", password);
         clothoObject.login(loginMap);
 
         PhagebookCitation pC = Pubmed.getPhagebookCitation(id);
@@ -231,14 +237,11 @@ public class ReferenceController {
 //            //ESTABLISH CONNECTION
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
-            Map createUserMap = new HashMap();
-            String username = "test" + System.currentTimeMillis();
-            createUserMap.put("username", username);
-            createUserMap.put("password", "password");
-            clothoObject.createUser(createUserMap);
+            String username = this.backendPhagebookUser;
+            String password = this.backendPhagebookPassword;
             Map loginMap = new HashMap();
             loginMap.put("username", username);
-            loginMap.put("credentials", "password");
+            loginMap.put("credentials", password);
             clothoObject.login(loginMap);
 
             Person person = ClothoAdapter.getPerson(clothoId, clothoObject);

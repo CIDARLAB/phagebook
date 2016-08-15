@@ -5,7 +5,6 @@
  */
 package org.clothocad.phagebook.controllers;
 
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -43,123 +42,109 @@ import org.springframework.web.bind.annotation.*;
  *
  * @author jacob
  */
-
 @Controller
 public class MiscControllers {
     private final String backendPhagebookUser = Args.defaultPhagebookUsername;
     private final String backendPhagebookPassword = Args.defaultPhagebookPassword;
+
     @RequestMapping(value = "/createVendor", method = RequestMethod.POST)
     protected void createVendor(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
-        
+
         //get all necessary fields to create 
         //REQUIRING NAME & DESCRIPTION & CONTACT 
-        boolean isValid = false; 
-        
+        boolean isValid = false;
+
         String name = params.get("name") != null ? params.get("name") : "";
-        
+
         String description = params.get("description") != null ? params.get("description") : "";
-        
-        String contact = params.get("contact") != null ? params.get("contact"):"";
-        
-        
-        String phone = params.get("phone") != null ? params.get("phone") : "" ;
-        String url = params.get("url") != null ? params.get("url") : "" ;
-        
-        
-        if (!name.isEmpty() && !description.isEmpty() && !contact.isEmpty())
-        {
+
+        String contact = params.get("contact") != null ? params.get("contact") : "";
+
+        String phone = params.get("phone") != null ? params.get("phone") : "";
+        String url = params.get("url") != null ? params.get("url") : "";
+
+        if (!name.isEmpty() && !description.isEmpty() && !contact.isEmpty()) {
             isValid = true;
-            
-            
-        } else 
-        {
-            
+
+        } else {
+
         }
-        if (isValid){
+        if (isValid) {
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
             //TODO: we need to have an authentication token at some point
 
-        String username = this.backendPhagebookUser;
-        String password = this.backendPhagebookPassword;
+            String username = this.backendPhagebookUser;
+            String password = this.backendPhagebookPassword;
             Map loginMap = new HashMap();
             loginMap.put("username", username);
-            loginMap.put("credentials", password); 
+            loginMap.put("credentials", password);
             clothoObject.login(loginMap);
-        
-            
+
             Vendor vendor = new Vendor();
             vendor.setName(name);
             vendor.setDescription(description);
             vendor.setContact(contact);
-            
-            if (!phone.isEmpty())
-            {
+
+            if (!phone.isEmpty()) {
                 vendor.setPhone(phone);
             }
-            if (!url.isEmpty())
-            {
+            if (!url.isEmpty()) {
                 vendor.setUrl(url);
             }
-            
-             //everything is set for that product
+
+            //everything is set for that product
             ClothoAdapter.createVendor(vendor, clothoObject);
             JSONObject vendorJSON = new JSONObject();
             vendorJSON.put("id", vendor.getId());
             conn.closeConnection();
             response.setStatus(HttpServletResponse.SC_CREATED);
             response.setContentType("application/json");
-                PrintWriter out = response.getWriter();
-                out.print(vendorJSON);
-                out.flush();
-                out.close();
-                
+            PrintWriter out = response.getWriter();
+            out.print(vendorJSON);
+            out.flush();
+            out.close();
+
             clothoObject.logout();
-            
-            
-        }else
-        {
+
+        } else {
             JSONObject msg = new JSONObject();
             msg.put("message", "Need to send name, description, and contact");
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.setContentType("application/json");
-                PrintWriter out = response.getWriter();
-                out.print(msg);
-                out.flush();
-                out.close();
+            PrintWriter out = response.getWriter();
+            out.print(msg);
+            out.flush();
+            out.close();
         }
-        
+
     }
-    
+
     @RequestMapping(value = "/resendVerification", method = RequestMethod.GET)
     protected void resendVerification(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
+
         String userId = params.get("id");
         boolean isValid = false;
-        if (!userId.isEmpty()){
+        if (!userId.isEmpty()) {
             isValid = true;
         }
-        if (isValid){
+        if (isValid) {
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
-            
 
             Map loginMap = new HashMap();
-            loginMap.put("username", "phagebook");
-            loginMap.put("credentials", "backend");
-
+            String username = this.backendPhagebookUser;
+            String password = this.backendPhagebookPassword;
+            loginMap.put("username", username);
+            loginMap.put("credentials", password);
             clothoObject.login(loginMap);
-            
-            //operating under the assumption that we will have the saved clotho ID of the user
 
+            //operating under the assumption that we will have the saved clotho ID of the user
             Person person1 = ClothoAdapter.getPerson(userId, clothoObject);
-            
-            if (person1 != null){
+
+            if (person1 != null) {
                 String link = Args.phagebookBaseURL + "/html/validateEmail.html?emailId=" + person1.getEmailId() + "&salt=" + person1.getSalt();
                 EmailHandler handly = EmailHandler.getEmailHandler();
                 handly.sendEmailVerification(person1, link);
@@ -171,12 +156,11 @@ public class MiscControllers {
                 out.print(responseJSON.toString());
                 out.flush();
                 out.close();
-            } 
+            }
             clothoObject.logout();
             conn.closeConnection();
-        }
-        else {
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.setContentType("application/json");
             PrintWriter out = response.getWriter();
             JSONObject responseJSON = new JSONObject();
@@ -185,14 +169,12 @@ public class MiscControllers {
             out.flush();
             out.close();
         }
-        
-        
-        
+
     }
-    
+
     @RequestMapping(value = "/uploadVendorCSV", method = RequestMethod.POST)
     public void uploadVendorCSV(@RequestParam Map<String, String> params, HttpServletResponse response) throws IOException, ServletException {
-        
+
         JSONArray arr = new JSONArray(params.get("jsonArray"));
 
         List<String> vendorIds = new ArrayList<String>();
@@ -203,88 +185,80 @@ public class MiscControllers {
         String password = this.backendPhagebookPassword;
         Map loginMap = new HashMap();
         loginMap.put("username", username);
-        loginMap.put("credentials", password);  
+        loginMap.put("credentials", password);
 
         clothoObject.login(loginMap);
-        
+
         vendorIds = org.clothocad.phagebook.controller.OrderController.getVendors(arr, clothoObject);
-        
+
         PrintWriter writer = response.getWriter();
         conn.closeConnection();
         writer.println("created " + vendorIds);
         writer.flush();
         writer.close();
-    } 
-    
+    }
+
     @RequestMapping(value = "/verifyEmail", method = RequestMethod.POST)
     protected void doPost(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String emailId ;
-        String salt ;
+
+        String emailId;
+        String salt;
         boolean hasValidParameters = false;
         salt = params.get("salt");
         emailId = params.get("emailId");
         System.out.println("salt: " + salt + "  email" + emailId);
-        if (!salt.isEmpty() && !emailId.isEmpty()){
+        if (!salt.isEmpty() && !emailId.isEmpty()) {
             hasValidParameters = true;
         }
-        if (hasValidParameters){
-            
+        if (hasValidParameters) {
+
             EmailSaltHasher salty = EmailSaltHasher.getEmailSaltHasher();
             Map query = new HashMap();
             List<Person> queryPersons = new LinkedList<>();
             query.put("emailId", emailId);
-            
+
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
-          
 
             Map loginMap = new HashMap();
-            loginMap.put("username", "ClothoBackend");
-            loginMap.put("credentials", "phagebook");
-
+            String username = this.backendPhagebookUser;
+            String password = this.backendPhagebookPassword;
+            loginMap.put("username", username);
+            loginMap.put("credentials", password);
 
             clothoObject.login(loginMap);
-           
-           
-          
+
             queryPersons = ClothoAdapter.queryPerson(query, clothoObject, ClothoAdapter.QueryMode.EXACT);
             System.out.println("I leave that method");
             byte[] recreatedHash = salty.hash(emailId.toCharArray(), salt.getBytes("UTF-8"));
-           
+
             boolean isValidated = salty.isExpectedPassword(emailId.toCharArray(), salt.getBytes("UTF-8"), queryPersons.get(0).getSaltedEmailHash());
-            
-       
-            
-            if (isValidated){
+
+            if (isValidated) {
                 Person pers = queryPersons.get(0);
 
-                System.out.println("User "  + queryPersons.get(0).getEmailId() + " has been validated");
-               
+                System.out.println("User " + queryPersons.get(0).getEmailId() + " has been validated");
+
                 pers.setActivated(true);
                 clothoObject.logout();
-                ClothoAdapter.setPerson(pers, clothoObject);  
-                System.out.println("HERE AT VERIFY EMAIL: "+ ClothoAdapter.getPerson(pers.getId(), clothoObject).isActivated());
+                ClothoAdapter.setPerson(pers, clothoObject);
+                System.out.println("HERE AT VERIFY EMAIL: " + ClothoAdapter.getPerson(pers.getId(), clothoObject).isActivated());
                 S3Adapter.initializeUserFolder(pers);//queryPersons.get(0).getId()
-                
-                
-                
-            } else if (!isValidated){
+
+            } else if (!isValidated) {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             }
             clothoObject.logout();
-            
-            
+
         }
-      
-       
+
     }
-    
-    @RequestMapping(value="/loadPhagebookInstitutions", method=RequestMethod.GET)
+
+    @RequestMapping(value = "/loadPhagebookInstitutions", method = RequestMethod.GET)
     public void getPhagebookInstitutions(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         //always valid 
         //login
         System.out.println("loadphagebook");
@@ -292,32 +266,30 @@ public class MiscControllers {
         Clotho clothoObject = new Clotho(conn);
         String username = this.backendPhagebookUser;
         String password = this.backendPhagebookPassword;
-        
-        
+
         /*
 
-            DIRECT ASSUMPTION THAT USER: phagebook exists and their 
-                               PASSWORD: backend
-        */
+         DIRECT ASSUMPTION THAT USER: phagebook exists and their 
+         PASSWORD: backend
+         */
         Map loginMap = new HashMap();
-                
-        loginMap.put("username"   , username);
+
+        loginMap.put("username", username);
         loginMap.put("credentials", password);
-                
+
         clothoObject.login(loginMap);
-                
 
         Map query = new HashMap(); // blank map to get all objects of that class
-        
+
         List<Institution> institutions = ClothoAdapter.queryInstitution(query, clothoObject, ClothoAdapter.QueryMode.EXACT);
-        
+
         JSONArray institutionsInClotho = new JSONArray();
         int countInstits = 0;
-        int countLabs=0;
-        for (Institution institute : institutions){
+        int countLabs = 0;
+        for (Institution institute : institutions) {
             countInstits++;
             JSONArray labs = new JSONArray();
-            for (String labId : institute.getLabs()){
+            for (String labId : institute.getLabs()) {
                 countLabs++;
                 Lab lab = ClothoAdapter.getLab(labId, clothoObject);
                 JSONObject obj = new JSONObject();
@@ -330,16 +302,14 @@ public class MiscControllers {
             institution.put("institutionName", institute.getName());
             institution.put("labs", labs);
             institutionsInClotho.put(institution);
-            
+
         }
-        
-        
-        
+
         response.setStatus(HttpServletResponse.SC_OK);
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
         JSONObject obj = new JSONObject();
-        obj.put("message", "found " + countLabs + " labs and " + countInstits +" institutions" );
+        obj.put("message", "found " + countLabs + " labs and " + countInstits + " institutions");
         obj.put("institutions", institutionsInClotho);
         out.print(obj);
         out.flush();
@@ -347,78 +317,75 @@ public class MiscControllers {
         clothoObject.logout();
         conn.closeConnection();
     }
-    
-    @RequestMapping(value="/selectColumns", method=RequestMethod.POST)
+
+    @RequestMapping(value = "/selectColumns", method = RequestMethod.POST)
     public void selectColumns(@RequestParam Map<String, String> params, HttpServletResponse response) throws IOException, ServletException {
-    /*
-        String SERIAL_NUMBER = params.get("serialNumber");
-        String PRODUCT_NAME = params.get("productName");
-        String PRODUCT_URL = params.get("productUrl");
-        String PRODUCT_DESCRIPTION = params.get("productDescription");
-        String QUANTITY = params.get("quantity");
-        String COMPANY_NAME = params.get("companyName");
-        String COMPANY_URL = params.get("companyUrl");
-        String COMPANY_DESCRIPTION = params.get("companyDescription");
-        String COMPANY_CONTACT = params.get("companyContact");
-        String COMPANY_PHONE = params.get("companyPhone");
-        String UNIT_PRICE = params.get("unitPrice");
-        String TOTAL_PRICE = params.get("totalPrice");
-    */
-       System.out.println("Reached doPost");
-       String id = params.get("orderId");
-       System.out.println(id);
-       if ((id!=null) && (!id.equals("")))
-       {    
+        /*
+         String SERIAL_NUMBER = params.get("serialNumber");
+         String PRODUCT_NAME = params.get("productName");
+         String PRODUCT_URL = params.get("productUrl");
+         String PRODUCT_DESCRIPTION = params.get("productDescription");
+         String QUANTITY = params.get("quantity");
+         String COMPANY_NAME = params.get("companyName");
+         String COMPANY_URL = params.get("companyUrl");
+         String COMPANY_DESCRIPTION = params.get("companyDescription");
+         String COMPANY_CONTACT = params.get("companyContact");
+         String COMPANY_PHONE = params.get("companyPhone");
+         String UNIT_PRICE = params.get("unitPrice");
+         String TOTAL_PRICE = params.get("totalPrice");
+         */
+        System.out.println("Reached doPost");
+        String id = params.get("orderId");
+        System.out.println(id);
+        if ((id != null) && (!id.equals(""))) {
             System.out.println("ID is not null");
             List<OrderColumns> orderColumns = new ArrayList<>();
             System.out.println("Serial Number " + params.get("serialNumber"));
-            System.out.println("Product Name :: " +params.get("productName"));
-            if("true".equals(params.get("serialNumber")))
-                
-            {
+            System.out.println("Product Name :: " + params.get("productName"));
+            if ("true".equals(params.get("serialNumber"))) {
                 orderColumns.add(OrderColumns.SERIAL_NUMBER);
             }
-            
-            if("true".equals(params.get("productName"))){
+
+            if ("true".equals(params.get("productName"))) {
                 orderColumns.add(OrderColumns.PRODUCT_NAME);
             }
-            if("true".equals(params.get("productUrl"))){
+            if ("true".equals(params.get("productUrl"))) {
                 orderColumns.add(OrderColumns.PRODUCT_URL);
             }
-            if("true".equals(params.get("productDescription"))){
+            if ("true".equals(params.get("productDescription"))) {
                 orderColumns.add(OrderColumns.PRODUCT_DESCRIPTION);
             }
-            if("true".equals(params.get("quantity"))){
+            if ("true".equals(params.get("quantity"))) {
                 orderColumns.add(OrderColumns.QUANTITY);
             }
-            if("true".equals(params.get("companyName"))){
+            if ("true".equals(params.get("companyName"))) {
                 orderColumns.add(OrderColumns.COMPANY_NAME);
             }
-            if("true".equals(params.get("companyUrl"))){
+            if ("true".equals(params.get("companyUrl"))) {
                 orderColumns.add(OrderColumns.COMPANY_URL);
             }
-            if("true".equals(params.get("companyDescription"))){
+            if ("true".equals(params.get("companyDescription"))) {
                 orderColumns.add(OrderColumns.COMPANY_DESCRIPTION);
             }
-            if("true".equals(params.get("companyContact"))){
+            if ("true".equals(params.get("companyContact"))) {
                 orderColumns.add(OrderColumns.COMPANY_CONTACT);
             }
-            if("true".equals(params.get("companyPhone"))){
+            if ("true".equals(params.get("companyPhone"))) {
                 orderColumns.add(OrderColumns.COMPANY_PHONE);
             }
-            if("true".equals(params.get("unitPrice"))){
+            if ("true".equals(params.get("unitPrice"))) {
                 orderColumns.add(OrderColumns.UNIT_PRICE);
             }
-            if("true".equals(params.get("totalPrice"))){
+            if ("true".equals(params.get("totalPrice"))) {
                 orderColumns.add(OrderColumns.TOTAL_PRICE);
-            }   
-            
+            }
+
             System.out.println("Order Columns " + orderColumns);
-            
+
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
-        String username = this.backendPhagebookUser;
-        String password = this.backendPhagebookPassword;
+            String username = this.backendPhagebookUser;
+            String password = this.backendPhagebookPassword;
             Map loginMap = new HashMap();
             loginMap.put("username", username);
             loginMap.put("credentials", password);
@@ -427,41 +394,35 @@ public class MiscControllers {
             System.out.println("HERE AT SELECT 1");
             Order order = ClothoAdapter.getOrder(id, clothoObject);
             System.out.println("HERE AT SELECT 2");
-            List<String> orderFormLines = createOrderForm(order,orderColumns);
+            List<String> orderFormLines = createOrderForm(order, orderColumns);
             System.out.println(orderFormLines);
-            
-            
+
             String filepath = MiscControllers.class.getClassLoader().getResource(".").getPath();
             System.out.println("File path ::" + filepath);
             filepath = filepath.substring(0, filepath.indexOf("/target/"));
             System.out.println("\nTHIS IS THE FILEPATH: " + filepath);
-            
-            
-            
+
             String filepathOrderForm = filepath + "/orderForm.csv";
             File file = new File(filepathOrderForm);
-            
+
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-            for(String line : orderFormLines)
-            {
+            for (String line : orderFormLines) {
                 writer.write(line);
                 writer.newLine();
             }
-            
+
             writer.flush();
             writer.close();
-            
+
             PrintWriter reponseWriter = response.getWriter();
             reponseWriter.println(filepathOrderForm);
             reponseWriter.flush();
             reponseWriter.close();
             clothoObject.logout();
             conn.closeConnection();
-       }
-       else
-       {
-           response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-       }
-                        
+        } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+
     }
 }
