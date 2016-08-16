@@ -45,7 +45,7 @@ function newProjectsCtrl($scope, $http) {
             }
         }
         console.log(membersArr);
-    }
+    };
 
     /*
      ** This function gets called when the user clicks on the submit 
@@ -122,7 +122,7 @@ function newProjectsCtrl($scope, $http) {
                 return false;
             }
 
-        }
+        };
 
 
         /*
@@ -169,7 +169,7 @@ function newProjectsCtrl($scope, $http) {
             }
             console.log(memberVal);
             return memberVal;
-        }
+        };
 
         /*
          ** Loops over the list of input selections and and returns an array of 
@@ -192,7 +192,7 @@ function newProjectsCtrl($scope, $http) {
             } else {
                 return selectedMembers.toString();
             }
-        }
+        };
 
         var submit = validateForm();
         if (submit) {
