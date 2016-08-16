@@ -626,6 +626,11 @@ h3 {
     text-align: right;
 }
 
+.jumbotron p {
+    font-size: 14px;
+    font-weight: 400;
+}
+
 .lab-property-headers td {
     color: #1E714A;
     padding: 0px 0px 0px 0px;
@@ -901,17 +906,22 @@ h3 {
     margin-left: 280px;
 }
 
+#profile-header td {
+    line-height: 5px;
+}
+
 #profile-info {
     width: 400px;
     margin-left: 280px;
 }
 
 #profile-info td {
-    line-height: 10px;
+    line-height: 5px;
 }
 
 #profile-overview {
-    padding: 20px 40px 0px 50px;
+    width: 900px;
+    padding: 20px 40px 10px 40px;
     background-color: #FFFFFF;
 }
 
@@ -1180,6 +1190,10 @@ h3 {
 
 td {
     border: none !important;
+}
+
+textarea {
+    resize: none;
 }
 
 #ul-csv-product-btn {

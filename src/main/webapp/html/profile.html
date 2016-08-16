@@ -91,39 +91,36 @@
                 <header></header>
                 <sidebar></sidebar>
                 <div class="container-fluid" id="profile">
-                    <div class="row" >
-                        <div class="panel panel-default">
-                            <div class="panel-body" id="profile-overview">
-                                <img class="" alt="Upload a Profile Picture" src="{{profilePictureLink}}" id="profile-picture">
-                                <a href="../html/accountSettings.html">
-                                    <button id="edit-profile-btn" type="button" class="btn btn-default">
-                                        <img alt="Edit Profile" src="../styles/img/icons/white-pencil.png" style="height:20px">
-                                    </button>
-                                </a>
-                                <table class="table" id="profile-header">
-                                    <tr id="profile-name">
-                                        <td><h3 id="fullName"></h3></td>
-                                    </tr>
-                                    <tr id="profileDescription">
-                                        <td><p>{{profileDescription}}</p></td>
-                                    </tr>
-                                </table>
-                                <div style = "clear:both"></div>
-                                <table class="table" id="profile-info">
-                                    <tr>
-                                        <td><p style="color: #1E714A;">Institution</p></td>
-                                        <td><p id="institution"></p></td>
-                                    </tr>
-                                    <tr>
-                                        <td><p style="color: #1E714A;">Department</p></td>
-                                        <td><p id="dept"></p></td>
-                                    </tr>
-                                    <tr>
-                                        <td><p style="color: #1E714A;">Title</p></td>
-                                        <td><p id="title"></p></td>
-                                    </tr>
-                                </table>
-                            </div>
+                    <div class="row">
+                        <div class="jumbotron" id="profile-overview">
+                            <img class="" alt="Upload a Profile Picture" src="{{profilePictureLink}}" id="profile-picture">
+                            <a href="../html/accountSettings.html">
+                                <button id="edit-profile-btn" type="button" class="btn btn-default">
+                                    <img alt="Edit Profile" src="../styles/img/icons/white-pencil.png" style="height:20px">
+                                </button>
+                            </a>
+                            <table class="table" id="profile-header">
+                                <tr id="profile-name">
+                                    <td><h3 id="fullName"></h3></td>
+                                </tr>
+                                <tr id="profile-desc">
+                                    <td><p id="profileDescription"></p></td>
+                                </tr>
+                            </table>
+                            <table class="table" id="profile-info">
+                                <tr>
+                                    <td><p style="color: #1E714A;">Institution</p></td>
+                                    <td><p id="institution"></p></td>
+                                </tr>
+                                <tr>
+                                    <td><p style="color: #1E714A;">Department</p></td>
+                                    <td><p id="dept"></p></td>
+                                </tr>
+                                <tr>
+                                    <td><p style="color: #1E714A;">Title</p></td>
+                                    <td><p id="title"></p></td>
+                                </tr>
+                            </table>   
                         </div>
                     </div>
                 </div>
