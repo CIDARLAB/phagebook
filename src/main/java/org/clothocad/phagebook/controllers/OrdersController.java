@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
-import org.clothocad.model.Person;
+import org.clothocad.phagebook.dom.Person;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.controller.Utilities;
@@ -186,17 +186,18 @@ public class OrdersController {
                 if (id.equals(userId)) {
                     finalApprover = id;
                     Person approver = ClothoAdapter.getPerson(id, clothoObject);
-                    clothoObject.logout();
-                    Map login2 = new HashMap();
+                    //clothoObject.logout();
+                    /*Map login2 = new HashMap();
                     fAEmailId = approver.getEmailId();
                     login2.put("username", fAEmailId);
                     login2.put("credentials", approver.getPassword());
                     clothoObject.login(login2);
+                    */
                     List<String> approvedOrder = approver.getApprovedOrders();
                     List<String> submittedOrders = approver.getSubmittedOrders(); // need to add to approved and remove from submitted..
                     approvedOrder.add(orderToApprove.getId());
                     submittedOrders.remove(orderToApprove.getId());
-                    clothoObject.logout();
+                    //clothoObject.logout();
                     ClothoAdapter.setPerson(approver, clothoObject);
                     clothoObject.login(loginMap);
                     orderToApprove.setDateApproved(new Date());
@@ -269,8 +270,9 @@ public class OrdersController {
                 userCreatedOrders.remove(orderId);
                 userP.setCreatedOrders(userCreatedOrders);
 
-                clothoObject.logout();
+                //clothoObject.logout();
                 ClothoAdapter.setPerson(userP, clothoObject);
+                clothoObject.logout();
                 response.setContentType("application/json");
                 response.setStatus(HttpServletResponse.SC_OK);
                 JSONObject responseJSON = new JSONObject();
@@ -343,12 +345,12 @@ public class OrdersController {
                 originalReceivedBy.remove(orderToDeny.getId());
                 receiver.setSubmittedOrders(originalReceivedBy);
 
-                clothoObject.logout();
+                //clothoObject.logout();
                 ClothoAdapter.setPerson(receiver, clothoObject);
 
             }
-            clothoObject.logout();
-            clothoObject.login(loginMap);
+            //clothoObject.logout();
+            //clothoObject.login(loginMap);
 
             //removed all trace that this order was submitted
             Person creator = ClothoAdapter.getPerson(orderToDeny.getCreatedById(), clothoObject);
@@ -356,9 +358,10 @@ public class OrdersController {
             originalDeniedOrders.add(orderToDeny.getId());
             orderToDeny.setStatus(OrderStatus.DENIED);
             ClothoAdapter.setOrder(orderToDeny, clothoObject);
-            clothoObject.logout();
+            //clothoObject.logout();
             ClothoAdapter.setPerson(creator, clothoObject);
 
+            clothoObject.logout();
             conn.closeConnection();
 
         }
@@ -461,12 +464,13 @@ public class OrdersController {
             clothoObject.login(loginMap);
 
             Person user = ClothoAdapter.getPerson(userId, clothoObject);
-            clothoObject.logout();
+            //clothoObject.logout();
 
-            Map loginMap2 = new HashMap();
+            /*Map loginMap2 = new HashMap();
             loginMap2.put("username", user.getEmailId());
             loginMap2.put("credentials", user.getPassword());
             clothoObject.login(loginMap2);
+            */
 
             Order order = ClothoAdapter.getOrder(orderId, clothoObject);
             /*TODO CHECK IF THE ORDER's RECEIVED BY IDS MATCHES THE USER ID PASSED IN*/
@@ -580,7 +584,7 @@ public class OrdersController {
             List<String> createdOrders = creator.getCreatedOrders();
             createdOrders.add(order.getId());
             System.out.println("I am still on this part");
-            clothoObject.logout();
+            //clothoObject.logout();
 
             ClothoAdapter.setPerson(creator, clothoObject); // LINK CREATED
 
@@ -683,7 +687,7 @@ public class OrdersController {
                 orderToTransfer.setStatus(OrderStatus.SUBMITTED);
                 ClothoAdapter.setOrder(orderToTransfer, clothoObject);
 
-                clothoObject.logout();
+                //clothoObject.logout();
                 ClothoAdapter.setPerson(loggedInPerson, clothoObject);
                 ClothoAdapter.setPerson(newLoggedInPerson, clothoObject);
 
@@ -769,15 +773,15 @@ public class OrdersController {
                 // have all the people that the order should be submitted to that are PI's of that lab
                 //add those to both order and each person.
                 //TODO ADD THIS...
-                clothoObject.logout();
+                //clothoObject.logout();
                 for (Person pi : PIs) {
                     Map piMap = new HashMap();
                     piMap.put("username", pi.getEmailId());
                     piMap.put("credentials", pi.getPassword());
                     ClothoAdapter.setPerson(pi, clothoObject);
-                    clothoObject.logout();
+                    //clothoObject.logout();
                 }
-                clothoObject.login(loginMap);
+                //clothoObject.login(loginMap);
                 orderToSubmit.setStatus(OrderStatus.SUBMITTED);
                 ClothoAdapter.setOrder(orderToSubmit, clothoObject);
 
@@ -787,6 +791,7 @@ public class OrdersController {
                 JSONObject responseJSON = new JSONObject();
                 responseJSON.put("message", "Success! Order and PI's should be changed.");
                 writer.println(responseJSON.toString());
+                clothoObject.logout();
                 conn.closeConnection();
                 writer.flush();
                 writer.close();

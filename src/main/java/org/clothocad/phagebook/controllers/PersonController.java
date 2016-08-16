@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
-import org.clothocad.model.Person;
+import org.clothocad.phagebook.dom.Person;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.adaptors.EmailHandler;
 import org.clothocad.phagebook.adaptors.S3Adapter;
@@ -581,7 +581,7 @@ public class PersonController {
         }
 
         if (isUnique) {
-            clothoObject.logout();
+            //clothoObject.logout();
             System.out.println(createdPerson.getInstitutions() + " THE INSTITUTIONS");
             ClothoAdapter.createPerson(createdPerson, clothoObject);
 
@@ -621,8 +621,6 @@ public class PersonController {
     protected void getPersonByIdGET(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
 
-        System.out.println("reached doGet");
-
         String userId = (String) params.get("userId");
         System.out.println(userId);
         boolean isValid = false;
@@ -634,15 +632,11 @@ public class PersonController {
             //ESTABLISH CONNECTION
             ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
             Clotho clothoObject = new Clotho(conn);
-            Map createUserMap = new HashMap();
-            String username = "test" + System.currentTimeMillis();
-            createUserMap.put("username", username);
-            createUserMap.put("password", "password");
-            clothoObject.createUser(createUserMap);
-            clothoObject.logout();
+            String username = this.backendPhagebookUser;
+            String password = this.backendPhagebookPassword;
             Map loginMap = new HashMap();
             loginMap.put("username", username);
-            loginMap.put("credentials", "password");
+            loginMap.put("credentials", password);
             clothoObject.login(loginMap);
             //
 
@@ -832,7 +826,7 @@ public class PersonController {
                 retrieve.setLabs(labs);
                 editPerson = true;
             }*/
-                clothoObject.logout();
+                //clothoObject.logout();
                 ClothoAdapter.setPerson(retrieve, clothoObject);
                 conn.closeConnection();
             }

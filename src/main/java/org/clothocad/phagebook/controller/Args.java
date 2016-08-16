@@ -23,6 +23,10 @@ public class Args {
     public static final String defaultPhagebookUsername = "phagebook";
     public static final String defaultPhagebookPassword = "backend";
     
+    //for the backend user
+    public static final String defaultClothoPersonSchema = "org.clothocad.model.Person";
+    
+    
     public static String getFilepath()
     {
         String filepath = Args.class.getClassLoader().getResource(".").getPath();

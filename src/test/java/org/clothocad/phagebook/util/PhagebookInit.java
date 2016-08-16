@@ -11,20 +11,21 @@ import java.util.List;
 import java.util.Map;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
-import org.clothocad.model.Person;
+import org.clothocad.phagebook.dom.Person;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Institution;
-import org.clothocad.phagebook.security.EmailSaltHasher;
 import org.clothocad.phagebook.dom.Lab;
+import org.junit.Test;
 
 /**
  *
  * @author Herb
  */
 public class PhagebookInit {
-
-    public static void main(String[] args) throws Exception {
+    
+    @Test
+    public void phagebookInit() throws Exception {
         
         ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
         Clotho clothoObject = new Clotho(conn);
@@ -32,27 +33,20 @@ public class PhagebookInit {
         Person backendUser = new Person();
         String emailId = "phagebook"; // it is also the name in clotho but doens't have a name property
         backendUser.setEmailId(emailId);
-        backendUser.setActivated(true);
         backendUser.setFirstName("Phagebook");
         backendUser.setLastName("Backend");
         backendUser.setPassword("backend");
-        EmailSaltHasher salty = EmailSaltHasher.getEmailSaltHasher();
-        String salt = EmailSaltHasher.csRandomAlphaNumericString();
-        backendUser.setSalt(salt);
-
-        byte[] SaltedHashedEmail = salty.hash(backendUser.getEmailId().toCharArray(), salt.getBytes("UTF-8"));
-
-        backendUser.setSaltedEmailHash(SaltedHashedEmail);
         
         Map backendUserQueryMap = new HashMap();
         backendUserQueryMap.put("emailId", emailId);
         List<Person> backendUsers = ClothoAdapter.queryPerson(backendUserQueryMap, clothoObject, ClothoAdapter.QueryMode.EXACT);
         if (backendUsers.isEmpty()){
-            ClothoAdapter.createPerson(backendUser, clothoObject);
+            ClothoAdapter.createBackendUser(backendUser, clothoObject);
         }
 
-        String username = "phagebook";
-        String password = "backend";
+        String username = Args.defaultPhagebookUsername;
+        String password = Args.defaultPhagebookPassword;
+        
         /*
             DIRECT ASSUMPTION THAT USER: phagebook exists and their 
                                PASSWORD: backend
@@ -158,7 +152,7 @@ public class PhagebookInit {
             ClothoAdapter.createInstiution(harvardUniversity, clothoObject);
         }
         
-        clothoObject.logout();
+        //clothoObject.logout();
         globalPI.setLabs(PILabs);
         if (!globalPI.getId().equals("") && !globalPI.getId().equals("Not Set")){
             ClothoAdapter.setPerson(globalPI, clothoObject);

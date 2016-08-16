@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
-import org.clothocad.model.Person;
+import org.clothocad.phagebook.dom.Person;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 import org.json.JSONArray;
@@ -73,7 +73,7 @@ public class ColleagueController {
 
                 }
 
-                clothoObject.logout();
+                //clothoObject.logout();
                 ClothoAdapter.setPerson(receivesRequest, clothoObject);
             }
 
@@ -131,7 +131,7 @@ public class ColleagueController {
 
                 }
             }
-            clothoObject.logout();
+            //clothoObject.logout();
             ClothoAdapter.setPerson(user, clothoObject);
             ClothoAdapter.setPerson(colleague, clothoObject);
 
@@ -189,7 +189,7 @@ public class ColleagueController {
                 user.setColleagueRequests(colleagueRequests);
 
             }
-            clothoObject.logout();
+            //clothoObject.logout();
             ClothoAdapter.setPerson(user, clothoObject);
 
             conn.closeConnection();

@@ -19,7 +19,7 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import org.clothoapi.clotho3javaapi.Clotho;
-import org.clothocad.model.Person;
+import org.clothocad.phagebook.dom.Person;
 import static org.clothocad.phagebook.adaptors.ClothoAdapter.clothoObject;
 import org.clothocad.phagebook.dom.Project;
 /**

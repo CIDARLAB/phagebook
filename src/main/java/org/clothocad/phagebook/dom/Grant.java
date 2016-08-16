@@ -6,7 +6,6 @@
 package org.clothocad.phagebook.dom;
 
 import java.util.ArrayList;
-import org.clothocad.model.Person;
 import java.util.Date;
 import java.util.List;
 import lombok.Getter;

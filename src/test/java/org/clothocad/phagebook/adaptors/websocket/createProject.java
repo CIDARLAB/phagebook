@@ -11,7 +11,7 @@ import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Project;
-import org.clothocad.model.Person;
+import org.clothocad.phagebook.dom.Person;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
-import org.clothocad.model.Person;
+import org.clothocad.phagebook.dom.Person;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.adaptors.EmailHandler;
 import org.clothocad.phagebook.adaptors.S3Adapter;
@@ -241,7 +241,7 @@ public class MiscControllers {
                 System.out.println("User " + queryPersons.get(0).getEmailId() + " has been validated");
 
                 pers.setActivated(true);
-                clothoObject.logout();
+                //clothoObject.logout();
                 ClothoAdapter.setPerson(pers, clothoObject);
                 System.out.println("HERE AT VERIFY EMAIL: " + ClothoAdapter.getPerson(pers.getId(), clothoObject).isActivated());
                 S3Adapter.initializeUserFolder(pers);//queryPersons.get(0).getId()

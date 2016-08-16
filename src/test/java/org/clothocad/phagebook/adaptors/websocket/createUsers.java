@@ -11,7 +11,7 @@ import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.Institution;
 import org.clothocad.phagebook.dom.Organization;
-import org.clothocad.model.Person;
+import org.clothocad.phagebook.dom.Person;
 import org.clothocad.phagebook.dom.Project;
 import org.junit.After;
 import org.junit.AfterClass;

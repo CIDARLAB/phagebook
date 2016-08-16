@@ -28,8 +28,8 @@ import org.clothocad.phagebook.dom.Inventory;
 import org.clothocad.phagebook.dom.Notebook;
 import org.clothocad.phagebook.dom.Order;
 import org.clothocad.phagebook.dom.Organization;
-import org.clothocad.model.Person;
-import org.clothocad.model.Person.PersonRole;
+import org.clothocad.phagebook.dom.Person;
+import org.clothocad.phagebook.dom.Person.PersonRole;
 import org.clothocad.phagebook.controller.Args;
 import org.clothocad.phagebook.dom.CartItem;
 import org.clothocad.phagebook.dom.Lab;
@@ -42,15 +42,16 @@ import org.clothocad.phagebook.dom.Status;
 
 /**
  * @author Johan Ospina
- * @author Allison Durkan
  */
 public class ClothoAdapter {
 
     // <editor-fold defaultstate="collapsed" desc="Members">
     public static ClothoConnection conn;
     public static Clotho clothoObject;
-    private static String username;
-    private static String password;
+    private static final String username = Args.defaultPhagebookUsername;
+    private static final String password = Args.defaultPhagebookPassword;
+    private static final String clothoPersonSchema = Args.defaultClothoPersonSchema;
+    private static String backendUserClothoId = "";
 
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Create Methods">
@@ -689,6 +690,43 @@ public class ClothoAdapter {
         return id;
     }
 
+    public static String createBackendUser(Person person, Clotho clothoObject) {
+        Map map = new HashMap();
+        map.put("schema", ClothoAdapter.clothoPersonSchema);
+        if (person.getEmailId() != null) {
+            map.put("emailId", person.getEmailId());
+            map.put("name", person.getEmailId()); // so it displays in clotho's nav bar
+        }
+
+        if (person.getFirstName() != null) {
+            map.put("firstName", person.getFirstName());
+        }
+
+        if (person.getLastName() != null) {
+            map.put("lastName", person.getLastName());
+        }
+
+        Map loginUserMap = new HashMap();
+        loginUserMap.put("username", username);
+        loginUserMap.put("credentials", password);
+
+        clothoObject.login(loginUserMap);
+
+        if (person.getId() != null) {
+            if (!person.getId().equals("Not Set") && !person.getId().isEmpty()) {
+                map.put("id", person.getId());
+            }
+        }
+
+        String id = (String) clothoObject.set(map);
+
+        person.setId(id);
+        makePublic(id, clothoObject);
+        clothoObject.logout();
+        ClothoAdapter.backendUserClothoId = id;
+        return id;
+    }
+
     /**
      * This method is to create a Person object in Clotho but It can also be
      * used a SET method if the object that gets passed in has a valid Clotho ID
@@ -1024,11 +1062,11 @@ public class ClothoAdapter {
 
         clothoObject.createUser(createUserMap);
 
-        Map loginUserMap = new HashMap();
-        loginUserMap.put("username", username);
-        loginUserMap.put("credentials", password);
-
-        clothoObject.login(loginUserMap);
+//        Map loginUserMap = new HashMap();
+//        loginUserMap.put("username", username);
+//        loginUserMap.put("credentials", password);
+//
+//        clothoObject.login(loginUserMap);
 
         if (person.getId() != null) {
             if (!person.getId().equals("Not Set") && !person.getId().isEmpty()) {
@@ -1040,7 +1078,8 @@ public class ClothoAdapter {
 
         person.setId(id);
         makePublic(id, clothoObject);
-        clothoObject.logout();
+        addBackendOwnership(id, clothoObject);
+        //clothoObject.logout();
         return id;
 
     }
@@ -3447,28 +3486,24 @@ public class ClothoAdapter {
         String username = person.getEmailId();
         String password = person.getPassword();
 
-        Map loginUserMap = new HashMap();
+        /*Map loginUserMap = new HashMap();
         loginUserMap.put("username", username);
         loginUserMap.put("credentials", password);
+        */
 
         if (person.getId() != null) {
             if (!person.getId().equals("Not Set") && !person.getId().isEmpty()) {
                 map.put("id", person.getId());
             }
         }
-        
-        Map loginResult = (Map) (clothoObject.login(loginUserMap));
 
-        String id = "Not Set";
-        if (!loginResult.isEmpty()) {
-            id = (String) clothoObject.set(map);
-        } else {
-            System.out.println("NO USER FOUND OR INVALID CREDENTIALS IN PERSON OBJECT");
-        }
+        //Map loginResult = (Map) (clothoObject.login(loginUserMap));
+
+        String id = id = (String) clothoObject.set(map);
 
         person.setId(id);
         makePublic(id, clothoObject);
-        clothoObject.logout();
+        //clothoObject.logout();
         return id;
 
     }
@@ -3495,6 +3530,22 @@ public class ClothoAdapter {
 
     // </editor-fold>
     //  <editor-fold defaultstate="collapsed" desc="Misc Methods">
+    
+    public static void addBackendOwnership(String id, Clotho clothoObject) {
+        List<String> add = new ArrayList<>();
+        List<String> remove = new ArrayList<>();
+
+        add.add("own");
+        add.add("write");
+
+        Map grantMap = new HashMap();
+        grantMap.put("id", ClothoAdapter.backendUserClothoId);
+        grantMap.put("user", "none");
+        grantMap.put("add", add);
+        grantMap.put("remove", remove);
+
+        Map grantResult = (Map) (clothoObject.grant(grantMap));
+    }
     /**
      * Makes an object Public in Clotho
      *
@@ -3506,6 +3557,7 @@ public class ClothoAdapter {
         List<String> remove = new ArrayList<>();
 
         add.add("public");
+        remove.add("own");
 
         Map grantMap = new HashMap();
         grantMap.put("id", objectId);

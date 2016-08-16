@@ -15,7 +15,7 @@ import org.cidarlab.citationsapi.PhagebookCitation;
 import org.cidarlab.citationsapi.Pubmed;
 import org.clothoapi.clotho3javaapi.Clotho;
 import org.clothoapi.clotho3javaapi.ClothoConnection;
-import org.clothocad.model.Person;
+import org.clothocad.phagebook.dom.Person;
 import org.clothocad.phagebook.adaptors.ClothoAdapter;
 import org.clothocad.phagebook.controller.Args;
 import org.junit.After;

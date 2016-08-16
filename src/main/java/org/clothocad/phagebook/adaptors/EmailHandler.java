@@ -10,7 +10,7 @@ import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 import javax.activation.*;
-import org.clothocad.model.Person;
+import org.clothocad.phagebook.dom.Person;
 
 /**
  *
