@@ -635,6 +635,21 @@ h3 {
     padding: 0px 0px 0px 0px;
 }
 
+.left-inner-addon {
+    position: relative;
+}
+
+.left-inner-addon input {
+    padding-left: 30px;
+}
+
+.left-inner-addon span {
+    position: absolute;
+    left: 0px;
+    padding: 8px 12px;
+    pointer-events: none;
+}
+
 #list-colleagues{
     margin-top: 0px;
 }
@@ -882,7 +897,7 @@ h3 {
 }
 
 #profile-header {
-    width: 550px;
+    width: 400px;
     margin-left: 280px;
 }
 
@@ -1013,6 +1028,13 @@ h3 {
     position: absolute;
     right: 0px;
     padding: 10px 12px;
+    pointer-events: none;
+}
+
+.right-inner-addon span {
+    position: absolute;
+    right: 0px;
+    padding: 8px 12px;
     pointer-events: none;
 }
 
