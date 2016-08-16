@@ -213,6 +213,7 @@ function newProjectsCtrl($scope, $http) {
             console.log(dataSubmit);
             // dataSubmit = JSON.stringify(dataSubmit);
             // console.log(dataSubmit);
+
             $.ajax({
                 url: "../processProject",
                 type: "POST",

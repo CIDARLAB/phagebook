@@ -204,8 +204,8 @@ public class RestAPI {
             List<String> allUpdates = addUpdateToProjectHelper(userID, projectID, newStatus, clothoObject);
             List<Map<String, String>> listOfUpdates = new ArrayList<Map<String, String>>();
             Person per = ClothoAdapter.getPerson(userID, clothoObject);
-            System.out.println(per.getEmailId());
-            System.out.println(per.getProjects());
+//            System.out.println(per.getEmailId());
+//            System.out.println(per.getProjects());
 
             for (String s : allUpdates) {
                 Status update = ClothoAdapter.getStatus(s, clothoObject);
@@ -266,10 +266,8 @@ public class RestAPI {
 
         List<String> allUpdates = project.getUpdates();
         // change the project in clotho
-        String foo = ClothoAdapter.setProject(project, clothoObject);
-        System.out.println("In addProjectUpdate function projectID is:");
-        System.out.println(foo);
-        // TODO: email the peeps associate with the project what update was added
+        String prId = ClothoAdapter.setProject(project, clothoObject);
+        System.out.println("In addProjectUpdate function projectID is: " +prId);
 
         return allUpdates;
     }
