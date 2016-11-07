@@ -205,7 +205,7 @@ function exportCSVbtnHanlder(){
     var orderId = this.value;
 
     $.ajax({
-        url: "../resub",
+        url: "../exportOrderCSV",
         type: "GET",
         async: false,
         data: {
@@ -227,8 +227,9 @@ function editOrderBtn(){
     var orderId = this.value;
 
     $.ajax({
-        url: "../resub",
-        type: "GET",
+        url: "../resubmitOrder",
+        type: "POST",
+        async: false,
         data: {
             "orderId": orderId
         },
