@@ -501,6 +501,21 @@ public class OrdersController {
         }
     }
 
+    @RequestMapping(value = "/resub", method = RequestMethod.POST)
+    public void resub(@RequestParam Map<String, String> params, HttpServletResponse response) throws IOException, ServletException {
+        Object pOrderName = params.get("name");
+        String orderName = pOrderName != null ? (String) pOrderName : "";
+        
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println(orderName);
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        
+    }
+
     @RequestMapping(value = "/newOrder", method = RequestMethod.POST)
     public void newOrder(@RequestParam Map<String, String> params, HttpServletResponse response) throws IOException, ServletException {
 

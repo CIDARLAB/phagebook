@@ -26,7 +26,7 @@ function orderHistoryCtrl($scope){
         });
 
         $('.export-csv-btn').click(exportCSVbtnHanlder);
-
+        $('.resub-order-btn').click(editOrderBtn);
 
     });
 
@@ -205,7 +205,7 @@ function exportCSVbtnHanlder(){
     var orderId = this.value;
 
     $.ajax({
-        url: "../exportOrderCSV",
+        url: "../resub",
         type: "GET",
         async: false,
         data: {
@@ -216,6 +216,27 @@ function exportCSVbtnHanlder(){
         },
         error: function (response) {
             alert("An error occurred with exporting the CSV.");
+        }
+    });
+}
+
+
+function editOrderBtn(){
+
+
+    var orderId = this.value;
+
+    $.ajax({
+        url: "../resub",
+        type: "GET",
+        data: {
+            "orderId": orderId
+        },
+        success: function (response) {
+            aler("success");
+        },
+        error: function (response) {
+            alert("An error occurred.");
         }
     });
 }
