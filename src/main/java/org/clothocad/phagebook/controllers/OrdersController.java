@@ -514,8 +514,7 @@ public class OrdersController {
         clothoObject.login(loginMap);
 
         Order orderOld = ClothoAdapter.getOrder(params.get("orderId"), clothoObject);
-        
-        
+
         String orderName = orderOld.getName();
         String createdBy = orderOld.getCreatedById();
         String labId = orderOld.getAffiliatedLabId();
@@ -523,13 +522,12 @@ public class OrdersController {
         String associatedProjectId = orderOld.getRelatedProjectId();
         Double budget = orderOld.getBudget();
         Integer orderLimit = orderOld.getMaxOrderSize();
-        
-        
+
         Date date = new Date();
 
         boolean isValid = false;
         //All parameters needed to create a new order as per the wire frame. 
-        
+
         if (isValid) {
             /*
             
@@ -578,12 +576,11 @@ public class OrdersController {
             writer.flush();
             writer.close();
         }
-        
-        
+
         PrintWriter writer = response.getWriter();
         writer.println("temp");
         writer.flush();
-        writer.close();        
+        writer.close();
     }
 
     @RequestMapping(value = "/newOrder", method = RequestMethod.POST)
@@ -1027,5 +1024,48 @@ public class OrdersController {
             out.flush();
         }
 
+    }
+
+    @RequestMapping(value = "/getOrderProducts", method = RequestMethod.GET)
+    protected void getOrderProducts(@RequestParam Map<String, String> params, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+        Clotho clothoObject = new Clotho(conn);
+        String username = this.backendPhagebookUser;
+        String password = this.backendPhagebookPassword;
+        Map loginMap = new HashMap();
+        loginMap.put("username", username);
+        loginMap.put("credentials", password);
+
+        clothoObject.login(loginMap);
+
+        Order order = ClothoAdapter.getOrder(params.get("orderId"), clothoObject);
+        System.out.println(order.getId());
+        List<String> cartItems = new ArrayList<String>();
+
+        Double orderValue = 0.0;
+
+        OrderColumns quantity = OrderColumns.QUANTITY;
+        OrderColumns unitPrice = OrderColumns.UNIT_PRICE;
+        
+        String quantities = quantity.toString();
+        String unitPrices = unitPrice.toString();
+
+//            Int quantityVal = quantity.toInt();
+//            Double unitPrice = quantity,toDouble(); 
+//            
+//            orderValue += quantityVal * unitPrice;
+
+        net.sf.json.JSONObject responseJSON = new net.sf.json.JSONObject();
+
+        responseJSON.put("orderValue", orderValue);
+
+        response.setContentType("application/json");
+        response.setStatus(HttpServletResponse.SC_OK);
+        PrintWriter out = response.getWriter();
+        out.print(responseJSON);
+        out.flush();
+        conn.closeConnection();
     }
 }

@@ -1,10 +1,10 @@
-$(document).ready(function() {
+$(document).ready(function () {
     var user = getCookie("clothoId");
     var timerVal;
-    $("#productNameToSearch").keypress( keyPressHandler );
+    $("#productNameToSearch").keypress(keyPressHandler);
     $("#vendorNameToSearch").keypress(keyPressHandler);
 
-    function keyPressHandler(){
+    function keyPressHandler() {
 
         clearTimeout(timerVal); // stops previous attempt.
         timerVal = setTimeout(doAjax(this.id), 500);//after a second of no input flip the flag.
@@ -21,7 +21,7 @@ $(document).ready(function() {
 
         var name;
         var url;
-        switch (id){
+        switch (id) {
             case "productNameToSearch":
                 name = $("#productNameToSearch").val();
                 url = "../queryProductByName";
@@ -38,11 +38,11 @@ $(document).ready(function() {
         var searchType = "STARTSWITH"; //USE JQUERY TO FIND FIXES
 
         var isValid = 0;
-        if (name !== ''){
+        if (name !== '') {
             isValid = 1;
         }
 
-        if (isValid){
+        if (isValid) {
             $.ajax({
                 //do this for projects...
                 url: url,
@@ -61,7 +61,7 @@ $(document).ready(function() {
                     for (var i = 0; i < response.length; i++) {
 
                         var tr = document.createElement("tr");
-                        tr.id = "product"+i;
+                        tr.id = "product" + i;
                         var checkbox = document.createElement("td");
                         var checkboxTableData = document.createElement("input");
                         checkboxTableData.type = "checkbox";
@@ -92,26 +92,26 @@ $(document).ready(function() {
 
 
                         var unitPrice = document.createElement("td");
-                            unitPrice.innerHTML = "Unit Price: " + response[i].unitPrice;
+                        unitPrice.innerHTML = "Unit Price: " + response[i].unitPrice;
 
                         tr.appendChild(unitPrice);
 
                         var quantity = document.createElement("td");
-                            var quantityTableData = document.createElement("input");
-                                quantityTableData.type = "number";
-                                quantityTableData.name = "quantity";
-                                quantityTableData.placeholder = 1;
-                                quantityTableData.value = 1;
-                            quantity.appendChild(quantityTableData);
+                        var quantityTableData = document.createElement("input");
+                        quantityTableData.type = "number";
+                        quantityTableData.name = "quantity";
+                        quantityTableData.placeholder = 1;
+                        quantityTableData.value = 1;
+                        quantity.appendChild(quantityTableData);
 
                         tr.appendChild(quantity);
                         var discount = document.createElement("td");
-                            var discountTableData = document.createElement("input");
-                                discountTableData.type = "number";
-                                discountTableData.name = "discount";
-                                discountTableData.placeholder = 1;
-                                discountTableData.value = 1;
-                            discount.appendChild(discountTableData);
+                        var discountTableData = document.createElement("input");
+                        discountTableData.type = "number";
+                        discountTableData.name = "discount";
+                        discountTableData.placeholder = 1;
+                        discountTableData.value = 1;
+                        discount.appendChild(discountTableData);
                         tr.appendChild(discount);
                         table.append(tr);
 
@@ -140,33 +140,33 @@ $(document).ready(function() {
         success: function (response) {
 
             //alert("this user has " +response.length + " created orders");
-            for (var i = 0; i < response.length; i++){
+            for (var i = 0; i < response.length; i++) {
                 var values = new Object();
                 values["AffiliatedLabName"] = response[i].affiliatedLabName;
-                values["AffiliatedLabId"]   = response[i].affiliatedLabId;
-                values["DateCreated"]       = response[i].dateCreated;
-                values["Name"]              = response[i].name;
-                values["Limit"]             = response[i].limit;
-                values["CreatedByName"]     = response[i].creatorName;
-                values["RelatedProjectId"]  = response[i].relatedProjectId;
-                values["RelatedProjectName"]= response[i].relatedProjectName;
-                values["Description"]       = response[i].description;
-                values["ReceivedByIds"]     = response[i].receivedByIds;
-                values["ApprovedById"]      = response[i].approvedById;
-                values["ApprovedByName"]    = response[i].approvedByName;
-                values["CreatedByEmailId"]  = response[i].createdById;
-                values["Products"]          = response[i].products;
-                values["Budget"]            = response[i].budget;
-                values["Status"]            = response[i].status;
-                values["ClothoId"]          = response[i].id;
-                values["TaxRate"]           = response[i].taxRate;
+                values["AffiliatedLabId"] = response[i].affiliatedLabId;
+                values["DateCreated"] = response[i].dateCreated;
+                values["Name"] = response[i].name;
+                values["Limit"] = response[i].limit;
+                values["CreatedByName"] = response[i].creatorName;
+                values["RelatedProjectId"] = response[i].relatedProjectId;
+                values["RelatedProjectName"] = response[i].relatedProjectName;
+                values["Description"] = response[i].description;
+                values["ReceivedByIds"] = response[i].receivedByIds;
+                values["ApprovedById"] = response[i].approvedById;
+                values["ApprovedByName"] = response[i].approvedByName;
+                values["CreatedByEmailId"] = response[i].createdById;
+                values["Products"] = response[i].products;
+                values["Budget"] = response[i].budget;
+                values["Status"] = response[i].status;
+                values["ClothoId"] = response[i].id;
+                values["TaxRate"] = response[i].taxRate;
 
                 createOrderCard(values);
 
                 var select = document.getElementById("list-of-orders");
                 removeOptions(select);
                 var lengthOfResponse = response.length;
-                for (var j = 0; j < lengthOfResponse; j++){
+                for (var j = 0; j < lengthOfResponse; j++) {
                     var opt = document.createElement('option');
                     opt.value = response[j].id;
 
@@ -176,7 +176,7 @@ $(document).ready(function() {
 
             }
             $('.submit-order-btn').click(submitButtonHandler);
-            $('.delete-order-btn').click({user:user},deleteButtonHandler);
+            $('.delete-order-btn').click({user: user}, deleteButtonHandler);
             $('.export-csv-btn').click(exportCSVHandler);
             $('.edit-order-btn').click(editButtonHandler);
 
@@ -187,7 +187,7 @@ $(document).ready(function() {
     });
 
 
-    $(".delete-icon").click( function () {
+    $(".delete-icon").click(function () {
 
 
 
@@ -219,9 +219,9 @@ $(document).ready(function() {
 
 
 
-    $("#add-to-order-btn").click( function (){
+    $("#add-to-order-btn").click(function () {
 
-        var orderToAddTo  = document.getElementById("list-of-orders").value; // the clotho Id of that order
+        var orderToAddTo = document.getElementById("list-of-orders").value; // the clotho Id of that order
 
         var i = 0;
         var tableRow = document.getElementById("product0");
@@ -229,22 +229,22 @@ $(document).ready(function() {
 
         while (tableRow != null) {
             var tableRowKids = tableRow.childNodes;
-            var checkbox  = tableRowKids[0].childNodes[0]; // this is the checkbox
+            var checkbox = tableRowKids[0].childNodes[0]; // this is the checkbox
             var unitPrice = tableRowKids[3].innerHTML.slice(12); //removes the UNIT PRICE string
-            var quantity  = tableRowKids[4].childNodes[0];
-            var discount  = tableRowKids[5].childNodes[0];
+            var quantity = tableRowKids[4].childNodes[0];
+            var discount = tableRowKids[5].childNodes[0];
 
-            if (checkbox.checked){
+            if (checkbox.checked) {
 
                 var cartItemJSON = {};
                 cartItemJSON["productId"] = checkbox.value;
-                cartItemJSON["quantity"]  = quantity.value;
-                cartItemJSON["discount"]  = discount.value;
+                cartItemJSON["quantity"] = quantity.value;
+                cartItemJSON["discount"] = discount.value;
                 productsToAdd.push(cartItemJSON);
 
             }
             i++;
-            tableRow = document.getElementById("product"+i);
+            tableRow = document.getElementById("product" + i);
         }
 
 
@@ -255,9 +255,9 @@ $(document).ready(function() {
             dataType: 'JSON',
             async: false,
             data: {
-                "CartItems"     : JSON.stringify(productsToAdd),
+                "CartItems": JSON.stringify(productsToAdd),
                 "loggedInUserId": getCookie("clothoId"),
-                "orderId"       : orderToAddTo
+                "orderId": orderToAddTo
             },
             success: function (response) {
                 //alert("Products Added!");
@@ -277,13 +277,13 @@ $(document).ready(function() {
 function removeOptions(selectbox) {
     var i;
 
-    for( i = selectbox.options.length-1 ; i>=0 ; i--)
+    for (i = selectbox.options.length - 1; i >= 0; i--)
     {
         selectbox.remove(i);
     }
 }
 
-function deleteButtonHandler(event){
+function deleteButtonHandler(event) {
 
     var orderId = this.value;
 
@@ -313,35 +313,76 @@ function deleteButtonHandler(event){
 
 }
 
-function submitButtonHandler(){
+function submitButtonHandler() {
 
     var orderId = this.value;
+    var orderValue = getOrderValue();
 
+//    change 1500
+    if (orderValue >= 1500) {
+        $.ajax({
+            url: '../submitOrderToPIs',
+            type: 'POST',
+            dataType: 'JSON',
+            async: false,
+            data: {
+                "orderId": orderId
+            },
+            success: function (response) {
+                alert("Order Submitted");
+                window.location.href = "../html/currentOrders.html";
+            },
+            error: function (response) {
+                alert("An error occurred upon submitting this order.");
+            }
+        });
+    } else {
+        $.ajax({
+            //do this for projects...
+            url: "../approveOrder",
+            type: "POST",
+            async: false,
+            data: {
+                "userId": getCookie("clothoId"),
+                "orderId": this.value
+            },
+            success: function (response) {
+                alert("order approved");
+                window.location.href = "";
+            },
+            error: function (response) {
+                alert("error while submitting order")
+                window.location.href = "";
+            }
+        });
+    }
+
+}
+
+
+function getOrderValue() {
+    var orderId = this.value;
 
     $.ajax({
-        url: '../submitOrderToPIs',
-        type: 'POST',
-        dataType: 'JSON',
-        async: false,
+        url: "../getOrderValue",
+        type: "GET",
         data: {
             "orderId": orderId
         },
         success: function (response) {
-            alert("Order Submitted");
-            window.location.href = "../html/currentOrders.html";
+            orderValue = response.orderValue;
+            return orderValue;
         },
         error: function (response) {
-            alert("An error occurred upon submitting this order.");
+            alert("An error occurred getting the order value.")
         }
-    });
-
-
+    })
 }
 
-function exportCSVHandler(){
+function exportCSVHandler() {
 
     var orderId = this.value;
-    
+
     $.ajax({
         url: "../exportOrderCSV",
         type: "GET",
@@ -350,39 +391,38 @@ function exportCSVHandler(){
             "orderId": orderId
         },
         success: function (response) {
-            window.open("../resources/OrderSheets/Order_" + orderId + ".csv",'_blank');
+            window.open("../resources/OrderSheets/Order_" + orderId + ".csv", '_blank');
         },
         error: function (response) {
             alert("An error occurred with exporting the CSV.");
         }
     });
-    
+
 }
 
-function editButtonHandler(){
+function editButtonHandler() {
     var orderId = this.value;
-    
+
     var editBtn = this;
     var orderCard = this.parentElement.parentElement; //to get to the order card
     var removeItemIcon = orderCard.querySelector(".item-name img");
     var items = orderCard.getElementsByClassName('item-name');
-    
-    
- 
+
+
+
     if (editBtn.innerText == "Edit") {
         editBtn.innerText = "Save";
         editBtn.style.color = "#FFFFFF";
-        for (var i = 0; i < items.length; i++){
+        for (var i = 0; i < items.length; i++) {
             items[i].querySelector(".delete-icon").style.display = "inline-block";
         }
         var orderNickname = orderCard.querySelector(".order-nickname");
         orderNickname.disabled = false;
         orderNickname.style.border = "0.25 solid";
-    }
-    else {
+    } else {
         editBtn.innerText = "Edit";
-        
-        for (var i = 0; i < items.length; i++){
+
+        for (var i = 0; i < items.length; i++) {
             items[i].querySelector(".delete-icon").style.display = "none";
         }
         var orderNickname = orderCard.querySelector(".order-nickname");
