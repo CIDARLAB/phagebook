@@ -179,6 +179,7 @@ $(document).ready(function () {
             $('.delete-order-btn').click({user: user}, deleteButtonHandler);
             $('.export-csv-btn').click(exportCSVHandler);
             $('.edit-order-btn').click(editButtonHandler);
+            $('.test-order-btn').click(getOrderValue);
 
         },
         error: function (response) {
@@ -316,10 +317,11 @@ function deleteButtonHandler(event) {
 function submitButtonHandler() {
 
     var orderId = this.value;
-    var orderValue = getOrderValue();
+    var orderValue = getOrderValue(orderId);
 
+    console.log(orderValue);
 //    change 1500
-    if (orderValue >= 1500) {
+    if (orderValue >= 1.50) {
         $.ajax({
             url: '../submitOrderToPIs',
             type: 'POST',
@@ -339,7 +341,7 @@ function submitButtonHandler() {
     } else {
         $.ajax({
             //do this for projects...
-            url: "../approveOrder",
+            url: "../autoApproveOrder",
             type: "POST",
             async: false,
             data: {
@@ -348,7 +350,7 @@ function submitButtonHandler() {
             },
             success: function (response) {
                 alert("order approved");
-                window.location.href = "";
+                window.location.href = "../html/orderHistory.html";
             },
             error: function (response) {
                 alert("error while submitting order")
@@ -360,23 +362,53 @@ function submitButtonHandler() {
 }
 
 
-function getOrderValue() {
-    var orderId = this.value;
+//function getOrderValue() {
+//    var orderId = this.value;
+//
+//    $.ajax({
+//        url: "../getOrderValue",
+//        type: "GET",
+//        data: {
+//            "orderId": orderId
+//        },
+//        success: function (response) {
+//            orderValue = response.orderValue;
+//            return orderValue;
+//        },
+//        error: function (response) {
+//            alert("An error occurred getting the order value.")
+//        }
+//    })
+//}
+
+function getOrderValue(val) {
+
+    var orderId = val;
+    var totalPrice = 0;
 
     $.ajax({
-        url: "../getOrderValue",
+        url: "../getOrderProducts",
         type: "GET",
+        async: false,
         data: {
             "orderId": orderId
         },
         success: function (response) {
-            orderValue = response.orderValue;
-            return orderValue;
+
+            if (response.products != "") { //when it's not empty
+                for (var i = 0; i < response.products.length; i++) {
+                    var cart = doCartItemAjax(response.products[i]);
+                    var itemTotalPrice = cart.totalPrice;
+
+                    totalPrice += itemTotalPrice;
+                }
+            }
         },
         error: function (response) {
             alert("An error occurred getting the order value.")
         }
-    })
+    });
+    return totalPrice;
 }
 
 function exportCSVHandler() {

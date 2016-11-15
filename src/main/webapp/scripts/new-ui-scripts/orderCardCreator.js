@@ -36,7 +36,7 @@ function createOrderCard(orderJSON) {
 
     tmpl.querySelector('.delete-order-btn').value = orderJSON.ClothoId;
     tmpl.querySelector('.edit-order-btn').value   = orderJSON.ClothoId;
-
+    
 
 
     var orderItemsTable = tmpl.querySelector('.order-items-table');

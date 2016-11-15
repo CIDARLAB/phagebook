@@ -1042,30 +1042,99 @@ public class OrdersController {
 
         Order order = ClothoAdapter.getOrder(params.get("orderId"), clothoObject);
         System.out.println(order.getId());
-        List<String> cartItems = new ArrayList<String>();
 
-        Double orderValue = 0.0;
-
-        OrderColumns quantity = OrderColumns.QUANTITY;
-        OrderColumns unitPrice = OrderColumns.UNIT_PRICE;
-        
-        String quantities = quantity.toString();
-        String unitPrices = unitPrice.toString();
-
-//            Int quantityVal = quantity.toInt();
-//            Double unitPrice = quantity,toDouble(); 
-//            
-//            orderValue += quantityVal * unitPrice;
-
-        net.sf.json.JSONObject responseJSON = new net.sf.json.JSONObject();
-
-        responseJSON.put("orderValue", orderValue);
+        JSONObject tempAsJSON = new JSONObject();
+        tempAsJSON.put("products", new JSONArray(order.getProducts()));
 
         response.setContentType("application/json");
         response.setStatus(HttpServletResponse.SC_OK);
         PrintWriter out = response.getWriter();
-        out.print(responseJSON);
+        out.print(tempAsJSON);
         out.flush();
         conn.closeConnection();
+    }
+
+    @RequestMapping(value = "/autoApproveOrder", method = RequestMethod.POST)
+    public void autoApproveOrder(@RequestParam Map<String, String> params, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        Object pOrderId = params.get("orderId");
+        String orderId = pOrderId != null ? (String) pOrderId : "";
+
+        Object pUserId = params.get("userId");
+        String userId = pUserId != null ? (String) pUserId : "";
+
+        boolean isValid = false;
+        if (!orderId.equals("") && !userId.equals("")) {
+            isValid = true;
+        }
+
+        if (isValid) {
+            //login
+            ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+            Clotho clothoObject = new Clotho(conn);
+
+            String username = this.backendPhagebookUser;
+            String password = this.backendPhagebookPassword;
+
+            /*
+             DIRECT ASSUMPTION THAT USER: phagebook exists and their 
+             PASSWORD: backend
+             */
+            Map loginMap = new HashMap();
+            loginMap.put("username", username);
+            loginMap.put("credentials", password);
+            clothoObject.login(loginMap);
+
+            Order orderToApprove = ClothoAdapter.getOrder(orderId, clothoObject);
+            String finalApprover = userId;;
+            String fAEmailId = "";
+
+            Person approver = ClothoAdapter.getPerson(userId, clothoObject);
+            clothoObject.logout();
+
+            List<String> submittedOrders = approver.getSubmittedOrders(); // we don't want to replace, we want to add on. 
+            submittedOrders.add(orderToApprove.getId()); //add our order Id to that list for each person
+            List<String> receivedByIdsForOrder = orderToApprove.getReceivedByIds(); //get the list of people who have received the order
+            receivedByIdsForOrder.add(userId);
+
+            Map login2 = new HashMap();
+            fAEmailId = approver.getEmailId();
+            login2.put("username", fAEmailId);
+            login2.put("credentials", approver.getPassword());
+            clothoObject.login(login2);
+            List<String> approvedOrder = approver.getApprovedOrders();
+            approvedOrder.add(orderToApprove.getId());
+            submittedOrders.remove(orderToApprove.getId());
+            
+            clothoObject.logout();
+            ClothoAdapter.setPerson(approver, clothoObject);
+            clothoObject.login(loginMap);
+            orderToApprove.setDateApproved(new Date());
+
+            orderToApprove.setStatus(OrderStatus.APPROVED);
+            orderToApprove.setApprovedById(finalApprover);
+            ClothoAdapter.setOrder(orderToApprove, clothoObject);
+
+            response.setContentType("application/json");
+            response.setStatus(HttpServletResponse.SC_OK);
+            JSONObject responseJSON = new JSONObject();
+            responseJSON.put("message", "Order has been approved!");
+            responseJSON.put("approvedBy", finalApprover);
+            responseJSON.put("approvedByEmail", fAEmailId);
+            conn.closeConnection();
+            PrintWriter out = response.getWriter();
+            out.print(responseJSON);
+            out.flush();
+
+        } else {
+            response.setContentType("application/json");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            JSONObject responseJSON = new JSONObject();
+            responseJSON.put("message", "missing parameters for servlet call");
+            PrintWriter out = response.getWriter();
+            out.print(responseJSON);
+            out.flush();
+        }
     }
 }
