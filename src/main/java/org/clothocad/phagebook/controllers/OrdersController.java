@@ -501,88 +501,6 @@ public class OrdersController {
         }
     }
 
-    @RequestMapping(value = "/resubmitOrder", method = RequestMethod.POST)
-    public void resubmitOrder(@RequestParam Map<String, String> params, HttpServletResponse response) throws IOException, ServletException {
-        ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
-        Clotho clothoObject = new Clotho(conn);
-        String username = this.backendPhagebookUser;
-        String password = this.backendPhagebookPassword;
-        Map loginMap = new HashMap();
-        loginMap.put("username", username);
-        loginMap.put("credentials", password);
-
-        clothoObject.login(loginMap);
-
-        Order orderOld = ClothoAdapter.getOrder(params.get("orderId"), clothoObject);
-
-        String orderName = orderOld.getName();
-        String createdBy = orderOld.getCreatedById();
-        String labId = orderOld.getAffiliatedLabId();
-        Double taxRate = orderOld.getTaxRate();
-        String associatedProjectId = orderOld.getRelatedProjectId();
-        Double budget = orderOld.getBudget();
-        Integer orderLimit = orderOld.getMaxOrderSize();
-
-        Date date = new Date();
-
-        boolean isValid = false;
-        //All parameters needed to create a new order as per the wire frame. 
-
-        if (isValid) {
-            /*
-            
-             DIRECT ASSUMPTION THAT USER: phagebook exists and their 
-             PASSWORD: backend
-             */
-            Order order = new Order();
-            order.setName(orderName);
-            order.setCreatedById(createdBy);
-            order.setDateCreated(date);
-            order.setBudget(budget);
-            order.setMaxOrderSize(orderLimit);
-
-            order.setAffiliatedLabId(labId);
-            order.setRelatedProjectId(associatedProjectId);
-            order.setStatus(OrderStatus.INPROGRESS);
-
-            ClothoAdapter.createOrder(order, clothoObject); // CREATED THE ORDER
-            // BUT I NOW NEED TO LINK IT TO THE USER
-            Person creator = ClothoAdapter.getPerson(order.getCreatedById(), clothoObject);
-            List<String> createdOrders = creator.getCreatedOrders();
-            createdOrders.add(order.getId());
-            System.out.println("I am still on this part");
-            clothoObject.logout();
-
-            ClothoAdapter.setPerson(creator, clothoObject); // LINK CREATED
-
-            response.setStatus(HttpServletResponse.SC_CREATED);
-            PrintWriter writer = response.getWriter();
-            response.setContentType("application/JSON");
-            JSONObject responseJSON = new JSONObject();
-            responseJSON.put("message", "order created");
-            responseJSON.put("orderId", order.getId());
-            writer.println(responseJSON);
-            writer.flush();
-            writer.close();
-
-            conn.closeConnection();
-        } else {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            PrintWriter writer = response.getWriter();
-            response.setContentType("application/JSON");
-            JSONObject responseJSON = new JSONObject();
-            responseJSON.put("message", "Missing Required Parameters.");
-            writer.println(responseJSON.toString());
-            writer.flush();
-            writer.close();
-        }
-
-        PrintWriter writer = response.getWriter();
-        writer.println("temp");
-        writer.flush();
-        writer.close();
-    }
-
     @RequestMapping(value = "/newOrder", method = RequestMethod.POST)
     public void newOrder(@RequestParam Map<String, String> params, HttpServletResponse response) throws IOException, ServletException {
 
@@ -1106,7 +1024,7 @@ public class OrdersController {
             List<String> approvedOrder = approver.getApprovedOrders();
             approvedOrder.add(orderToApprove.getId());
             submittedOrders.remove(orderToApprove.getId());
-            
+
             clothoObject.logout();
             ClothoAdapter.setPerson(approver, clothoObject);
             clothoObject.login(loginMap);
@@ -1136,5 +1054,93 @@ public class OrdersController {
             out.print(responseJSON);
             out.flush();
         }
+    }
+
+    @RequestMapping(value = "/resubmitOrder", method = RequestMethod.POST)
+    public void resubmitOrder(@RequestParam Map<String, String> params, HttpServletResponse response) throws IOException, ServletException {
+        ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+        Clotho clothoObject = new Clotho(conn);
+        String username = this.backendPhagebookUser;
+        String password = this.backendPhagebookPassword;
+        Map loginMap = new HashMap();
+        loginMap.put("username", username);
+        loginMap.put("credentials", password);
+
+        clothoObject.login(loginMap);
+
+        Order orderOld = ClothoAdapter.getOrder(params.get("orderId"), clothoObject);
+
+        String orderName = orderOld.getName();
+        String createdBy = orderOld.getCreatedById();
+        String labId = orderOld.getAffiliatedLabId();
+        Double taxRate = orderOld.getTaxRate();
+        String associatedProjectId = orderOld.getRelatedProjectId();
+        Double budget = orderOld.getBudget();
+        Integer orderLimit = orderOld.getMaxOrderSize();
+
+        Date date = new Date();
+
+        boolean isValid = false;
+        //All parameters needed to create a new order as per the wire frame. 
+
+        if (!orderName.equals("") && !createdBy.equals("") && !labId.equals("")
+                && !associatedProjectId.equals("")) {
+            isValid = true;
+        }
+
+
+        if (isValid) {
+            /*
+            
+             DIRECT ASSUMPTION THAT USER: phagebook exists and their 
+             PASSWORD: backend
+             */
+            Order order = new Order();
+            order.setName(orderName);
+            order.setCreatedById(createdBy);
+            order.setDateCreated(date);
+            order.setBudget(budget);
+            order.setMaxOrderSize(orderLimit);
+
+            order.setAffiliatedLabId(labId);
+            order.setRelatedProjectId(associatedProjectId);
+            order.setStatus(OrderStatus.INPROGRESS);
+
+            ClothoAdapter.createOrder(order, clothoObject); // CREATED THE ORDER
+            // BUT I NOW NEED TO LINK IT TO THE USER
+            Person creator = ClothoAdapter.getPerson(order.getCreatedById(), clothoObject);
+            List<String> createdOrders = creator.getCreatedOrders();
+            createdOrders.add(order.getId());
+            System.out.println("I am still on this part");
+            clothoObject.logout();
+
+            ClothoAdapter.setPerson(creator, clothoObject); // LINK CREATED
+
+            response.setStatus(HttpServletResponse.SC_CREATED);
+            PrintWriter writer = response.getWriter();
+            response.setContentType("application/JSON");
+            JSONObject responseJSON = new JSONObject();
+            responseJSON.put("message", "order created");
+            responseJSON.put("orderId", order.getId());
+            writer.println(responseJSON);
+            writer.flush();
+            writer.close();
+
+            conn.closeConnection();
+        } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            PrintWriter writer = response.getWriter();
+            response.setContentType("application/JSON");
+            JSONObject responseJSON = new JSONObject();
+            responseJSON.put("message", "Missing Required Parameters.");
+            writer.println(responseJSON.toString());
+            writer.flush();
+            writer.close();
+        }
+
+        PrintWriter writer = response.getWriter();
+        writer.println("temp");
+        writer.flush();
+        writer.close();
     }
 }
