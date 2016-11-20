@@ -13,10 +13,11 @@ function orderHistoryCtrl($scope) {
             success: function (response)
             {
 
-//                for (var i = 0; i < response.length; i++) {
-//                    generateOrderCard(response[i]);
-//                }
-                resubmitOrderBtn(response[0]);
+                for (var i = 0; i < response.length; i++) {
+                    generateOrderCard(response[i]);
+                }
+
+//                resubmitOrderBtn(response[0]);
 
             },
             error: function (response)
@@ -25,9 +26,9 @@ function orderHistoryCtrl($scope) {
             }
         });
 
-
         $('.export-csv-btn').click(exportCSVbtnHanlder);
         $('.resub-order-btn').click(resubmitOrderBtn);
+
 
     });
 
@@ -61,6 +62,8 @@ function generateOrderCard(orderJSON) {
     template.querySelector('.order-limit').innerText = "$" + orderJSON.orderLimit;
     template.querySelector('.order-enum-status').innerText = orderJSON.status;
     template.querySelector('.export-csv-btn').value = orderJSON.clothoId;
+    template.querySelector('.resub-order-btn').value = orderJSON.clothoId;
+
 
     switch (orderJSON.status) {
         case "SUBMITTED":
@@ -150,13 +153,17 @@ function generateOrderCard(orderJSON) {
     }
     template.querySelector('.total-before-tax-value').innerText = "$" + totalBeforeTax.toFixed(2);
 
-    template.querySelector('.tax-value').innerText = "$" + ((TAX - 1) * totalBeforeTax).toFixed(2);
-    if (orderJSON.Budget < ((TAX * totalBeforeTax) + totalBeforeTax)) {
-        template.querySelector('.total-after-tax-value').style = "color: red";
-        template.querySelector('.submit-order-btn').disabled = true;
-    }
-    template.querySelector('.total-after-tax-value').innerText = "$" + (TAX * totalBeforeTax).toFixed(2);
+//removed
+//    template.querySelector('.tax-value').innerText = "$" + ((TAX - 1) * totalBeforeTax).toFixed(2);
+//    if (orderJSON.Budget < ((TAX * totalBeforeTax) + totalBeforeTax)) {
+//        template.querySelector('.total-after-tax-value').style = "color: red";
+//        template.querySelector('.submit-order-btn').disabled = true;
+//    }
+//    template.querySelector('.total-after-tax-value').innerText = "$" + (TAX * totalBeforeTax).toFixed(2);
 
+//added
+    template.querySelector('.tax-value').innerText = "$" + 0.00;
+    template.querySelector('.total-after-tax-value').innerText = "$" + totalBeforeTax.toFixed(2);
 
     content.append(template);
 }
@@ -203,6 +210,7 @@ function doCartItemAjax(cartItemId) {
 function exportCSVbtnHanlder() {
 
     var orderId = this.value;
+    console.log(orderId);
 
     $.ajax({
         url: "../exportOrderCSV",
@@ -221,19 +229,21 @@ function exportCSVbtnHanlder() {
 }
 
 
-function resubmitOrderBtn(orderJSON) {
+function resubmitOrderBtn() {
 
-    orderId = orderJSON.clothoId;
-    
+//    orderId = orderJSON.clothoId;
+    var orderId = this.value;
+    console.log(orderId);
+
     $.ajax({
         url: "../resubmitOrder",
         type: "POST",
         async: false,
         data: {
-            "orderId":orderId
+            "orderId": orderId
         },
         success: function (response) {
-            console.log("success");
+            alert("success");
         },
         error: function (response) {
             alert("An error occurred.");

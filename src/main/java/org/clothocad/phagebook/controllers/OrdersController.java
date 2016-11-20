@@ -516,29 +516,28 @@ public class OrdersController {
         Object pLabId = params.get("labId");
         String labId = pLabId != null ? (String) pLabId : "";
 
-        Object pTaxRate = params.get("tax");
-        String taxRateString = pTaxRate != null ? (String) pTaxRate : "";
-        Double taxRate = Double.parseDouble(taxRateString) / 100;
-
+//        Object pTaxRate = params.get("tax");
+//        String taxRateString = pTaxRate != null ? (String) pTaxRate : "";
+//        Double taxRate = Double.parseDouble(taxRateString) / 100;
         Object pAssociatedProject = params.get("associatedProjectId");
         String associatedProjectId = pAssociatedProject != null ? (String) pAssociatedProject : "";
 
-        Object pBudget = params.get("budget");
-        String strBudget = pBudget != null ? (String) pBudget : "";
-        Double budget = Double.parseDouble(strBudget);
-
-        Object pOrderLimit = params.get("orderLimit");
-        String strOrderLimit = pOrderLimit != null ? (String) pOrderLimit : "";
-        Integer orderLimit = Integer.parseInt(strOrderLimit);
-
+//        Object pBudget = params.get("budget");
+//        String strBudget = pBudget != null ? (String) pBudget : "";
+//        Double budget = Double.parseDouble(strBudget);
+//
+//        Object pOrderLimit = params.get("orderLimit");
+//        String strOrderLimit = pOrderLimit != null ? (String) pOrderLimit : "";
+//        Integer orderLimit = Integer.parseInt(strOrderLimit);
         Date date = new Date();
 
         boolean isValid = false;
         //All parameters needed to create a new order as per the wire frame. 
 
         if (!orderName.equals("") && !createdBy.equals("") && !labId.equals("")
-                && !associatedProjectId.equals("") && !strBudget.equals("")
-                && !strOrderLimit.equals("")) {
+                && !associatedProjectId.equals("")) {
+//                && !strBudget.equals("")
+//                && !strOrderLimit.equals("")) {
             isValid = true;
         }
 
@@ -562,17 +561,21 @@ public class OrdersController {
             order.setName(orderName);
             order.setCreatedById(createdBy);
             order.setDateCreated(date);
-            order.setBudget(budget);
-            order.setMaxOrderSize(orderLimit);
-            if (!taxRateString.equals("")) {
-                order.setTaxRate((1 + taxRate));
-            } else {
-                order.setTaxRate(1.07d);
-            }
+//            order.setBudget(budget);
+//            order.setMaxOrderSize(orderLimit);
+//            if (!taxRateString.equals("")) {
+//                order.setTaxRate((1 + taxRate));
+//            } else {
+//                order.setTaxRate(1.07d);
+//            }
+//          
+//          Added
+            order.setTaxRate(0.0);
 
             order.setAffiliatedLabId(labId);
             order.setRelatedProjectId(associatedProjectId);
             order.setStatus(OrderStatus.INPROGRESS);
+
 
             ClothoAdapter.createOrder(order, clothoObject); // CREATED THE ORDER
             // BUT I NOW NEED TO LINK IT TO THE USER
@@ -583,7 +586,7 @@ public class OrdersController {
             clothoObject.logout();
 
             ClothoAdapter.setPerson(creator, clothoObject); // LINK CREATED
-
+            
             response.setStatus(HttpServletResponse.SC_CREATED);
             PrintWriter writer = response.getWriter();
             response.setContentType("application/JSON");
@@ -1073,10 +1076,13 @@ public class OrdersController {
         String orderName = orderOld.getName();
         String createdBy = orderOld.getCreatedById();
         String labId = orderOld.getAffiliatedLabId();
-        Double taxRate = orderOld.getTaxRate();
+//        Removed
+//        Double taxRate = orderOld.getTaxRate();
         String associatedProjectId = orderOld.getRelatedProjectId();
-        Double budget = orderOld.getBudget();
-        Integer orderLimit = orderOld.getMaxOrderSize();
+//        Double budget = orderOld.getBudget();
+//        Integer orderLimit = orderOld.getMaxOrderSize();
+
+
 
         Date date = new Date();
 
@@ -1088,7 +1094,6 @@ public class OrdersController {
             isValid = true;
         }
 
-
         if (isValid) {
             /*
             
@@ -1099,8 +1104,11 @@ public class OrdersController {
             order.setName(orderName);
             order.setCreatedById(createdBy);
             order.setDateCreated(date);
-            order.setBudget(budget);
-            order.setMaxOrderSize(orderLimit);
+//            Removed
+//            order.setBudget(budget);
+//            order.setMaxOrderSize(orderLimit);
+//          Added
+            order.setTaxRate(0.00);
 
             order.setAffiliatedLabId(labId);
             order.setRelatedProjectId(associatedProjectId);

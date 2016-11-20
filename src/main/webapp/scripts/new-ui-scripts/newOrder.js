@@ -80,41 +80,48 @@ $(document).ready(function() {
         var createdBy = getCookie("clothoId");
         var labId = document.getElementById('lab-name').value;
         var associatedProjectId = document.getElementById('projectResults').value;
-        var budget = document.getElementById('orderBudget').value;
-        var orderLimit = document.getElementById('orderLimit').value;
-        var taxRate = document.getElementById('taxRate').value;
+//        Removed
+//        var budget = document.getElementById('orderBudget').value;
+//        var orderLimit = document.getElementById('orderLimit').value;
+//        var taxRate = document.getElementById('taxRate').value;
 
 
         var isValid = 1;
 
-        if ((name === "") || (labId === "") || (associatedProjectId === "") || (budget === "") || (orderLimit === "")) {
+        if ((name === "") || (labId === "") || (associatedProjectId === "")) {
+//                || (budget === "") || (orderLimit === "")
             $("#order-fields-required-alert").fadeIn();
             isValid = 0;
         }
-        else if (validatePrice(budget) == false) {
-            $("#invalid-budget-alert").fadeIn();
-            isValid = 0;
-        }
-        else if (!validateOrderLimit(orderLimit)) {
-            $("#invalid-order-limit-alert").fadeIn();
-            isValid = 0;
-        }
-        else if (!validateTax(taxRate)) {
-            $("#invalid-tax-rate-alert").fadeIn();
-            isValid = 0;
-        }
+//        Removed
+//        else if (validatePrice(budget) == false) {
+//            $("#invalid-budget-alert").fadeIn();
+//            isValid = 0;
+//        }
+//        else if (!validateOrderLimit(orderLimit)) {
+//            $("#invalid-order-limit-alert").fadeIn();
+//            isValid = 0;
+//        }
+//        else if (!validateTax(taxRate)) {
+//            $("#invalid-tax-rate-alert").fadeIn();
+//            isValid = 0;
+//        }
         else {
             isValid = 1;
         }
 
-        if (isValid && validatePrice(budget) && validateOrderLimit(orderLimit) && validateTax(taxRate)) {
-            doAjaxCallToCreateOrder(name, createdBy, labId, associatedProjectId, budget, orderLimit, taxRate);
+//removed
+// && validatePrice(budget) && validateOrderLimit(orderLimit) && validateTax(taxRate)
+        if (isValid) {
+            doAjaxCallToCreateOrder(name, createdBy, labId, associatedProjectId);
         }
     });
     
 });
 
-function doAjaxCallToCreateOrder(name, createdBy, labId, associatedProjectId, budget, orderLimit, taxRate) {
+//removed
+//budget, tax, orderLimit
+function doAjaxCallToCreateOrder(name, createdBy, labId, associatedProjectId) {
     $.ajax({
             url: "../newOrder",
             type: "POST",
@@ -125,9 +132,9 @@ function doAjaxCallToCreateOrder(name, createdBy, labId, associatedProjectId, bu
                 "createdBy": createdBy,
                 "labId": labId,
                 "associatedProjectId": associatedProjectId,
-                "budget": budget,
-                "orderLimit": orderLimit,
-                "tax": taxRate
+//                "budget": budget,
+//                "orderLimit": orderLimit,
+//                "tax": taxRate
             },
             success: function (response) {
                 //alert("order created!");
@@ -159,26 +166,27 @@ function removeOptions(selectbox) {
     }
 }
 
-function validatePrice(budget) {
-    return /^\d+(?:\.\d{0,2})$/.test(budget);
-}
+//remove
+//function validatePrice(budget) {
+//    return /^\d+(?:\.\d{0,2})$/.test(budget);
+//}
 
-function validateOrderLimit(limit) {
-    var value = parseInt(limit);
-    return (!isNaN(value) && value >= 1 && value <= 13);
-}
+//function validateOrderLimit(limit) {
+//    var value = parseInt(limit);
+//    return (!isNaN(value) && value >= 1 && value <= 13);
+//}
 
-function validateTax(tax) {
-    var parts = tax.split(".");
-    if (typeof parts[1] == "string" && (parts[1].length == 0 || parts[1].length > 2)) {
-        return false;
-    }
-    var n = parseFloat(tax);
-    if (isNaN(n)) {
-        return false;
-    }
-    if (n < 0 || n > 100) {
-        return false;
-    }
-    return true;
-}
+//function validateTax(tax) {
+//    var parts = tax.split(".");
+//    if (typeof parts[1] == "string" && (parts[1].length == 0 || parts[1].length > 2)) {
+//        return false;
+//    }
+//    var n = parseFloat(tax);
+//    if (isNaN(n)) {
+//        return false;
+//    }
+//    if (n < 0 || n > 100) {
+//        return false;
+//    }
+//    return true;
+//}

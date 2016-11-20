@@ -107,13 +107,15 @@ function createOrderCard(orderJSON) {
 
     tmpl.querySelector('.total-before-tax-value').innerText = "$" + totalBeforeTax.toFixed(2);
 
-    tmpl.querySelector('.tax-value').innerText = "$"+ ( (TAX - 1) * totalBeforeTax).toFixed(2) ;
+//    tmpl.querySelector('.tax-value').innerText = "$"+ ( (TAX - 1) * totalBeforeTax).toFixed(2) ;
+    tmpl.querySelector('.tax-value').innerText = "$" + 0.00;
 
-    if (orderJSON.Budget < ( (TAX * totalBeforeTax)) ){
-        tmpl.querySelector('.total-after-tax-value').style = "color: red";
-        tmpl.querySelector('.submit-order-btn').disabled = true;
-    }
-    tmpl.querySelector('.total-after-tax-value').innerText = "$" + (TAX * totalBeforeTax).toFixed(2);
+//    if (orderJSON.Budget < ( (TAX * totalBeforeTax)) ){
+//        tmpl.querySelector('.total-after-tax-value').style = "color: red";
+//        tmpl.querySelector('.submit-order-btn').disabled = true;
+//    }
+//    tmpl.querySelector('.total-after-tax-value').innerText = "$" + (TAX * totalBeforeTax).toFixed(2);
+      tmpl.querySelector('.total-after-tax-value').innerText = "$" + totalBeforeTax.toFixed(2)
 
 
 

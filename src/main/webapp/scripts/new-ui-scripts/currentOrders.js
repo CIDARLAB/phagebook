@@ -362,25 +362,6 @@ function submitButtonHandler() {
 }
 
 
-//function getOrderValue() {
-//    var orderId = this.value;
-//
-//    $.ajax({
-//        url: "../getOrderValue",
-//        type: "GET",
-//        data: {
-//            "orderId": orderId
-//        },
-//        success: function (response) {
-//            orderValue = response.orderValue;
-//            return orderValue;
-//        },
-//        error: function (response) {
-//            alert("An error occurred getting the order value.")
-//        }
-//    })
-//}
-
 function getOrderValue(val) {
 
     var orderId = val;
