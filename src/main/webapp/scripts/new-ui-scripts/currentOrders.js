@@ -321,7 +321,7 @@ function submitButtonHandler() {
 
     console.log(orderValue);
 //    change 1500
-    if (orderValue >= 1.50) {
+    if (orderValue >= 500) {
         $.ajax({
             url: '../submitOrderToPIs',
             type: 'POST',
