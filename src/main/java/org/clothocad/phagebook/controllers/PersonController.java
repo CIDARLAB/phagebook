@@ -48,9 +48,10 @@ import org.springframework.web.bind.annotation.*;
  */
 @Controller
 public class PersonController {
+
     private final String backendPhagebookUser = Args.defaultPhagebookUsername;
     private final String backendPhagebookPassword = Args.defaultPhagebookPassword;
-          
+
     @RequestMapping(value = "/listApprovedOrdersOfPerson", method = RequestMethod.GET)
     protected void listApprovedOrdersOfPerson(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
@@ -266,7 +267,7 @@ public class PersonController {
     @RequestMapping(value = "/listOrdersOfPerson", method = RequestMethod.GET)
     protected void listOrdersOfPerson(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         System.out.println("listing Orders");
         Object pUser = params.get("user");
         String user = pUser != null ? (String) pUser : "";
@@ -297,9 +298,13 @@ public class PersonController {
                 List<String> createdOrders = prashant.getCreatedOrders();
                 List<String> approvedOrderIds = prashant.getApprovedOrders();
                 List<String> deniedOrderIds = prashant.getDeniedOrders();
-                JSONArray allOrders = new JSONArray();
                 
-                for (String created : createdOrders ){
+//                removing overlap
+                createdOrders.removeAll(deniedOrderIds);
+                createdOrders.removeAll(approvedOrderIds);
+                JSONArray allOrders = new JSONArray();
+
+                for (String created : createdOrders) {
                     Order temp = ClothoAdapter.getOrder(created, clothoObject);
                     JSONObject tempAsJSON = new JSONObject();
                     tempAsJSON.put("name", temp.getName());
@@ -308,21 +313,21 @@ public class PersonController {
                     tempAsJSON.put("dateCreated", temp.getDateCreated().toString());
                     Person creator = ClothoAdapter.getPerson(temp.getCreatedById(), clothoObject);
                     tempAsJSON.put("createdById", creator.getEmailId());
-                    tempAsJSON.put("createdByName", creator.getFirstName() + " " +creator.getLastName());
+                    tempAsJSON.put("createdByName", creator.getFirstName() + " " + creator.getLastName());
                     tempAsJSON.put("products", temp.getProducts());
                     tempAsJSON.put("orderLimit", temp.getMaxOrderSize());
                     tempAsJSON.put("taxRate", temp.getTaxRate());
                     tempAsJSON.put("budget", temp.getBudget());
-                    if (!temp.getApprovedById().equals("") && !temp.getApprovedById().equals("Not Set") ){
+                    if (!temp.getApprovedById().equals("") && !temp.getApprovedById().equals("Not Set")) {
                         tempAsJSON.put("approvedById", (ClothoAdapter.getPerson(temp.getApprovedById(), clothoObject)).getEmailId());
                     }
                     JSONArray receivedByIds = new JSONArray();
                     List<String> receivedBys = temp.getReceivedByIds();
-                    for (int i = 0; i< receivedBys.size() ; i++){
-                        if (!receivedBys.get(i).equals("") && !receivedBys.get(i).equals("Not Set")){
-                        JSONObject receivedByJSON = new JSONObject();
-                        receivedByJSON.put( ""+ i , (ClothoAdapter.getPerson(receivedBys.get(i), clothoObject)).getEmailId());
-                        receivedByIds.put(receivedByJSON);
+                    for (int i = 0; i < receivedBys.size(); i++) {
+                        if (!receivedBys.get(i).equals("") && !receivedBys.get(i).equals("Not Set")) {
+                            JSONObject receivedByJSON = new JSONObject();
+                            receivedByJSON.put("" + i, (ClothoAdapter.getPerson(receivedBys.get(i), clothoObject)).getEmailId());
+                            receivedByIds.put(receivedByJSON);
                         }
                     }
                     tempAsJSON.put("receivedByIds", receivedByIds);
@@ -331,7 +336,7 @@ public class PersonController {
                     tempAsJSON.put("affiliatedLabId", temp.getAffiliatedLabId());
                     allOrders.put(tempAsJSON); // put it in there...
                 }
-                
+
                 for (String approved : approvedOrderIds) {
                     System.out.println("APPROVED ID: " + approved);
                     Order approvedOrder = ClothoAdapter.getOrder(approved, clothoObject);
@@ -355,13 +360,33 @@ public class PersonController {
                     }
                     JSONArray receivedByIds = new JSONArray();
                     List<String> receivedBys = approvedOrder.getReceivedByIds();
-                    for (int i = 0; i < receivedBys.size(); i++) {
-                        if (!receivedBys.get(i).equals("") && !receivedBys.get(i).equals("Not Set")) {
-                            JSONObject receivedByJSON = new JSONObject();
-                            receivedByJSON.put("" + i, (ClothoAdapter.getPerson(receivedBys.get(i), clothoObject)).getEmailId());
-                            receivedByIds.put(receivedByJSON);
+
+                    System.out.println("");
+                    System.out.println("");
+                    System.out.println(receivedBys);
+                    System.out.println("");
+                    System.out.println("");
+
+                    //questionably secure if statement
+                    if (receivedBys.isEmpty()) {
+                        JSONObject receivedByJSON = new JSONObject();
+                        receivedByJSON.put("" + 0, creator.getEmailId());
+                        receivedByIds.put(receivedByJSON);
+                        System.out.println("empty:" + creator.getEmailId());
+                    }
+                    else {
+                        for (int i = 0; i < receivedBys.size(); i++) {
+                            if (!receivedBys.get(i).equals("") && !receivedBys.get(i).equals("Not Set")) {
+                                JSONObject receivedByJSON = new JSONObject();
+                                receivedByJSON.put("" + i, (ClothoAdapter.getPerson(receivedBys.get(i), clothoObject)).getEmailId());
+                                receivedByIds.put(receivedByJSON);
+                            }
                         }
                     }
+
+                    //questionably secure if statement
+                    
+
                     approvedJSON.put("receivedByIds", receivedByIds);
                     approvedJSON.put("relatedProjectName", (ClothoAdapter.getProject(approvedOrder.getRelatedProjectId(), clothoObject)).getName());
                     approvedJSON.put("status", approvedOrder.getStatus());
@@ -1138,8 +1163,8 @@ public class PersonController {
         }
 
     }
-    
-    @RequestMapping(value = "/uploadProfilePicture", method = RequestMethod.POST)        
+
+    @RequestMapping(value = "/uploadProfilePicture", method = RequestMethod.POST)
     public void uploadProfilePicture(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
@@ -1148,10 +1173,10 @@ public class PersonController {
 //            Logger.getLogger(uploadProfilePicture.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     /*
     Temp. Will Change. -Jacob 
-    */
+     */
     private static String getValue(Part part) throws IOException {
         System.out.println("Reached get Value");
         BufferedReader reader = new BufferedReader(new InputStreamReader(part.getInputStream(), "UTF-8"));
@@ -1164,27 +1189,24 @@ public class PersonController {
         System.out.println("Value :: " + value.toString());
         return value.toString();
     }
-    
-     public static String getFilepath()
-    {
+
+    public static String getFilepath() {
         String filepath = PersonController.class.getClassLoader().getResource(".").getPath();
-        if(filepath.contains("WEB-INF/classes/")){
-            filepath = filepath.substring(0,filepath.indexOf("WEB-INF/classes/"));
-        }
-        else if(filepath.contains("target/classes/"))
-        {
-            filepath = filepath.substring(0,filepath.indexOf("target/classes/"));
+        if (filepath.contains("WEB-INF/classes/")) {
+            filepath = filepath.substring(0, filepath.indexOf("WEB-INF/classes/"));
+        } else if (filepath.contains("target/classes/")) {
+            filepath = filepath.substring(0, filepath.indexOf("target/classes/"));
         }
         filepath += "upload/";
         return filepath;
     }
-    
+
     public File partConverter(Part part, String fileName) throws IOException {
         String pathAndName = getFilepath() + fileName;
-        
+
         OutputStream out = null;
         InputStream filecontent = null;
-        
+
         try {
             out = new FileOutputStream(new File(pathAndName));
             filecontent = part.getInputStream();
@@ -1198,7 +1220,7 @@ public class PersonController {
         } catch (FileNotFoundException fne) {
 //            Logger.getLogger(uploadProfilePicture.class.getName()).log(Level.SEVERE, null, fne);
         }
-        
+
         return new File(pathAndName);
     }
 
@@ -1210,12 +1232,12 @@ public class PersonController {
         response.setDateHeader("Expires", 0);
         System.out.println("Reached the Do post part.. Wohhoo");
         String filename = getValue(request.getPart("profilePictureName"));
-        File profilePic = partConverter(request.getPart("profilePicture"),filename);
-        
+        File profilePic = partConverter(request.getPart("profilePicture"), filename);
+
         String clothoId = getValue(request.getPart("clothoId"));
         S3Adapter.uploadProfilePicture(clothoId, profilePic);
-        
+
         System.out.println(filename);
-    
+
     }
 }

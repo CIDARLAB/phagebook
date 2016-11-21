@@ -516,29 +516,28 @@ public class OrdersController {
         Object pLabId = params.get("labId");
         String labId = pLabId != null ? (String) pLabId : "";
 
-        Object pTaxRate = params.get("tax");
-        String taxRateString = pTaxRate != null ? (String) pTaxRate : "";
-        Double taxRate = Double.parseDouble(taxRateString) / 100;
-
+//        Object pTaxRate = params.get("tax");
+//        String taxRateString = pTaxRate != null ? (String) pTaxRate : "";
+//        Double taxRate = Double.parseDouble(taxRateString) / 100;
         Object pAssociatedProject = params.get("associatedProjectId");
         String associatedProjectId = pAssociatedProject != null ? (String) pAssociatedProject : "";
 
-        Object pBudget = params.get("budget");
-        String strBudget = pBudget != null ? (String) pBudget : "";
-        Double budget = Double.parseDouble(strBudget);
-
-        Object pOrderLimit = params.get("orderLimit");
-        String strOrderLimit = pOrderLimit != null ? (String) pOrderLimit : "";
-        Integer orderLimit = Integer.parseInt(strOrderLimit);
-
+//        Object pBudget = params.get("budget");
+//        String strBudget = pBudget != null ? (String) pBudget : "";
+//        Double budget = Double.parseDouble(strBudget);
+//
+//        Object pOrderLimit = params.get("orderLimit");
+//        String strOrderLimit = pOrderLimit != null ? (String) pOrderLimit : "";
+//        Integer orderLimit = Integer.parseInt(strOrderLimit);
         Date date = new Date();
 
         boolean isValid = false;
         //All parameters needed to create a new order as per the wire frame. 
 
         if (!orderName.equals("") && !createdBy.equals("") && !labId.equals("")
-                && !associatedProjectId.equals("") && !strBudget.equals("")
-                && !strOrderLimit.equals("")) {
+                && !associatedProjectId.equals("")) {
+//                && !strBudget.equals("")
+//                && !strOrderLimit.equals("")) {
             isValid = true;
         }
 
@@ -562,17 +561,21 @@ public class OrdersController {
             order.setName(orderName);
             order.setCreatedById(createdBy);
             order.setDateCreated(date);
-            order.setBudget(budget);
-            order.setMaxOrderSize(orderLimit);
-            if (!taxRateString.equals("")) {
-                order.setTaxRate((1 + taxRate));
-            } else {
-                order.setTaxRate(1.07d);
-            }
+//            order.setBudget(budget);
+//            order.setMaxOrderSize(orderLimit);
+//            if (!taxRateString.equals("")) {
+//                order.setTaxRate((1 + taxRate));
+//            } else {
+//                order.setTaxRate(1.07d);
+//            }
+//          
+//          Added
+            order.setTaxRate(0.0);
 
             order.setAffiliatedLabId(labId);
             order.setRelatedProjectId(associatedProjectId);
             order.setStatus(OrderStatus.INPROGRESS);
+
 
             ClothoAdapter.createOrder(order, clothoObject); // CREATED THE ORDER
             // BUT I NOW NEED TO LINK IT TO THE USER
@@ -583,7 +586,7 @@ public class OrdersController {
             clothoObject.logout();
 
             ClothoAdapter.setPerson(creator, clothoObject); // LINK CREATED
-
+            
             response.setStatus(HttpServletResponse.SC_CREATED);
             PrintWriter writer = response.getWriter();
             response.setContentType("application/JSON");
@@ -942,5 +945,210 @@ public class OrdersController {
             out.flush();
         }
 
+    }
+
+    @RequestMapping(value = "/getOrderProducts", method = RequestMethod.GET)
+    protected void getOrderProducts(@RequestParam Map<String, String> params, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+        Clotho clothoObject = new Clotho(conn);
+        String username = this.backendPhagebookUser;
+        String password = this.backendPhagebookPassword;
+        Map loginMap = new HashMap();
+        loginMap.put("username", username);
+        loginMap.put("credentials", password);
+
+        clothoObject.login(loginMap);
+
+        Order order = ClothoAdapter.getOrder(params.get("orderId"), clothoObject);
+        System.out.println(order.getId());
+
+        JSONObject tempAsJSON = new JSONObject();
+        tempAsJSON.put("products", new JSONArray(order.getProducts()));
+
+        response.setContentType("application/json");
+        response.setStatus(HttpServletResponse.SC_OK);
+        PrintWriter out = response.getWriter();
+        out.print(tempAsJSON);
+        out.flush();
+        conn.closeConnection();
+    }
+
+    @RequestMapping(value = "/autoApproveOrder", method = RequestMethod.POST)
+    public void autoApproveOrder(@RequestParam Map<String, String> params, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        Object pOrderId = params.get("orderId");
+        String orderId = pOrderId != null ? (String) pOrderId : "";
+
+        Object pUserId = params.get("userId");
+        String userId = pUserId != null ? (String) pUserId : "";
+
+        boolean isValid = false;
+        if (!orderId.equals("") && !userId.equals("")) {
+            isValid = true;
+        }
+
+        if (isValid) {
+            //login
+            ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+            Clotho clothoObject = new Clotho(conn);
+
+            String username = this.backendPhagebookUser;
+            String password = this.backendPhagebookPassword;
+
+            /*
+             DIRECT ASSUMPTION THAT USER: phagebook exists and their 
+             PASSWORD: backend
+             */
+            Map loginMap = new HashMap();
+            loginMap.put("username", username);
+            loginMap.put("credentials", password);
+            clothoObject.login(loginMap);
+
+            Order orderToApprove = ClothoAdapter.getOrder(orderId, clothoObject);
+            String finalApprover = userId;;
+            String fAEmailId = "";
+
+            Person approver = ClothoAdapter.getPerson(userId, clothoObject);
+            clothoObject.logout();
+
+            List<String> submittedOrders = approver.getSubmittedOrders(); // we don't want to replace, we want to add on. 
+            submittedOrders.add(orderToApprove.getId()); //add our order Id to that list for each person
+            List<String> receivedByIdsForOrder = orderToApprove.getReceivedByIds(); //get the list of people who have received the order
+            receivedByIdsForOrder.add(userId);
+
+            Map login2 = new HashMap();
+            fAEmailId = approver.getEmailId();
+            login2.put("username", fAEmailId);
+            login2.put("credentials", approver.getPassword());
+            clothoObject.login(login2);
+            List<String> approvedOrder = approver.getApprovedOrders();
+            approvedOrder.add(orderToApprove.getId());
+            submittedOrders.remove(orderToApprove.getId());
+
+            clothoObject.logout();
+            ClothoAdapter.setPerson(approver, clothoObject);
+            clothoObject.login(loginMap);
+            orderToApprove.setDateApproved(new Date());
+
+            orderToApprove.setStatus(OrderStatus.APPROVED);
+            orderToApprove.setApprovedById(finalApprover);
+            ClothoAdapter.setOrder(orderToApprove, clothoObject);
+
+            response.setContentType("application/json");
+            response.setStatus(HttpServletResponse.SC_OK);
+            JSONObject responseJSON = new JSONObject();
+            responseJSON.put("message", "Order has been approved!");
+            responseJSON.put("approvedBy", finalApprover);
+            responseJSON.put("approvedByEmail", fAEmailId);
+            conn.closeConnection();
+            PrintWriter out = response.getWriter();
+            out.print(responseJSON);
+            out.flush();
+
+        } else {
+            response.setContentType("application/json");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            JSONObject responseJSON = new JSONObject();
+            responseJSON.put("message", "missing parameters for servlet call");
+            PrintWriter out = response.getWriter();
+            out.print(responseJSON);
+            out.flush();
+        }
+    }
+
+    @RequestMapping(value = "/resubmitOrder", method = RequestMethod.POST)
+    public void resubmitOrder(@RequestParam Map<String, String> params, HttpServletResponse response) throws IOException, ServletException {
+        ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+        Clotho clothoObject = new Clotho(conn);
+        String username = this.backendPhagebookUser;
+        String password = this.backendPhagebookPassword;
+        Map loginMap = new HashMap();
+        loginMap.put("username", username);
+        loginMap.put("credentials", password);
+
+        clothoObject.login(loginMap);
+
+        Order orderOld = ClothoAdapter.getOrder(params.get("orderId"), clothoObject);
+
+        String orderName = orderOld.getName();
+        String createdBy = orderOld.getCreatedById();
+        String labId = orderOld.getAffiliatedLabId();
+//        Removed
+//        Double taxRate = orderOld.getTaxRate();
+        String associatedProjectId = orderOld.getRelatedProjectId();
+//        Double budget = orderOld.getBudget();
+//        Integer orderLimit = orderOld.getMaxOrderSize();
+
+
+
+        Date date = new Date();
+
+        boolean isValid = false;
+        //All parameters needed to create a new order as per the wire frame. 
+
+        if (!orderName.equals("") && !createdBy.equals("") && !labId.equals("")
+                && !associatedProjectId.equals("")) {
+            isValid = true;
+        }
+
+        if (isValid) {
+            /*
+            
+             DIRECT ASSUMPTION THAT USER: phagebook exists and their 
+             PASSWORD: backend
+             */
+            Order order = new Order();
+            order.setName(orderName);
+            order.setCreatedById(createdBy);
+            order.setDateCreated(date);
+//            Removed
+//            order.setBudget(budget);
+//            order.setMaxOrderSize(orderLimit);
+//          Added
+            order.setTaxRate(0.00);
+
+            order.setAffiliatedLabId(labId);
+            order.setRelatedProjectId(associatedProjectId);
+            order.setStatus(OrderStatus.INPROGRESS);
+
+            ClothoAdapter.createOrder(order, clothoObject); // CREATED THE ORDER
+            // BUT I NOW NEED TO LINK IT TO THE USER
+            Person creator = ClothoAdapter.getPerson(order.getCreatedById(), clothoObject);
+            List<String> createdOrders = creator.getCreatedOrders();
+            createdOrders.add(order.getId());
+            System.out.println("I am still on this part");
+            clothoObject.logout();
+
+            ClothoAdapter.setPerson(creator, clothoObject); // LINK CREATED
+
+            response.setStatus(HttpServletResponse.SC_CREATED);
+            PrintWriter writer = response.getWriter();
+            response.setContentType("application/JSON");
+            JSONObject responseJSON = new JSONObject();
+            responseJSON.put("message", "order created");
+            responseJSON.put("orderId", order.getId());
+            writer.println(responseJSON);
+            writer.flush();
+            writer.close();
+
+            conn.closeConnection();
+        } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            PrintWriter writer = response.getWriter();
+            response.setContentType("application/JSON");
+            JSONObject responseJSON = new JSONObject();
+            responseJSON.put("message", "Missing Required Parameters.");
+            writer.println(responseJSON.toString());
+            writer.flush();
+            writer.close();
+        }
+
+        PrintWriter writer = response.getWriter();
+        writer.println("temp");
+        writer.flush();
+        writer.close();
     }
 }
