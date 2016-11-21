@@ -48,6 +48,7 @@ function generateOrderCard(orderJSON) {
 
     }
 
+
     template.querySelector('.order-received-by').innerText = received;
 
 
@@ -63,6 +64,7 @@ function generateOrderCard(orderJSON) {
     template.querySelector('.order-enum-status').innerText = orderJSON.status;
     template.querySelector('.export-csv-btn').value = orderJSON.clothoId;
     template.querySelector('.resub-order-btn').value = orderJSON.clothoId;
+
 
 
     switch (orderJSON.status) {
@@ -85,6 +87,7 @@ function generateOrderCard(orderJSON) {
             break;
 
     }
+
 
     var orderItemsTable = template.querySelector('.order-items-table');
 

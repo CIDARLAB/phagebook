@@ -296,23 +296,12 @@ public class PersonController {
             }
             if (exists) {
                 List<String> createdOrders = prashant.getCreatedOrders();
-
-                System.out.println("");
-                System.out.println("");
-                System.out.println(createdOrders);
-                System.out.println("");
-                System.out.println("");
-
                 List<String> approvedOrderIds = prashant.getApprovedOrders();
-
-                System.out.println("");
-                System.out.println("");
-                System.out.println(approvedOrderIds);
-                System.out.println("");
-                System.out.println("");
-
                 List<String> deniedOrderIds = prashant.getDeniedOrders();
-
+                
+//                removing overlap
+                createdOrders.removeAll(deniedOrderIds);
+                createdOrders.removeAll(approvedOrderIds);
                 JSONArray allOrders = new JSONArray();
 
                 for (String created : createdOrders) {
