@@ -181,6 +181,7 @@
     
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <start-class>org.clothocad.phagebook.controllers.Application</start-class>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
         <!-- ONLY FOR THE API, SERVER, AND CLIENT, WE use jetty 8.1.10 for anything else -->
