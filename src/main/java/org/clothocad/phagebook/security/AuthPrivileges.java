@@ -123,9 +123,9 @@ public class AuthPrivileges {
   }
   
 
-  public static void main(String [ ] args)
-  {
-    initialize();
-  }
+//  public static void main(String [ ] args)
+//  {
+//    initialize();
+//  }
   
 }

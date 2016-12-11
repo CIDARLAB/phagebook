@@ -28,7 +28,7 @@ function orderHistoryCtrl($scope) {
 
         $('.export-csv-btn').click(exportCSVbtnHanlder);
         $('.resub-order-btn').click(resubmitOrderBtn);
-
+        $('.split-order-btn').click(splitOrderBtn);
 
     });
 
@@ -64,6 +64,8 @@ function generateOrderCard(orderJSON) {
     template.querySelector('.order-enum-status').innerText = orderJSON.status;
     template.querySelector('.export-csv-btn').value = orderJSON.clothoId;
     template.querySelector('.resub-order-btn').value = orderJSON.clothoId;
+    template.querySelector('.split-order-btn').value = orderJSON.clothoId;
+
 
 
 
@@ -250,6 +252,27 @@ function resubmitOrderBtn() {
         },
         error: function (response) {
             alert("An error occurred.");
+        }
+    });
+}
+
+function splitOrderBtn() {
+
+    var orderId = this.value;
+    console.log(orderId);
+
+    $.ajax({
+        url: "../splitOrderForm",
+        type: "GET",
+        async: false,
+        data: {
+            "orderId": orderId
+        },
+        success: function (response) {
+            window.open("../resources/OrderSheets/SplitOrder_" + orderId + ".csv", '_blank');
+        },
+        error: function (response) {
+            alert("An error occurred with exporting the CSV.");
         }
     });
 }

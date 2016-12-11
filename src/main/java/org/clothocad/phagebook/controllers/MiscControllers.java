@@ -254,7 +254,7 @@ public class MiscControllers {
         }
 
     }
-
+    
     @RequestMapping(value = "/loadPhagebookInstitutions", method = RequestMethod.GET)
     public void getPhagebookInstitutions(@RequestParam Map<String, String> params, HttpServletResponse response)
             throws ServletException, IOException {
