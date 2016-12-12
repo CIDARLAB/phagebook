@@ -29,6 +29,7 @@ function orderHistoryCtrl($scope) {
         $('.export-csv-btn').click(exportCSVbtnHanlder);
         $('.resub-order-btn').click(resubmitOrderBtn);
         $('.split-order-btn').click(splitOrderBtn);
+        $('.export-all-orders-btn').click(exportAllOrdersBtn);
 
     });
 
@@ -237,7 +238,7 @@ function exportCSVbtnHanlder() {
 function resubmitOrderBtn() {
 
 //    orderId = orderJSON.clothoId;
-    var orderId = this.value;
+    user = getCookie("clothoId")
     console.log(orderId);
 
     $.ajax({
@@ -270,6 +271,27 @@ function splitOrderBtn() {
         },
         success: function (response) {
             window.open("../resources/OrderSheets/SplitOrder_" + orderId + ".csv", '_blank');
+        },
+        error: function (response) {
+            alert("An error occurred with exporting the CSV.");
+        }
+    });
+}
+
+function exportAllOrdersBtn() {
+
+    var userId = getCookie("clothoId");
+    console.log(userId);
+
+    $.ajax({
+        url: "../allOrdersCSV",
+        type: "GET",
+        async: false,
+        data: {
+            "userId": userId
+        },
+        success: function (response) {
+            window.open("../resources/OrderSheets/AllOrders_" + userId + ".csv", '_blank');
         },
         error: function (response) {
             alert("An error occurred with exporting the CSV.");

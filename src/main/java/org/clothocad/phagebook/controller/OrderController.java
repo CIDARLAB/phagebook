@@ -32,62 +32,61 @@ import org.json.JSONObject;
  * @author innaturshudzhyan
  */
 public class OrderController {
-    
-    public static List<String> getProducts(JSONArray list,Clotho clothoObject) {
+
+    public static List<String> getProducts(JSONArray list, Clotho clothoObject) {
         List<String> productIds = new ArrayList<String>();
-        
+
         for (int i = 0; i < (list.length()); i++) {
-                
-                JSONObject obj = new JSONObject();
-                obj = (JSONObject)list.get(i);
-                if(!obj.has("URL") || !obj.has("Company Name") || !obj.has("Type") || !obj.has("Cost") || !obj.has("Quantity") || !obj.has("Name") || !obj.has("Description")){
-                    continue;
-                }
-                
-                String productUrl = list.getJSONObject(i).get("URL").toString();
-                String companyName = list.getJSONObject(i).get("Company Name").toString();
-                String goodType = list.getJSONObject(i).get("Type").toString();
-                String cost = list.getJSONObject(i).get("Cost").toString();
-                String quantity = list.getJSONObject(i).get("Quantity").toString();
-                String name = list.getJSONObject(i).get("Name").toString();
-                String description = list.getJSONObject(i).get("Description").toString();
 
-                Vendor company; 
-                Map companyQuery = new HashMap();
-                companyQuery.put("name",companyName);
-                List<Vendor> companyList = ClothoAdapter.queryVendor(companyQuery, clothoObject, ClothoAdapter.QueryMode.EXACT);
-                if(companyList.isEmpty()){
-                    company = new Vendor(companyName);
-                    String companyId = ClothoAdapter.createVendor(company, clothoObject);
-                }
-                else{
-                   company = companyList.get(0);
-                }
+            JSONObject obj = new JSONObject();
+            obj = (JSONObject) list.get(i);
+            if (!obj.has("URL") || !obj.has("Company Name") || !obj.has("Type") || !obj.has("Cost") || !obj.has("Quantity") || !obj.has("Name") || !obj.has("Description")) {
+                continue;
+            }
 
-                Product product = new Product(name, company.getId(), Double.valueOf(cost));
+            String productUrl = list.getJSONObject(i).get("URL").toString();
+            String companyName = list.getJSONObject(i).get("Company Name").toString();
+            String goodType = list.getJSONObject(i).get("Type").toString();
+            String cost = list.getJSONObject(i).get("Cost").toString();
+            String quantity = list.getJSONObject(i).get("Quantity").toString();
+            String name = list.getJSONObject(i).get("Name").toString();
+            String description = list.getJSONObject(i).get("Description").toString();
 
-                product.setProductURL(productUrl);
-                product.setGoodType(GoodType.valueOf(goodType));
-                product.setDescription(description);
+            Vendor company;
+            Map companyQuery = new HashMap();
+            companyQuery.put("name", companyName);
+            List<Vendor> companyList = ClothoAdapter.queryVendor(companyQuery, clothoObject, ClothoAdapter.QueryMode.EXACT);
+            if (companyList.isEmpty()) {
+                company = new Vendor(companyName);
+                String companyId = ClothoAdapter.createVendor(company, clothoObject);
+            } else {
+                company = companyList.get(0);
+            }
 
-                String id = ClothoAdapter.createProduct(product, clothoObject);
+            Product product = new Product(name, company.getId(), Double.valueOf(cost));
 
-                productIds.add(id);
-            
+            product.setProductURL(productUrl);
+            product.setGoodType(GoodType.valueOf(goodType));
+            product.setDescription(description);
+
+            String id = ClothoAdapter.createProduct(product, clothoObject);
+
+            productIds.add(id);
+
         }
         return productIds;
     }
 
-    public static List<String> getVendors(JSONArray list,Clotho clothoObject) {
+    public static List<String> getVendors(JSONArray list, Clotho clothoObject) {
         List<String> companiesIds = new ArrayList<String>();
         for (int i = 0; i < (list.length()); i++) {
-            
+
             JSONObject obj = new JSONObject();
-            obj = (JSONObject)list.get(i);
-            if(!obj.has("Name") || !obj.has("Description") || !obj.has("Contact") || !obj.has("Phone") || !obj.has("URL")){
+            obj = (JSONObject) list.get(i);
+            if (!obj.has("Name") || !obj.has("Description") || !obj.has("Contact") || !obj.has("Phone") || !obj.has("URL")) {
                 continue;
             }
-                
+
             String companyName = list.getJSONObject(i).get("Name").toString();
             String description = list.getJSONObject(i).get("Description").toString();
             //System.out.println("i = " + i+" description = " + description);
@@ -98,10 +97,10 @@ public class OrderController {
             Vendor company = new Vendor(companyName);
 
             Map companyQuery = new HashMap();
-            companyQuery.put("name",companyName);
-                
+            companyQuery.put("name", companyName);
+
             List<Vendor> companyArray = ClothoAdapter.queryVendor(companyQuery, clothoObject, ClothoAdapter.QueryMode.EXACT);
-            if(companyArray.isEmpty()){
+            if (companyArray.isEmpty()) {
                 System.out.println("vendor doesn't exist");
                 company = new Vendor(companyName);
                 company.setDescription(description);
@@ -109,13 +108,12 @@ public class OrderController {
                 company.setPhone(phone);
                 company.setUrl(url);
                 String id = ClothoAdapter.createVendor(company, clothoObject);
-                System.out.println("id = "+ i + " = "+ id);
+                System.out.println("id = " + i + " = " + id);
                 companiesIds.add(id);
-                }
-                else{
+            } else {
                 System.out.println("vendor already exists");
-                   company = companyArray.get(0);
-                }            
+                company = companyArray.get(0);
+            }
         }
         return companiesIds;
     }
@@ -217,7 +215,6 @@ public class OrderController {
 //        }
 //        return JSONCompanies;
 //    }
-
     public static double getTotalPrice(Order order) {
         double total = 0.0;
 
@@ -227,36 +224,34 @@ public class OrderController {
         //    Product product = (Product) pair.getKey();
         //    total = +product.getCost();
         //}
-
         return total;
     }
 
     //inputs: order and list of enums
     //return a list of strings
     public static List<String> createOrderForm(Order order, List<Order.OrderColumns> ColumnList) {
-        
+
         List<String> orders = new ArrayList<String>();
         String header = "";
         int headerCount = 0; //to make sure the header only appears once
-        
+
         //System.out.println("HERE IN ORDERFORM");
-        int count = 1;       
+        int count = 1;
         //System.out.println("The products= " + order.getProducts().toString());
-        List<String>  cartItemIds = order.getProducts();
-        ClothoConnection conn = new ClothoConnection (Args.clothoLocation);
+        List<String> cartItemIds = order.getProducts();
+        ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
         Clotho clothoObject = new Clotho(conn);
-        
+
         List<CartItem> cartItems = new ArrayList<>();
-        for (int i = 0; i <cartItemIds.size() ; i++ ){
-                cartItems.add(ClothoAdapter.getCartItem(cartItemIds.get(i), clothoObject));
+        for (int i = 0; i < cartItemIds.size(); i++) {
+            cartItems.add(ClothoAdapter.getCartItem(cartItemIds.get(i), clothoObject));
         }
-        
-        
-        for (CartItem cartItem : cartItems ){
+
+        for (CartItem cartItem : cartItems) {
             String orderString = "";
             Product product = ClothoAdapter.getProduct(cartItem.getProductId(), clothoObject);
             Vendor vendor = ClothoAdapter.getVendor(product.getCompanyId(), clothoObject);
-            
+
             for (Order.OrderColumns clist1 : ColumnList) {
                 switch (clist1) {
                     case SERIAL_NUMBER:
@@ -267,7 +262,7 @@ public class OrderController {
                     case PRODUCT_NAME:
                         orderString = orderString + product.getName() + ",";
                         header = header + "ITEM,";
-                        break;                    
+                        break;
                     case PRODUCT_URL:
                         orderString = orderString + product.getProductURL() + ",";
                         header = header + "URL,";
@@ -305,31 +300,136 @@ public class OrderController {
                         header = header + "UNIT PRICE,";
                         break;
                     case CUSTOM_UNIT_PRICE:
-                        orderString = orderString + (product.getCost() * cartItem.getDiscount())/100.0d + ",";
+                        orderString = orderString + (product.getCost() * cartItem.getDiscount()) / 100.0d + ",";
                         header = header + "CUSTOM UNIT PRICE,";
                         break;
-                    case TOTAL_PRICE: 
-                        orderString = orderString + (product.getCost() * cartItem.getDiscount())/100.0d *  cartItem.getQuantity() + ",";
+                    case TOTAL_PRICE:
+                        orderString = orderString + (product.getCost() * cartItem.getDiscount()) / 100.0d * cartItem.getQuantity() + ",";
 
                         header = header + "TOTAL PRICE,";
                         break;
                 }
             }
             //orderString = orderString.substring(0, orderString.length()-1) + "\n" + "new line here";
-            if (headerCount == 0)
-            {
-                orders.add(header.substring(0, header.length()-1) + "\n");
-                headerCount ++;
+            if (headerCount == 0) {
+                orders.add(header.substring(0, header.length() - 1) + "\n");
+                headerCount++;
             }
-                
-            orders.add(orderString.substring(0, orderString.length()-1) + "\n");
+
+            orders.add(orderString.substring(0, orderString.length() - 1) + "\n");
         }
-        
+
         //ClothoAdapter.clothoObject.logout();
-            
         return orders;
     }
-    
+
+    public static List<String> createFullOrderForm(List<String> orderIds, List<Order.OrderColumns> ColumnList) {
+
+        List<String> orders = new ArrayList<String>();
+        String header = "";
+        int headerCount = 0; //to make sure the header only appears once
+
+        ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+        Clotho clothoObject = new Clotho(conn);
+
+        //System.out.println("HERE IN ORDERFORM");
+        int count = 1;
+        //System.out.println("The products= " + order.getProducts().toString());
+        List<String> cartItemIds = new ArrayList<String>();
+        for (String orderId : orderIds) {
+            Order order = ClothoAdapter.getOrder(orderId, clothoObject);
+            cartItemIds.addAll(order.getProducts());
+        }
+        
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println(cartItemIds);
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        
+        List<CartItem> cartItems = new ArrayList<>();
+        for (int i = 0; i < cartItemIds.size(); i++) {
+            cartItems.add(ClothoAdapter.getCartItem(cartItemIds.get(i), clothoObject));
+        }
+
+        for (CartItem cartItem : cartItems) {
+            String orderString = "";
+            Product product = ClothoAdapter.getProduct(cartItem.getProductId(), clothoObject);
+            Vendor vendor = ClothoAdapter.getVendor(product.getCompanyId(), clothoObject);
+
+            for (Order.OrderColumns clist1 : ColumnList) {
+                switch (clist1) {
+                    case SERIAL_NUMBER:
+                        orderString = orderString + count + ",";
+                        header = header + ",";
+                        count++;
+                        break;
+                    case PRODUCT_NAME:
+                        orderString = orderString + product.getName() + ",";
+                        header = header + "ITEM,";
+                        break;
+                    case PRODUCT_URL:
+                        orderString = orderString + product.getProductURL() + ",";
+                        header = header + "URL,";
+                        break;
+                    case PRODUCT_DESCRIPTION:
+                        orderString = orderString + product.getDescription() + ",";
+                        header = header + "DESCRIPTION,";
+                        break;
+                    case QUANTITY:
+                        orderString = orderString + cartItem.getQuantity() + ",";
+                        header = header + "QUANTITY,";
+                        break;
+                    case COMPANY_NAME:
+                        orderString = orderString + vendor.getName() + ",";
+                        header = header + "COMPANY NAME,";
+                        break;
+                    case COMPANY_URL:
+                        orderString = orderString + vendor.getUrl() + ",";
+                        header = header + "COMPANY URL,";
+                        break;
+                    case COMPANY_DESCRIPTION:
+                        orderString = orderString + vendor.getDescription() + ",";
+                        header = header + "COMPANY DESCRIPTION,";
+                        break;
+                    case COMPANY_CONTACT:
+                        orderString = orderString + vendor.getContact() + ",";
+                        header = header + "CONTACT,";
+                        break;
+                    case COMPANY_PHONE:
+                        orderString = orderString + vendor.getPhone() + ",";
+                        header = header + "PHONE NUMBER,";
+                        break;
+                    case UNIT_PRICE:
+                        orderString = orderString + product.getCost() + ",";
+                        header = header + "UNIT PRICE,";
+                        break;
+                    case CUSTOM_UNIT_PRICE:
+                        orderString = orderString + (product.getCost() * cartItem.getDiscount()) / 100.0d + ",";
+                        header = header + "CUSTOM UNIT PRICE,";
+                        break;
+                    case TOTAL_PRICE:
+                        orderString = orderString + (product.getCost() * cartItem.getDiscount()) / 100.0d * cartItem.getQuantity() + ",";
+
+                        header = header + "TOTAL PRICE,";
+                        break;
+                }
+            }
+            //orderString = orderString.substring(0, orderString.length()-1) + "\n" + "new line here";
+            if (headerCount == 0) {
+                orders.add(header.substring(0, header.length() - 1) + "\n");
+                headerCount++;
+            }
+
+            orders.add(orderString.substring(0, orderString.length() - 1) + "\n");
+        }
+
+        //ClothoAdapter.clothoObject.logout();
+        return orders;
+    }
+
 //    public static void main(String[] args) {
 ////        JSONArray arrV = new JSONArray();
 ////        JSONObject ven1 = new JSONObject();
@@ -397,5 +497,4 @@ public class OrderController {
 //        conn.closeConnection();
 //        
 //    }
-
 }

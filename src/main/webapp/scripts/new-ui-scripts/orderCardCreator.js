@@ -31,11 +31,12 @@ function createOrderCard(orderJSON) {
     tmpl.querySelector('.submit-order-btn').value = orderJSON.ClothoId;
 
     tmpl.querySelector('.export-csv-btn').value = orderJSON.ClothoId;
+    tmpl.querySelector('.export-all-orders-btn').value = orderJSON.createdByName;
     tmpl.querySelector('.split-order-btn').value = orderJSON.ClothoId;
 
     tmpl.querySelector('.delete-order-btn').value = orderJSON.ClothoId;
     tmpl.querySelector('.edit-order-btn').value = orderJSON.ClothoId;
-
+    
 
 
     var orderItemsTable = tmpl.querySelector('.order-items-table');

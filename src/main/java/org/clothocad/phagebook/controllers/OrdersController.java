@@ -1221,4 +1221,78 @@ public class OrdersController {
         writer.close();
         conn.closeConnection();
     }
+    
+    @RequestMapping(value = "/allOrdersCSV", method = RequestMethod.GET)
+    public void allOrdersCSV(@RequestParam Map<String, String> params, HttpServletResponse response) throws IOException, ServletException {
+        ClothoConnection conn = new ClothoConnection(Args.clothoLocation);
+        Clotho clothoObject = new Clotho(conn);
+        String username = this.backendPhagebookUser;
+        String password = this.backendPhagebookPassword;
+        Map loginMap = new HashMap();
+        loginMap.put("username", username);
+        loginMap.put("credentials", password);
+
+        clothoObject.login(loginMap);
+
+        Person person = ClothoAdapter.getPerson(params.get("userId"), clothoObject);
+        List<String> orders = person.getApprovedOrders();
+        
+        List<String> cartItems = new ArrayList<String>();
+        List<OrderColumns> ColumnList = new ArrayList<OrderColumns>();
+        List<String> CList = new ArrayList<String>();
+
+        CList.add("ITEM");
+        CList.add("COMPANY_NAME");
+        CList.add("COMPANY_DESCRIPTION");
+        CList.add("QTY.");
+        CList.add("UNIT PRICE");
+        CList.add("CUSTOM UNIT PRICE");
+        CList.add("TOTAL PRICE");
+
+        ColumnList.add(OrderColumns.SERIAL_NUMBER);
+
+        for (String cartItem : CList) {
+
+            switch (cartItem) { //can add all of them for a customizable form
+                case "ITEM":
+                    ColumnList.add(OrderColumns.PRODUCT_NAME);
+                    break;
+                case "COMPANY_NAME":
+                    ColumnList.add(OrderColumns.COMPANY_NAME);
+                    break;
+                case "COMPANY_DESCRIPTION":
+                    ColumnList.add(OrderColumns.COMPANY_DESCRIPTION);
+                    break;
+                case "QTY.":
+                    ColumnList.add(OrderColumns.QUANTITY);
+                    break;
+                case "UNIT PRICE":
+                    ColumnList.add(OrderColumns.UNIT_PRICE);
+                    break;
+                case "CUSTOM UNIT PRICE":
+                    ColumnList.add(OrderColumns.CUSTOM_UNIT_PRICE);
+                    break;
+                case "TOTAL PRICE":
+                    ColumnList.add(OrderColumns.TOTAL_PRICE);
+                    break;
+            }
+        }
+
+        cartItems = org.clothocad.phagebook.controller.OrderController.createFullOrderForm(orders, ColumnList);
+        String path = Utilities.getFilepath();
+        FileWriter file = new FileWriter(new File(path + "src/main/webapp/resources/OrderSheets/", "AllOrders_" + person.getId() + ".csv"));
+
+        for (String cartItem : cartItems) {
+            file.append(cartItem);
+        }
+        file.flush();
+        file.close();
+
+        PrintWriter writer = response.getWriter();
+
+        writer.println(person.getId());
+        writer.flush();
+        writer.close();
+        conn.closeConnection();
+    }
 }
